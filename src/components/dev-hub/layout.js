@@ -79,9 +79,9 @@ export default ({ children }) => (
     <GlobalWrapper>
         <Global styles={globalStyles} />
         <GlobalNav>
-            <NavLink to="/dev-hub">Developers</NavLink>
-            <NavLink to="/dev-hub/learn">Learn</NavLink>
-            <NavLink to="/dev-hub/community">Community</NavLink>
+            <NavLink to="/">Developers</NavLink>
+            <NavLink to="/learn">Learn</NavLink>
+            <NavLink to="/community">Community</NavLink>
         </GlobalNav>
         <ContentWrapper>{children}</ContentWrapper>
         <GlobalFooter>
