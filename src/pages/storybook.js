@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import Badge from '../components/dev-hub/badge';
 import { StorybookLayout } from '../components/dev-hub/layout';
 import Link from '../components/dev-hub/link';
+import Image from '../components/Image';
+import MediaBlock from '../components/dev-hub/media-block';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
 import { colorMap, size } from '../components/dev-hub/theme';
 
@@ -20,6 +22,45 @@ const Swatch = styled('div')`
 const SectionHeader = styled(H2)`
     text-decoration: underline;
 `;
+
+const FirstClusterTestImage = () => (
+    <Image
+        nodeData={{
+            argument: [
+                {
+                    value: '/images/firstcluster.png',
+                },
+            ],
+        }}
+    />
+);
+
+const MediaBlockContent = styled('div')`
+    display: flex;
+    height: 100%;
+    padding: 16px;
+    align-items: center;
+`;
+
+const MediaBlockStory = ({ reverse }) => (
+    <MediaBlock
+        mediaComponent={<FirstClusterTestImage />}
+        mediaWidth={786}
+        reverse={reverse}
+    >
+        <MediaBlockContent>
+            <div>
+                <H2>Let's do it live!</H2>
+                <P>
+                    Connect with MongoDB engineers and community experts weekly
+                    for live coding demos on Twitch. Ask questions, chat, or
+                    just follow along.
+                </P>
+                <button>Join us on Twitch</button>
+            </div>
+        </MediaBlockContent>
+    </MediaBlock>
+);
 
 export default () => (
     <StorybookLayout>
@@ -40,6 +81,10 @@ export default () => (
             <Badge>Deep Dive</Badge>
             <SectionHeader>Links</SectionHeader>
             <Link primary>Hello World</Link>
+            <SectionHeader>Media Block</SectionHeader>
+            <MediaBlockStory />
+            <SectionHeader>Media Block (reverse)</SectionHeader>
+            <MediaBlockStory reverse />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch
