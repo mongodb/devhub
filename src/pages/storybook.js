@@ -2,11 +2,36 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Badge from '../components/dev-hub/badge';
 import { StorybookLayout } from '../components/dev-hub/layout';
+import Card from '../components/dev-hub/card';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import MediaBlock from '../components/dev-hub/media-block';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
-import { colorMap, size } from '../components/dev-hub/theme';
+import { colorMap, size, screenSize } from '../components/dev-hub/theme';
+
+const cardProps = {
+    gradient: false,
+    image: '/images/compass-create-database.png',
+    title: "I'm a Card That can Represent a Post on the New Devhub Platform!",
+    tag: 'Article',
+};
+
+const gradientCardProps = {
+    ...cardProps,
+    gradient: true,
+    title: "I'm a Card With A Gradient",
+};
+
+
+const CardRow = styled('div')`
+    background: rgb(27, 39, 46);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media ${screenSize.upToMedium} {
+        flex-direction: column;
+    }
+`;
 
 const StorybookContainer = styled('div')`
     padding: ${size.default};
@@ -97,6 +122,10 @@ export default () => (
                     </P>
                 </Swatch>
             ))}
+            <CardRow>
+                <Card {...cardProps} />
+                <Card {...gradientCardProps} />
+            </CardRow>
         </StorybookContainer>
     </StorybookLayout>
 );
