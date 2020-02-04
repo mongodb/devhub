@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Layout from '../components/dev-hub/layout';
+import Notification from '../components/dev-hub/notification';
 import { H1, H2, P } from '../components/dev-hub/text';
 import { colorMap, size } from '../components/dev-hub/theme';
 
@@ -67,7 +68,7 @@ export default ({ ...data }) => {
     console.log(data);
     return (
         <Layout>
-            <LiveStream>Live now</LiveStream>
+            <Notification />
             <Hero>
                 <H1>sample code</H1>
                 <P>description text</P>
