@@ -22,18 +22,7 @@ const HTML = ({
             <meta name="robots" content="index" />
             <meta name="release" content="1.0" />
             <meta name="version" content="master" />
-            <meta
-                name="DC.Source"
-                content="https://github.com/mongodb/docs-bi-connector/blob/DOCSP-3279/source/index.txt"
-            />
-            <meta
-                property="og:image"
-                content="http://s3.amazonaws.com/info-mongodb-com/_com_assets/cms/mongodb-for-giant-ideas-bbab5c3cf8.png"
-            />
-            <meta
-                property="og:image:secure_url"
-                content="https://webassets.mongodb.com/_com_assets/cms/mongodb-for-giant-ideas-bbab5c3cf8.png"
-            />
+
             <link
                 href="https://fonts.googleapis.com/css?family=Inconsolata"
                 rel="stylesheet"
@@ -42,12 +31,6 @@ const HTML = ({
             <link
                 rel="shortcut icon"
                 href="https://media.mongodb.org/favicon.ico"
-            />
-            <link
-                rel="search"
-                type="application/opensearchdescription+xml"
-                href="https://docs.mongodb.com/osd.xml"
-                title="MongoDB Help"
             />
 
             {headComponents}

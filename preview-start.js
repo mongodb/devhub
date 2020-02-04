@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Helmet } from 'react-helmet';
 // eslint-disable-next-line import/no-unresolved
 import { getPageData } from 'previewSetup'; // Alias found in gatsby-node and webpack.config.js
 // Layouts
-import DefaultLayout from './src/components/layout';
+import Layout from './src/components/dev-hub/layout';
 import DocumentBody from './src/components/DocumentBody';
 import Guide from './src/templates/guide';
 import Index from './src/templates/guides-index';
@@ -39,16 +38,13 @@ class Preview extends React.Component {
         return (
             <React.Fragment>
                 {pageData && (
-                    <DefaultLayout
-                        pageContext={pageData.context}
-                        path={pageData.path}
-                    >
+                    <Layout pageContext={pageData.context} path={pageData.path}>
                         <Template
                             pageContext={pageData.context}
                             refDocMapping={pageData.context.__refDocMapping}
                             path={pageData.path}
                         />
-                    </DefaultLayout>
+                    </Layout>
                 )}
             </React.Fragment>
         );
