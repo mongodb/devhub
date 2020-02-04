@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { screenSize } from './theme';
 
@@ -7,29 +8,36 @@ const ContentWrapper = styled('span')`
     height: 100%;
 `;
 
-const determineColumnSizes = (mediaWidth, reverse) => {
+const columnWidth = (mediaWidth, reverse) => {
     if (mediaWidth) {
         return reverse ? `auto ${mediaWidth}px` : `${mediaWidth}px auto`;
     }
     return '1fr 1fr';
 };
 
-const MediaBlockContainer = styled('div')`
-    display: grid;
-    grid-template-areas: ${({ reverse }) =>
-        reverse ? '"content image"' : '"image content"'};
+const columnSizes = ({ mediaWidth, reverse }) => css`
     @media ${screenSize.largeAndUp} {
-        grid-template-columns: ${({ mediaWidth, reverse }) =>
-            determineColumnSizes(mediaWidth, reverse)};
+        grid-template-columns: ${columnWidth(mediaWidth, reverse)};
     }
+`;
+
+const gridStructure = ({ reverse, flexible }) => css`
+    grid-template-areas: ${reverse ? '"content image";' : '"image content";'};
     @media ${screenSize.upToLarge} {
-        justify-items: center;
         /* If flexible is true, this will allow media block to allow content to stack on smaller screens */
-        ${({ flexible, reverse }) =>
-            flexible &&
+        ${flexible &&
             `grid-template-areas: ${
                 reverse ? '"content" "image"' : '"image" "content"'
-            }`}
+            };`}
+    }
+`;
+
+const MediaBlockContainer = styled('div')`
+    display: grid;
+    ${columnSizes};
+    ${gridStructure};
+    @media ${screenSize.upToLarge} {
+        justify-items: center;
     }
 `;
 
