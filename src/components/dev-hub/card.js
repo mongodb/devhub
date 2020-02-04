@@ -5,29 +5,10 @@ import Link from '../Link';
 import { H4 } from './text';
 import Badge from './badge';
 
-/*
-Card Details
-- should include an image (should have image fallback)
-- image should have a gradient
-- there should be an optional tag (tags?) on top of the image
-- content should live underneath the card (if there is any)
-- choose 1st type of hover state
-
-*/
-
-// TODO: should use 'gradient' prop?
-// - should choose default gradient
-// - gradient should either be boolean and set default gradient
-// - in the future we can have specific card types with their own gradients
-// - so then you can
-
-const Tag = styled('div')`
-    bottom: 0;
-    left: ${size.default};
+const NoLinkWrapper = styled('div')`
     margin: 0;
     padding: 0;
-    position: absolute;
-    z-index: 4;
+    width: 100%;
 `;
 
 const TagsList = styled('ul')`
@@ -35,7 +16,8 @@ const TagsList = styled('ul')`
     color: ${colorMap.white};
     left: ${size.default};
     list-style-type: none;
-    padding: ${size.tiny};
+    margin: 0;
+    padding: 0;
     position: absolute;
     z-index: 4;
     li {
@@ -67,63 +49,82 @@ const Image = styled('img')`
 `;
 
 const ImageWrapper = styled('div')`
-    height: 500px;
     margin-bottom: ${size.medium};
     padding: 0;
     position: relative;
     width: 100%;
 `;
 
-const Title = styled(H4)`
-    color: ${colorMap.devWhite};
+const Content = styled('div')`
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
 `;
 
 const Wrapper = styled('aside')`
     border-radius: ${size.small};
+    max-width: 500px;
     padding: ${size.default};
     padding-bottom: ${size.small};
     transition: 0.15s ease-in-out;
-    max-width: 500px;
+    width: ${({ width }) => (width ? width : '100%')};
     &:hover,
     &:active {
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.45);
         cursor: pointer;
     }
+    ${({ distinct }) => distinct && `border: 1px solid ${colorMap.devBlack}`};
+    ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
 `;
 
 const noop = (_eventType, _properties, _options, _callback) => {};
 
+const Tags = ({ tags }) =>
+    tags && tags.length ? (
+        <TagsList>
+            {tags.map(tag => (
+                <li key={tag}>
+                    <Badge>{tag}</Badge>
+                </li>
+            ))}
+        </TagsList>
+    ) : null;
+
 /**
  * @param {Object<string, any>} props
+ * @property {node} props.children
+ * @property {bool?} props.distinct
  * @property {bool?} props.gradient
- * @property {string} props.image
+ * @property {bool?} props.highlight
+ * @property {string?} props.image
  * @property {string?} props.link
  * @property {func?} props.onClick
- * @property {string?} props.tag
- * @property {string?} props.title
+ * @property {string[]?} props.tags
  */
 
 const Card = ({
+    children,
     gradient,
     image,
     link,
     onClick = noop,
-    tag,
-    title,
+    tags,
     ...props
 }) => {
-    const ContentWrapper = link ? Link : 'div';
+    const ContentWrapper = link ? Link : NoLinkWrapper;
     return (
-        <Wrapper>
+        <Wrapper {...props}>
             <ContentWrapper to={link} onClick={onClick}>
-                <ImageWrapper>
-                    {gradient && <GradientOverlay />}
-                    <Image src={image} />
-                    <Tag>
-                        <Badge>{tag}</Badge>
-                    </Tag>
-                </ImageWrapper>
-                <Title bold>{title}</Title>
+                {image && (
+                    <ImageWrapper>
+                        {gradient && <GradientOverlay />}
+                        <Image src={image} />
+                        <Tags tags={tags} />
+                    </ImageWrapper>
+                )}
+                <Content>{children}</Content>
             </ContentWrapper>
         </Wrapper>
     );

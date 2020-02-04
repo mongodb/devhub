@@ -12,22 +12,21 @@ import { colorMap, size, screenSize } from '../components/dev-hub/theme';
 const cardProps = {
     gradient: false,
     image: '/images/compass-create-database.png',
-    title: "I'm a Card That can Represent a Post on the New Devhub Platform!",
-    tag: 'Article',
+    tags: ['Article'],
 };
 
 const gradientCardProps = {
     ...cardProps,
     gradient: true,
-    title: "I'm a Card With A Gradient",
 };
 
 
 const CardRow = styled('div')`
-    background: rgb(27, 39, 46);
+    color: ${colorMap.devBlack};
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 16px;
     @media ${screenSize.upToMedium} {
         flex-direction: column;
     }
@@ -122,9 +121,46 @@ export default () => (
                     </P>
                 </Swatch>
             ))}
+            <SectionHeader>Cards</SectionHeader>
             <CardRow>
-                <Card {...cardProps} />
-                <Card {...gradientCardProps} />
+                <Card distinct {...cardProps}>
+                    <H4>I'm a Card For A Post on the New Devhub Platform!</H4>
+                </Card>
+                <Card {...gradientCardProps}>
+                    <H4>I'm a Gradient Card</H4>
+                </Card>
+                <Card {...gradientCardProps} highlight>
+                    <H4>I'm a Gradient Card</H4>
+                </Card>
+            </CardRow>
+            <CardRow>
+                <Card distinct width="300px">
+                    <H4 bold>
+                        Install MongoDB Community Edition on Red Hat or CentOS
+                        in minutes
+                    </H4>
+                    <P>
+                        Use this tutorial to install community edition on any
+                        and every operating system known to man, woman, and
+                        child.
+                    </P>
+                </Card>
+                <Card width="300px">
+                    <H4 bold>
+                        Install MongoDB Community Edition on Red Hat or CentOS
+                        in minutes
+                    </H4>
+                    <P>
+                        Use this tutorial to install community edition on any
+                        and every operating system known to man, woman, and
+                        child.
+                    </P>
+                </Card>
+                <Card highlight width="300px">
+                    <H4 bold>I'm a Card With No Image</H4>
+                    <P bold>written by Author </P>
+                    <P>preview preview preview</P>
+                </Card>
             </CardRow>
         </StorybookContainer>
     </StorybookLayout>
