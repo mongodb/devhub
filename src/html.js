@@ -24,9 +24,8 @@ const HTML = ({
             <meta name="version" content="master" />
 
             <link
-                href="https://fonts.googleapis.com/css?family=Inconsolata"
+                href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap"
                 rel="stylesheet"
-                type="text/css"
             />
             <link
                 rel="shortcut icon"

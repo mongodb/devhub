@@ -8,7 +8,7 @@ const globalStyles = css`
     body {
         background: ${colorMap.devBlack};
         color: ${colorMap.devWhite};
-        font-family: 'Fira Mono Bold', 'Space Mono Bold', 'Source Code Pro';
+        font-family: 'Source Code Pro', monospace;
     }
     /* Need overrides for guides.css styles */
     h1,
@@ -16,7 +16,7 @@ const globalStyles = css`
     h3,
     h4 {
         border: none;
-        font-family: 'Fira Mono Bold', 'Space Mono Bold', 'Source Code Pro';
+        font-family: 'Source Code Pro', monospace;
     }
 `;
 
