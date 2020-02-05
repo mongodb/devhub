@@ -146,10 +146,12 @@ export default class ComponentFactory extends Component {
         // component with this type not implemented
         if (!ComponentType) {
             return (
-                <span>
-                    ==Not implemented:
-                    {type},{name} ==
-                </span>
+                <div>
+                    <span role="img" aria-label="">
+                        ⚠️
+                    </span>
+                    <strong>{name}</strong> ({type}) not yet implemented
+                </div>
             );
         }
 
