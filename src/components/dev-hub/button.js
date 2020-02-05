@@ -107,7 +107,6 @@ const ButtonBack = styled('div')`
 const ButtonWrapper = styled('div')`
     position: relative;
     min-height: 60px;
-    min-width: 250px;
     &:hover {
         // show the bottom layer
         div {
