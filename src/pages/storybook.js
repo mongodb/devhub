@@ -2,11 +2,35 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Badge from '../components/dev-hub/badge';
 import { StorybookLayout } from '../components/dev-hub/layout';
+import Card from '../components/dev-hub/card';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import MediaBlock from '../components/dev-hub/media-block';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
-import { colorMap, size } from '../components/dev-hub/theme';
+import { colorMap, size, screenSize } from '../components/dev-hub/theme';
+
+const cardProps = {
+    gradient: false,
+    image: '/images/compass-create-database.png',
+    tags: ['Article'],
+};
+
+const gradientCardProps = {
+    ...cardProps,
+    gradient: true,
+};
+
+
+const CardRow = styled('div')`
+    color: ${colorMap.devBlack};
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 16px;
+    @media ${screenSize.upToMedium} {
+        flex-direction: column;
+    }
+`;
 
 const StorybookContainer = styled('div')`
     padding: ${size.default};
@@ -97,6 +121,47 @@ export default () => (
                     </P>
                 </Swatch>
             ))}
+            <SectionHeader>Cards</SectionHeader>
+            <CardRow>
+                <Card distinct {...cardProps}>
+                    <H4>I'm a Card For A Post on the New Devhub Platform!</H4>
+                </Card>
+                <Card {...gradientCardProps}>
+                    <H4>I'm a Gradient Card</H4>
+                </Card>
+                <Card {...gradientCardProps} highlight>
+                    <H4>I'm a Gradient Card</H4>
+                </Card>
+            </CardRow>
+            <CardRow>
+                <Card distinct width="300px">
+                    <H4 bold>
+                        Install MongoDB Community Edition on Red Hat or CentOS
+                        in minutes
+                    </H4>
+                    <P>
+                        Use this tutorial to install community edition on any
+                        and every operating system known to man, woman, and
+                        child.
+                    </P>
+                </Card>
+                <Card width="300px">
+                    <H4 bold>
+                        Install MongoDB Community Edition on Red Hat or CentOS
+                        in minutes
+                    </H4>
+                    <P>
+                        Use this tutorial to install community edition on any
+                        and every operating system known to man, woman, and
+                        child.
+                    </P>
+                </Card>
+                <Card highlight width="300px">
+                    <H4 bold>I'm a Card With No Image</H4>
+                    <P bold>written by Author </P>
+                    <P>preview preview preview</P>
+                </Card>
+            </CardRow>
         </StorybookContainer>
     </StorybookLayout>
 );

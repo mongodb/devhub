@@ -64,4 +64,16 @@ const screenSize = {
     largeAndUp: 'not all and (max-width: 1023px)',
 };
 
-export { colorMap, fontSize, screenSize, size };
+/**
+ * z-index values in ranges of 10. This should give enough leeway to incremement in components as needed.
+ * @type {Object.<string, number>}
+ * @property {string} position returns a z-index value
+ */
+const layer = {
+    back: 1,
+    middle: 11,
+    front: 21,
+    superFront: 22,
+};
+
+export { colorMap, fontSize, layer, screenSize, size };
