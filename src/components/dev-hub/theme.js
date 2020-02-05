@@ -3,6 +3,7 @@
  * @property {string} fontsize returns px value
  */
 const fontSize = {
+    micro: '8px',
     xsmall: '10px',
     tiny: '12px',
     small: '14px',
@@ -22,7 +23,7 @@ const size = {
     tiny: '5px',
     small: '10px',
     default: '16px',
-    medium: '24px',
+    medium: '20px',
     large: '32px',
     xlarge: '64px',
     xxlarge: '128px',

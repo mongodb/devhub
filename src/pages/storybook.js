@@ -6,6 +6,7 @@ import Card from '../components/dev-hub/card';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import MediaBlock from '../components/dev-hub/media-block';
+import Notification from '../components/dev-hub/notification';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
 import { colorMap, size, screenSize } from '../components/dev-hub/theme';
 
@@ -103,6 +104,8 @@ export default () => (
             <Badge>Event</Badge>
             <Badge>Community</Badge>
             <Badge>Deep Dive</Badge>
+            <SectionHeader>Notification</SectionHeader>
+            <Notification />
             <SectionHeader>Links</SectionHeader>
             <Link primary>Hello World</Link>
             <SectionHeader>Media Block</SectionHeader>
