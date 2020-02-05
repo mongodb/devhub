@@ -59,120 +59,120 @@ const IGNORED_NAMES = ['default-domain', 'toctree'];
 const IGNORED_TYPES = ['comment', 'substitution_definition', 'target'];
 
 export default class ComponentFactory extends Component {
-  constructor() {
-    super();
-    this.roles = {
-      class: RoleClass,
-      doc: RoleDoc,
-      guilabel: RoleGUILabel,
-      program: RoleProgram,
-      ref: RoleRef,
-      term: RoleTerm,
-    };
-    this.componentMap = {
-      admonition: Admonition,
-      blockquote: BlockQuote,
-      'card-group': CardGroup,
-      class: CSSClass,
-      code: Code,
-      cond: Cond,
-      container: Container,
-      contents: Contents,
-      cssclass: CSSClass,
-      definitionList: DefinitionList,
-      definitionListItem: DefinitionListItem,
-      deprecated: Deprecated,
-      emphasis: Emphasis,
-      figure: Figure,
-      footnote: Footnote,
-      footnote_reference: FootnoteReference,
-      heading: Heading,
-      hlist: HorizontalList,
-      image: Image,
-      include: Include,
-      line: Line,
-      line_block: LineBlock,
-      list: List,
-      listItem: ListItem,
-      'list-table': ListTable,
-      literal: Literal,
-      literal_block: LiteralBlock,
-      literalinclude: LiteralInclude,
-      meta: Meta,
-      only: Cond,
-      paragraph: Paragraph,
-      ref_role: RefRole,
-      reference: Reference,
-      section: Section,
-      step: Step,
-      strong: Strong,
-      subscript: Subscript,
-      substitution_reference: SubstitutionReference,
-      superscript: Superscript,
-      tabs: Tabs,
-      'tabs-pillstrip': TabsPillstrip,
-      text: Text,
-      title_reference: TitleReference,
-      topic: Topic,
-      transition: Transition,
-      uriwriter: URIWriter,
-      versionadded: VersionAdded,
-      versionchanged: VersionChanged,
-    };
-  }
-
-  selectComponent() {
-    const {
-      nodeData: { children, name, type },
-      ...rest
-    } = this.props;
-
-    // do nothing with these nodes for now (cc. Andrew)
-    if (IGNORED_TYPES.includes(type) || IGNORED_NAMES.includes(name)) {
-      return null;
+    constructor() {
+        super();
+        this.roles = {
+            class: RoleClass,
+            doc: RoleDoc,
+            guilabel: RoleGUILabel,
+            program: RoleProgram,
+            ref: RoleRef,
+            term: RoleTerm,
+        };
+        this.componentMap = {
+            admonition: Admonition,
+            blockquote: BlockQuote,
+            'card-group': CardGroup,
+            class: CSSClass,
+            code: Code,
+            cond: Cond,
+            container: Container,
+            contents: Contents,
+            cssclass: CSSClass,
+            definitionList: DefinitionList,
+            definitionListItem: DefinitionListItem,
+            deprecated: Deprecated,
+            emphasis: Emphasis,
+            figure: Figure,
+            footnote: Footnote,
+            footnote_reference: FootnoteReference,
+            heading: Heading,
+            hlist: HorizontalList,
+            image: Image,
+            include: Include,
+            line: Line,
+            line_block: LineBlock,
+            list: List,
+            listItem: ListItem,
+            'list-table': ListTable,
+            literal: Literal,
+            literal_block: LiteralBlock,
+            literalinclude: LiteralInclude,
+            meta: Meta,
+            only: Cond,
+            paragraph: Paragraph,
+            ref_role: RefRole,
+            reference: Reference,
+            section: Section,
+            step: Step,
+            strong: Strong,
+            subscript: Subscript,
+            substitution_reference: SubstitutionReference,
+            superscript: Superscript,
+            tabs: Tabs,
+            'tabs-pillstrip': TabsPillstrip,
+            text: Text,
+            title_reference: TitleReference,
+            topic: Topic,
+            transition: Transition,
+            uriwriter: URIWriter,
+            versionadded: VersionAdded,
+            versionchanged: VersionChanged,
+        };
     }
 
-    if (type === 'problematic') {
-      return <ComponentFactory nodeData={children[0]} {...rest} />;
+    selectComponent() {
+        const {
+            nodeData: { children, name, type },
+            ...rest
+        } = this.props;
+
+        // do nothing with these nodes for now (cc. Andrew)
+        if (IGNORED_TYPES.includes(type) || IGNORED_NAMES.includes(name)) {
+            return null;
+        }
+
+        if (type === 'problematic') {
+            return <ComponentFactory nodeData={children[0]} {...rest} />;
+        }
+
+        const lookup = type === 'directive' ? name : type;
+        let ComponentType = this.componentMap[lookup];
+        // roles are each in separate file
+        if (type === 'role') {
+            // remove namespace
+            const roleName = name.includes(':') ? name.split(':')[1] : name;
+            ComponentType = this.roles[roleName];
+        }
+        // the different admonition types are all under the Admonition component
+        // see 'this.admonitions' in 'guide.js' for the list
+        if (!ComponentType && ADMONITIONS.includes(name)) {
+            ComponentType = this.componentMap.admonition;
+        }
+        // component with this type not implemented
+        if (!ComponentType) {
+            return (
+                <span>
+                    ==Not implemented:
+                    {type},{name} ==
+                </span>
+            );
+        }
+
+        return <ComponentType {...this.props} />;
     }
 
-    const lookup = type === 'directive' ? name : type;
-    let ComponentType = this.componentMap[lookup];
-    // roles are each in separate file
-    if (type === 'role') {
-      // remove namespace
-      const roleName = name.includes(':') ? name.split(':')[1] : name;
-      ComponentType = this.roles[roleName];
+    render() {
+        const { nodeData } = this.props;
+        if (!nodeData) return null;
+        return this.selectComponent();
     }
-    // the different admonition types are all under the Admonition component
-    // see 'this.admonitions' in 'guide.js' for the list
-    if (!ComponentType && ADMONITIONS.includes(name)) {
-      ComponentType = this.componentMap.admonition;
-    }
-    // component with this type not implemented
-    if (!ComponentType) {
-      return (
-        <span>
-          ==Not implemented:
-          {type},{name} ==
-        </span>
-      );
-    }
-
-    return <ComponentType {...this.props} />;
-  }
-
-  render() {
-    const { nodeData } = this.props;
-    if (!nodeData) return null;
-    return this.selectComponent();
-  }
 }
 
 ComponentFactory.propTypes = {
-  nodeData: PropTypes.shape({
-    children: PropTypes.arrayOf(PropTypes.object),
-    name: PropTypes.string,
-    type: PropTypes.string.isRequired,
-  }).isRequired,
+    nodeData: PropTypes.shape({
+        children: PropTypes.arrayOf(PropTypes.object),
+        name: PropTypes.string,
+        type: PropTypes.string.isRequired,
+    }).isRequired,
 };

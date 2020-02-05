@@ -7,19 +7,19 @@ import { TabContext } from '../../src/components/tab-context';
 import mockData from './data/Code.test.json';
 
 const mountCode = ({ data, activeTabs }) => {
-  return mount(
-    <TabContext.Provider value={{ activeTabs }}>
-      <Code nodeData={data} />
-    </TabContext.Provider>
-  );
+    return mount(
+        <TabContext.Provider value={{ activeTabs }}>
+            <Code nodeData={data} />
+        </TabContext.Provider>
+    );
 };
 
 it('renders correctly', () => {
-  const tree = mountCode({ data: mockData, activeTabs: { cloud: 'cloud' } });
-  expect(tree).toMatchSnapshot();
+    const tree = mountCode({ data: mockData, activeTabs: { cloud: 'cloud' } });
+    expect(tree).toMatchSnapshot();
 });
 
 it('renders with javascript disabled correctly', () => {
-  const tree = mountCode({ data: mockData, activeTabs: {} });
-  expect(tree).toMatchSnapshot();
+    const tree = mountCode({ data: mockData, activeTabs: {} });
+    expect(tree).toMatchSnapshot();
 });

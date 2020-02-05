@@ -6,6 +6,6 @@ import TitleReference from '../../src/components/TitleReference';
 import mockData from './data/TitleReference.test.json';
 
 it('renders correctly', () => {
-  const tree = shallow(<TitleReference nodeData={mockData} />);
-  expect(tree).toMatchSnapshot();
+    const tree = shallow(<TitleReference nodeData={mockData} />);
+    expect(tree).toMatchSnapshot();
 });

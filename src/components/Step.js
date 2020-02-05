@@ -3,27 +3,27 @@ import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
 
 const Step = ({ nodeData: { children }, stepNum, ...rest }) => (
-  <div className="sequence-block">
-    <div className="bullet-block">
-      <div className="sequence-step">{stepNum + 1}</div>
+    <div className="sequence-block">
+        <div className="bullet-block">
+            <div className="sequence-step">{stepNum + 1}</div>
+        </div>
+        <div className="section">
+            {children.map((child, index) => (
+                <ComponentFactory {...rest} nodeData={child} key={index} />
+            ))}
+        </div>
     </div>
-    <div className="section">
-      {children.map((child, index) => (
-        <ComponentFactory {...rest} nodeData={child} key={index} />
-      ))}
-    </div>
-  </div>
 );
 
 Step.propTypes = {
-  nodeData: PropTypes.shape({
-    children: PropTypes.array.isRequired,
-  }).isRequired,
-  stepNum: PropTypes.number,
+    nodeData: PropTypes.shape({
+        children: PropTypes.array.isRequired,
+    }).isRequired,
+    stepNum: PropTypes.number,
 };
 
 Step.defaultProps = {
-  stepNum: 0,
+    stepNum: 0,
 };
 
 export default Step;

@@ -5,10 +5,14 @@ import { endsWith } from './ends-with';
   has a slug matching the giveen page slug, and false otherwise.
 */
 export const isActiveTocNode = (currentUrl, slug, children) => {
-  // "/" is a special case usually for titles. In this case we don't want other
-  // pages to render as active
-  if (slug === '/') return false;
-  if (currentUrl === undefined) return false;
-  if (endsWith(currentUrl, slug) || endsWith(currentUrl, `${slug}/`)) return true;
-  return children.reduce((a, b) => a || isActiveTocNode(currentUrl, b.slug, b.children), false);
+    // "/" is a special case usually for titles. In this case we don't want other
+    // pages to render as active
+    if (slug === '/') return false;
+    if (currentUrl === undefined) return false;
+    if (endsWith(currentUrl, slug) || endsWith(currentUrl, `${slug}/`))
+        return true;
+    return children.reduce(
+        (a, b) => a || isActiveTocNode(currentUrl, b.slug, b.children),
+        false
+    );
 };

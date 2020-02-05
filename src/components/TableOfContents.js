@@ -8,36 +8,36 @@ import { isBrowser } from '../utils/is-browser';
  * Overall Table of Contents component, which manages open sections as children
  */
 const TableOfContents = ({ toctreeData: { children } }) => {
-  // Want to check this on each re-render
-  let currentPage;
-  if (isBrowser()) {
-    currentPage = window.location.pathname;
-  }
-  const [activeSection, setActiveSection] = useState(currentPage);
-  const toggleDrawer = newSlug => {
-    if (activeSection === newSlug) {
-      setActiveSection(null);
-    } else {
-      setActiveSection(newSlug);
+    // Want to check this on each re-render
+    let currentPage;
+    if (isBrowser()) {
+        currentPage = window.location.pathname;
     }
-  };
+    const [activeSection, setActiveSection] = useState(currentPage);
+    const toggleDrawer = newSlug => {
+        if (activeSection === newSlug) {
+            setActiveSection(null);
+        } else {
+            setActiveSection(newSlug);
+        }
+    };
 
-  return (
-    <TOCContext.Provider value={{ activeSection, toggleDrawer }}>
-      <ul className="current">
-        {children.map(c => {
-          const key = c.slug || c.url;
-          return <TOCNode node={c} key={key} />;
-        })}
-      </ul>
-    </TOCContext.Provider>
-  );
+    return (
+        <TOCContext.Provider value={{ activeSection, toggleDrawer }}>
+            <ul className="current">
+                {children.map(c => {
+                    const key = c.slug || c.url;
+                    return <TOCNode node={c} key={key} />;
+                })}
+            </ul>
+        </TOCContext.Provider>
+    );
 };
 
 TableOfContents.propTypes = {
-  toctreeData: PropTypes.shape({
-    children: PropTypes.array.isRequired,
-  }).isRequired,
+    toctreeData: PropTypes.shape({
+        children: PropTypes.array.isRequired,
+    }).isRequired,
 };
 
 export default TableOfContents;
