@@ -5,6 +5,7 @@ import { StorybookLayout } from '../components/dev-hub/layout';
 import Card from '../components/dev-hub/card';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
+import Input from '../components/dev-hub/input';
 import MediaBlock from '../components/dev-hub/media-block';
 import Notification from '../components/dev-hub/notification';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
@@ -20,7 +21,6 @@ const gradientCardProps = {
     ...cardProps,
     gradient: true,
 };
-
 
 const CardRow = styled('div')`
     color: ${colorMap.devBlack};
@@ -112,6 +112,9 @@ export default () => (
             <MediaBlockStory />
             <SectionHeader>Media Block (reverse)</SectionHeader>
             <MediaBlockStory reverse />
+            <SectionHeader>Form Elements</SectionHeader>
+            <H4>Input</H4>
+            <Input placeholder="Email Address" />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch
