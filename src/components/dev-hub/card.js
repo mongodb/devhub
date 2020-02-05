@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { size, colorMap } from './theme';
-import Link from '../Link';
+import Link from './link';
 import { H4 } from './text';
 import Badge from './badge';
 
@@ -98,25 +98,37 @@ const Tags = ({ tags }) =>
  * @property {bool?} props.distinct
  * @property {bool?} props.gradient
  * @property {bool?} props.highlight
+ * @property {string?} props.href
  * @property {string?} props.image
- * @property {string?} props.link
  * @property {func?} props.onClick
  * @property {string[]?} props.tags
+ * @property {string?} props.target
+ * @property {string?} props.to
  */
 
 const Card = ({
     children,
     gradient,
+    href,
     image,
-    link,
     onClick = noop,
+    to,
     tags,
+    target,
     ...props
 }) => {
-    const ContentWrapper = link ? Link : NoLinkWrapper;
+    const isLink = !!(to || href);
+    const ContentWrapper = isLink ? Link : NoLinkWrapper;
+    const linkAttrs = !isLink
+        ? {}
+        : {
+              to,
+              href,
+              target,
+          };
     return (
         <Wrapper {...props}>
-            <ContentWrapper to={link} onClick={onClick}>
+            <ContentWrapper onClick={onClick} {...linkAttrs}>
                 {image && (
                     <ImageWrapper>
                         {gradient && <GradientOverlay />}
