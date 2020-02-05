@@ -4,8 +4,19 @@ import styled from '@emotion/styled';
 import { size, colorMap, layer } from './theme';
 import { P } from './text';
 
+const borderGradient = css`
+    border: solid;
+    border-image-source: linear-gradient(
+        270deg,
+        ${colorMap.magenta} 0%,
+        ${colorMap.violet} 100%
+    );
+    border-image-slice: 1;
+    border-image-width: 3px;
+`;
+
 // below is a trick to center the button
-// above the bottom layer for hovering
+// above the bottom layer for hovering effect
 const centerPositioningStyles = css`
     margin: 2px;
 `;
@@ -18,28 +29,9 @@ const buttonHoverStyles = css`
 
 const secondaryHoverStyles = css`
     &:hover {
-        transform: translate3d(${size.small}, -${size.small}, 0px);
-        border: solid;
-        border-image-source: linear-gradient(
-            270deg,
-            ${colorMap.magenta} 0%,
-            ${colorMap.violet} 100%
-        );
-        border-image-slice: 1;
-        border-image-width: 3px;
+        ${borderGradient}
     }
 `;
-const borderGradient = css`
-    border: solid;
-    border-image-source: linear-gradient(
-        270deg,
-        ${colorMap.magenta} 0%,
-        ${colorMap.violet} 100%
-    );
-    border-image-slice: 1;
-    border-image-width: 3px;
-`;
-
 const primaryStyles = css`
     background: linear-gradient(
         270deg,
@@ -81,15 +73,20 @@ const StyledButton = styled('button')`
     cursor: pointer;
     height: 100%;
     padding: ${size.default};
-    position: absolute;
-    z-index: ${layer.middle};
-    width: 100%;
+    position: relative;
     transition: .1s ease-in-out;
     transition-delay: .02s;
+    width: 100%;
+    z-index: ${layer.middle};
 
     ${({ primary }) => primary && primaryStyles}
     ${({ secondary }) => secondary && secondaryStyles}
     ${({ primary, secondary }) => !primary && !secondary && ternaryStyles}
+`;
+
+const ButtonFront = styled('div')`
+    width: 100%;
+    height: 100%;
 `;
 
 const Text = styled('P')`
@@ -127,11 +124,13 @@ const ButtonWrapper = styled('div')`
  * @property {boolean?} props.secondary
  */
 const Button = ({ children, onClick, primary, secondary, ...props }) => (
-    <ButtonWrapper>
+    <ButtonWrapper onClick={onClick}>
         {(primary || secondary) && <ButtonBack></ButtonBack>}
-        <StyledButton primary={primary} secondary={secondary} {...props}>
-            <Text> {children} </Text>
-        </StyledButton>
+        <ButtonFront>
+            <StyledButton primary={primary} secondary={secondary} {...props}>
+                <Text> {children} </Text>
+            </StyledButton>
+        </ButtonFront>
     </ButtonWrapper>
 );
 
