@@ -39,9 +39,18 @@ const StyledNotification = styled('div')`
     border-radius: ${size.medium};
     display: flex;
     justify-content: center;
+    opacity: 0.8;
+
+    :hover {
+        cursor: pointer;
+        opacity: 1;
+        transition: opacity 0.1s ease 0.1s;
+    }
 `;
 
-const Notification = () => {
+// TODO case on different notification types
+// eslint-disable-next-line no-unused-vars
+const Notification = ({ link = null, notificationType = 'twitch' }) => {
     // TODO add async call to twitch
     const [isVisible, setIsVisible] = useState(true);
     const dismissNotification = useCallback(() => setIsVisible(false), [
