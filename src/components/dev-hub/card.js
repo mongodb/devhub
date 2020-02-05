@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { size, colorMap } from './theme';
+import { colorMap, layer, size } from './theme';
 import Link from './link';
 import { H4 } from './text';
 import Badge from './badge';
@@ -19,7 +19,7 @@ const TagsList = styled('ul')`
     margin: 0;
     padding: 0;
     position: absolute;
-    z-index: 4;
+    z-index: ${layer.front};
     li {
         display: inline;
     }
@@ -38,14 +38,14 @@ const GradientOverlay = styled('div')`
     opacity: 0.2;
     position: absolute;
     width: 100%;
-    z-index: 3;
+    z-index: ${layer.middle};
 `;
 
 const Image = styled('img')`
     border-radius: ${size.small};
     height: 100%;
     width: 100%;
-    z-index: 2;
+    z-index: ${layer.back};
 `;
 
 const ImageWrapper = styled('div')`
@@ -63,7 +63,7 @@ const Content = styled('div')`
     margin: auto;
 `;
 
-const Wrapper = styled('aside')`
+const Wrapper = styled('div')`
     border-radius: ${size.small};
     max-width: 500px;
     padding: ${size.default};
