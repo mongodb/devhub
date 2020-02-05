@@ -7,7 +7,6 @@ const {
 } = require('./src/utils/setup/validate-env-variables');
 const { getNestedValue } = require('./src/utils/get-nested-value');
 const { getTemplate } = require('./src/utils/get-template');
-const { getGuideMetadata } = require('./src/utils/get-guide-metadata');
 const { getPageSlug } = require('./src/utils/get-page-slug');
 
 // Atlas DB config
@@ -25,15 +24,9 @@ const METADATA_COLLECTION = 'metadata';
 const SNOOTY_STITCH_ID = 'snooty-koueq';
 let PAGE_ID_PREFIX;
 
-// test data properties
-const USE_TEST_DATA = process.env.USE_TEST_DATA;
-const TEST_DATA_PATH = 'tests/unit/data/site';
-const LATEST_TEST_DATA_FILE = '__testDataLatest.json';
-
 // different types of references
 const PAGES = [];
 const IMAGE_FILES = {};
-const GUIDES_METADATA = {};
 
 // in-memory object with key/value = filename/document
 let RESOLVED_REF_DOC_MAPPING = {};
@@ -104,39 +97,26 @@ exports.sourceNodes = async () => {
     // wait to connect to stitch
     await setupStitch();
 
-    // if running with test data
-    if (USE_TEST_DATA) {
-        // get data from test file
-        try {
-            const fullpath = path.join(TEST_DATA_PATH, USE_TEST_DATA);
-            const fileContent = fs.readFileSync(fullpath, 'utf8');
-            RESOLVED_REF_DOC_MAPPING = JSON.parse(fileContent);
-            console.log(`*** Using test data from "${fullpath}"`);
-        } catch (e) {
-            throw Error(`ERROR with test data file: ${e}`);
-        }
-    } else {
-        // start from index document
-        PAGE_ID_PREFIX = `${process.env.GATSBY_SITE}/${process.env.GATSBY_PARSER_USER}/${process.env.GATSBY_PARSER_BRANCH}`;
-        const query = constructDbFilter();
-        const documents = await stitchClient.callFunction('fetchDocuments', [
-            DB,
-            DOCUMENTS_COLLECTION,
-            query,
-        ]);
+    // start from index document
+    PAGE_ID_PREFIX = `${process.env.GATSBY_SITE}/${process.env.GATSBY_PARSER_USER}/${process.env.GATSBY_PARSER_BRANCH}`;
+    const query = constructDbFilter();
+    const documents = await stitchClient.callFunction('fetchDocuments', [
+        DB,
+        DOCUMENTS_COLLECTION,
+        query,
+    ]);
 
-        if (documents.length === 0) {
-            console.error('No documents matched your query.');
-            process.exit(1);
-        }
-
-        documents.forEach(doc => {
-            const { page_id, ...rest } = doc;
-            RESOLVED_REF_DOC_MAPPING[
-                page_id.replace(`${PAGE_ID_PREFIX}/`, '')
-            ] = rest;
-        });
+    if (documents.length === 0) {
+        console.error('No documents matched your query.');
+        process.exit(1);
     }
+
+    documents.forEach(doc => {
+        const { page_id, ...rest } = doc;
+        RESOLVED_REF_DOC_MAPPING[
+            page_id.replace(`${PAGE_ID_PREFIX}/`, '')
+        ] = rest;
+    });
 
     // Identify page documents and parse each document for images
     const assets = [];
@@ -150,31 +130,10 @@ exports.sourceNodes = async () => {
             IMAGE_FILES[key] = val;
         } else if (filename.endsWith('.txt')) {
             PAGES.push(key);
-            if (process.env.GATSBY_SITE === 'guides') {
-                GUIDES_METADATA[key] = getGuideMetadata(val);
-            }
         }
     });
 
     await saveAssetFiles(assets);
-
-    // whenever we get latest data, always save latest version
-    if (!USE_TEST_DATA) {
-        const fullpathLatest = path.join(TEST_DATA_PATH, LATEST_TEST_DATA_FILE);
-        fs.writeFile(
-            fullpathLatest,
-            JSON.stringify(RESOLVED_REF_DOC_MAPPING),
-            'utf8',
-            err => {
-                if (err)
-                    console.error(
-                        `ERROR saving test data into "${fullpathLatest}" file`,
-                        err
-                    );
-                console.log(`** Saved test data into "${fullpathLatest}"`);
-            }
-        );
-    }
 };
 
 exports.createPages = async ({ actions }) => {
@@ -189,7 +148,9 @@ exports.createPages = async ({ actions }) => {
         PAGES.forEach(page => {
             const pageNodes = RESOLVED_REF_DOC_MAPPING[page];
 
-            const template = getTemplate(page, process.env.GATSBY_SITE);
+            const template = getTemplate(
+                getNestedValue(['ast', 'options', 'template'], pageNodes)
+            );
             const slug = getPageSlug(page);
             if (
                 RESOLVED_REF_DOC_MAPPING[page] &&
@@ -203,7 +164,6 @@ exports.createPages = async ({ actions }) => {
                         slug,
                         snootyStitchId: SNOOTY_STITCH_ID,
                         __refDocMapping: pageNodes,
-                        guidesMetadata: GUIDES_METADATA,
                     },
                 });
             }
