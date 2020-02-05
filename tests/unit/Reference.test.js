@@ -6,6 +6,6 @@ import Reference from '../../src/components/Reference';
 import mockData from './data/Reference.test.json';
 
 it('renders correctly', () => {
-  const tree = render(<Reference nodeData={mockData} />);
-  expect(tree).toMatchSnapshot();
+    const tree = render(<Reference nodeData={mockData} />);
+    expect(tree).toMatchSnapshot();
 });

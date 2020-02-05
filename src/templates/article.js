@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentBody from '../components/DocumentBody';
 
-const Document = props => {
+const Article = props => {
     const {
         pageContext: {
             __refDocMapping,
@@ -12,7 +12,7 @@ const Document = props => {
     } = props;
 
     return (
-        <div className="document">
+        <div className="article">
             <DocumentBody
                 refDocMapping={__refDocMapping}
                 slugTitleMapping={slugTitleMapping}
@@ -22,7 +22,7 @@ const Document = props => {
     );
 };
 
-Document.propTypes = {
+Article.propTypes = {
     pageContext: PropTypes.shape({
         __refDocMapping: PropTypes.shape({
             ast: PropTypes.shape({
@@ -35,4 +35,4 @@ Document.propTypes = {
     }).isRequired,
 };
 
-export default Document;
+export default Article;

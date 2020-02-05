@@ -7,21 +7,23 @@ import { getNestedValue } from '../utils/get-nested-value';
 const VALID_COND_ARGS = ['html', '(not man)', 'cloud'];
 
 const Cond = ({ nodeData, ...rest }) => {
-  const argument = getNestedValue(['argument', 0, 'value'], nodeData);
-  if (VALID_COND_ARGS.includes(argument)) {
-    return nodeData.children.map((child, index) => <ComponentFactory {...rest} nodeData={child} key={index} />);
-  }
-  return null;
+    const argument = getNestedValue(['argument', 0, 'value'], nodeData);
+    if (VALID_COND_ARGS.includes(argument)) {
+        return nodeData.children.map((child, index) => (
+            <ComponentFactory {...rest} nodeData={child} key={index} />
+        ));
+    }
+    return null;
 };
 
 Cond.propTypes = {
-  nodeData: PropTypes.shape({
-    argument: PropTypes.arrayOf(
-      PropTypes.shape({
-        value: PropTypes.string,
-      }).isRequired
-    ).isRequired,
-  }).isRequired,
+    nodeData: PropTypes.shape({
+        argument: PropTypes.arrayOf(
+            PropTypes.shape({
+                value: PropTypes.string,
+            }).isRequired
+        ).isRequired,
+    }).isRequired,
 };
 
 export default Cond;

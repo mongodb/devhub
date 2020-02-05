@@ -11,10 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Support commit-based builds
+-   Support commit-based builds
 
 ## [v0.1] - 2020-01-23
 
 ### Added
 
-- Initial release
+-   Initial release

@@ -6,6 +6,6 @@ import Strong from '../../src/components/Strong';
 import mockData from './data/Strong.test.json';
 
 it('renders correctly', () => {
-  const tree = shallow(<Strong nodeData={mockData} />);
-  expect(tree).toMatchSnapshot();
+    const tree = shallow(<Strong nodeData={mockData} />);
+    expect(tree).toMatchSnapshot();
 });

@@ -17,36 +17,36 @@ import mockDataRef from './data/Role-ref.test.json';
 import mockDataTerm from './data/Role-term.test.json';
 
 it('renders correctly role "doc"', () => {
-  const tree = render(<RoleDoc nodeData={mockDataDoc} />);
-  expect(tree).toMatchSnapshot();
+    const tree = render(<RoleDoc nodeData={mockDataDoc} />);
+    expect(tree).toMatchSnapshot();
 });
 
 it('renders correctly role "doc" when no link title is included', () => {
-  const tree = render(<RoleDoc nodeData={mockDataDocUnlabeled} />);
-  expect(tree).toMatchSnapshot();
+    const tree = render(<RoleDoc nodeData={mockDataDocUnlabeled} />);
+    expect(tree).toMatchSnapshot();
 });
 
 it('renders correctly a role "guilabel"', () => {
-  const tree = shallow(<RoleGUILabel nodeData={mockDataGUILabel} />);
-  expect(tree).toMatchSnapshot();
+    const tree = shallow(<RoleGUILabel nodeData={mockDataGUILabel} />);
+    expect(tree).toMatchSnapshot();
 });
 
 it('renders correctly role "manual"', () => {
-  const tree = shallow(<RoleManual nodeData={mockDataManual} />);
-  expect(tree).toMatchSnapshot();
+    const tree = shallow(<RoleManual nodeData={mockDataManual} />);
+    expect(tree).toMatchSnapshot();
 });
 
 it('renders correctly role "program"', () => {
-  const tree = shallow(<RoleProgram nodeData={mockDataProgram} />);
-  expect(tree).toMatchSnapshot();
+    const tree = shallow(<RoleProgram nodeData={mockDataProgram} />);
+    expect(tree).toMatchSnapshot();
 });
 
 it('renders correctly role "ref"', () => {
-  const tree = shallow(<RoleRef nodeData={mockDataRef} />);
-  expect(tree).toMatchSnapshot();
+    const tree = shallow(<RoleRef nodeData={mockDataRef} />);
+    expect(tree).toMatchSnapshot();
 });
 
 it('renders correctly role "term"', () => {
-  const tree = shallow(<RoleTerm nodeData={mockDataTerm} />);
-  expect(tree).toMatchSnapshot();
+    const tree = shallow(<RoleTerm nodeData={mockDataTerm} />);
+    expect(tree).toMatchSnapshot();
 });

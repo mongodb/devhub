@@ -11,26 +11,31 @@ import { isPreviewMode } from '../utils/is-preview-mode';
 // Since DOM elements <a> cannot receive activeClassName and partiallyActive,
 // destructure the prop here and pass it only to GatsbyLink.
 const Link = ({ children, to, activeClassName, partiallyActive, ...other }) => {
-  // Assume that external links begin with http:// or https://
-  const external = /^http(s)?:\/\//.test(to);
-  // Use Gatsby Link for internal links, and <a> for others
-  if (!isPreviewMode() && to && !external) {
-    if (!to.startsWith('/')) to = `/${to}`;
+    // Assume that external links begin with http:// or https://
+    const external = /^http(s)?:\/\//.test(to);
+    // Use Gatsby Link for internal links, and <a> for others
+    if (!isPreviewMode() && to && !external) {
+        if (!to.startsWith('/')) to = `/${to}`;
+        return (
+            <GatsbyLink
+                to={to}
+                activeClassName={activeClassName}
+                partiallyActive={partiallyActive}
+                {...other}
+            >
+                {children}
+            </GatsbyLink>
+        );
+    }
     return (
-      <GatsbyLink to={to} activeClassName={activeClassName} partiallyActive={partiallyActive} {...other}>
-        {children}
-      </GatsbyLink>
+        <a href={to} {...other}>
+            {children}
+        </a>
     );
-  }
-  return (
-    <a href={to} {...other}>
-      {children}
-    </a>
-  );
 };
 
 Link.propTypes = {
-  to: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired,
 };
 
 export default Link;

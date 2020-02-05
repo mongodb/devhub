@@ -5,8 +5,8 @@
  * - o: the object to be searched
  */
 const getNestedValue = (p, o) => {
-  if (!o) return null;
-  return p.reduce((xs, x) => (xs && xs[x] ? xs[x] : null), o);
+    if (!o) return null;
+    return p.reduce((xs, x) => (xs && xs[x] ? xs[x] : null), o);
 };
 
 // TODO: switch to ES6 export syntax if Gatsby implements support for ES6 module imports

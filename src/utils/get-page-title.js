@@ -6,7 +6,7 @@ import { getNestedValue } from './get-nested-value';
  * Returns array of text nodes with formatting or a plaintext string.
  */
 export const getPageTitle = (slug, slugTitleMapping) => {
-  const slugLookup = slug === '/' ? 'index' : slug;
-  const title = getNestedValue([slugLookup], slugTitleMapping);
-  return title ? formatText(title) : null;
+    const slugLookup = slug === '/' ? 'index' : slug;
+    const title = getNestedValue([slugLookup], slugTitleMapping);
+    return title ? formatText(title) : null;
 };
