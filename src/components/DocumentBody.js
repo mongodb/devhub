@@ -4,9 +4,7 @@ import ComponentFactory from './ComponentFactory';
 import { getNestedValue } from '../utils/get-nested-value';
 
 const DocumentBody = ({
-    addPillstrip,
     footnotes,
-    pillstrips,
     refDocMapping,
     slugTitleMapping,
     substitutions,
@@ -16,12 +14,10 @@ const DocumentBody = ({
         <React.Fragment>
             {pageNodes.map((child, index) => (
                 <ComponentFactory
-                    addPillstrip={addPillstrip}
                     footnotes={footnotes}
                     key={index}
                     nodeData={child}
                     refDocMapping={refDocMapping}
-                    pillstrips={pillstrips}
                     slugTitleMapping={slugTitleMapping}
                     substitutions={substitutions}
                 />
@@ -31,9 +27,7 @@ const DocumentBody = ({
 };
 
 DocumentBody.propTypes = {
-    addPillstrip: PropTypes.func,
     footnotes: PropTypes.objectOf(PropTypes.object),
-    pillstrips: PropTypes.objectOf(PropTypes.object),
     refDocMapping: PropTypes.shape({
         ast: PropTypes.shape({
             children: PropTypes.array,
@@ -46,9 +40,7 @@ DocumentBody.propTypes = {
 };
 
 DocumentBody.defaultProps = {
-    addPillstrip: () => {},
     footnotes: {},
-    pillstrips: {},
     slugTitleMapping: {},
     substitutions: {},
 };

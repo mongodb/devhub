@@ -1,6 +1,5 @@
 // Returns the name of the template to be used
 const getTemplate = template => {
-    console.log(template);
     switch (template) {
         case 'devhub-article':
             return 'article';

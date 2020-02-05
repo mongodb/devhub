@@ -11,7 +11,6 @@ import Include from './Include';
 import Section from './Section';
 import Code from './Code';
 import LiteralInclude from './LiteralInclude';
-import Tabs from './Tabs';
 import Admonition from './Admonition';
 import Figure from './Figure';
 import Literal from './Literal';
@@ -19,7 +18,6 @@ import Heading from './Heading';
 import BlockQuote from './BlockQuote';
 import Reference from './Reference';
 import Strong from './Strong';
-import URIWriter from './URIWriter/URIWriter';
 import TitleReference from './TitleReference';
 import Text from './Text';
 import DefinitionList from './DefinitionList';
@@ -34,7 +32,6 @@ import Contents from './Contents';
 import Container from './Container';
 import Cond from './Cond';
 import Meta from './Meta';
-import TabsPillstrip from './TabsPillstrip';
 import VersionChanged from './VersionChanged';
 import VersionAdded from './VersionAdded';
 import Deprecated from './Deprecated';
@@ -109,13 +106,10 @@ export default class ComponentFactory extends Component {
             subscript: Subscript,
             substitution_reference: SubstitutionReference,
             superscript: Superscript,
-            tabs: Tabs,
-            'tabs-pillstrip': TabsPillstrip,
             text: Text,
             title_reference: TitleReference,
             topic: Topic,
             transition: Transition,
-            uriwriter: URIWriter,
             versionadded: VersionAdded,
             versionchanged: VersionChanged,
         };

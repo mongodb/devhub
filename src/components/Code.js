@@ -1,26 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import Highlight from 'react-highlight';
 import { reportAnalytics } from '../utils/report-analytics';
 import 'highlight.js/styles/a11y-light.css';
 import codeStyle from '../styles/code.module.css';
-import { TabContext } from './tab-context';
-import URIText from './URIWriter/URIText';
-import {
-    URI_PLACEHOLDER,
-    USERNAME_PLACEHOLDER,
-    URISTRING_SHELL_PLACEHOLDER,
-    URISTRING_SHELL_NOUSER_PLACEHOLDER,
-} from './URIWriter/constants';
-import { isBrowser } from '../utils/is-browser';
-
-const URI_PLACEHOLDERS = [
-    URI_PLACEHOLDER,
-    USERNAME_PLACEHOLDER,
-    URISTRING_SHELL_PLACEHOLDER,
-    URISTRING_SHELL_NOUSER_PLACEHOLDER,
-];
 
 export default class Code extends Component {
     constructor(props) {
@@ -90,42 +73,18 @@ export default class Code extends Component {
         }
     };
 
-    htmlDecode = input => {
-        const doc = new DOMParser().parseFromString(input, 'text/html');
-        return doc.documentElement.textContent;
-    };
-
     render() {
         const { copied, showCopyButton } = this.state;
-        const { activeTabs } = this.context;
         const {
             nodeData: { value, lang },
-            uriWriter: { cloudURI, localURI },
         } = this.props;
         let code = value;
-        if (
-            activeTabs &&
-            URI_PLACEHOLDERS.some(placeholder => code.includes(placeholder))
-        ) {
-            const { cloud } = activeTabs;
-            const activeUri = cloud === 'cloud' ? cloudURI : localURI;
-            code = ReactDOMServer.renderToString(
-                <URIText
-                    value={code}
-                    activeDeployment={cloud}
-                    uriData={activeUri}
-                />
-            );
-            if (isBrowser()) code = this.htmlDecode(code);
-        }
-        const hasActiveTabs =
-            activeTabs !== undefined && Object.keys(activeTabs).length !== 0;
 
         // TODO: when we move off docs-tools CSS, change the copy button from <a> to <button>
         return (
             <div className="button-code-block">
                 <div className="button-row">
-                    {showCopyButton && hasActiveTabs && (
+                    {showCopyButton && (
                         <a // eslint-disable-line jsx-a11y/anchor-is-valid, jsx-a11y/interactive-supports-focus
                             className="code-button--copy code-button"
                             role="button"
@@ -168,17 +127,4 @@ Code.propTypes = {
         lang: PropTypes.string,
         value: PropTypes.string.isRequired,
     }).isRequired,
-    uriWriter: PropTypes.shape({
-        cloudURI: PropTypes.object,
-        localURI: PropTypes.object,
-    }),
 };
-
-Code.defaultProps = {
-    uriWriter: {
-        cloudURI: undefined,
-        localURI: undefined,
-    },
-};
-
-Code.contextType = TabContext;
