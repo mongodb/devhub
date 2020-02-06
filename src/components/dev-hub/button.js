@@ -1,23 +1,28 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { borderGradients, colorMap, gradientMap, size, layer } from './theme';
+import {
+    borderGradients,
+    colorMap,
+    gradientMap,
+    size,
+    layer,
+    fontSize,
+} from './theme';
 import { P } from './text';
+import Link from './link';
 
-// below is a trick to center the button
-// above the bottom layer for hovering effect
-const centerPositioningStyles = css`
-    margin: 2px;
-`;
-
+// TODO: Finalize hover effect when design complete
 const buttonHoverStyles = css`
     &:active,
     &:hover,
     &:focus {
-        transform: translate3d(${size.small}, -${size.small}, 0px);
+        // override Link hover styles if button is a link
+        color: ${colorMap.devWhite};
     }
 `;
 
+// TODO: Finalize hover effect when design complete
 const secondaryHoverStyles = css`
     &:active,
     &:hover,
@@ -25,44 +30,72 @@ const secondaryHoverStyles = css`
         ${borderGradients.violetMagenta}
     }
 `;
+
 const primaryStyles = css`
     background: ${gradientMap.violetMagenta};
-    ${centerPositioningStyles}
     ${buttonHoverStyles}
 `;
 
 const secondaryStyles = css`
     background: ${colorMap.greyDarkTwo};
-    border: 1px solid ${colorMap.greyLightTwo};
-    ${centerPositioningStyles}
-    ${secondaryHoverStyles}
+    border: 2px solid ${colorMap.greyLightTwo};
     ${buttonHoverStyles}
+    ${secondaryHoverStyles}
 `;
 
 const ternaryStyles = css`
-    background: none;
+    background: transparent;
     &:active,
     &:hover,
     &:focus {
-        p {
-            background: ${gradientMap.violetMagenta};
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        background: ${gradientMap.violetMagenta};
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 `;
 
-const StyledButton = styled('button')`
+const ButtonImpl = ({ children, href, to, ...props }) => {
+    // By default, a Button renders as a `button` tag.
+    /**
+     * @type {any} A component type to render
+     */
+    let Component = 'button';
+    const buttonProps = {
+        type: 'button',
+        tabIndex: 0,
+    };
+
+    if (href) {
+        // If the Button has an `href` prop, then it renders as an `a` tag,
+        // so we get the native browser link behavior.
+        Component = 'a';
+        buttonProps.href = href;
+    } else if (to) {
+        // If the Button has a `to` prop, then it renders as a `Link` element,
+        // so we get the react-router navigation behavior.
+        // @ts-ignore
+        Component = Link;
+        buttonProps.to = to;
+    }
+    return (
+        <Component {...buttonProps} {...props}>
+            {children}
+        </Component>
+    );
+};
+
+const StyledButton = styled(ButtonImpl)`
     box-shadow: none;
     border: none;
     color: ${({ color }) => (color ? color : colorMap.devWhite)};
     cursor: pointer;
+    font-size: ${fontSize.default};
     height: 100%;
     padding: ${size.default};
     position: relative;
     transition: .1s ease-in-out;
     transition-delay: .02s;
-    width: 100%;
+    text-align: center;
     z-index: ${layer.middle};
 
     ${({ primary }) => primary && primaryStyles}
@@ -70,54 +103,19 @@ const StyledButton = styled('button')`
     ${({ primary, secondary }) => !primary && !secondary && ternaryStyles}
 `;
 
-const ButtonFront = styled('div')`
-    width: 100%;
-    height: 100%;
-`;
-
-const Text = styled(P)`
-    margin: 0;
-    padding: 0;
-`;
-
-const ButtonBack = styled('div')`
-    height: 100%;
-    position: absolute;
-    // hide the bottom layer until hover
-    visibility: hidden;
-    width: 100%;
-    ${borderGradients.violetMagenta}
-`;
-
-const ButtonWrapper = styled('div')`
-    position: relative;
-    min-height: 60px;
-    &:active,
-    &:focus,
-    &:hover {
-        // show the bottom layer
-        div {
-            visibility: visible;
-        }
-    }
-`;
-
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children
+ * @property {string?} props.href
  * @property {func?} props.onClick
  * @property {boolean?} props.primary
  * @property {boolean?} props.secondary
+ * @property {string?} props.target
+ * @property {string?} props.to
  */
-const Button = ({ children, onClick, primary, secondary, ...props }) => (
-    <ButtonWrapper onClick={onClick}>
-        {(primary || secondary) && <ButtonBack></ButtonBack>}
-        <ButtonFront>
-            <StyledButton primary={primary} secondary={secondary} {...props}>
-                <Text> {children} </Text>
-            </StyledButton>
-        </ButtonFront>
-    </ButtonWrapper>
+
+const Button = ({ children, ...props }) => (
+    <StyledButton {...props}>{children}</StyledButton>
 );
 
 export default Button;

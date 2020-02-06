@@ -106,7 +106,9 @@ export default () => (
             <Badge>Deep Dive</Badge>
             <SectionHeader>Buttons</SectionHeader>
             <Row>
-                <Button primary>Join the Community (Primary)</Button>
+                <Button width="150px" href="#" primary>
+                    Join the Community (Primary)
+                </Button>
                 <Button secondary>Join the Community (Secondary)</Button>
                 <Button color={colorMap.devBlack}>
                     Join the Community (Ternary)
