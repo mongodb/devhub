@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Badge from '../components/dev-hub/badge';
 import { StorybookLayout } from '../components/dev-hub/layout';
@@ -87,6 +87,17 @@ const MediaBlockStory = ({ reverse }) => (
     </MediaBlock>
 );
 
+const InputStory = () => {
+    const [value, setValue] = useState('');
+    const onChange = e => {
+        const { value } = e.target;
+        setValue(value);
+    };
+    return (
+        <Input value={value} placeholder="Email Address" onChange={onChange} />
+    );
+};
+
 export default () => (
     <StorybookLayout>
         <StorybookContainer>
@@ -114,7 +125,7 @@ export default () => (
             <MediaBlockStory reverse />
             <SectionHeader>Form Elements</SectionHeader>
             <H4>Input</H4>
-            <Input placeholder="Email Address" />
+            <InputStory />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch

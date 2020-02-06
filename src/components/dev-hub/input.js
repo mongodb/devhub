@@ -1,76 +1,6 @@
 import React from 'react';
-import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { P } from './text';
 import { colorMap, fontSize, size } from './theme';
-
-const transitionIntoFocus = css`
-    border: 2px solid;
-    border-image: linear-gradient(
-            270deg,
-            ${colorMap.violet} 0%,
-            ${colorMap.magenta} 49.99%,
-            ${colorMap.orange} 100%
-        )
-        1;
-    transition: border 0.1s linear 0.1s;
-    legend {
-        opacity: 1;
-        transition: opacity 0.1s linear 0.1s;
-    }
-    input:placeholder-shown ~ span {
-        transition: top 0.1s linear 0.1s;
-    }
-    input:not(:placeholder-shown) ~ span {
-        transition: opacity 0.1s linear 0.1s;
-    }
-    span {
-        left: 24px;
-        top: 0px;
-    }
-`;
-
-const transitionOutOfFocus = css`
-    transition: border 0.1s linear 0.1s;
-    legend {
-        transition: opacity 0.1s linear 0.1s;
-    }
-    input:placeholder-shown ~ span {
-        transition: opacity 0.1s linear 0.1s, top 0.1s linear 0.1s;
-    }
-    input:not(:placeholder-shown) ~ span {
-        opacity: 0;
-    }
-`;
-
-const LegendPlaceholderText = styled(P)`
-    opacity: 0;
-`;
-
-const InputContainer = styled('div')`
-    position: relative;
-    width: 100%;
-`;
-
-const PlaceholderSpan = styled('span')`
-    color: ${colorMap.greyLightTwo};
-    left: 24px;
-    opacity: 1;
-    position: absolute;
-    top: 30px;
-`;
-
-const StyledFieldset = styled('fieldset')`
-    border: none;
-    padding: 0;
-
-    :focus-within {
-        ${transitionIntoFocus};
-    }
-    :not(:focus-within) {
-        ${transitionOutOfFocus};
-    }
-`;
 
 const StyledInput = styled('input')`
     border: none;
@@ -81,42 +11,39 @@ const StyledInput = styled('input')`
     padding: ${size.medium};
     width: calc(100% - ${size.medium} - ${size.medium});
 
+    :focus {
+        border: 2px solid;
+        border-image: linear-gradient(
+                270deg,
+                ${colorMap.violet} 0%,
+                ${colorMap.magenta} 49.99%,
+                ${colorMap.orange} 100%
+            )
+            1;
+        transition: border 0.1s linear 0.1s;
+    }
+
     ::placeholder {
-        opacity: 0;
+        color: ${colorMap.greyLightTwo};
+        opacity: 1;
     }
 
     /* Needed for Edge */
     ::ms-input-placeholder {
-        opacity: 0;
+        color: ${colorMap.greyLightTwo};
+        opacity: 1;
     }
 `;
 
-const StyledLegend = styled('legend')`
-    > * {
-        opacity: 0;
-    }
-    margin-left: 17px;
-    margin-bottom: -8px;
-    opacity: 0;
-`;
-
-const FormInput = props => {
+const FormInput = ({ value, ...props }) => {
+    const hasValue = !!value;
     return (
-        <InputContainer>
-            <StyledFieldset>
-                {props.placeholder && (
-                    <StyledLegend>
-                        <LegendPlaceholderText collapse>
-                            {props.placeholder}
-                        </LegendPlaceholderText>
-                    </StyledLegend>
-                )}
-                <StyledInput {...props} />
-                {props.placeholder && (
-                    <PlaceholderSpan>{props.placeholder}</PlaceholderSpan>
-                )}
-            </StyledFieldset>
-        </InputContainer>
+        <div>
+            {props.placeholder && hasValue && (
+                <label>{props.placeholder}</label>
+            )}
+            <StyledInput {...props} />
+        </div>
     );
 };
 
