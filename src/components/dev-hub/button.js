@@ -1,19 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { size, colorMap, layer } from './theme';
+import { borderGradients, colorMap, gradientMap, size, layer } from './theme';
 import { P } from './text';
-
-const borderGradient = css`
-    border: solid;
-    border-image-source: linear-gradient(
-        270deg,
-        ${colorMap.magenta} 0%,
-        ${colorMap.violet} 100%
-    );
-    border-image-slice: 1;
-    border-image-width: 3px;
-`;
 
 // below is a trick to center the button
 // above the bottom layer for hovering effect
@@ -22,22 +11,22 @@ const centerPositioningStyles = css`
 `;
 
 const buttonHoverStyles = css`
-    &:hover {
+    &:active,
+    &:hover,
+    &:focus {
         transform: translate3d(${size.small}, -${size.small}, 0px);
     }
 `;
 
 const secondaryHoverStyles = css`
-    &:hover {
-        ${borderGradient}
+    &:active,
+    &:hover,
+    &:focus {
+        ${borderGradients.violetMagenta}
     }
 `;
 const primaryStyles = css`
-    background: linear-gradient(
-        270deg,
-        ${colorMap.magenta} 0%,
-        ${colorMap.violet} 100%
-    );
+    background: ${gradientMap.violetMagenta};
     ${centerPositioningStyles}
     ${buttonHoverStyles}
 `;
@@ -52,14 +41,11 @@ const secondaryStyles = css`
 
 const ternaryStyles = css`
     background: none;
+    &:active,
     &:hover,
-    &:active {
+    &:focus {
         p {
-            background: linear-gradient(
-                270deg,
-                ${colorMap.magenta} 0%,
-                ${colorMap.violet} 100%
-            );
+            background: ${gradientMap.violetMagenta};
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -89,7 +75,7 @@ const ButtonFront = styled('div')`
     height: 100%;
 `;
 
-const Text = styled('P')`
+const Text = styled(P)`
     margin: 0;
     padding: 0;
 `;
@@ -100,13 +86,14 @@ const ButtonBack = styled('div')`
     // hide the bottom layer until hover
     visibility: hidden;
     width: 100%;
-    z-index: ${layer.back};
-    ${borderGradient}
+    ${borderGradients.violetMagenta}
 `;
 
 const ButtonWrapper = styled('div')`
     position: relative;
     min-height: 60px;
+    &:active,
+    &:focus,
     &:hover {
         // show the bottom layer
         div {

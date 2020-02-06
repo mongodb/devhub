@@ -107,9 +107,7 @@ export default () => (
             <SectionHeader>Buttons</SectionHeader>
             <Row>
                 <Button primary>Join the Community (Primary)</Button>
-                <Button secondary round>
-                    Join the Community (Secondary)
-                </Button>
+                <Button secondary>Join the Community (Secondary)</Button>
                 <Button color={colorMap.devBlack}>
                     Join the Community (Ternary)
                 </Button>
