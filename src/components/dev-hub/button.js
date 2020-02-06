@@ -9,7 +9,6 @@ import {
     layer,
     fontSize,
 } from './theme';
-import { P } from './text';
 import Link from './link';
 
 // TODO: Finalize hover effect when design complete
@@ -33,12 +32,14 @@ const secondaryHoverStyles = css`
 
 const primaryStyles = css`
     background: ${gradientMap.violetMagenta};
+    text-decoration: none;
     ${buttonHoverStyles}
 `;
 
 const secondaryStyles = css`
     background: ${colorMap.greyDarkTwo};
     border: 2px solid ${colorMap.greyLightTwo};
+    text-decoration: none;
     ${buttonHoverStyles}
     ${secondaryHoverStyles}
 `;
@@ -65,18 +66,14 @@ const ButtonImpl = ({ children, href, to, ...props }) => {
         tabIndex: 0,
     };
 
-    if (href) {
-        // If the Button has an `href` prop, then it renders as an `a` tag,
-        // so we get the native browser link behavior.
-        Component = 'a';
-        buttonProps.href = href;
-    } else if (to) {
-        // If the Button has a `to` prop, then it renders as a `Link` element,
-        // so we get the react-router navigation behavior.
+    if (href || to) {
+        // If the Button has a `to` or a `href` prop, then it renders as a `Link` element,
         // @ts-ignore
         Component = Link;
+        buttonProps.href = href;
         buttonProps.to = to;
     }
+
     return (
         <Component {...buttonProps} {...props}>
             {children}
