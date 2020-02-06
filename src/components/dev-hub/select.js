@@ -5,6 +5,8 @@ import styled from '@emotion/styled';
 import { P } from './text';
 import { colorMap, size } from './theme';
 
+const OPTIONS_POSITION_OFFSET = 59;
+
 const activeSelectStyles = css`
     border: 2px solid;
     border-image: linear-gradient(
@@ -16,14 +18,34 @@ const activeSelectStyles = css`
         1;
 `;
 
-const Option = styled('div')`
+const Option = styled('li')`
     background-color: ${colorMap.greyDarkTwo};
     color: ${colorMap.greyLightTwo};
     padding: ${size.medium};
+    display: block;
     :hover {
         background-color: ${colorMap.greyDarkOne};
         color: ${colorMap.devWhite};
     }
+`;
+
+const Options = styled('ul')`
+    border: 2px solid;
+    border-image: linear-gradient(
+            270deg,
+            ${colorMap.violet} 0%,
+            ${colorMap.magenta} 49.99%,
+            ${colorMap.orange} 100%
+        )
+        1;
+    border-top: none;
+    /* -2px to account for border above */
+    left: -2px;
+    padding: 0;
+    position: absolute;
+    margin: 0;
+    top: ${OPTIONS_POSITION_OFFSET}px;
+    width: 100%;
 `;
 
 const StyledCustomSelect = styled('div')`
@@ -32,6 +54,7 @@ const StyledCustomSelect = styled('div')`
     border: 2px solid;
     color: ${colorMap.devWhite};
     cursor: pointer;
+    position: relative;
     ${({ showOptions }) => showOptions && activeSelectStyles};
 `;
 
@@ -63,11 +86,11 @@ const FormSelect = ({
     const selectOnClick = useCallback(() => {
         setShowOptions(!showOptions);
     }, [showOptions]);
-    const optionOnClick = (v, t) => {
-        setSelectValue(v);
-        setSelectText(t);
+    const optionOnClick = (value, text) => {
+        setSelectValue(value);
+        setSelectText(text);
         if (onChange) {
-            onChange(v, t);
+            onChange(value, text);
         }
         setShowOptions(false);
     };
@@ -84,16 +107,19 @@ const FormSelect = ({
             >
                 <P collapse>{selectText}</P>
             </SelectedOption>
-            {showOptions &&
-                choices.map(([choiceValue, text]) => (
-                    <Option
-                        key={choiceValue}
-                        value={choiceValue}
-                        onClick={() => optionOnClick(choiceValue, text)}
-                    >
-                        {text}
-                    </Option>
-                ))}
+            {showOptions && (
+                <Options>
+                    {choices.map(([choiceValue, text]) => (
+                        <Option
+                            key={choiceValue}
+                            value={choiceValue}
+                            onClick={() => optionOnClick(choiceValue, text)}
+                        >
+                            {text}
+                        </Option>
+                    ))}
+                </Options>
+            )}
         </StyledCustomSelect>
     );
 };
