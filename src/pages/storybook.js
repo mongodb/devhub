@@ -8,6 +8,7 @@ import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
 import MediaBlock from '../components/dev-hub/media-block';
 import Notification from '../components/dev-hub/notification';
+import Select from '../components/dev-hub/select';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
 import { colorMap, size, screenSize } from '../components/dev-hub/theme';
 
@@ -102,6 +103,26 @@ const InputStory = ({ narrow }) => {
         />
     );
 };
+const SelectStory = () => {
+    const [value, setValue] = useState('');
+    const handleValueChange = (v, t) => {
+        // const { value } = e.target;
+        setValue(v);
+    };
+    return (
+        <Select
+            name="test-select"
+            choices={[
+                ['A', 'Choice A'],
+                ['B', 'Choice B'],
+                ['C', 'Choice C'],
+            ]}
+            defaultText="Choose an option..."
+            value={value}
+            onChange={handleValueChange}
+        />
+    );
+};
 
 export default () => (
     <StorybookLayout>
@@ -134,6 +155,8 @@ export default () => (
             <br />
             <H4>Input (Narrow)</H4>
             <InputStory narrow />
+            <H4>Select</H4>
+            <SelectStory />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch
