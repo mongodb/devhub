@@ -12,6 +12,7 @@ import { colorMap, size, screenSize } from '../components/dev-hub/theme';
 import ShareIcon from '../components/dev-hub/share-icon';
 import FacebookIcon from '../components/dev-hub/facebook-icon';
 import TwitterIcon from '../components/dev-hub/twitter-icon';
+import EnvelopeIcon from '../components/dev-hub/envelope-icon';
 
 const cardProps = {
     gradient: false,
@@ -172,6 +173,7 @@ export default () => (
                 <ShareIcon color={colorMap.teal} />
                 <FacebookIcon color={colorMap.salmon} />
                 <TwitterIcon color={colorMap.violet} />
+                <EnvelopeIcon color={colorMap.magenta} />
             </CardRow>
         </StorybookContainer>
     </StorybookLayout>
