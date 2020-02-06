@@ -105,8 +105,7 @@ const InputStory = ({ narrow }) => {
 };
 const SelectStory = () => {
     const [value, setValue] = useState('');
-    const handleValueChange = (v, t) => {
-        // const { value } = e.target;
+    const handleValueChange = v => {
         setValue(v);
     };
     return (

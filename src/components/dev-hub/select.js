@@ -19,7 +19,7 @@ const activeSelectStyles = css`
 const Option = styled('div')`
     background-color: ${colorMap.greyDarkTwo};
     color: ${colorMap.greyLightTwo};
-    padding: ${size.small} ${size.medium};
+    padding: ${size.medium};
     :hover {
         background-color: ${colorMap.greyDarkOne};
         color: ${colorMap.devWhite};
@@ -28,6 +28,8 @@ const Option = styled('div')`
 
 const StyledCustomSelect = styled('div')`
     background-color: ${colorMap.greyDarkTwo};
+    /* Adding border without color to prevent jarring visual on expand */
+    border: 2px solid;
     color: ${colorMap.devWhite};
     cursor: pointer;
     ${({ showOptions }) => showOptions && activeSelectStyles};
@@ -41,7 +43,7 @@ const SelectedOption = styled('div')`
     padding: ${size.medium};
     ::after {
         content: ${({ showOptions }) =>
-            showOptions ? '"\u25b2";' : '"\u25bc";'};
+            showOptions ? '"\u2228";' : '"\u2227";'};
     }
 `;
 
