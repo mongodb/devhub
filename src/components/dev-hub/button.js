@@ -55,7 +55,7 @@ const ternaryStyles = css`
     }
 `;
 
-const ButtonImpl = ({ children, href, to, ...props }) => {
+const ButtonImpl = ({ children, href, primary, secondary, to, ...props }) => {
     // By default, a Button renders as a `button` tag.
     /**
      * @type {any} A component type to render
@@ -65,8 +65,9 @@ const ButtonImpl = ({ children, href, to, ...props }) => {
         type: 'button',
         tabIndex: 0,
     };
+    const isButton = !!(primary || secondary);
 
-    if (href || to) {
+    if (href || to || !isButton) {
         // If the Button has a `to` or a `href` prop, then it renders as a `Link` element,
         // @ts-ignore
         Component = Link;
