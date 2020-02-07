@@ -10,6 +10,10 @@ import Notification from '../components/dev-hub/notification';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
 import { colorMap, size, screenSize } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
+import ShareIcon from '../components/dev-hub/share-icon';
+import FacebookIcon from '../components/dev-hub/facebook-icon';
+import TwitterIcon from '../components/dev-hub/twitter-icon';
+import EnvelopeIcon from '../components/dev-hub/envelope-icon';
 
 const cardProps = {
     gradient: false,
@@ -106,7 +110,7 @@ export default () => (
             <Badge>Deep Dive</Badge>
             <SectionHeader>Buttons</SectionHeader>
             <Row>
-                <Button width="150px" href="#" primary>
+                <Button href="#" primary>
                     Join the Community (Primary)
                 </Button>
                 <Button secondary>Join the Community (Secondary)</Button>
@@ -174,6 +178,13 @@ export default () => (
                     <P bold>written by Author </P>
                     <P>preview preview preview</P>
                 </Card>
+            </Row>
+            <SectionHeader>Icons</SectionHeader>
+            <Row>
+                <ShareIcon color={colorMap.teal} />
+                <FacebookIcon color={colorMap.salmon} />
+                <TwitterIcon color={colorMap.violet} />
+                <EnvelopeIcon color={colorMap.magenta} />
             </Row>
         </StorybookContainer>
     </StorybookLayout>
