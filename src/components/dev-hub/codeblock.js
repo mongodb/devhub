@@ -20,6 +20,8 @@ const CodeBlockContainer = styled('div')`
 
 const CodeBlockContent = styled(Pre)`
     border: none;
+    border-radius: ${({ singleLine }) =>
+        singleLine ? `${size.small};` : `0 ${size.small} ${size.small} 0;`};
     flex: 1;
     width: calc(100% - ${size.default} - ${size.default});
 `;
@@ -27,6 +29,15 @@ const CodeBlockContent = styled(Pre)`
 const CodeBlockLine = styled(Pre)`
     background-color: ${colorMap.greyDarkTwo};
     border: none;
+    border-radius: ${size.small} 0 0 ${size.small};
+    border-image: linear-gradient(
+            270deg,
+            ${colorMap.orange} 0%,
+            ${colorMap.violet} 100%,
+            ${colorMap.magenta} 49.99%
+        )
+        1;
+    border-right: 1px solid;
 `;
 
 const CodeContainer = styled('div')`
@@ -76,7 +87,7 @@ const CodeBlock = ({ children }) => {
     return (
         <CodeBlockContainer>
             {!singleLine && <CodeBlockLines content={children} />}
-            <CodeBlockContent>
+            <CodeBlockContent singleLine={singleLine}>
                 <CodeContainer singleLine={singleLine}>
                     {children}
                 </CodeContainer>
