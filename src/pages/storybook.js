@@ -18,6 +18,7 @@ import ShareIcon from '../components/dev-hub/share-icon';
 import FacebookIcon from '../components/dev-hub/facebook-icon';
 import TwitterIcon from '../components/dev-hub/twitter-icon';
 import EnvelopeIcon from '../components/dev-hub/envelope-icon';
+import Tooltip from '../components/dev-hub/tooltip';
 
 const cardProps = {
     gradient: false,
@@ -260,5 +261,15 @@ export default () => (
                 <EnvelopeIcon color={colorMap.magenta} />
             </Row>
         </StorybookContainer>
+        <SectionHeader>ToolTip/Content Menus</SectionHeader>
+        <div>
+            <Tooltip right trigger={<ShareIcon />}>
+                I'm REVEALED!
+            </Tooltip>
+            <br />
+            <Tooltip bottom trigger={<P>Hover Over Me!</P>}>
+                I'm REVEALED AGAIN!
+            </Tooltip>
+        </div>
     </StorybookLayout>
 );
