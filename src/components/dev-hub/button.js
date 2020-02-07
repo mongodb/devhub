@@ -26,21 +26,40 @@ const secondaryHoverStyles = css`
     &:active,
     &:hover,
     &:focus {
-        ${borderGradients.violetMagenta}
+        border: 2px solid transparent;
+        // Create border gradient
+        &:before {
+            background: ${gradientMap.green};
+            border-radius: ${size.large};
+            bottom: -5px;
+            content: '';
+            height: calc(100% + ${size.small});
+            left: -6px;
+            position: absolute;
+            width: calc(100% + 12px);
+            z-index: -1;
+        }
     }
 `;
 
+const buttonPadding = css`
+    padding: ${size.default} ${size.medium};
+`;
+
 const primaryStyles = css`
-    background: ${gradientMap.violetMagenta};
+    background: ${gradientMap.green};
     text-decoration: none;
     ${buttonHoverStyles}
+    ${buttonPadding}
 `;
 
 const secondaryStyles = css`
     background: ${colorMap.greyDarkTwo};
     border: 2px solid ${colorMap.greyLightTwo};
+    position: relative;
     text-decoration: none;
     ${buttonHoverStyles}
+    ${buttonPadding}
     ${secondaryHoverStyles}
 `;
 
@@ -49,7 +68,7 @@ const ternaryStyles = css`
     &:active,
     &:hover,
     &:focus {
-        background: ${gradientMap.violetMagenta};
+        background: ${gradientMap.green};
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
@@ -82,19 +101,24 @@ const ButtonImpl = ({ children, href, primary, secondary, to, ...props }) => {
     );
 };
 
+// This wrapper is used to create the stacking context that helps
+// position border gradients (ie: secondary button)
+const ButtonWrapper = styled('div')`
+    border-radius: 30px;
+    display: inline;
+    z-index: ${layer.middle};
+`;
+
 const StyledButton = styled(ButtonImpl)`
-    box-shadow: none;
     border: none;
+    border-radius: ${size.large};
+    box-shadow: none;
     color: ${({ color }) => (color ? color : colorMap.devWhite)};
     cursor: pointer;
     font-size: ${fontSize.default};
-    height: 100%;
     padding: ${size.default};
     position: relative;
-    transition: .1s ease-in-out;
-    transition-delay: .02s;
     text-align: center;
-    z-index: ${layer.middle};
 
     ${({ primary }) => primary && primaryStyles}
     ${({ secondary }) => secondary && secondaryStyles}
@@ -113,7 +137,9 @@ const StyledButton = styled(ButtonImpl)`
  */
 
 const Button = ({ children, ...props }) => (
-    <StyledButton {...props}>{children}</StyledButton>
+    <ButtonWrapper>
+        <StyledButton {...props}>{children}</StyledButton>
+    </ButtonWrapper>
 );
 
 export default Button;
