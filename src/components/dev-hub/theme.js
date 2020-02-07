@@ -51,6 +51,12 @@ const colorMap = {
 };
 
 const gradientMap = {
+    green: `linear-gradient(
+        315deg,
+        ${colorMap.lightGreen} 0%,
+        ${colorMap.lightGreen} 40%,
+        ${colorMap.darkGreen} 100%
+    )`,
     greenTeal: `linear-gradient(
         270deg,
         ${colorMap.lightGreen} 0%,
