@@ -5,7 +5,7 @@ import { colorMap, fontSize, size } from './theme';
 
 const CloseIcon = styled(P)`
     color: ${colorMap.devWhite};
-    font-size: ${fontSize.micro};
+    font-size: ${fontSize.small};
     margin-left: auto;
     padding: ${size.default};
 
@@ -13,13 +13,20 @@ const CloseIcon = styled(P)`
     :hover {
         cursor: pointer;
     }
+
+    &:after {
+        content: '\u2715';
+    }
 `;
 
 const LiveNowBadgeContainer = styled('div')`
+    background-color: ${colorMap.greyDarkThree};
     border: 1px solid ${colorMap.lightGreen};
     border-radius: ${size.small};
+    color: ${colorMap.lightGreen};
     margin-right: ${size.small};
     padding: ${size.tiny} ${size.small};
+    text-transform: uppercase;
     &:before {
         /* 25cf is "SMALL DOT" */
         content: '\u25cf ';
@@ -36,7 +43,6 @@ const NotificationText = styled('div')`
 const StyledNotification = styled('div')`
     align-items: center;
     background-color: ${colorMap.greyDarkTwo};
-    border-radius: ${size.medium};
     display: flex;
     justify-content: center;
     opacity: 0.8;
@@ -66,9 +72,7 @@ const Notification = ({ link = null, notificationType = 'twitch' }) => {
                         us on Twitch!
                     </P>
                 </NotificationText>
-                <CloseIcon collapse onClick={dismissNotification}>
-                    X
-                </CloseIcon>
+                <CloseIcon collapse onClick={dismissNotification} />
             </StyledNotification>
         )
     );
