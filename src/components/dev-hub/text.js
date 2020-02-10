@@ -2,59 +2,57 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { fontSize, lineHeight, size } from './theme';
 
-/**
- *
- * @param {Object.string} param
- *  @param {string} bold should be bold weight
- *  @param {string} collapse should be if the margin is to be removed
- */
-const variants = ({ bold, collapse }) =>
-    css`
-        font-weight: ${bold ? 'bold' : 'normal'};
-        margin: ${collapse && 0};
-    `;
-
 const bottomMargin = css`
     margin: 0 0 ${size.default} 0;
 `;
 
+const noMargin = css`
+    margin: 0;
+`;
+
+const handleCollapse = ({ collapse }) => (collapse ? noMargin : bottomMargin);
+
+const commonHeading = css`
+    font-family: 'Fira Mono', monospace;
+    font-weight: bold;
+`;
+
 export const H1 = styled('h1')`
-    ${bottomMargin};
+    ${commonHeading}
     font-size: ${fontSize.h1};
-    font-family: 'Fira Mono', monospace;
     line-height: ${lineHeight.h1};
-    ${variants};
+    ${handleCollapse}
 `;
+
 export const H2 = styled('h2')`
-    ${bottomMargin};
+    ${commonHeading}
     font-size: ${fontSize.h2};
-    font-family: 'Fira Mono', monospace;
     line-height: ${lineHeight.h2};
-    ${variants};
+    ${handleCollapse}
 `;
+
 export const H3 = styled('h3')`
-    ${bottomMargin};
+    ${commonHeading}
     font-size: ${fontSize.h3};
-    font-family: 'Fira Mono', monospace;
     line-height: ${lineHeight.h3};
-    ${variants};
+    ${handleCollapse}
 `;
+
 export const H4 = styled('h4')`
-    ${bottomMargin};
+    ${commonHeading}
     font-size: ${fontSize.h4};
-    font-family: 'Fira Mono', monospace;
     line-height: ${lineHeight.h4};
-    ${variants};
+    ${handleCollapse}
 `;
+
 export const H5 = styled('h5')`
-    ${bottomMargin};
+    ${commonHeading}
     font-size: ${fontSize.h5};
-    font-family: 'Fira Mono', monospace;
     line-height: ${lineHeight.h5};
-    ${variants};
+    ${handleCollapse}
 `;
 
 export const P = styled('p')`
-    ${bottomMargin};
-    ${variants};
+    font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
+    ${handleCollapse}
 `;
