@@ -77,4 +77,6 @@ const layer = {
     superFront: 22,
 };
 
-export { colorMap, fontSize, layer, screenSize, size };
+const FORM_ELEMENT_BORDER = '2px';
+
+export { colorMap, fontSize, FORM_ELEMENT_BORDER, layer, screenSize, size };
