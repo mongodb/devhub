@@ -8,7 +8,8 @@ const StyledInput = styled('input')`
     color: ${colorMap.devWhite};
     font-size: ${fontSize.default};
     outline: none;
-    padding: ${size.medium};
+    padding: ${({ narrow }) =>
+        narrow ? `${size.small} ${size.medium}` : size.medium};
     width: calc(100% - ${size.medium} - ${size.medium});
 
     :focus {
@@ -35,14 +36,14 @@ const StyledInput = styled('input')`
     }
 `;
 
-const FormInput = ({ value, ...props }) => {
+const FormInput = ({ narrow, value, ...props }) => {
     const hasValue = !!value;
     return (
         <div>
             {props.placeholder && hasValue && (
                 <label>{props.placeholder}</label>
             )}
-            <StyledInput {...props} />
+            <StyledInput narrow={narrow} {...props} />
         </div>
     );
 };

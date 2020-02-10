@@ -87,14 +87,19 @@ const MediaBlockStory = ({ reverse }) => (
     </MediaBlock>
 );
 
-const InputStory = () => {
+const InputStory = ({ narrow }) => {
     const [value, setValue] = useState('');
     const onChange = e => {
         const { value } = e.target;
         setValue(value);
     };
     return (
-        <Input value={value} placeholder="Email Address" onChange={onChange} />
+        <Input
+            narrow={narrow}
+            value={value}
+            placeholder="Email Address"
+            onChange={onChange}
+        />
     );
 };
 
@@ -126,6 +131,9 @@ export default () => (
             <SectionHeader>Form Elements</SectionHeader>
             <H4>Input</H4>
             <InputStory />
+            <br />
+            <H4>Input (Narrow)</H4>
+            <InputStory narrow />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch
