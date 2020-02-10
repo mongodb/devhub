@@ -1,14 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import {
-    borderGradients,
-    colorMap,
-    gradientMap,
-    size,
-    layer,
-    fontSize,
-} from './theme';
+import { colorMap, gradientMap, size, layer, fontSize } from './theme';
 import Link from './link';
 
 // TODO: Finalize hover effect when design complete
@@ -16,7 +9,7 @@ const buttonHoverStyles = css`
     &:active,
     &:hover,
     &:focus {
-        // override Link hover styles if button is a link
+        /* override Link hover styles if button is a link */
         color: ${colorMap.devWhite};
     }
 `;
@@ -27,7 +20,7 @@ const secondaryHoverStyles = css`
     &:hover,
     &:focus {
         border: 2px solid transparent;
-        // Create border gradient
+        /* Create border gradient */
         &:before {
             background: ${gradientMap.green};
             border-radius: ${size.large};
@@ -63,7 +56,7 @@ const secondaryStyles = css`
     ${secondaryHoverStyles}
 `;
 
-const ternaryStyles = css`
+const tertiaryStyles = css`
     background: transparent;
     &:active,
     &:hover,
@@ -101,14 +94,6 @@ const ButtonImpl = ({ children, href, primary, secondary, to, ...props }) => {
     );
 };
 
-// This wrapper is used to create the stacking context that helps
-// position border gradients (ie: secondary button)
-const ButtonWrapper = styled('div')`
-    border-radius: 30px;
-    display: inline;
-    z-index: ${layer.middle};
-`;
-
 const StyledButton = styled(ButtonImpl)`
     border: none;
     border-radius: ${size.large};
@@ -122,7 +107,7 @@ const StyledButton = styled(ButtonImpl)`
 
     ${({ primary }) => primary && primaryStyles}
     ${({ secondary }) => secondary && secondaryStyles}
-    ${({ primary, secondary }) => !primary && !secondary && ternaryStyles}
+    ${({ primary, secondary }) => !primary && !secondary && tertiaryStyles}
 `;
 
 /**
@@ -137,9 +122,7 @@ const StyledButton = styled(ButtonImpl)`
  */
 
 const Button = ({ children, ...props }) => (
-    <ButtonWrapper>
-        <StyledButton {...props}>{children}</StyledButton>
-    </ButtonWrapper>
+    <StyledButton {...props}>{children}</StyledButton>
 );
 
 export default Button;
