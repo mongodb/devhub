@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Badge from '../components/dev-hub/badge';
 import { StorybookLayout } from '../components/dev-hub/layout';
 import Card from '../components/dev-hub/card';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
+import Input from '../components/dev-hub/input';
 import MediaBlock from '../components/dev-hub/media-block';
 import Notification from '../components/dev-hub/notification';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
@@ -90,6 +91,22 @@ const MediaBlockStory = ({ reverse }) => (
     </MediaBlock>
 );
 
+const InputStory = ({ narrow }) => {
+    const [value, setValue] = useState('');
+    const onChange = e => {
+        const { value } = e.target;
+        setValue(value);
+    };
+    return (
+        <Input
+            narrow={narrow}
+            value={value}
+            placeholder="Email Address"
+            onChange={onChange}
+        />
+    );
+};
+
 export default () => (
     <StorybookLayout>
         <StorybookContainer>
@@ -115,6 +132,12 @@ export default () => (
             <MediaBlockStory />
             <SectionHeader>Media Block (reverse)</SectionHeader>
             <MediaBlockStory reverse />
+            <SectionHeader>Form Elements</SectionHeader>
+            <H4>Input</H4>
+            <InputStory />
+            <br />
+            <H4>Input (Narrow)</H4>
+            <InputStory narrow />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch
