@@ -6,7 +6,7 @@ import { colorMap, fontSize, size } from './theme';
 /* TODO: Update font once decided */
 const BadgeText = styled(P)`
     background: ${colorMap.greyDarkThree};
-    font-size: ${fontSize.xsmall};
+    font-size: ${fontSize.micro};
     font-weight: bold;
     letter-spacing: 1px;
     padding: ${size.tiny} ${size.small};

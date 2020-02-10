@@ -2,21 +2,17 @@ import React from 'react';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Link as GatsbyLink } from 'gatsby';
-import { colorMap, size } from './theme';
+import { colorMap, fontSize, lineHeight, size } from './theme';
 
 const globalStyles = css`
     body {
         background: ${colorMap.devBlack};
         color: ${colorMap.devWhite};
-        font-family: 'Fira Mono Bold', 'Space Mono Bold', 'Source Code Pro';
-    }
-    /* Need overrides for guides.css styles */
-    h1,
-    h2,
-    h3,
-    h4 {
-        border: none;
-        font-family: 'Fira Mono Bold', 'Space Mono Bold', 'Source Code Pro';
+        font-family: akzidenz, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+            Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+            'Segoe UI Symbol';
+        font-size: ${fontSize.default};
+        line-height: ${lineHeight.default};
     }
 `;
 

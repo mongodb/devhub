@@ -10,6 +10,10 @@ import MediaBlock from '../components/dev-hub/media-block';
 import Notification from '../components/dev-hub/notification';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
 import { colorMap, size, screenSize } from '../components/dev-hub/theme';
+import ShareIcon from '../components/dev-hub/share-icon';
+import FacebookIcon from '../components/dev-hub/facebook-icon';
+import TwitterIcon from '../components/dev-hub/twitter-icon';
+import EnvelopeIcon from '../components/dev-hub/envelope-icon';
 
 const cardProps = {
     gradient: false,
@@ -108,7 +112,7 @@ export default () => (
         <StorybookContainer>
             <H1>DevHub Component "Storybook"</H1>
             <SectionHeader>Text</SectionHeader>
-            <H1 collapse>Heading 1</H1>
+            <H1>Heading 1</H1>
             <H2>Heading 2</H2>
             <H3>Heading 3</H3>
             <H4>Heading 4</H4>
@@ -186,6 +190,13 @@ export default () => (
                     <P bold>written by Author </P>
                     <P>preview preview preview</P>
                 </Card>
+            </CardRow>
+            <SectionHeader>Icons</SectionHeader>
+            <CardRow>
+                <ShareIcon color={colorMap.teal} />
+                <FacebookIcon color={colorMap.salmon} />
+                <TwitterIcon color={colorMap.violet} />
+                <EnvelopeIcon color={colorMap.magenta} />
             </CardRow>
         </StorybookContainer>
     </StorybookLayout>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
+import { P } from './dev-hub/text';
 
 const SKIP_P_TAGS = ['caption', 'listItem', 'listTable', 'footnote'];
 
@@ -12,11 +13,11 @@ const Paragraph = ({ nodeData, parentNode, ...rest }) => {
         ));
     }
     return (
-        <p>
+        <P>
             {nodeData.children.map((element, index) => (
                 <ComponentFactory {...rest} nodeData={element} key={index} />
             ))}
-        </p>
+        </P>
     );
 };
 

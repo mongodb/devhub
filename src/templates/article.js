@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentBody from '../components/DocumentBody';
+import Layout from '../components/dev-hub/layout';
 
 const Article = props => {
     const {
@@ -10,15 +11,16 @@ const Article = props => {
         },
         ...rest
     } = props;
+    console.log(props);
 
     return (
-        <div className="article">
+        <Layout>
             <DocumentBody
                 refDocMapping={__refDocMapping}
                 slugTitleMapping={slugTitleMapping}
                 {...rest}
             />
-        </div>
+        </Layout>
     );
 };
 
