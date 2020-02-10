@@ -22,9 +22,8 @@ const HTML = ({
             <meta name="robots" content="index" />
             <meta name="release" content="1.0" />
             <meta name="version" content="master" />
-
             <link
-                href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap"
+                href="https://fonts.googleapis.com/css?family=Fira+Mono:500,700&display=swap"
                 rel="stylesheet"
             />
             <link

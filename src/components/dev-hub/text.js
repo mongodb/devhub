@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { fontSize, size } from './theme';
+import { fontSize, lineHeight, size } from './theme';
 
 /**
  *
@@ -21,21 +21,36 @@ const bottomMargin = css`
 export const H1 = styled('h1')`
     ${bottomMargin};
     font-size: ${fontSize.h1};
+    font-family: 'Fira Mono', monospace;
+    line-height: ${lineHeight.h1};
     ${variants};
 `;
 export const H2 = styled('h2')`
     ${bottomMargin};
     font-size: ${fontSize.h2};
+    font-family: 'Fira Mono', monospace;
+    line-height: ${lineHeight.h2};
     ${variants};
 `;
 export const H3 = styled('h3')`
     ${bottomMargin};
     font-size: ${fontSize.h3};
+    font-family: 'Fira Mono', monospace;
+    line-height: ${lineHeight.h3};
     ${variants};
 `;
 export const H4 = styled('h4')`
     ${bottomMargin};
     font-size: ${fontSize.h4};
+    font-family: 'Fira Mono', monospace;
+    line-height: ${lineHeight.h4};
+    ${variants};
+`;
+export const H5 = styled('h5')`
+    ${bottomMargin};
+    font-size: ${fontSize.h5};
+    font-family: 'Fira Mono', monospace;
+    line-height: ${lineHeight.h5};
     ${variants};
 `;
 
