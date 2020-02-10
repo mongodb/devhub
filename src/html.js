@@ -24,7 +24,7 @@ const HTML = ({
             <meta name="version" content="master" />
 
             <link
-                href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap"
+                href="https://fonts.googleapis.com/css?family=Fira+Mono:700&display=swap"
                 rel="stylesheet"
             />
             <link

@@ -1,0 +1,7 @@
+@font-face {
+    font-display: swap;
+    font-family: akzidenz;
+    font-weight: bold;
+    src: url('./fonts/akzidgrostdlig-webfont.woff2') format('woff2'),
+        url('./fonts/akzidgrostdlig-webfont.woff') format('woff');
+}

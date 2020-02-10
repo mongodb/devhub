@@ -2,13 +2,14 @@ import React from 'react';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Link as GatsbyLink } from 'gatsby';
+import './font.css';
 import { colorMap, size } from './theme';
 
 const globalStyles = css`
     body {
         background: ${colorMap.devBlack};
         color: ${colorMap.devWhite};
-        font-family: 'Source Code Pro', monospace;
+        font-family: akzidenz;
     }
     /* Need overrides for guides.css styles */
     h1,
@@ -16,7 +17,7 @@ const globalStyles = css`
     h3,
     h4 {
         border: none;
-        font-family: 'Source Code Pro', monospace;
+        font-family: 'Fira Mono', monospace;
     }
 `;
 

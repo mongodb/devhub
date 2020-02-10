@@ -8,10 +8,11 @@ const fontSize = {
     tiny: '12px',
     small: '14px',
     default: '16px',
-    h1: '48px',
-    h2: '30px',
-    h3: '24px',
-    h4: '20px',
+    h1: '42px',
+    h2: '36px',
+    h3: '30px',
+    h4: '24px',
+    h5: '20px',
     tabNav: '10px',
 };
 /**
