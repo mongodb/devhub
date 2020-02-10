@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { P } from './text';
 import { colorMap, size } from './theme';
 
-const OPTIONS_POSITION_OFFSET = 59;
+const OPTIONS_POSITION_OFFSET = 36;
 
 const activeSelectStyles = css`
     border: 2px solid;
@@ -21,7 +21,8 @@ const activeSelectStyles = css`
 const Option = styled('li')`
     background-color: ${colorMap.greyDarkTwo};
     color: ${colorMap.greyLightTwo};
-    padding: ${size.medium};
+    padding: ${({ narrow }) =>
+        narrow ? `${size.small} ${size.medium}` : size.medium};
     display: block;
     :hover {
         background-color: ${colorMap.greyDarkOne};
@@ -63,7 +64,8 @@ const SelectedOption = styled('div')`
     color: ${colorMap.devWhite};
     display: flex;
     justify-content: space-between;
-    padding: ${size.medium};
+    padding: ${({ narrow }) =>
+        narrow ? `${size.small} ${size.medium}` : size.medium};
     ::after {
         content: ${({ showOptions }) =>
             showOptions ? '"\u2228";' : '"\u2227";'};
@@ -75,6 +77,7 @@ const FormSelect = ({
     choices = [],
     defaultText = '',
     errors = [],
+    narrow = false,
     onChange = null,
     validationStatus = null,
     value = '',
@@ -98,6 +101,7 @@ const FormSelect = ({
         <StyledCustomSelect showOptions={showOptions}>
             <SelectedOption
                 name={name}
+                narrow={narrow}
                 value={selectValue}
                 validationStatus={validationStatus}
                 errors={errors}
@@ -112,8 +116,9 @@ const FormSelect = ({
                     {choices.map(([choiceValue, text]) => (
                         <Option
                             key={choiceValue}
-                            value={choiceValue}
+                            narrow={narrow}
                             onClick={() => optionOnClick(choiceValue, text)}
+                            value={choiceValue}
                         >
                             {text}
                         </Option>

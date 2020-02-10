@@ -103,7 +103,7 @@ const InputStory = ({ narrow }) => {
         />
     );
 };
-const SelectStory = () => {
+const SelectStory = ({ narrow }) => {
     const [value, setValue] = useState('');
     const handleValueChange = v => {
         setValue(v);
@@ -111,6 +111,7 @@ const SelectStory = () => {
     return (
         <Select
             name="test-select"
+            narrow={narrow}
             choices={[
                 ['A', 'Choice A'],
                 ['B', 'Choice B'],
@@ -156,6 +157,9 @@ export default () => (
             <InputStory narrow />
             <H4>Select</H4>
             <SelectStory />
+            <br />
+            <H4>Select (Narrow)</H4>
+            <SelectStory narrow />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch
