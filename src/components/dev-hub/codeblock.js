@@ -6,7 +6,6 @@ import { Pre } from './text';
 import { size, colorMap } from './theme';
 
 const wrapSingle = css`
-    padding-bottom: ${size.default};
     overflow-x: scroll;
     white-space: pre;
     word-break: keep-all;
