@@ -123,9 +123,9 @@ const tertiaryStyles = css`
 const ButtonImpl = ({
     children,
     href,
+    play,
     primary,
     secondary,
-    play,
     to,
     ...props
 }) => {
