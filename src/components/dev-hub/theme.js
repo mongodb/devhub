@@ -105,11 +105,11 @@ const gradientMap = {
         ${colorMap.magenta} 100%
     )`,
     violentMagentaOrange: `linear-gradient(
-                270deg,
-                ${colorMap.violet} 0%,
-                ${colorMap.magenta} 49.99%,
-                ${colorMap.orange} 100%
-            )`,
+        270deg,
+        ${colorMap.violet} 0%,
+        ${colorMap.magenta} 49.99%,
+        ${colorMap.orange} 100%
+    )`,
     violetMagentaReverse: `linear-gradient(
         270deg,
         ${colorMap.magenta} 0%,

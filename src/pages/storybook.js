@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Badge from '../components/dev-hub/badge';
 import Breadcrumb from '../components/dev-hub/breadcrumb';
+import Blockquote from '../components/dev-hub/blockquote';
 import { StorybookLayout } from '../components/dev-hub/layout';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
@@ -139,6 +140,20 @@ const BreadcrumbStory = () => {
     ];
     return <Breadcrumb>{breadcrumbs}</Breadcrumb>;
 };
+const BlockQuoteStory = () => (
+    <Blockquote
+        nodeData={{
+            children: [
+                {
+                    name: 'text',
+                    type: 'text',
+                    value:
+                        "If you didn't set up your free cluster on MongoDB Atlas, now is a great time to do so. You have all the instructions in this blog post.",
+                },
+            ],
+        }}
+    ></Blockquote>
+);
 
 export default () => (
     <StorybookLayout>
@@ -150,6 +165,8 @@ export default () => (
             <H3>Heading 3</H3>
             <H4>Heading 4</H4>
             <P>Paragraph</P>
+            <SectionHeader>Block Quote</SectionHeader>
+            <BlockQuoteStory />
             <SectionHeader>Content Label</SectionHeader>
             <Badge>How-To</Badge>
             <Badge>Quick Start</Badge>
