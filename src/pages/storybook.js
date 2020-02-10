@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Badge from '../components/dev-hub/badge';
 import { StorybookLayout } from '../components/dev-hub/layout';
 import Card from '../components/dev-hub/card';
+import CodeBlock from '../components/dev-hub/codeblock';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
@@ -126,6 +127,15 @@ export default () => (
             <Badge>Deep Dive</Badge>
             <SectionHeader>Notification</SectionHeader>
             <Notification />
+            <SectionHeader>Code Block</SectionHeader>
+            <CodeBlock>{['Example code, without a new line']}</CodeBlock>
+            <CodeBlock>{['Example code\n', 'With multiple lines\n']}</CodeBlock>
+            <CodeBlock>
+                {[
+                    'Lets try out a really really really long block of text this should overflow ',
+                    'Lets try out a really really really long block of text this should overflow',
+                ]}
+            </CodeBlock>
             <SectionHeader>Links</SectionHeader>
             <Link primary>Hello World</Link>
             <SectionHeader>Media Block</SectionHeader>

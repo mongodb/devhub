@@ -1,6 +1,18 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { fontSize, lineHeight, size } from './theme';
+import { colorMap, lineHeight, fontSize, size } from './theme';
+
+const pre = css`
+    background-color: ${colorMap.devBlack};
+    border: 1px solid ${colorMap.bluebirdMedium};
+    border-left-width: 3px;
+    color: ${colorMap.devWhite};
+    font-family: 'Source Code Pro', monospace;
+    margin: 0 0 ${size.default} 0;
+    padding: ${size.default};
+    white-space: pre-wrap;
+    word-wrap: break-word;
+`;
 
 const bottomMargin = css`
     margin: 0 0 ${size.default} 0;
@@ -51,8 +63,10 @@ export const H5 = styled('h5')`
     line-height: ${lineHeight.h5};
     ${handleCollapse}
 `;
-
 export const P = styled('p')`
     font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
     ${handleCollapse}
+`;
+export const Pre = styled('pre')`
+    ${pre};
 `;
