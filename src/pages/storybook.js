@@ -212,6 +212,59 @@ export default () => (
                     </P>
                 </Swatch>
             ))}
+            <SectionHeader>ToolTip/Content Menus</SectionHeader>
+            <CardRow>
+                <Tooltip position={'right'} trigger={<ShareIcon />}>
+                    <div>
+                        <FacebookIcon color={colorMap.salmon} />
+                        <TwitterIcon color={colorMap.teal} />
+                        <EnvelopeIcon color={colorMap.lightGreen} />
+                    </div>
+                </Tooltip>
+                <Tooltip
+                    position={'right'}
+                    trigger={<ShareIcon color={colorMap.yellow} />}
+                >
+                    <div>
+                        <H2 bold>Title</H2>
+                        <P>I'm REVEALED AGAIN!</P>
+                        <P>I'm REVEALED AGAIN!</P>
+                        <P>I'm REVEALED AGAIN!</P>
+                        <P>I'm REVEALED AGAIN!</P>
+                        <P>I'm REVEALED AGAIN!</P>
+                        <P>I'm REVEALED AGAIN!</P>
+                        <P>I'm REVEALED AGAIN!</P>
+                        <P>I'm REVEALED AGAIN!</P>
+                        <P>I'm REVEALED AGAIN!</P>
+                        <P>I'm REVEALED AGAIN!</P>
+                    </div>
+                </Tooltip>
+                <Tooltip
+                    position={'top'}
+                    trigger={<ShareIcon color={colorMap.yellow} />}
+                >
+                    <div>
+                        <H2 bold>Title</H2>
+                        <P>I'm REVEALED AGAIN!</P>
+                    </div>
+                </Tooltip>
+                <Tooltip
+                    position={'bottom'}
+                    trigger={<ShareIcon color={colorMap.lightGreen} />}
+                >
+                    I'm REVEALED!
+                </Tooltip>
+                <Tooltip position={'left'} trigger={'Click on Me!'}>
+                    I'm REVEALED AGAIN!
+                </Tooltip>
+            </CardRow>
+            <SectionHeader>Icons</SectionHeader>
+            <CardRow>
+                <ShareIcon color={colorMap.teal} />
+                <FacebookIcon color={colorMap.salmon} />
+                <TwitterIcon color={colorMap.violet} />
+                <EnvelopeIcon color={colorMap.magenta} />
+            </CardRow>
             <SectionHeader>Cards</SectionHeader>
             <Row>
                 <Card distinct {...cardProps}>
@@ -261,15 +314,5 @@ export default () => (
                 <EnvelopeIcon color={colorMap.magenta} />
             </Row>
         </StorybookContainer>
-        <SectionHeader>ToolTip/Content Menus</SectionHeader>
-        <div>
-            <Tooltip right trigger={<ShareIcon />}>
-                I'm REVEALED!
-            </Tooltip>
-            <br />
-            <Tooltip bottom trigger={<P>Hover Over Me!</P>}>
-                I'm REVEALED AGAIN!
-            </Tooltip>
-        </div>
     </StorybookLayout>
 );

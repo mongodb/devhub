@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled-base';
 import { css } from '@emotion/core';
+import Popover, { ArrowContainer } from 'react-tiny-popover';
 import { colorMap, layer, size } from './theme';
 
 /* needs
@@ -10,74 +11,94 @@ import { colorMap, layer, size } from './theme';
 - tooltip can be in different directions: start with bottom && right
 */
 
-const DISTANCE_FROM_TRIGGER = '35px';
-
-const bottomHoverStyles = css`
-    top: ${DISTANCE_FROM_TRIGGER};
-    transition: 0.1s ease-out;
-`;
-
-const bottomStyles = css`
-    left: 0;
-    top: ${size.medium};
-    transition: 0.1s ease-out;
-`;
-
-const rightHoverStyles = css`
-    left: ${DISTANCE_FROM_TRIGGER};
-    transition: 0.1s ease-out;
-`;
-
-const rightStyles = css`
-    left: ${size.medium};
-    top: -${size.tiny};
+const gradient = css`
+    linear-gradient(
+        315deg,
+        ${colorMap.violet} 0%,
+        ${colorMap.magenta} 40%,
+        ${colorMap.orange} 100%
+    )
 `;
 
 const Content = styled('div')`
     background: ${colorMap.greyDarkOne};
-    opacity: 0;
-    position: absolute;
-    visibility: hidden;
-    z-index: ${layer.middle};
-
-    ${({ right }) => right && rightStyles}
-    ${({ bottom }) => bottom && bottomStyles}
+    border: 2px solid;
+    border-image: ${gradient};
+    border-image-slice: 1;
+    color: ${colorMap.devWhite};
+    max-width: 500px;
+    padding: ${size.medium} ${size.default};
 `;
 
-const Trigger = styled('span')`
-    cursor: pointer;
-`;
-
-const ToolTipWrapper = styled('div')`
-    position: relative;
-    &:active,
-    &:focus, 
-    &:hover {
-        [data-name="${({ id }) => id}"] {
-            visibility: visible;
-            opacity: 1;
-            ${({ right }) => right && rightHoverStyles}
-            ${({ bottom }) => bottom && bottomHoverStyles}
-        }
-    }
-`;
 
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children
- * @property {boolean} props.right
- * @property {boolean} props.bottom
+ * @property {string} props.position
+ * @property {node} props.trigger
  */
 
-const Tooltip = ({ bottom, children, right, trigger }) => {
-    const tooltipId = 'tooltip-' + Math.random() * Math.floor(1000);
+const Tooltip = ({ children, position, trigger }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const width = 80;
+    const height = 80;
+    const targetRect = {
+        width: 60,
+        height: 60,
+        top: 10,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    };
+    const targetMap = {
+        bottom: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
+        left: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
+        right: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
+        top: { height, width },
+    };
+    const popOverMap = {
+        bottom: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
+        left: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
+        right: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
+        top: { height, width },
+    };
+    const styleMap = {
+        bottom: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
+        left: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
+        right: { left: "2px"},
+        top: { bottom: "2px", left: '70px' },
+    }
+    const tooltipLocation = {
+        bottom: {},
+        left: {},
+        right: { top: 0},
+        top: {}
+    }
+
     return (
-        <ToolTipWrapper bottom={bottom} right={right} id={tooltipId}>
-            <Trigger>{trigger}</Trigger>
-            <Content bottom={bottom} right={right} data-name={tooltipId}>
-                {children}
-            </Content>
-        </ToolTipWrapper>
+        <Popover
+            content={
+                <ArrowContainer
+                    arrowSize={10}
+                    position={position}
+                    arrowColor={colorMap.greyDarkOne}
+                    targetRect={targetMap[position]}
+                    popoverRect={popOverMap[position]}
+                    arrowStyle={styleMap[position]}
+                >
+                    <Content>{children}</Content>
+                </ArrowContainer>
+            }
+            containerStyle={{zIndex: layer.superFront}}
+            disableReposition
+            isOpen={isOpen}
+            onClickOutside={() => setIsOpen(false)}
+            padding={10}
+            position={position}
+            transitionDuration={0.15}
+        >
+            <span onClick={() => setIsOpen(true)}>{trigger}</span>
+        </Popover>
     );
 };
 
