@@ -22,7 +22,7 @@ const CloseIcon = styled(P)`
 const LiveNowBadgeContainer = styled('div')`
     background-color: ${colorMap.greyDarkThree};
     border: 1px solid ${colorMap.salmon};
-    border-radius: ${size.small};
+    border-radius: ${size.medium};
     color: ${colorMap.salmon};
     margin-right: ${size.small};
     padding: ${size.tiny} ${size.small};
