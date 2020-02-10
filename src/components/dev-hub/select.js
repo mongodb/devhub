@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { P } from './text';
-import { colorMap, size } from './theme';
+import { colorMap, layer, size } from './theme';
 
-const OPTIONS_POSITION_OFFSET = 36;
+const OPTIONS_POSITION_OFFSET = 58;
+const OPTIONS_POSITION_OFFSET_NARROW = 36;
 
 const activeSelectStyles = css`
     border: 2px solid;
@@ -21,9 +22,9 @@ const activeSelectStyles = css`
 const Option = styled('li')`
     background-color: ${colorMap.greyDarkTwo};
     color: ${colorMap.greyLightTwo};
+    display: block;
     padding: ${({ narrow }) =>
         narrow ? `${size.small} ${size.medium}` : size.medium};
-    display: block;
     :hover {
         background-color: ${colorMap.greyDarkOne};
         color: ${colorMap.devWhite};
@@ -45,8 +46,12 @@ const Options = styled('ul')`
     padding: 0;
     position: absolute;
     margin: 0;
-    top: ${OPTIONS_POSITION_OFFSET}px;
+    top: ${({ narrow }) =>
+        narrow
+            ? `${OPTIONS_POSITION_OFFSET_NARROW}px`
+            : `${OPTIONS_POSITION_OFFSET}px`};
     width: 100%;
+    z-index: ${layer.middle};
 `;
 
 const StyledCustomSelect = styled('div')`
@@ -67,12 +72,16 @@ const SelectedOption = styled('div')`
     padding: ${({ narrow }) =>
         narrow ? `${size.small} ${size.medium}` : size.medium};
     ::after {
+        height: ${size.small};
         content: ${({ showOptions }) =>
-            showOptions ? '"\u2228";' : '"\u2227";'};
+            showOptions ? '"\u2193";' : '"\u2191";'};
+        font-family: 'Fira Mono', monospace;
     }
+    position: relative;
 `;
 
 const FormSelect = ({
+    children,
     name,
     choices = [],
     defaultText = '',
@@ -89,35 +98,69 @@ const FormSelect = ({
     const selectOnClick = useCallback(() => {
         setShowOptions(!showOptions);
     }, [showOptions]);
-    const optionOnClick = (value, text) => {
-        setSelectValue(value);
-        setSelectText(text);
-        if (onChange) {
-            onChange(value, text);
-        }
-        setShowOptions(false);
-    };
+
+    const showOptionsOnEnter = useCallback(
+        e => {
+            const enterKey = 13;
+            if (e.keyCode === enterKey) {
+                selectOnClick();
+            }
+        },
+        [selectOnClick]
+    );
+
+    const optionOnClick = useCallback(
+        (value, text) => {
+            setSelectValue(value);
+            setSelectText(text);
+            if (onChange) {
+                onChange(value, text);
+            }
+            setShowOptions(false);
+        },
+        [onChange]
+    );
+
+    const optionOnEnter = useCallback(
+        (v, t) => e => {
+            const enterKey = 13;
+            if (e.keyCode === enterKey) {
+                optionOnClick(v, t);
+            }
+        },
+        [optionOnClick]
+    );
+
+    const selectOptions = choices.length ? choices : children;
     return (
-        <StyledCustomSelect showOptions={showOptions}>
+        <StyledCustomSelect
+            aria-expanded={showOptions}
+            onClick={selectOnClick}
+            onKeyDown={showOptionsOnEnter}
+            role="listbox"
+            showOptions={showOptions}
+            tabIndex="0"
+        >
             <SelectedOption
+                errors={errors}
                 name={name}
                 narrow={narrow}
-                value={selectValue}
-                validationStatus={validationStatus}
-                errors={errors}
-                onClick={selectOnClick}
                 showOptions={showOptions}
+                validationStatus={validationStatus}
+                value={selectValue}
                 {...extraProps}
             >
                 <P collapse>{selectText}</P>
             </SelectedOption>
             {showOptions && (
-                <Options>
-                    {choices.map(([choiceValue, text]) => (
+                <Options narrow={narrow}>
+                    {selectOptions.map(([choiceValue, text]) => (
                         <Option
                             key={choiceValue}
                             narrow={narrow}
                             onClick={() => optionOnClick(choiceValue, text)}
+                            onKeyDown={optionOnEnter(choiceValue, text)}
+                            tabIndex="0"
                             value={choiceValue}
                         >
                             {text}
