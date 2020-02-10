@@ -10,6 +10,9 @@ const DocumentBody = ({
     substitutions,
 }) => {
     const pageNodes = getNestedValue(['ast', 'children'], refDocMapping) || [];
+    console.group('DocumentBody pageNodes');
+    console.log(pageNodes);
+    console.groupEnd();
     return (
         <React.Fragment>
             {pageNodes.map((child, index) => (

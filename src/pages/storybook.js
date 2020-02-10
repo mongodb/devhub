@@ -95,7 +95,7 @@ export default () => (
         <StorybookContainer>
             <H1>DevHub Component "Storybook"</H1>
             <SectionHeader>Text</SectionHeader>
-            <H1 collapse>Heading 1</H1>
+            <H1>Heading 1</H1>
             <H2>Heading 2</H2>
             <H3>Heading 3</H3>
             <H4>Heading 4</H4>
