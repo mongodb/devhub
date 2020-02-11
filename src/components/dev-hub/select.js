@@ -3,20 +3,15 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { P } from './text';
-import { colorMap, layer, size } from './theme';
+import { colorMap, gradientMap, layer, size } from './theme';
 
+const BORDER_SIZE = 2;
 const OPTIONS_POSITION_OFFSET = 58;
-const OPTIONS_POSITION_OFFSET_NARROW = 36;
+const OPTIONS_POSITION_OFFSET_NARROW = 48;
 
 const activeSelectStyles = css`
-    border: 2px solid;
-    border-image: linear-gradient(
-            270deg,
-            ${colorMap.violet} 0%,
-            ${colorMap.magenta} 49.99%,
-            ${colorMap.orange} 100%
-        )
-        1;
+    border: ${BORDER_SIZE}px solid;
+    border-image: ${gradientMap.violentMagentaOrange} 1;
 `;
 
 const Option = styled('li')`
@@ -33,17 +28,11 @@ const Option = styled('li')`
 `;
 
 const Options = styled('ul')`
-    border: 2px solid;
-    border-image: linear-gradient(
-            270deg,
-            ${colorMap.violet} 0%,
-            ${colorMap.magenta} 49.99%,
-            ${colorMap.orange} 100%
-        )
-        1;
+    border: ${BORDER_SIZE}px solid;
+    border-image: ${gradientMap.violentMagentaOrange} 1;
     border-top: none;
-    /* -2px to account for border above */
-    left: -2px;
+    /* account for border above */
+    left: -${BORDER_SIZE}px;
     padding: 0;
     position: absolute;
     margin: 0;
@@ -58,7 +47,7 @@ const Options = styled('ul')`
 const StyledCustomSelect = styled('div')`
     background-color: ${colorMap.greyDarkTwo};
     /* Adding border without color to prevent jarring visual on expand */
-    border: 2px solid transparent;
+    border: ${BORDER_SIZE}px solid transparent;
     color: ${colorMap.devWhite};
     cursor: pointer;
     font-family: 'Fira Mono', monospace;
@@ -73,13 +62,13 @@ const SelectedOption = styled('div')`
     justify-content: space-between;
     padding: ${({ narrow }) =>
         narrow ? `${size.small} ${size.medium}` : size.medium};
+    position: relative;
     ::after {
         height: ${size.small};
         content: ${({ showOptions }) =>
             showOptions ? '"\u2191";' : '"\u2193";'};
         font-family: 'Fira Mono', monospace;
     }
-    position: relative;
 `;
 
 const FormSelect = ({
