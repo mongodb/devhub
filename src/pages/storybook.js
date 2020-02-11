@@ -20,6 +20,7 @@ import ListIcon from '../components/dev-hub/list-icon';
 import TwitterIcon from '../components/dev-hub/twitter-icon';
 import EnvelopeIcon from '../components/dev-hub/envelope-icon';
 import Tooltip from '../components/dev-hub/tooltip';
+import ContentsMenu from '../components/dev-hub/contents-menu';
 
 const cardProps = {
     gradient: false,
@@ -226,22 +227,7 @@ export default () => (
                         <EnvelopeIcon color={colorMap.lightGreen} />
                     </div>
                 </Tooltip>
-                <Tooltip
-                    hasGradientBorder
-                    position={'right'}
-                    trigger={<ShareIcon color={colorMap.yellow} />}
-                >
-                    <div>
-                        <H2 bold>Title</H2>
-                        <P>I'm REVEALED AGAIN!</P>
-                        <P>I'm REVEALED AGAIN!</P>
-                        <P>I'm REVEALED AGAIN!</P>
-                        <P>I'm REVEALED AGAIN!</P>
-                        <P>I'm REVEALED AGAIN!</P>
-                        <P>I'm REVEALED AGAIN!</P>
-                        <P>I'm REVEALED AGAIN!</P>
-                    </div>
-                </Tooltip>
+                <ContentsMenu />
                 <Tooltip
                     hasGradientBorder
                     position={'top'}

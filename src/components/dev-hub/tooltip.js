@@ -20,6 +20,10 @@ const defaultBorder = css`
     border-color: ${colorMap.greyLightTwo};
 `;
 
+const Trigger = styled('span')`
+    cursor: pointer;
+`;
+
 const Content = styled('div')`
     background: ${colorMap.greyDarkOne};
     border: 2px solid;
@@ -143,7 +147,7 @@ const Tooltip = ({ children, hasGradientBorder, position, trigger }) => {
             }
             {...tooltipProps}
         >
-            <span onClick={() => setIsOpen(true)}>{trigger}</span>
+            <Trigger onClick={() => setIsOpen(true)}>{trigger}</Trigger>
         </Popover>
     );
 };
