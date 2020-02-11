@@ -36,6 +36,7 @@ const LiveNowBadgeContainer = styled('div')`
     padding: 0 ${size.small};
     text-transform: uppercase;
     &:before {
+        /* TODO: codify this animation speed in the theme */
         animation: ${blink} 2s ease infinite;
         /* 25cf is "SMALL DOT" */
         content: '\u25cf ';
