@@ -50,16 +50,11 @@ const GlobalFooter = styled('footer')`
     justify-content: flex-start;
 `;
 
-const ContentWrapper = styled('main')`
-    flex: 1;
-    margin: ${size.large} 0;
-`;
-
 export const StorybookLayout = ({ children }) => {
     return (
         <GlobalWrapper>
             <Global styles={globalStyles} />
-            <ContentWrapper>{children}</ContentWrapper>
+            <main>{children}</main>
         </GlobalWrapper>
     );
 };
@@ -72,7 +67,7 @@ export default ({ children }) => (
             <NavLink to="/learn">Learn</NavLink>
             <NavLink to="/community">Community</NavLink>
         </GlobalNav>
-        <ContentWrapper>{children}</ContentWrapper>
+        <main>{children}</main>
         <GlobalFooter>
             <ul>
                 <li>footer item</li>
