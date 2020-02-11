@@ -5,56 +5,55 @@ import {
     colorMap,
     fontSize,
     FORM_ELEMENT_BORDER,
+    gradientMap,
+    layer,
     size,
 } from './theme';
 
+const LABEL_ABSOLUTE_LEFT = 22;
+const LABEL_END_TOP = -14;
+const LABEL_START_TOP = 9;
+
 const StyledLabel = styled('label')`
-    font-family: 'Fira Mono', monospace;
-    position: absolute;
-    top: 12px;
-    left: 22px;
     background: linear-gradient(
         180deg,
         transparent 50%,
         ${colorMap.greyDarkOne} 50%
     );
-    z-index: 1;
+    font-family: 'Fira Mono', monospace;
+    left: ${LABEL_ABSOLUTE_LEFT}px;
+    position: absolute;
+    top: ${LABEL_START_TOP}px;
     opacity: 0;
+    z-index: ${layer.front};
 `;
 
 const StyledInput = styled('input')`
-    border: 2px solid transparent;
     background-color: ${colorMap.greyDarkOne};
+    border: ${FORM_ELEMENT_BORDER} solid transparent;
     color: ${colorMap.devWhite};
     font-family: 'Fira Mono', monospace;
     font-size: ${fontSize.default};
     outline: none;
-    position: relative;
     padding: ${({ narrow }) =>
         narrow ? `${size.small} ${size.medium}` : size.medium};
+    position: relative;
     width: calc(
-        100% - ${size.medium} - ${size.medium} - ${FORM_ELEMENT_BORDER} -
-            ${FORM_ELEMENT_BORDER}
+        100% - ${size.large} - ${FORM_ELEMENT_BORDER} - ${FORM_ELEMENT_BORDER}
     );
 
     :focus {
-        border-image: linear-gradient(
-                270deg,
-                ${colorMap.violet} 0%,
-                ${colorMap.magenta} 49.99%,
-                ${colorMap.orange} 100%
-            )
-            1;
+        border-image: ${gradientMap.violentMagentaOrange} 1;
         transition: border ${animationSpeed.fast} linear ${animationSpeed.fast};
     }
 
-    ::placeholder {
+    /* Needed for IE 11 */
+    ::-ms-input-placeholder {
         color: ${colorMap.greyLightTwo};
         opacity: 1;
     }
 
-    /* Needed for Edge */
-    ::ms-input-placeholder {
+    ::placeholder {
         color: ${colorMap.greyLightTwo};
         opacity: 1;
     }
@@ -65,12 +64,15 @@ const InputContainer = styled('div')`
 
     :focus-within {
         label {
-            color: ${colorMap.devWhite};
             opacity: 1;
-            top: -14px;
-            ${({ isEmpty }) =>
-                isEmpty ? 'transition: top 0.2s' : 'transition: opacity 0.2s'};
-            z-index: 1;
+            top: ${LABEL_END_TOP}px;
+            transition: ${({ isEmpty }) =>
+                isEmpty
+                    ? `top ${animationSpeed.fast}`
+                    : `opacity ${animationSpeed.fast}`};
+        }
+        input::-ms-input-placeholder {
+            opacity: 0;
         }
         input::placeholder {
             opacity: 0;
@@ -80,23 +82,33 @@ const InputContainer = styled('div')`
     :not(:focus-within) {
         label {
             opacity: 0;
-            top: 12px;
-            transition: top 0s ease-in-out 0.4s, opacity 0.4s,
-                z-index 0s ease-in-out 0.4s;
-            z-index: -1;
+            top: ${({ narrow }) =>
+                narrow
+                    ? `${LABEL_START_TOP}px`
+                    : `calc(${LABEL_START_TOP}px + ${size.small})`};
+            transition: top 0s ease-in-out ${animationSpeed.fast},
+                opacity ${animationSpeed.fast},
+                z-index 0s ease-in-out ${animationSpeed.fast};
+            /* Need to push to back layer to allow clicking over */
+            z-index: ${layer.superBack};
+        }
+        input::ms-input-placeholder {
+            opacity: 1;
+            transition: opacity ${animationSpeed.fast} ease-in-out
+                ${animationSpeed.fast};
         }
         input::placeholder {
             opacity: 1;
-            transition: opacity 0.15s;
-            ${({ isEmpty }) => isEmpty && 'transition-delay: 0.4s;'};
+            transition: opacity ${animationSpeed.fast} ease-in-out
+                ${animationSpeed.fast};
         }
     }
 `;
 
 const FormInput = ({ narrow, value, ...props }) => {
-    const hasValue = !!value;
+    const isEmpty = !value;
     return (
-        <InputContainer isEmpty={!hasValue}>
+        <InputContainer isEmpty={isEmpty} narrow={narrow}>
             <StyledLabel>{props.placeholder}</StyledLabel>
             <StyledInput narrow={narrow} {...props} />
         </InputContainer>
