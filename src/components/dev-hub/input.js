@@ -12,6 +12,7 @@ const StyledInput = styled('input')`
     border: 2px solid transparent;
     background-color: ${colorMap.greyDarkOne};
     color: ${colorMap.devWhite};
+    font-family: 'Fira Mono', monospace;
     font-size: ${fontSize.default};
     outline: none;
     padding: ${({ narrow }) =>
