@@ -66,6 +66,78 @@ const colorMap = {
     yellow: '#FDDC49',
 };
 
+const gradientMap = {
+    green: `linear-gradient(
+        315deg,
+        ${colorMap.lightGreen} 0%,
+        ${colorMap.lightGreen} 40%,
+        ${colorMap.darkGreen} 100%
+    )`,
+    greenTeal: `linear-gradient(
+        270deg,
+        ${colorMap.lightGreen} 0%,
+        ${colorMap.teal} 100%
+    )`,
+    greenTealReverse: `linear-gradient(
+        270deg,
+        ${colorMap.teal} 0%,
+        ${colorMap.lightGreen} 100%
+    )`,
+    tealViolet: `linear-gradient(
+        270deg,
+        ${colorMap.teal} 0%,
+        ${colorMap.violet} 100%
+    )`,
+    tealVioletReverse: `linear-gradient(
+        270deg,
+        ${colorMap.violet} 0%,
+        ${colorMap.teal} 100%
+    )`,
+    violetMagenta: `linear-gradient(
+        270deg,
+        ${colorMap.violet} 0%,
+        ${colorMap.magenta} 100%
+    )`,
+    violetMagentaReverse: `linear-gradient(
+        270deg,
+        ${colorMap.magenta} 0%,
+        ${colorMap.violet} 100%
+    )`,
+};
+
+const borderGradients = {
+    greenTeal: `
+        border: 2px solid;
+        border-image: ${gradientMap.greenTeal};
+        border-image-slice: 1;
+    `,
+    greenTealReverse: `
+        border: 2px solid;
+        border-image: ${gradientMap.greenTealReverse};
+        border-image-slice: 1;
+    `,
+    tealViolet: `
+        border: 2px solid;
+        border-image: ${gradientMap.tealViolet};
+        border-image-slice: 1;
+    `,
+    tealVioletReverse: `
+        border: 2px solid;
+        border-image: ${gradientMap.tealVioletReverse};
+        border-image-slice: 1;
+    `,
+    violetMagenta: `
+        border: 2px solid;
+        border-image: ${gradientMap.violetMagenta};
+        border-image-slice: 1;
+    `,
+    violetMagentaReverse: `
+        border: 2px solid;
+        border-image: ${gradientMap.violetMagentaReverse};
+        border-image-slice: 1;
+    `,
+};
+
 /**
  * store common responsive sizes
  * @type {Object.<string, string>}
@@ -107,11 +179,13 @@ const FORM_ELEMENT_BORDER = '2px';
 
 export {
     animationSpeed,
+    borderGradients,
     colorMap,
     fontSize,
     FORM_ELEMENT_BORDER,
-    lineHeight,
+    gradientMap,
     layer,
+    lineHeight,
     screenSize,
     size,
 };
