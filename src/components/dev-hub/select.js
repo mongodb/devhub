@@ -25,6 +25,7 @@ const Option = styled('li')`
     display: block;
     padding: ${({ narrow }) =>
         narrow ? `${size.small} ${size.medium}` : size.medium};
+    :focus,
     :hover {
         background-color: ${colorMap.greyDarkOne};
         color: ${colorMap.devWhite};
@@ -57,9 +58,10 @@ const Options = styled('ul')`
 const StyledCustomSelect = styled('div')`
     background-color: ${colorMap.greyDarkTwo};
     /* Adding border without color to prevent jarring visual on expand */
-    border: 2px solid;
+    border: 2px solid transparent;
     color: ${colorMap.devWhite};
     cursor: pointer;
+    font-family: 'Fira Mono', monospace;
     position: relative;
     ${({ showOptions }) => showOptions && activeSelectStyles};
 `;
@@ -74,7 +76,7 @@ const SelectedOption = styled('div')`
     ::after {
         height: ${size.small};
         content: ${({ showOptions }) =>
-            showOptions ? '"\u2193";' : '"\u2191";'};
+            showOptions ? '"\u2191";' : '"\u2193";'};
         font-family: 'Fira Mono', monospace;
     }
     position: relative;
@@ -131,10 +133,24 @@ const FormSelect = ({
         [optionOnClick]
     );
 
+    const closeOptionsOnBlur = useCallback(
+        e => {
+            // Check the event to see if the next element would be a list element
+            // otherwise, close the options
+            const isTabbingThroughOptions =
+                e.relatedTarget && e.relatedTarget.tagName === 'LI';
+            if (!isTabbingThroughOptions) {
+                setShowOptions(false);
+            }
+        },
+        [setShowOptions]
+    );
+
     const selectOptions = choices.length ? choices : children;
     return (
         <StyledCustomSelect
             aria-expanded={showOptions}
+            onBlur={closeOptionsOnBlur}
             onClick={selectOnClick}
             onKeyDown={showOptionsOnEnter}
             role="listbox"
