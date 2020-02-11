@@ -33,7 +33,6 @@ const lineHeight = {
 /**
  * @type {Object}
  * @property {string} size returns px value
- * @property {function(string): number} stripUnit removes px unit
  */
 const size = {
     tiny: '5px',
@@ -44,12 +43,12 @@ const size = {
     large: '32px',
     xlarge: '64px',
     xxlarge: '128px',
-    maxWidth: '1400px',
+    maxWidth: '1440px',
 };
 const colorMap = {
     darkGreen: '#13AA52',
-    devBlack: '#1a282e',
-    devWhite: '#E3ECEA',
+    devBlack: '#0C1C27',
+    devWhite: '#f9fbfa',
     greyDarkOne: '#5D6C74',
     greyDarkTwo: '#3D4F58',
     greyDarkThree: '#21313C',

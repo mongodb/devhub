@@ -100,8 +100,8 @@ const primaryStyles = css`
 `;
 
 const secondaryStyles = css`
-    background: ${colorMap.greyDarkTwo};
-    border: 2px solid ${colorMap.greyLightTwo};
+    background: ${colorMap.greyDarkOne};
+    border: 2px solid ${colorMap.greyDarkThree};
     position: relative;
     text-decoration: none;
     ${buttonHoverStyles}
@@ -169,6 +169,7 @@ const StyledButton = styled(ButtonImpl)`
     box-shadow: none;
     color: ${({ color }) => (color ? color : colorMap.devWhite)};
     cursor: pointer;
+    display: inline-block;
     font-size: ${fontSize.default};
     padding: ${size.default};
     position: relative;
