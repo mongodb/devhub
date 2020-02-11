@@ -5,21 +5,28 @@ import { colorMap, fontSize, size } from './theme';
 
 const CloseIcon = styled(P)`
     color: ${colorMap.devWhite};
-    font-size: ${fontSize.micro};
     margin-left: auto;
-    padding: ${size.default};
+    /* padding: ${size.default}; */
 
     /* TODO replace P with a button here and remove hover CSS */
     :hover {
         cursor: pointer;
     }
+
+    &:after {
+        content: '\u2715';
+    }
 `;
 
 const LiveNowBadgeContainer = styled('div')`
-    border: 1px solid ${colorMap.lightGreen};
-    border-radius: ${size.small};
+    background-color: ${colorMap.greyDarkThree};
+    border: 1px solid ${colorMap.salmon};
+    border-radius: ${size.medium};
+    color: ${colorMap.salmon};
+    font-weight: bold;
     margin-right: ${size.small};
-    padding: ${size.tiny} ${size.small};
+    padding: 0 ${size.small};
+    text-transform: uppercase;
     &:before {
         /* 25cf is "SMALL DOT" */
         content: '\u25cf ';
@@ -36,11 +43,11 @@ const NotificationText = styled('div')`
 const StyledNotification = styled('div')`
     align-items: center;
     background-color: ${colorMap.greyDarkTwo};
-    border-radius: ${size.medium};
     display: flex;
+    font-size: ${fontSize.tiny};
     justify-content: center;
     opacity: 0.8;
-
+    padding: ${size.small} ${size.default};
     :hover {
         cursor: pointer;
         opacity: 1;
@@ -66,9 +73,7 @@ const Notification = ({ link = null, notificationType = 'twitch' }) => {
                         us on Twitch!
                     </P>
                 </NotificationText>
-                <CloseIcon collapse onClick={dismissNotification}>
-                    X
-                </CloseIcon>
+                <CloseIcon collapse onClick={dismissNotification} />
             </StyledNotification>
         )
     );
