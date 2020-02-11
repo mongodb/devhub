@@ -8,7 +8,7 @@ const StyledBreadcrumb = styled(Link)`
     font-family: 'Fira Mono', monospace;
     :hover {
         color: ${colorMap.devWhite};
-        transition: color 0.4s;
+        transition: color 0.15s;
     }
     &:after {
         color: ${colorMap.lightGreen};
