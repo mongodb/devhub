@@ -6,7 +6,7 @@ import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
 import { H4, H2, P } from '../components/dev-hub/text';
 import { colorMap, size } from '../components/dev-hub/theme';
-// import Button from "../components/button";
+import Button from '../components/dev-hub/button';
 
 const Hero = styled('header')`
     color: ${colorMap.devWhite};
@@ -58,7 +58,9 @@ export default ({ ...data }) => {
                     </Card>
                 </CardGallery>
                 <div>
-                    <button>Learn MongoDB Today</button>
+                    <Button to="/learn" primary>
+                        Learn MongoDB Today
+                    </Button>
                 </div>
             </Hero>
             <FeatureSection altBackground>
@@ -82,7 +84,7 @@ export default ({ ...data }) => {
                             Never miss us live. Sign up for the MongoDB Twitch
                             stream today.
                         </P>
-                        <button>Join us on Twitch</button>
+                        <Button secondary>Join us on Twitch</Button>
                     </SectionContent>
                 </MediaBlock>
             </FeatureSection>
@@ -113,7 +115,9 @@ export default ({ ...data }) => {
                             Find out when there are events near you. Sign up
                             today.
                         </P>
-                        <button>Sign Up</button>
+                        <Button to="/events" secondary>
+                            Sign Up
+                        </Button>
                     </SectionContent>
                 </MediaBlock>
             </FeatureSection>
@@ -139,7 +143,7 @@ export default ({ ...data }) => {
                         </P>
 
                         <P>Share your knowledge.</P>
-                        <button>Tell Us About Your Project</button>
+                        <Button secondary>Tell Us About Your Project</Button>
                     </SectionContent>
                 </MediaBlock>
             </FeatureSection>
