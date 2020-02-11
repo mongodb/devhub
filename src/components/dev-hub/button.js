@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { colorMap, gradientMap, size, layer, fontSize } from './theme';
+import { colorMap, gradientMap, size, fontSize } from './theme';
 import Link from './link';
 
 // TODO: Finalize hover effect when design complete
@@ -24,12 +24,12 @@ const secondaryHoverStyles = css`
         &:before {
             background: ${gradientMap.green};
             border-radius: ${size.large};
-            bottom: -5px;
+            bottom: -${size.tiny};
             content: '';
             height: calc(100% + ${size.small});
-            left: -6px;
+            left: -${size.tiny};
             position: absolute;
-            width: calc(100% + 12px);
+            width: calc(100% + ${size.small});
             z-index: -1;
         }
     }
@@ -37,6 +37,59 @@ const secondaryHoverStyles = css`
 
 const buttonPadding = css`
     padding: ${size.default} ${size.medium};
+`;
+
+const playStyles = css`
+    background-color: ${colorMap.devBlack};
+    border: 1px solid ${colorMap.white};
+    border-radius: 50%;
+    color: ${colorMap.white};
+    font-size: ${size.large};
+    height: 80px;
+    position: relative;
+    width: 80px;
+    &:before {
+        background: ${colorMap.greyLightThree};
+        border-radius: 50%;
+        bottom: -${size.xsmall};
+        content: '';
+        height: calc(100% + ${size.default});
+        left: -${size.xsmall};
+        opacity: 0;
+        position: absolute;
+        width: calc(100% + ${size.default});
+        z-index: -1;
+    }
+    ::after {
+        content: '\u25b6';
+    }
+    :hover {
+        background-color: ${colorMap.devWhite};
+        border-color: ${colorMap.devWhite};
+        color: ${colorMap.devBlack};
+        transition: color 0.4s;
+        ::before {
+            opacity: 0.6;
+            transition: opacity 0.4s;
+        }
+        div {
+            opacity: 0.6;
+            transition: opacity 0.6s;
+        }
+    }
+`;
+
+const PlayButtonWrapper = styled('div')`
+    background: ${colorMap.greyDarkTwo};
+    border-radius: 50%;
+    bottom: -${size.default};
+    content: '';
+    height: calc(100% + ${size.large});
+    left: -${size.default};
+    position: absolute;
+    width: calc(100% + ${size.large});
+    z-index: -2;
+    opacity: 0;
 `;
 
 const primaryStyles = css`
@@ -67,7 +120,15 @@ const tertiaryStyles = css`
     }
 `;
 
-const ButtonImpl = ({ children, href, primary, secondary, to, ...props }) => {
+const ButtonImpl = ({
+    children,
+    href,
+    play,
+    primary,
+    secondary,
+    to,
+    ...props
+}) => {
     // By default, a Button renders as a `button` tag.
     /**
      * @type {any} A component type to render
@@ -77,7 +138,7 @@ const ButtonImpl = ({ children, href, primary, secondary, to, ...props }) => {
         type: 'button',
         tabIndex: 0,
     };
-    const isButton = !!(primary || secondary);
+    const isButton = !!(primary || secondary || play);
 
     if (href || to || !isButton) {
         // If the Button has a `to` or a `href` prop, then it renders as a `Link` element,
@@ -85,6 +146,14 @@ const ButtonImpl = ({ children, href, primary, secondary, to, ...props }) => {
         Component = Link;
         buttonProps.href = href;
         buttonProps.to = to;
+    }
+
+    if (play) {
+        return (
+            <Component {...buttonProps} {...props}>
+                <PlayButtonWrapper>{children}</PlayButtonWrapper>
+            </Component>
+        );
     }
 
     return (
@@ -107,7 +176,9 @@ const StyledButton = styled(ButtonImpl)`
 
     ${({ primary }) => primary && primaryStyles}
     ${({ secondary }) => secondary && secondaryStyles}
-    ${({ primary, secondary }) => !primary && !secondary && tertiaryStyles}
+    ${({ play }) => play && playStyles}
+    ${({ play, primary, secondary }) =>
+        !primary && !secondary && !play && tertiaryStyles}
 `;
 
 /**
@@ -115,6 +186,7 @@ const StyledButton = styled(ButtonImpl)`
  * @property {node} props.children
  * @property {string?} props.href
  * @property {func?} props.onClick
+ * @property {boolean?} props.play
  * @property {boolean?} props.primary
  * @property {boolean?} props.secondary
  * @property {string?} props.target

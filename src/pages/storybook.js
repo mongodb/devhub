@@ -9,6 +9,7 @@ import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
 import MediaBlock from '../components/dev-hub/media-block';
 import Notification from '../components/dev-hub/notification';
+import Select from '../components/dev-hub/select';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
 import { colorMap, size, screenSize } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
@@ -108,6 +109,26 @@ const InputStory = ({ narrow }) => {
         />
     );
 };
+const SelectStory = ({ narrow }) => {
+    const [value, setValue] = useState('');
+    const handleValueChange = v => {
+        setValue(v);
+    };
+    return (
+        <Select
+            name="test-select"
+            narrow={narrow}
+            choices={[
+                ['A', 'Choice A'],
+                ['B', 'Choice B'],
+                ['C', 'Choice C'],
+            ]}
+            defaultText="Choose an option..."
+            value={value}
+            onChange={handleValueChange}
+        />
+    );
+};
 
 export default () => (
     <StorybookLayout>
@@ -133,6 +154,7 @@ export default () => (
                 </Button>
                 <Button secondary>Join the Community (Secondary)</Button>
                 <Button tertiary>Join the Community (tertiary)</Button>
+                <Button play />
             </Row>
             <SectionHeader>Notification</SectionHeader>
             <Notification />
@@ -160,6 +182,11 @@ export default () => (
             <br />
             <H4>Input (Narrow)</H4>
             <InputStory narrow />
+            <H4>Select</H4>
+            <SelectStory />
+            <br />
+            <H4>Select (Narrow)</H4>
+            <SelectStory narrow />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch

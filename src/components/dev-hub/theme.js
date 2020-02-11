@@ -37,6 +37,7 @@ const lineHeight = {
  */
 const size = {
     tiny: '5px',
+    xsmall: '8px',
     small: '10px',
     default: '16px',
     medium: '20px',
@@ -47,14 +48,14 @@ const size = {
 };
 const colorMap = {
     darkGreen: '#13AA52',
-    devBlack: '#0C1C27',
-    devWhite: '#f9fbfa',
-    greyDarkOne: '#5B6D75',
-    greyDarkTwo: '#3A5058',
-    greyDarkThree: '#2A3D46',
-    greyLightOne: '#E3ECEA',
-    greyLightTwo: '#B4C4C1',
-    greyLightThree: '#85979A',
+    devBlack: '#1a282e',
+    devWhite: '#E3ECEA',
+    greyDarkOne: '#5D6C74',
+    greyDarkTwo: '#3D4F58',
+    greyDarkThree: '#21313C',
+    greyLightOne: '#E7EEEC',
+    greyLightTwo: '#B8C4C2',
+    greyLightThree: '#9FA1A2',
     lightGreen: '#0AD05B',
     orange: '#ED7E22',
     magenta: '#CD509B',
@@ -62,7 +63,7 @@ const colorMap = {
     salmon: '#E55F55',
     teal: '#2F9FC5',
     violet: '#6E60F9',
-    white: '#FFFFFF',
+    white: '#F9FBFA',
     yellow: '#FDDC49',
 };
 
@@ -83,6 +84,12 @@ const gradientMap = {
         ${colorMap.teal} 0%,
         ${colorMap.lightGreen} 100%
     )`,
+    magentaSalmonYellow: `linear-gradient(
+        270deg,
+        ${colorMap.yellow} 0%,
+        ${colorMap.salmon} 49.99%,
+        ${colorMap.magenta} 100%
+    )`,
     tealViolet: `linear-gradient(
         270deg,
         ${colorMap.teal} 0%,
@@ -98,6 +105,12 @@ const gradientMap = {
         ${colorMap.violet} 0%,
         ${colorMap.magenta} 100%
     )`,
+    violentMagentaOrange: `linear-gradient(
+                270deg,
+                ${colorMap.violet} 0%,
+                ${colorMap.magenta} 49.99%,
+                ${colorMap.orange} 100%
+            )`,
     violetMagentaReverse: `linear-gradient(
         270deg,
         ${colorMap.magenta} 0%,
@@ -159,6 +172,7 @@ const screenSize = {
  * @property {string} position returns a z-index value
  */
 const layer = {
+    superBack: -1,
     back: 1,
     middle: 11,
     front: 21,
