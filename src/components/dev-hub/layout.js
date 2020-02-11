@@ -1,7 +1,8 @@
 import React from 'react';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { Link as GatsbyLink } from 'gatsby';
+import GlobalNav from './global-nav';
+
 import { colorMap, fontSize, lineHeight, size } from './theme';
 
 const globalStyles = css`
@@ -13,6 +14,11 @@ const globalStyles = css`
             'Segoe UI Symbol';
         font-size: ${fontSize.default};
         line-height: ${lineHeight.default};
+        margin: 0;
+        padding: 0;
+    }
+    section {
+        padding: ${size.large} 120px;
     }
 `;
 
@@ -23,23 +29,6 @@ const GlobalWrapper = styled('div')`
     margin: 0 auto;
     max-width: ${size.maxWidth};
     min-height: 100vh;
-`;
-
-const GlobalNav = styled('nav')`
-    border-bottom: 1px solid ${colorMap.greyLightTwo};
-    color: ${colorMap.greyLightOne};
-    display: flex;
-    justify-content: space-around;
-    padding: ${size.default};
-`;
-
-const NavLink = styled(GatsbyLink)`
-    color: ${colorMap.devWhite};
-    padding: ${size.small};
-    &[aria-current='page'] {
-        background: ${colorMap.yellow};
-        color: ${colorMap.greyDarkThree};
-    }
 `;
 
 const GlobalFooter = styled('footer')`
@@ -62,11 +51,7 @@ export const StorybookLayout = ({ children }) => {
 export default ({ children }) => (
     <GlobalWrapper>
         <Global styles={globalStyles} />
-        <GlobalNav>
-            <NavLink to="/">Developers</NavLink>
-            <NavLink to="/learn">Learn</NavLink>
-            <NavLink to="/community">Community</NavLink>
-        </GlobalNav>
+        <GlobalNav />
         <main>{children}</main>
         <GlobalFooter>
             <ul>

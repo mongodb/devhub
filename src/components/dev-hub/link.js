@@ -46,13 +46,13 @@ const BUTTON_PROPS = {
     tabIndex: 0,
 };
 
-const linkStyling = css`
+const tertiaryLinkStyling = css`
     color: ${colorMap.greyLightThree};
     display: block;
+    text-decoration: none;
     &:hover {
         cursor: pointer;
         color: ${colorMap.magenta};
-        text-decoration: none;
         transition: color ${animationSpeed.fast} ease ${animationSpeed.fast};
     }
 
@@ -62,12 +62,23 @@ const linkStyling = css`
     }
 `;
 
+const linkStyling = css`
+    color: #fff;
+    text-decoration: underline;
+    &:visited {
+        color: #fff;
+    }
+    &:hover {
+        color: ${colorMap.darkGreen};
+    }
+`;
+
 const ExternalLink = styled('a')`
-    ${linkStyling}
+    ${props => (props.tertiary ? tertiaryLinkStyling : linkStyling)}
 `;
 
 const InternalLink = styled(RouterLink)`
-    ${linkStyling};
+    ${props => (props.tertiary ? tertiaryLinkStyling : linkStyling)};
 `;
 
 /**
@@ -76,9 +87,10 @@ const InternalLink = styled(RouterLink)`
  * @property {string?} props.href
  * @property {func?} props.onClick
  * @property {string?} props.target
+ * @property {boolean?} props.tertiary
  * @property {string?} props.to
  */
-const Link = ({ children, href, onClick, target, to, ...rest }) => {
+const Link = ({ children, href, onClick, target, tertiary, to, ...rest }) => {
     if (to) {
         return (
             <InternalLink onClick={onClick} to={to} {...rest}>
@@ -94,6 +106,7 @@ const Link = ({ children, href, onClick, target, to, ...rest }) => {
             rel={target === '_blank' ? 'noreferrer noopener' : void 0}
             target={target}
             {...(typeof href === 'undefined' ? BUTTON_PROPS : null)}
+            tertiary={tertiary}
             {...rest}
         >
             {children}

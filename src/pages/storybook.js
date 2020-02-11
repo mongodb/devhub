@@ -148,7 +148,10 @@ export default () => (
                 ]}
             </CodeBlock>
             <SectionHeader>Links</SectionHeader>
-            <Link primary>Hello World</Link>
+            <Link href="#">Hello World</Link>
+            <Link href="#" tertiary>
+                Hello World
+            </Link>
             <SectionHeader>Media Block</SectionHeader>
             <MediaBlockStory />
             <SectionHeader>Media Block (reverse)</SectionHeader>
