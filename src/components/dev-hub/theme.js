@@ -47,7 +47,7 @@ const size = {
 };
 const colorMap = {
     darkGreen: '#13AA52',
-    devBlack: '#061621',
+    devBlack: '#0C1C27',
     devWhite: '#f9fbfa',
     greyDarkOne: '#5B6D75',
     greyDarkTwo: '#3A5058',
