@@ -6,7 +6,7 @@ import Leaf from './mdb-leaf';
 
 const GlobalNav = styled('nav')`
     align-items: center;
-    background-color: #21313c;
+    background-color: ${colorMap.greyDarkThree};
     color: ${colorMap.greyLightOne};
     display: flex;
     flex-wrap: wrap;
@@ -45,7 +45,7 @@ export default () => {
     return (
         <GlobalNav>
             <HomeLink to="/">
-                <Leaf width={size.medium} /> Developers
+                <Leaf width={size.medium} /> <code>Developers</code>
             </HomeLink>
             <NavLink to="/learn">Learn</NavLink>
             <NavLink to="/community">Community</NavLink>
