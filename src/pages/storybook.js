@@ -135,6 +135,7 @@ export default () => (
                 <Button color={colorMap.devBlack}>
                     Join the Community (Ternary)
                 </Button>
+                <Button play />
             </Row>
             <SectionHeader>Notification</SectionHeader>
             <Notification />
