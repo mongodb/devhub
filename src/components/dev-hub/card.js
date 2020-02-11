@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { colorMap, layer, size } from './theme';
+import { animationSpeed, colorMap, layer, size } from './theme';
 import Link from './link';
-import { H4 } from './text';
 import Badge from './badge';
 
 const NoLinkWrapper = styled('div')`
@@ -68,7 +67,7 @@ const Wrapper = styled('div')`
     max-width: 500px;
     padding: ${size.default};
     padding-bottom: ${size.small};
-    transition: 0.15s ease-in-out;
+    transition: ${animationSpeed.fast} ease-in-out;
     width: ${({ width }) => (width ? width : '100%')};
     &:hover,
     &:active {

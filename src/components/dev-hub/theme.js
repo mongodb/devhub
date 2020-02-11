@@ -46,10 +46,9 @@ const size = {
     maxWidth: '1400px',
 };
 const colorMap = {
-    black: '#1B272D',
     darkGreen: '#13AA52',
-    devBlack: '#1a282e',
-    devWhite: '#e3ecea',
+    devBlack: '#0C1C27',
+    devWhite: '#f9fbfa',
     greyDarkOne: '#5B6D75',
     greyDarkTwo: '#3A5058',
     greyDarkThree: '#2A3D46',
@@ -59,6 +58,7 @@ const colorMap = {
     lightGreen: '#0AD05B',
     orange: '#ED7E22',
     magenta: '#CD509B',
+    pageBackground: '#061621',
     salmon: '#E55F55',
     teal: '#2F9FC5',
     violet: '#6E60F9',
@@ -165,9 +165,20 @@ const layer = {
     superFront: 22,
 };
 
+/**
+ * @type {Object.<string, string>}
+ * @property {string} animationSpeed
+ */
+const animationSpeed = {
+    slow: '650ms',
+    medium: '300ms',
+    fast: '150ms',
+};
+
 const FORM_ELEMENT_BORDER = '2px';
 
 export {
+    animationSpeed,
     borderGradients,
     colorMap,
     fontSize,

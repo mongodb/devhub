@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'gatsby';
-import { colorMap } from './theme';
+import { animationSpeed, colorMap } from './theme';
 
 // Takes an event handler, and wraps it to call preventDefault.
 // If the handler is falsey, it is returned unchanged.
@@ -53,7 +53,7 @@ const linkStyling = css`
         cursor: pointer;
         color: ${colorMap.magenta};
         text-decoration: none;
-        transition: color 0.1s ease 0.1s;
+        transition: color ${animationSpeed.fast} ease ${animationSpeed.fast};
     }
 
     &:after {

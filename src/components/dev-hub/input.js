@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { colorMap, fontSize, FORM_ELEMENT_BORDER, size } from './theme';
+import {
+    animationSpeed,
+    colorMap,
+    fontSize,
+    FORM_ELEMENT_BORDER,
+    size,
+} from './theme';
 
 const StyledInput = styled('input')`
     border: 2px solid transparent;
@@ -23,7 +29,7 @@ const StyledInput = styled('input')`
                 ${colorMap.orange} 100%
             )
             1;
-        transition: border 0.1s linear 0.1s;
+        transition: border ${animationSpeed.fast} linear ${animationSpeed.fast};
     }
 
     ::placeholder {
