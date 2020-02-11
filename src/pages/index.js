@@ -1,16 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import Card from '../components/dev-hub/card';
+import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
-import { H1, H2, P } from '../components/dev-hub/text';
+import { H4, H2, P } from '../components/dev-hub/text';
 import { colorMap, size } from '../components/dev-hub/theme';
-
-const LiveStream = styled('div')`
-    background: ${colorMap.greyDarkTwo};
-    border-radius: ${size.large};
-    padding: ${size.default};
-    text-align: center;
-`;
+// import Button from "../components/button";
 
 const Hero = styled('header')`
     color: ${colorMap.devWhite};
@@ -19,49 +15,21 @@ const Hero = styled('header')`
     text-align: center;
 `;
 
-const ArticleGallery = styled('section')`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: ${size.large} 0;
-`;
-
-const ArticleGalleryCards = styled('div')`
-    display: flex;
-    justify-content: flex-start;
-    overflow-x: auto;
-    margin-bottom: ${size.default};
-    width: 100%;
-`;
-
-const ArticleGalleryCard = styled('a')`
-    background: ${colorMap.devWhite};
-    flex: 0 0 288px;
-    height: 400px;
-    margin-right: ${size.large};
-`;
-
 const FeatureSection = styled('section')`
+    ${({ altBackground }) =>
+        altBackground && `background-color: ${colorMap.devBlack};`};
+    margin: 0 ${size.large};
+    padding-bottom: 120px;
+    padding-top: 120px;
+`;
+
+const CardGallery = styled('section')`
     display: flex;
     justify-content: space-between;
-    padding: ${size.large} 0;
-    header {
-        flex: 1;
-    }
 `;
 
-const FeatureSectionCard = styled('a')`
-    background: ${colorMap.devWhite};
-    display: block;
-    height: 408px;
-    width: 368px;
-`;
-
-const FeatureSectionVideo = styled('a')`
-    background: ${colorMap.devWhite};
-    display: block;
-    height: 408px;
-    width: 65%;
+const SectionContent = styled('div')`
+    padding: 5%;
 `;
 
 export default ({ ...data }) => {
@@ -70,55 +38,110 @@ export default ({ ...data }) => {
         <Layout>
             <Notification />
             <Hero>
-                <H1>sample code</H1>
-                <P>description text</P>
+                <H4>
+                    db.solutions.find( "attributes" : ["fast", "innovative",
+                    "original"])
+                </H4>
+                <P>What will you create today?</P>
+                <CardGallery>
+                    <Card image="/images/compass-create-database.png" gradient>
+                        Rest APIs with Java, Spring Boot &amp; MongoDB
+                    </Card>
+                    <Card image="/images/compass-create-database.png" gradient>
+                        How to get connected to your MongoDB Cluster
+                    </Card>
+                    <Card image="/images/compass-create-database.png" gradient>
+                        Delete Operations
+                    </Card>
+                    <Card image="/images/compass-create-database.png" gradient>
+                        Stitch Hosting: a Drag and Drop Delight
+                    </Card>
+                </CardGallery>
                 <div>
-                    <button>primary link</button>
-                    <button>secondary link</button>
+                    <button>Learn MongoDB Today</button>
                 </div>
             </Hero>
-            <ArticleGallery>
-                <ArticleGalleryCards>
-                    <ArticleGalleryCard>Card</ArticleGalleryCard>
-                    <ArticleGalleryCard>Card</ArticleGalleryCard>
-                    <ArticleGalleryCard>Card</ArticleGalleryCard>
-                    <ArticleGalleryCard>Card</ArticleGalleryCard>
-                    <ArticleGalleryCard>Card</ArticleGalleryCard>
-                    <ArticleGalleryCard>Card</ArticleGalleryCard>
-                </ArticleGalleryCards>
-                <button>secondary link</button>
-            </ArticleGallery>
-            <FeatureSection>
-                <header>
-                    <H2>Developer Inspo</H2>
-                    <P>description text</P>
-                    <div>
-                        <button>primary link</button>
-                        <button>tertiary link</button>
-                    </div>
-                </header>
-                <FeatureSectionCard>Card</FeatureSectionCard>
+            <FeatureSection altBackground>
+                <MediaBlock
+                    mediaComponent={
+                        <Card
+                            image="/images/compass-create-database.png"
+                            gradient
+                        >
+                            A card
+                        </Card>
+                    }
+                >
+                    <SectionContent>
+                        <H2>Live Coding on Our Twitch Channel</H2>
+                        <P>
+                            Every Friday at 11.00am EST come watch our
+                            developers live coding on the MongoDB Platform.
+                        </P>
+                        <P>
+                            Never miss us live. Sign up for the MongoDB Twitch
+                            stream today.
+                        </P>
+                        <button>Join us on Twitch</button>
+                    </SectionContent>
+                </MediaBlock>
             </FeatureSection>
             <FeatureSection>
-                <FeatureSectionVideo>Video</FeatureSectionVideo>
-                <header>
-                    <H2>Let's do it live</H2>
-                    <P>description text</P>
-                    <div>
-                        <button>primary link</button>
-                    </div>
-                </header>
+                <MediaBlock
+                    mediaComponent={
+                        <Card
+                            image="/images/compass-create-database.png"
+                            gradient
+                        >
+                            A card
+                        </Card>
+                    }
+                    reverse
+                >
+                    <SectionContent>
+                        <H2>MongoDB In-Person Events</H2>
+                        <P>
+                            The best way to learn what's new with MongoDB is at
+                            our .local and community events.
+                        </P>
+                        <P>
+                            Meet MongoDB developers in your city, county and
+                            country.
+                        </P>
+                        <P>Come to learn, stay to connect.</P>
+                        <P>
+                            Find out when there are events near you. Sign up
+                            today.
+                        </P>
+                        <button>Sign Up</button>
+                    </SectionContent>
+                </MediaBlock>
             </FeatureSection>
-            <FeatureSection>
-                <header>
-                    <H2>Get Involved</H2>
-                    <P>description text</P>
-                    <div>
-                        <button>primary link</button>
-                        <button>tertiary link</button>
-                    </div>
-                </header>
-                <FeatureSectionCard>Card</FeatureSectionCard>
+            <FeatureSection altBackground>
+                <MediaBlock
+                    mediaComponent={
+                        <Card
+                            image="/images/compass-create-database.png"
+                            gradient
+                        >
+                            A card
+                        </Card>
+                    }
+                >
+                    <SectionContent>
+                        <H2>Showcase Your Knowledge</H2>
+                        <P>Show others what you have done with MongoDB. </P>
+
+                        <P>
+                            We have a huge audience from newbies to experts so
+                            no example is too simple, no application too
+                            complicated.{' '}
+                        </P>
+
+                        <P>Share your knowledge.</P>
+                        <button>Tell Us About Your Project</button>
+                    </SectionContent>
+                </MediaBlock>
             </FeatureSection>
         </Layout>
     );
