@@ -6,7 +6,7 @@ import { colorMap, fontSize, lineHeight, size } from './theme';
 
 const globalStyles = css`
     body {
-        background: ${colorMap.devBlack};
+        background: ${colorMap.pageBackground};
         color: ${colorMap.devWhite};
         font-family: akzidenz, -apple-system, BlinkMacSystemFont, 'Segoe UI',
             Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { P } from './text';
-import { colorMap, fontSize, size } from './theme';
+import { animationSpeed, colorMap, fontSize, size } from './theme';
 
 const CloseIcon = styled(P)`
     color: ${colorMap.devWhite};
@@ -44,7 +44,7 @@ const StyledNotification = styled('div')`
     :hover {
         cursor: pointer;
         opacity: 1;
-        transition: opacity 0.1s ease 0.1s;
+        transition: opacity ${animationSpeed.fast} ease ${animationSpeed.fast};
     }
 `;
 
