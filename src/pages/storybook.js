@@ -78,6 +78,19 @@ const MediaBlockContent = styled('div')`
     align-items: center;
 `;
 
+const TableOfContentsStory = () => {
+    // TODO: Still not sure what the data-model will look like
+    // For now using this simple structure to get base functionality
+    const contents = [
+        { title: 'Getting Set Up', to: '/storybook#intro' },
+        { title: 'Created Data', to: '/storybook#create-data' },
+        { title: 'The Final Code', to: '/storybook#final-code' },
+        { title: 'Wrapping Up', to: '/storybook#conclusion' },
+        { title: 'End', to: '/storybook#end' },
+    ];
+
+    return <ContentsMenu title="Table of Contents" contents={contents} />;
+};
 const MediaBlockStory = ({ reverse }) => (
     <MediaBlock
         mediaComponent={<FirstClusterTestImage />}
@@ -227,7 +240,7 @@ export default () => (
                         <EnvelopeIcon color={colorMap.lightGreen} />
                     </div>
                 </Tooltip>
-                <ContentsMenu />
+                <TableOfContentsStory />
                 <Tooltip
                     hasGradientBorder
                     position={'top'}
