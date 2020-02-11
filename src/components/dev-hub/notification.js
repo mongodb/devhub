@@ -5,7 +5,6 @@ import { colorMap, fontSize, size } from './theme';
 
 const CloseIcon = styled(P)`
     color: ${colorMap.devWhite};
-    font-size: ${fontSize.small};
     margin-left: auto;
     padding: ${size.default};
 
@@ -25,7 +24,7 @@ const LiveNowBadgeContainer = styled('div')`
     border-radius: ${size.medium};
     color: ${colorMap.salmon};
     margin-right: ${size.small};
-    padding: ${size.tiny} ${size.small};
+    padding: 0 ${size.small};
     text-transform: uppercase;
     &:before {
         /* 25cf is "SMALL DOT" */
@@ -44,9 +43,9 @@ const StyledNotification = styled('div')`
     align-items: center;
     background-color: ${colorMap.greyDarkTwo};
     display: flex;
+    font-size: ${fontSize.tiny};
     justify-content: center;
     opacity: 0.8;
-
     :hover {
         cursor: pointer;
         opacity: 1;
