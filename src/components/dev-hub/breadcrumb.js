@@ -6,6 +6,10 @@ import { colorMap } from './theme';
 const StyledBreadcrumb = styled(Link)`
     display: inline-block;
     font-family: 'Fira Mono', monospace;
+    :hover {
+        color: ${colorMap.devWhite};
+        transition: color 0.4s;
+    }
     &:after {
         color: ${colorMap.lightGreen};
         /* 2192 is "RIGHTWARDS ARROW" */
