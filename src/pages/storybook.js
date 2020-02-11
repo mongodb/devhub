@@ -214,7 +214,11 @@ export default () => (
             ))}
             <SectionHeader>ToolTip/Content Menus</SectionHeader>
             <CardRow>
-                <Tooltip position={'right'} trigger={<ShareIcon />}>
+                <Tooltip
+                    hasGradientBorder
+                    position={'right'}
+                    trigger={<ShareIcon />}
+                >
                     <div>
                         <FacebookIcon color={colorMap.salmon} />
                         <TwitterIcon color={colorMap.teal} />
@@ -222,6 +226,7 @@ export default () => (
                     </div>
                 </Tooltip>
                 <Tooltip
+                    hasGradientBorder
                     position={'right'}
                     trigger={<ShareIcon color={colorMap.yellow} />}
                 >
@@ -234,18 +239,16 @@ export default () => (
                         <P>I'm REVEALED AGAIN!</P>
                         <P>I'm REVEALED AGAIN!</P>
                         <P>I'm REVEALED AGAIN!</P>
-                        <P>I'm REVEALED AGAIN!</P>
-                        <P>I'm REVEALED AGAIN!</P>
-                        <P>I'm REVEALED AGAIN!</P>
                     </div>
                 </Tooltip>
                 <Tooltip
+                    hasGradientBorder
                     position={'top'}
                     trigger={<ShareIcon color={colorMap.yellow} />}
                 >
                     <div>
                         <H2 bold>Title</H2>
-                        <P>I'm REVEALED AGAIN!</P>
+                        <P>I'm REVEALED AGAIN! asdfasdfasdsfda</P>
                     </div>
                 </Tooltip>
                 <Tooltip

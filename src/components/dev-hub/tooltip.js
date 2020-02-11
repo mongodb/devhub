@@ -4,98 +4,148 @@ import { css } from '@emotion/core';
 import Popover, { ArrowContainer } from 'react-tiny-popover';
 import { colorMap, layer, size } from './theme';
 
-/* needs
-- needs a trigger
-- needs content to display on hover
-- ideally the content can be anything contained in that box
-- tooltip can be in different directions: start with bottom && right
-*/
-
+const CONTENT_MAX_WIDTH = 250;
+const ARROW_SIZE = 80;
+const TOOLTIP_DISTANCE = 10;
 const gradient = css`
-    linear-gradient(
+    border-image: linear-gradient(
         315deg,
         ${colorMap.violet} 0%,
         ${colorMap.magenta} 40%,
         ${colorMap.orange} 100%
-    )
+    );
+    border-image-slice: 1;
+`;
+const defaultBorder = css`
+    border-color: ${colorMap.greyLightTwo};
 `;
 
 const Content = styled('div')`
     background: ${colorMap.greyDarkOne};
     border: 2px solid;
-    border-image: ${gradient};
-    border-image-slice: 1;
     color: ${colorMap.devWhite};
-    max-width: 500px;
+    max-width: ${CONTENT_MAX_WIDTH};
     padding: ${size.medium} ${size.default};
+    ${({ hasGradientBorder }) => hasGradientBorder && gradient}
+    ${({ hasGradientBorder }) => !hasGradientBorder && defaultBorder}
 `;
 
+// This logic was pulled from 'react-tiny-popover' (see = https://github.com/alexkatz/react-tiny-popover/blob/3928cfa67a57676f32d5f04b3e1decb8c31db544/src/Popover.tsx#L316-L352)
+// In order to provide custom positioning of right/left tooltips
+// we must hook into the logic of the library and add the
+// adjustments needed
+const contentLocation = padding => ({
+    align,
+    position,
+    popoverRect,
+    targetRect,
+    nudgedLeft,
+    nudgedTop,
+}) => {
+    const targetMidX = targetRect.left + targetRect.width / 2;
+    const targetMidY = targetRect.top + targetRect.height / 2;
+    let top;
+    let left;
+    let topAdjustment = 0; // this is our 'top' adjustment
 
+    switch (position) {
+        case 'top':
+            // taken from library
+            top = targetRect.top - popoverRect.height - padding;
+            left = targetMidX - popoverRect.width / 2;
+            break;
+        case 'left':
+            // taken from library
+            left = targetRect.left - padding - popoverRect.width;
+            top = targetRect.top;
+            // our adjustment
+            topAdjustment = -20;
+            break;
+        case 'bottom':
+            // taken from library
+            top = targetRect.bottom + padding;
+            left = targetMidX - popoverRect.width / 2;
+            break;
+        case 'right':
+            // taken from library
+            top = targetRect.top;
+            left = targetRect.right + padding;
+            // our adjustment
+            topAdjustment = -20;
+            break;
+    }
+    const finalTop = top + window.pageYOffset + topAdjustment;
+    const finalLeft = left + window.pageXOffset;
+
+    return { top: finalTop, left: finalLeft };
+};
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children
+ * @property {boolean} props.hasGradientBorder
  * @property {string} props.position
  * @property {node} props.trigger
  */
 
-const Tooltip = ({ children, position, trigger }) => {
+const Tooltip = ({ children, hasGradientBorder, position, trigger }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const width = 80;
-    const height = 80;
-    const targetRect = {
-        width: 60,
-        height: 60,
-        top: 10,
-        left: 0,
-        right: 0,
-        bottom: 0,
+    const arrowSize = {
+        height: ARROW_SIZE,
+        width: ARROW_SIZE,
     };
     const targetMap = {
-        bottom: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
-        left: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
-        right: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
-        top: { height, width },
+        bottom: { bottom: 0, left: 0, right: 0, top: 0, ...arrowSize },
+        left: { bottom: 0, left: 0, right: 0, top: 0, ...arrowSize },
+        right: arrowSize,
+        top: arrowSize,
     };
     const popOverMap = {
-        bottom: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
-        left: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
-        right: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
-        top: { height, width },
+        bottom: { bottom: 0, left: 0, right: 0, top: 0, ...arrowSize },
+        left: { bottom: 0, left: 0, right: 0, top: 0, ...arrowSize },
+        right: arrowSize,
+        top: arrowSize,
     };
-    const styleMap = {
-        bottom: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
-        left: { height, width, bottom: 0, left: 0, right: 0, top: 0 },
-        right: { left: "2px"},
-        top: { bottom: "2px", left: '70px' },
-    }
-    const tooltipLocation = {
-        bottom: {},
-        left: {},
-        right: { top: 0},
-        top: {}
-    }
+    const arrowStyleMap = {
+        bottom: { left: '46%', right: '53%', top: '2px' },
+        left: { right: '2px', top: size.medium },
+        right: { left: '2px', top: size.medium },
+        top: { bottom: '2px', left: '47%', right: '53%' },
+    };
+    const alignmentMap = {
+        bottom: 'center',
+        left: 'start',
+        right: 'start',
+        top: 'center',
+    };
+    const tooltipProps = {
+        align: alignmentMap[position],
+        containerStyle: { zIndex: layer.superFront },
+        disableReposition: true,
+        isOpen: isOpen,
+        onClickOutside: () => setIsOpen(false),
+        padding: TOOLTIP_DISTANCE,
+        position: position,
+        transitionDuration: 0.15,
+    };
 
     return (
         <Popover
+            contentLocation={contentLocation(TOOLTIP_DISTANCE)}
             content={
                 <ArrowContainer
-                    arrowSize={10}
-                    position={position}
                     arrowColor={colorMap.greyDarkOne}
-                    targetRect={targetMap[position]}
+                    arrowSize={10}
+                    arrowStyle={arrowStyleMap[position]}
+                    position={position}
                     popoverRect={popOverMap[position]}
-                    arrowStyle={styleMap[position]}
+                    targetRect={targetMap[position]}
                 >
-                    <Content>{children}</Content>
+                    <Content hasGradientBorder={hasGradientBorder}>
+                        {children}
+                    </Content>
                 </ArrowContainer>
             }
-            containerStyle={{zIndex: layer.superFront}}
-            disableReposition
-            isOpen={isOpen}
-            onClickOutside={() => setIsOpen(false)}
-            padding={10}
-            position={position}
-            transitionDuration={0.15}
+            {...tooltipProps}
         >
             <span onClick={() => setIsOpen(true)}>{trigger}</span>
         </Popover>
