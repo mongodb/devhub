@@ -6,7 +6,7 @@ import { colorMap, fontSize, size } from './theme';
 const CloseIcon = styled(P)`
     color: ${colorMap.devWhite};
     margin-left: auto;
-    padding: ${size.default};
+    /* padding: ${size.default}; */
 
     /* TODO replace P with a button here and remove hover CSS */
     :hover {
@@ -47,6 +47,7 @@ const StyledNotification = styled('div')`
     font-size: ${fontSize.tiny};
     justify-content: center;
     opacity: 0.8;
+    padding: ${size.small} ${size.default};
     :hover {
         cursor: pointer;
         opacity: 1;
