@@ -132,9 +132,7 @@ export default () => (
                     Join the Community (Primary)
                 </Button>
                 <Button secondary>Join the Community (Secondary)</Button>
-                <Button color={colorMap.devBlack}>
-                    Join the Community (Ternary)
-                </Button>
+                <Button tertiary>Join the Community (tertiary)</Button>
             </Row>
             <SectionHeader>Notification</SectionHeader>
             <Notification />
