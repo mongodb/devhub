@@ -64,13 +64,6 @@ const SelectedOption = styled('div')`
     padding: ${({ narrow }) =>
         narrow ? `${size.small} ${size.medium}` : size.medium};
     position: relative;
-    /* ::after {
-        height: ${size.small};
-        content: ${({ showOptions }) =>
-            showOptions ? '"\u2303";' : '"\u2304";'};
-        font-family: 'Fira Mono', monospace;
-        font-size: 20px;
-    } */
 `;
 
 const FormSelect = ({
