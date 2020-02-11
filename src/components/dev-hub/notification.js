@@ -1,7 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/core';
 import { P } from './text';
 import { colorMap, fontSize, size } from './theme';
+
+const blink = keyframes`
+    50% {
+    opacity: 0;
+  }
+`;
 
 const CloseIcon = styled(P)`
     color: ${colorMap.devWhite};
@@ -23,11 +30,13 @@ const LiveNowBadgeContainer = styled('div')`
     border: 1px solid ${colorMap.salmon};
     border-radius: ${size.medium};
     color: ${colorMap.salmon};
+    font-size: ${fontSize.micro};
     font-weight: bold;
     margin-right: ${size.small};
     padding: 0 ${size.small};
     text-transform: uppercase;
     &:before {
+        animation: ${blink} 2s ease infinite;
         /* 25cf is "SMALL DOT" */
         content: '\u25cf ';
     }
