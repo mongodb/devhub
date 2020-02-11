@@ -11,6 +11,7 @@ import MediaBlock from '../components/dev-hub/media-block';
 import Notification from '../components/dev-hub/notification';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
 import { colorMap, size, screenSize } from '../components/dev-hub/theme';
+import Button from '../components/dev-hub/button';
 import ShareIcon from '../components/dev-hub/share-icon';
 import FacebookIcon from '../components/dev-hub/facebook-icon';
 import TwitterIcon from '../components/dev-hub/twitter-icon';
@@ -27,12 +28,12 @@ const gradientCardProps = {
     gradient: true,
 };
 
-const CardRow = styled('div')`
+const Row = styled('div')`
     color: ${colorMap.devBlack};
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 16px;
+    margin: 16px 0;
     @media ${screenSize.upToMedium} {
         flex-direction: column;
     }
@@ -125,6 +126,16 @@ export default () => (
             <Badge>Event</Badge>
             <Badge>Community</Badge>
             <Badge>Deep Dive</Badge>
+            <SectionHeader>Buttons</SectionHeader>
+            <Row>
+                <Button href="#" primary>
+                    Join the Community (Primary)
+                </Button>
+                <Button secondary>Join the Community (Secondary)</Button>
+                <Button color={colorMap.devBlack}>
+                    Join the Community (Ternary)
+                </Button>
+            </Row>
             <SectionHeader>Notification</SectionHeader>
             <Notification />
             <SectionHeader>Code Block</SectionHeader>
@@ -161,7 +172,7 @@ export default () => (
                 </Swatch>
             ))}
             <SectionHeader>Cards</SectionHeader>
-            <CardRow>
+            <Row>
                 <Card distinct {...cardProps}>
                     <H4>I'm a Card For A Post on the New Devhub Platform!</H4>
                 </Card>
@@ -171,8 +182,8 @@ export default () => (
                 <Card {...gradientCardProps} highlight>
                     <H4>I'm a Gradient Card</H4>
                 </Card>
-            </CardRow>
-            <CardRow>
+            </Row>
+            <Row>
                 <Card distinct width="300px">
                     <H4 bold>
                         Install MongoDB Community Edition on Red Hat or CentOS
@@ -200,14 +211,14 @@ export default () => (
                     <P bold>written by Author </P>
                     <P>preview preview preview</P>
                 </Card>
-            </CardRow>
+            </Row>
             <SectionHeader>Icons</SectionHeader>
-            <CardRow>
+            <Row>
                 <ShareIcon color={colorMap.teal} />
                 <FacebookIcon color={colorMap.salmon} />
                 <TwitterIcon color={colorMap.violet} />
                 <EnvelopeIcon color={colorMap.magenta} />
-            </CardRow>
+            </Row>
         </StorybookContainer>
     </StorybookLayout>
 );
