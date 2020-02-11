@@ -44,6 +44,7 @@ import Subscript from './Subscript';
 import Superscript from './Superscript';
 import Image from './Image';
 import RefRole from './RefRole';
+import TwitterMeta from './TwitterMeta';
 
 import RoleClass from './Roles/Class';
 import RoleDoc from './Roles/Doc';
@@ -109,7 +110,9 @@ export default class ComponentFactory extends Component {
             text: Text,
             title_reference: TitleReference,
             topic: Topic,
+            twitter: TwitterMeta,
             transition: Transition,
+            twitter: TwitterMeta,
             versionadded: VersionAdded,
             versionchanged: VersionChanged,
         };

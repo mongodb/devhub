@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Badge from '../components/dev-hub/badge';
 import { StorybookLayout } from '../components/dev-hub/layout';
 import Card from '../components/dev-hub/card';
+import CodeBlock from '../components/dev-hub/codeblock';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
+import Input from '../components/dev-hub/input';
 import MediaBlock from '../components/dev-hub/media-block';
 import Notification from '../components/dev-hub/notification';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
@@ -91,12 +93,28 @@ const MediaBlockStory = ({ reverse }) => (
     </MediaBlock>
 );
 
+const InputStory = ({ narrow }) => {
+    const [value, setValue] = useState('');
+    const onChange = e => {
+        const { value } = e.target;
+        setValue(value);
+    };
+    return (
+        <Input
+            narrow={narrow}
+            value={value}
+            placeholder="Email Address"
+            onChange={onChange}
+        />
+    );
+};
+
 export default () => (
     <StorybookLayout>
         <StorybookContainer>
             <H1>DevHub Component "Storybook"</H1>
             <SectionHeader>Text</SectionHeader>
-            <H1 collapse>Heading 1</H1>
+            <H1>Heading 1</H1>
             <H2>Heading 2</H2>
             <H3>Heading 3</H3>
             <H4>Heading 4</H4>
@@ -120,12 +138,27 @@ export default () => (
             </Row>
             <SectionHeader>Notification</SectionHeader>
             <Notification />
+            <SectionHeader>Code Block</SectionHeader>
+            <CodeBlock>{['Example code, without a new line']}</CodeBlock>
+            <CodeBlock>{['Example code\n', 'With multiple lines\n']}</CodeBlock>
+            <CodeBlock>
+                {[
+                    'Lets try out a really really really long block of text this should overflow ',
+                    'Lets try out a really really really long block of text this should overflow',
+                ]}
+            </CodeBlock>
             <SectionHeader>Links</SectionHeader>
             <Link primary>Hello World</Link>
             <SectionHeader>Media Block</SectionHeader>
             <MediaBlockStory />
             <SectionHeader>Media Block (reverse)</SectionHeader>
             <MediaBlockStory reverse />
+            <SectionHeader>Form Elements</SectionHeader>
+            <H4>Input</H4>
+            <InputStory />
+            <br />
+            <H4>Input (Narrow)</H4>
+            <InputStory narrow />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch

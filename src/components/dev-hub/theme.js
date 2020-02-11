@@ -3,16 +3,32 @@
  * @property {string} fontsize returns px value
  */
 const fontSize = {
-    micro: '8px',
-    xsmall: '10px',
-    tiny: '12px',
-    small: '14px',
-    default: '16px',
-    h1: '48px',
-    h2: '30px',
-    h3: '24px',
-    h4: '20px',
-    tabNav: '10px',
+    micro: '10px',
+    xsmall: '12px',
+    tiny: '14px',
+    small: '16px',
+    default: '18px',
+    h1: '42px',
+    h2: '36px',
+    h3: '30px',
+    h4: '24px',
+    h5: '20px',
+};
+/**
+ * @type {Object.<string, string>}
+ * @property {string} lineHeight
+ */
+const lineHeight = {
+    micro: '16px',
+    xsmall: '18px',
+    tiny: '20px',
+    small: '24px',
+    default: '28px',
+    h1: '54px',
+    h2: '48px',
+    h3: '42px',
+    h4: '36px',
+    h5: '32px',
 };
 /**
  * @type {Object}
@@ -149,12 +165,16 @@ const layer = {
     superFront: 22,
 };
 
+const FORM_ELEMENT_BORDER = '2px';
+
 export {
     borderGradients,
     colorMap,
     fontSize,
+    FORM_ELEMENT_BORDER,
     gradientMap,
     layer,
+    lineHeight,
     screenSize,
     size,
 };
