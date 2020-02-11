@@ -23,6 +23,7 @@ const LiveNowBadgeContainer = styled('div')`
     border: 1px solid ${colorMap.salmon};
     border-radius: ${size.medium};
     color: ${colorMap.salmon};
+    font-weight: bold;
     margin-right: ${size.small};
     padding: 0 ${size.small};
     text-transform: uppercase;
