@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import ArrowheadIcon from './arrowhead-icon';
 import { P } from './text';
 import { colorMap, gradientMap, layer, size } from './theme';
 
@@ -63,12 +64,13 @@ const SelectedOption = styled('div')`
     padding: ${({ narrow }) =>
         narrow ? `${size.small} ${size.medium}` : size.medium};
     position: relative;
-    ::after {
+    /* ::after {
         height: ${size.small};
         content: ${({ showOptions }) =>
-            showOptions ? '"\u2191";' : '"\u2193";'};
+            showOptions ? '"\u2303";' : '"\u2304";'};
         font-family: 'Fira Mono', monospace;
-    }
+        font-size: 20px;
+    } */
 `;
 
 const FormSelect = ({
@@ -156,6 +158,7 @@ const FormSelect = ({
                 {...extraProps}
             >
                 <P collapse>{selectText}</P>
+                <ArrowheadIcon down={showOptions} />
             </SelectedOption>
             {showOptions && (
                 <Options narrow={narrow}>
