@@ -83,6 +83,12 @@ const gradientMap = {
         ${colorMap.teal} 0%,
         ${colorMap.lightGreen} 100%
     )`,
+    magentaSalmonYellow: `linear-gradient(
+        270deg,
+        ${colorMap.yellow} 0%,
+        ${colorMap.salmon} 49.99%,
+        ${colorMap.magenta} 100%
+    )`,
     tealViolet: `linear-gradient(
         270deg,
         ${colorMap.teal} 0%,

@@ -43,7 +43,7 @@ const StyledInput = styled('input')`
     );
 
     :focus {
-        border-image: ${gradientMap.violentMagentaOrange} 1;
+        border-image: ${gradientMap.magentaSalmonYellow} 1;
         transition: border ${animationSpeed.fast} linear ${animationSpeed.fast};
     }
 
