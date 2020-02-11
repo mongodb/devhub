@@ -79,6 +79,30 @@ const contentLocation = padding => ({
 
     return { top: finalTop, left: finalLeft };
 };
+/*
+    Default Styling & Positioning for Arrow
+    Based on Tooltip Position (right/left/top/bottom)
+*/
+const ARROW_RECT = {
+    height: ARROW_SIZE,
+    width: ARROW_SIZE,
+};
+
+const ARROW_STYLE_MAP = {
+    bottom: { left: '46%', right: '53%', top: '2px' },
+    left: { right: '2px', top: size.medium },
+    right: { left: '2px', top: size.medium },
+    top: { bottom: '2px', left: '47%', right: '53%' },
+};
+
+// Default alignment of tooltip content based on tooltip position
+const TOOLTIP_ALIGNMENT_MAP = {
+    bottom: 'center',
+    left: 'start',
+    right: 'start',
+    top: 'center',
+};
+
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children
@@ -89,36 +113,8 @@ const contentLocation = padding => ({
 
 const Tooltip = ({ children, hasGradientBorder, position, trigger }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const arrowSize = {
-        height: ARROW_SIZE,
-        width: ARROW_SIZE,
-    };
-    const targetMap = {
-        bottom: { bottom: 0, left: 0, right: 0, top: 0, ...arrowSize },
-        left: { bottom: 0, left: 0, right: 0, top: 0, ...arrowSize },
-        right: arrowSize,
-        top: arrowSize,
-    };
-    const popOverMap = {
-        bottom: { bottom: 0, left: 0, right: 0, top: 0, ...arrowSize },
-        left: { bottom: 0, left: 0, right: 0, top: 0, ...arrowSize },
-        right: arrowSize,
-        top: arrowSize,
-    };
-    const arrowStyleMap = {
-        bottom: { left: '46%', right: '53%', top: '2px' },
-        left: { right: '2px', top: size.medium },
-        right: { left: '2px', top: size.medium },
-        top: { bottom: '2px', left: '47%', right: '53%' },
-    };
-    const alignmentMap = {
-        bottom: 'center',
-        left: 'start',
-        right: 'start',
-        top: 'center',
-    };
     const tooltipProps = {
-        align: alignmentMap[position],
+        align: TOOLTIP_ALIGNMENT_MAP[position],
         containerStyle: { zIndex: layer.superFront },
         disableReposition: true,
         isOpen: isOpen,
@@ -135,10 +131,10 @@ const Tooltip = ({ children, hasGradientBorder, position, trigger }) => {
                 <ArrowContainer
                     arrowColor={colorMap.greyDarkOne}
                     arrowSize={10}
-                    arrowStyle={arrowStyleMap[position]}
+                    arrowStyle={ARROW_STYLE_MAP[position]}
                     position={position}
-                    popoverRect={popOverMap[position]}
-                    targetRect={targetMap[position]}
+                    popoverRect={ARROW_RECT}
+                    targetRect={ARROW_RECT}
                 >
                     <Content hasGradientBorder={hasGradientBorder}>
                         {children}
