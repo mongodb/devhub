@@ -84,6 +84,12 @@ const gradientMap = {
         ${colorMap.teal} 0%,
         ${colorMap.lightGreen} 100%
     )`,
+    magentaSalmonYellow: `linear-gradient(
+        270deg,
+        ${colorMap.yellow} 0%,
+        ${colorMap.salmon} 49.99%,
+        ${colorMap.magenta} 100%
+    )`,
     tealViolet: `linear-gradient(
         270deg,
         ${colorMap.teal} 0%,
@@ -99,6 +105,12 @@ const gradientMap = {
         ${colorMap.violet} 0%,
         ${colorMap.magenta} 100%
     )`,
+    violentMagentaOrange: `linear-gradient(
+                270deg,
+                ${colorMap.violet} 0%,
+                ${colorMap.magenta} 49.99%,
+                ${colorMap.orange} 100%
+            )`,
     violetMagentaReverse: `linear-gradient(
         270deg,
         ${colorMap.magenta} 0%,
@@ -160,6 +172,7 @@ const screenSize = {
  * @property {string} position returns a z-index value
  */
 const layer = {
+    superBack: -1,
     back: 1,
     middle: 11,
     front: 21,
