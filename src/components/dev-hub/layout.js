@@ -56,16 +56,9 @@ const ContentWrapper = styled('main')`
 `;
 
 export const StorybookLayout = ({ children }) => {
-    const storybookStyles = css`
-        ${globalStyles};
-        body {
-            background: ${colorMap.devWhite};
-            color: ${colorMap.devBlack};
-        }
-    `;
     return (
         <GlobalWrapper>
-            <Global styles={storybookStyles} />
+            <Global styles={globalStyles} />
             <ContentWrapper>{children}</ContentWrapper>
         </GlobalWrapper>
     );
