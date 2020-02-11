@@ -153,9 +153,7 @@ export default () => (
                     Join the Community (Primary)
                 </Button>
                 <Button secondary>Join the Community (Secondary)</Button>
-                <Button color={colorMap.devBlack}>
-                    Join the Community (Ternary)
-                </Button>
+                <Button tertiary>Join the Community (tertiary)</Button>
                 <Button play />
             </Row>
             <SectionHeader>Notification</SectionHeader>
@@ -170,7 +168,10 @@ export default () => (
                 ]}
             </CodeBlock>
             <SectionHeader>Links</SectionHeader>
-            <Link primary>Hello World</Link>
+            <Link href="#">Hello World</Link>
+            <Link href="#" tertiary>
+                Hello World
+            </Link>
             <SectionHeader>Media Block</SectionHeader>
             <MediaBlockStory />
             <SectionHeader>Media Block (reverse)</SectionHeader>
