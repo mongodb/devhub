@@ -8,7 +8,8 @@ import Link from './link';
 import { animationSpeed, colorMap, size } from './theme';
 
 const activeStyles = css`
-    color: ${colorMap.devWhite};
+    color: ${colorMap.white};
+    font-weight: bold;
     &:hover,
     &:visited {
         color: ${colorMap.white};
@@ -23,6 +24,9 @@ const defaultStyles = css`
 `;
 
 const StyledItem = styled(Link)`
+    &:visited {
+        color: ${colorMap.greyLightTwo};
+    }
     color: ${colorMap.greyLightTwo};
     padding: ${size.tiny} 0;
     text-decoration: none;
@@ -35,9 +39,6 @@ const StyledItem = styled(Link)`
     }
     &:last-of-type {
         padding-bottom: 0;
-    }
-    &:visited {
-        color: ${colorMap.greyLightTwo};
     }
 `;
 
