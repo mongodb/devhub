@@ -36,7 +36,6 @@ const gradientCardProps = {
 };
 
 const Row = styled('div')`
-    color: ${colorMap.devBlack};
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -235,7 +234,7 @@ export default () => (
                 </Swatch>
             ))}
             <SectionHeader>ToolTip/Content Menus</SectionHeader>
-            <CardRow>
+            <Row>
                 <TableOfContentsStory />
                 <Tooltip
                     hasGradientBorder
@@ -256,15 +255,15 @@ export default () => (
                 <Tooltip position={'left'} trigger={'Click on Me!'}>
                     I'm REVEALED AGAIN!
                 </Tooltip>
-            </CardRow>
+            </Row>
             <SectionHeader>Icons</SectionHeader>
-            <CardRow>
+            <Row>
                 <ShareIcon color={colorMap.teal} />
                 <ListIcon color={colorMap.orange} />
                 <FacebookIcon color={colorMap.salmon} />
                 <TwitterIcon color={colorMap.violet} />
                 <EnvelopeIcon color={colorMap.magenta} />
-            </CardRow>
+            </Row>
             <SectionHeader>Cards</SectionHeader>
             <Row>
                 <Card distinct {...cardProps}>
