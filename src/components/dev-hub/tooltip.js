@@ -33,9 +33,9 @@ const arrowBase = css`
         border: solid transparent;
         content: ' ';
         height: 0;
-        width: 0;
-        position: absolute;
         pointer-events: none;
+        position: absolute;
+        width: 0;
     }
     &:before {
         border-color: rgba(159, 237, 208, 0);
@@ -51,13 +51,13 @@ const verticalArrowBase = css`
         right: 53%;
     }
     &:after {
-        left: calc(50% - 11px);
         border-width: 11px;
+        left: calc(50% - 11px);
         margin-top: -11px;
     }
     &:before {
-        left: calc(50% - 15px);
         border-width: 15px;
+        left: calc(50% - 15px);
         margin-top: -15px;
     }
 `;

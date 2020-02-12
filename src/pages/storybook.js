@@ -17,10 +17,12 @@ import Button from '../components/dev-hub/button';
 import ShareIcon from '../components/dev-hub/share-icon';
 import FacebookIcon from '../components/dev-hub/facebook-icon';
 import ListIcon from '../components/dev-hub/list-icon';
+import LinkIcon from '../components/dev-hub/link-icon';
 import TwitterIcon from '../components/dev-hub/twitter-icon';
 import EnvelopeIcon from '../components/dev-hub/envelope-icon';
 import Tooltip from '../components/dev-hub/tooltip';
 import ContentsMenu from '../components/dev-hub/contents-menu';
+import ShareMenu from '../components/dev-hub/share-menu';
 
 const cardProps = {
     gradient: false,
@@ -89,7 +91,12 @@ const TableOfContentsStory = () => {
         { title: 'End', to: '/storybook#end' },
     ];
 
-    return <ContentsMenu title="Table of Contents" contents={contents} />;
+    return (
+        <>
+            <ShareMenu facebook="#" shareLink="#" twitter="#" />
+            <ContentsMenu title="Table of Contents" contents={contents} />
+        </>
+    );
 };
 const MediaBlockStory = ({ reverse }) => (
     <MediaBlock
@@ -229,17 +236,6 @@ export default () => (
             ))}
             <SectionHeader>ToolTip/Content Menus</SectionHeader>
             <CardRow>
-                <Tooltip
-                    hasGradientBorder
-                    position={'right'}
-                    trigger={<ShareIcon />}
-                >
-                    <div>
-                        <FacebookIcon color={colorMap.salmon} />
-                        <TwitterIcon color={colorMap.teal} />
-                        <EnvelopeIcon color={colorMap.lightGreen} />
-                    </div>
-                </Tooltip>
                 <TableOfContentsStory />
                 <Tooltip
                     hasGradientBorder
