@@ -1,10 +1,12 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import ComponentFactory from '../ComponentFactory';
 import { colorMap, gradientMap, layer, size } from './theme';
 
 const BLOCKQUOTE_INNER_LAYER_OFFSET = 6;
 const BLOCKQUOTE_OUTER_LAYER_OFFSET = 8;
+const BORDER_SIZE = 2;
 
 const StyledBlockquote = styled('blockquote')`
     background: ${colorMap.greyDarkThree};
@@ -14,33 +16,40 @@ const StyledBlockquote = styled('blockquote')`
     padding: ${size.medium};
 `;
 
+const blockquotePseudoElement = (
+    backgroundColor,
+    positionOffset,
+    sizeOffset = 0
+) => css`
+    background: ${backgroundColor};
+    border-radius: ${size.tiny};
+    bottom: ${positionOffset}px;
+    content: '';
+    height: calc(100% + ${sizeOffset}px);
+    left: ${positionOffset}px;
+    position: absolute;
+    width: calc(100% + ${sizeOffset}px);
+    z-index: ${layer.superBack};
+`;
+
 const BlockquoteContainer = styled('div')`
     border-radius: ${size.tiny};
-    background: ${gradientMap.magentaSalmonYellow};
+    background: ${gradientMap.magentaSalmonSherbet};
     background-size: cover;
-    padding: 2px;
+    padding: ${BORDER_SIZE}px;
     position: relative;
     &:before {
-        background: ${gradientMap.magentaSalmonYellow};
-        border-radius: ${size.tiny};
-        bottom: -${BLOCKQUOTE_OUTER_LAYER_OFFSET}px;
-        content: '';
-        height: 100%;
-        left: -${BLOCKQUOTE_OUTER_LAYER_OFFSET}px;
-        position: absolute;
-        width: 100%;
-        z-index: ${layer.superBack};
+        ${blockquotePseudoElement(
+            gradientMap.magentaSalmonSherbet,
+            -BLOCKQUOTE_OUTER_LAYER_OFFSET
+        )}
     }
     &:after {
-        background: ${colorMap.greyDarkThree};
-        border-radius: ${size.tiny};
-        bottom: -${BLOCKQUOTE_INNER_LAYER_OFFSET}px;
-        content: '';
-        height: calc(100% - 4px);
-        left: -${BLOCKQUOTE_INNER_LAYER_OFFSET}px;
-        position: absolute;
-        width: calc(100% - ${BLOCKQUOTE_INNER_LAYER_OFFSET}px);
-        z-index: ${layer.superBack};
+        ${blockquotePseudoElement(
+            colorMap.greyDarkThree,
+            -BLOCKQUOTE_INNER_LAYER_OFFSET,
+            -BLOCKQUOTE_INNER_LAYER_OFFSET + BORDER_SIZE
+        )};
     }
 `;
 

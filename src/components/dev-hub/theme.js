@@ -60,6 +60,7 @@ const colorMap = {
     magenta: '#CD509B',
     pageBackground: '#061621',
     salmon: '#E55F55',
+    sherbet: '#F7A76F',
     teal: '#2F9FC5',
     violet: '#6E60F9',
     white: '#F9FBFA',
@@ -82,6 +83,12 @@ const gradientMap = {
         270deg,
         ${colorMap.teal} 0%,
         ${colorMap.lightGreen} 100%
+    )`,
+    magentaSalmonSherbet: `linear-gradient(
+        270deg,
+        ${colorMap.sherbet} 0%,
+        ${colorMap.salmon} 49.99%,
+        ${colorMap.magenta} 100%
     )`,
     magentaSalmonYellow: `linear-gradient(
         270deg,
