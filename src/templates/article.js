@@ -4,9 +4,49 @@ import PropTypes from 'prop-types';
 import DocumentBody from '../components/DocumentBody';
 import Layout from '../components/dev-hub/layout';
 import Image from '../components/Image';
+import { getNestedText } from '../utils/get-nested-text';
 
+let articleTitle = '';
+
+/**
+ * Name map of directives we want to display in an article
+ */
+const contentNodesMap = {
+    introduction: true,
+    prerequisites: true,
+    content: true,
+    summary: true,
+};
+
+/**
+ * search the ast for the few directives we need to display content
+ * TODO this ignores some important meta like Twitter for now
+ * @param {array} nodes
+ * @returns {array} array of childNodes with our main content
+ */
 const getContent = nodes => {
-    return nodes.filter(node => node.type === 'section');
+    const nodesWeActuallyWant = [];
+    for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
+        const childNode = nodes[nodeIndex];
+        // The content nodes will be children of section nodes
+        if (childNode.type === 'section') {
+            for (
+                let childIndex = 0;
+                childIndex < childNode.children.length;
+                childIndex++
+            ) {
+                const grandChildNode = childNode.children[childIndex];
+                // TODO: This is a hack to pull the title out of the flow
+                if (grandChildNode.type === 'heading') {
+                    articleTitle = getNestedText(grandChildNode.children);
+                } else if (contentNodesMap[grandChildNode.name]) {
+                    nodesWeActuallyWant.push(grandChildNode);
+                }
+            }
+        }
+    }
+
+    return nodesWeActuallyWant;
 };
 
 const Article = props => {
@@ -17,7 +57,7 @@ const Article = props => {
         },
         ...rest
     } = props;
-    const childNodes = dlv(__refDocMapping, 'ast.children');
+    const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
     console.log({ contentNodes });
@@ -25,6 +65,7 @@ const Article = props => {
     return (
         <Layout>
             <header>
+                <h1>{articleTitle}</h1>
                 <p>{meta.author}</p>
                 <ul>
                     {meta.tags.map(tag => (
@@ -39,11 +80,13 @@ const Article = props => {
                     <Image src={meta['atf-image']} alt="" />
                 </p>
             </header>
-            <DocumentBody
-                pageNodes={contentNodes}
-                slugTitleMapping={slugTitleMapping}
-                {...rest}
-            />
+            <section>
+                <DocumentBody
+                    pageNodes={contentNodes}
+                    slugTitleMapping={slugTitleMapping}
+                    {...rest}
+                />
+            </section>
             <footer>
                 <ul>
                     {meta.related.map(rel => (
