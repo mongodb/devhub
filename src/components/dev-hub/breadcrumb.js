@@ -38,7 +38,7 @@ const Breadcrumb = ({ children }) => {
     return (
         <BreadcrumbList>
             {children.map(c => (
-                <StyledBreadcrumb tertiary to={c.target}>
+                <StyledBreadcrumb tertiary key={c.label} to={c.target}>
                     {c.label}
                 </StyledBreadcrumb>
             ))}
