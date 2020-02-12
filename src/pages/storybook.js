@@ -194,11 +194,13 @@ export default () => (
             <br />
             <H4>Input (Narrow)</H4>
             <InputStory narrow />
+            <br />
             <H4>Select</H4>
             <SelectStory />
             <br />
             <H4>Select (Narrow)</H4>
             <SelectStory narrow />
+            <br />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch
