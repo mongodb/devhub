@@ -77,21 +77,6 @@ const horizontalArrowBase = css`
     }
 `;
 
-const rightGradientArrow = css`
-    ${arrowBase}
-    ${horizontalArrowBase}
-    &:before,
-    &:after {
-        left: 100%;
-    }
-    &:before {
-        border-left-color: ${colorMap.magenta};
-    }
-    &:after {
-        border-left-color: ${colorMap.greyDarkOne};
-    }
-`;
-
 const rightDefaultArrow = css`
     ${arrowBase}
     ${horizontalArrowBase}
@@ -106,18 +91,16 @@ const rightDefaultArrow = css`
         border-left-color: ${colorMap.greyDarkOne};
     }
 `;
-const leftGradientArrow = css`
+
+const rightGradientArrow = css`
     ${arrowBase}
     ${horizontalArrowBase}
-    &:before,
-    &:after {
-        right: 100%;
-    }
+    ${rightDefaultArrow}
     &:before {
-        border-right-color: ${colorMap.orange};
+        border-left-color: ${colorMap.magenta};
     }
     &:after {
-        border-right-color: ${colorMap.greyDarkOne};
+        border-left-color: ${colorMap.greyDarkOne};
     }
 `;
 
@@ -135,16 +118,16 @@ const leftDefaultArrow = css`
         border-right-color: ${colorMap.greyDarkOne};
     }
 `;
-const bottomGradientArrow = css`
+
+const leftGradientArrow = css`
     ${arrowBase}
-    ${verticalArrowBase}
-    &:after {
-        border-top-color: ${colorMap.greyDarkOne};
-        top: calc(100% + 11px);
-    }
+    ${horizontalArrowBase}
+    ${leftDefaultArrow}
     &:before {
-        border-top-color: ${colorMap.magenta};
-        top: calc(100% + 15px);
+        border-right-color: ${colorMap.orange};
+    }
+    &:after {
+        border-right-color: ${colorMap.greyDarkOne};
     }
 `;
 
@@ -160,18 +143,16 @@ const bottomDefaultArrow = css`
         top: calc(100% + 15px);
     }
 `;
-const topGradientArrow = css`
+
+const bottomGradientArrow = css`
     ${arrowBase}
     ${verticalArrowBase}
-    &:before,
+    ${bottomDefaultArrow}
     &:after {
-        bottom: 100%;
-    }
-    &:after {
-        border-bottom-color: ${colorMap.greyDarkOne};
+        border-top-color: ${colorMap.greyDarkOne};
     }
     &:before {
-        border-bottom-color: ${colorMap.magenta};
+        border-top-color: ${colorMap.magenta};
     }
 `;
 
@@ -187,6 +168,18 @@ const topDefaultArrow = css`
     }
     &:before {
         border-bottom-color: ${colorMap.greyLightTwo};
+    }
+`;
+
+const topGradientArrow = css`
+    ${arrowBase}
+    ${verticalArrowBase}
+    ${topDefaultArrow}
+    &:after {
+        border-bottom-color: ${colorMap.greyDarkOne};
+    }
+    &:before {
+        border-bottom-color: ${colorMap.magenta};
     }
 `;
 
