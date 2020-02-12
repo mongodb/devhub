@@ -13,6 +13,7 @@ const OPTIONS_POSITION_OFFSET_NARROW = 48;
 const activeSelectStyles = css`
     border: ${BORDER_SIZE}px solid;
     border-image: ${gradientMap.violentMagentaOrange} 1;
+    outline: none;
 `;
 
 const Option = styled('li')`
@@ -88,11 +89,15 @@ const FormSelect = ({
     const showOptionsOnEnter = useCallback(
         e => {
             const enterKey = 13;
+            const escapeKey = 27;
             if (e.keyCode === enterKey) {
+                selectOnClick();
+            } else if (e.keyCode === escapeKey && showOptions) {
+                // Hitting the escape key should only close the select
                 selectOnClick();
             }
         },
-        [selectOnClick]
+        [selectOnClick, showOptions]
     );
 
     const optionOnClick = useCallback(
