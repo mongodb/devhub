@@ -17,12 +17,12 @@ const TOOLTIP_ALIGNMENT_MAP = {
 
 const gradient = css`
     border-image: linear-gradient(
-        315deg,
-        ${colorMap.violet} 0%,
-        ${colorMap.magenta} 40%,
-        ${colorMap.orange} 100%
-    );
-    border-image-slice: 1;
+            315deg,
+            ${colorMap.violet} 0%,
+            ${colorMap.magenta} 40%,
+            ${colorMap.orange} 100%
+        )
+        1;
 `;
 const defaultBorder = css`
     border-color: ${colorMap.greyLightTwo};
@@ -38,10 +38,10 @@ const arrowBase = css`
         width: 0;
     }
     &:before {
-        border-color: rgba(255, 255, 255, 0);
+        border-color: transparent;
     }
     &:after {
-        border-color: rgba(255, 255, 255, 0);
+        border-color: transparent;
     }
 `;
 

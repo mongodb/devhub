@@ -238,7 +238,7 @@ export default () => (
                 <TableOfContentsStory />
                 <Tooltip
                     hasGradientBorder
-                    position={'top'}
+                    position="top"
                     trigger={<ShareIcon color={colorMap.yellow} />}
                 >
                     <div>
@@ -247,12 +247,12 @@ export default () => (
                     </div>
                 </Tooltip>
                 <Tooltip
-                    position={'bottom'}
+                    position="bottom"
                     trigger={<ShareIcon color={colorMap.lightGreen} />}
                 >
                     I'm REVEALED!
                 </Tooltip>
-                <Tooltip position={'left'} trigger={'Click on Me!'}>
+                <Tooltip position="left" trigger="Click on Me!">
                     I'm REVEALED AGAIN!
                 </Tooltip>
             </Row>
