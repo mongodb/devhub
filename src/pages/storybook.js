@@ -311,6 +311,8 @@ export default () => (
                 <FacebookIcon color={colorMap.salmon} />
                 <TwitterIcon color={colorMap.violet} />
                 <EnvelopeIcon color={colorMap.magenta} />
+                <LinkIcon color={colorMap.orange} />
+                <ListIcon color={colorMap.yellow} />
             </Row>
         </StorybookContainer>
     </StorybookLayout>
