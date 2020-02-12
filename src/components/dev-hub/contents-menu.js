@@ -5,11 +5,12 @@ import Tooltip from './tooltip';
 import ListIcon from './list-icon';
 import { P } from './text';
 import Link from './link';
-import { colorMap, size } from './theme';
+import { animationSpeed, colorMap, size } from './theme';
 
 const activeStyles = css`
     color: ${colorMap.devWhite};
-    &:hover {
+    &:hover,
+    &:visited {
         color: ${colorMap.white};
     }
 `;
@@ -17,19 +18,27 @@ const activeStyles = css`
 const defaultStyles = css`
     &:hover {
         color: ${colorMap.devWhite};
+        transition: color ${animationSpeed.fast} ease ${animationSpeed.fast};
     }
 `;
 
 const StyledItem = styled(Link)`
+    color: ${colorMap.greyLightTwo};
     padding: ${size.tiny} 0;
     text-decoration: none;
     ${({ active }) => active && activeStyles}
     ${({ active }) => !active && defaultStyles}
+    &:after {
+        content: '';
+    }
+    &:hover {
+        transition: color ${animationSpeed.fast} ease ${animationSpeed.fast};
+    }
     &:last-of-type {
         padding-bottom: 0;
     }
-    &:after {
-        content: '';
+    &:visited {
+        color: ${colorMap.greyLightTwo};
     }
 `;
 

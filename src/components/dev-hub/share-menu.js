@@ -51,6 +51,8 @@ const SocialIcon = ({ type, href }) => {
  * @property {string} props.twitter
  */
 
+// TODO: Continue to add different social links based on how
+// we want dev-hub content shared
 const ContentsMenu = ({ facebook, shareLink, twitter }) => {
     const [activeItem, setActiveItem] = useState(null);
 

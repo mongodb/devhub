@@ -38,10 +38,10 @@ const arrowBase = css`
         width: 0;
     }
     &:before {
-        border-color: rgba(159, 237, 208, 0);
+        border-color: rgba(255, 255, 255, 0);
     }
     &:after {
-        border-color: rgba(213, 111, 96, 0);
+        border-color: rgba(255, 255, 255, 0);
     }
 `;
 
