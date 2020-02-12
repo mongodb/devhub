@@ -204,7 +204,7 @@ const Content = styled('div')`
     background: ${colorMap.greyDarkOne};
     border: 2px solid;
     color: ${colorMap.devWhite};
-    max-width: ${CONTENT_MAX_WIDTH};
+    max-width: ${CONTENT_MAX_WIDTH}px;
     padding: ${size.medium} ${size.default};
     position: relative;
     ${({ hasGradientBorder }) => hasGradientBorder && gradient}

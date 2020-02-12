@@ -23,8 +23,8 @@ const defaultStyles = css`
 const StyledItem = styled(Link)`
     padding: ${size.tiny} 0;
     text-decoration: none;
-    ${({ isActive }) => isActive && activeStyles}
-    ${({ isActive }) => !isActive && defaultStyles}
+    ${({ active }) => active && activeStyles}
+    ${({ active }) => !active && defaultStyles}
     &:last-of-type {
         padding-bottom: 0;
     }
@@ -52,18 +52,20 @@ const ContentsMenu = ({ title, contents = [] }) => {
         <Tooltip hasGradientBorder position={'right'} trigger={<ListIcon />}>
             <P bold>{title}</P>
             <Contents>
-                {contents.map(item => (
-                    <li>
-                        <StyledItem
-                            key={item.to}
-                            isActive={item.to === activeItem}
-                            onClick={() => setActiveItem(item.to)}
-                            to={item.to}
-                        >
-                            {item.title}
-                        </StyledItem>
-                    </li>
-                ))}
+                {contents.map(item => {
+                    const isActive = item.to === activeItem ? 'true' : null;
+                    return (
+                        <li key={item.to}>
+                            <StyledItem
+                                active={isActive}
+                                onClick={() => setActiveItem(item.to)}
+                                to={item.to}
+                            >
+                                {item.title}
+                            </StyledItem>
+                        </li>
+                    );
+                })}
             </Contents>
         </Tooltip>
     );
