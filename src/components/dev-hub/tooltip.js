@@ -207,8 +207,7 @@ const Content = styled('div')`
     max-width: ${CONTENT_MAX_WIDTH}px;
     padding: ${size.medium} ${size.default};
     position: relative;
-    ${({ hasGradientBorder }) => hasGradientBorder && gradient}
-    ${({ hasGradientBorder }) => !hasGradientBorder && defaultBorder}
+    ${({ hasGradientBorder }) => (hasGradientBorder ? gradient : defaultBorder)}
     ${({ hasGradientBorder, position }) =>
         getArrowStyles(hasGradientBorder, position)}
 `;
@@ -300,7 +299,13 @@ const Tooltip = ({ children, hasGradientBorder, position, trigger }) => {
             }
             {...tooltipProps}
         >
-            <Trigger onClick={() => setIsOpen(true)}>{trigger}</Trigger>
+            <Trigger
+                tabIndex="0"
+                onClick={() => setIsOpen(!isOpen)}
+                onKeyPress={() => setIsOpen(!isOpen)}
+            >
+                {trigger}
+            </Trigger>
         </Popover>
     );
 };

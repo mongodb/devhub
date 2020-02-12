@@ -26,8 +26,7 @@ const StyledItem = styled(Link)`
     color: ${colorMap.greyLightTwo};
     padding: ${size.tiny} 0;
     text-decoration: none;
-    ${({ active }) => active && activeStyles}
-    ${({ active }) => !active && defaultStyles}
+    ${({ isactive }) => (isactive ? activeStyles : defaultStyles)}
     &:after {
         content: '';
     }
@@ -61,13 +60,15 @@ const ContentsMenu = ({ title, contents = [] }) => {
         <Tooltip hasGradientBorder position={'right'} trigger={<ListIcon />}>
             <P bold>{title}</P>
             <Contents>
-                {contents.map(item => {
-                    const isActive = item.to === activeItem ? 'true' : null;
+                {contents.map((item, index) => {
+                    const isactive = item.to === activeItem ? 'true' : null;
                     return (
                         <li key={item.to}>
                             <StyledItem
-                                active={isActive}
+                                tabIndex="0"
+                                isactive={isactive}
                                 onClick={() => setActiveItem(item.to)}
+                                onKeyPress={() => setActiveItem(item.to)}
                                 to={item.to}
                             >
                                 {item.title}
