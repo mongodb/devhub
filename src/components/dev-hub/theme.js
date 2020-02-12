@@ -44,6 +44,10 @@ const size = {
     xlarge: '64px',
     xxlarge: '128px',
     maxWidth: '1440px',
+    /** @type {function(string): number} */
+    stripUnit(unit) {
+        return parseInt(unit, 10);
+    },
 };
 const colorMap = {
     darkGreen: '#13AA52',
