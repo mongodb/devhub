@@ -7,6 +7,14 @@ import { colorMap, layer, size } from './theme';
 const CONTENT_MAX_WIDTH = 250;
 const ARROW_SIZE = 80;
 const TOOLTIP_DISTANCE = 15;
+// Default alignment of tooltip content based on tooltip position
+const TOOLTIP_ALIGNMENT_MAP = {
+    bottom: 'center',
+    left: 'start',
+    right: 'start',
+    top: 'center',
+};
+
 const gradient = css`
     border-image: linear-gradient(
         315deg,
@@ -31,13 +39,9 @@ const arrowBase = css`
     }
     &:before {
         border-color: rgba(159, 237, 208, 0);
-        border-width: 12px;
-        margin-top: -12px;
     }
     &:after {
         border-color: rgba(213, 111, 96, 0);
-        border-width: 9px;
-        margin-top: -9px;
     }
 `;
 
@@ -63,9 +67,17 @@ const horizontalArrowBase = css`
     &:after {
         top: 30px;
     }
+    &:before {
+        border-width: 12px;
+        margin-top: -12px;
+    }
+    &:after {
+        border-width: 9px;
+        margin-top: -9px;
+    }
 `;
 
-const rightArrowStyles = css`
+const rightGradientArrow = css`
     ${arrowBase}
     ${horizontalArrowBase}
     &:before,
@@ -79,7 +91,22 @@ const rightArrowStyles = css`
         border-left-color: ${colorMap.greyDarkOne};
     }
 `;
-const leftArrowStyles = css`
+
+const rightDefaultArrow = css`
+    ${arrowBase}
+    ${horizontalArrowBase}
+    &:before,
+    &:after {
+        left: 100%;
+    }
+    &:before {
+        border-left-color: ${colorMap.greyLightTwo};
+    }
+    &:after {
+        border-left-color: ${colorMap.greyDarkOne};
+    }
+`;
+const leftGradientArrow = css`
     ${arrowBase}
     ${horizontalArrowBase}
     &:before,
@@ -94,7 +121,21 @@ const leftArrowStyles = css`
     }
 `;
 
-const bottomArrowStyles = css`
+const leftDefaultArrow = css`
+    ${arrowBase}
+    ${horizontalArrowBase}
+    &:before,
+    &:after {
+        right: 100%;
+    }
+    &:before {
+        border-right-color: ${colorMap.greyLightTwo};
+    }
+    &:after {
+        border-right-color: ${colorMap.greyDarkOne};
+    }
+`;
+const bottomGradientArrow = css`
     ${arrowBase}
     ${verticalArrowBase}
     &:after {
@@ -106,7 +147,20 @@ const bottomArrowStyles = css`
         top: calc(100% + 15px);
     }
 `;
-const topArrowStyles = css`
+
+const bottomDefaultArrow = css`
+    ${arrowBase}
+    ${verticalArrowBase}
+    &:after {
+        border-top-color: ${colorMap.greyDarkOne};
+        top: calc(100% + 11px);
+    }
+    &:before {
+        border-top-color: ${colorMap.greyLightTwo};
+        top: calc(100% + 15px);
+    }
+`;
+const topGradientArrow = css`
     ${arrowBase}
     ${verticalArrowBase}
     &:before,
@@ -121,9 +175,30 @@ const topArrowStyles = css`
     }
 `;
 
-const Trigger = styled('span')`
-    cursor: pointer;
+const topDefaultArrow = css`
+    ${arrowBase}
+    ${verticalArrowBase}
+    &:before,
+    &:after {
+        bottom: 100%;
+    }
+    &:after {
+        border-bottom-color: ${colorMap.greyDarkOne};
+    }
+    &:before {
+        border-bottom-color: ${colorMap.greyLightTwo};
+    }
 `;
+
+const getArrowStyles = (hasGradientBorder, position) => {
+    const tooltipArrowMap = {
+        bottom: hasGradientBorder ? topGradientArrow : topDefaultArrow,
+        left: hasGradientBorder ? rightGradientArrow : rightDefaultArrow,
+        right: hasGradientBorder ? leftGradientArrow : leftDefaultArrow,
+        top: hasGradientBorder ? bottomGradientArrow : bottomDefaultArrow,
+    };
+    return tooltipArrowMap[position];
+};
 
 const Content = styled('div')`
     background: ${colorMap.greyDarkOne};
@@ -134,10 +209,12 @@ const Content = styled('div')`
     position: relative;
     ${({ hasGradientBorder }) => hasGradientBorder && gradient}
     ${({ hasGradientBorder }) => !hasGradientBorder && defaultBorder}
-    ${({ isBottom }) => isBottom && topArrowStyles}
-    ${({ isLeft }) => isLeft && rightArrowStyles}
-    ${({ isRight }) => isRight && leftArrowStyles}
-    ${({ isTop }) => isTop && bottomArrowStyles}
+    ${({ hasGradientBorder, position }) =>
+        getArrowStyles(hasGradientBorder, position)}
+`;
+
+const Trigger = styled('span')`
+    cursor: pointer;
 `;
 
 // This logic was pulled from 'react-tiny-popover' (see = https://github.com/alexkatz/react-tiny-popover/blob/3928cfa67a57676f32d5f04b3e1decb8c31db544/src/Popover.tsx#L316-L352)
@@ -189,14 +266,6 @@ const contentLocation = padding => ({
 
     return { top: finalTop, left: finalLeft };
 };
-// Default alignment of tooltip content based on tooltip position
-const TOOLTIP_ALIGNMENT_MAP = {
-    bottom: 'center',
-    left: 'start',
-    right: 'start',
-    top: 'center',
-};
-
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children
@@ -223,11 +292,8 @@ const Tooltip = ({ children, hasGradientBorder, position, trigger }) => {
             contentLocation={contentLocation(TOOLTIP_DISTANCE)}
             content={
                 <Content
-                    isTop={position === 'top'}
-                    isBottom={position === 'bottom'}
-                    isRight={position === 'right'}
-                    isLeft={position === 'left'}
                     hasGradientBorder={hasGradientBorder}
+                    position={position}
                 >
                     {children}
                 </Content>
