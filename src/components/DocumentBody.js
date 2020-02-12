@@ -1,23 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import dlv from 'dlv';
 import ComponentFactory from './ComponentFactory';
-import { getNestedValue } from '../utils/get-nested-value';
 
 const DocumentBody = ({
-    footnotes,
+    pageNodes,
     refDocMapping,
     slugTitleMapping,
     substitutions,
 }) => {
-    const pageNodes = getNestedValue(['ast', 'children'], refDocMapping) || [];
-    console.group('DocumentBody pageNodes');
-    console.log(pageNodes);
-    console.groupEnd();
+    const nodes = pageNodes || dlv(refDocMapping, 'ast.children', []);
     return (
         <React.Fragment>
-            {pageNodes.map((child, index) => (
+            {nodes.map((child, index) => (
                 <ComponentFactory
-                    footnotes={footnotes}
                     key={index}
                     nodeData={child}
                     refDocMapping={refDocMapping}
@@ -31,11 +27,12 @@ const DocumentBody = ({
 
 DocumentBody.propTypes = {
     footnotes: PropTypes.objectOf(PropTypes.object),
+    pageNodes: PropTypes.array,
     refDocMapping: PropTypes.shape({
         ast: PropTypes.shape({
             children: PropTypes.array,
         }).isRequired,
-    }).isRequired,
+    }),
     slugTitleMapping: PropTypes.objectOf(
         PropTypes.oneOfType([PropTypes.array, PropTypes.string])
     ),
