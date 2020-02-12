@@ -189,7 +189,7 @@ function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
 
-console.log(greeting('World'));
+console.log(greeting('World'));console.log(greeting('World'));
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }

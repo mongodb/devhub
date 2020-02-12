@@ -3,18 +3,22 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import Code from '@leafygreen-ui/code';
 import { colorMap, lineHeight, size } from './theme';
+import CopyButton from './copy-button';
 
 const LEAFY_CODEBLOCK_PADDING = 12;
 const LEAFY_LINENUMBER_PADDING = 42;
 
 const StyledCode = styled(Code)`
-    border-radius: ${size.small};
+    border-radius: ${size.small} 0 0 ${size.small};
     line-height: ${lineHeight.xsmall};
+    padding-top: 32px;
+    padding-right: 64px;
     ${({ numdigits }) =>
         `padding-left: calc(${LEAFY_LINENUMBER_PADDING}px + ${numdigits *
             size.stripUnit(size.xsmall)}px)`};
     /* Line Numbers */
     > div {
+        padding-top: 32px;
         color: ${colorMap.greyLightTwo};
         background-color: ${colorMap.greyDarkTwo};
         border: none;
@@ -25,12 +29,30 @@ const StyledCode = styled(Code)`
                 ${colorMap.magenta} 100%
             )
             1;
-        border-radius: ${size.small} 0 0 ${size.small};
         border-right: 2px solid;
         left: 0;
         padding: ${LEAFY_CODEBLOCK_PADDING}px;
+        padding-top: 32px;
         text-align: right;
     }
+`;
+
+const CodeContainer = styled('div')`
+    display: inline-block;
+    position: relative;
+    > div:first-of-type {
+        border: none;
+        border-radius: 0 ${size.small} ${size.small} 0;
+    }
+`;
+
+const CopyContainer = styled('div')`
+    color: ${colorMap.greyLightTwo};
+    background-color: ${colorMap.greyDarkThree};
+    border-radius: 0 ${size.small} ${size.small} 0;
+    position: absolute;
+    left: calc(100% - 124px);
+    top: 4px;
 `;
 
 const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
@@ -40,15 +62,20 @@ const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
         numLines,
     ]);
     return (
-        <StyledCode
-            language={lang ? lang : 'auto'}
-            numdigits={numDigits}
-            showLineNumbers
-            variant="dark"
-            {...props}
-        >
-            {value}
-        </StyledCode>
+        <CodeContainer>
+            <StyledCode
+                language={lang ? lang : 'auto'}
+                numdigits={numDigits}
+                showLineNumbers
+                variant="dark"
+                {...props}
+            >
+                {value}
+            </StyledCode>
+            <CopyContainer>
+                <CopyButton single={false} copyContent={value} />
+            </CopyContainer>
+        </CodeContainer>
     );
 };
 
