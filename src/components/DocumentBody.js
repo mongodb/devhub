@@ -7,7 +7,6 @@ const DocumentBody = ({
     pageNodes,
     refDocMapping,
     slugTitleMapping,
-    substitutions,
 }) => {
     const nodes = pageNodes || dlv(refDocMapping, 'ast.children', []);
     return (
@@ -18,7 +17,6 @@ const DocumentBody = ({
                     nodeData={child}
                     refDocMapping={refDocMapping}
                     slugTitleMapping={slugTitleMapping}
-                    substitutions={substitutions}
                 />
             ))}
         </React.Fragment>
@@ -26,7 +24,6 @@ const DocumentBody = ({
 };
 
 DocumentBody.propTypes = {
-    footnotes: PropTypes.objectOf(PropTypes.object),
     pageNodes: PropTypes.array,
     refDocMapping: PropTypes.shape({
         ast: PropTypes.shape({
@@ -36,13 +33,10 @@ DocumentBody.propTypes = {
     slugTitleMapping: PropTypes.objectOf(
         PropTypes.oneOfType([PropTypes.array, PropTypes.string])
     ),
-    substitutions: PropTypes.objectOf(PropTypes.array),
 };
 
 DocumentBody.defaultProps = {
-    footnotes: {},
     slugTitleMapping: {},
-    substitutions: {},
 };
 
 export default DocumentBody;
