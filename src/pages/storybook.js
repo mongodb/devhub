@@ -203,21 +203,17 @@ function greeting(entity) {
 console.log(greeting('World'));`;
 const BlogTagListStory = ({ short }) => {
     const blogTags = short
-        ? {
-              value: [
-                  { text: 'Kerberos', to: '#' },
-                  { text: 'Golang', to: '#' },
-              ],
-          }
-        : {
-              value: [
-                  { text: 'Kerberos', to: '#' },
-                  { text: 'Golang', to: '#' },
-                  { text: 'Python', to: '#' },
-                  { text: 'Another Tag', to: '#' },
-              ],
-          };
-    return <BlogTagList nodeData={blogTags} />;
+        ? [
+              { text: 'Kerberos', to: '#' },
+              { text: 'Golang', to: '#' },
+          ]
+        : [
+              { text: 'Kerberos', to: '#' },
+              { text: 'Golang', to: '#' },
+              { text: 'Python', to: '#' },
+              { text: 'Another Tag', to: '#' },
+          ];
+    return <BlogTagList tags={blogTags} />;
 };
 
 export default () => (

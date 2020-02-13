@@ -47,26 +47,26 @@ const BlogTag = ({ children, ...props }) => (
 );
 
 // eslint-disable-next-line no-unused-vars
-const BlogTagList = ({ nodeData: { value }, meta }) => {
+const BlogTagList = ({ tags, tagLinkBase }) => {
     // TODO: add in article link below once finalized
-    // const getArticleLink = tagName => `${meta.url}/articles/${tagName}`
-    const canExpand = value.length >= MINIMUM_EXPANDABLE_SIZE;
+    // const getArticleLink = tagName => `${tagLinkBase}/${tagName}`
+    const canExpand = tags.length >= MINIMUM_EXPANDABLE_SIZE;
     // By default any list of blog tags under the minimum expandable size is already expanded
     const [isExpanded, setIsExpanded] = useState(!canExpand);
     const expandList = useCallback(() => setIsExpanded(true), []);
     return (
         <TagList>
             {isExpanded &&
-                value.map(v => (
-                    <BlogTag key={v.text} to={v.to}>
-                        {v.text}
+                tags.map(t => (
+                    <BlogTag key={t.text} to={t.to}>
+                        {t.text}
                     </BlogTag>
                 ))}
             {!isExpanded && canExpand && (
                 <>
                     {/* Since this can expand, we know value[0] and value[1] exist */}
-                    <BlogTag to={value[0].to}>{value[0].text}</BlogTag>
-                    <BlogTag to={value[1].to}>{value[1].text}</BlogTag>
+                    <BlogTag to={tags[0].to}>{tags[0].text}</BlogTag>
+                    <BlogTag to={tags[1].to}>{tags[1].text}</BlogTag>
                     <BlogTag onClick={expandList}>...</BlogTag>
                 </>
             )}
