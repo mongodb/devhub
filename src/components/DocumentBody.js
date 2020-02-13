@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import dlv from 'dlv';
 import ComponentFactory from './ComponentFactory';
 
-const DocumentBody = ({
-    pageNodes,
-    refDocMapping,
-    slugTitleMapping,
-}) => {
+const DocumentBody = ({ pageNodes, refDocMapping, slugTitleMapping }) => {
     const nodes = pageNodes || dlv(refDocMapping, 'ast.children', []);
     return (
         <React.Fragment>

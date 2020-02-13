@@ -17,8 +17,13 @@ import { colorMap, size, screenSize } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import ShareIcon from '../components/dev-hub/icons/share-icon';
 import FacebookIcon from '../components/dev-hub/icons/facebook-icon';
+import ListIcon from '../components/dev-hub/icons/list-icon';
+import LinkIcon from '../components/dev-hub/icons/link-icon';
 import TwitterIcon from '../components/dev-hub/icons/twitter-icon';
 import EnvelopeIcon from '../components/dev-hub/icons/envelope-icon';
+import Tooltip from '../components/dev-hub/tooltip';
+import ContentsMenu from '../components/dev-hub/contents-menu';
+import ShareMenu from '../components/dev-hub/share-menu';
 
 const cardProps = {
     gradient: false,
@@ -32,7 +37,6 @@ const gradientCardProps = {
 };
 
 const Row = styled('div')`
-    color: ${colorMap.devBlack};
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -76,6 +80,24 @@ const MediaBlockContent = styled('div')`
     align-items: center;
 `;
 
+const TableOfContentsStory = () => {
+    // TODO: Still not sure what the data-model will look like
+    // For now using this simple structure to get base functionality
+    const contents = [
+        { title: 'Getting Set Up', to: '/storybook#intro' },
+        { title: 'Created Data', to: '/storybook#create-data' },
+        { title: 'The Final Code', to: '/storybook#final-code' },
+        { title: 'Wrapping Up', to: '/storybook#conclusion' },
+        { title: 'End', to: '/storybook#end' },
+    ];
+
+    return (
+        <>
+            <ShareMenu facebook="#" shareLink="#" twitter="#" />
+            <ContentsMenu title="Table of Contents" contents={contents} />
+        </>
+    );
+};
 const MediaBlockStory = ({ reverse }) => (
     <MediaBlock
         mediaComponent={<FirstClusterTestImage />}
@@ -230,6 +252,37 @@ export default () => (
                     </P>
                 </Swatch>
             ))}
+            <SectionHeader>ToolTip/Content Menus</SectionHeader>
+            <Row>
+                <TableOfContentsStory />
+                <Tooltip
+                    hasGradientBorder
+                    position="top"
+                    trigger={<ShareIcon color={colorMap.yellow} />}
+                >
+                    <div>
+                        <H2 bold>Title</H2>
+                        <P>I'm REVEALED AGAIN! asdfasdfasdsfda</P>
+                    </div>
+                </Tooltip>
+                <Tooltip
+                    position="bottom"
+                    trigger={<ShareIcon color={colorMap.lightGreen} />}
+                >
+                    I'm REVEALED!
+                </Tooltip>
+                <Tooltip position="left" trigger="Click on Me!">
+                    I'm REVEALED AGAIN!
+                </Tooltip>
+            </Row>
+            <SectionHeader>Icons</SectionHeader>
+            <Row>
+                <ShareIcon color={colorMap.teal} />
+                <ListIcon color={colorMap.orange} />
+                <FacebookIcon color={colorMap.salmon} />
+                <TwitterIcon color={colorMap.violet} />
+                <EnvelopeIcon color={colorMap.magenta} />
+            </Row>
             <SectionHeader>Cards</SectionHeader>
             <Row>
                 <Card distinct {...cardProps}>
@@ -277,6 +330,8 @@ export default () => (
                 <FacebookIcon color={colorMap.salmon} />
                 <TwitterIcon color={colorMap.violet} />
                 <EnvelopeIcon color={colorMap.magenta} />
+                <LinkIcon color={colorMap.orange} />
+                <ListIcon color={colorMap.yellow} />
             </Row>
         </StorybookContainer>
     </StorybookLayout>
