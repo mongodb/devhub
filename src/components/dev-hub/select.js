@@ -2,21 +2,18 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import ArrowheadIcon from './icons/arrowhead-icon';
 import { P } from './text';
-import { colorMap, layer, size } from './theme';
+import { colorMap, gradientMap, layer, size } from './theme';
 
+const BORDER_SIZE = 2;
 const OPTIONS_POSITION_OFFSET = 58;
-const OPTIONS_POSITION_OFFSET_NARROW = 36;
+const OPTIONS_POSITION_OFFSET_NARROW = 48;
 
 const activeSelectStyles = css`
-    border: 2px solid;
-    border-image: linear-gradient(
-            270deg,
-            ${colorMap.violet} 0%,
-            ${colorMap.magenta} 49.99%,
-            ${colorMap.orange} 100%
-        )
-        1;
+    border: ${BORDER_SIZE}px solid;
+    border-image: ${gradientMap.violentMagentaOrange} 1;
+    outline: none;
 `;
 
 const Option = styled('li')`
@@ -25,6 +22,7 @@ const Option = styled('li')`
     display: block;
     padding: ${({ narrow }) =>
         narrow ? `${size.small} ${size.medium}` : size.medium};
+    :focus,
     :hover {
         background-color: ${colorMap.greyDarkOne};
         color: ${colorMap.devWhite};
@@ -32,17 +30,11 @@ const Option = styled('li')`
 `;
 
 const Options = styled('ul')`
-    border: 2px solid;
-    border-image: linear-gradient(
-            270deg,
-            ${colorMap.violet} 0%,
-            ${colorMap.magenta} 49.99%,
-            ${colorMap.orange} 100%
-        )
-        1;
+    border: ${BORDER_SIZE}px solid;
+    border-image: ${gradientMap.violentMagentaOrange} 1;
     border-top: none;
-    /* -2px to account for border above */
-    left: -2px;
+    /* account for border above */
+    left: -${BORDER_SIZE}px;
     padding: 0;
     position: absolute;
     margin: 0;
@@ -57,9 +49,10 @@ const Options = styled('ul')`
 const StyledCustomSelect = styled('div')`
     background-color: ${colorMap.greyDarkTwo};
     /* Adding border without color to prevent jarring visual on expand */
-    border: 2px solid;
+    border: ${BORDER_SIZE}px solid transparent;
     color: ${colorMap.devWhite};
     cursor: pointer;
+    font-family: 'Fira Mono', monospace;
     position: relative;
     ${({ showOptions }) => showOptions && activeSelectStyles};
 `;
@@ -71,12 +64,6 @@ const SelectedOption = styled('div')`
     justify-content: space-between;
     padding: ${({ narrow }) =>
         narrow ? `${size.small} ${size.medium}` : size.medium};
-    ::after {
-        height: ${size.small};
-        content: ${({ showOptions }) =>
-            showOptions ? '"\u2193";' : '"\u2191";'};
-        font-family: 'Fira Mono', monospace;
-    }
     position: relative;
 `;
 
@@ -102,11 +89,15 @@ const FormSelect = ({
     const showOptionsOnEnter = useCallback(
         e => {
             const enterKey = 13;
+            const escapeKey = 27;
             if (e.keyCode === enterKey) {
+                selectOnClick();
+            } else if (e.keyCode === escapeKey && showOptions) {
+                // Hitting the escape key should only close the select
                 selectOnClick();
             }
         },
-        [selectOnClick]
+        [selectOnClick, showOptions]
     );
 
     const optionOnClick = useCallback(
@@ -131,10 +122,24 @@ const FormSelect = ({
         [optionOnClick]
     );
 
+    const closeOptionsOnBlur = useCallback(
+        e => {
+            // Check the event to see if the next element would be a list element
+            // otherwise, close the options
+            const isTabbingThroughOptions =
+                e.relatedTarget && e.relatedTarget.tagName === 'LI';
+            if (!isTabbingThroughOptions) {
+                setShowOptions(false);
+            }
+        },
+        [setShowOptions]
+    );
+
     const selectOptions = choices.length ? choices : children;
     return (
         <StyledCustomSelect
             aria-expanded={showOptions}
+            onBlur={closeOptionsOnBlur}
             onClick={selectOnClick}
             onKeyDown={showOptionsOnEnter}
             role="listbox"
@@ -151,6 +156,7 @@ const FormSelect = ({
                 {...extraProps}
             >
                 <P collapse>{selectText}</P>
+                <ArrowheadIcon down={showOptions} />
             </SelectedOption>
             {showOptions && (
                 <Options narrow={narrow}>

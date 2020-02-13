@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Link from './link';
 import { colorMap, lineHeight, screenSize, size } from './theme';
-import Leaf from './mdb-leaf';
+import Leaf from './icons/mdb-leaf';
 
 const GlobalNav = styled('nav')`
     align-items: center;
@@ -21,7 +21,7 @@ const GlobalNav = styled('nav')`
 `;
 
 const NavLink = styled(Link)`
-    line-height: ${lineHeight.h2};
+    line-height: ${lineHeight.xxlarge};
     padding: ${size.small} ${size.xlarge};
     text-decoration: none;
     &:hover,

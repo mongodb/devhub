@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { colorMap, gradientMap, size, fontSize } from './theme';
+import { colorMap, gradientMap, size, fontSize, screenSize } from './theme';
 import Link from './link';
 
 // TODO: Finalize hover effect when design complete
@@ -170,11 +170,13 @@ const StyledButton = styled(ButtonImpl)`
     color: ${({ color }) => (color ? color : colorMap.devWhite)};
     cursor: pointer;
     display: inline-block;
-    font-size: ${fontSize.default};
+    font-size: ${fontSize.small};
     padding: ${size.default};
     position: relative;
     text-align: center;
-
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.tiny};
+    }
     ${({ primary }) => primary && primaryStyles}
     ${({ secondary }) => secondary && secondaryStyles}
     ${({ play }) => play && playStyles}

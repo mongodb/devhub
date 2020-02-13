@@ -110,11 +110,15 @@ export default class ComponentFactory extends Component {
             text: Text,
             title_reference: TitleReference,
             topic: Topic,
-            twitter: TwitterMeta,
             transition: Transition,
             twitter: TwitterMeta,
             versionadded: VersionAdded,
             versionchanged: VersionChanged,
+            // devhub main content
+            introduction: Container,
+            prerequisites: Container,
+            content: Container,
+            summary: Container,
         };
     }
 

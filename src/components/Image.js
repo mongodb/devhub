@@ -82,8 +82,9 @@ export default class Image extends Component {
     };
 
     render() {
-        const { className, nodeData } = this.props;
-        const imgSrc = getNestedValue(['argument', 0, 'value'], nodeData);
+        const { className, nodeData = {}, src } = this.props;
+        const imgSrc =
+            src || getNestedValue(['argument', 0, 'value'], nodeData);
         const altText = getNestedValue(['options', 'alt'], nodeData) || imgSrc;
         const customAlign = getNestedValue(['options', 'align'], nodeData)
             ? `align-${getNestedValue(['options', 'align'], nodeData)}`
@@ -131,7 +132,8 @@ Image.propTypes = {
             scale: PropTypes.string,
             width: PropTypes.string,
         }),
-    }).isRequired,
+    }),
+    src: PropTypes.string,
 };
 
 Image.defaultProps = {

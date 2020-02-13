@@ -1,5 +1,5 @@
 import React from 'react';
-import { colorMap } from './theme';
+import { colorMap } from '../theme';
 
 const EnvelopeIcon = ({ color = colorMap.greyLightTwo, ...props }) => (
     <svg width="30" height="20" viewBox="0 0 125 100" {...props}>

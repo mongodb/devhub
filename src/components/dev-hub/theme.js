@@ -8,11 +8,11 @@ const fontSize = {
     tiny: '14px',
     small: '16px',
     default: '18px',
-    h1: '42px',
-    h2: '36px',
-    h3: '30px',
-    h4: '24px',
-    h5: '20px',
+    medium: '20px',
+    large: '24px',
+    xlarge: '30px',
+    xxlarge: '36px',
+    jumbo: '42px',
 };
 /**
  * @type {Object.<string, string>}
@@ -24,11 +24,11 @@ const lineHeight = {
     tiny: '20px',
     small: '24px',
     default: '28px',
-    h1: '54px',
-    h2: '48px',
-    h3: '42px',
-    h4: '36px',
-    h5: '32px',
+    medium: '32px',
+    large: '36px',
+    xlarge: '42px',
+    xxlarge: '48px',
+    jumbo: '54px',
 };
 /**
  * @type {Object}
@@ -60,6 +60,7 @@ const colorMap = {
     magenta: '#CD509B',
     pageBackground: '#061621',
     salmon: '#E55F55',
+    sherbet: '#F7A76F',
     teal: '#2F9FC5',
     violet: '#6E60F9',
     white: '#F9FBFA',
@@ -83,6 +84,12 @@ const gradientMap = {
         ${colorMap.teal} 0%,
         ${colorMap.lightGreen} 100%
     )`,
+    magentaSalmonSherbet: `linear-gradient(
+        270deg,
+        ${colorMap.sherbet} 0%,
+        ${colorMap.salmon} 49.99%,
+        ${colorMap.magenta} 100%
+    )`,
     magentaSalmonYellow: `linear-gradient(
         270deg,
         ${colorMap.yellow} 0%,
@@ -105,11 +112,11 @@ const gradientMap = {
         ${colorMap.magenta} 100%
     )`,
     violentMagentaOrange: `linear-gradient(
-                270deg,
-                ${colorMap.violet} 0%,
-                ${colorMap.magenta} 49.99%,
-                ${colorMap.orange} 100%
-            )`,
+        270deg,
+        ${colorMap.violet} 0%,
+        ${colorMap.magenta} 49.99%,
+        ${colorMap.orange} 100%
+    )`,
     violetMagentaReverse: `linear-gradient(
         270deg,
         ${colorMap.magenta} 0%,

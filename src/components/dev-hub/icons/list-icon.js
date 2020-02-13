@@ -1,5 +1,5 @@
 import React from 'react';
-import { colorMap } from './theme';
+import { colorMap } from '../theme';
 
 const ListIcon = ({ color = colorMap.greyLightTwo, ...props }) => (
     <svg viewBox="0 0 60.123 60.123" width="25" height="25" {...props}>

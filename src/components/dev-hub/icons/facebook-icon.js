@@ -1,5 +1,5 @@
 import React from 'react';
-import { colorMap } from './theme';
+import { colorMap } from '../theme';
 
 const FacebookIcon = ({ color = colorMap.greyLightTwo, ...props }) => (
     <svg fill={color} viewBox="0 0 24 24" width="25" height="25" {...props}>

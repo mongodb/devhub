@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Badge from '../components/dev-hub/badge';
 import Breadcrumb from '../components/dev-hub/breadcrumb';
+import Blockquote from '../components/dev-hub/blockquote';
 import { StorybookLayout } from '../components/dev-hub/layout';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
@@ -14,12 +15,12 @@ import Select from '../components/dev-hub/select';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
 import { colorMap, size, screenSize } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
-import ShareIcon from '../components/dev-hub/share-icon';
-import FacebookIcon from '../components/dev-hub/facebook-icon';
-import ListIcon from '../components/dev-hub/list-icon';
-import LinkIcon from '../components/dev-hub/link-icon';
-import TwitterIcon from '../components/dev-hub/twitter-icon';
-import EnvelopeIcon from '../components/dev-hub/envelope-icon';
+import ShareIcon from '../components/dev-hub/icons/share-icon';
+import FacebookIcon from '../components/dev-hub/icons/facebook-icon';
+import ListIcon from '../components/dev-hub/icons/list-icon';
+import LinkIcon from '../components/dev-hub/icons/link-icon';
+import TwitterIcon from '../components/dev-hub/icons/twitter-icon';
+import EnvelopeIcon from '../components/dev-hub/icons/envelope-icon';
 import Tooltip from '../components/dev-hub/tooltip';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import ShareMenu from '../components/dev-hub/share-menu';
@@ -161,6 +162,20 @@ const BreadcrumbStory = () => {
     ];
     return <Breadcrumb>{breadcrumbs}</Breadcrumb>;
 };
+const BlockQuoteStory = () => (
+    <Blockquote
+        nodeData={{
+            children: [
+                {
+                    name: 'text',
+                    type: 'text',
+                    value:
+                        "If you didn't set up your free cluster on MongoDB Atlas, now is a great time to do so. You have all the instructions in this blog post.",
+                },
+            ],
+        }}
+    ></Blockquote>
+);
 
 export default () => (
     <StorybookLayout>
@@ -172,6 +187,8 @@ export default () => (
             <H3>Heading 3</H3>
             <H4>Heading 4</H4>
             <P>Paragraph</P>
+            <SectionHeader>Block Quote</SectionHeader>
+            <BlockQuoteStory />
             <SectionHeader>Content Label</SectionHeader>
             <Badge>How-To</Badge>
             <Badge>Quick Start</Badge>
@@ -216,11 +233,13 @@ export default () => (
             <br />
             <H4>Input (Narrow)</H4>
             <InputStory narrow />
+            <br />
             <H4>Select</H4>
             <SelectStory />
             <br />
             <H4>Select (Narrow)</H4>
             <SelectStory narrow />
+            <br />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch
