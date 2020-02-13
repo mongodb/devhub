@@ -3,6 +3,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import ComponentFactory from '../ComponentFactory';
 import { colorMap, gradientMap, layer, size } from './theme';
+import { createShadowElement } from './utils';
 
 const BLOCKQUOTE_INNER_LAYER_OFFSET = 6;
 const BLOCKQUOTE_OUTER_LAYER_OFFSET = 8;
@@ -16,22 +17,6 @@ const StyledBlockquote = styled('blockquote')`
     padding: ${size.medium};
 `;
 
-const blockquotePseudoElement = (
-    backgroundColor,
-    positionOffset,
-    sizeOffset = 0
-) => css`
-    background: ${backgroundColor};
-    border-radius: ${size.tiny};
-    bottom: ${positionOffset}px;
-    content: '';
-    height: calc(100% + ${sizeOffset}px);
-    left: ${positionOffset}px;
-    position: absolute;
-    width: calc(100% + ${sizeOffset}px);
-    z-index: ${layer.superBack};
-`;
-
 const BlockquoteContainer = styled('div')`
     border-radius: ${size.tiny};
     background: ${gradientMap.magentaSalmonSherbet};
@@ -39,14 +24,16 @@ const BlockquoteContainer = styled('div')`
     padding: ${BORDER_SIZE}px;
     position: relative;
     &:before {
-        ${blockquotePseudoElement(
+        ${createShadowElement(
             gradientMap.magentaSalmonSherbet,
+            size.tiny,
             -BLOCKQUOTE_OUTER_LAYER_OFFSET
         )}
     }
     &:after {
-        ${blockquotePseudoElement(
+        ${createShadowElement(
             colorMap.greyDarkThree,
+            size.tiny,
             -BLOCKQUOTE_INNER_LAYER_OFFSET,
             -BLOCKQUOTE_INNER_LAYER_OFFSET + BORDER_SIZE
         )};

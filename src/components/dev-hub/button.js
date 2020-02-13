@@ -11,6 +11,7 @@ import {
     screenSize,
     size,
 } from './theme';
+import { createShadowElement } from './utils';
 import Link from './link';
 
 const blockquotePseudoElement = (
@@ -45,12 +46,12 @@ const buttonHoverStyles = css`
         &:before {
             opacity: 1;
             transform: scale(1);
-            ${blockquotePseudoElement(gradientMap.green, -10)}
+            ${createShadowElement(gradientMap.green, size.large, -10, -2)}
         }
         &:after {
             transform: scale(1);
             opacity: 1;
-            ${blockquotePseudoElement(colorMap.greyDarkThree, -8, -8 + 2)};
+            ${createShadowElement(colorMap.greyDarkThree, size.large, -8, -6)}
         }
     }
 `;
