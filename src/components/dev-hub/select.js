@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import ArrowheadIcon from './arrowhead-icon';
+import ArrowheadIcon from './icons/arrowhead-icon';
 import { P } from './text';
 import { colorMap, gradientMap, layer, size } from './theme';
 

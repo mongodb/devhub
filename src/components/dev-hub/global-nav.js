@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Link from './link';
 import { colorMap, lineHeight, screenSize, size } from './theme';
-import Leaf from './mdb-leaf';
+import Leaf from './icons/mdb-leaf';
 
 const GlobalNav = styled('nav')`
     align-items: center;
