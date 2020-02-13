@@ -89,13 +89,11 @@ const secondaryStyles = css`
 `;
 
 const tertiaryStyles = css`
-    background: transparent;
     &:active,
     &:hover,
     &:focus {
-        background: ${gradientMap.green};
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: ${colorMap.lightGreen};
+        transition: color ${animationSpeed.fast} ease-in;
     }
 `;
 
