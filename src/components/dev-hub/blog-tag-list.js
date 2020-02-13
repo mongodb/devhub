@@ -5,7 +5,7 @@ import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
 
 const MINIMUM_EXPANDABLE_SIZE = 3;
 
-const BlogTag = styled(Link)`
+const TagLink = styled(Link)`
     background-color: ${colorMap.greyDarkThree};
     border: 1px solid ${colorMap.greyDarkThree};
     border-radius: ${size.medium};
@@ -32,13 +32,27 @@ const BlogTag = styled(Link)`
     }
 `;
 
+const TagList = styled('ul')`
+    padding-left: 0;
+`;
+
+const TagListItem = styled('li')`
+    display: inline-block;
+`;
+
+const BlogTag = ({ children, ...props }) => (
+    <TagListItem>
+        <TagLink {...props}>{children}</TagLink>
+    </TagListItem>
+);
+
 const BlogTagList = ({ nodeData: { value } }) => {
     const canExpand = value.length >= MINIMUM_EXPANDABLE_SIZE;
     // By default any list of blog tags under the minimum expandable size is already expanded
     const [isExpanded, setIsExpanded] = useState(!canExpand);
     const expandList = useCallback(() => setIsExpanded(true), []);
     return (
-        <div>
+        <TagList>
             {isExpanded &&
                 value.map(v => (
                     <BlogTag key={v.text} to={v.to}>
@@ -53,7 +67,7 @@ const BlogTagList = ({ nodeData: { value } }) => {
                     <BlogTag onClick={expandList}>...</BlogTag>
                 </>
             )}
-        </div>
+        </TagList>
     );
 };
 
