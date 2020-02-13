@@ -93,8 +93,6 @@ const rightDefaultArrow = css`
 `;
 
 const rightGradientArrow = css`
-    ${arrowBase}
-    ${horizontalArrowBase}
     ${rightDefaultArrow}
     &:before {
         border-left-color: ${colorMap.magenta};
@@ -120,8 +118,6 @@ const leftDefaultArrow = css`
 `;
 
 const leftGradientArrow = css`
-    ${arrowBase}
-    ${horizontalArrowBase}
     ${leftDefaultArrow}
     &:before {
         border-right-color: ${colorMap.orange};
@@ -145,8 +141,6 @@ const bottomDefaultArrow = css`
 `;
 
 const bottomGradientArrow = css`
-    ${arrowBase}
-    ${verticalArrowBase}
     ${bottomDefaultArrow}
     &:after {
         border-top-color: ${colorMap.greyDarkOne};
@@ -172,8 +166,6 @@ const topDefaultArrow = css`
 `;
 
 const topGradientArrow = css`
-    ${arrowBase}
-    ${verticalArrowBase}
     ${topDefaultArrow}
     &:after {
         border-bottom-color: ${colorMap.greyDarkOne};

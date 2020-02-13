@@ -61,7 +61,7 @@ const ContentsMenu = ({ title, contents = [] }) => {
         <Tooltip hasGradientBorder position={'right'} trigger={<ListIcon />}>
             <P bold>{title}</P>
             <Contents>
-                {contents.map((item, index) => {
+                {contents.map(item => {
                     const isactive = item.to === activeItem ? 'true' : null;
                     return (
                         <li key={item.to}>
