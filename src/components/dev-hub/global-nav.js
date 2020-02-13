@@ -21,7 +21,7 @@ const GlobalNav = styled('nav')`
 `;
 
 const NavLink = styled(Link)`
-    line-height: ${lineHeight.h2};
+    line-height: ${lineHeight.xxlarge};
     padding: ${size.small} ${size.xlarge};
     text-decoration: none;
     &:hover,

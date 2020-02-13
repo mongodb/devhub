@@ -1,13 +1,13 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { colorMap, lineHeight, fontSize, size } from './theme';
+import { colorMap, lineHeight, fontSize, screenSize, size } from './theme';
 
 const pre = css`
     background-color: ${colorMap.devBlack};
     border: 1px solid ${colorMap.bluebirdMedium};
     border-left-width: 3px;
     color: ${colorMap.devWhite};
-    font-family: 'Source Code Pro', monospace;
+    font-family: 'Fira Mono', monospace;
     margin: 0 0 ${size.default} 0;
     padding: ${size.default};
     white-space: pre-wrap;
@@ -31,41 +31,59 @@ const commonHeading = css`
 
 export const H1 = styled('h1')`
     ${commonHeading}
-    font-size: ${fontSize.h1};
-    line-height: ${lineHeight.h1};
+    font-size: ${fontSize.jumbo};
+    line-height: ${lineHeight.jumbo};
     ${handleCollapse}
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.xlarge};
+    }
 `;
 
 export const H2 = styled('h2')`
     ${commonHeading}
-    font-size: ${fontSize.h2};
-    line-height: ${lineHeight.h2};
+    font-size: ${fontSize.xxlarge};
+    line-height: ${lineHeight.xxlarge};
     ${handleCollapse}
+        @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.large};
+    }
 `;
 
 export const H3 = styled('h3')`
     ${commonHeading}
-    font-size: ${fontSize.h3};
-    line-height: ${lineHeight.h3};
+    font-size: ${fontSize.xlarge};
+    line-height: ${lineHeight.xlarge};
     ${handleCollapse}
+        @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.medium};
+    }
 `;
 
 export const H4 = styled('h4')`
     ${commonHeading}
-    font-size: ${fontSize.h4};
-    line-height: ${lineHeight.h4};
+    font-size: ${fontSize.large};
+    line-height: ${lineHeight.large};
     ${handleCollapse}
+        @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.default};
+    }
 `;
 
 export const H5 = styled('h5')`
     ${commonHeading}
-    font-size: ${fontSize.h5};
-    line-height: ${lineHeight.h5};
+    font-size: ${fontSize.medium};
+    line-height: ${lineHeight.medium};
     ${handleCollapse}
+        @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.small};
+    }
 `;
 export const P = styled('p')`
     font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
     ${handleCollapse}
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.small};
+    }
 `;
 export const Pre = styled('pre')`
     ${pre};
