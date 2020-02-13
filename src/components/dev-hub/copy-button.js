@@ -1,17 +1,19 @@
 import copy from 'copy-to-clipboard';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import CopyIcon from './icons/copy-icon';
-import { colorMap, screenSize, size } from './theme';
+import { colorMap, fontSize, screenSize, size } from './theme';
 import Button from './button';
+
+export const COPY_BUTTON_WIDTH = 120;
 
 const StyledCopyButton = styled(Button)`
     border-radius: ${size.small};
     background-color: transparent;
     color: ${colorMap.black};
     padding: 0 ${size.default};
-    width: 120px;
+    width: ${COPY_BUTTON_WIDTH}px;
     height: ${size.large};
     &:active,
     &:hover,
@@ -25,30 +27,35 @@ const StyledCopyButton = styled(Button)`
 
 const CopyText = styled('span')`
     font-family: 'Fira Mono', monospace;
-    font-size: 10px;
+    font-size: ${fontSize.micro};
     @media ${screenSize.upToMedium} {
         font-family: 'Fira Mono', monospace;
-        font-size: 10px;
+        font-size: ${fontSize.micro};
     }
 `;
 
-class CopyButton extends Component {
-    constructor(props) {
-        super(props);
+const DefaultCopyString = () => (
+    <CopyText>
+        <CopyIcon />
+        copy code
+    </CopyText>
+);
 
-        this.onClick = this.onClick.bind(this);
+const CopyButton = ({
+    copyContent,
+    copyString = <DefaultCopyString />,
+    feedbackString = <CopyText>copied!</CopyText>,
+    feedbackTimeout = 2000,
+}) => {
+    const [feedbackMessage, setFeedbackMessage] = useState(copyString);
+    const [timeoutId, setTimeoutId] = useState(null);
 
-        this.state = {
-            feedbackMessage: this.props.copyString,
-        };
-    }
-
-    componentWillUnmount() {
-        if (typeof this.timeoutId !== 'undefined') {
-            clearTimeout(this.timeoutId);
-            this.timeoutId = null;
+    useEffect(() => () => {
+        if (timeoutId !== null) {
+            clearTimeout(timeoutId);
+            setTimeoutId(null);
         }
-    }
+    });
 
     /**
      *  Builds a string of the text present in the dom nodes in some cases if
@@ -57,47 +64,37 @@ class CopyButton extends Component {
      * @param {Array<String|HTMLElement>} copyContent
      * @returns {String}
      */
-    nodesToString(copyContent) {
+    const nodesToString = useMemo(() => {
         let string = '';
         for (let i = 0; i < copyContent.length; i++) {
             string += !!copyContent[i].props
                 ? copyContent[i].props.children
-                    ? this.nodesToString(copyContent[i].props.children)
+                    ? nodesToString(copyContent[i].props.children)
                     : ''
                 : copyContent[i];
         }
         return string;
-    }
+    }, [copyContent]);
 
-    onClick() {
-        const { copyContent, copyString } = this.props;
-        const wasCopied = this.copyTheThing(this.nodesToString(copyContent));
-        let { feedbackString, feedbackTimeout } = this.props;
+    const onClick = useCallback(() => {
+        const wasCopied = copy(nodesToString);
         if (!wasCopied) {
-            feedbackString = <CopyText>Error</CopyText>;
-            feedbackTimeout = 5000;
+            setFeedbackMessage(<CopyText>Error</CopyText>);
+        } else {
+            setFeedbackMessage(feedbackString);
         }
-        this.setState({
-            feedbackMessage: feedbackString,
-        });
-
-        this.timeoutId = setTimeout(() => {
-            this.setState({
-                feedbackMessage: copyString,
-            });
+        const timeoutId = setTimeout(() => {
+            setFeedbackMessage(copyString);
         }, feedbackTimeout);
-    }
-    copyTheThing(content = '') {
-        return copy(content);
-    }
-    render() {
-        return (
-            <StyledCopyButton secondary type="button" onClick={this.onClick}>
-                {this.state.feedbackMessage}
-            </StyledCopyButton>
-        );
-    }
-}
+        setTimeoutId(timeoutId);
+    }, [copyString, feedbackString, feedbackTimeout, nodesToString]);
+
+    return (
+        <StyledCopyButton secondary type="button" onClick={onClick}>
+            {feedbackMessage}
+        </StyledCopyButton>
+    );
+};
 
 CopyButton.propTypes = {
     copyContent: PropTypes.oneOfType([PropTypes.node, PropTypes.string])
@@ -105,19 +102,6 @@ CopyButton.propTypes = {
     copyString: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     feedbackString: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     feedbackTimeout: PropTypes.number,
-    single: PropTypes.bool,
-};
-
-CopyButton.defaultProps = {
-    copyString: (
-        <CopyText>
-            <CopyIcon />
-            copy code
-        </CopyText>
-    ),
-    feedbackString: <CopyText>copied!</CopyText>,
-    feedbackTimeout: 2000,
-    single: false,
 };
 
 export default CopyButton;

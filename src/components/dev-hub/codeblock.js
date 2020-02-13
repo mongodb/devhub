@@ -3,23 +3,35 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import Code from '@leafygreen-ui/code';
 import { colorMap, lineHeight, size } from './theme';
-import CopyButton from './copy-button';
+import CopyButton, { COPY_BUTTON_WIDTH } from './copy-button';
 
 const LEAFY_CODEBLOCK_PADDING = 12;
 const LEAFY_LINENUMBER_PADDING = 42;
 
+const CodeContainer = styled('div')`
+    display: inline-block;
+    position: relative;
+`;
+
+const CopyContainer = styled('div')`
+    background-color: ${colorMap.greyDarkThree};
+    border-radius: 0 ${size.small} ${size.small} 0;
+    color: ${colorMap.greyLightTwo};
+    left: calc(100% - ${COPY_BUTTON_WIDTH}px - ${size.tiny});
+    position: absolute;
+    top: ${size.tiny};
+`;
+
 const StyledCode = styled(Code)`
-    border-radius: ${size.small} 0 0 ${size.small};
+    border-radius: ${size.small};
     line-height: ${lineHeight.xsmall};
-    padding-top: 32px;
-    padding-right: 64px;
+    padding-right: ${size.xlarge};
+    padding-top: ${size.large};
     ${({ numdigits }) =>
         `padding-left: calc(${LEAFY_LINENUMBER_PADDING}px + ${numdigits *
             size.stripUnit(size.xsmall)}px)`};
     /* Line Numbers */
     > div {
-        padding-top: 32px;
-        color: ${colorMap.greyLightTwo};
         background-color: ${colorMap.greyDarkTwo};
         border: none;
         border-image: linear-gradient(
@@ -30,29 +42,12 @@ const StyledCode = styled(Code)`
             )
             1;
         border-right: 2px solid;
+        color: ${colorMap.greyLightTwo};
         left: 0;
         padding: ${LEAFY_CODEBLOCK_PADDING}px;
-        padding-top: 32px;
+        padding-top: ${size.large};
         text-align: right;
     }
-`;
-
-const CodeContainer = styled('div')`
-    display: inline-block;
-    position: relative;
-    > div:first-of-type {
-        border: none;
-        border-radius: 0 ${size.small} ${size.small} 0;
-    }
-`;
-
-const CopyContainer = styled('div')`
-    color: ${colorMap.greyLightTwo};
-    background-color: ${colorMap.greyDarkThree};
-    border-radius: 0 ${size.small} ${size.small} 0;
-    position: absolute;
-    left: calc(100% - 124px);
-    top: 4px;
 `;
 
 const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
@@ -73,7 +68,7 @@ const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
                 {value}
             </StyledCode>
             <CopyContainer>
-                <CopyButton single={false} copyContent={value} />
+                <CopyButton copyContent={value} />
             </CopyContainer>
         </CodeContainer>
     );
