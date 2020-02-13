@@ -33,26 +33,30 @@ const StyledCode = styled(Code)`
     }
 `;
 
-const CodeBlock = ({ children, ...props }) => {
+const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
     // We wish to up padding based on the number of lines based on the size of the max number length
-    const numLines = useMemo(() => children.split(/\r|\n/).length, [children]);
+    const numLines = useMemo(() => value.split(/\r|\n/).length, [value]);
     const numDigits = useMemo(() => Math.floor(Math.log10(numLines) + 1), [
         numLines,
     ]);
     return (
         <StyledCode
+            language={lang ? lang : 'auto'}
             numdigits={numDigits}
             showLineNumbers
             variant="dark"
             {...props}
         >
-            {children}
+            {value}
         </StyledCode>
     );
 };
 
 CodeBlock.propTypes = {
-    children: PropTypes.node.isRequired,
+    nodeData: PropTypes.shape({
+        lang: PropTypes.string,
+        value: PropTypes.string.isRequired,
+    }),
 };
 
 CodeBlock.displayName = 'CodeBlock';

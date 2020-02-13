@@ -232,8 +232,8 @@ export default () => (
             <SectionHeader>Notification</SectionHeader>
             <Notification />
             <SectionHeader>Code Block</SectionHeader>
-            <CodeBlock>{shortCodeSample}</CodeBlock>
-            <CodeBlock>{codeSample}</CodeBlock>
+            <CodeBlock nodeData={{ value: shortCodeSample }} />
+            <CodeBlock nodeData={{ value: codeSample }} />
 
             <SectionHeader>Links</SectionHeader>
             <Link href="#">Hello World</Link>
