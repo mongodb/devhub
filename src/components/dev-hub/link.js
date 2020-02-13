@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'gatsby';
-import { animationSpeed, colorMap } from './theme';
+import { animationSpeed, colorMap, fontSize, screenSize } from './theme';
 
 // Takes an event handler, and wraps it to call preventDefault.
 // If the handler is falsey, it is returned unchanged.
@@ -64,12 +64,16 @@ const tertiaryLinkStyling = css`
 
 const linkStyling = css`
     color: #fff;
+    font-size: ${fontSize.small};
     text-decoration: underline;
     &:visited {
         color: #fff;
     }
     &:hover {
         color: ${colorMap.darkGreen};
+    }
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.tiny};
     }
 `;
 

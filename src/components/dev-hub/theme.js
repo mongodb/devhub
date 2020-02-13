@@ -8,11 +8,11 @@ const fontSize = {
     tiny: '14px',
     small: '16px',
     default: '18px',
-    h1: '42px',
-    h2: '36px',
-    h3: '30px',
-    h4: '24px',
-    h5: '20px',
+    medium: '20px',
+    large: '24px',
+    xlarge: '30px',
+    xxlarge: '36px',
+    jumbo: '42px',
 };
 /**
  * @type {Object.<string, string>}
@@ -24,11 +24,11 @@ const lineHeight = {
     tiny: '20px',
     small: '24px',
     default: '28px',
-    h1: '54px',
-    h2: '48px',
-    h3: '42px',
-    h4: '36px',
-    h5: '32px',
+    medium: '32px',
+    large: '36px',
+    xlarge: '42px',
+    xxlarge: '48px',
+    jumbo: '54px',
 };
 /**
  * @type {Object}
