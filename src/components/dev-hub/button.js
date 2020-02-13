@@ -7,20 +7,11 @@ import {
     fontSize,
     gradientMap,
     layer,
+    lineHeight,
     screenSize,
     size,
 } from './theme';
 import Link from './link';
-
-// TODO: Finalize hover effect when design complete
-const buttonHoverStyles = css`
-    &:active,
-    &:hover,
-    &:focus {
-        /* override Link hover styles if button is a link */
-        color: ${colorMap.devWhite};
-    }
-`;
 
 const blockquotePseudoElement = (
     backgroundColor,
@@ -37,7 +28,8 @@ const blockquotePseudoElement = (
     width: calc(100% + ${sizeOffset}px);
     z-index: ${layer.superBack};
 `;
-const primaryHoverStyles = css`
+
+const buttonHoverStyles = css`
     &:before,
     &:after {
         content: '';
@@ -46,7 +38,10 @@ const primaryHoverStyles = css`
         transition: opacity ${animationSpeed.medium},
             transform ${animationSpeed.fast};
     }
-    &:hover {
+    &:active,
+    &:hover,
+    &:focus {
+        color: ${colorMap.devWhite};
         &:before {
             opacity: 1;
             transform: scale(1);
@@ -60,42 +55,32 @@ const primaryHoverStyles = css`
     }
 `;
 
-// TODO: Finalize hover effect when design complete
 const secondaryHoverStyles = css`
     &:active,
     &:hover,
     &:focus {
-        border: 2px solid transparent;
-        /* Create border gradient */
-        &:before {
-            background: ${gradientMap.green};
-            border-radius: ${size.large};
-            bottom: -${size.tiny};
-            content: '';
-            height: calc(100% + ${size.small});
-            left: -${size.tiny};
-            position: absolute;
-            width: calc(100% + ${size.small});
-            z-index: -1;
-        }
+        border: 2px solid ${colorMap.lightGreen};
     }
 `;
 
 const buttonPadding = css`
-    padding: ${size.default} ${size.medium};
+    padding: ${size.medium} ${size.large};
+
+    @media ${screenSize.upToMedium} {
+        padding: ${size.default} ${size.medium};
+    }
 `;
 
 const primaryStyles = css`
     background: ${gradientMap.green};
     text-decoration: none;
     ${buttonHoverStyles}
-    ${primaryHoverStyles}
     ${buttonPadding}
 `;
 
 const secondaryStyles = css`
-    background: ${colorMap.greyDarkOne};
-    border: 2px solid ${colorMap.greyDarkThree};
+    background: ${colorMap.greyDarkThree};
+    border: 2px solid ${colorMap.greyDarkOne};
     position: relative;
     text-decoration: none;
     ${buttonHoverStyles}
@@ -217,13 +202,16 @@ const StyledButton = styled(ButtonImpl)`
     color: ${({ color }) => (color ? color : colorMap.devWhite)};
     cursor: pointer;
     display: inline-block;
-    font-size: ${fontSize.small};
+    font-size: ${fontSize.default};
+    line-height: ${lineHeight.micro};
     padding: ${size.default};
     position: relative;
     text-align: center;
+
     @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.tiny};
+        font-size: ${fontSize.small};
     }
+
     ${({ primary }) => primary && primaryStyles}
     ${({ secondary }) => secondary && secondaryStyles}
     ${({ play }) => play && playStyles}
