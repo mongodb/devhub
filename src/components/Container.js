@@ -5,7 +5,7 @@ import ComponentFactory from './ComponentFactory';
 const Container = ({ nodeData: { argument, children }, ...rest }) => {
     const customClass = argument.map(node => node.value).join(' ');
     return (
-        <div className={`${customClass}`}>
+        <div className={customClass}>
             {children.map((element, index) => (
                 <ComponentFactory {...rest} nodeData={element} key={index} />
             ))}
