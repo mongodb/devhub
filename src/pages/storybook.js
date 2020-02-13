@@ -189,7 +189,7 @@ function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
 
-console.log(greeting('World'));
+console.log(greeting('World'));console.log(greeting('World'));
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
@@ -200,6 +200,12 @@ function greeting(entity) {
 }
 
 console.log(greeting('World'));`;
+
+const CodeArticle = styled('div')`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+`;
 
 export default () => (
     <StorybookLayout>
@@ -232,9 +238,12 @@ export default () => (
             <SectionHeader>Notification</SectionHeader>
             <Notification />
             <SectionHeader>Code Block</SectionHeader>
-            <CodeBlock nodeData={{ value: shortCodeSample }} />
+            <CodeArticle>
+                <P>Some fancy article content</P>
+                <CodeBlock nodeData={{ value: shortCodeSample }} />
+            </CodeArticle>
+            <br />
             <CodeBlock nodeData={{ value: codeSample }} />
-
             <SectionHeader>Links</SectionHeader>
             <Link href="#">Hello World</Link>
             <Link href="#" tertiary>
