@@ -46,7 +46,10 @@ const BlogTag = ({ children, ...props }) => (
     </TagListItem>
 );
 
-const BlogTagList = ({ nodeData: { value } }) => {
+// eslint-disable-next-line no-unused-vars
+const BlogTagList = ({ nodeData: { value }, meta }) => {
+    // TODO: add in article link below once finalized
+    // const getArticleLink = tagName => `${meta.url}/articles/${tagName}`
     const canExpand = value.length >= MINIMUM_EXPANDABLE_SIZE;
     // By default any list of blog tags under the minimum expandable size is already expanded
     const [isExpanded, setIsExpanded] = useState(!canExpand);
