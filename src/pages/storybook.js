@@ -177,6 +177,30 @@ const BlockQuoteStory = () => (
     ></Blockquote>
 );
 
+const shortCodeSample = `
+function greeting(entity) {
+  return \`Hello, \${entity}!\`;
+}
+
+console.log(greeting('World'));`;
+
+const codeSample = `
+function greeting(entity) {
+  return \`Hello, \${entity}!\`;
+}
+
+console.log(greeting('World'));
+function greeting(entity) {
+  return \`Hello, \${entity}!\`;
+}
+
+console.log(greeting('World'));
+function greeting(entity) {
+  return \`Hello, \${entity}!\`;
+}
+
+console.log(greeting('World'));`;
+
 export default () => (
     <StorybookLayout>
         <StorybookContainer>
@@ -208,14 +232,9 @@ export default () => (
             <SectionHeader>Notification</SectionHeader>
             <Notification />
             <SectionHeader>Code Block</SectionHeader>
-            <CodeBlock>{['Example code, without a new line']}</CodeBlock>
-            <CodeBlock>{['Example code\n', 'With multiple lines\n']}</CodeBlock>
-            <CodeBlock>
-                {[
-                    'Lets try out a really really really long block of text this should overflow ',
-                    'Lets try out a really really really long block of text this should overflow',
-                ]}
-            </CodeBlock>
+            <CodeBlock nodeData={{ value: shortCodeSample }} />
+            <CodeBlock nodeData={{ value: codeSample }} />
+
             <SectionHeader>Links</SectionHeader>
             <Link href="#">Hello World</Link>
             <Link href="#" tertiary>

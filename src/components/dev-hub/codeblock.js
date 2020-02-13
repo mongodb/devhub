@@ -1,108 +1,64 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { Pre } from './text';
-import { size, colorMap } from './theme';
+import Code from '@leafygreen-ui/code';
+import { colorMap, lineHeight, size } from './theme';
 
-const wrapSingle = css`
-    overflow-x: scroll;
-    white-space: pre;
-    word-break: keep-all;
-    word-wrap: normal;
-`;
+const LEAFY_CODEBLOCK_PADDING = 12;
+const LEAFY_LINENUMBER_PADDING = 42;
 
-const CodeBlockContainer = styled('div')`
-    display: flex;
-    width: 100%;
-`;
-
-const CodeBlockContent = styled(Pre)`
-    border: none;
-    border-radius: ${({ singleLine }) =>
-        singleLine ? `${size.small};` : `0 ${size.small} ${size.small} 0;`};
-    flex: 1;
-    width: calc(100% - ${size.default} - ${size.default});
-`;
-
-const CodeBlockLine = styled(Pre)`
-    background-color: ${colorMap.greyDarkTwo};
-    border: none;
-    border-radius: ${size.small} 0 0 ${size.small};
-    border-image: linear-gradient(
-            270deg,
-            ${colorMap.orange} 0%,
-            ${colorMap.violet} 100%,
-            ${colorMap.magenta} 49.99%
-        )
-        1;
-    border-right: 1px solid;
-`;
-
-const CodeContainer = styled('div')`
-    ${({ singleLine }) => singleLine && wrapSingle};
-`;
-
-const countLineBreaks = children => {
-    let lineCount = 0;
-    for (let i = 0; i < children.length; i++) {
-        if (lineCount > 1) return lineCount;
-        if (typeof children[i] === 'string') {
-            const newLineMatch = children[i].match(/\r?\n|\r/g);
-            if (newLineMatch && newLineMatch.length > 0) {
-                lineCount += newLineMatch.length;
-            }
-        } else {
-            lineCount += countLineBreaks(children[i]);
-        }
+const StyledCode = styled(Code)`
+    border-radius: ${size.small};
+    line-height: ${lineHeight.xsmall};
+    ${({ numdigits }) =>
+        `padding-left: calc(${LEAFY_LINENUMBER_PADDING}px + ${numdigits *
+            size.stripUnit(size.xsmall)}px)`};
+    /* Line Numbers */
+    > div {
+        color: ${colorMap.greyLightTwo};
+        background-color: ${colorMap.greyDarkTwo};
+        border: none;
+        border-image: linear-gradient(
+                0deg,
+                ${colorMap.sherbet} 0%,
+                ${colorMap.salmon} 49.99%,
+                ${colorMap.magenta} 100%
+            )
+            1;
+        border-radius: ${size.small} 0 0 ${size.small};
+        border-right: 2px solid;
+        left: 0;
+        padding: ${LEAFY_CODEBLOCK_PADDING}px;
+        text-align: right;
     }
-    return lineCount;
-};
+`;
 
-const isSingleLine = children => {
-    return countLineBreaks(children) <= 1;
-};
-
-const CodeBlockLines = ({ content }) => {
-    const numberOfLines = countLineBreaks(content);
-    const lines = useMemo(() => {
-        const result = [];
-        for (let lineNumber = 1; lineNumber < numberOfLines + 1; lineNumber++) {
-            result.push(
-                <span key={lineNumber}>
-                    {lineNumber !== 1 ? <br /> : null}
-                    {lineNumber}
-                </span>
-            );
-        }
-        return result;
-    }, [numberOfLines]);
-    return <CodeBlockLine>{lines}</CodeBlockLine>;
-};
-
-const CodeBlock = ({ children }) => {
-    const singleLine = isSingleLine(children);
-
+const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
+    // We wish to up padding based on the number of lines based on the size of the max number length
+    const numLines = useMemo(() => value.split(/\r|\n/).length, [value]);
+    const numDigits = useMemo(() => Math.floor(Math.log10(numLines) + 1), [
+        numLines,
+    ]);
     return (
-        <CodeBlockContainer>
-            {!singleLine && <CodeBlockLines content={children} />}
-            <CodeBlockContent singleLine={singleLine}>
-                <CodeContainer singleLine={singleLine}>
-                    {children}
-                </CodeContainer>
-                {/* TODO add copy functionality */}
-                {/* <div css={!singleLine && multiLineButton}>
-                        <CopyButton single={singleLine} copyContent={children} />
-                    </div> */}
-            </CodeBlockContent>
-        </CodeBlockContainer>
+        <StyledCode
+            language={lang ? lang : 'auto'}
+            numdigits={numDigits}
+            showLineNumbers
+            variant="dark"
+            {...props}
+        >
+            {value}
+        </StyledCode>
     );
 };
 
 CodeBlock.propTypes = {
-    children: PropTypes.node.isRequired,
+    nodeData: PropTypes.shape({
+        lang: PropTypes.string,
+        value: PropTypes.string.isRequired,
+    }),
 };
 
-CodeBlockContainer.displayName = 'CodeBlock';
+CodeBlock.displayName = 'CodeBlock';
 
 export default CodeBlock;
