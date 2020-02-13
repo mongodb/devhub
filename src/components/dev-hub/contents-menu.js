@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled-base';
 import { css } from '@emotion/core';
 import Tooltip from './tooltip';
-import ListIcon from './list-icon';
+import ListIcon from './icons/list-icon';
 import { P } from './text';
 import Link from './link';
 import { animationSpeed, colorMap, size } from './theme';
