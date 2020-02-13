@@ -1,11 +1,7 @@
 import React from 'react';
-import { colorMap } from './theme';
+import { colorMap } from '../theme';
 
-const ArrowheadIcon = ({
-    color = colorMap.greyLightTwo,
-    down = false,
-    ...props
-}) =>
+const ArrowheadIcon = ({ color = colorMap.greyLightTwo, down = false }) =>
     down ? (
         <svg height="24" viewBox="0 0 24 24" width="24">
             <path

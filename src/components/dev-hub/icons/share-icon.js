@@ -1,7 +1,7 @@
 import React from 'react';
-import { colorMap } from './theme';
+import { colorMap } from '../theme';
 
-const ShareIcon = ({ color = colorMap.greyLightTwo, ...props }) => (
+const ShareIcon = ({ color = colorMap.greyLightTwo }) => (
     <svg x="0px" y="0px" width="20" height="20" viewBox="0 0 26 26">
         <title>Share</title>
         <path

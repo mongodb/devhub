@@ -15,10 +15,10 @@ import Select from '../components/dev-hub/select';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
 import { colorMap, size, screenSize } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
-import ShareIcon from '../components/dev-hub/share-icon';
-import FacebookIcon from '../components/dev-hub/facebook-icon';
-import TwitterIcon from '../components/dev-hub/twitter-icon';
-import EnvelopeIcon from '../components/dev-hub/envelope-icon';
+import ShareIcon from '../components/dev-hub/icons/share-icon';
+import FacebookIcon from '../components/dev-hub/icons/facebook-icon';
+import TwitterIcon from '../components/dev-hub/icons/twitter-icon';
+import EnvelopeIcon from '../components/dev-hub/icons/envelope-icon';
 
 const cardProps = {
     gradient: false,
