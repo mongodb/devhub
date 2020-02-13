@@ -1,7 +1,15 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { colorMap, gradientMap, size, fontSize, screenSize } from './theme';
+import {
+    animationSpeed,
+    colorMap,
+    fontSize,
+    gradientMap,
+    layer,
+    screenSize,
+    size,
+} from './theme';
 import Link from './link';
 
 // TODO: Finalize hover effect when design complete
@@ -11,6 +19,44 @@ const buttonHoverStyles = css`
     &:focus {
         /* override Link hover styles if button is a link */
         color: ${colorMap.devWhite};
+    }
+`;
+
+const blockquotePseudoElement = (
+    backgroundColor,
+    positionOffset,
+    sizeOffset = -2
+) => css`
+    background: ${backgroundColor};
+    border-radius: ${size.large};
+    bottom: ${positionOffset}px;
+    content: '';
+    height: calc(100% + ${sizeOffset}px);
+    left: ${positionOffset}px;
+    position: absolute;
+    width: calc(100% + ${sizeOffset}px);
+    z-index: ${layer.superBack};
+`;
+const primaryHoverStyles = css`
+    &:before,
+    &:after {
+        content: '';
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity ${animationSpeed.medium},
+            transform ${animationSpeed.fast};
+    }
+    &:hover {
+        &:before {
+            opacity: 1;
+            transform: scale(1);
+            ${blockquotePseudoElement(gradientMap.green, -10)}
+        }
+        &:after {
+            transform: scale(1);
+            opacity: 1;
+            ${blockquotePseudoElement(colorMap.greyDarkThree, -8, -8 + 2)};
+        }
     }
 `;
 
@@ -37,6 +83,35 @@ const secondaryHoverStyles = css`
 
 const buttonPadding = css`
     padding: ${size.default} ${size.medium};
+`;
+
+const primaryStyles = css`
+    background: ${gradientMap.green};
+    text-decoration: none;
+    ${buttonHoverStyles}
+    ${primaryHoverStyles}
+    ${buttonPadding}
+`;
+
+const secondaryStyles = css`
+    background: ${colorMap.greyDarkOne};
+    border: 2px solid ${colorMap.greyDarkThree};
+    position: relative;
+    text-decoration: none;
+    ${buttonHoverStyles}
+    ${buttonPadding}
+    ${secondaryHoverStyles}
+`;
+
+const tertiaryStyles = css`
+    background: transparent;
+    &:active,
+    &:hover,
+    &:focus {
+        background: ${gradientMap.green};
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 `;
 
 const playStyles = css`
@@ -90,34 +165,6 @@ const PlayButtonWrapper = styled('div')`
     width: calc(100% + ${size.large});
     z-index: -2;
     opacity: 0;
-`;
-
-const primaryStyles = css`
-    background: ${gradientMap.green};
-    text-decoration: none;
-    ${buttonHoverStyles}
-    ${buttonPadding}
-`;
-
-const secondaryStyles = css`
-    background: ${colorMap.greyDarkOne};
-    border: 2px solid ${colorMap.greyDarkThree};
-    position: relative;
-    text-decoration: none;
-    ${buttonHoverStyles}
-    ${buttonPadding}
-    ${secondaryHoverStyles}
-`;
-
-const tertiaryStyles = css`
-    background: transparent;
-    &:active,
-    &:hover,
-    &:focus {
-        background: ${gradientMap.green};
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
 `;
 
 const ButtonImpl = ({
