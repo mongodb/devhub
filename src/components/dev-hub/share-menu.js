@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled-base';
 import { css } from '@emotion/core';
 import Tooltip from './tooltip';
-import ShareIcon from './share-icon';
-import LinkIcon from './link-icon';
-import FacebookIcon from './facebook-icon';
-import TwitterIcon from './twitter-icon';
+import ShareIcon from './icons/share-icon';
+import LinkIcon from './icons/link-icon';
+import FacebookIcon from './icons/facebook-icon';
+import TwitterIcon from './icons/twitter-icon';
 import Link from './link';
 import { colorMap, size } from './theme';
 
