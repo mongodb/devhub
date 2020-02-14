@@ -69,6 +69,7 @@ export default ({ ...data }) => {
                     <ResponsiveFlexContainer>
                         <span>Filter By</span>
                         <Select
+                            narrow
                             name="a"
                             choices={[
                                 ['A', 'Choice A'],
@@ -78,6 +79,7 @@ export default ({ ...data }) => {
                             defaultText="Choose an option..."
                         ></Select>
                         <Select
+                            narrow
                             name="b"
                             choices={[
                                 ['A', 'Choice A'],
