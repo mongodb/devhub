@@ -10,6 +10,7 @@ import LinkedIn from './icons/linkedin';
 import Github from './icons/github';
 import Youtube from './icons/youtube';
 import Twitch from './icons/twitch';
+import { P } from './text';
 
 const siteLinks = [
     {
@@ -89,9 +90,9 @@ const logoStyles = css`
     }
 `;
 const LogoContainer = styled('section')`
-    grid-area: logo;
     align-items: center;
     display: flex;
+    grid-area: logo;
     justify-content: center;
     @media ${screenSize.mediumAndUp} {
         border-right: 1px solid ${colorMap.greyLightTwo};
@@ -124,13 +125,14 @@ const IconList = styled('ul')`
     }
     grid-area: icons;
 `;
-const Copyright = styled('p')`
+const Copyright = styled(P)`
     font-size: ${fontSize.micro};
     grid-area: copyright;
     @media ${screenSize.upToMedium} {
         align-items: center;
         border-top: 1px solid ${colorMap.greyLightTwo};
         display: flex;
+        font-size: ${fontSize.micro};
         justify-content: center;
         margin: 0;
         padding: ${size.default} 0;
@@ -138,6 +140,9 @@ const Copyright = styled('p')`
 `;
 const FooterLink = styled(Link)`
     color: ${colorMap.greyLightTwo};
+    &:visited {
+        color: ${colorMap.greyLightTwo};
+    }
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
     text-decoration: none;
@@ -173,7 +178,9 @@ export default () => {
             <IconList>
                 {iconLinks.map(list => getLinksList(list, false))}
             </IconList>
-            <Copyright>© {new Date().getFullYear()} MongoDB, Inc.</Copyright>
+            <Copyright collapse>
+                © {new Date().getFullYear()} MongoDB, Inc.
+            </Copyright>
         </GlobalFooter>
     );
 };
