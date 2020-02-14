@@ -24,7 +24,10 @@ import EnvelopeIcon from '../components/dev-hub/icons/envelope-icon';
 import Tooltip from '../components/dev-hub/tooltip';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import ShareMenu from '../components/dev-hub/share-menu';
-
+import LinkedInIcon from '../components/dev-hub/icons/linkedin';
+import Github from '../components/dev-hub/icons/github';
+import Youtube from '../components/dev-hub/icons/youtube';
+import Twitch from '../components/dev-hub/icons/twitch';
 const cardProps = {
     gradient: false,
     image: '/images/compass-create-database.png',
@@ -360,6 +363,10 @@ export default () => (
                 <EnvelopeIcon color={colorMap.magenta} />
                 <LinkIcon color={colorMap.orange} />
                 <ListIcon color={colorMap.yellow} />
+                <Youtube color={colorMap.lightGreen} />
+                <LinkedInIcon color={colorMap.sherbet} />
+                <Github color={colorMap.darkGreen} />
+                <Twitch color={colorMap.devWhite} />
             </Row>
         </StorybookContainer>
     </StorybookLayout>
