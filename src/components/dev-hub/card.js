@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { animationSpeed, colorMap, layer, size } from './theme';
+import { animationSpeed, colorMap, gradientMap, layer, size } from './theme';
 import Link from './link';
 import Badge from './badge';
 
@@ -25,16 +25,11 @@ const TagsList = styled('ul')`
 `;
 
 const GradientOverlay = styled('div')`
-    background: linear-gradient(
-        270deg,
-        ${colorMap.violet} 0%,
-        ${colorMap.magenta} 49.99%,
-        ${colorMap.orange} 100%
-    );
+    background: ${gradientMap.tealVioletReverse};
     background-size: cover;
     border-radius: ${size.small};
     height: 100%;
-    opacity: 0.2;
+    /* opacity: 0.2; */
     position: absolute;
     width: 100%;
     z-index: ${layer.middle};
@@ -65,13 +60,12 @@ const Content = styled('div')`
 const Wrapper = styled('div')`
     border-radius: ${size.small};
     max-width: 500px;
-    padding: ${size.default};
-    padding-bottom: ${size.small};
-    transition: ${animationSpeed.fast} ease-in-out;
-    width: ${({ width }) => (width ? width : '100%')};
+    padding: ${size.medium};
+    transition: background ${animationSpeed.fast};
+    width: ${({ width = '100%' }) => width};
     &:hover,
     &:active {
-        background: rgba(255, 255, 255, 0.45);
+        background-color: ${colorMap.greyDarkTwo};
         cursor: pointer;
     }
     ${({ distinct }) => distinct && `border: 1px solid ${colorMap.devBlack}`};
@@ -130,12 +124,13 @@ const Card = ({
             <ContentWrapper onClick={onClick} {...linkAttrs}>
                 {image && (
                     <ImageWrapper>
+                        <Image src={image} style={{ opacity: '.75' }} />
                         {gradient && <GradientOverlay />}
-                        <Image src={image} />
-                        <Tags tags={tags} />
                     </ImageWrapper>
                 )}
                 <Content>{children}</Content>
+
+                <Tags tags={tags} />
             </ContentWrapper>
         </Wrapper>
     );
