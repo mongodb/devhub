@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Badge from '../components/dev-hub/badge';
 import Breadcrumb from '../components/dev-hub/breadcrumb';
 import Blockquote from '../components/dev-hub/blockquote';
+import BlogTagList from '../components/dev-hub/blog-tag-list';
 import { StorybookLayout } from '../components/dev-hub/layout';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
@@ -203,6 +204,20 @@ function greeting(entity) {
 }
 
 console.log(greeting('World'));`;
+const BlogTagListStory = ({ short }) => {
+    const blogTags = short
+        ? [
+              { text: 'Kerberos', to: '#' },
+              { text: 'Golang', to: '#' },
+          ]
+        : [
+              { text: 'Kerberos', to: '#' },
+              { text: 'Golang', to: '#' },
+              { text: 'Python', to: '#' },
+              { text: 'Another Tag', to: '#' },
+          ];
+    return <BlogTagList tags={blogTags} />;
+};
 
 const CodeArticle = styled('div')`
     display: flex;
@@ -229,6 +244,11 @@ export default () => (
             <Badge>Event</Badge>
             <Badge>Community</Badge>
             <Badge>Deep Dive</Badge>
+            <SectionHeader>Blog Tags</SectionHeader>
+            <H4>Short List</H4>
+            <BlogTagListStory short />
+            <H4>Expandable List</H4>
+            <BlogTagListStory />
             <SectionHeader>Buttons</SectionHeader>
             <Row>
                 <Button href="#" primary>
