@@ -1,6 +1,7 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { animationSpeed, colorMap, layer, size } from './theme';
+import { animationSpeed, colorMap, gradientMap, layer, size } from './theme';
 import Link from './link';
 import Badge from './badge';
 
@@ -18,37 +19,58 @@ const TagsList = styled('ul')`
     margin: 0;
     padding: 0;
     position: absolute;
-    z-index: ${layer.front};
+    z-index: 3;
     li {
         display: inline;
     }
 `;
 
+const fullSizeAbsolute = css`
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+`;
+
 const GradientOverlay = styled('div')`
-    background: linear-gradient(
-        270deg,
-        ${colorMap.violet} 0%,
-        ${colorMap.magenta} 49.99%,
-        ${colorMap.orange} 100%
-    );
+    background: ${gradientMap.tealVioletPurple};
     background-size: cover;
     border-radius: ${size.small};
-    height: 100%;
-    opacity: 0.2;
-    position: absolute;
-    width: 100%;
-    z-index: ${layer.middle};
+    mix-blend-mode: overlay;
+    z-index: 3;
+    ${fullSizeAbsolute}
+`;
+const GradientBase = styled('div')`
+    background: ${gradientMap.tealVioletReverse};
+    background-size: cover;
+    border-radius: ${size.small};
+    z-index: 1;
+    ${fullSizeAbsolute}
 `;
 
 const Image = styled('img')`
     border-radius: ${size.small};
+    display: block;
     height: 100%;
+    overflow: hidden;
+    position: relative;
     width: 100%;
-    z-index: ${layer.back};
+    z-index: 2;
+    ${props =>
+        props.gradient &&
+        css`
+            filter: saturate(0%);
+            opacity: 0.75;
+        `}
 `;
 
 const ImageWrapper = styled('div')`
+    border-radius: ${size.small};
     margin-bottom: ${size.medium};
+    overflow: hidden;
     padding: 0;
     position: relative;
     width: 100%;
@@ -63,16 +85,19 @@ const Content = styled('div')`
 `;
 
 const Wrapper = styled('div')`
+    background-color: transparent;
     border-radius: ${size.small};
     max-width: 500px;
-    padding: ${size.default};
-    padding-bottom: ${size.small};
-    transition: ${animationSpeed.fast} ease-in-out;
-    width: ${({ width }) => (width ? width : '100%')};
+    padding: ${size.medium};
+    transition: background-color ${animationSpeed.medium};
+    width: ${({ width = '100%' }) => width};
     &:hover,
     &:active {
-        background: rgba(255, 255, 255, 0.45);
+        background-color: ${colorMap.greyDarkTwo};
         cursor: pointer;
+        img {
+            transform: scale(1.1);
+        }
     }
     ${({ distinct }) => distinct && `border: 1px solid ${colorMap.devBlack}`};
     ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
@@ -132,10 +157,12 @@ const Card = ({
                     <ImageWrapper>
                         {gradient && <GradientOverlay />}
                         <Image src={image} />
-                        <Tags tags={tags} />
+                        {gradient && <GradientBase />}
                     </ImageWrapper>
                 )}
                 <Content>{children}</Content>
+
+                <Tags tags={tags} />
             </ContentWrapper>
         </Wrapper>
     );

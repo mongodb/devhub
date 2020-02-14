@@ -32,7 +32,7 @@ import Youtube from '../components/dev-hub/icons/youtube';
 import Twitch from '../components/dev-hub/icons/twitch';
 const cardProps = {
     gradient: false,
-    image: '/images/compass-create-database.png',
+    image: '/images/360-mock-img.png',
     tags: ['Article'],
 };
 
