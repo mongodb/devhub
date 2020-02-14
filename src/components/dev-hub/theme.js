@@ -67,6 +67,7 @@ const colorMap = {
     sherbet: '#F7A76F',
     teal: '#2F9FC5',
     violet: '#6E60F9',
+    purple: '#4F4FBF',
     white: '#F9FBFA',
     yellow: '#FDDC49',
 };
@@ -109,6 +110,12 @@ const gradientMap = {
         270deg,
         ${colorMap.violet} 0%,
         ${colorMap.teal} 100%
+    )`,
+    tealVioletPurple: `linear-gradient(
+        320deg, 
+        ${colorMap.teal} 0%, 
+        ${colorMap.violet} 33.14%, 
+        ${colorMap.purple} 100%
     )`,
     violetMagenta: `linear-gradient(
         270deg,

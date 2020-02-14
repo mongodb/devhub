@@ -27,7 +27,7 @@ import ShareMenu from '../components/dev-hub/share-menu';
 
 const cardProps = {
     gradient: false,
-    image: '/images/compass-create-database.png',
+    image: '/images/360-mock-img.png',
     tags: ['Article'],
 };
 
