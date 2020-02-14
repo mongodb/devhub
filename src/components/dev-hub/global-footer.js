@@ -143,14 +143,21 @@ const FooterLink = styled(Link)`
     text-decoration: none;
 `;
 const ListItem = styled('li')`
+${props =>
+    props.isListType &&
+    `@media ${screenSize.upToSmall} {
+        &:not(:first-of-type) {
+            margin-top: ${size.default};
+        }
+    }`}
     @media ${screenSize.smallAndUp} {
         &:not(:first-of-type) {
             margin-left: ${size.large};
         }
     }
 `;
-const getLinksList = link => (
-    <ListItem key={link.url}>
+const getLinksList = (link, isListType) => (
+    <ListItem isListType={isListType} key={link.url}>
         <FooterLink href={link.url}>{link.name}</FooterLink>
     </ListItem>
 );
@@ -160,8 +167,12 @@ export default () => {
             <LogoContainer>
                 <MongodbLogoIcon css={logoStyles} />
             </LogoContainer>
-            <LinksList>{siteLinks.map(getLinksList)}</LinksList>
-            <IconList>{iconLinks.map(getLinksList)}</IconList>
+            <LinksList>
+                {siteLinks.map(list => getLinksList(list, true))}
+            </LinksList>
+            <IconList>
+                {iconLinks.map(list => getLinksList(list, false))}
+            </IconList>
             <Copyright>© {new Date().getFullYear()} MongoDB, Inc.</Copyright>
         </GlobalFooter>
     );
