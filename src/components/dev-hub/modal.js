@@ -11,22 +11,21 @@ const Heading = styled('header')`
 `;
 
 const ModalDialog = styled('div')`
-    margin: auto;
+    background-color: ${({ transparent }) =>
+        transparent ? 'transparent' : colorMap.greyDarkThree};
+    ${({ transparent }) =>
+        !transparent && `border: 2px solid ${colorMap.greyDarkTwo};`}
+    border-radius: ${size.xsmall};
     @media ${screenSize.upToMedium} {
-        border: none;
-        border-radius: unset;
-        box-shadow: none;
-        height: calc(100% - ${size.large} - ${size.large});
-        padding: ${size.large};
+        padding: ${size.small};
     }
     @media ${screenSize.mediumAndUp} {
-        padding: ${size.tiny};
+        padding: ${size.medium};
     }
     ${props => props.contentStyle};
 `;
 const CloseButtonWrapper = styled('div')`
     cursor: pointer;
-    width: calc(100% + ${size.default});
     &:after {
         content: '\u00D7';
         color: ${colorMap.greyLightThree};
@@ -56,6 +55,7 @@ const getApplicationNode = () => document.getElementById('root');
  * @property {JSX.Element[]= | JSX.Element=} props.triggerComponent
  * @property {Bool=} props.isOpenToStart
  * @property {Bool=} props.isMounted
+ * @property {Bool=} props.transparent
  * @property {Bool=} props.verticallyCenter
  * @property {Bool=} props.withoutEncapsulatingCard
  */
@@ -71,6 +71,7 @@ export const Modal = ({
     isOpenToStart = false,
     // If Dialog container should be mounted, allows for outside control of modal state
     isMounted = true,
+    transparent = false,
     verticallyCenter = false,
     ...props
 }) => {
@@ -89,8 +90,7 @@ export const Modal = ({
         ...dialogContainerStyle,
     };
     const dialogMobileStyle = {
-        width: '100%',
-        height: '100%',
+        padding: `${size.large}`,
         ...dialogContainerStyle,
     };
     const [isActive, setIsActive] = useState(isOpenToStart);
@@ -116,7 +116,10 @@ export const Modal = ({
                 verticallyCenter={verticallyCenter}
                 {...props}
             >
-                <ModalDialog contentStyle={contentStyle}>
+                <ModalDialog
+                    contentStyle={contentStyle}
+                    transparent={transparent}
+                >
                     <ModalClose
                         closeModalOnEnter={closeModalOnEnter}
                         deactivateModal={deactivateModal}

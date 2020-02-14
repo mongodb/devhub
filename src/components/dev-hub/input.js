@@ -18,7 +18,7 @@ const StyledLabel = styled('label')`
     background: linear-gradient(
         180deg,
         transparent 50%,
-        ${colorMap.greyDarkOne} 50%
+        ${colorMap.greyDarkTwo} 50%
     );
     font-family: 'Fira Mono', monospace;
     left: ${LABEL_ABSOLUTE_LEFT}px;
@@ -29,7 +29,7 @@ const StyledLabel = styled('label')`
 `;
 
 const StyledInput = styled('input')`
-    background-color: ${colorMap.greyDarkOne};
+    background-color: ${colorMap.greyDarkTwo};
     border: ${FORM_ELEMENT_BORDER} solid transparent;
     color: ${colorMap.devWhite};
     font-family: 'Fira Mono', monospace;

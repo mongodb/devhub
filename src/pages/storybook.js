@@ -226,7 +226,6 @@ const CodeArticle = styled('div')`
     width: 100%;
 `;
 const ModalContainer = styled('div')`
-    background-color: ${colorMap.greyLightThree};
     padding: ${size.default};
 `;
 

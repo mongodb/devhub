@@ -17,7 +17,7 @@ const activeSelectStyles = css`
 `;
 
 const Option = styled('li')`
-    background-color: ${colorMap.greyDarkTwo};
+    background-color: ${colorMap.greyDarkOne};
     color: ${colorMap.greyLightTwo};
     display: block;
     padding: ${({ narrow }) =>
