@@ -9,7 +9,7 @@ import ListTable from './ListTable';
 import Emphasis from './Emphasis';
 import Include from './Include';
 import Section from './Section';
-import Code from './Code';
+import CodeBlock from './dev-hub/codeblock';
 import LiteralInclude from './LiteralInclude';
 import Admonition from './Admonition';
 import Figure from './Figure';
@@ -72,7 +72,7 @@ export default class ComponentFactory extends Component {
             blockquote: BlockQuote,
             'card-group': CardGroup,
             class: CSSClass,
-            code: Code,
+            code: CodeBlock,
             cond: Cond,
             container: Container,
             contents: Contents,

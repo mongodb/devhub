@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { screenSize } from './theme';
+import { screenSize, size } from './theme';
 
 const ContentWrapper = styled('span')`
     grid-area: content;
@@ -43,6 +43,7 @@ const MediaBlockContainer = styled('div')`
 
 const MediaWrapper = styled('div')`
     grid-area: image;
+    margin-right: ${size.medium};
     max-width: 100%;
     > img {
         width: 100%;
