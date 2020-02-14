@@ -36,6 +36,8 @@ const BlockquoteContainer = styled('div')`
     border-radius: ${size.tiny};
     background: ${gradientMap.magentaSalmonSherbet};
     background-size: cover;
+    margin-bottom: ${BLOCKQUOTE_OUTER_LAYER_OFFSET +
+        size.stripUnit(size.default)}px;
     padding: ${BORDER_SIZE}px;
     position: relative;
     &:before {
