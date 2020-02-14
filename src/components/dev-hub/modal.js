@@ -149,6 +149,7 @@ Modal.propTypes = {
     isMounted: PropTypes.bool,
     title: PropTypes.string,
     triggerComponent: PropTypes.node,
+    transparent: PropTypes.bool,
     verticallyCenter: PropTypes.bool,
 };
 Modal.displayName = 'Modal';
