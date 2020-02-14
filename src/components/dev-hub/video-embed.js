@@ -12,11 +12,22 @@ const StyledReactPlayer = styled(ReactPlayer)`
 
 const VideoEmbed = ({ nodeData: { value }, ...props }) => (
     <StyledReactPlayer
-        url={value}
+        config={{
+            youtube: {
+                playerVars: {
+                    autohide: 1,
+                    modestbranding: 1,
+                    rel: 0,
+                    autoplay: 1,
+                },
+            },
+            // TODO: Add config for twitch
+        }}
+        controls
         light
         playIcon={<Button play />}
         playing
-        style={{ position: 'sticky' }}
+        url={value}
         {...props}
     />
 );

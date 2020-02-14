@@ -280,11 +280,15 @@ export default () => (
                 </ModalContainer>
             </Modal>
             <br />
-            <Modal triggerComponent={<Button primary>Play a Video</Button>}>
+            <Modal
+                transparent
+                triggerComponent={<Button primary>Play a Video</Button>}
+            >
                 <VideoEmbed
                     nodeData={{
                         value: 'https://www.youtube.com/watch?v=Yx7OCVfeXlY',
                     }}
+                    style={{ paddingLeft: '20px', paddingRight: '20px' }}
                 />
             </Modal>
             <SectionHeader>Buttons</SectionHeader>
