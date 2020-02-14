@@ -31,6 +31,7 @@ import Github from '../components/dev-hub/icons/github';
 import Youtube from '../components/dev-hub/icons/youtube';
 import Twitch from '../components/dev-hub/icons/twitch';
 import mockCardImage from '../images/360-mock-img.png';
+import VideoEmbed from '../components/dev-hub/video-embed';
 
 const cardProps = {
     gradient: false,
@@ -255,6 +256,12 @@ export default () => (
             <BlogTagListStory short />
             <H4>Expandable List</H4>
             <BlogTagListStory />
+            <SectionHeader>Embedded Video</SectionHeader>
+            <VideoEmbed
+                nodeData={{
+                    value: 'https://www.youtube.com/watch?v=Yx7OCVfeXlY',
+                }}
+            />
             <SectionHeader>Modal</SectionHeader>
             <Modal triggerComponent={<Button play />}>
                 <ModalContainer>
