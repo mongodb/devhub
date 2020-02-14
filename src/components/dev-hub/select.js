@@ -17,7 +17,7 @@ const activeSelectStyles = css`
 `;
 
 const Option = styled('li')`
-    background-color: ${colorMap.greyDarkTwo};
+    background-color: ${colorMap.greyDarkOne};
     color: ${colorMap.greyLightTwo};
     display: block;
     padding: ${({ narrow }) =>
@@ -54,6 +54,7 @@ const StyledCustomSelect = styled('div')`
     cursor: pointer;
     font-family: 'Fira Mono', monospace;
     position: relative;
+    width: calc(100% - ${BORDER_SIZE}px - ${BORDER_SIZE}px);
     ${({ showOptions }) => showOptions && activeSelectStyles};
 `;
 
