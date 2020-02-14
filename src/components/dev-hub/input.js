@@ -39,7 +39,8 @@ const StyledInput = styled('input')`
         narrow ? `${size.small} ${size.medium}` : size.medium};
     position: relative;
     width: calc(
-        100% - ${size.large} - ${FORM_ELEMENT_BORDER} - ${FORM_ELEMENT_BORDER}
+        100% - ${size.medium} - ${size.medium} - ${FORM_ELEMENT_BORDER} -
+            ${FORM_ELEMENT_BORDER}
     );
 
     :focus {

@@ -77,6 +77,9 @@ const playStyles = css`
             transition: opacity 0.6s;
         }
     }
+    @media ${screenSize.upToMedium} {
+        font-size: ${size.large};
+    }
 `;
 
 const PlayButtonWrapper = styled('div')`

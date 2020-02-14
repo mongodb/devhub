@@ -11,6 +11,7 @@ import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
 import MediaBlock from '../components/dev-hub/media-block';
+import Modal from '../components/dev-hub/modal';
 import Notification from '../components/dev-hub/notification';
 import Select from '../components/dev-hub/select';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
@@ -224,6 +225,10 @@ const CodeArticle = styled('div')`
     justify-content: space-between;
     width: 100%;
 `;
+const ModalContainer = styled('div')`
+    background-color: ${colorMap.greyLightThree};
+    padding: ${size.default};
+`;
 
 export default () => (
     <StorybookLayout>
@@ -249,6 +254,23 @@ export default () => (
             <BlogTagListStory short />
             <H4>Expandable List</H4>
             <BlogTagListStory />
+            <SectionHeader>Modal</SectionHeader>
+            <Modal triggerComponent={<Button play />}>
+                <ModalContainer>
+                    <MediaBlockStory />
+                    <H4>Input</H4>
+                    <InputStory />
+                    <br />
+                    <H4>Input (Narrow)</H4>
+                    <InputStory narrow />
+                    <br />
+                    <H4>Select</H4>
+                    <SelectStory />
+                    <br />
+                    <H4>Select (Narrow)</H4>
+                    <SelectStory narrow />
+                </ModalContainer>
+            </Modal>
             <SectionHeader>Buttons</SectionHeader>
             <Row>
                 <Button href="#" primary>
