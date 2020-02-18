@@ -1,29 +1,10 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { animationSpeed, colorMap, gradientMap, layer, size } from './theme';
+import { animationSpeed, colorMap, gradientMap, size, fontSize } from './theme';
+import { H4, P } from './text';
 import Link from './link';
-import Badge from './badge';
-
-const NoLinkWrapper = styled('div')`
-    margin: 0;
-    padding: 0;
-    width: 100%;
-`;
-
-const TagsList = styled('ul')`
-    bottom: 0;
-    color: ${colorMap.white};
-    left: ${size.default};
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    z-index: 3;
-    li {
-        display: inline;
-    }
-`;
+import TagList from './blog-tag-list';
 
 const fullSizeAbsolute = css`
     bottom: 0;
@@ -76,73 +57,78 @@ const ImageWrapper = styled('div')`
     width: 100%;
 `;
 
-const Content = styled('div')`
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-`;
-
 const Wrapper = styled('div')`
     background-color: transparent;
     border-radius: ${size.small};
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     max-width: 500px;
     padding: ${size.medium};
+    text-decoration: none;
     transition: background-color ${animationSpeed.medium};
-    width: ${({ width = '100%' }) => width};
+    width: ${({ width = 'auto' }) => width};
+    ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
     &:hover,
     &:active {
         background-color: ${colorMap.greyDarkTwo};
+        color: inherit;
         cursor: pointer;
         img {
             transform: scale(1.1);
+            /* TODO - fix this transition (probably by making the image a background image) */
+            /* transition: transform ${animationSpeed.slow}; */
         }
     }
-    ${({ distinct }) => distinct && `border: 1px solid ${colorMap.devBlack}`};
-    ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
 `;
 
-const noop = (_eventType, _properties, _options, _callback) => {};
+const DescriptionText = styled(P)`
+    color: ${colorMap.greyLightTwo};
+    font-size: ${fontSize.small};
+    /* truncate text to 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: ${props =>
+        props.maxDescriptionLines}; /* supported cross browser */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+`;
 
-const Tags = ({ tags }) =>
-    tags && tags.length ? (
-        <TagsList>
-            {tags.map(tag => (
-                <li key={tag}>
-                    <Badge>{tag}</Badge>
-                </li>
-            ))}
-        </TagsList>
-    ) : null;
+// eslint-disable-next-line no-unused-vars
+const noop = (_eventType, _properties, _options, _callback) => {};
 
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children
- * @property {bool?} props.distinct
+ * @property {string} props.className
+ * @property {string} props.description
  * @property {bool?} props.gradient
  * @property {bool?} props.highlight
  * @property {string?} props.href
  * @property {string?} props.image
+ * @property {number?} props.maxDescriptionLines
  * @property {func?} props.onClick
  * @property {string[]?} props.tags
  * @property {string?} props.target
+ * @property {string?} props.title
  * @property {string?} props.to
  */
 
 const Card = ({
     children,
+    className,
+    description,
     gradient,
     href,
     image,
+    maxDescriptionLines = 3,
     onClick = noop,
     to,
     tags,
     target,
-    ...props
+    title,
 }) => {
     const isLink = !!(to || href);
-    const ContentWrapper = isLink ? Link : NoLinkWrapper;
+    const ContentWrapper = isLink ? Wrapper.withComponent(Link) : Wrapper;
     const linkAttrs = !isLink
         ? {}
         : {
@@ -150,9 +136,10 @@ const Card = ({
               href,
               target,
           };
+    const cardTitle = title || children;
     return (
-        <Wrapper {...props}>
-            <ContentWrapper onClick={onClick} {...linkAttrs}>
+        <ContentWrapper onClick={onClick} {...linkAttrs} className={className}>
+            <div>
                 {image && (
                     <ImageWrapper>
                         {gradient && <GradientOverlay />}
@@ -160,11 +147,16 @@ const Card = ({
                         {gradient && <GradientBase />}
                     </ImageWrapper>
                 )}
-                <Content>{children}</Content>
+                {cardTitle && <H4>{cardTitle}</H4>}
+                {description && (
+                    <DescriptionText maxDescriptionLines={maxDescriptionLines}>
+                        {description}
+                    </DescriptionText>
+                )}
+            </div>
 
-                <Tags tags={tags} />
-            </ContentWrapper>
-        </Wrapper>
+            {tags && <TagList tags={tags} />}
+        </ContentWrapper>
     );
 };
 

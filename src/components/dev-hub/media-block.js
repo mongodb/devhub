@@ -60,6 +60,7 @@ const MediaWrapper = styled('div')`
  */
 const MediaBlock = ({
     children,
+    className,
     mediaComponent,
     mediaWidth,
     reverse,
@@ -69,6 +70,7 @@ const MediaBlock = ({
         flexible={flexible}
         reverse={reverse}
         mediaWidth={mediaWidth}
+        className={className}
     >
         {mediaComponent && <MediaWrapper>{mediaComponent}</MediaWrapper>}
         <ContentWrapper>{children}</ContentWrapper>

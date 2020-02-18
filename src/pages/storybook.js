@@ -32,17 +32,6 @@ import Youtube from '../components/dev-hub/icons/youtube';
 import Twitch from '../components/dev-hub/icons/twitch';
 import mockCardImage from '../images/360-mock-img.png';
 
-const cardProps = {
-    gradient: false,
-    image: mockCardImage,
-    tags: ['Article'],
-};
-
-const gradientCardProps = {
-    ...cardProps,
-    gradient: true,
-};
-
 const Row = styled('div')`
     display: flex;
     flex-direction: row;
@@ -360,45 +349,55 @@ export default () => (
                 <EnvelopeIcon color={colorMap.magenta} />
             </Row>
             <SectionHeader>Cards</SectionHeader>
-            <Row>
-                <Card distinct {...cardProps}>
-                    <H4>I'm a Card For A Post on the New Devhub Platform!</H4>
+            <Row id="card-row">
+                <Card
+                    distinct
+                    image={mockCardImage}
+                    tags={['tag one', 'tag two']}
+                >
+                    I'm a Card For A Post on the New Devhub Platform!
                 </Card>
-                <Card {...gradientCardProps}>
-                    <H4>I'm a Gradient Card</H4>
+                <Card
+                    href="#card-row"
+                    gradient
+                    image={mockCardImage}
+                    tags={['tag one', 'tag two', 'tag three']}
+                >
+                    I'm a Gradient Card
                 </Card>
-                <Card {...gradientCardProps} highlight>
-                    <H4>I'm a Gradient Card</H4>
+                <Card gradient image={mockCardImage} highlight>
+                    I'm a highlighted Gradient Card
                 </Card>
             </Row>
             <Row>
-                <Card distinct width="300px">
-                    <H4 bold>
+                <Card
+                    distinct
+                    width="300px"
+                    title="
                         Install MongoDB Community Edition on Red Hat or CentOS
-                        in minutes
-                    </H4>
-                    <P>
+                        in minutes"
+                    description="
+                        Use this tutorial to install community edition on any
+                        and every operating system known to man, woman, and
+                        child."
+                />
+                <Card
+                    width="300px"
+                    title="
+                        Install MongoDB Community Edition on Red Hat or CentOS
+                        in minutes"
+                    description="
                         Use this tutorial to install community edition on any
                         and every operating system known to man, woman, and
                         child.
-                    </P>
-                </Card>
-                <Card width="300px">
-                    <H4 bold>
-                        Install MongoDB Community Edition on Red Hat or CentOS
-                        in minutes
-                    </H4>
-                    <P>
-                        Use this tutorial to install community edition on any
-                        and every operating system known to man, woman, and
-                        child.
-                    </P>
-                </Card>
-                <Card highlight width="300px">
-                    <H4 bold>I'm a Card With No Image</H4>
-                    <P bold>written by Author </P>
-                    <P>preview preview preview</P>
-                </Card>
+                    "
+                />
+                <Card
+                    highlight
+                    width="300px"
+                    title="I'm a Card With No Image"
+                    description="written by Author"
+                />
             </Row>
             <SectionHeader>Icons</SectionHeader>
             <Row>
