@@ -68,8 +68,6 @@ const Wrapper = styled('div')`
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};
     width: ${({ width = 'auto' }) => width};
-
-    ${({ distinct }) => distinct && `border: 1px solid ${colorMap.devBlack}`};
     ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
     &:hover,
     &:active {
@@ -103,7 +101,6 @@ const noop = (_eventType, _properties, _options, _callback) => {};
  * @property {node} props.children
  * @property {string} props.className
  * @property {string} props.description
- * @property {bool?} props.distinct
  * @property {bool?} props.gradient
  * @property {bool?} props.highlight
  * @property {string?} props.href
