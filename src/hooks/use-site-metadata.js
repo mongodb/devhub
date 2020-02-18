@@ -6,6 +6,8 @@ export const useSiteMetadata = () => {
             query SiteMetaData {
                 site {
                     siteMetadata {
+                        commitHash
+                        database
                         parserBranch
                         project
                         snootyBranch
