@@ -1,42 +1,83 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { colorMap, gradientMap, size, fontSize, screenSize } from './theme';
+import {
+    animationSpeed,
+    colorMap,
+    fontSize,
+    gradientMap,
+    layer,
+    lineHeight,
+    screenSize,
+    size,
+} from './theme';
+import { createShadowElement } from './utils';
 import Link from './link';
 
-// TODO: Finalize hover effect when design complete
 const buttonHoverStyles = css`
-    &:active,
-    &:hover,
-    &:focus {
-        /* override Link hover styles if button is a link */
-        color: ${colorMap.devWhite};
+    &:before,
+    &:after {
+        content: '';
+        left: 0;
+        bottom: 0;
+        transition: bottom ${animationSpeed.medium}, left ${animationSpeed.medium};
     }
-`;
-
-// TODO: Finalize hover effect when design complete
-const secondaryHoverStyles = css`
     &:active,
     &:hover,
     &:focus {
-        border: 2px solid transparent;
-        /* Create border gradient */
+        color: ${colorMap.devWhite};
         &:before {
-            background: ${gradientMap.green};
-            border-radius: ${size.large};
-            bottom: -${size.tiny};
-            content: '';
-            height: calc(100% + ${size.small});
-            left: -${size.tiny};
-            position: absolute;
-            width: calc(100% + ${size.small});
-            z-index: -1;
+            transform: scale(1);
+            ${createShadowElement(gradientMap.green, size.large, -10, -2)}
+        }
+        &:after {
+            transform: scale(1);
+            opacity: 1;
+            ${createShadowElement(colorMap.greyDarkThree, size.large, -8, -6)}
         }
     }
 `;
 
+const secondaryHoverStyles = css`
+    &:active,
+    &:hover,
+    &:focus {
+        border: 2px solid ${colorMap.lightGreen};
+    }
+`;
+
 const buttonPadding = css`
-    padding: ${size.default} ${size.medium};
+    padding: ${size.medium} ${size.large};
+
+    @media ${screenSize.upToMedium} {
+        padding: ${size.default} ${size.medium};
+    }
+`;
+
+const primaryStyles = css`
+    background: ${gradientMap.green};
+    text-decoration: none;
+    ${buttonHoverStyles}
+    ${buttonPadding}
+`;
+
+const secondaryStyles = css`
+    background: ${colorMap.greyDarkThree};
+    border: 2px solid ${colorMap.greyDarkOne};
+    position: relative;
+    text-decoration: none;
+    ${buttonHoverStyles}
+    ${buttonPadding}
+    ${secondaryHoverStyles}
+`;
+
+const tertiaryStyles = css`
+    &:active,
+    &:hover,
+    &:focus {
+        color: ${colorMap.lightGreen};
+        transition: color ${animationSpeed.fast} ease-in;
+    }
 `;
 
 const playStyles = css`
@@ -95,34 +136,6 @@ const PlayButtonWrapper = styled('div')`
     opacity: 0;
 `;
 
-const primaryStyles = css`
-    background: ${gradientMap.green};
-    text-decoration: none;
-    ${buttonHoverStyles}
-    ${buttonPadding}
-`;
-
-const secondaryStyles = css`
-    background: ${colorMap.greyDarkOne};
-    border: 2px solid ${colorMap.greyDarkThree};
-    position: relative;
-    text-decoration: none;
-    ${buttonHoverStyles}
-    ${buttonPadding}
-    ${secondaryHoverStyles}
-`;
-
-const tertiaryStyles = css`
-    background: transparent;
-    &:active,
-    &:hover,
-    &:focus {
-        background: ${gradientMap.green};
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-`;
-
 const ButtonImpl = ({
     children,
     href,
@@ -173,13 +186,16 @@ const StyledButton = styled(ButtonImpl)`
     color: ${({ color }) => (color ? color : colorMap.devWhite)};
     cursor: pointer;
     display: inline-block;
-    font-size: ${fontSize.small};
+    font-size: ${fontSize.default};
+    line-height: ${lineHeight.micro};
     padding: ${size.default};
     position: relative;
     text-align: center;
+
     @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.tiny};
+        font-size: ${fontSize.small};
     }
+
     ${({ primary }) => primary && primaryStyles}
     ${({ secondary }) => secondary && secondaryStyles}
     ${({ play }) => play && playStyles}

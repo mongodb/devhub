@@ -274,12 +274,14 @@ export default () => (
             </Modal>
             <SectionHeader>Buttons</SectionHeader>
             <Row>
-                <Button href="#" primary>
-                    Join the Community (Primary)
-                </Button>
-                <Button secondary>Join the Community (Secondary)</Button>
-                <Button tertiary>Join the Community (tertiary)</Button>
-                <Button play />
+                <div>
+                    <Button href="#" primary>
+                        Join the Community (Primary)
+                    </Button>
+                    <Button secondary>Join the Community (Secondary)</Button>
+                    <Button tertiary>Join the Community (tertiary)</Button>
+                    <Button play />
+                </div>
             </Row>
             <SectionHeader>Notification</SectionHeader>
             <Notification />
