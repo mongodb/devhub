@@ -112,6 +112,7 @@ const LogoContainer = styled('section')`
     }
     @media ${screenSize.upToMedium} {
         border-top: 1px solid ${colorMap.greyLightTwo};
+        justify-content: flex-start;
         padding: ${size.default} 0;
     }
 `;
@@ -145,7 +146,7 @@ const Copyright = styled(P)`
         border-top: 1px solid ${colorMap.greyLightTwo};
         display: flex;
         font-size: ${fontSize.micro};
-        justify-content: center;
+        justify-content: flex-end;
         margin: 0;
         padding: ${size.default} 0;
     }
@@ -164,14 +165,16 @@ const FooterLink = styled(Link)`
     text-decoration: none;
 `;
 const ListItem = styled('li')`
+    @media ${screenSize.mediumAndUp}{
         text-align: center;
-${props =>
-    props.isListType &&
-    `@media ${screenSize.upToSmall} {
-        &:not(:first-of-type) {
-            margin-top: ${size.default};
-        }
-    }`}
+    }
+    ${props =>
+        props.isListType &&
+        `@media ${screenSize.upToSmall} {
+            &:not(:first-of-type) {
+                margin-top: ${size.default};
+            }
+        }`}
     @media ${screenSize.smallAndUp} {
         &:not(:first-of-type) {
             margin-left: ${size.large};
