@@ -6,6 +6,8 @@ import MediaBlock from '../components/dev-hub/media-block';
 import Card from '../components/dev-hub/card';
 import Select from '../components/dev-hub/select';
 import { screenSize, size } from '../components/dev-hub/theme';
+import mockCardImage from '../images/360-mock-card.png';
+import mockCardImageSmall from '../images/260-mock-card.png';
 
 const SecondarySection = styled('div')`
     @media ${screenSize.mediumAndUp} {
@@ -40,9 +42,7 @@ export default ({ ...data }) => {
                 <H2>Learn How to Build Your Next Application</H2>
                 <ResponsiveFlexContainer>
                     <MediaBlock
-                        mediaComponent={
-                            <img src="/images/360-mock-card.png" alt="" />
-                        }
+                        mediaComponent={<img src={mockCardImage} alt="" />}
                         mediaWidth={360}
                     >
                         <H4>Live Coding on Our Twitch Channel</H4>
@@ -91,19 +91,19 @@ export default ({ ...data }) => {
                     </ResponsiveFlexContainer>
                 </ResponsiveFlexContainer>
                 <ResponsiveFlexContainer>
-                    <Card image="/images/260-mock-card.png">
+                    <Card image={mockCardImageSmall}>
                         Never miss us live. Sign up for the MongoDB Twitch
                         stream today.
                     </Card>
-                    <Card image="/images/360-mock-card.png">
+                    <Card image={mockCardImage}>
                         Never miss us live. Sign up for the MongoDB Twitch
                         stream today.
                     </Card>
-                    <Card image="/images/260-mock-card.png">
+                    <Card image={mockCardImageSmall}>
                         Never miss us live. Sign up for the MongoDB Twitch
                         stream today.
                     </Card>
-                    <Card image="/images/360-mock-card.png">
+                    <Card image={mockCardImage}>
                         Never miss us live. Sign up for the MongoDB Twitch
                         stream today.
                     </Card>
