@@ -147,3 +147,8 @@ export const URL_SLUGS = {
 export const URL_SUBDOMAINS = {
     cloud: ['atlas', 'cloudmanager', 'opsmanager'],
 };
+
+export const devhubMapping = {
+    nodejs: 'Node.js',
+    java: 'Java',
+};
