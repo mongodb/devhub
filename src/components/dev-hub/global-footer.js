@@ -30,10 +30,22 @@ const siteLinks = [
         url: 'https://community.mongodb.com/',
     },
 ];
+const iconstyles = css`
+    &:hover {
+        fill: ${colorMap.darkGreen};
+        g {
+            fill: ${colorMap.darkGreen};
+            path {
+                fill: ${colorMap.darkGreen};
+            }
+        }
+    }
+`;
 const iconProps = {
     height: 15,
     width: 15,
     color: colorMap.greyLightTwo,
+    css: iconstyles,
 };
 const iconLinks = [
     {
@@ -143,11 +155,16 @@ const FooterLink = styled(Link)`
     &:visited {
         color: ${colorMap.greyLightTwo};
     }
+    &:hover {
+        color: ${colorMap.darkGreen};
+    }
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
+    padding: ${size.tiny};
     text-decoration: none;
 `;
 const ListItem = styled('li')`
+        text-align: center;
 ${props =>
     props.isListType &&
     `@media ${screenSize.upToSmall} {
