@@ -2,6 +2,7 @@ import React from 'react';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import GlobalNav from './global-nav';
+import GlobalFooter from './global-footer';
 
 import { colorMap, fontSize, lineHeight, size } from './theme';
 
@@ -30,15 +31,6 @@ const GlobalWrapper = styled('div')`
     max-width: ${size.maxWidth};
     min-height: 100vh;
 `;
-
-const GlobalFooter = styled('footer')`
-    background: ${colorMap.devBlack};
-    border-top: 1px solid ${colorMap.greyLightTwo};
-    color: ${colorMap.greyLightOne};
-    display: flex;
-    justify-content: flex-start;
-`;
-
 export const StorybookLayout = ({ children }) => {
     return (
         <GlobalWrapper>
@@ -53,10 +45,6 @@ export default ({ children }) => (
         <Global styles={globalStyles} />
         <GlobalNav />
         <main>{children}</main>
-        <GlobalFooter>
-            <ul>
-                <li>footer item</li>
-            </ul>
-        </GlobalFooter>
+        <GlobalFooter />
     </GlobalWrapper>
 );
