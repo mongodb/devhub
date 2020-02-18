@@ -14,37 +14,19 @@ import {
 import { createShadowElement } from './utils';
 import Link from './link';
 
-const blockquotePseudoElement = (
-    backgroundColor,
-    positionOffset,
-    sizeOffset = -2
-) => css`
-    background: ${backgroundColor};
-    border-radius: ${size.large};
-    bottom: ${positionOffset}px;
-    content: '';
-    height: calc(100% + ${sizeOffset}px);
-    left: ${positionOffset}px;
-    position: absolute;
-    width: calc(100% + ${sizeOffset}px);
-    z-index: ${layer.superBack};
-`;
-
 const buttonHoverStyles = css`
     &:before,
     &:after {
         content: '';
-        opacity: 0;
-        transform: scale(0);
-        transition: opacity ${animationSpeed.medium},
-            transform ${animationSpeed.fast};
+        left: 0;
+        bottom: 0;
+        transition: bottom ${animationSpeed.medium}, left ${animationSpeed.medium};
     }
     &:active,
     &:hover,
     &:focus {
         color: ${colorMap.devWhite};
         &:before {
-            opacity: 1;
             transform: scale(1);
             ${createShadowElement(gradientMap.green, size.large, -10, -2)}
         }
