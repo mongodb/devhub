@@ -30,9 +30,11 @@ import LinkedInIcon from '../components/dev-hub/icons/linkedin';
 import Github from '../components/dev-hub/icons/github';
 import Youtube from '../components/dev-hub/icons/youtube';
 import Twitch from '../components/dev-hub/icons/twitch';
+import mockCardImage from '../images/360-mock-img.png';
+
 const cardProps = {
     gradient: false,
-    image: '/images/360-mock-img.png',
+    image: mockCardImage,
     tags: ['Article'],
 };
 
