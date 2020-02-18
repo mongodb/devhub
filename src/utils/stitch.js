@@ -1,4 +1,4 @@
-import { Stitch } from 'mongodb-stitch-browser-sdk';
+import { AnonymousCredential, Stitch } from 'mongodb-stitch-browser-sdk';
 import { isBrowser } from '../utils/is-browser';
 
 const initializeApp = appId =>
@@ -7,6 +7,14 @@ const initializeApp = appId =>
         : Stitch.initializeAppClient(appId);
 
 const stitchClient = isBrowser() ? initializeApp('snooty-koueq') : {};
+
+export const authenticate = async () => {
+    try {
+        await stitchClient.auth.loginWithCredential(new AnonymousCredential());
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 /**
  * Calls a function from Stitch and returns array of documents that match the specified query filters.

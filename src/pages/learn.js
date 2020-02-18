@@ -8,7 +8,7 @@ import Select from '../components/dev-hub/select';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
 import mockCardImageSmall from '../images/260-mock-card.png';
-import { callStitchFunction } from '../utils/stitch';
+import { authenticate, callStitchFunction } from '../utils/stitch';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { devhubMapping } from '../constants';
 
@@ -65,6 +65,8 @@ export default ({ ...data }) => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
+        authenticate();
+
         if (languages.length === 0) {
             callStitch('languages', setLanguages);
         }
