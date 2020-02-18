@@ -23,7 +23,7 @@ const metadata = {
 
 module.exports = {
     pathPrefix: generatePathPrefix(metadata),
-    plugins: ['gatsby-plugin-react-helmet'],
+    plugins: ['gatsby-plugin-react-helmet', 'gatsby-plugin-emotion'],
     siteMetadata: {
         ...metadata,
         title: 'MongoDB Developer Hub',
