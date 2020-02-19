@@ -2,6 +2,7 @@ import React from 'react';
 import dlv from 'dlv';
 import PropTypes from 'prop-types';
 import DocumentBody from '../components/DocumentBody';
+import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
 import Image from '../components/Image';
 import { getNestedText } from '../utils/get-nested-text';
@@ -62,16 +63,21 @@ const Article = props => {
     const meta = dlv(__refDocMapping, 'query_fields');
     console.log({ contentNodes });
     console.log({ meta });
+    console.log(rest);
     return (
         <Layout>
-            <header>
-                <h1>{articleTitle}</h1>
-                <p>{meta.author}</p>
-                <ul>
-                    {meta.tags.map(tag => (
-                        <li key={tag}>{tag}</li>
-                    ))}
-                </ul>
+            <BlogPostTitleArea
+                author={meta.author}
+                breadcrumb={[
+                    { label: 'Home', target: '/' },
+                    { label: 'Quick Start', target: '#' },
+                ]}
+                originalDate={meta.pubdate}
+                tags={meta.tags}
+                title={articleTitle}
+                image={<Image src={meta['atf-image']} alt={articleTitle} />}
+            />
+            {/* <header>
                 <p>{meta.type}</p>
                 <p>{meta.level}</p>
                 <p>{meta.languages}</p>
@@ -79,7 +85,8 @@ const Article = props => {
                 <p>
                     <Image src={meta['atf-image']} alt="" />
                 </p>
-            </header>
+            </header> */}
+
             <section>
                 <DocumentBody
                     pageNodes={contentNodes}
