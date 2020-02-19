@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { animationSpeed, colorMap, gradientMap, size, fontSize } from './theme';
-import { H4, P } from './text';
+import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
 
@@ -147,7 +147,7 @@ const Card = ({
                         {gradient && <GradientBase />}
                     </ImageWrapper>
                 )}
-                {cardTitle && <H4>{cardTitle}</H4>}
+                {cardTitle && <H5 collapse={!description}>{cardTitle}</H5>}
                 {description && (
                     <DescriptionText maxDescriptionLines={maxDescriptionLines}>
                         {description}
