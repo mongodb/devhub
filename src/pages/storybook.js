@@ -249,11 +249,10 @@ export default () => (
             <H4>YouTube</H4>
             <VideoEmbed
                 nodeData={{
-                    value: 'https://www.youtube.com/watch?v=Yx7OCVfeXlY',
+                    argument: [{ value: 'Yx7OCVfeXlY' }],
+                    name: 'youtube',
                 }}
             />
-            <H4>Twitch (pre-recorded)</H4>
-            <VideoEmbed nodeData={{ value: 'twitch.tv/videos/544673596' }} />
             <SectionHeader>Modal</SectionHeader>
             <Modal triggerComponent={<Button play />}>
                 <ModalContainer>
@@ -282,7 +281,8 @@ export default () => (
             >
                 <VideoEmbed
                     nodeData={{
-                        value: 'https://www.youtube.com/watch?v=Yx7OCVfeXlY',
+                        argument: [{ value: 'Yx7OCVfeXlY' }],
+                        name: 'youtube',
                     }}
                 />
             </Modal>

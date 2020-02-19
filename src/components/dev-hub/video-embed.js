@@ -23,8 +23,13 @@ const StyledReactPlayer = styled(ReactPlayer)`
     }
 `;
 
-const VideoEmbed = ({ nodeData: { value }, ...props }) => {
-    const isYoutube = !!value.match(/youtu.?be/);
+const VideoEmbed = ({ nodeData: { argument, name }, ...props }) => {
+    const videoId = argument[0].value;
+    const isYoutube = name === 'youtube';
+    // TODO: handle other directives (twitch) once format decided
+    const value = isYoutube
+        ? `https://www.youtube.com/watch?v=${videoId}`
+        : null;
     return (
         <ReactPlayerWrapper>
             <StyledReactPlayer
