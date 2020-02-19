@@ -1,24 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import Layout from '../components/dev-hub/layout';
-import { H2, H3 } from '../components/dev-hub/text';
+import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
 import Card from '../components/dev-hub/card';
-import Select from '../components/dev-hub/select';
+import FilterBar from '../components/dev-hub/filter-bar';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
 import mockCardImageSmall from '../images/260-mock-card.png';
-// import { callStitchFunction } from '../utils/stitch';
-// import { useSiteMetadata } from '../hooks/use-site-metadata';
-import { devhubMapping } from '../constants';
-
-// Zip array of objects into array of 2-element arrays to populate Select forms
-// Replace key with label text, if defined (e.g. nodejs => Node.js)
-const zipObjects = arr =>
-    arr.map(({ _id, count }) => {
-        const label = devhubMapping[_id] || _id;
-        return [_id, `${label} (${count})`];
-    });
 
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
@@ -48,56 +37,44 @@ const LastArticle = styled(Card)`
 const Header = styled('header')`
     background: ${colorMap.devBlack};
     margin-bottom: ${size.xlarge};
-    padding: ${size.xlarge} 2%;
+    padding: ${size.xlarge} ${size.medium};
 `;
 
-const ResponsiveFlexContainer = styled('div')`
+const CardContainer = styled('div')`
+    align-items: center;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    margin: 0 -${size.medium};
     @media ${screenSize.upToMedium} {
         display: block;
     }
 `;
-export default ({ ...data }) => {
-    console.log(data);
-    // const metadata = useSiteMetadata();
-    const [languages] = useState([]);
-    const [products] = useState([]);
 
-    // useEffect(() => {
-    //     if (languages.length === 0) {
-    //         callStitch('languages', setLanguages);
-    //     }
+const Article = styled('article')`
+    padding: ${size.medium};
+`;
 
-    //     if (products.length === 0) {
-    //         callStitch('products', setProducts);
-    //     }
-    // }, [callStitch, languages.length, products.length]);
+const ArticleCard = styled(Card)`
+    flex: 1 1 320px;
+`;
 
-    // Populate forms by fetching all values associated with given key
-    // Returns array of {_id: 'Name', count: X} objects in descending count order
-    // These objects are then zipped into an array of arrays
-    // const callStitch = async (key, callback) => {
-    //     const res = await callStitchFunction('getValuesByKey', metadata, [key]);
-    //     callback(zipObjects(res));
-    // };
-
-    return (
-        <Layout>
-            <Header>
-                <H2>Make better, faster applications</H2>
-                <MainFeatureGrid>
-                    <PrimarySection>
-                        <MediaBlock
-                            mediaComponent={<img src={mockCardImage} alt="" />}
-                            mediaWidth={360}
-                        >
-                            <Card
-                                maxDescriptionLines={4}
-                                to="/#"
-                                title="Building Modern Applications with Next.js and
+export default () => (
+    <Layout>
+        <Header>
+            <H2>Make better, faster applications</H2>
+            <MainFeatureGrid>
+                <PrimarySection>
+                    <MediaBlock
+                        mediaComponent={<img src={mockCardImage} alt="" />}
+                        mediaWidth={360}
+                    >
+                        <Card
+                            maxDescriptionLines={4}
+                            to="/#"
+                            title="Building Modern Applications with Next.js and
                             MongoDB"
-                                description="Developers have more choices than ever before when
+                            description="Developers have more choices than ever before when
                             it comes to choosing the technology stack for their
                             next application. Developer productivity is one of
                             the most important factors in choosing a modern
@@ -105,63 +82,45 @@ export default ({ ...data }) => {
                             MongoDB can get you up and running on the next great
                             application in no time at all. Let’s find out how
                             and why!"
-                                tags={['nodejs']}
-                            />
-                        </MediaBlock>
-                    </PrimarySection>
-                    <SecondArticle
-                        title="Quick Start - Node.js"
-                        description=" Master all the CRUD operations in Node.js with
+                            tags={['nodejs']}
+                        />
+                    </MediaBlock>
+                </PrimarySection>
+                <SecondArticle
+                    title="Quick Start - Node.js"
+                    description=" Master all the CRUD operations in Node.js with
                             MongoDB"
-                        tags={['nodejs']}
-                    />
+                    tags={['nodejs']}
+                />
 
-                    <LastArticle
-                        title="Visualising the Coronavirus"
-                        description="See the spread of the Coronavirus in MongoDB
+                <LastArticle
+                    title="Visualising the Coronavirus"
+                    description="See the spread of the Coronavirus in MongoDB
                             Charts"
-                        tags={['charts']}
-                    />
-                </MainFeatureGrid>
-            </Header>
-            <article>
-                <ResponsiveFlexContainer>
-                    <H3>All Articles</H3>
-                    <ResponsiveFlexContainer>
-                        <span>Filter By</span>
-                        <Select
-                            narrow
-                            name="product"
-                            choices={products}
-                            defaultText="Product"
-                        ></Select>
-                        <Select
-                            narrow
-                            name="language"
-                            choices={languages}
-                            defaultText="Language"
-                        ></Select>
-                    </ResponsiveFlexContainer>
-                </ResponsiveFlexContainer>
-                <ResponsiveFlexContainer>
-                    <Card image={mockCardImageSmall}>
-                        Never miss us live. Sign up for the MongoDB Twitch
-                        stream today.
-                    </Card>
-                    <Card image={mockCardImage}>
-                        Never miss us live. Sign up for the MongoDB Twitch
-                        stream today.
-                    </Card>
-                    <Card image={mockCardImageSmall}>
-                        Never miss us live. Sign up for the MongoDB Twitch
-                        stream today.
-                    </Card>
-                    <Card image={mockCardImage}>
-                        Never miss us live. Sign up for the MongoDB Twitch
-                        stream today.
-                    </Card>
-                </ResponsiveFlexContainer>
-            </article>
-        </Layout>
-    );
-};
+                    tags={['charts']}
+                />
+            </MainFeatureGrid>
+        </Header>
+        <Article>
+            <FilterBar />
+            <CardContainer>
+                <ArticleCard image={mockCardImageSmall}>
+                    Never miss us live. Sign up for the MongoDB Twitch stream
+                    today.
+                </ArticleCard>
+                <ArticleCard image={mockCardImage}>
+                    Never miss us live. Sign up for the MongoDB Twitch stream
+                    today.
+                </ArticleCard>
+                <ArticleCard image={mockCardImageSmall}>
+                    Never miss us live. Sign up for the MongoDB Twitch stream
+                    today.
+                </ArticleCard>
+                <ArticleCard image={mockCardImage}>
+                    Never miss us live. Sign up for the MongoDB Twitch stream
+                    today.
+                </ArticleCard>
+            </CardContainer>
+        </Article>
+    </Layout>
+);

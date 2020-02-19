@@ -54,7 +54,6 @@ const StyledCustomSelect = styled('div')`
     cursor: pointer;
     font-family: 'Fira Mono', monospace;
     position: relative;
-    width: calc(100% - ${BORDER_SIZE}px - ${BORDER_SIZE}px);
     ${({ showOptions }) => showOptions && activeSelectStyles};
 `;
 
