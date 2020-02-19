@@ -80,7 +80,7 @@ export default ({ ...data }) => {
     // Returns array of {_id: 'Name', count: X} objects in descending count order
     // These objects are then zipped into an array of arrays
     const callStitch = async (key, callback) => {
-        const res = await callStitchFunction('getValuesByKey', metadata, [key]);
+        const res = await callStitchFunction('getValuesByKey', metadata, key);
         callback(zipObjects(res));
     };
 
