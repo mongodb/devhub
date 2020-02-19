@@ -82,8 +82,8 @@ const CopyButton = ({
 
     const onClick = useCallback(() => {
         // Only run once in the case of multiple clicks
+        const wasCopied = copy(nodesToString);
         if (!timeoutId) {
-            const wasCopied = copy(nodesToString);
             if (!wasCopied) {
                 setFeedbackMessage(<CopyText>Error</CopyText>);
             } else {
