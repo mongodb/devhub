@@ -1,0 +1,58 @@
+import React from 'react';
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
+import { gradientMap, size, colorMap } from './theme';
+
+const fullSizeAbsolute = css`
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+`;
+const GradientBase = styled('div')`
+    background: ${gradientMap.tealVioletReverse};
+    background-size: cover;
+    border-radius: ${size.small};
+    z-index: 1;
+    ${fullSizeAbsolute}
+`;
+const GradientOverlay = styled('div')`
+    background: ${gradientMap.tealVioletPurple};
+    background-size: cover;
+    border-radius: ${size.small};
+    mix-blend-mode: overlay;
+    z-index: 3;
+    ${fullSizeAbsolute}
+`;
+const Image = styled('img')`
+    border-radius: ${size.small};
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    filter: saturate(0%);
+    opacity: 0.75;
+`;
+
+const ImageWrapper = styled('div')`
+    border-radius: ${size.small};
+    margin-bottom: ${size.medium};
+    padding: 0;
+    position: relative;
+    width: 100%;
+`;
+
+const GradientImage = ({ src, ...props }) => (
+    <ImageWrapper {...props}>
+        <GradientOverlay />
+        <Image src={src} />
+        <GradientBase />
+    </ImageWrapper>
+);
+
+export default GradientImage;
