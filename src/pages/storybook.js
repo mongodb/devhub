@@ -7,6 +7,7 @@ import BlogTagList from '../components/dev-hub/blog-tag-list';
 import { StorybookLayout } from '../components/dev-hub/layout';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
+import { Event } from '../components/dev-hub/events';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
@@ -185,6 +186,20 @@ const BlockQuoteStory = () => (
     ></Blockquote>
 );
 
+const EventStory = () => {
+    const event = {
+        date: new Date('January 20, 2020'),
+        title: 'MongoDB.local San Francisco',
+        location: 'San Francisco, California',
+        url: '/community',
+    };
+    return (
+        <>
+            <Event {...event} />
+            <Event {...event} date={new Date('February 13, 2020')} />
+        </>
+    );
+};
 const shortCodeSample = `
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
@@ -415,6 +430,8 @@ export default () => (
                 <Twitch color={colorMap.devWhite} />
                 <LocationIcon color={colorMap.violet} />
             </Row>
+            <SectionHeader>Events</SectionHeader>
+            <EventStory />
         </StorybookContainer>
     </StorybookLayout>
 );
