@@ -62,6 +62,12 @@ const EventsHeader = styled('header')`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    @media ${screenSize.upToMedium} {
+        /* toggle mobile/desktop 'view all' cta's */
+        a {
+            display: none;
+        }
+    }
 `;
 
 const UpcomingEvents = styled('section')`
@@ -74,9 +80,6 @@ const UpcomingEvents = styled('section')`
     }
     @media ${screenSize.upToMedium} {
         /* toggle mobile/desktop 'view all' cta's */
-        a {
-            display: none;
-        }
         [type='button'] {
             display: block;
         }

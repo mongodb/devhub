@@ -91,7 +91,7 @@ const StyledEvent = styled(Link)`
     grid-template-columns: 1fr 3fr;
     margin-right: ${size.medium};
     max-width: 400px;
-    padding: ${size.medium};
+    padding: ${size.medium} 0;
     text-decoration: none;
 
     &:focus,
