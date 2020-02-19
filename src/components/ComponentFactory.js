@@ -45,6 +45,7 @@ import Superscript from './Superscript';
 import Image from './Image';
 import RefRole from './RefRole';
 import TwitterMeta from './TwitterMeta';
+import MetaDescription from './meta-description';
 
 import RoleClass from './Roles/Class';
 import RoleDoc from './Roles/Doc';
@@ -97,6 +98,7 @@ export default class ComponentFactory extends Component {
             literal_block: LiteralBlock,
             literalinclude: LiteralInclude,
             meta: Meta,
+            'meta-description': MetaDescription,
             only: Cond,
             paragraph: Paragraph,
             ref_role: RefRole,

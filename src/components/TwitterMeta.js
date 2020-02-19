@@ -7,8 +7,11 @@ export default ({ nodeData: { children, options } }) => (
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content={options.site} />
         <meta name="twitter:creator" content={options.creator} />
-        <meta property="og:title" content={options.title} />
-        <meta property="og:description" content={getNestedText(children)} />
-        <meta property="og:image" content={options.image} />
+        <meta property="twitter:title" content={options.title} />
+        <meta
+            property="twitter:description"
+            content={getNestedText(children)}
+        />
+        <meta property="twitter:image" content={options.image} />
     </Helmet>
 );
