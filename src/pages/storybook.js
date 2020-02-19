@@ -31,6 +31,7 @@ import Github from '../components/dev-hub/icons/github';
 import Youtube from '../components/dev-hub/icons/youtube';
 import Twitch from '../components/dev-hub/icons/twitch';
 import mockCardImage from '../images/360-mock-img.png';
+import VideoEmbed from '../components/dev-hub/video-embed';
 
 const Row = styled('div')`
     display: flex;
@@ -244,6 +245,15 @@ export default () => (
             <BlogTagListStory short />
             <H4>Expandable List</H4>
             <BlogTagListStory />
+            <SectionHeader>Embedded Video</SectionHeader>
+            <H4>YouTube</H4>
+            <VideoEmbed
+                nodeData={{
+                    value: 'https://www.youtube.com/watch?v=Yx7OCVfeXlY',
+                }}
+            />
+            <H4>Twitch (pre-recorded)</H4>
+            <VideoEmbed nodeData={{ value: 'twitch.tv/videos/544673596' }} />
             <SectionHeader>Modal</SectionHeader>
             <Modal triggerComponent={<Button play />}>
                 <ModalContainer>
@@ -260,6 +270,21 @@ export default () => (
                     <H4>Select (Narrow)</H4>
                     <SelectStory narrow />
                 </ModalContainer>
+            </Modal>
+            <br />
+            <Modal
+                dialogContainerStyle={{
+                    height: '90%',
+                    width: '90%',
+                }}
+                transparent
+                triggerComponent={<Button primary>Play a Video</Button>}
+            >
+                <VideoEmbed
+                    nodeData={{
+                        value: 'https://www.youtube.com/watch?v=Yx7OCVfeXlY',
+                    }}
+                />
             </Modal>
             <SectionHeader>Buttons</SectionHeader>
             <Row>

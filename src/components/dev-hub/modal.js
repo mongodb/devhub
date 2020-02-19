@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import AriaModal from 'react-aria-modal';
 import useMedia from '../../hooks/use-media';
 import { screenSize, size, colorMap } from './theme';
+
+const transparentModalStyling = css`
+    background-color: transparent;
+    border: none;
+    @media ${screenSize.upToMedium} {
+        padding: none;
+    }
+    @media ${screenSize.mediumAndUp} {
+        padding: none;
+    }
+`;
 
 const Heading = styled('header')`
     font-weight: bold;
@@ -11,10 +23,8 @@ const Heading = styled('header')`
 `;
 
 const ModalDialog = styled('div')`
-    background-color: ${({ transparent }) =>
-        transparent ? 'transparent' : colorMap.greyDarkThree};
-    ${({ transparent }) =>
-        !transparent && `border: 2px solid ${colorMap.greyDarkTwo};`}
+    background-color: ${colorMap.greyDarkThree};
+    border: 2px solid ${colorMap.greyDarkTwo};
     border-radius: ${size.xsmall};
     @media ${screenSize.upToMedium} {
         padding: ${size.small};
@@ -23,6 +33,7 @@ const ModalDialog = styled('div')`
         padding: ${size.medium};
     }
     ${props => props.contentStyle};
+    ${({ transparent }) => transparent && transparentModalStyling};
 `;
 const CloseButtonWrapper = styled('div')`
     cursor: pointer;
