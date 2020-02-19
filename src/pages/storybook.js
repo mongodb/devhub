@@ -257,11 +257,14 @@ export default () => (
             <H4>Expandable List</H4>
             <BlogTagListStory />
             <SectionHeader>Embedded Video</SectionHeader>
+            <H4>YouTube</H4>
             <VideoEmbed
                 nodeData={{
                     value: 'https://www.youtube.com/watch?v=Yx7OCVfeXlY',
                 }}
             />
+            <H4>Twitch (pre-recorded)</H4>
+            <VideoEmbed nodeData={{ value: 'twitch.tv/videos/544673596' }} />
             <SectionHeader>Modal</SectionHeader>
             <Modal triggerComponent={<Button play />}>
                 <ModalContainer>
@@ -281,6 +284,10 @@ export default () => (
             </Modal>
             <br />
             <Modal
+                dialogContainerStyle={{
+                    height: '90%',
+                    width: '90%',
+                }}
                 transparent
                 triggerComponent={<Button primary>Play a Video</Button>}
             >
@@ -288,7 +295,6 @@ export default () => (
                     nodeData={{
                         value: 'https://www.youtube.com/watch?v=Yx7OCVfeXlY',
                     }}
-                    style={{ paddingLeft: '20px', paddingRight: '20px' }}
                 />
             </Modal>
             <SectionHeader>Buttons</SectionHeader>

@@ -17,10 +17,10 @@ const ModalDialog = styled('div')`
         !transparent && `border: 2px solid ${colorMap.greyDarkTwo};`}
     border-radius: ${size.xsmall};
     @media ${screenSize.upToMedium} {
-        padding: ${size.small};
+        ${({ transparent }) => !transparent && `padding: ${size.small};`}
     }
     @media ${screenSize.mediumAndUp} {
-        padding: ${size.medium};
+        ${({ transparent }) => !transparent && `padding: ${size.medium};`}
     }
     ${props => props.contentStyle};
 `;
