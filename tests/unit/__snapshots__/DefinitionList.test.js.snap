@@ -16,7 +16,9 @@ exports[`DefinitionList renders correctly 1`] = `
     </code>
   </dt>
   <dd>
-    <p>
+    <p
+      class="css-1tf3ncj"
+    >
       <strong>
         Default
       </strong>
