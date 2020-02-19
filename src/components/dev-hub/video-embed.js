@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import ReactPlayer from 'react-player';
 import Button from './button';
-import TWITCH_IMAGE from '../../images/mock-video-placeholder.png';
+import PLACEHOLDER_IMAGE from '../../images/mock-video-placeholder.png';
 
 const ReactPlayerWrapper = styled('div')`
     position: relative;
@@ -39,7 +39,7 @@ const VideoEmbed = ({ nodeData: { value }, ...props }) => {
                 }}
                 controls
                 // If is youtube, use the default youtube thumbnail
-                light={isYoutube ? true : TWITCH_IMAGE}
+                light={isYoutube ? true : PLACEHOLDER_IMAGE}
                 playIcon={<Button play />}
                 playing
                 url={value}
