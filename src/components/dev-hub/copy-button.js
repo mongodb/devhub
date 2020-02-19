@@ -9,17 +9,21 @@ import Button from './button';
 export const COPY_BUTTON_WIDTH = 120;
 
 const StyledCopyButton = styled(Button)`
+    border: none;
     border-radius: ${size.small};
     background-color: transparent;
     color: ${colorMap.black};
     padding: 0 ${size.default};
     width: ${COPY_BUTTON_WIDTH}px;
     height: ${size.large};
+    /* Remove pseudoelements since no visible animation is occurring */
     &:active,
     &:hover,
     &:focus {
         &:before {
-            background: none;
+            content: none;
+        }
+        &:after {
             content: none;
         }
     }
@@ -77,17 +81,21 @@ const CopyButton = ({
     }, [copyContent]);
 
     const onClick = useCallback(() => {
-        const wasCopied = copy(nodesToString);
-        if (!wasCopied) {
-            setFeedbackMessage(<CopyText>Error</CopyText>);
-        } else {
-            setFeedbackMessage(feedbackString);
+        // Only run once in the case of multiple clicks
+        if (!timeoutId) {
+            const wasCopied = copy(nodesToString);
+            if (!wasCopied) {
+                setFeedbackMessage(<CopyText>Error</CopyText>);
+            } else {
+                setFeedbackMessage(feedbackString);
+            }
+            const newTimeoutId = setTimeout(() => {
+                setFeedbackMessage(copyString);
+                setTimeoutId(null);
+            }, feedbackTimeout);
+            setTimeoutId(newTimeoutId);
         }
-        const timeoutId = setTimeout(() => {
-            setFeedbackMessage(copyString);
-        }, feedbackTimeout);
-        setTimeoutId(timeoutId);
-    }, [copyString, feedbackString, feedbackTimeout, nodesToString]);
+    }, [copyString, feedbackString, feedbackTimeout, nodesToString, timeoutId]);
 
     return (
         <StyledCopyButton secondary type="button" onClick={onClick}>
