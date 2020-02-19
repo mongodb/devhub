@@ -21,6 +21,7 @@ import ShareIcon from '../components/dev-hub/icons/share-icon';
 import FacebookIcon from '../components/dev-hub/icons/facebook-icon';
 import ListIcon from '../components/dev-hub/icons/list-icon';
 import LinkIcon from '../components/dev-hub/icons/link-icon';
+import LocationIcon from '../components/dev-hub/icons/location-icon';
 import TwitterIcon from '../components/dev-hub/icons/twitter-icon';
 import EnvelopeIcon from '../components/dev-hub/icons/envelope-icon';
 import Tooltip from '../components/dev-hub/tooltip';
@@ -412,6 +413,7 @@ export default () => (
                 <LinkedInIcon color={colorMap.sherbet} />
                 <Github color={colorMap.darkGreen} />
                 <Twitch color={colorMap.devWhite} />
+                <LocationIcon color={colorMap.violet} />
             </Row>
         </StorybookContainer>
     </StorybookLayout>
