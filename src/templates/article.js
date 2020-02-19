@@ -16,7 +16,6 @@ const contentNodesMap = {
     prerequisites: true,
     content: true,
     'meta-description': true,
-    related: true,
     summary: true,
     twitter: true,
 };
