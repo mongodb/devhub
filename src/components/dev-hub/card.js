@@ -63,7 +63,7 @@ const Wrapper = styled('div')`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 500px;
+    max-width: 410px; /* 360px + padding + hand wavey amount */
     padding: ${size.medium};
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};

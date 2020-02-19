@@ -7,6 +7,17 @@ import GlobalFooter from './global-footer';
 import { colorMap, fontSize, lineHeight, size } from './theme';
 
 const globalStyles = css`
+    html {
+        box-sizing: border-box;
+        height: 100%;
+        overflow-y: scroll;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
     body {
         background: ${colorMap.pageBackground};
         color: ${colorMap.devWhite};
