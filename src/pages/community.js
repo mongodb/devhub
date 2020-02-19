@@ -1,30 +1,108 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 import Button from '../components/dev-hub/button';
 import Card from '../components/dev-hub/card';
+import GradientImage from '../components/dev-hub/gradient-image';
 import Layout from '../components/dev-hub/layout';
 import MediaBlock from '../components/dev-hub/media-block';
-import { Link } from '@reach/router';
+import Link from '../components/dev-hub/link';
+import { Event, EventList } from '../components/dev-hub/events';
 import { H1, H2, P, H4 } from '../components/dev-hub/text';
-import { size } from '../components/dev-hub/theme';
+import { size, colorMap, screenSize } from '../components/dev-hub/theme';
+
+const PAGE_MAX_WIDTH = '1200px';
+const maxWidthStyles = css`
+    max-width: 500px;
+    @media ${screenSize.upToMedium} {
+        width: 100%;
+    }
+`;
+const sectionPadding = css`
+    padding: ${size.xlarge} ${size.default};
+    @media ${screenSize.upToMedium} {
+        padding: ${size.large} ${size.default};
+    }
+`;
+
+const ProjectActions = styled('div')`
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media ${screenSize.upToMedium} {
+        align-items: start;
+        flex-direction: column;
+        > *:first-child {
+            margin: ${size.large} 0;
+        }
+    }
+`;
+
+const ProjectDescription = styled('div')`
+    p {
+        margin-bottom: ${size.xlarge};
+        @media ${screenSize.upToMedium} {
+            margin-bottom: 0;
+        }
+    }
+    ${maxWidthStyles}
+`;
+
+const FeaturedProject = styled('section')`
+    background-color: ${colorMap.devBlack};
+    > div:first-child {
+        margin: 0 auto;
+        max-width: ${PAGE_MAX_WIDTH};
+    }
+    ${sectionPadding}
+`;
+
+const EventsHeader = styled('header')`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`;
+
+const UpcomingEvents = styled('section')`
+    margin: 0 auto;
+    max-width: ${PAGE_MAX_WIDTH};
+    ${sectionPadding}
+    /* hide mobile 'view all' btn */
+    [type="button"] {
+        display: none;
+    }
+    @media ${screenSize.upToMedium} {
+        /* toggle mobile/desktop 'view all' cta's */
+        a {
+            display: none;
+        }
+        [type='button'] {
+            display: block;
+        }
+    }
+`;
 
 const HeroContent = styled('div')`
     margin: 0 auto;
-    max-width: 1024px;
     text-align: left;
-    width: 60%;
+    max-width: ${PAGE_MAX_WIDTH};
+    p {
+        width: 70%;
+        @media ${screenSize.upToMedium} {
+            width: 100%;
+        }
+    }
 `;
 
 const Hero = styled('header')`
-    width: 100vw;
-    min-height: 40vh;
-    padding: ${size.large} 0;
+    background-color: ${colorMap.devBlack};
+    ${sectionPadding}
 `;
 
 export default ({ ...data }) => {
     return (
         <Layout>
-            <H1>Community</H1>
             <Hero>
                 <HeroContent>
                     <H2 bold>Find Your Place</H2>
@@ -37,24 +115,33 @@ export default ({ ...data }) => {
                     <Button primary>Join our online community</Button>
                 </HeroContent>
             </Hero>
-            <div>
-                <H2 bold>Upcoming Events</H2>
-                <div>
-                    list of events
-                    <Link to="#">See all events</Link>
-                </div>
-            </div>
-            <div>
+            <UpcomingEvents>
+                <EventsHeader>
+                    <H2 bold>Upcoming Events</H2>
+                    <Link to="/community" tertiary>
+                        See all events
+                    </Link>
+                </EventsHeader>
+                <EventList />
+                <Button to="/community" secondary>
+                    View all
+                </Button>
+            </UpcomingEvents>
+            <FeaturedProject>
                 <MediaBlock
                     mediaComponent={
-                        <Card
-                            image="/images/compass-create-database.png"
-                            gradient
-                        ></Card>
+                        <GradientImage
+                            css={maxWidthStyles}
+                            src="/images/compass-create-database.png"
+                        />
                     }
+                    mediaWidth="100%"
                 >
-                    <div>
-                        <H2 bold>Made by Developers like You</H2>
+                    <ProjectDescription>
+                        <H2 bold>
+                            Made by Developers <br />
+                            like You
+                        </H2>
                         <H4 bold>Radar</H4>
                         <P>
                             Radar is a startup that helps companies make better
@@ -63,11 +150,17 @@ export default ({ ...data }) => {
                             currently running on more than 25 million devices
                             around the globe.
                         </P>
-                        <Button secondary>Learn how they did it</Button>
-                        <Link to="#">Share your project</Link>
-                    </div>
+                        <ProjectActions>
+                            <Button to="#" secondary>
+                                Learn how they did it
+                            </Button>
+                            <Link to="#" tertiary>
+                                Share your project
+                            </Link>
+                        </ProjectActions>
+                    </ProjectDescription>
                 </MediaBlock>
-            </div>
+            </FeaturedProject>
         </Layout>
     );
 };
