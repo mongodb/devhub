@@ -46,6 +46,7 @@ import Image from './Image';
 import RefRole from './RefRole';
 import TwitterMeta from './TwitterMeta';
 import Target from './Target';
+import VideoEmbed from './dev-hub/video-embed';
 
 import RoleAbbr from './Roles/Abbr';
 import RoleClass from './Roles/Class';
@@ -114,6 +115,7 @@ export default class ComponentFactory extends Component {
             twitter: TwitterMeta,
             versionadded: VersionAdded,
             versionchanged: VersionChanged,
+            youtube: VideoEmbed,
             // devhub main content
             introduction: Container,
             prerequisites: Container,
