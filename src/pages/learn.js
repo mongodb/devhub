@@ -8,8 +8,8 @@ import Select from '../components/dev-hub/select';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
 import mockCardImageSmall from '../images/260-mock-card.png';
-import { callStitchFunction } from '../utils/stitch';
-import { useSiteMetadata } from '../hooks/use-site-metadata';
+// import { callStitchFunction } from '../utils/stitch';
+// import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { devhubMapping } from '../constants';
 
 // Zip array of objects into array of 2-element arrays to populate Select forms
@@ -60,27 +60,27 @@ const ResponsiveFlexContainer = styled('div')`
 `;
 export default ({ ...data }) => {
     console.log(data);
-    const metadata = useSiteMetadata();
-    const [languages, setLanguages] = useState([]);
-    const [products, setProducts] = useState([]);
+    // const metadata = useSiteMetadata();
+    const [languages] = useState([]);
+    const [products] = useState([]);
 
-    useEffect(() => {
-        if (languages.length === 0) {
-            callStitch('languages', setLanguages);
-        }
+    // useEffect(() => {
+    //     if (languages.length === 0) {
+    //         callStitch('languages', setLanguages);
+    //     }
 
-        if (products.length === 0) {
-            callStitch('products', setProducts);
-        }
-    }, [callStitch, languages.length, products.length]);
+    //     if (products.length === 0) {
+    //         callStitch('products', setProducts);
+    //     }
+    // }, [callStitch, languages.length, products.length]);
 
     // Populate forms by fetching all values associated with given key
     // Returns array of {_id: 'Name', count: X} objects in descending count order
     // These objects are then zipped into an array of arrays
-    const callStitch = async (key, callback) => {
-        const res = await callStitchFunction('getValuesByKey', metadata, [key]);
-        callback(zipObjects(res));
-    };
+    // const callStitch = async (key, callback) => {
+    //     const res = await callStitchFunction('getValuesByKey', metadata, [key]);
+    //     callback(zipObjects(res));
+    // };
 
     return (
         <Layout>

@@ -136,7 +136,7 @@ const FormSelect = ({
         [setShowOptions]
     );
 
-    const selectOptions = choices.length ? choices : children;
+    const selectOptions = typeof choices !== 'undefined' ? choices : children;
     return (
         <StyledCustomSelect
             aria-expanded={showOptions}
