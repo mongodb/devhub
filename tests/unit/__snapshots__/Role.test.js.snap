@@ -1,5 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`correctly renders a "doc" role 1`] = `
+<a
+  class="reference internal"
+  href="/use-cases/product-catalog"
+>
+  Product Catalog
+</a>
+`;
+
+exports[`correctly renders a "file" role 1`] = `
+<code
+  class="file docutils literal"
+>
+  <span
+    class="pre"
+  >
+    examples/treasury_yield/src/main/resources/yield_historical_in.json
+  </span>
+</code>
+`;
+
+exports[`correctly renders a "guilabel" role 1`] = `
+<span
+  class="guilabel"
+>
+  Yes
+</span>
+`;
+
 exports[`renders correctly a role "guilabel" 1`] = `
 <span
   className="guilabel"

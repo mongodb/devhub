@@ -45,13 +45,13 @@ import Superscript from './Superscript';
 import Image from './Image';
 import RefRole from './RefRole';
 import TwitterMeta from './TwitterMeta';
+import Target from './Target';
 
+import RoleAbbr from './Roles/Abbr';
 import RoleClass from './Roles/Class';
 import RoleDoc from './Roles/Doc';
+import RoleFile from './Roles/File';
 import RoleGUILabel from './Roles/GUILabel';
-import RoleProgram from './Roles/Program';
-import RoleRef from './Roles/Ref';
-import RoleTerm from './Roles/Term';
 
 const IGNORED_NAMES = ['default-domain', 'toctree'];
 const IGNORED_TYPES = ['comment', 'substitution_definition', 'target'];
@@ -60,12 +60,11 @@ export default class ComponentFactory extends Component {
     constructor() {
         super();
         this.roles = {
+            abbr: RoleAbbr,
             class: RoleClass,
             doc: RoleDoc,
+            file: RoleFile,
             guilabel: RoleGUILabel,
-            program: RoleProgram,
-            ref: RoleRef,
-            term: RoleTerm,
         };
         this.componentMap = {
             admonition: Admonition,
@@ -107,6 +106,7 @@ export default class ComponentFactory extends Component {
             subscript: Subscript,
             substitution_reference: SubstitutionReference,
             superscript: Superscript,
+            target: Target,
             text: Text,
             title_reference: TitleReference,
             topic: Topic,
