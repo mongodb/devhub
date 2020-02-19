@@ -11,6 +11,11 @@ const LEAFY_LINENUMBER_PADDING = 42;
 const CodeContainer = styled('div')`
     display: inline-block;
     position: relative;
+    width: 100%;
+    /* The leafygreen Code component adds a wrapper div which can't be styled using emotion */
+    > div:first-of-type {
+        width: 100%;
+    }
 `;
 
 const CopyContainer = styled('div')`
