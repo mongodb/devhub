@@ -14,13 +14,13 @@ const ReactPlayerWrapper = styled('div')`
 `;
 
 const StyledReactPlayer = styled(ReactPlayer)`
+    position: absolute;
+    top: 0;
+    left: 0;
     > div {
         /* Redefines stacking context, allowing play button animation to stick on top */
         position: sticky;
     }
-    position: absolute;
-    top: 0;
-    left: 0;
 `;
 
 const VideoEmbed = ({ nodeData: { value }, ...props }) => {
