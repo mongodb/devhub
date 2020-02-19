@@ -1,13 +1,24 @@
 const userInfo = require('os').userInfo;
-const { getGitBranch } = require('./get-git-branch');
-const { getDatabase } = require('./get-database');
+const { execSync } = require('child_process');
 
-const runningEnv = process.env.NODE_ENV || 'production';
+const getDatabase = () => {
+    if (process.env.SNOOTY_ENV === 'staging') {
+        return 'snooty_stage';
+    } else if (process.env.SNOOTY_ENV === 'production') {
+        return 'snooty_prod';
+    }
+    return 'snooty_dev';
+};
 
-require('dotenv').config({
-    path: `.env.${runningEnv}`,
-});
+const getGitBranch = () => {
+    return execSync('git rev-parse --abbrev-ref HEAD')
+        .toString('utf8')
+        .replace(/[\n\r\s]+$/, '');
+};
 
+/**
+ * Get site metadata used to identify this build and query correct documents
+ */
 const getMetadata = () => ({
     commitHash: process.env.COMMIT_HASH || '',
     database: getDatabase(),
