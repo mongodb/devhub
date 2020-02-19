@@ -58,6 +58,15 @@ const FeaturedProject = styled('section')`
     ${sectionPadding}
 `;
 
+const MobileViewAllBtn = styled(Button)`
+    align-self: center;
+    display: none;
+    margin-top: ${size.default};
+    @media ${screenSize.upToMedium} {
+        display: inline-block;
+    }
+`;
+
 const EventsHeader = styled('header')`
     display: flex;
     flex-direction: row;
@@ -71,18 +80,13 @@ const EventsHeader = styled('header')`
 `;
 
 const UpcomingEvents = styled('section')`
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
     max-width: ${PAGE_MAX_WIDTH};
     ${sectionPadding}
-    /* hide mobile 'view all' btn */
-    [type="button"] {
-        display: none;
-    }
-    @media ${screenSize.upToMedium} {
-        /* toggle mobile/desktop 'view all' cta's */
-        [type='button'] {
-            display: block;
-        }
+    h2 {
+        align-self: start;
     }
 `;
 
@@ -126,9 +130,9 @@ export default ({ ...data }) => {
                     </Link>
                 </EventsHeader>
                 <EventList />
-                <Button to="/community" secondary>
+                <MobileViewAllBtn to="/community" secondary>
                     View all
-                </Button>
+                </MobileViewAllBtn>
             </UpcomingEvents>
             <FeaturedProject>
                 <MediaBlock
