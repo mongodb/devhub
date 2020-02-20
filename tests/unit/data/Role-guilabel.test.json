@@ -1,13 +1,25 @@
 {
-  "name": "guilabel",
-  "label": {
-    "type": "text",
-    "value": "Yes",
-    "position": {
-      "start": {
-        "line": 13
+  "type": "role",
+  "position": {
+    "start": {
+      "line": {
+        "$numberInt": "8"
       }
     }
   },
-  "children": []
+  "domain": "",
+  "name": "guilabel",
+  "children": [
+    {
+      "type": "text",
+      "position": {
+        "start": {
+          "line": {
+            "$numberInt": "8"
+          }
+        }
+      },
+      "value": "Yes"
+    }
+  ]
 }

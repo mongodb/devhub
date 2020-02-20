@@ -1,10 +1,11 @@
-// Returns the name of the template to be used based on the site and page name.
-const getTemplate = (page, site) => {
-  let template = 'document';
-  if (site === 'guides') {
-    template = page === 'index' ? 'guides-index' : 'guide';
-  }
-  return template;
+// Returns the name of the template to be used
+const getTemplate = template => {
+    switch (template) {
+        case 'devhub-article':
+            return 'article';
+        default:
+            return 'document';
+    }
 };
 
 module.exports.getTemplate = getTemplate;

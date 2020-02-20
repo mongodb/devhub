@@ -4,6 +4,6 @@ import DefinitionList from '../../src/components/DefinitionList';
 import mockData from './data/DefinitionList.test.json';
 
 it('DefinitionList renders correctly', () => {
-  const tree = render(<DefinitionList nodeData={mockData} />);
-  expect(tree).toMatchSnapshot();
+    const tree = render(<DefinitionList nodeData={mockData} />);
+    expect(tree).toMatchSnapshot();
 });

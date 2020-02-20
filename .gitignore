@@ -5,7 +5,6 @@ public/
 static/*
 # Don't ignore the scripts directory
 !static/scripts
-docs-tools/
 coverage/
 .coverage
 .env.*

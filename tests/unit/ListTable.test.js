@@ -9,136 +9,136 @@ const mountListTable = data => mount(<ListTable nodeData={data} />);
 const renderListTable = data => render(<ListTable nodeData={data} />);
 
 describe('when rendering a list-table directive', () => {
-  let wrapper;
-  let rendered;
-  const data = mockData;
+    let wrapper;
+    let rendered;
+    const data = mockData;
 
-  beforeAll(() => {
-    wrapper = mountListTable(data);
-    rendered = renderListTable(data);
-  });
+    beforeAll(() => {
+        wrapper = mountListTable(data);
+        rendered = renderListTable(data);
+    });
 
-  it('renders correctly', () => {
-    expect(rendered).toMatchSnapshot();
-  });
+    it('renders correctly', () => {
+        expect(rendered).toMatchSnapshot();
+    });
 
-  it('displays one header row', () => {
-    expect(
-      wrapper
-        .find('thead')
-        .children()
-        .find('tr')
-    ).toHaveLength(1);
-  });
+    it('displays one header row', () => {
+        expect(
+            wrapper
+                .find('thead')
+                .children()
+                .find('tr')
+        ).toHaveLength(1);
+    });
 
-  it('displays six header columns', () => {
-    expect(
-      wrapper
-        .find('thead')
-        .children()
-        .find('tr')
-        .children()
-        .find('th')
-    ).toHaveLength(6);
-  });
+    it('displays six header columns', () => {
+        expect(
+            wrapper
+                .find('thead')
+                .children()
+                .find('tr')
+                .children()
+                .find('th')
+        ).toHaveLength(6);
+    });
 
-  it('displays five body rows', () => {
-    expect(
-      wrapper
-        .find('tbody')
-        .children()
-        .find('tr')
-    ).toHaveLength(5);
-  });
+    it('displays five body rows', () => {
+        expect(
+            wrapper
+                .find('tbody')
+                .children()
+                .find('tr')
+        ).toHaveLength(5);
+    });
 
-  it('displays six body columns', () => {
-    expect(
-      wrapper
-        .find('tbody')
-        .children()
-        .find('tr')
-        .first()
-        .children()
-        .find('td')
-    ).toHaveLength(6);
-  });
+    it('displays six body columns', () => {
+        expect(
+            wrapper
+                .find('tbody')
+                .children()
+                .find('tr')
+                .first()
+                .children()
+                .find('td')
+        ).toHaveLength(6);
+    });
 
-  it('applies the class passed in as an option', () => {
-    expect(wrapper.find('.guide-tablenate')).toHaveLength(1);
-  });
+    it('applies the class passed in as an option', () => {
+        expect(wrapper.find('.guide-tablenate')).toHaveLength(1);
+    });
 
-  it('applies a class based on the widths property', () => {
-    expect(wrapper.find('.colwidths-auto')).toHaveLength(1);
-  });
+    it('applies a class based on the widths property', () => {
+        expect(wrapper.find('.colwidths-auto')).toHaveLength(1);
+    });
 
-  it('renders one stub column', () => {
-    expect(wrapper.find('.stub')).toHaveLength(6);
-  });
+    it('renders one stub column', () => {
+        expect(wrapper.find('.stub')).toHaveLength(6);
+    });
 });
 
 describe('when rendering a list table with fixed widths', () => {
-  let wrapper;
-  let rendered;
-  const data = mockDataFixedWidths;
+    let wrapper;
+    let rendered;
+    const data = mockDataFixedWidths;
 
-  beforeAll(() => {
-    wrapper = mountListTable(data);
-    rendered = renderListTable(data);
-  });
+    beforeAll(() => {
+        wrapper = mountListTable(data);
+        rendered = renderListTable(data);
+    });
 
-  it('renders correctly', () => {
-    expect(rendered).toMatchSnapshot();
-  });
+    it('renders correctly', () => {
+        expect(rendered).toMatchSnapshot();
+    });
 
-  it('displays no header row', () => {
-    expect(
-      wrapper
-        .find('thead')
-        .children()
-        .find('tr')
-    ).toHaveLength(0);
-  });
+    it('displays no header row', () => {
+        expect(
+            wrapper
+                .find('thead')
+                .children()
+                .find('tr')
+        ).toHaveLength(0);
+    });
 
-  it('displays one body row', () => {
-    expect(
-      wrapper
-        .find('tbody')
-        .children()
-        .find('tr')
-    ).toHaveLength(1);
-  });
+    it('displays one body row', () => {
+        expect(
+            wrapper
+                .find('tbody')
+                .children()
+                .find('tr')
+        ).toHaveLength(1);
+    });
 
-  it('displays six body columns', () => {
-    expect(
-      wrapper
-        .find('tbody')
-        .children()
-        .find('tr')
-        .first()
-        .children()
-        .find('td')
-    ).toHaveLength(6);
-  });
+    it('displays six body columns', () => {
+        expect(
+            wrapper
+                .find('tbody')
+                .children()
+                .find('tr')
+                .first()
+                .children()
+                .find('td')
+        ).toHaveLength(6);
+    });
 
-  it('applies the class passed in as an option', () => {
-    expect(wrapper.find('.guide-tablenate-odd')).toHaveLength(1);
-  });
+    it('applies the class passed in as an option', () => {
+        expect(wrapper.find('.guide-tablenate-odd')).toHaveLength(1);
+    });
 
-  it('applies a class based on the widths property', () => {
-    expect(wrapper.find('.colwidths-given')).toHaveLength(1);
-  });
+    it('applies a class based on the widths property', () => {
+        expect(wrapper.find('.colwidths-given')).toHaveLength(1);
+    });
 
-  it('displays a colgroup element', () => {
-    expect(wrapper.find('colgroup')).toHaveLength(1);
-  });
+    it('displays a colgroup element', () => {
+        expect(wrapper.find('colgroup')).toHaveLength(1);
+    });
 
-  it('displays columns with set widths', () => {
-    expect(wrapper.find('col')).toHaveLength(2);
-    expect(wrapper.find('col[width="20%"]')).toHaveLength(1);
-    expect(wrapper.find('col[width="80%"]')).toHaveLength(1);
-  });
+    it('displays columns with set widths', () => {
+        expect(wrapper.find('col')).toHaveLength(2);
+        expect(wrapper.find('col[width="20%"]')).toHaveLength(1);
+        expect(wrapper.find('col[width="80%"]')).toHaveLength(1);
+    });
 
-  it('displays no stub columns', () => {
-    expect(wrapper.find('.stub')).toHaveLength(0);
-  });
+    it('displays no stub columns', () => {
+        expect(wrapper.find('.stub')).toHaveLength(0);
+    });
 });

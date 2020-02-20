@@ -7,6 +7,8 @@ import mockData from './data/LiteralInclude.test.json';
 import refDocMapping from './data/site/__testData.json';
 
 it('renders correctly', () => {
-  const tree = shallow(<LiteralInclude nodeData={mockData} refDocMapping={refDocMapping} />);
-  expect(tree).toMatchSnapshot();
+    const tree = shallow(
+        <LiteralInclude nodeData={mockData} refDocMapping={refDocMapping} />
+    );
+    expect(tree).toMatchSnapshot();
 });

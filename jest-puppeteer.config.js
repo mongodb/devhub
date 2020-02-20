@@ -1,6 +1,6 @@
 module.exports = {
-  launch: {
-    headless: true,
-  },
-  browserContext: 'incognito',
+    launch: {
+        headless: true,
+    },
+    browserContext: 'incognito',
 };
