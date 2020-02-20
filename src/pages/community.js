@@ -7,11 +7,16 @@ import GradientImage from '../components/dev-hub/gradient-image';
 import Layout from '../components/dev-hub/layout';
 import MediaBlock from '../components/dev-hub/media-block';
 import Link from '../components/dev-hub/link';
-import { Event, EventList } from '../components/dev-hub/events';
+import { Event, EventListPreview } from '../components/dev-hub/events';
 import { H1, H2, P, H4 } from '../components/dev-hub/text';
-import { size, colorMap, screenSize } from '../components/dev-hub/theme';
+import {
+    size,
+    colorMap,
+    screenSize,
+    fontSize,
+} from '../components/dev-hub/theme';
+import mockCardImage from '../images/360-mock-card.png';
 
-const PAGE_MAX_WIDTH = '1200px';
 const maxWidthStyles = css`
     max-width: 500px;
     @media ${screenSize.upToMedium} {
@@ -19,7 +24,7 @@ const maxWidthStyles = css`
     }
 `;
 const sectionPadding = css`
-    padding: ${size.xlarge} ${size.default};
+    padding: ${size.xlarge} ${size.medium};
     @media ${screenSize.upToMedium} {
         padding: ${size.large} ${size.default};
     }
@@ -40,7 +45,10 @@ const ProjectActions = styled('div')`
 `;
 
 const ProjectDescription = styled('div')`
+    margin: 0 auto;
+    max-width: 100%;
     p {
+        color: ${colorMap.greyLightTwo};
         margin-bottom: ${size.xlarge};
         @media ${screenSize.upToMedium} {
             margin-bottom: 0;
@@ -53,9 +61,12 @@ const FeaturedProject = styled('section')`
     background-color: ${colorMap.devBlack};
     > div:first-child {
         margin: 0 auto;
-        max-width: ${PAGE_MAX_WIDTH};
     }
     ${sectionPadding}
+`;
+
+const SectionTitle = styled(H2)`
+    font-size: ${fontSize.xlarge};
 `;
 
 const MobileViewAllBtn = styled(Button)`
@@ -83,7 +94,6 @@ const UpcomingEvents = styled('section')`
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    max-width: ${PAGE_MAX_WIDTH};
     ${sectionPadding}
     h2 {
         align-self: start;
@@ -91,13 +101,14 @@ const UpcomingEvents = styled('section')`
 `;
 
 const HeroContent = styled('div')`
-    margin: 0 auto;
+    max-width: 640px;
     text-align: left;
-    max-width: ${PAGE_MAX_WIDTH};
+
     p {
-        width: 70%;
+        color: ${colorMap.greyLightTwo};
+        margin-bottom: ${size.xlarge};
         @media ${screenSize.upToMedium} {
-            width: 100%;
+            margin-bottom: ${size.large};
         }
     }
 `;
@@ -124,12 +135,12 @@ export default ({ ...data }) => {
             </Hero>
             <UpcomingEvents>
                 <EventsHeader>
-                    <H2 bold>Upcoming Events</H2>
+                    <SectionTitle bold>Upcoming Events</SectionTitle>
                     <Link to="/community" tertiary>
                         See all events
                     </Link>
                 </EventsHeader>
-                <EventList />
+                <EventListPreview />
                 <MobileViewAllBtn to="/community" secondary>
                     View all
                 </MobileViewAllBtn>
@@ -139,16 +150,16 @@ export default ({ ...data }) => {
                     mediaComponent={
                         <GradientImage
                             css={maxWidthStyles}
-                            src="/images/compass-create-database.png"
+                            src={mockCardImage}
                         />
                     }
-                    mediaWidth="100%"
+                    mediaWidth={500}
                 >
                     <ProjectDescription>
-                        <H2 bold>
+                        <SectionTitle bold>
                             Made by Developers <br />
                             like You
-                        </H2>
+                        </SectionTitle>
                         <H4 bold>Radar</H4>
                         <P>
                             Radar is a startup that helps companies make better
