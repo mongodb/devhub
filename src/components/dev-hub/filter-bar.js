@@ -5,15 +5,15 @@ import Select from './select';
 import { screenSize, size } from './theme';
 import { authenticate, callStitchFunction } from '../../utils/stitch';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
-// import { devhubMapping } from '../../constants';
+import { devhubMapping } from '../../constants';
 
 // Zip array of objects into array of 2-element arrays to populate Select forms
 // Replace key with label text, if defined (e.g. nodejs => Node.js)
-// const zipObjects = arr =>
-//     arr.map(({ _id, count }) => {
-//         const label = devhubMapping[_id] || _id;
-//         return [_id, `${label} (${count})`];
-//     });
+const zipObjects = arr =>
+    arr.map(({ _id, count }) => {
+        const label = devhubMapping[_id] || _id;
+        return [_id, `${label} (${count})`];
+    });
 
 const ResponsiveFlexContainer = styled('div')`
     align-items: center;
@@ -51,9 +51,7 @@ const SelectWrapper = styled('div')`
 // These objects are then zipped into an array of arrays
 const callStitch = async (metadata, key, callback) => {
     const res = await callStitchFunction('getValuesByKey', metadata, key);
-    // callback(zipObjects(res));
-    console.log(metadata);
-    console.log(res);
+    callback(zipObjects(res));
 };
 
 export default ({ heading = 'All Articles' }) => {
