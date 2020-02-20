@@ -1,7 +1,5 @@
-const { execSync } = require('child_process');
-const userInfo = require('os').userInfo;
 const { generatePathPrefix } = require('./src/utils/generate-path-prefix');
-const { getDatabase } = require('./src/utils/get-database');
+const { getMetadata } = require('./src/utils/get-metadata');
 
 const runningEnv = process.env.NODE_ENV || 'production';
 
@@ -9,20 +7,7 @@ require('dotenv').config({
     path: `.env.${runningEnv}`,
 });
 
-const getGitBranch = () => {
-    return execSync('git rev-parse --abbrev-ref HEAD')
-        .toString('utf8')
-        .replace(/[\n\r\s]+$/, '');
-};
-
-const metadata = {
-    commitHash: process.env.COMMIT_HASH || '',
-    database: getDatabase(),
-    parserBranch: process.env.GATSBY_PARSER_BRANCH,
-    project: process.env.GATSBY_SITE,
-    snootyBranch: getGitBranch(),
-    user: userInfo().username,
-};
+const metadata = getMetadata();
 
 module.exports = {
     pathPrefix: generatePathPrefix(metadata),
