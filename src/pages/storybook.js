@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 import Badge from '../components/dev-hub/badge';
 import Breadcrumb from '../components/dev-hub/breadcrumb';
 import Blockquote from '../components/dev-hub/blockquote';
@@ -32,6 +33,7 @@ import Youtube from '../components/dev-hub/icons/youtube';
 import Twitch from '../components/dev-hub/icons/twitch';
 import mockCardImage from '../images/360-mock-img.png';
 import VideoEmbed from '../components/dev-hub/video-embed';
+import GradientUnderline from '../components/dev-hub/gradient-underline';
 
 const Row = styled('div')`
     display: flex;
@@ -388,6 +390,21 @@ export default () => (
                 <Tooltip position="left" trigger="Click on Me!">
                     I'm REVEALED AGAIN!
                 </Tooltip>
+            </Row>
+            <SectionHeader>Gradient Underline</SectionHeader>
+            <Row>
+                <H2
+                    css={css`
+                        max-width: 400px;
+                    `}
+                >
+                    <GradientUnderline
+                        firstColor={colorMap.magenta}
+                        secondColor={colorMap.sherbet}
+                    >
+                        Gradient Underline Heading
+                    </GradientUnderline>
+                </H2>
             </Row>
             <SectionHeader>Icons</SectionHeader>
             <Row>
