@@ -103,10 +103,10 @@ exports.sourceNodes = async () => {
         DOCUMENTS_COLLECTION,
         query,
     ]);
-
+    console.log(documents);
     if (documents.length === 0) {
         console.error('No documents matched your query.');
-        process.exit(1);
+        // process.exit(1);
     }
 
     documents.forEach(doc => {

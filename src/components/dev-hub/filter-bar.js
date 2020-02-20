@@ -1,10 +1,10 @@
-import React, { /* useEffect, */ useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { H3 } from './text';
 import Select from './select';
 import { screenSize, size } from './theme';
-// import { callStitchFunction } from '../utils/stitch';
-// import { useSiteMetadata } from '../hooks/use-site-metadata';
+import { authenticate, callStitchFunction } from '../../utils/stitch';
+import { useSiteMetadata } from '../../hooks/use-site-metadata';
 // import { devhubMapping } from '../../constants';
 
 // Zip array of objects into array of 2-element arrays to populate Select forms
@@ -46,28 +46,31 @@ const SelectWrapper = styled('div')`
     }
 `;
 
+// Populate forms by fetching all values associated with given key
+// Returns array of {_id: 'Name', count: X} objects in descending count order
+// These objects are then zipped into an array of arrays
+const callStitch = async (metadata, key, callback) => {
+    const res = await callStitchFunction('getValuesByKey', metadata, key);
+    // callback(zipObjects(res));
+    console.log(metadata);
+    console.log(res);
+};
+
 export default ({ heading = 'All Articles' }) => {
-    // const metadata = useSiteMetadata();
-    const [languages] = useState([]);
-    const [products] = useState([]);
+    const metadata = useSiteMetadata();
+    const [languages, setLanguages] = useState([]);
+    const [products, setProducts] = useState([]);
 
-    // useEffect(() => {
-    //     if (languages.length === 0) {
-    //         callStitch('languages', setLanguages);
-    //     }
+    useEffect(() => {
+        authenticate();
+        if (languages.length === 0) {
+            callStitch(metadata, 'languages', setLanguages);
+        }
 
-    //     if (products.length === 0) {
-    //         callStitch('products', setProducts);
-    //     }
-    // }, [callStitch, languages.length, products.length]);
-
-    // Populate forms by fetching all values associated with given key
-    // Returns array of {_id: 'Name', count: X} objects in descending count order
-    // These objects are then zipped into an array of arrays
-    // const callStitch = async (key, callback) => {
-    //     const res = await callStitchFunction('getValuesByKey', metadata, [key]);
-    //     callback(zipObjects(res));
-    // };
+        if (products.length === 0) {
+            callStitch(metadata, 'products', setProducts);
+        }
+    }, [metadata, languages.length, products.length]);
 
     return (
         <FilterBar>
