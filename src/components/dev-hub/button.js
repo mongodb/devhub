@@ -170,13 +170,16 @@ const StyledButton = styled('button')`
 
 const Button = ({ children, href, play, to, ...props }) => {
     const isButton = !!(props.primary || props.secondary || play);
-
+    const rightArrow = (props.primary || props.secondary) && (
+        <span> &rarr;</span>
+    );
     if (href || to || !isButton) {
         // If the Button has a `to` or a `href` prop, then it renders as a `Link` element,
         const AsLink = StyledButton.withComponent(Link);
         return (
             <AsLink to={to} href={href} {...props}>
                 {children}
+                {rightArrow}
             </AsLink>
         );
     }
@@ -188,6 +191,7 @@ const Button = ({ children, href, play, to, ...props }) => {
             ) : (
                 children
             )}
+            {rightArrow}
         </StyledButton>
     );
 };
