@@ -7,6 +7,8 @@ import Notification from '../components/dev-hub/notification';
 import { H4, H2, P } from '../components/dev-hub/text';
 import { colorMap, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
+import mockCardImage from '../images/360-mock-card.png';
+import mockImage from '../images/360-mock-img.png';
 
 const Hero = styled('header')`
     color: ${colorMap.devWhite};
@@ -26,6 +28,8 @@ const FeatureSection = styled('section')`
 const CardGallery = styled('section')`
     display: flex;
     justify-content: space-between;
+    margin-bottom: ${size.large};
+    text-align: left;
 `;
 
 const SectionContent = styled('div')`
@@ -39,21 +43,21 @@ export default ({ ...data }) => {
             <Notification />
             <Hero>
                 <H4>
-                    db.solutions.find( "attributes" : ["fast", "innovative",
+                    ideas.find( "attributes" : ["fast", "innovative",
                     "original"])
                 </H4>
                 <P>What will you create today?</P>
                 <CardGallery>
-                    <Card image="/images/compass-create-database.png" gradient>
+                    <Card image={mockImage} gradient>
                         Rest APIs with Java, Spring Boot &amp; MongoDB
                     </Card>
-                    <Card image="/images/compass-create-database.png" gradient>
+                    <Card image={mockImage} gradient>
                         How to get connected to your MongoDB Cluster
                     </Card>
-                    <Card image="/images/compass-create-database.png" gradient>
+                    <Card image={mockImage} gradient>
                         Delete Operations
                     </Card>
-                    <Card image="/images/compass-create-database.png" gradient>
+                    <Card image={mockImage} gradient>
                         Stitch Hosting: a Drag and Drop Delight
                     </Card>
                 </CardGallery>
@@ -66,10 +70,7 @@ export default ({ ...data }) => {
             <FeatureSection altBackground>
                 <MediaBlock
                     mediaComponent={
-                        <Card
-                            image="/images/compass-create-database.png"
-                            gradient
-                        >
+                        <Card image={mockCardImage} gradient>
                             A card
                         </Card>
                     }
@@ -78,23 +79,16 @@ export default ({ ...data }) => {
                         <H2>Live Coding on Our Twitch Channel</H2>
                         <P>
                             Every Friday at 11.00am EST come watch our
-                            developers live coding on the MongoDB Platform.
+                            developers make the MongoDB platform come alive.
                         </P>
-                        <P>
-                            Never miss us live. Sign up for the MongoDB Twitch
-                            stream today.
-                        </P>
-                        <Button secondary>Join us on Twitch</Button>
+                        <Button secondary>Sign Up For Twitch</Button>
                     </SectionContent>
                 </MediaBlock>
             </FeatureSection>
             <FeatureSection>
                 <MediaBlock
                     mediaComponent={
-                        <Card
-                            image="/images/compass-create-database.png"
-                            gradient
-                        >
+                        <Card image={mockCardImage} gradient>
                             A card
                         </Card>
                     }
@@ -106,17 +100,9 @@ export default ({ ...data }) => {
                             The best way to learn what's new with MongoDB is at
                             our .local and community events.
                         </P>
-                        <P>
-                            Meet MongoDB developers in your city, county and
-                            country.
-                        </P>
                         <P>Come to learn, stay to connect.</P>
-                        <P>
-                            Find out when there are events near you. Sign up
-                            today.
-                        </P>
                         <Button to="/events" secondary>
-                            Sign Up
+                            Join the Community
                         </Button>
                     </SectionContent>
                 </MediaBlock>
@@ -124,22 +110,16 @@ export default ({ ...data }) => {
             <FeatureSection altBackground>
                 <MediaBlock
                     mediaComponent={
-                        <Card
-                            image="/images/compass-create-database.png"
-                            gradient
-                        >
+                        <Card image={mockCardImage} gradient>
                             A card
                         </Card>
                     }
                 >
                     <SectionContent>
                         <H2>Showcase Your Knowledge</H2>
-                        <P>Show others what you have done with MongoDB. </P>
-
                         <P>
-                            We have a huge audience from newbies to experts so
-                            no example is too simple, no application too
-                            complicated.{' '}
+                            Show others what you have done with MongoDB. Help
+                            other beginners on their journey.
                         </P>
 
                         <P>Share your knowledge.</P>

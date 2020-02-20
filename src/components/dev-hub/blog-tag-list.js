@@ -33,12 +33,24 @@ const TagLink = styled(Link)`
 `;
 
 const TagList = styled('ul')`
+    margin: 0;
     padding-left: 0;
 `;
 
 const TagListItem = styled('li')`
     display: inline-block;
 `;
+
+const getTagData = (tags, tagLinkBase) =>
+    tags.map(tag => {
+        if (typeof tag === 'string') {
+            return {
+                text: tag,
+                to: `${tagLinkBase}/${tag}`,
+            };
+        }
+        return tag;
+    });
 
 const BlogTag = ({ children, ...props }) => (
     <TagListItem>
@@ -47,17 +59,21 @@ const BlogTag = ({ children, ...props }) => (
 );
 
 // eslint-disable-next-line no-unused-vars
-const BlogTagList = ({ tags, tagLinkBase }) => {
+const BlogTagList = ({ tags = [], tagLinkBase }) => {
     // TODO: add in article link below once finalized
     // const getArticleLink = tagName => `${tagLinkBase}/${tagName}`
     const canExpand = tags.length >= MINIMUM_EXPANDABLE_SIZE;
     // By default any list of blog tags under the minimum expandable size is already expanded
     const [isExpanded, setIsExpanded] = useState(!canExpand);
     const expandList = useCallback(() => setIsExpanded(true), []);
+    const tagData = getTagData(tags, tagLinkBase);
+    if (!tags.length) {
+        return null;
+    }
     return (
         <TagList>
             {isExpanded &&
-                tags.map(t => (
+                tagData.map(t => (
                     <BlogTag key={t.text} to={t.to}>
                         {t.text}
                     </BlogTag>
@@ -65,8 +81,8 @@ const BlogTagList = ({ tags, tagLinkBase }) => {
             {!isExpanded && canExpand && (
                 <>
                     {/* Since this can expand, we know value[0] and value[1] exist */}
-                    <BlogTag to={tags[0].to}>{tags[0].text}</BlogTag>
-                    <BlogTag to={tags[1].to}>{tags[1].text}</BlogTag>
+                    <BlogTag to={tagData[0].to}>{tagData[0].text}</BlogTag>
+                    <BlogTag to={tagData[1].to}>{tagData[1].text}</BlogTag>
                     <BlogTag onClick={expandList}>...</BlogTag>
                 </>
             )}

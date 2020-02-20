@@ -5,18 +5,13 @@ const { Stitch, AnonymousCredential } = require('mongodb-stitch-server-sdk');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
+const { getDatabase } = require('./src/utils/get-database');
 const { getNestedValue } = require('./src/utils/get-nested-value');
 const { getTemplate } = require('./src/utils/get-template');
 const { getPageSlug } = require('./src/utils/get-page-slug');
 
 // Atlas DB config
-let DB = 'snooty_dev';
-if (process.env.SNOOTY_ENV === 'staging') {
-    DB = 'snooty_stage';
-} else if (process.env.SNOOTY_ENV === 'production') {
-    DB = 'snooty_prod';
-}
-
+const DB = getDatabase();
 const DOCUMENTS_COLLECTION = 'documents';
 const ASSETS_COLLECTION = 'assets';
 const METADATA_COLLECTION = 'metadata';
@@ -144,31 +139,25 @@ exports.createPages = async ({ actions }) => {
         constructDbFilter(),
     ]);
 
-    return new Promise((resolve, reject) => {
-        PAGES.forEach(page => {
-            const pageNodes = RESOLVED_REF_DOC_MAPPING[page];
+    PAGES.forEach(page => {
+        const pageNodes = RESOLVED_REF_DOC_MAPPING[page];
 
+        if (pageNodes && Object.keys(pageNodes).length > 0) {
             const template = getTemplate(
                 getNestedValue(['ast', 'options', 'template'], pageNodes)
             );
             const slug = getPageSlug(page);
-            if (
-                RESOLVED_REF_DOC_MAPPING[page] &&
-                Object.keys(RESOLVED_REF_DOC_MAPPING[page]).length > 0
-            ) {
-                createPage({
-                    path: slug,
-                    component: path.resolve(`./src/templates/${template}.js`),
-                    context: {
-                        metadata,
-                        slug,
-                        snootyStitchId: SNOOTY_STITCH_ID,
-                        __refDocMapping: pageNodes,
-                    },
-                });
-            }
-        });
-        resolve();
+            createPage({
+                path: slug,
+                component: path.resolve(`./src/templates/${template}.js`),
+                context: {
+                    metadata,
+                    slug,
+                    snootyStitchId: SNOOTY_STITCH_ID,
+                    __refDocMapping: pageNodes,
+                },
+            });
+        }
     });
 };
 

@@ -6,7 +6,6 @@ import {
     colorMap,
     fontSize,
     gradientMap,
-    layer,
     lineHeight,
     screenSize,
     size,
@@ -18,22 +17,18 @@ const buttonHoverStyles = css`
     &:before,
     &:after {
         content: '';
-        left: 0;
-        bottom: 0;
-        transition: bottom ${animationSpeed.medium}, left ${animationSpeed.medium};
+        transition: transform ${animationSpeed.medium},
+            opacity ${animationSpeed.medium};
     }
     &:active,
     &:hover,
     &:focus {
         color: ${colorMap.devWhite};
         &:before {
-            transform: scale(1);
-            ${createShadowElement(gradientMap.green, size.large, -10, -2)}
+            ${createShadowElement(gradientMap.green, size.large, 10, 0)}
         }
         &:after {
-            transform: scale(1);
-            opacity: 1;
-            ${createShadowElement(colorMap.greyDarkThree, size.large, -8, -6)}
+            ${createShadowElement(colorMap.greyDarkThree, size.large, 10, 4)}
         }
     }
 `;
@@ -87,6 +82,7 @@ const playStyles = css`
     color: ${colorMap.white};
     font-size: ${size.large};
     height: 80px;
+    padding: ${size.default} ${size.default} ${size.default} ${size.medium};
     position: relative;
     width: 80px;
     &:before {
@@ -136,50 +132,7 @@ const PlayButtonWrapper = styled('div')`
     opacity: 0;
 `;
 
-const ButtonImpl = ({
-    children,
-    href,
-    play,
-    primary,
-    secondary,
-    to,
-    ...props
-}) => {
-    // By default, a Button renders as a `button` tag.
-    /**
-     * @type {any} A component type to render
-     */
-    let Component = 'button';
-    const buttonProps = {
-        type: 'button',
-        tabIndex: 0,
-    };
-    const isButton = !!(primary || secondary || play);
-
-    if (href || to || !isButton) {
-        // If the Button has a `to` or a `href` prop, then it renders as a `Link` element,
-        // @ts-ignore
-        Component = Link;
-        buttonProps.href = href;
-        buttonProps.to = to;
-    }
-
-    if (play) {
-        return (
-            <Component {...buttonProps} {...props}>
-                <PlayButtonWrapper>{children}</PlayButtonWrapper>
-            </Component>
-        );
-    }
-
-    return (
-        <Component {...buttonProps} {...props}>
-            {children}
-        </Component>
-    );
-};
-
-const StyledButton = styled(ButtonImpl)`
+const StyledButton = styled('button')`
     border: none;
     border-radius: ${size.large};
     box-shadow: none;
@@ -215,8 +168,28 @@ const StyledButton = styled(ButtonImpl)`
  * @property {string?} props.to
  */
 
-const Button = ({ children, ...props }) => (
-    <StyledButton {...props}>{children}</StyledButton>
-);
+const Button = ({ children, href, play, to, ...props }) => {
+    const isButton = !!(props.primary || props.secondary || play);
+
+    if (href || to || !isButton) {
+        // If the Button has a `to` or a `href` prop, then it renders as a `Link` element,
+        const AsLink = StyledButton.withComponent(Link);
+        return (
+            <AsLink to={to} href={href} {...props}>
+                {children}
+            </AsLink>
+        );
+    }
+
+    return (
+        <StyledButton play={play} {...props}>
+            {play ? (
+                <PlayButtonWrapper>{children}</PlayButtonWrapper>
+            ) : (
+                children
+            )}
+        </StyledButton>
+    );
+};
 
 export default Button;

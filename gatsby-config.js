@@ -1,6 +1,7 @@
 const { execSync } = require('child_process');
 const userInfo = require('os').userInfo;
 const { generatePathPrefix } = require('./src/utils/generate-path-prefix');
+const { getDatabase } = require('./src/utils/get-database');
 
 const runningEnv = process.env.NODE_ENV || 'production';
 
@@ -15,6 +16,8 @@ const getGitBranch = () => {
 };
 
 const metadata = {
+    commitHash: process.env.COMMIT_HASH || '',
+    database: getDatabase(),
     parserBranch: process.env.GATSBY_PARSER_BRANCH,
     project: process.env.GATSBY_SITE,
     snootyBranch: getGitBranch(),
