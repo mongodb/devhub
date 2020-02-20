@@ -1,4 +1,3 @@
-const userInfo = require('os').userInfo;
 const { execSync } = require('child_process');
 
 const getDatabase = () => {
@@ -15,7 +14,6 @@ const getGitBranch = () => {
         .toString('utf8')
         .replace(/[\n\r\s]+$/, '');
 };
-
 /**
  * Get site metadata used to identify this build and query correct documents
  */
@@ -25,7 +23,7 @@ const getMetadata = () => ({
     parserBranch: process.env.GATSBY_PARSER_BRANCH,
     project: process.env.GATSBY_SITE,
     snootyBranch: getGitBranch(),
-    user: userInfo().username,
+    user: process.env.GATSBY_PARSER_USER,
 });
 
 module.exports.getMetadata = getMetadata;
