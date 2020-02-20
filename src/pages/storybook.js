@@ -16,7 +16,12 @@ import Modal from '../components/dev-hub/modal';
 import Notification from '../components/dev-hub/notification';
 import Select from '../components/dev-hub/select';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
-import { colorMap, size, screenSize } from '../components/dev-hub/theme';
+import {
+    colorMap,
+    size,
+    screenSize,
+    gradientMap,
+} from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import ShareIcon from '../components/dev-hub/icons/share-icon';
 import FacebookIcon from '../components/dev-hub/icons/facebook-icon';
@@ -391,7 +396,6 @@ export default () => (
                     I'm REVEALED AGAIN!
                 </Tooltip>
             </Row>
-            <SectionHeader>Gradient Underline</SectionHeader>
             <Row>
                 <H2
                     css={css`
@@ -399,8 +403,7 @@ export default () => (
                     `}
                 >
                     <GradientUnderline
-                        firstColor={colorMap.magenta}
-                        secondColor={colorMap.sherbet}
+                        gradient={gradientMap.violentMagentaOrange}
                     >
                         Gradient Underline Heading
                     </GradientUnderline>
