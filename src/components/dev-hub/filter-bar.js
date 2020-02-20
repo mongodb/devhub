@@ -41,6 +41,7 @@ const FilterLabel = styled('span')`
 
 const SelectWrapper = styled('div')`
     margin: 0 ${size.small};
+    min-width: 250px;
     @media ${screenSize.upToMedium} {
         margin: ${size.small} 0;
     }

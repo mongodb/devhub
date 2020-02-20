@@ -20,8 +20,11 @@ const Option = styled('li')`
     background-color: ${colorMap.greyDarkOne};
     color: ${colorMap.greyLightTwo};
     display: block;
+    overflow: hidden;
     padding: ${({ narrow }) =>
         narrow ? `${size.small} ${size.medium}` : size.medium};
+    text-overflow: ellipsis;
+    white-space: nowrap;
     :focus,
     :hover {
         background-color: ${colorMap.greyDarkOne};
@@ -58,6 +61,7 @@ const StyledCustomSelect = styled('div')`
 `;
 
 const SelectedOption = styled('div')`
+    align-items: center;
     background-color: ${colorMap.greyDarkTwo};
     color: ${colorMap.devWhite};
     display: flex;
