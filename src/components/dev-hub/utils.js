@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { colorMap, gradientMap, layer, size } from './theme';
+import { layer } from './theme';
 
 const createShadowElement = (
     backgroundColor,
@@ -9,13 +9,15 @@ const createShadowElement = (
 ) => css`
     background: ${backgroundColor};
     border-radius: ${borderRadius};
-    bottom: ${positionOffset}px;
     content: '';
-    height: calc(100% + ${sizeOffset}px);
-    left: ${positionOffset}px;
+    height: calc(100% - ${sizeOffset}px);
+    left: ${sizeOffset / 2}px;
     position: absolute;
-    width: calc(100% + ${sizeOffset}px);
+    top: ${sizeOffset / 2}px;
+    width: calc(100% - ${sizeOffset}px);
     z-index: ${layer.superBack};
+
+    transform: translate(-${positionOffset}px, ${positionOffset}px);
 `;
 
 export { createShadowElement };

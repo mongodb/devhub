@@ -21,14 +21,12 @@ const GradientOverlay = styled('div')`
     background-size: cover;
     border-radius: ${size.small};
     mix-blend-mode: overlay;
-    z-index: 3;
     ${fullSizeAbsolute}
 `;
 const GradientBase = styled('div')`
     background: ${gradientMap.tealVioletReverse};
     background-size: cover;
     border-radius: ${size.small};
-    z-index: 1;
     ${fullSizeAbsolute}
 `;
 
@@ -39,7 +37,6 @@ const Image = styled('img')`
     overflow: hidden;
     position: relative;
     width: 100%;
-    z-index: 2;
     ${props =>
         props.gradient &&
         css`
@@ -74,7 +71,7 @@ const Wrapper = styled('div')`
         background-color: ${colorMap.greyDarkTwo};
         color: inherit;
         cursor: pointer;
-        img {
+        ${Image} {
             transform: scale(1.1);
             /* TODO - fix this transition (probably by making the image a background image) */
             /* transition: transform ${animationSpeed.slow}; */
@@ -142,9 +139,9 @@ const Card = ({
             <div>
                 {image && (
                     <ImageWrapper>
-                        {gradient && <GradientOverlay />}
-                        <Image src={image} />
                         {gradient && <GradientBase />}
+                        <Image src={image} />
+                        {gradient && <GradientOverlay />}
                     </ImageWrapper>
                 )}
                 {cardTitle && <H5 collapse={!description}>{cardTitle}</H5>}

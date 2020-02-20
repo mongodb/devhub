@@ -289,12 +289,36 @@ export default () => (
             <SectionHeader>Buttons</SectionHeader>
             <Row>
                 <div>
-                    <Button href="#" primary>
-                        Join the Community (Primary)
-                    </Button>
-                    <Button secondary>Join the Community (Secondary)</Button>
-                    <Button tertiary>Join the Community (tertiary)</Button>
+                    <Button primary>Button (Primary)</Button>
+                    <Button secondary>Button (Secondary)</Button>
+                    <Button tertiary>Button (tertiary)</Button>
                     <Button play />
+                </div>
+            </Row>
+            <Row>
+                <div>
+                    <Button href="#" primary>
+                        external link (Primary)
+                    </Button>
+                    <Button href="#" secondary>
+                        external link (Secondary)
+                    </Button>
+                    <Button href="#" tertiary>
+                        external link (tertiary)
+                    </Button>
+                </div>
+            </Row>
+            <Row>
+                <div>
+                    <Button to="/storybook" primary>
+                        Internal link (Primary)
+                    </Button>
+                    <Button to="/storybook" secondary>
+                        Internal link (Secondary)
+                    </Button>
+                    <Button to="/storybook" tertiary>
+                        Internal link (tertiary)
+                    </Button>
                 </div>
             </Row>
             <SectionHeader>Notification</SectionHeader>
