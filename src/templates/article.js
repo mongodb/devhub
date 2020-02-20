@@ -76,11 +76,11 @@ const Article = props => {
             <BlogPostTitleArea
                 author={meta.author}
                 breadcrumb={[
-                    { label: 'Home', target: '/' },
+                    { label: 'Home', target: '#' },
                     { label: 'Quick Start', target: '#' },
                 ]}
                 originalDate={meta.pubdate}
-                tags={meta.tags}
+                tags={[...meta.tags, ...meta.languages, ...meta.products]}
                 title={articleTitle}
                 image={<Image src={meta['atf-image']} alt={articleTitle} />}
             />

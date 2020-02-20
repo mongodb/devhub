@@ -6,6 +6,7 @@ import { colorMap } from './theme';
 const StyledBreadcrumb = styled(Link)`
     display: inline-block;
     font-family: 'Fira Mono', monospace;
+    text-decoration: none;
     :hover {
         color: ${colorMap.devWhite};
         transition: color 0.15s;
@@ -15,6 +16,12 @@ const StyledBreadcrumb = styled(Link)`
         /* 2192 is "RIGHTWARDS ARROW" */
         content: ' \u2192 ';
         white-space: pre;
+    }
+    :visited {
+        color: ${colorMap.greyLightThree};
+    }
+    :visited:hover {
+        color: ${colorMap.lightGreen};
     }
 `;
 
@@ -34,9 +41,9 @@ const BreadcrumbList = styled('div')`
 /*
   The format of the children is [{Label, Target}, ...]
 */
-const Breadcrumb = ({ children }) => {
+const Breadcrumb = ({ children, ...props }) => {
     return (
-        <BreadcrumbList>
+        <BreadcrumbList {...props}>
             {children.map(c => (
                 <StyledBreadcrumb tertiary key={c.label} to={c.target}>
                     {c.label}
