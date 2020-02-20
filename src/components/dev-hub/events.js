@@ -157,11 +157,14 @@ const Event = ({ date, maxTitleLines = 2, location, title, url }) => (
     </StyledEvent>
 );
 
-const EventList = ({ events = sampleEvents }) => (
-    <AllEvents>
-        {events.map(event => (
-            <Event key={event.title} {...event} />
-        ))}
-    </AllEvents>
-);
-export { Event, EventList };
+const EventListPreview = ({ events = sampleEvents }) => {
+    const previews = events.length > 3 ? events.slice(0, 3) : events;
+    return (
+        <AllEvents>
+            {previews.map(event => (
+                <Event key={event.title} {...event} />
+            ))}
+        </AllEvents>
+    );
+};
+export { Event, EventListPreview };
