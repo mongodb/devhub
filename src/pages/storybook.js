@@ -31,6 +31,7 @@ import Github from '../components/dev-hub/icons/github';
 import Youtube from '../components/dev-hub/icons/youtube';
 import Twitch from '../components/dev-hub/icons/twitch';
 import mockCardImage from '../images/360-mock-img.png';
+import VideoEmbed from '../components/dev-hub/video-embed';
 
 const Row = styled('div')`
     display: flex;
@@ -244,6 +245,14 @@ export default () => (
             <BlogTagListStory short />
             <H4>Expandable List</H4>
             <BlogTagListStory />
+            <SectionHeader>Embedded Video</SectionHeader>
+            <H4>YouTube</H4>
+            <VideoEmbed
+                nodeData={{
+                    argument: [{ value: 'Yx7OCVfeXlY' }],
+                    name: 'youtube',
+                }}
+            />
             <SectionHeader>Modal</SectionHeader>
             <Modal triggerComponent={<Button play />}>
                 <ModalContainer>
@@ -261,15 +270,55 @@ export default () => (
                     <SelectStory narrow />
                 </ModalContainer>
             </Modal>
+            <br />
+            <Modal
+                dialogContainerStyle={{
+                    height: '90%',
+                    width: '90%',
+                }}
+                transparent
+                triggerComponent={<Button primary>Play a Video</Button>}
+            >
+                <VideoEmbed
+                    nodeData={{
+                        argument: [{ value: 'Yx7OCVfeXlY' }],
+                        name: 'youtube',
+                    }}
+                />
+            </Modal>
             <SectionHeader>Buttons</SectionHeader>
             <Row>
                 <div>
-                    <Button href="#" primary>
-                        Join the Community (Primary)
-                    </Button>
-                    <Button secondary>Join the Community (Secondary)</Button>
-                    <Button tertiary>Join the Community (tertiary)</Button>
+                    <Button primary>Button (Primary)</Button>
+                    <Button secondary>Button (Secondary)</Button>
+                    <Button tertiary>Button (tertiary)</Button>
                     <Button play />
+                </div>
+            </Row>
+            <Row>
+                <div>
+                    <Button href="#" primary>
+                        external link (Primary)
+                    </Button>
+                    <Button href="#" secondary>
+                        external link (Secondary)
+                    </Button>
+                    <Button href="#" tertiary>
+                        external link (tertiary)
+                    </Button>
+                </div>
+            </Row>
+            <Row>
+                <div>
+                    <Button to="/storybook" primary>
+                        Internal link (Primary)
+                    </Button>
+                    <Button to="/storybook" secondary>
+                        Internal link (Secondary)
+                    </Button>
+                    <Button to="/storybook" tertiary>
+                        Internal link (tertiary)
+                    </Button>
                 </div>
             </Row>
             <SectionHeader>Notification</SectionHeader>

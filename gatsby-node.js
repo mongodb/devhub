@@ -142,31 +142,25 @@ exports.createPages = async ({ actions }) => {
         constructDbFilter(),
     ]);
 
-    return new Promise((resolve, reject) => {
-        PAGES.forEach(page => {
-            const pageNodes = RESOLVED_REF_DOC_MAPPING[page];
+    PAGES.forEach(page => {
+        const pageNodes = RESOLVED_REF_DOC_MAPPING[page];
 
+        if (pageNodes && Object.keys(pageNodes).length > 0) {
             const template = getTemplate(
                 getNestedValue(['ast', 'options', 'template'], pageNodes)
             );
             const slug = getPageSlug(page);
-            if (
-                RESOLVED_REF_DOC_MAPPING[page] &&
-                Object.keys(RESOLVED_REF_DOC_MAPPING[page]).length > 0
-            ) {
-                createPage({
-                    path: slug,
-                    component: path.resolve(`./src/templates/${template}.js`),
-                    context: {
-                        metadata,
-                        slug,
-                        snootyStitchId: SNOOTY_STITCH_ID,
-                        __refDocMapping: pageNodes,
-                    },
-                });
-            }
-        });
-        resolve();
+            createPage({
+                path: slug,
+                component: path.resolve(`./src/templates/${template}.js`),
+                context: {
+                    metadata,
+                    slug,
+                    snootyStitchId: SNOOTY_STITCH_ID,
+                    __refDocMapping: pageNodes,
+                },
+            });
+        }
     });
 };
 

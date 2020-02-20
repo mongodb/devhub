@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { animationSpeed, colorMap, gradientMap, size, fontSize } from './theme';
-import { H4, P } from './text';
+import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
 
@@ -21,14 +21,12 @@ const GradientOverlay = styled('div')`
     background-size: cover;
     border-radius: ${size.small};
     mix-blend-mode: overlay;
-    z-index: 3;
     ${fullSizeAbsolute}
 `;
 const GradientBase = styled('div')`
     background: ${gradientMap.tealVioletReverse};
     background-size: cover;
     border-radius: ${size.small};
-    z-index: 1;
     ${fullSizeAbsolute}
 `;
 
@@ -39,7 +37,6 @@ const Image = styled('img')`
     overflow: hidden;
     position: relative;
     width: 100%;
-    z-index: 2;
     ${props =>
         props.gradient &&
         css`
@@ -63,7 +60,7 @@ const Wrapper = styled('div')`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 500px;
+    max-width: 410px; /* 360px + padding + hand wavey amount */
     padding: ${size.medium};
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};
@@ -74,7 +71,7 @@ const Wrapper = styled('div')`
         background-color: ${colorMap.greyDarkTwo};
         color: inherit;
         cursor: pointer;
-        img {
+        ${Image} {
             transform: scale(1.1);
             /* TODO - fix this transition (probably by making the image a background image) */
             /* transition: transform ${animationSpeed.slow}; */
@@ -142,12 +139,12 @@ const Card = ({
             <div>
                 {image && (
                     <ImageWrapper>
-                        {gradient && <GradientOverlay />}
-                        <Image src={image} />
                         {gradient && <GradientBase />}
+                        <Image src={image} />
+                        {gradient && <GradientOverlay />}
                     </ImageWrapper>
                 )}
-                {cardTitle && <H4>{cardTitle}</H4>}
+                {cardTitle && <H5 collapse={!description}>{cardTitle}</H5>}
                 {description && (
                     <DescriptionText maxDescriptionLines={maxDescriptionLines}>
                         {description}

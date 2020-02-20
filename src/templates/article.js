@@ -15,7 +15,9 @@ const contentNodesMap = {
     introduction: true,
     prerequisites: true,
     content: true,
+    'meta-description': true,
     summary: true,
+    twitter: true,
 };
 
 /**
@@ -28,8 +30,12 @@ const getContent = nodes => {
     const nodesWeActuallyWant = [];
     for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
         const childNode = nodes[nodeIndex];
-        // The content nodes will be children of section nodes
-        if (childNode.type === 'section') {
+        // check top level directives first
+        if (contentNodesMap[childNode.name]) {
+            nodesWeActuallyWant.push(childNode);
+        }
+        // Some content nodes will be children of section nodes
+        else if (childNode.type === 'section') {
             for (
                 let childIndex = 0;
                 childIndex < childNode.children.length;
@@ -60,6 +66,7 @@ const Article = props => {
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
+    console.log({ childNodes });
     console.log({ contentNodes });
     console.log({ meta });
     return (

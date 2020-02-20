@@ -22,22 +22,6 @@ const handleEnter = handler => e => {
     e.which === 13 && handler && wrapPreventDefault(handler)(e);
 };
 
-export const _validateUrlProp = (props, propName, clashingPropName) => {
-    const currentProp = props[propName];
-    if (currentProp) {
-        if (props[clashingPropName]) {
-            return new Error(
-                `Both \`${propName}\` and \`${clashingPropName}\` props values were provided to \`Link\`. The \`${propName}\` prop will be used.`
-            );
-        }
-        if (typeof currentProp !== 'string') {
-            return new Error(`\`${propName}\` must be a string`);
-        }
-    }
-    // passed validation
-    return null;
-};
-
 // Extra props to pass when href is not specified.
 // These help the link look and feel more like a link,
 // even though the browser doesn't consider it a link.
@@ -48,6 +32,8 @@ const BUTTON_PROPS = {
 
 const tertiaryLinkStyling = css`
     color: ${colorMap.greyLightThree};
+    font-family: 'Fira Mono', monospace;
+    font-size: ${fontSize.small};
     display: block;
     text-decoration: none;
     &:hover {
@@ -77,12 +63,8 @@ const linkStyling = css`
     }
 `;
 
-const ExternalLink = styled('a')`
+const StyledLink = styled('a')`
     ${props => (props.tertiary ? tertiaryLinkStyling : linkStyling)}
-`;
-
-const InternalLink = styled(RouterLink)`
-    ${props => (props.tertiary ? tertiaryLinkStyling : linkStyling)};
 `;
 
 /**
@@ -94,16 +76,20 @@ const InternalLink = styled(RouterLink)`
  * @property {boolean?} props.tertiary
  * @property {string?} props.to
  */
-const Link = ({ children, href, onClick, target, tertiary, to, ...rest }) => {
+const Link = ({ href, onClick, target, tertiary, to, ...rest }) => {
     if (to) {
+        const AsInternalLink = StyledLink.withComponent(RouterLink);
         return (
-            <InternalLink onClick={onClick} to={to} {...rest}>
-                {children}
-            </InternalLink>
+            <AsInternalLink
+                onClick={onClick}
+                to={to}
+                tertiary={tertiary}
+                {...rest}
+            />
         );
     }
     return (
-        <ExternalLink
+        <StyledLink
             href={href}
             onClick={wrapPreventDefault(onClick, href)}
             onKeyPress={href ? undefined : handleEnter(onClick)}
@@ -112,9 +98,7 @@ const Link = ({ children, href, onClick, target, tertiary, to, ...rest }) => {
             {...(typeof href === 'undefined' ? BUTTON_PROPS : null)}
             tertiary={tertiary}
             {...rest}
-        >
-            {children}
-        </ExternalLink>
+        />
     );
 };
 

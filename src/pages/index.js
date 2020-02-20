@@ -7,6 +7,8 @@ import Notification from '../components/dev-hub/notification';
 import { H4, H2, P } from '../components/dev-hub/text';
 import { colorMap, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
+import mockCardImage from '../images/360-mock-card.png';
+import mockImage from '../images/360-mock-img.png';
 
 const Hero = styled('header')`
     color: ${colorMap.devWhite};
@@ -26,6 +28,8 @@ const FeatureSection = styled('section')`
 const CardGallery = styled('section')`
     display: flex;
     justify-content: space-between;
+    margin-bottom: ${size.large};
+    text-align: left;
 `;
 
 const SectionContent = styled('div')`
@@ -44,16 +48,16 @@ export default ({ ...data }) => {
                 </H4>
                 <P>What will you create today?</P>
                 <CardGallery>
-                    <Card image="/images/compass-create-database.png" gradient>
+                    <Card image={mockImage} gradient>
                         Rest APIs with Java, Spring Boot &amp; MongoDB
                     </Card>
-                    <Card image="/images/compass-create-database.png" gradient>
+                    <Card image={mockImage} gradient>
                         How to get connected to your MongoDB Cluster
                     </Card>
-                    <Card image="/images/compass-create-database.png" gradient>
+                    <Card image={mockImage} gradient>
                         Delete Operations
                     </Card>
-                    <Card image="/images/compass-create-database.png" gradient>
+                    <Card image={mockImage} gradient>
                         Stitch Hosting: a Drag and Drop Delight
                     </Card>
                 </CardGallery>
@@ -66,10 +70,7 @@ export default ({ ...data }) => {
             <FeatureSection altBackground>
                 <MediaBlock
                     mediaComponent={
-                        <Card
-                            image="/images/compass-create-database.png"
-                            gradient
-                        >
+                        <Card image={mockCardImage} gradient>
                             A card
                         </Card>
                     }
@@ -87,10 +88,7 @@ export default ({ ...data }) => {
             <FeatureSection>
                 <MediaBlock
                     mediaComponent={
-                        <Card
-                            image="/images/compass-create-database.png"
-                            gradient
-                        >
+                        <Card image={mockCardImage} gradient>
                             A card
                         </Card>
                     }
@@ -112,10 +110,7 @@ export default ({ ...data }) => {
             <FeatureSection altBackground>
                 <MediaBlock
                     mediaComponent={
-                        <Card
-                            image="/images/compass-create-database.png"
-                            gradient
-                        >
+                        <Card image={mockCardImage} gradient>
                             A card
                         </Card>
                     }

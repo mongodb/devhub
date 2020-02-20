@@ -54,7 +54,6 @@ const StyledCustomSelect = styled('div')`
     cursor: pointer;
     font-family: 'Fira Mono', monospace;
     position: relative;
-    width: calc(100% - ${BORDER_SIZE}px - ${BORDER_SIZE}px);
     ${({ showOptions }) => showOptions && activeSelectStyles};
 `;
 
@@ -136,7 +135,7 @@ const FormSelect = ({
         [setShowOptions]
     );
 
-    const selectOptions = choices.length ? choices : children;
+    const selectOptions = typeof choices !== 'undefined' ? choices : children;
     return (
         <StyledCustomSelect
             aria-expanded={showOptions}
