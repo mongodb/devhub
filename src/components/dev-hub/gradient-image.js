@@ -13,14 +13,14 @@ const fullSizeAbsolute = css`
     width: 100%;
 `;
 const GradientBase = styled('div')`
-    background: ${gradientMap.tealVioletReverse};
+    background: ${({ gradient }) => gradient};
     background-size: cover;
     border-radius: ${size.small};
     z-index: 1;
     ${fullSizeAbsolute}
 `;
 const GradientOverlay = styled('div')`
-    background: ${gradientMap.tealVioletPurple};
+    background: ${({ gradient }) => gradient};
     background-size: cover;
     border-radius: ${size.small};
     mix-blend-mode: overlay;
@@ -47,11 +47,16 @@ const ImageWrapper = styled('div')`
     width: 100%;
 `;
 
-const GradientImage = ({ src, ...props }) => (
+const GradientImage = ({
+    bottomGradient = gradientMap.violetMagenta,
+    topGradient = gradientMap.violetMagentaReverse,
+    src,
+    ...props
+}) => (
     <ImageWrapper {...props}>
-        <GradientOverlay />
+        <GradientOverlay gradient={topGradient} />
         <Image src={src} />
-        <GradientBase />
+        <GradientBase gradient={bottomGradient} />
     </ImageWrapper>
 );
 
