@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import LocationIcon from './icons/location-icon';
@@ -74,11 +74,12 @@ const EventInfo = styled('div')`
 
 const Location = styled(P)`
     color: ${colorMap.greyLightThree};
-    font-size: ${fontSize.xsmall};
+    font-size: ${fontSize.tiny};
     margin: 0;
 `;
 
 const Title = styled(H4)`
+    font-size: ${fontSize.medium};
     margin: 0;
     /* truncate text to 2 lines */
     display: -webkit-box;
@@ -97,8 +98,9 @@ const StyledEvent = styled(Link)`
     grid-template-columns: 1fr 3fr;
     margin-right: ${size.medium};
     max-width: 400px;
-    padding: ${size.medium} 0;
+    padding: ${size.medium};
     text-decoration: none;
+    transition: background-color ${animationSpeed.medium};
 
     &:focus,
     &:hover {
@@ -140,22 +142,29 @@ const DateIcon = ({ date }) => {
     );
 };
 
-const Event = ({ date, maxTitleLines = 2, location, title, url }) => (
-    <StyledEvent to={url}>
-        <DateIcon date={date} />
-        <EventInfo>
-            <Title maxTitleLines={maxTitleLines}>{title}</Title>
-            <Location data-name="event-location">
-                <LocationIcon
-                    color={colorMap.greyLightThree}
-                    height="15px"
-                    width="15px"
-                />{' '}
-                {location}
-            </Location>
-        </EventInfo>
-    </StyledEvent>
-);
+const Event = ({ date, maxTitleLines = 2, location, title, url }) => {
+    const [locationColor, setLocationColor] = useState(colorMap.greyLightThree);
+    return (
+        <StyledEvent
+            onMouseEnter={() => setLocationColor(colorMap.greyLightOne)}
+            onMouseLeave={() => setLocationColor(colorMap.greyLightThree)}
+            to={url}
+        >
+            <DateIcon date={date} />
+            <EventInfo>
+                <Title maxTitleLines={maxTitleLines}>{title}</Title>
+                <Location data-name="event-location">
+                    <LocationIcon
+                        color={locationColor}
+                        height="15px"
+                        width="15px"
+                    />{' '}
+                    {location}
+                </Location>
+            </EventInfo>
+        </StyledEvent>
+    );
+};
 
 const EventListPreview = ({ events = sampleEvents }) => {
     const previews = events.length > 3 ? events.slice(0, 3) : events;
