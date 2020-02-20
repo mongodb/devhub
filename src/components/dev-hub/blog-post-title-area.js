@@ -1,55 +1,106 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import MediaBlock from './media-block';
 import BlogTagList from './blog-tag-list';
 import Link from './link';
-import { H1, P } from './text';
-import { colorMap } from './theme';
-import Breadcrumb from './breadcrumb';
+import { H2, P } from './text';
+import {
+    colorMap,
+    layer,
+    gradientMap,
+    screenSize,
+    fontSize,
+    size,
+} from './theme';
+import HeroBanner from './hero-banner';
+import { createShadowElement } from './utils';
+import useMedia from '../../hooks/use-media';
 
-const StyledBreadcrumb = styled(Breadcrumb)`
-    padding-bottom: 30px;
+const AuthorImage = styled('div')`
+    ${({ isMobile }) => isMobile && 'display: none;'}
+    height: 50px;
+    margin-right: ${size.medium};
+    position: relative;
+    z-index: ${layer.front};
+    > img {
+        border-radius: 50%;
+        height: 50px;
+    }
+    &:before {
+        ${createShadowElement(gradientMap.greenTealOffset, size.large, 0, -6)}
+        height: 56px;
+        width: 56px;
+    }
 `;
 
-const PostMetaLine = styled('div')`
+const AuthorLink = styled(Link)`
+    :visited {
+        color: ${colorMap.greyLightThree};
+    }
+    font-size: ${fontSize.tiny};
+    @media ${screenSize.upToLarge} {
+        font-size: ${fontSize.xsmall};
+    }
+`;
+
+const AuthorText = styled(P)`
+    @media ${screenSize.upToLarge} {
+        font-size: ${fontSize.xsmall};
+    }
+`;
+
+const ByLine = styled('div')`
+    color: ${colorMap.greyLightThree};
     display: flex;
+    font-size: ${fontSize.tiny};
+    @media ${screenSize.upToLarge} {
+        font-size: ${fontSize.xsmall};
+    }
+`;
+const PostMetaLine = styled('div')`
+    color: ${colorMap.greyLightThree};
+    display: flex;
+    margin: ${size.medium} 0 40px;
+    font-size: ${fontSize.tiny};
+    @media ${screenSize.upToLarge} {
+        flex-direction: column;
+        font-size: ${fontSize.xsmall};
+        margin-bottom: ${size.medium};
+    }
 `;
 
-const TitleContainer = styled('div')`
-    background-color: ${colorMap.devBlack};
-    padding-top: 18px;
-    padding-bottom: 50px;
-    padding-left: 120px;
+const DateText = styled(P)`
+    margin-right: ${size.medium};
+    @media ${screenSize.upToLarge} {
+        font-size: 12px;
+    }
 `;
 
 const BlogPostTitleArea = ({
+    authorImage,
     breadcrumb,
     title,
     image,
     originalDate,
-    updatedDate,
     tags,
     author,
 }) => {
+    const isMobile = useMedia(screenSize.upToLarge);
     return (
-        <header>
-            <MediaBlock mediaComponent={image} mediaWidth={400} reverse>
-                <TitleContainer>
-                    <StyledBreadcrumb>{breadcrumb}</StyledBreadcrumb>
-                    <H1>{title}</H1>
-                    <PostMetaLine>
-                        <P style={{ marginRight: '20px' }}>{originalDate}</P>
-                        <BlogTagList tags={tags} />
-                    </PostMetaLine>
-                    <P collapse>
-                        By{' '}
-                        <Link to="#" tertiary>
-                            {author}
-                        </Link>
-                    </P>
-                </TitleContainer>
-            </MediaBlock>
-        </header>
+        <HeroBanner breadcrumb={breadcrumb} image={image} reverse>
+            <H2 collapse>{title}</H2>
+            <PostMetaLine>
+                <DateText collapse>{originalDate}</DateText>
+                <BlogTagList tags={tags} />
+            </PostMetaLine>
+            <ByLine>
+                <AuthorImage isMobile={isMobile}>
+                    <img src={authorImage} alt={author} />
+                </AuthorImage>
+                <AuthorText collapse>
+                    By <AuthorLink to="#">{author}</AuthorLink>
+                </AuthorText>
+            </ByLine>
+        </HeroBanner>
     );
 };
 

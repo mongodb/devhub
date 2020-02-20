@@ -75,24 +75,30 @@ const Article = props => {
         <Layout>
             <BlogPostTitleArea
                 author={meta.author}
+                // TODO: Get author image from the parser
+                authorImage={
+                    meta.authorImage ||
+                    'https://xebialabs.com/wp-content/uploads/files/tool-chest/mongodb.jpg'
+                }
                 breadcrumb={[
-                    { label: 'Home', target: '#' },
+                    { label: 'Home', target: '/' },
+                    { label: 'Learn', target: '/learn' },
                     { label: 'Quick Start', target: '#' },
                 ]}
                 originalDate={meta.pubdate}
                 tags={[...meta.tags, ...meta.languages, ...meta.products]}
                 title={articleTitle}
-                image={<Image src={meta['atf-image']} alt={articleTitle} />}
+                // TODO: Pull real image once available
+                // image={<Image src={meta['atf-image']} alt="" />}
+                image={
+                    <img
+                        src={
+                            'https://xebialabs.com/wp-content/uploads/files/tool-chest/mongodb.jpg'
+                        }
+                        alt={articleTitle}
+                    />
+                }
             />
-            {/* <header>
-                <p>{meta.type}</p>
-                <p>{meta.level}</p>
-                <p>{meta.languages}</p>
-                <p>{meta.products}</p>
-                <p>
-                    <Image src={meta['atf-image']} alt="" />
-                </p>
-            </header> */}
 
             <section>
                 <DocumentBody

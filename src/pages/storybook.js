@@ -342,7 +342,7 @@ export default () => (
             <CodeBlock nodeData={{ value: codeSample }} />
             <SectionHeader>Links</SectionHeader>
             <Link href="#">Hello World</Link>
-            <Link href="#" tertiary>
+            <Link to="#" tertiary>
                 Hello World
             </Link>
             <SectionHeader>Breadcrumbs</SectionHeader>

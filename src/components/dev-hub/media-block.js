@@ -33,11 +33,25 @@ const gridStructure = ({ reverse, flexible }) => css`
 `;
 
 const MediaBlockContainer = styled('div')`
-    display: grid;
+    ${({ shouldMatchChildrenHeight }) =>
+        !shouldMatchChildrenHeight && 'display: grid'};
     ${columnSizes};
     ${gridStructure};
     @media ${screenSize.upToLarge} {
         justify-items: center;
+    }
+    ${({ shouldMatchChildrenHeight }) =>
+        shouldMatchChildrenHeight && 'position: relative'};
+`;
+
+const matchChildHeight = css`
+    height: 100%;
+    margin-right: 0;
+    position: absolute;
+    right: 0;
+    > img {
+        height: 100%;
+        width: unset;
     }
 `;
 
@@ -48,6 +62,9 @@ const MediaWrapper = styled('div')`
     > img {
         width: 100%;
     }
+    /* match child height */
+    ${({ shouldMatchChildrenHeight }) =>
+        shouldMatchChildrenHeight && matchChildHeight}
 `;
 
 /**
@@ -65,14 +82,20 @@ const MediaBlock = ({
     mediaWidth,
     reverse,
     flexible = true,
+    shouldMatchChildrenHeight = false,
 }) => (
     <MediaBlockContainer
         flexible={flexible}
         reverse={reverse}
         mediaWidth={mediaWidth}
         className={className}
+        shouldMatchChildrenHeight={shouldMatchChildrenHeight}
     >
-        {mediaComponent && <MediaWrapper>{mediaComponent}</MediaWrapper>}
+        {mediaComponent && (
+            <MediaWrapper shouldMatchChildrenHeight={shouldMatchChildrenHeight}>
+                {mediaComponent}
+            </MediaWrapper>
+        )}
         <ContentWrapper>{children}</ContentWrapper>
     </MediaBlockContainer>
 );
