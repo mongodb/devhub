@@ -36,10 +36,6 @@ const Hero = styled('header')`
 const Heading = styled(H1)`
     max-width: 920px;
     margin: ${size.default} auto;
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.large};
-        line-height: ${lineHeight.large};
-    }
 `;
 const SubHeading = styled(P)`
     color: ${colorMap.greyLightTwo};
