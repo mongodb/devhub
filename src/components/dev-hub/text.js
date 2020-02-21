@@ -36,7 +36,6 @@ export const H1 = styled('h1')`
     ${handleCollapse}
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.xlarge};
-        line-height: ${lineHeight.xlarge};
     }
 `;
 
@@ -47,7 +46,6 @@ export const H2 = styled('h2')`
     ${handleCollapse}
         @media ${screenSize.upToMedium} {
         font-size: ${fontSize.large};
-        line-height: ${lineHeight.large};
     }
 `;
 
@@ -58,7 +56,6 @@ export const H3 = styled('h3')`
     ${handleCollapse}
         @media ${screenSize.upToMedium} {
         font-size: ${fontSize.medium};
-        line-height: ${lineHeight.medium};
     }
 `;
 
@@ -69,7 +66,6 @@ export const H4 = styled('h4')`
     ${handleCollapse}
         @media ${screenSize.upToMedium} {
         font-size: ${fontSize.default};
-        line-height: ${lineHeight.default};
     }
 `;
 
@@ -80,7 +76,6 @@ export const H5 = styled('h5')`
     ${handleCollapse}
         @media ${screenSize.upToMedium} {
         font-size: ${fontSize.small};
-        line-height: ${lineHeight.small};
     }
 `;
 export const P = styled('p')`
