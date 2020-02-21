@@ -15,7 +15,18 @@ import MediaBlock from '../components/dev-hub/media-block';
 import Modal from '../components/dev-hub/modal';
 import Notification from '../components/dev-hub/notification';
 import Select from '../components/dev-hub/select';
-import { H1, H2, H3, H4, P, SubHeader } from '../components/dev-hub/text';
+import {
+    H1,
+    H2,
+    H3,
+    H4,
+    P1,
+    P2,
+    P3,
+    P4,
+    P5,
+    SubHeader,
+} from '../components/dev-hub/text';
 import {
     colorMap,
     size,
@@ -111,11 +122,11 @@ const MediaBlockStory = ({ reverse }) => (
         <MediaBlockContent>
             <div>
                 <H2>Let's do it live!</H2>
-                <P>
+                <P1>
                     Connect with MongoDB engineers and community experts weekly
                     for live coding demos on Twitch. Ask questions, chat, or
                     just follow along.
-                </P>
+                </P1>
                 <button>Join us on Twitch</button>
             </div>
         </MediaBlockContent>
@@ -237,7 +248,12 @@ export default () => (
             <H2>Heading 2</H2>
             <H3>Heading 3</H3>
             <H4>Heading 4</H4>
-            <P>Paragraph</P>
+            <P1>Paragraph 1</P1>
+            <P2>Paragraph 2</P2>
+            <P3>Paragraph 3</P3>
+            <P4>Paragraph 4</P4>
+            <P5>Paragraph 1</P5>
+
             <SubHeader>SubHeader</SubHeader>
             <SectionHeader>Block Quote</SectionHeader>
             <BlockQuoteStory />
@@ -333,7 +349,7 @@ export default () => (
             <Notification />
             <SectionHeader>Code Block</SectionHeader>
             <CodeArticle>
-                <P>Some fancy article content</P>
+                <P1>Some fancy article content</P1>
                 <CodeBlock nodeData={{ value: shortCodeSample }} />
             </CodeArticle>
             <br />
@@ -369,9 +385,9 @@ export default () => (
                     colorName={colorName}
                     colorValue={colorMap[colorName]}
                 >
-                    <P collapse>
+                    <P1 collapse>
                         {colorMap[colorName]} - {colorName}
-                    </P>
+                    </P1>
                 </Swatch>
             ))}
             <SectionHeader>ToolTip/Content Menus</SectionHeader>
@@ -384,7 +400,7 @@ export default () => (
                 >
                     <div>
                         <H2 bold>Title</H2>
-                        <P>I'm REVEALED AGAIN! asdfasdfasdsfda</P>
+                        <P1>I'm REVEALED AGAIN! asdfasdfasdsfda</P1>
                     </div>
                 </Tooltip>
                 <Tooltip

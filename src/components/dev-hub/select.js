@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import ArrowheadIcon from './icons/arrowhead-icon';
-import { P } from './text';
+import { P1 } from './text';
 import { colorMap, gradientMap, layer, size } from './theme';
 
 const BORDER_SIZE = 2;
@@ -155,7 +155,7 @@ const FormSelect = ({
                 value={selectValue}
                 {...extraProps}
             >
-                <P collapse>{selectText}</P>
+                <P1 collapse>{selectText}</P1>
                 <ArrowheadIcon down={showOptions} />
             </SelectedOption>
             {showOptions && (

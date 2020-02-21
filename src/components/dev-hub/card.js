@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { animationSpeed, colorMap, gradientMap, size, fontSize } from './theme';
-import { H5, P } from './text';
+import { H5, P1 } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
 
@@ -85,7 +85,7 @@ const truncate = maxLines => css`
     -webkit-box-orient: vertical;
     overflow: hidden;
 `;
-const DescriptionText = styled(P)`
+const DescriptionText = styled(P1)`
     color: ${colorMap.greyLightTwo};
     font-size: ${fontSize.small};
 `;

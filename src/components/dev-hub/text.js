@@ -83,13 +83,43 @@ export const H5 = styled('h5')`
         line-height: ${lineHeight.small};
     }
 `;
-export const P = styled('p')`
+const P = styled('p')`
     font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
     ${handleCollapse}
+`;
+export const P1 = styled(P)`
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.small};
         line-height: ${lineHeight.small};
     }
+`;
+export const P2 = styled(P)`
+    font-size: ${fontSize.small};
+    line-height: ${lineHeight.small};
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.tiny};
+        line-height: ${lineHeight.tiny};
+    }
+`;
+export const P3 = styled(P)`
+    font-size: ${fontSize.tiny};
+    line-height: ${lineHeight.tiny};
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.xsmall};
+        line-height: ${lineHeight.xsmall};
+    }
+`;
+export const P4 = styled(P)`
+    font-size: ${fontSize.xsmall};
+    line-height: ${lineHeight.xsmall};
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.micro};
+        line-height: ${lineHeight.micro};
+    }
+`;
+export const P5 = styled(P)`
+    font-size: ${fontSize.micro};
+    line-height: ${lineHeight.micro};
 `;
 export const SubHeader = styled(P)`
     color: ${colorMap.greyLightTwo};
