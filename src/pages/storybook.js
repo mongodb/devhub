@@ -351,6 +351,25 @@ export default () => (
             <MediaBlockStory />
             <SectionHeader>Media Block (reverse)</SectionHeader>
             <MediaBlockStory reverse />
+            <SectionHeader>
+                Media Block (image matches child height)
+            </SectionHeader>
+            <MediaBlock
+                mediaComponent={<FirstClusterTestImage />}
+                shouldMatchChildrenHeight
+            >
+                <MediaBlockContent>
+                    <div style={{ width: '50%' }}>
+                        <H2>Let's do it live!</H2>
+                        <P>
+                            Connect with MongoDB engineers and community experts
+                            weekly for live coding demos on Twitch. Ask
+                            questions, chat, or just follow along.
+                        </P>
+                        <Link>Join us on Twitch</Link>
+                    </div>
+                </MediaBlockContent>
+            </MediaBlock>
             <SectionHeader>Form Elements</SectionHeader>
             <H4>Input</H4>
             <InputStory />
