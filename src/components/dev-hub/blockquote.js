@@ -5,8 +5,7 @@ import ComponentFactory from '../ComponentFactory';
 import { colorMap, gradientMap, layer, size } from './theme';
 import { createShadowElement } from './utils';
 
-const BLOCKQUOTE_INNER_LAYER_OFFSET = 6;
-const BLOCKQUOTE_OUTER_LAYER_OFFSET = 8;
+const BLOCKQUOTE_OFFSET = 10;
 const BORDER_SIZE = 2;
 
 const StyledBlockquote = styled('blockquote')`
@@ -21,23 +20,23 @@ const BlockquoteContainer = styled('div')`
     border-radius: ${size.tiny};
     background: ${gradientMap.magentaSalmonSherbet};
     background-size: cover;
-    margin-bottom: ${BLOCKQUOTE_OUTER_LAYER_OFFSET +
-        size.stripUnit(size.default)}px;
+    margin-bottom: ${BLOCKQUOTE_OFFSET + size.stripUnit(size.default)}px;
     padding: ${BORDER_SIZE}px;
     position: relative;
     &:before {
         ${createShadowElement(
             gradientMap.magentaSalmonSherbet,
             size.tiny,
-            -BLOCKQUOTE_OUTER_LAYER_OFFSET
+            BLOCKQUOTE_OFFSET,
+            0
         )}
     }
     &:after {
         ${createShadowElement(
             colorMap.greyDarkThree,
             size.tiny,
-            -BLOCKQUOTE_INNER_LAYER_OFFSET,
-            -BLOCKQUOTE_INNER_LAYER_OFFSET + BORDER_SIZE
+            BLOCKQUOTE_OFFSET,
+            4
         )};
     }
 `;
