@@ -139,14 +139,15 @@ const StyledButton = styled('button')`
     color: ${({ color }) => (color ? color : colorMap.devWhite)};
     cursor: pointer;
     display: inline-block;
-    font-size: ${fontSize.default};
+    font-family: 'Fira Mono', monospace;
+    font-size: ${fontSize.small};
     line-height: ${lineHeight.micro};
     padding: ${size.default};
     position: relative;
     text-align: center;
 
     @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.small};
+        font-size: ${fontSize.tiny};
     }
 
     ${({ primary }) => primary && primaryStyles}
