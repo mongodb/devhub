@@ -156,6 +156,16 @@ const StyledButton = styled('button')`
         !primary && !secondary && !play && tertiaryStyles}
 `;
 
+const getArrow = ({ pagination, primary, secondary }) => {
+    if (pagination) {
+        return <span> &darr;</span>;
+    }
+    if (primary || secondary) {
+        return <span> &rarr;</span>;
+    }
+    return null;
+};
+
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children
@@ -170,16 +180,14 @@ const StyledButton = styled('button')`
 
 const Button = ({ children, href, play, to, ...props }) => {
     const isButton = !!(props.primary || props.secondary || play);
-    const rightArrow = (props.primary || props.secondary) && (
-        <span> &rarr;</span>
-    );
+    const arrow = getArrow(props);
     if (href || to || !isButton) {
         // If the Button has a `to` or a `href` prop, then it renders as a `Link` element,
         const AsLink = StyledButton.withComponent(Link);
         return (
             <AsLink to={to} href={href} {...props}>
                 {children}
-                {rightArrow}
+                {arrow}
             </AsLink>
         );
     }
@@ -191,7 +199,7 @@ const Button = ({ children, href, play, to, ...props }) => {
             ) : (
                 children
             )}
-            {rightArrow}
+            {arrow}
         </StyledButton>
     );
 };

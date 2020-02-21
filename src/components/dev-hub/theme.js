@@ -181,6 +181,7 @@ const screenSize = {
     mediumAndUp: 'not all and (max-width: 767px)',
     upToLarge: 'only screen and (max-width: 1023px)',
     largeAndUp: 'not all and (max-width: 1023px)',
+    xlargeAndUp: `not all and (max-width: ${size.maxWidth})`,
 };
 
 /**
