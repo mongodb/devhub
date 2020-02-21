@@ -187,16 +187,28 @@ const BlockQuoteStory = () => (
 );
 
 const EventStory = () => {
-    const event = {
-        date: new Date('January 20, 2020'),
+    const event1 = {
         title: 'MongoDB.local San Francisco',
-        location: 'San Francisco, California',
-        url: '/community',
+        node_type_attributes: {
+            event_start: '2020-02-27T05:00:00.000Z',
+            event_end: '2020-02-27T05:00:00.000Z',
+            event_country: 'United States',
+            event_city: 'San Francisco',
+        },
+        url: 'https://mongodbanddatabricks.splashthat.com/',
+        url_type: 'external',
+    };
+    const event2 = {
+        ...event1,
+        title:
+            'Im an event with a really really really really really really long name',
+        url: '/storybook',
+        url_type: 'alias',
     };
     return (
         <>
-            <Event {...event} />
-            <Event {...event} date={new Date('February 13, 2020')} />
+            <Event event={event1} />
+            <Event event={event2} />
         </>
     );
 };
