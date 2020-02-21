@@ -190,7 +190,9 @@ export default () => {
     return (
         <GlobalFooter>
             <LogoContainer>
-                <MongodbLogoIcon css={logoStyles} />
+                <FooterLink css={iconstyles} href="https://www.mongodb.com/">
+                    <MongodbLogoIcon css={logoStyles} />
+                </FooterLink>
             </LogoContainer>
             <LinksList>
                 {siteLinks.map(list => getLinksList(list, true))}

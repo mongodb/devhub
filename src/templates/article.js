@@ -2,8 +2,9 @@ import React from 'react';
 import dlv from 'dlv';
 import PropTypes from 'prop-types';
 import DocumentBody from '../components/DocumentBody';
+import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
-import Image from '../components/Image';
+import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import { getNestedText } from '../utils/get-nested-text';
 
 let articleTitle = '';
@@ -69,24 +70,26 @@ const Article = props => {
     console.log({ childNodes });
     console.log({ contentNodes });
     console.log({ meta });
+    console.log(rest);
     return (
         <Layout>
-            <header>
-                <h1>{articleTitle}</h1>
-                <p>{meta.author}</p>
-                <ul>
-                    {meta.tags.map(tag => (
-                        <li key={tag}>{tag}</li>
-                    ))}
-                </ul>
-                <p>{meta.type}</p>
-                <p>{meta.level}</p>
-                <p>{meta.languages}</p>
-                <p>{meta.products}</p>
-                <p>
-                    <Image src={meta['atf-image']} alt="" />
-                </p>
-            </header>
+            <BlogPostTitleArea
+                // TODO: Pull real image once available
+                // articleImage={meta['atf-image']}
+                articleImage={ARTICLE_PLACEHOLDER}
+                author={meta.author}
+                // TODO: Get author image from the parser
+                authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
+                breadcrumb={[
+                    { label: 'Home', target: '/' },
+                    { label: 'Learn', target: '/learn' },
+                    { label: 'Quick Start', target: '#' },
+                ]}
+                originalDate={meta.pubdate}
+                tags={[...meta.tags, ...meta.languages, ...meta.products]}
+                title={articleTitle}
+            />
+
             <section>
                 <DocumentBody
                     pageNodes={contentNodes}

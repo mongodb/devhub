@@ -21,6 +21,8 @@ const GlobalNav = styled('nav')`
 `;
 
 const NavLink = styled(Link)`
+    font-weight: 300;
+    letter-spacing: 0.07em;
     line-height: ${lineHeight.xxlarge};
     padding: ${size.small} ${size.xlarge};
     text-decoration: none;
@@ -45,7 +47,7 @@ export default () => {
     return (
         <GlobalNav>
             <HomeLink to="/">
-                <Leaf width={size.medium} /> <code>Developers</code>
+                <Leaf width={size.medium} /> <code>Developer</code>
             </HomeLink>
             <NavLink to="/learn">Learn</NavLink>
             <NavLink to="/community">Community</NavLink>

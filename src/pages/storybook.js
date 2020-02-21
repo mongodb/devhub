@@ -1,26 +1,36 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 import Badge from '../components/dev-hub/badge';
 import Breadcrumb from '../components/dev-hub/breadcrumb';
 import Blockquote from '../components/dev-hub/blockquote';
 import BlogTagList from '../components/dev-hub/blog-tag-list';
 import { StorybookLayout } from '../components/dev-hub/layout';
+import BylineBlock from '../components/dev-hub/byline-block';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
+import { Event } from '../components/dev-hub/events';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
+import HeroBanner from '../components/dev-hub/hero-banner';
 import MediaBlock from '../components/dev-hub/media-block';
 import Modal from '../components/dev-hub/modal';
 import Notification from '../components/dev-hub/notification';
 import Select from '../components/dev-hub/select';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
-import { colorMap, size, screenSize } from '../components/dev-hub/theme';
+import {
+    colorMap,
+    size,
+    screenSize,
+    gradientMap,
+} from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import ShareIcon from '../components/dev-hub/icons/share-icon';
 import FacebookIcon from '../components/dev-hub/icons/facebook-icon';
 import ListIcon from '../components/dev-hub/icons/list-icon';
 import LinkIcon from '../components/dev-hub/icons/link-icon';
+import LocationIcon from '../components/dev-hub/icons/location-icon';
 import TwitterIcon from '../components/dev-hub/icons/twitter-icon';
 import EnvelopeIcon from '../components/dev-hub/icons/envelope-icon';
 import Tooltip from '../components/dev-hub/tooltip';
@@ -31,7 +41,9 @@ import Github from '../components/dev-hub/icons/github';
 import Youtube from '../components/dev-hub/icons/youtube';
 import Twitch from '../components/dev-hub/icons/twitch';
 import mockCardImage from '../images/360-mock-img.png';
+import MockAuthorImage from '../images/1x/MDB-and-Node.js.png';
 import VideoEmbed from '../components/dev-hub/video-embed';
+import GradientUnderline from '../components/dev-hub/gradient-underline';
 
 const Row = styled('div')`
     display: flex;
@@ -174,6 +186,20 @@ const BlockQuoteStory = () => (
     ></Blockquote>
 );
 
+const EventStory = () => {
+    const event = {
+        date: new Date('January 20, 2020'),
+        title: 'MongoDB.local San Francisco',
+        location: 'San Francisco, California',
+        url: '/community',
+    };
+    return (
+        <>
+            <Event {...event} />
+            <Event {...event} date={new Date('February 13, 2020')} />
+        </>
+    );
+};
 const shortCodeSample = `
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
@@ -224,7 +250,16 @@ const ModalContainer = styled('div')`
 export default () => (
     <StorybookLayout>
         <StorybookContainer>
-            <H1>DevHub Component "Storybook"</H1>
+            <HeroBanner
+                background={MockAuthorImage}
+                breadcrumb={[
+                    { label: 'Home', to: '#' },
+                    { label: 'Storybook', to: '#' },
+                ]}
+            >
+                <H1>DevHub Component "Storybook"</H1>
+                <BylineBlock author="UP Team" authorImage={MockAuthorImage} />
+            </HeroBanner>
             <SectionHeader>Text</SectionHeader>
             <H1>Heading 1</H1>
             <H2>Heading 2</H2>
@@ -292,6 +327,9 @@ export default () => (
                     <Button primary>Button (Primary)</Button>
                     <Button secondary>Button (Secondary)</Button>
                     <Button tertiary>Button (tertiary)</Button>
+                    <Button secondary pagination>
+                        Button (pagination)
+                    </Button>
                     <Button play />
                 </div>
             </Row>
@@ -389,6 +427,19 @@ export default () => (
                     I'm REVEALED AGAIN!
                 </Tooltip>
             </Row>
+            <Row>
+                <H2
+                    css={css`
+                        max-width: 400px;
+                    `}
+                >
+                    <GradientUnderline
+                        gradient={gradientMap.violentMagentaOrange}
+                    >
+                        Gradient Underline Heading
+                    </GradientUnderline>
+                </H2>
+            </Row>
             <SectionHeader>Icons</SectionHeader>
             <Row>
                 <ShareIcon color={colorMap.teal} />
@@ -403,19 +454,24 @@ export default () => (
                     distinct
                     image={mockCardImage}
                     tags={['tag one', 'tag two']}
+                    maxTitleLines={3}
                 >
-                    I'm a Card For A Post on the New Devhub Platform!
+                    I'm a Card For A Post on the New Devhub Platform! With no
+                    links or clickable actions!
                 </Card>
                 <Card
                     href="#card-row"
-                    gradient
                     image={mockCardImage}
                     tags={['tag one', 'tag two', 'tag three']}
                 >
-                    I'm a Gradient Card
+                    I'm a Card
                 </Card>
-                <Card gradient image={mockCardImage} highlight>
-                    I'm a highlighted Gradient Card
+                <Card
+                    image={mockCardImage}
+                    onClick={() => console.log('Clicked!')}
+                    highlight
+                >
+                    I'm a highlighted Card
                 </Card>
             </Row>
             <Row>
@@ -429,6 +485,7 @@ export default () => (
                         Use this tutorial to install community edition on any
                         and every operating system known to man, woman, and
                         child."
+                    href="#card-row"
                 />
                 <Card
                     width="300px"
@@ -446,6 +503,7 @@ export default () => (
                     width="300px"
                     title="I'm a Card With No Image"
                     description="written by Author"
+                    href="#card-row"
                 />
             </Row>
             <SectionHeader>Icons</SectionHeader>
@@ -460,7 +518,10 @@ export default () => (
                 <LinkedInIcon color={colorMap.sherbet} />
                 <Github color={colorMap.darkGreen} />
                 <Twitch color={colorMap.devWhite} />
+                <LocationIcon color={colorMap.violet} />
             </Row>
+            <SectionHeader>Events</SectionHeader>
+            <EventStory />
         </StorybookContainer>
     </StorybookLayout>
 );

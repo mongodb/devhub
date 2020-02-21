@@ -5,13 +5,16 @@ const { Stitch, AnonymousCredential } = require('mongodb-stitch-server-sdk');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
-const { getDatabase } = require('./src/utils/get-database');
 const { getNestedValue } = require('./src/utils/get-nested-value');
 const { getTemplate } = require('./src/utils/get-template');
 const { getPageSlug } = require('./src/utils/get-page-slug');
+const { getMetadata } = require('./src/utils/get-metadata');
+
+// Consolidated metadata object used to identify build and env variables
+const metadata = getMetadata();
 
 // Atlas DB config
-const DB = getDatabase();
+const DB = metadata.database;
 const DOCUMENTS_COLLECTION = 'documents';
 const ASSETS_COLLECTION = 'assets';
 const METADATA_COLLECTION = 'metadata';
@@ -92,18 +95,16 @@ exports.sourceNodes = async () => {
     // wait to connect to stitch
     await setupStitch();
 
-    // start from index document
-    PAGE_ID_PREFIX = `${process.env.GATSBY_SITE}/${process.env.GATSBY_PARSER_USER}/${process.env.GATSBY_PARSER_BRANCH}`;
+    const { parserBranch, project, user } = metadata;
+    PAGE_ID_PREFIX = `${project}/${user}/${parserBranch}`;
     const query = constructDbFilter();
     const documents = await stitchClient.callFunction('fetchDocuments', [
         DB,
         DOCUMENTS_COLLECTION,
         query,
     ]);
-
     if (documents.length === 0) {
         console.error('No documents matched your query.');
-        process.exit(1);
     }
 
     documents.forEach(doc => {

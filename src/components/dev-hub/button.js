@@ -139,14 +139,15 @@ const StyledButton = styled('button')`
     color: ${({ color }) => (color ? color : colorMap.devWhite)};
     cursor: pointer;
     display: inline-block;
-    font-size: ${fontSize.default};
+    font-family: 'Fira Mono', monospace;
+    font-size: ${fontSize.small};
     line-height: ${lineHeight.micro};
     padding: ${size.default};
     position: relative;
     text-align: center;
 
     @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.small};
+        font-size: ${fontSize.tiny};
     }
 
     ${({ primary }) => primary && primaryStyles}
@@ -155,6 +156,16 @@ const StyledButton = styled('button')`
     ${({ play, primary, secondary }) =>
         !primary && !secondary && !play && tertiaryStyles}
 `;
+
+const getArrow = ({ pagination, primary, secondary }) => {
+    if (pagination) {
+        return <span> &darr;</span>;
+    }
+    if (primary || secondary) {
+        return <span> &rarr;</span>;
+    }
+    return null;
+};
 
 /**
  * @param {Object<string, any>} props
@@ -170,13 +181,14 @@ const StyledButton = styled('button')`
 
 const Button = ({ children, href, play, to, ...props }) => {
     const isButton = !!(props.primary || props.secondary || play);
-
+    const arrow = getArrow(props);
     if (href || to || !isButton) {
         // If the Button has a `to` or a `href` prop, then it renders as a `Link` element,
         const AsLink = StyledButton.withComponent(Link);
         return (
             <AsLink to={to} href={href} {...props}>
                 {children}
+                {arrow}
             </AsLink>
         );
     }
@@ -188,6 +200,7 @@ const Button = ({ children, href, play, to, ...props }) => {
             ) : (
                 children
             )}
+            {arrow}
         </StyledButton>
     );
 };

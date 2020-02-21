@@ -4,6 +4,7 @@ import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
 import Card from '../components/dev-hub/card';
+import CardList from '../components/dev-hub/card-list';
 import FilterBar from '../components/dev-hub/filter-bar';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
@@ -40,24 +41,32 @@ const Header = styled('header')`
     padding: ${size.xlarge} ${size.medium};
 `;
 
-const CardContainer = styled('div')`
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 0 -${size.medium};
-    @media ${screenSize.upToMedium} {
-        display: block;
-    }
-`;
-
 const Article = styled('article')`
     padding: ${size.medium};
 `;
 
-const ArticleCard = styled(Card)`
-    flex: 1 1 320px;
-`;
+const mockItems = [
+    {
+        'meta-description':
+            'Never miss us live. Sign up for the MongoDB Twitch stream today.',
+        'atf-image': mockCardImage,
+        languages: ['golang'],
+    },
+    {
+        'meta-description':
+            'Never miss us live. Sign up for the MongoDB Twitch stream today.',
+        'atf-image': mockCardImageSmall,
+        languages: ['golang'],
+    },
+];
+
+const createMockList = () => {
+    let list = [];
+    for (let index = 0; index < 10; index++) {
+        list = list.concat(mockItems);
+    }
+    return list;
+};
 
 export default () => (
     <Layout>
@@ -103,24 +112,7 @@ export default () => (
         </Header>
         <Article>
             <FilterBar />
-            <CardContainer>
-                <ArticleCard image={mockCardImageSmall}>
-                    Never miss us live. Sign up for the MongoDB Twitch stream
-                    today.
-                </ArticleCard>
-                <ArticleCard image={mockCardImage}>
-                    Never miss us live. Sign up for the MongoDB Twitch stream
-                    today.
-                </ArticleCard>
-                <ArticleCard image={mockCardImageSmall}>
-                    Never miss us live. Sign up for the MongoDB Twitch stream
-                    today.
-                </ArticleCard>
-                <ArticleCard image={mockCardImage}>
-                    Never miss us live. Sign up for the MongoDB Twitch stream
-                    today.
-                </ArticleCard>
-            </CardContainer>
+            <CardList items={createMockList()} />
         </Article>
     </Layout>
 );
