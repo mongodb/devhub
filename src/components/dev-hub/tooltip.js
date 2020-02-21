@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled-base';
+import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Popover from 'react-tiny-popover';
 import { colorMap, layer, size } from './theme';
 
 const CONTENT_MAX_WIDTH = 250;
-const ARROW_SIZE = 80;
 const TOOLTIP_DISTANCE = 15;
 // Default alignment of tooltip content based on tooltip position
 const TOOLTIP_ALIGNMENT_MAP = {
