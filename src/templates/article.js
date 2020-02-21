@@ -86,8 +86,8 @@ const Article = props => {
                 tags={[...meta.tags, ...meta.languages, ...meta.products]}
                 title={articleTitle}
                 // TODO: Pull real image once available
-                // image={<Image src={meta['atf-image']} alt="" />}
-                image={<img src={ARTICLE_PLACEHOLDER} alt={articleTitle} />}
+                // background={meta['atf-image']}
+                background={ARTICLE_PLACEHOLDER}
             />
 
             <section>

@@ -78,6 +78,7 @@ const DateText = styled(P)`
 const BlogPostTitleArea = ({
     authorImage,
     breadcrumb,
+    background,
     title,
     image,
     originalDate,
@@ -86,7 +87,7 @@ const BlogPostTitleArea = ({
 }) => {
     const isMobile = useMedia(screenSize.upToLarge);
     return (
-        <HeroBanner breadcrumb={breadcrumb} image={image} reverse>
+        <HeroBanner breadcrumb={breadcrumb} background={background} reverse>
             <H2 collapse>{title}</H2>
             <PostMetaLine>
                 <DateText collapse>{originalDate}</DateText>

@@ -9,7 +9,6 @@ import {
     size,
 } from './theme';
 import useMedia from '../../hooks/use-media';
-import MediaBlock from './media-block';
 
 const BREADCRUMB_MARGIN = '30px';
 const BANNER_BOTTOM_PADDING = '50px';
@@ -28,7 +27,8 @@ const HeroBannerContainer = styled('div')`
         background && `background-image: url(${background});`};
     background-repeat: no-repeat;
     background-position: 100%;
-    background-size: 50% 100%;
+    background-size: ${({ shouldContainImage }) =>
+        shouldContainImage ? 'contain' : 'cover'};
     padding-top: ${size.default};
     padding-left: ${size.xxlarge};
     padding-bottom: ${BANNER_BOTTOM_PADDING};
@@ -36,6 +36,7 @@ const HeroBannerContainer = styled('div')`
     height: 100%;
     @media ${screenSize.upToLarge} {
         width: 100%;
+        background: none;
     }
 `;
 
@@ -64,37 +65,27 @@ const HeroBanner = ({
     children,
     image,
     reverse,
+    shouldContainImage = true,
+    showImageOnMobile = true,
     ...props
 }) => {
     const isMobile = useMedia(screenSize.upToLarge);
-    const HeroInfo = () => (
-        <HeroBannerContainer background={background}>
-            <ContentContainer>
-                <HeroBreadcrumb>{breadcrumb}</HeroBreadcrumb>
-                {children}
-            </ContentContainer>
-        </HeroBannerContainer>
-    );
     return (
         <Header {...props}>
-            {image ? (
-                isMobile ? (
-                    <HeroBannerContainer background={background}>
-                        <HeroBreadcrumb>{breadcrumb}</HeroBreadcrumb>
-                        <MobileMediaContainer>{image}</MobileMediaContainer>
-                        {children}
-                    </HeroBannerContainer>
-                ) : (
-                    <MediaBlock
-                        mediaComponent={image}
-                        shouldMatchChildrenHeight
-                    >
-                        <HeroInfo />
-                    </MediaBlock>
-                )
-            ) : (
-                <HeroInfo />
-            )}
+            <HeroBannerContainer
+                background={background}
+                shouldContainImage={shouldContainImage}
+            >
+                <ContentContainer>
+                    <HeroBreadcrumb>{breadcrumb}</HeroBreadcrumb>
+                    {isMobile && showImageOnMobile && (
+                        <MobileMediaContainer>
+                            <img src={background} alt={background} />
+                        </MobileMediaContainer>
+                    )}
+                    {children}
+                </ContentContainer>
+            </HeroBannerContainer>
         </Header>
     );
 };
