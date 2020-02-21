@@ -8,7 +8,12 @@ import { H4, H2, P } from '../components/dev-hub/text';
 import { colorMap, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import mockCardImage from '../images/360-mock-card.png';
-import mockImage from '../images/360-mock-img.png';
+import devToolsImage from '../images/1x/Dev-Tools.png';
+import javaImage from '../images/1x/Java.png';
+import nodejsImage from '../images/1x/Node.JS-1.png';
+import unityImage from '../images/1x/Unity.png';
+import greenPatternImage from '../images/1x/pattern-green.png';
+import meetupsImage from '../images/1x/Meetups.png';
 
 const Hero = styled('header')`
     color: ${colorMap.devWhite};
@@ -48,16 +53,16 @@ export default ({ ...data }) => {
                 </H4>
                 <P>What will you create today?</P>
                 <CardGallery>
-                    <Card image={mockImage} gradient>
+                    <Card image={unityImage} gradient>
                         Rest APIs with Java, Spring Boot &amp; MongoDB
                     </Card>
-                    <Card image={mockImage} gradient>
+                    <Card image={nodejsImage} gradient>
                         How to get connected to your MongoDB Cluster
                     </Card>
-                    <Card image={mockImage} gradient>
+                    <Card image={javaImage} gradient>
                         Delete Operations
                     </Card>
-                    <Card image={mockImage} gradient>
+                    <Card image={devToolsImage} gradient>
                         Stitch Hosting: a Drag and Drop Delight
                     </Card>
                 </CardGallery>
@@ -88,7 +93,7 @@ export default ({ ...data }) => {
             <FeatureSection>
                 <MediaBlock
                     mediaComponent={
-                        <Card image={mockCardImage} gradient>
+                        <Card image={greenPatternImage} gradient>
                             A card
                         </Card>
                     }
@@ -110,7 +115,7 @@ export default ({ ...data }) => {
             <FeatureSection altBackground>
                 <MediaBlock
                     mediaComponent={
-                        <Card image={mockCardImage} gradient>
+                        <Card image={meetupsImage} gradient>
                             A card
                         </Card>
                     }
