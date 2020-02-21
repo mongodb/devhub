@@ -9,6 +9,7 @@ import { StorybookLayout } from '../components/dev-hub/layout';
 import BylineBlock from '../components/dev-hub/byline-block';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
+import { Event } from '../components/dev-hub/events';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
@@ -29,6 +30,7 @@ import ShareIcon from '../components/dev-hub/icons/share-icon';
 import FacebookIcon from '../components/dev-hub/icons/facebook-icon';
 import ListIcon from '../components/dev-hub/icons/list-icon';
 import LinkIcon from '../components/dev-hub/icons/link-icon';
+import LocationIcon from '../components/dev-hub/icons/location-icon';
 import TwitterIcon from '../components/dev-hub/icons/twitter-icon';
 import EnvelopeIcon from '../components/dev-hub/icons/envelope-icon';
 import Tooltip from '../components/dev-hub/tooltip';
@@ -184,6 +186,20 @@ const BlockQuoteStory = () => (
     ></Blockquote>
 );
 
+const EventStory = () => {
+    const event = {
+        date: new Date('January 20, 2020'),
+        title: 'MongoDB.local San Francisco',
+        location: 'San Francisco, California',
+        url: '/community',
+    };
+    return (
+        <>
+            <Event {...event} />
+            <Event {...event} date={new Date('February 13, 2020')} />
+        </>
+    );
+};
 const shortCodeSample = `
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
@@ -502,7 +518,10 @@ export default () => (
                 <LinkedInIcon color={colorMap.sherbet} />
                 <Github color={colorMap.darkGreen} />
                 <Twitch color={colorMap.devWhite} />
+                <LocationIcon color={colorMap.violet} />
             </Row>
+            <SectionHeader>Events</SectionHeader>
+            <EventStory />
         </StorybookContainer>
     </StorybookLayout>
 );

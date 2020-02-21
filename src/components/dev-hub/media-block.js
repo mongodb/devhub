@@ -48,6 +48,9 @@ const MediaWrapper = styled('div')`
     > img {
         width: 100%;
     }
+    @media ${screenSize.upToLarge} {
+        margin-right: 0;
+    }
 `;
 
 /**
