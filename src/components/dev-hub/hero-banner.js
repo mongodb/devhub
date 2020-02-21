@@ -10,7 +10,7 @@ import {
 } from './theme';
 import useMedia from '../../hooks/use-media';
 
-const BREADCRUMB_MARGIN = '30px';
+const HERO_BOTTOM_MARGIN = '30px';
 const BANNER_BOTTOM_PADDING = '50px';
 
 const ContentContainer = styled('div')`
@@ -18,7 +18,7 @@ const ContentContainer = styled('div')`
 `;
 
 const Header = styled('header')`
-    margin-bottom: 30px;
+    margin-bottom: ${HERO_BOTTOM_MARGIN};
 `;
 
 const HeroBannerContainer = styled('div')`
@@ -40,7 +40,7 @@ const HeroBannerContainer = styled('div')`
 `;
 
 const HeroBreadcrumb = styled(Breadcrumb)`
-    margin-bottom: ${BREADCRUMB_MARGIN};
+    margin-bottom: ${HERO_BOTTOM_MARGIN};
     > a {
         font-size: ${fontSize.xsmall};
     }

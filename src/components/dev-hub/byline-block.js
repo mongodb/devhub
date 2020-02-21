@@ -13,28 +13,36 @@ import {
 } from './theme';
 import { createShadowElement } from './utils';
 
+const BYLINE_HEIGHT_OFFSET = 6;
+const BYLINE_IMAGE_HEIGHT = 50;
+
 const AuthorImage = styled('div')`
     ${({ isMobile }) => isMobile && 'display: none;'}
-    height: 50px;
+    height: ${BYLINE_IMAGE_HEIGHT}px;
     margin-right: ${size.medium};
     position: relative;
     z-index: ${layer.front};
     > img {
         border-radius: 50%;
-        height: 50px;
+        height: ${BYLINE_IMAGE_HEIGHT}px;
     }
     &:before {
-        ${createShadowElement(gradientMap.greenTealOffset, size.large, 0, -6)}
-        height: 56px;
-        width: 56px;
+        ${createShadowElement(
+            gradientMap.greenTealOffset,
+            size.large,
+            0,
+            -BYLINE_HEIGHT_OFFSET
+        )}
+        height: ${BYLINE_IMAGE_HEIGHT + BYLINE_HEIGHT_OFFSET}px;
+        width: ${BYLINE_IMAGE_HEIGHT + BYLINE_HEIGHT_OFFSET}px;
     }
 `;
 
 const AuthorLink = styled(Link)`
+    font-size: ${fontSize.tiny};
     :visited {
         color: ${colorMap.greyLightThree};
     }
-    font-size: ${fontSize.tiny};
     @media ${screenSize.upToLarge} {
         font-size: ${fontSize.xsmall};
     }

@@ -21,7 +21,7 @@ const PostMetaLine = styled('div')`
 const DateText = styled(P)`
     margin-right: ${size.medium};
     @media ${screenSize.upToLarge} {
-        font-size: 12px;
+        font-size: ${fontSize.xsmall};
     }
 `;
 
