@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import { P } from './text';
-import { animationSpeed, colorMap, fontSize, size } from './theme';
+import { animationSpeed, colorMap, fontSize, screenSize, size } from './theme';
 
 const blink = keyframes`
     50% {
@@ -35,6 +35,7 @@ const LiveNowBadgeContainer = styled('div')`
     margin-right: ${size.small};
     padding: 0 ${size.small};
     text-transform: uppercase;
+    white-space: nowrap;
     &:before {
         /* TODO: codify this animation speed in the theme */
         animation: ${blink} 2s ease infinite;

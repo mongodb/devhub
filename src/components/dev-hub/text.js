@@ -46,6 +46,7 @@ export const H2 = styled('h2')`
     ${handleCollapse}
         @media ${screenSize.upToMedium} {
         font-size: ${fontSize.large};
+        line-height: ${lineHeight.large};
     }
 `;
 
