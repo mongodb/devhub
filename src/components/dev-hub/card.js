@@ -81,7 +81,6 @@ const Wrapper = styled('div')`
     ${({ isClickable }) => isClickable && hoverStyles}
 `;
 const truncate = maxLines => css`
-    /* truncate text to 3 lines */
     display: -webkit-box;
     -webkit-line-clamp: ${maxLines}; /* supported cross browser */
     -webkit-box-orient: vertical;
@@ -94,9 +93,6 @@ const DescriptionText = styled(P)`
 const CardTitle = styled(H5)`
     text-align: left;
 `;
-
-// eslint-disable-next-line no-unused-vars
-const noop = (_eventType, _properties, _options, _callback) => {};
 
 /**
  * @param {Object<string, any>} props
@@ -125,7 +121,7 @@ const Card = ({
     image,
     maxDescriptionLines = 3,
     maxTitleLines = 2,
-    onClick = noop,
+    onClick,
     to,
     tags,
     target,
@@ -141,7 +137,7 @@ const Card = ({
               target,
           };
     const cardTitle = title || children;
-    const isClickable = onClick !== noop || isLink;
+    const isClickable = onClick || isLink;
     return (
         <ContentWrapper
             onClick={onClick}
