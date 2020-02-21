@@ -1,8 +1,7 @@
 import React from 'react';
-import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import ComponentFactory from '../ComponentFactory';
-import { colorMap, gradientMap, layer, size } from './theme';
+import { colorMap, gradientMap, size } from './theme';
 import { createShadowElement } from './utils';
 
 const BLOCKQUOTE_OFFSET = 10;
