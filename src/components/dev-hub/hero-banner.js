@@ -27,16 +27,13 @@ const HeroBannerContainer = styled('div')`
         background && `background-image: url(${background});`};
     background-repeat: no-repeat;
     background-position: 100%;
-    background-size: ${({ shouldContainImage }) =>
-        shouldContainImage ? 'contain' : 'cover'};
-    padding-top: ${size.default};
-    padding-left: ${size.xxlarge};
-    padding-bottom: ${BANNER_BOTTOM_PADDING};
-    padding-right: ${size.xxlarge};
+    background-size: ${({ shouldContainBackground }) =>
+        shouldContainBackground ? 'contain' : 'cover'};
     height: 100%;
+    padding: ${size.default} ${size.xxlarge} ${BANNER_BOTTOM_PADDING};
     @media ${screenSize.upToLarge} {
-        width: 100%;
         background: none;
+        width: 100%;
     }
 `;
 
@@ -65,7 +62,8 @@ const HeroBanner = ({
     children,
     image,
     reverse,
-    shouldContainImage = true,
+    // Setting below to false would allow for bleed effect on bg
+    shouldContainBackground = true,
     showImageOnMobile = true,
     ...props
 }) => {
@@ -74,10 +72,12 @@ const HeroBanner = ({
         <Header {...props}>
             <HeroBannerContainer
                 background={background}
-                shouldContainImage={shouldContainImage}
+                shouldContainBackground={shouldContainBackground}
             >
                 <ContentContainer>
-                    <HeroBreadcrumb>{breadcrumb}</HeroBreadcrumb>
+                    {breadcrumb && (
+                        <HeroBreadcrumb>{breadcrumb}</HeroBreadcrumb>
+                    )}
                     {isMobile && showImageOnMobile && (
                         <MobileMediaContainer>
                             <img src={background} alt={background} />

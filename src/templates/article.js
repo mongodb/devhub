@@ -74,6 +74,9 @@ const Article = props => {
     return (
         <Layout>
             <BlogPostTitleArea
+                // TODO: Pull real image once available
+                // articleImage={meta['atf-image']}
+                articleImage={ARTICLE_PLACEHOLDER}
                 author={meta.author}
                 // TODO: Get author image from the parser
                 authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
@@ -85,9 +88,6 @@ const Article = props => {
                 originalDate={meta.pubdate}
                 tags={[...meta.tags, ...meta.languages, ...meta.products]}
                 title={articleTitle}
-                // TODO: Pull real image once available
-                // background={meta['atf-image']}
-                background={ARTICLE_PLACEHOLDER}
             />
 
             <section>
