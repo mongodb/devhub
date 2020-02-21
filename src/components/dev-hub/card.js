@@ -78,16 +78,16 @@ const Wrapper = styled('div')`
         }
     }
 `;
-
+const truncate = maxLines => css`
+    /* truncate text to 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: ${maxLines}; /* supported cross browser */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+`;
 const DescriptionText = styled(P)`
     color: ${colorMap.greyLightTwo};
     font-size: ${fontSize.small};
-    /* truncate text to 3 lines */
-    display: -webkit-box;
-    -webkit-line-clamp: ${props =>
-        props.maxDescriptionLines}; /* supported cross browser */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
 `;
 
 // eslint-disable-next-line no-unused-vars
@@ -103,6 +103,7 @@ const noop = (_eventType, _properties, _options, _callback) => {};
  * @property {string?} props.href
  * @property {string?} props.image
  * @property {number?} props.maxDescriptionLines
+ * @property {number?} props.maxTitleLines
  * @property {func?} props.onClick
  * @property {string[]?} props.tags
  * @property {string?} props.target
@@ -118,6 +119,7 @@ const Card = ({
     href,
     image,
     maxDescriptionLines = 3,
+    maxTitleLines = 2,
     onClick = noop,
     to,
     tags,
@@ -144,9 +146,13 @@ const Card = ({
                         {gradient && <GradientOverlay />}
                     </ImageWrapper>
                 )}
-                {cardTitle && <H5 collapse={!description}>{cardTitle}</H5>}
+                {cardTitle && (
+                    <H5 css={truncate(maxTitleLines)} collapse={!description}>
+                        {cardTitle}
+                    </H5>
+                )}
                 {description && (
-                    <DescriptionText maxDescriptionLines={maxDescriptionLines}>
+                    <DescriptionText css={truncate(maxDescriptionLines)}>
                         {description}
                     </DescriptionText>
                 )}
