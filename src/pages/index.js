@@ -4,12 +4,10 @@ import Card from '../components/dev-hub/card';
 import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
-import { H1, H2, P } from '../components/dev-hub/text';
+import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
 import {
     colorMap,
-    fontSize,
     gradientMap,
-    lineHeight,
     screenSize,
     size,
 } from '../components/dev-hub/theme';
@@ -37,15 +35,8 @@ const Heading = styled(H1)`
     max-width: 920px;
     margin: ${size.default} auto;
 `;
-const SubHeading = styled(P)`
-    color: ${colorMap.greyLightTwo};
-    font-size: ${fontSize.large};
-    line-height: ${lineHeight.medium};
+const Sub = styled(SubHeader)`
     margin: ${size.default} 0;
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.tiny};
-        line-height: ${lineHeight.small};
-    }
 `;
 const CardGallery = styled('section')`
     display: flex;
@@ -92,10 +83,10 @@ export default ({ ...data }) => {
             <Notification />
             <Hero>
                 <Heading>
-                    ideas.find( "attributes" : ["fast", "innovative",
-                    "original"])
+                    {`ideas.find({"attributes" : ["fast", "innovative",
+                    "original"]})`}
                 </Heading>
-                <SubHeading>What will you create today?</SubHeading>
+                <Sub>What will you create today?</Sub>
                 <CardGallery>
                     <StyledTopCard image={unityImage}>
                         Rest APIs with Java, Spring Boot &amp; MongoDB

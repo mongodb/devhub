@@ -91,6 +91,15 @@ export const P = styled('p')`
         line-height: ${lineHeight.small};
     }
 `;
+export const SubHeader = styled(P)`
+    color: ${colorMap.greyLightTwo};
+    font-size: ${fontSize.large};
+    line-height: ${lineHeight.medium};
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.tiny};
+        line-height: ${lineHeight.small};
+    }
+`;
 export const Pre = styled('pre')`
     ${pre};
 `;
