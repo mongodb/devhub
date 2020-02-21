@@ -45,7 +45,7 @@ export default ({ items = [], limit = 9 }) => {
                         pagination
                         onClick={() => setVisibleCards(visibleCards + limit)}
                     >
-                        Load more ↓
+                        Load more
                     </Button>
                 </CenterBlock>
             )}

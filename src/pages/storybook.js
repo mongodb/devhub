@@ -299,6 +299,9 @@ export default () => (
                     <Button primary>Button (Primary)</Button>
                     <Button secondary>Button (Secondary)</Button>
                     <Button tertiary>Button (tertiary)</Button>
+                    <Button secondary pagination>
+                        Button (pagination)
+                    </Button>
                     <Button play />
                 </div>
             </Row>
