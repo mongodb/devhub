@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import LocationIcon from './icons/location-icon';
@@ -15,6 +15,8 @@ import {
     screenSize,
 } from './theme';
 
+const EVENTS_API =
+    'https://www.mongodb.com/api/event/all/1?sort=-created_at&populate=tag_ids,node_ids';
 const sampleEvents = [
     {
         date: new Date('January 20, 2020'),
@@ -130,6 +132,37 @@ const AllEvents = styled('div')`
     }
 `;
 
+const useEventData = url => {
+    const [events, setEvents] = useState(null);
+    const [error, setError] = useState(null);
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const data = await fetch(url, {
+                    // mode: 'no-cors'
+                    credentials: 'same-origin',
+                    // method: "GET",
+                    headers: {
+                        'Access-Control-Allow-Origin': 'http://localhost:8000',
+                        // 'Access-Control-Allow-Methods': "GET",
+                        'Access-Control-Allow-Credentials': 'true',
+                    },
+                });
+                if (data) {
+                    console.log(data);
+                    setError(null);
+                    // setEvents(data);
+                }
+            } catch (e) {
+                setError(e);
+                setEvents(null);
+            }
+        };
+        getData();
+    }, [url]);
+
+    return [events, error];
+};
 const DateIcon = ({ date }) => {
     const day = date.getUTCDate();
     const month = date.toLocaleString('default', {
@@ -170,14 +203,18 @@ const Event = ({ date, maxTitleLines = 2, location, title, url }) => {
     );
 };
 
-const EventListPreview = ({ events = sampleEvents }) => {
-    const previews = events.length > 3 ? events.slice(0, 3) : events;
-    return (
+const EventListPreview = () => {
+    let previews = [];
+    const [events, error] = useEventData(EVENTS_API);
+    if (events) {
+        previews = events.length > 3 ? events.slice(0, 3) : events;
+    }
+    return previews.length ? (
         <AllEvents>
             {previews.map(event => (
                 <Event key={event.title} {...event} />
             ))}
         </AllEvents>
-    );
+    ) : null;
 };
 export { Event, EventListPreview };
