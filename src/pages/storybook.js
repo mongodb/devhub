@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 import Badge from '../components/dev-hub/badge';
 import Breadcrumb from '../components/dev-hub/breadcrumb';
 import Blockquote from '../components/dev-hub/blockquote';
@@ -15,7 +16,12 @@ import Modal from '../components/dev-hub/modal';
 import Notification from '../components/dev-hub/notification';
 import Select from '../components/dev-hub/select';
 import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
-import { colorMap, size, screenSize } from '../components/dev-hub/theme';
+import {
+    colorMap,
+    size,
+    screenSize,
+    gradientMap,
+} from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import ShareIcon from '../components/dev-hub/icons/share-icon';
 import FacebookIcon from '../components/dev-hub/icons/facebook-icon';
@@ -32,6 +38,7 @@ import Youtube from '../components/dev-hub/icons/youtube';
 import Twitch from '../components/dev-hub/icons/twitch';
 import mockCardImage from '../images/360-mock-img.png';
 import VideoEmbed from '../components/dev-hub/video-embed';
+import GradientUnderline from '../components/dev-hub/gradient-underline';
 
 const Row = styled('div')`
     display: flex;
@@ -388,6 +395,19 @@ export default () => (
                 <Tooltip position="left" trigger="Click on Me!">
                     I'm REVEALED AGAIN!
                 </Tooltip>
+            </Row>
+            <Row>
+                <H2
+                    css={css`
+                        max-width: 400px;
+                    `}
+                >
+                    <GradientUnderline
+                        gradient={gradientMap.violentMagentaOrange}
+                    >
+                        Gradient Underline Heading
+                    </GradientUnderline>
+                </H2>
             </Row>
             <SectionHeader>Icons</SectionHeader>
             <Row>
