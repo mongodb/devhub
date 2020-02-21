@@ -53,7 +53,19 @@ const ImageWrapper = styled('div')`
     position: relative;
     width: 100%;
 `;
-
+const hoverStyles = css`
+    &:hover,
+    &:active {
+        background-color: ${colorMap.greyDarkTwo};
+        color: inherit;
+        cursor: pointer;
+        ${Image} {
+            transform: scale(1.1);
+            /* TODO - fix this transition (probably by making the image a background image) */
+            /* transition: transform ${animationSpeed.slow}; */
+        }
+    }
+`;
 const Wrapper = styled('div')`
     background-color: transparent;
     border-radius: ${size.small};
@@ -66,17 +78,7 @@ const Wrapper = styled('div')`
     transition: background-color ${animationSpeed.medium};
     width: ${({ width = 'auto' }) => width};
     ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
-    &:hover,
-    &:active {
-        background-color: ${colorMap.greyDarkTwo};
-        color: inherit;
-        cursor: pointer;
-        ${Image} {
-            transform: scale(1.1);
-            /* TODO - fix this transition (probably by making the image a background image) */
-            /* transition: transform ${animationSpeed.slow}; */
-        }
-    }
+    ${({ isClickable }) => isClickable && hoverStyles}
 `;
 const truncate = maxLines => css`
     /* truncate text to 3 lines */
@@ -139,8 +141,14 @@ const Card = ({
               target,
           };
     const cardTitle = title || children;
+    const isClickable = onClick !== noop || isLink;
     return (
-        <ContentWrapper onClick={onClick} {...linkAttrs} className={className}>
+        <ContentWrapper
+            onClick={onClick}
+            {...linkAttrs}
+            isClickable={isClickable}
+            className={className}
+        >
             <div>
                 {image && (
                     <ImageWrapper>
