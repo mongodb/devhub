@@ -73,8 +73,7 @@ const Wrapper = styled('div')`
         cursor: pointer;
         ${Image} {
             transform: scale(1.1);
-            /* TODO - fix this transition (probably by making the image a background image) */
-            /* transition: transform ${animationSpeed.slow}; */
+            transition: transform ${animationSpeed.slow};
         }
     }
 `;
