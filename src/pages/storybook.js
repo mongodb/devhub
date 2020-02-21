@@ -6,11 +6,13 @@ import Breadcrumb from '../components/dev-hub/breadcrumb';
 import Blockquote from '../components/dev-hub/blockquote';
 import BlogTagList from '../components/dev-hub/blog-tag-list';
 import { StorybookLayout } from '../components/dev-hub/layout';
+import BylineBlock from '../components/dev-hub/byline-block';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
+import HeroBanner from '../components/dev-hub/hero-banner';
 import MediaBlock from '../components/dev-hub/media-block';
 import Modal from '../components/dev-hub/modal';
 import Notification from '../components/dev-hub/notification';
@@ -37,6 +39,7 @@ import Github from '../components/dev-hub/icons/github';
 import Youtube from '../components/dev-hub/icons/youtube';
 import Twitch from '../components/dev-hub/icons/twitch';
 import mockCardImage from '../images/360-mock-img.png';
+import MockAuthorImage from '../images/1x/MDB-and-Node.js.png';
 import VideoEmbed from '../components/dev-hub/video-embed';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 
@@ -231,7 +234,16 @@ const ModalContainer = styled('div')`
 export default () => (
     <StorybookLayout>
         <StorybookContainer>
-            <H1>DevHub Component "Storybook"</H1>
+            <HeroBanner
+                background={MockAuthorImage}
+                breadcrumb={[
+                    { label: 'Home', to: '#' },
+                    { label: 'Storybook', to: '#' },
+                ]}
+            >
+                <H1>DevHub Component "Storybook"</H1>
+                <BylineBlock author="UP Team" authorImage={MockAuthorImage} />
+            </HeroBanner>
             <SectionHeader>Text</SectionHeader>
             <H1>Heading 1</H1>
             <H2>Heading 2</H2>
