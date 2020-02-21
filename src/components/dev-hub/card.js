@@ -89,6 +89,9 @@ const DescriptionText = styled(P)`
     color: ${colorMap.greyLightTwo};
     font-size: ${fontSize.small};
 `;
+const CardTitle = styled(H5)`
+    text-align: left;
+`;
 
 // eslint-disable-next-line no-unused-vars
 const noop = (_eventType, _properties, _options, _callback) => {};
@@ -147,9 +150,12 @@ const Card = ({
                     </ImageWrapper>
                 )}
                 {cardTitle && (
-                    <H5 css={truncate(maxTitleLines)} collapse={!description}>
+                    <CardTitle
+                        css={truncate(maxTitleLines)}
+                        collapse={!description}
+                    >
                         {cardTitle}
-                    </H5>
+                    </CardTitle>
                 )}
                 {description && (
                     <DescriptionText css={truncate(maxDescriptionLines)}>
