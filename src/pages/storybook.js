@@ -423,8 +423,10 @@ export default () => (
                     distinct
                     image={mockCardImage}
                     tags={['tag one', 'tag two']}
+                    maxTitleLines={3}
                 >
-                    I'm a Card For A Post on the New Devhub Platform!
+                    I'm a Card For A Post on the New Devhub Platform! With no
+                    links or clickable actions!
                 </Card>
                 <Card
                     href="#card-row"
@@ -434,7 +436,12 @@ export default () => (
                 >
                     I'm a Gradient Card
                 </Card>
-                <Card gradient image={mockCardImage} highlight>
+                <Card
+                    gradient
+                    image={mockCardImage}
+                    onClick={() => console.log('Clicked!')}
+                    highlight
+                >
                     I'm a highlighted Gradient Card
                 </Card>
             </Row>
@@ -449,6 +456,7 @@ export default () => (
                         Use this tutorial to install community edition on any
                         and every operating system known to man, woman, and
                         child."
+                    href="#card-row"
                 />
                 <Card
                     width="300px"
@@ -466,6 +474,7 @@ export default () => (
                     width="300px"
                     title="I'm a Card With No Image"
                     description="written by Author"
+                    href="#card-row"
                 />
             </Row>
             <SectionHeader>Icons</SectionHeader>

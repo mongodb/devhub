@@ -53,7 +53,18 @@ const ImageWrapper = styled('div')`
     position: relative;
     width: 100%;
 `;
-
+const hoverStyles = css`
+    &:hover,
+    &:active {
+        background-color: ${colorMap.greyDarkTwo};
+        color: inherit;
+        cursor: pointer;
+        ${Image} {
+            transform: scale(1.1);
+            transition: transform ${animationSpeed.slow};
+        }
+    }
+`;
 const Wrapper = styled('div')`
     background-color: transparent;
     border-radius: ${size.small};
@@ -66,31 +77,21 @@ const Wrapper = styled('div')`
     transition: background-color ${animationSpeed.medium};
     width: ${({ width = 'auto' }) => width};
     ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
-    &:hover,
-    &:active {
-        background-color: ${colorMap.greyDarkTwo};
-        color: inherit;
-        cursor: pointer;
-        ${Image} {
-            transform: scale(1.1);
-            transition: transform ${animationSpeed.slow};
-        }
-    }
+    ${({ isClickable }) => isClickable && hoverStyles}
 `;
-
-const DescriptionText = styled(P)`
-    color: ${colorMap.greyLightTwo};
-    font-size: ${fontSize.small};
-    /* truncate text to 3 lines */
+const truncate = maxLines => css`
     display: -webkit-box;
-    -webkit-line-clamp: ${props =>
-        props.maxDescriptionLines}; /* supported cross browser */
+    -webkit-line-clamp: ${maxLines}; /* supported cross browser */
     -webkit-box-orient: vertical;
     overflow: hidden;
 `;
-
-// eslint-disable-next-line no-unused-vars
-const noop = (_eventType, _properties, _options, _callback) => {};
+const DescriptionText = styled(P)`
+    color: ${colorMap.greyLightTwo};
+    font-size: ${fontSize.small};
+`;
+const CardTitle = styled(H5)`
+    text-align: left;
+`;
 
 /**
  * @param {Object<string, any>} props
@@ -102,6 +103,7 @@ const noop = (_eventType, _properties, _options, _callback) => {};
  * @property {string?} props.href
  * @property {string?} props.image
  * @property {number?} props.maxDescriptionLines
+ * @property {number?} props.maxTitleLines
  * @property {func?} props.onClick
  * @property {string[]?} props.tags
  * @property {string?} props.target
@@ -118,7 +120,8 @@ const Card = ({
     href,
     image,
     maxDescriptionLines = 3,
-    onClick = noop,
+    maxTitleLines = 2,
+    onClick,
     to,
     tags,
     target,
@@ -135,11 +138,13 @@ const Card = ({
               target,
           };
     const cardTitle = title || children;
+    const isClickable = onClick || isLink;
     return (
         <ContentWrapper
             onClick={onClick}
             {...linkAttrs}
             maxWidth={maxWidth}
+            isClickable={isClickable}
             className={className}
         >
             <div>
@@ -150,9 +155,16 @@ const Card = ({
                         {gradient && <GradientOverlay />}
                     </ImageWrapper>
                 )}
-                {cardTitle && <H5 collapse={!description}>{cardTitle}</H5>}
+                {cardTitle && (
+                    <CardTitle
+                        css={truncate(maxTitleLines)}
+                        collapse={!description}
+                    >
+                        {cardTitle}
+                    </CardTitle>
+                )}
                 {description && (
-                    <DescriptionText maxDescriptionLines={maxDescriptionLines}>
+                    <DescriptionText css={truncate(maxDescriptionLines)}>
                         {description}
                     </DescriptionText>
                 )}
