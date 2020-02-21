@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Link from './link';
 import { P } from './text';
-import useMedia from '../../hooks/use-media';
 import {
     colorMap,
     layer,
@@ -17,7 +16,9 @@ const BYLINE_HEIGHT_OFFSET = 6;
 const BYLINE_IMAGE_HEIGHT = 50;
 
 const AuthorImage = styled('div')`
-    ${({ isMobile }) => isMobile && 'display: none;'}
+    @media ${screenSize.upToMedium} {
+      display: none;
+    }
     height: ${BYLINE_IMAGE_HEIGHT}px;
     margin-right: ${size.medium};
     position: relative;
@@ -65,10 +66,9 @@ const ByLine = styled('div')`
 `;
 
 const BylineBlock = ({ author, authorImage }) => {
-    const isMobile = useMedia(screenSize.upToLarge);
     return (
         <ByLine>
-            <AuthorImage isMobile={isMobile}>
+            <AuthorImage>
                 <img src={authorImage} alt={author} />
             </AuthorImage>
             <AuthorText collapse>
