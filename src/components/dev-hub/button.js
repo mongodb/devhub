@@ -168,9 +168,9 @@ const StyledButton = styled('button')`
  * @property {string?} props.to
  */
 
-const Button = ({ children, href, play, to, ...props }) => {
+const Button = ({ children, href, play, to, showArrow = true, ...props }) => {
     const isButton = !!(props.primary || props.secondary || play);
-    const rightArrow = (props.primary || props.secondary) && (
+    const rightArrow = (props.primary || props.secondary) && showArrow && (
         <span> &rarr;</span>
     );
     if (href || to || !isButton) {
