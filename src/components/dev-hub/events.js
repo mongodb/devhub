@@ -78,10 +78,14 @@ const Location = styled(P)`
     margin: 0;
 `;
 
+const StyledLocationIcon = styled(LocationIcon)`
+    vertical-align: middle;
+`;
+
 const Title = styled(H4)`
     font-size: ${fontSize.medium};
     margin: 0;
-    /* truncate text to 2 lines */
+    /* truncate text to "maxTitleLines" lines */
     display: -webkit-box;
     -webkit-line-clamp: ${props =>
         props.maxTitleLines}; /* supported cross browser */
@@ -154,7 +158,7 @@ const Event = ({ date, maxTitleLines = 2, location, title, url }) => {
             <EventInfo>
                 <Title maxTitleLines={maxTitleLines}>{title}</Title>
                 <Location data-name="event-location">
-                    <LocationIcon
+                    <StyledLocationIcon
                         color={locationColor}
                         height="15px"
                         width="15px"
