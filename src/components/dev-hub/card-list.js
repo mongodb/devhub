@@ -10,6 +10,14 @@ const CardContainer = styled('div')`
     flex-wrap: wrap;
     justify-content: flex-start;
     margin: 0 -${size.medium};
+
+    @media ${screenSize.xlargeAndUp} {
+        &:after {
+            /* Hack to prevent last row cards from expanding */
+            content: '';
+            flex-grow: 1000000000;
+        }
+    }
     @media ${screenSize.upToMedium} {
         display: block;
     }
