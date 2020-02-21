@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import DocumentBody from '../components/DocumentBody';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
-import Image from '../components/Image';
+import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import { getNestedText } from '../utils/get-nested-text';
 
 let articleTitle = '';
@@ -76,10 +76,7 @@ const Article = props => {
             <BlogPostTitleArea
                 author={meta.author}
                 // TODO: Get author image from the parser
-                authorImage={
-                    meta.authorImage ||
-                    'https://xebialabs.com/wp-content/uploads/files/tool-chest/mongodb.jpg'
-                }
+                authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
                 breadcrumb={[
                     { label: 'Home', target: '/' },
                     { label: 'Learn', target: '/learn' },
@@ -90,14 +87,7 @@ const Article = props => {
                 title={articleTitle}
                 // TODO: Pull real image once available
                 // image={<Image src={meta['atf-image']} alt="" />}
-                image={
-                    <img
-                        src={
-                            'https://xebialabs.com/wp-content/uploads/files/tool-chest/mongodb.jpg'
-                        }
-                        alt={articleTitle}
-                    />
-                }
+                image={<img src={ARTICLE_PLACEHOLDER} alt={articleTitle} />}
             />
 
             <section>
