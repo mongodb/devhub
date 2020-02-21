@@ -42,7 +42,7 @@ const size = {
     medium: '20px',
     large: '32px',
     xlarge: '64px',
-    xxlarge: '128px',
+    xxlarge: '120px',
     maxWidth: '1440px',
     /** @type {function(string): number} */
     stripUnit(unit) {
@@ -86,6 +86,11 @@ const gradientMap = {
     )`,
     greenTealReverse: `linear-gradient(
         270deg,
+        ${colorMap.teal} 0%,
+        ${colorMap.lightGreen} 100%
+    )`,
+    greenTealOffset: `linear-gradient(
+        315deg,
         ${colorMap.teal} 0%,
         ${colorMap.lightGreen} 100%
     )`,
@@ -209,6 +214,8 @@ const animationSpeed = {
 
 const FORM_ELEMENT_BORDER = '2px';
 
+const HERO_CONTENT_WIDTH = '640px';
+
 export {
     animationSpeed,
     borderGradients,
@@ -216,6 +223,7 @@ export {
     fontSize,
     FORM_ELEMENT_BORDER,
     gradientMap,
+    HERO_CONTENT_WIDTH,
     layer,
     lineHeight,
     screenSize,
