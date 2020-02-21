@@ -5,6 +5,7 @@ import DocumentBody from '../components/DocumentBody';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
 import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
+import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
 
 let articleTitle = '';
@@ -56,14 +57,31 @@ const getContent = nodes => {
     return nodesWeActuallyWant;
 };
 
+// This assumes each article belongs to at most one series
+const getSeries = (allSeries, slugTitleMapping, seriesName) => {
+    try {
+        const relevantSeries = allSeries[seriesName];
+        const mappedSeries = relevantSeries.map(s => ({
+            slug: s,
+            title: slugTitleMapping[s][0].value,
+        }));
+        return mappedSeries;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 const Article = props => {
     const {
+        pageContext,
         pageContext: {
             __refDocMapping,
-            metadata: { slugToTitle: slugTitleMapping },
+            slug: thisPage,
+            metadata: { pageGroups: allSeries, slugToTitle: slugTitleMapping },
         },
         ...rest
     } = props;
+    console.log(slugTitleMapping);
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
@@ -71,6 +89,25 @@ const Article = props => {
     console.log({ contentNodes });
     console.log({ meta });
     console.log(rest);
+    console.log(pageContext);
+    const hasSeries = !!meta.series;
+    let ArticleSeries = () => null;
+    const currentSlug = slugTitleMapping[thisPage][0].value;
+    if (hasSeries) {
+        const mappedSeries = getSeries(
+            allSeries,
+            slugTitleMapping,
+            meta.series
+        );
+        ArticleSeries = () => (
+            <>
+                <Series name={meta.series} currentStep={currentSlug}>
+                    {mappedSeries}
+                </Series>
+                <br />
+            </>
+        );
+    }
     return (
         <Layout>
             <BlogPostTitleArea
@@ -96,7 +133,9 @@ const Article = props => {
                     slugTitleMapping={slugTitleMapping}
                     {...rest}
                 />
+                <ArticleSeries />
             </section>
+
             <footer>
                 <ul>
                     {meta.related.map(rel => (
