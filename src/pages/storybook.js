@@ -430,19 +430,17 @@ export default () => (
                 </Card>
                 <Card
                     href="#card-row"
-                    gradient
                     image={mockCardImage}
                     tags={['tag one', 'tag two', 'tag three']}
                 >
-                    I'm a Gradient Card
+                    I'm a Card
                 </Card>
                 <Card
-                    gradient
                     image={mockCardImage}
                     onClick={() => console.log('Clicked!')}
                     highlight
                 >
-                    I'm a highlighted Gradient Card
+                    I'm a highlighted Card
                 </Card>
             </Row>
             <Row>

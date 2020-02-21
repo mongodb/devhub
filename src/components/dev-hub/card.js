@@ -1,34 +1,10 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { animationSpeed, colorMap, gradientMap, size, fontSize } from './theme';
+import { animationSpeed, colorMap, size, fontSize } from './theme';
 import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
-
-const fullSizeAbsolute = css`
-    bottom: 0;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-`;
-
-const GradientOverlay = styled('div')`
-    background: ${gradientMap.tealVioletPurple};
-    background-size: cover;
-    border-radius: ${size.small};
-    mix-blend-mode: overlay;
-    ${fullSizeAbsolute}
-`;
-const GradientBase = styled('div')`
-    background: ${gradientMap.tealVioletReverse};
-    background-size: cover;
-    border-radius: ${size.small};
-    ${fullSizeAbsolute}
-`;
 
 const Image = styled('img')`
     border-radius: ${size.small};
@@ -50,7 +26,6 @@ const ImageWrapper = styled('div')`
     margin-bottom: ${size.medium};
     overflow: hidden;
     padding: 0;
-    position: relative;
     width: 100%;
 `;
 const hoverStyles = css`
@@ -115,7 +90,6 @@ const Card = ({
     children,
     className,
     description,
-    gradient,
     href,
     image,
     maxDescriptionLines = 3,
@@ -147,9 +121,7 @@ const Card = ({
             <div>
                 {image && (
                     <ImageWrapper>
-                        {gradient && <GradientBase />}
                         <Image src={image} />
-                        {gradient && <GradientOverlay />}
                     </ImageWrapper>
                 )}
                 {cardTitle && (
