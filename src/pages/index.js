@@ -7,17 +7,16 @@ import Notification from '../components/dev-hub/notification';
 import { H4, H2, P } from '../components/dev-hub/text';
 import { colorMap, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
-import mockCardImage from '../images/360-mock-card.png';
 import devToolsImage from '../images/1x/Dev-Tools.png';
 import javaImage from '../images/1x/Java.png';
 import nodejsImage from '../images/1x/Node.JS-1.png';
 import unityImage from '../images/1x/Unity.png';
 import greenPatternImage from '../images/1x/pattern-green.png';
 import meetupsImage from '../images/1x/Meetups.png';
+import buildImage from '../images/1x/Build.png';
 
 const Hero = styled('header')`
     color: ${colorMap.devWhite};
-    min-height: 40vh;
     padding: ${size.large} 0;
     text-align: center;
 `;
@@ -26,8 +25,8 @@ const FeatureSection = styled('section')`
     ${({ altBackground }) =>
         altBackground && `background-color: ${colorMap.devBlack};`};
     margin: 0 ${size.large};
-    padding-bottom: 120px;
-    padding-top: 120px;
+    padding-bottom: 80px;
+    padding-top: 80px;
 `;
 
 const CardGallery = styled('section')`
@@ -53,16 +52,14 @@ export default ({ ...data }) => {
                 </H4>
                 <P>What will you create today?</P>
                 <CardGallery>
-                    <Card image={unityImage} gradient>
+                    <Card image={unityImage}>
                         Rest APIs with Java, Spring Boot &amp; MongoDB
                     </Card>
-                    <Card image={nodejsImage} gradient>
+                    <Card image={nodejsImage}>
                         How to get connected to your MongoDB Cluster
                     </Card>
-                    <Card image={javaImage} gradient>
-                        Delete Operations
-                    </Card>
-                    <Card image={devToolsImage} gradient>
+                    <Card image={javaImage}>Delete Operations</Card>
+                    <Card image={devToolsImage}>
                         Stitch Hosting: a Drag and Drop Delight
                     </Card>
                 </CardGallery>
@@ -75,8 +72,8 @@ export default ({ ...data }) => {
             <FeatureSection altBackground>
                 <MediaBlock
                     mediaComponent={
-                        <Card image={mockCardImage} gradient>
-                            A card
+                        <Card image={buildImage}>
+                            Working with MongoDB and GraphQL
                         </Card>
                     }
                 >
@@ -93,9 +90,11 @@ export default ({ ...data }) => {
             <FeatureSection>
                 <MediaBlock
                     mediaComponent={
-                        <Card image={greenPatternImage} gradient>
-                            A card
-                        </Card>
+                        <Card
+                            image={greenPatternImage}
+                            title="MongoDB.local San Francisco"
+                            description="San Francisco  •  January 14"
+                        ></Card>
                     }
                     reverse
                 >
@@ -115,9 +114,11 @@ export default ({ ...data }) => {
             <FeatureSection altBackground>
                 <MediaBlock
                     mediaComponent={
-                        <Card image={meetupsImage} gradient>
-                            A card
-                        </Card>
+                        <Card
+                            image={meetupsImage}
+                            title="Radar"
+                            description="By Radar  •  Made with Atlas"
+                        ></Card>
                     }
                 >
                     <SectionContent>

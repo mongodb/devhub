@@ -10,7 +10,6 @@ const globalStyles = css`
     html {
         box-sizing: border-box;
         height: 100%;
-        overflow-y: scroll;
     }
 
     *,
