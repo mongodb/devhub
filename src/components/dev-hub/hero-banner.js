@@ -25,14 +25,16 @@ const HeroBannerContainer = styled('div')`
     background-color: ${colorMap.devBlack};
     ${({ background }) =>
         background && `background-image: url(${background});`};
-    background-repeat: no-repeat;
+    /* Send background to the right */
     background-position: 100%;
+    background-repeat: no-repeat;
     background-size: ${({ shouldContainBackground }) =>
         shouldContainBackground ? 'contain' : 'cover'};
     height: 100%;
     padding: ${size.default} ${size.xxlarge} ${BANNER_BOTTOM_PADDING};
     @media ${screenSize.upToLarge} {
-        background: none;
+        /* Show image as child under breadcrumbs instead */
+        background-image: none;
         width: 100%;
     }
 `;
@@ -47,11 +49,12 @@ const HeroBreadcrumb = styled(Breadcrumb)`
 const MobileMediaContainer = styled('div')`
     display: flex;
     justify-content: center;
+    width: 100%;
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.default};
     }
-    width: 100%;
     > img {
+        border-radius: ${size.small};
         width: inherit;
     }
 `;
@@ -60,8 +63,6 @@ const HeroBanner = ({
     background,
     breadcrumb,
     children,
-    image,
-    reverse,
     // Setting below to false would allow for bleed effect on bg
     shouldContainBackground = true,
     showImageOnMobile = true,

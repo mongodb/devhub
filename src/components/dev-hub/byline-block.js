@@ -47,6 +47,7 @@ const AuthorText = styled(P)`
 `;
 
 const ByLine = styled('div')`
+    align-items: center;
     color: ${colorMap.greyLightThree};
     display: flex;
     font-size: ${fontSize.tiny};
