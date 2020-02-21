@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import { P } from './text';
-import { animationSpeed, colorMap, fontSize, screenSize, size } from './theme';
+import { animationSpeed, colorMap, fontSize, size } from './theme';
 
 const blink = keyframes`
     50% {
