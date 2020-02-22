@@ -28,7 +28,7 @@ const HTML = ({
             />
             <link
                 rel="shortcut icon"
-                href="https://media.mongodb.org/favicon.ico"
+                href="https://www.mongodb.com/assets/images/global/favicon.ico"
             />
 
             {headComponents}
