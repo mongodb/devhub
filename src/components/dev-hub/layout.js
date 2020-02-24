@@ -3,8 +3,9 @@ import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
-
 import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
+
+import 'typeface-fira-mono';
 
 const globalStyles = css`
     html {

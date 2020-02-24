@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withPrefix } from 'gatsby';
+// import { withPrefix } from 'gatsby';
 
 const HTML = ({
     body,
@@ -23,10 +23,6 @@ const HTML = ({
             <meta name="release" content="1.0" />
             <meta name="version" content="master" />
             <link
-                href="https://fonts.googleapis.com/css?family=Fira+Mono:500,700&display=swap"
-                rel="stylesheet"
-            />
-            <link
                 rel="shortcut icon"
                 href="https://www.mongodb.com/assets/images/global/favicon.ico"
             />
@@ -34,7 +30,7 @@ const HTML = ({
             {headComponents}
         </head>
         <body {...bodyAttributes}>
-            <script async src={withPrefix('scripts/segment.js')} />
+            {/* <script async src={withPrefix('scripts/segment.js')} /> */}
             {preBodyComponents}
             {/* eslint-disable-next-line react/no-danger */}
             <div
