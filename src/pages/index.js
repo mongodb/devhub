@@ -41,15 +41,23 @@ const Sub = styled(SubHeader)`
 `;
 const CardGallery = styled('section')`
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     margin: ${size.default} ${size.xlarge} ${size.large};
+    @media ${screenSize.upToLarge} {
+        flex-wrap: wrap;
+    }
     @media ${screenSize.upToMedium} {
         margin: ${size.default};
     }
 `;
 const StyledTopCard = styled(Card)`
-    width: 300px;
+    max-width: 300px;
+    @media ${screenSize.upToLarge} {
+        flex-basis: 50%;
+    }
+    @media ${screenSize.upToMedium} {
+        flex-basis: 100%;
+    }
 `;
 const FEATURE_SECTION_DISTANCE = '80px';
 const FeatureSection = styled('section')`
