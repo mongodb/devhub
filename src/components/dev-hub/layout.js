@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 
-import { colorMap, fontSize, lineHeight, size } from './theme';
+import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
 
 const globalStyles = css`
     html {
@@ -30,6 +30,9 @@ const globalStyles = css`
     }
     main > section {
         padding: ${size.large} 120px;
+        @media ${screenSize.upToLarge} {
+            padding: ${size.medium};
+        }
     }
 `;
 

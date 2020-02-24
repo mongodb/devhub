@@ -25,6 +25,7 @@ import {
     screenSize,
     gradientMap,
 } from '../components/dev-hub/theme';
+import Series from '../components/dev-hub/series';
 import Button from '../components/dev-hub/button';
 import ShareIcon from '../components/dev-hub/icons/share-icon';
 import FacebookIcon from '../components/dev-hub/icons/facebook-icon';
@@ -160,6 +161,18 @@ const SelectStory = ({ narrow }) => {
             value={value}
             onChange={handleValueChange}
         />
+    );
+};
+const SeriesStory = () => {
+    const series = [
+        { title: 'Step 1', slug: '#' },
+        { title: 'Step 2', slug: '#' },
+        { title: 'Step 3', slug: '#' },
+    ];
+    return (
+        <Series name="Storybook Series" currentStep="Step 2">
+            {series}
+        </Series>
     );
 };
 const BreadcrumbStory = () => {
@@ -416,6 +429,8 @@ export default () => (
                     </P>
                 </Swatch>
             ))}
+            <SectionHeader>Article Series</SectionHeader>
+            <SeriesStory />
             <SectionHeader>ToolTip/Content Menus</SectionHeader>
             <Row>
                 <TableOfContentsStory />

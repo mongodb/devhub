@@ -19,6 +19,9 @@ const ContentContainer = styled('div')`
 
 const Header = styled('header')`
     margin-bottom: ${HERO_BOTTOM_MARGIN};
+    @media ${screenSize.upToLarge} {
+        margin-bottom: ${size.small};
+    }
 `;
 
 const HeroBannerContainer = styled('div')`
@@ -35,6 +38,7 @@ const HeroBannerContainer = styled('div')`
     @media ${screenSize.upToLarge} {
         /* Show image as child under breadcrumbs instead */
         background-image: none;
+        padding: ${size.medium};
         width: 100%;
     }
 `;

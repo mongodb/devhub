@@ -38,7 +38,7 @@ const BlogPostTitleArea = ({
         <HeroBanner background={articleImage} breadcrumb={breadcrumb}>
             <H2 collapse>{title}</H2>
             <PostMetaLine>
-                <DateText collapse>{originalDate}</DateText>
+                {originalDate && <DateText collapse>{originalDate}</DateText>}
                 <BlogTagList tags={tags} />
             </PostMetaLine>
             <BylineBlock author={author} authorImage={authorImage} />
