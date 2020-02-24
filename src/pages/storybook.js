@@ -9,7 +9,7 @@ import { StorybookLayout } from '../components/dev-hub/layout';
 import BylineBlock from '../components/dev-hub/byline-block';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
-import Event from '../components/dev-hub/events';
+import Event, { sampleEvents } from '../components/dev-hub/events';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
@@ -46,6 +46,7 @@ import MockAuthorImage from '../images/1x/MDB-and-Node.js.png';
 import VideoEmbed from '../components/dev-hub/video-embed';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import FeatureBlock from '../components/dev-hub/feature-block';
+import EventsList from '../components/dev-hub/event-list';
 
 const Row = styled('div')`
     display: flex;
@@ -200,33 +201,6 @@ const BlockQuoteStory = () => (
     ></Blockquote>
 );
 
-const EventStory = () => {
-    const event1 = {
-        title: 'MongoDB.local San Francisco',
-        node_type_attributes: {
-            event_start: '2020-02-27T05:00:00.000Z',
-            event_end: '2020-02-27T05:00:00.000Z',
-            event_country: 'United States',
-            event_city: 'San Francisco',
-        },
-        url: 'https://mongodbanddatabricks.splashthat.com/',
-        url_type: 'external',
-    };
-    const event2 = {
-        ...event1,
-        title:
-            'Im an event with a really really really really really really long name',
-        url: '/storybook',
-        url_type: 'alias',
-    };
-    return (
-        <>
-            <Event event={event1} />
-            <Event event={event1} />
-            <Event event={event2} />
-        </>
-    );
-};
 const shortCodeSample = `
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
@@ -550,7 +524,7 @@ export default () => (
                 <LocationIcon color={colorMap.violet} />
             </Row>
             <SectionHeader>Events</SectionHeader>
-            <EventStory />
+            <EventsList items={sampleEvents} />
             <SectionHeader>Feature Block </SectionHeader>
             <FeatureBlock
                 description="I'm a feature block that can be used to highlight content on any page"
@@ -559,7 +533,7 @@ export default () => (
                 imgTitle="Image Title"
                 cta={{
                     text: 'Learn More',
-                    to: '/storybook'
+                    to: '/storybook',
                 }}
             />
             <br />
@@ -571,9 +545,8 @@ export default () => (
                 imgTitle="Image Title"
                 cta={{
                     text: 'Learn More',
-                    to: '/storybook'
+                    to: '/storybook',
                 }}
-
             />
         </StorybookContainer>
     </StorybookLayout>
