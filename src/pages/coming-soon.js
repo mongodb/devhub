@@ -1,11 +1,15 @@
 import React from 'react';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
-import GlobalNav from './global-nav';
-import GlobalFooter from './global-footer';
-import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
-
-import 'typeface-fira-mono';
+import { H1 } from '../components/dev-hub/text';
+import Logo from '../components/dev-hub/icons/mdb-leaf';
+import {
+    size,
+    colorMap,
+    lineHeight,
+    screenSize,
+    fontSize,
+} from '../components/dev-hub/theme';
 
 const globalStyles = css`
     html {
@@ -37,28 +41,20 @@ const globalStyles = css`
     }
 `;
 
-const GlobalWrapper = styled('div')`
+const Page = styled('div')`
+    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0 auto;
     max-width: ${size.maxWidth};
     min-height: 100vh;
 `;
-export const StorybookLayout = ({ children }) => {
-    return (
-        <GlobalWrapper>
-            <Global styles={globalStyles} />
-            <main>{children}</main>
-        </GlobalWrapper>
-    );
-};
 
-export default ({ children }) => (
-    <GlobalWrapper>
+export default () => (
+    <Page>
         <Global styles={globalStyles} />
-        <GlobalNav />
-        <main>{children}</main>
-        <GlobalFooter />
-    </GlobalWrapper>
+        <Logo height={70} />
+        <H1>Coming Soon</H1>
+    </Page>
 );
