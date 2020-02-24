@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 import LocationIcon from './icons/location-icon';
 import MediaBlock from './media-block';
 import GradientImage from './gradient-image';
@@ -240,6 +239,5 @@ const Event = ({ event, maxTitleLines = 2, ...props }) => {
         </StyledEvent>
     );
 };
-
 
 export default Event;

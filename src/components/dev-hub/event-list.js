@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 import Button from './button';
 import Event, { sampleEvents } from './events';
 import { size, screenSize } from './theme';

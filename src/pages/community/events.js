@@ -1,20 +1,15 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import Button from '../../components/dev-hub/button';
-import CardList from '../../components/dev-hub/card-list';
-import GradientImage from '../../components/dev-hub/gradient-image';
 import HeroBanner from '../../components/dev-hub/hero-banner';
 import Layout from '../../components/dev-hub/layout';
-import MediaBlock from '../../components/dev-hub/media-block';
-import Link from '../../components/dev-hub/link';
 import { sampleEvents } from '../../components/dev-hub/events';
 import EventsList, {
     EVENTS_API,
     EventsListPreview,
     useEventData,
 } from '../../components/dev-hub/event-list';
-import { H1, H2, P, H4 } from '../../components/dev-hub/text';
+import { H1, H2, P } from '../../components/dev-hub/text';
 import TempBackgroundImage from '../../images/1x/MDB-and-Node.js.png';
 import { colorMap } from '../../components/dev-hub/theme';
 import FilterBar from '../../components/dev-hub/filter-bar';

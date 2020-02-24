@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 import Button from './button';
 import Card from './card';
 import MediaBlock from './media-block';
