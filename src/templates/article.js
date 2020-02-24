@@ -139,14 +139,15 @@ const Article = props => {
                 <ArticleSeries />
             </section>
 
-            <footer>
+            {/* TODO: Fix related data shape once stable  */}
+            {/* <footer>
                 <ul>
                     {meta.related.map(rel => {
                         const relatedText = rel.children[0].value;
                         return <li key={relatedText}>{relatedText}</li>;
                     })}
                 </ul>
-            </footer>
+            </footer> */}
         </Layout>
     );
 };
