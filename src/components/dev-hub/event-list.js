@@ -6,9 +6,8 @@ import Button from './button';
 import Event, { sampleEvents } from './events';
 import { size, screenSize } from './theme';
 
-const EVENTS_API =
+export const EVENTS_API =
     'https://www.mongodb.com/api/event/all/1?sort=-created_at&populate=tag_ids,node_ids';
-// const EVENTS_API = 'https://www.mongodb.com/api/event/all/1';
 
 const EventsPreview = styled('div')`
     display: flex;
@@ -22,30 +21,25 @@ const EventsPreview = styled('div')`
 `;
 
 const AllEvents = styled('div')`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin: 0 -${size.medium};
-
+    display: grid;
+    grid-row-gap: 0.5em;
+    grid-column-gap: 1em;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(auto-fill, 1fr);
+    padding-bottom: ${size.xlarge};
+    width: 100%;
+    @media ${screenSize.mediumAndUp} {
+        grid-template-columns: repeat(2, 1fr);
+    }
     @media ${screenSize.largeAndUp} {
-        &:after {
-            /* Hack to prevent last row cards from expanding */
-            content: '';
-            flex-grow: 1000000000;
-        }
+        grid-template-columns: repeat(3, 1fr);
     }
-    @media ${screenSize.upToMedium} {
-        display: block;
-    }
-`;
-const eventPositioning = css`
-    flex: 1 1 360px;
 `;
 const CenterBlock = styled('div')`
     text-align: center;
 `;
 
-const useEventData = url => {
+export const useEventData = url => {
     const [events, setEvents] = useState(null);
     const [error, setError] = useState(null);
     useEffect(() => {
@@ -89,14 +83,14 @@ export const EventsListPreview = () => {
     ) : null;
 };
 
-const EventsList = ({ items = [], limit = 9 }) => {
+const EventsList = ({ items = [], limit = 12 }) => {
     const [visibleCards, setVisibleCards] = useState(limit);
     const hasMore = items.length > visibleCards;
     return (
         <>
             <AllEvents>
                 {items.slice(0, visibleCards).map(item => (
-                    <Event key={item.url} event={item} css={eventPositioning} />
+                    <Event key={item.url} event={item} />
                 ))}
             </AllEvents>
             {hasMore && (

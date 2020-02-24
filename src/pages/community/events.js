@@ -10,20 +10,29 @@ import MediaBlock from '../../components/dev-hub/media-block';
 import Link from '../../components/dev-hub/link';
 import { sampleEvents } from '../../components/dev-hub/events';
 import EventsList, {
+    EVENTS_API,
     EventsListPreview,
+    useEventData,
 } from '../../components/dev-hub/event-list';
 import { H1, H2, P, H4 } from '../../components/dev-hub/text';
 import TempBackgroundImage from '../../images/1x/MDB-and-Node.js.png';
 import { colorMap } from '../../components/dev-hub/theme';
 import FilterBar from '../../components/dev-hub/filter-bar';
 import FeatureBlock from '../../components/dev-hub/feature-block';
+import { size } from '../../components/dev-hub/theme';
+
+const EventsFilter = styled('div')`
+    margin-bottom: ${size.medium};
+`;
 
 const PageDescription = styled(P)`
     color: ${colorMap.greyLightTwo};
 `;
 
 export default ({ ...data }) => {
-    console.log({ sampleEvents });
+    // TODO: uncomment below when events api is working
+    // const [events, error] = useEventData(EVENTS_API);
+
     return (
         <Layout>
             <HeroBanner
@@ -42,17 +51,19 @@ export default ({ ...data }) => {
                 </PageDescription>
             </HeroBanner>
             <section>
-                {/* TODO: Update filter bar below to filter by other content */}
-                <FilterBar heading="All Events" />
-                <EventsList items={[ ...sampleEvents, ...sampleEvents]} />
+                <EventsFilter>
+                    {/* TODO: Update filter bar below to filter by other content */}
+                    <FilterBar heading="All Events" />
+                </EventsFilter>
+                {/* TODO: remove below when events_api is working */}
+                <EventsList items={[...sampleEvents, ...sampleEvents]} />
             </section>
             <FeatureBlock
                 title="Bring MongoDB to You"
                 description="Inspire, connect, and learn from MongoDB developers all around the world. Bring your friends and your local community together for MongoDB fun. We’ll support you along the way."
                 imgDescription="A fun arcade night hosted by the NYC Community."
-
                 cta={{
-                    text: 'Host your own MongoDB event'
+                    text: 'Host your own MongoDB event',
                 }}
             />
         </Layout>
