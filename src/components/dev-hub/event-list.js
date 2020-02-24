@@ -45,6 +45,7 @@ export const useEventData = url => {
     useEffect(() => {
         const getData = async () => {
             try {
+                // TODO: Get this working once cors issues resolved
                 const data = await fetch(url, {
                     credentials: 'same-origin',
                     headers: {
@@ -52,7 +53,6 @@ export const useEventData = url => {
                     },
                 });
                 if (data) {
-                    console.log(data);
                     setError(null);
                     setEvents(data);
                 }
