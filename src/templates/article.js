@@ -60,18 +60,37 @@ const getContent = nodes => {
 };
 
 // This assumes each article belongs to at most one series
-const getSeries = (allSeries, slugTitleMapping, seriesName) => {
+const ArticleSeries = ({
+    allSeries,
+    currentArticleSeries,
+    currentSlug,
+    slugTitleMapping,
+}) => {
     try {
-        const relevantSeries = allSeries[seriesName];
-        const mappedSeries = relevantSeries.map(s => ({
-            slug: s,
-            title: slugTitleMapping[s][0].value,
-        }));
-        return mappedSeries;
+        if (!!currentArticleSeries) {
+            const relevantSeries = allSeries[currentArticleSeries];
+            const mappedSeries = relevantSeries.map(s => ({
+                slug: s,
+                title: slugTitleMapping[s][0].value,
+            }));
+            if (mappedSeries.length) {
+                return (
+                    <>
+                        <Series
+                            name={currentArticleSeries}
+                            currentStep={currentSlug}
+                        >
+                            {mappedSeries}
+                        </Series>
+                        <br />
+                    </>
+                );
+            }
+        }
     } catch (error) {
         console.error(error);
-        return [];
     }
+    return null;
 };
 
 const ArticleContent = styled('article')`
@@ -83,7 +102,6 @@ const ArticleContent = styled('article')`
 
 const Article = props => {
     const {
-        pageContext,
         pageContext: {
             __refDocMapping,
             slug: thisPage,
@@ -91,7 +109,6 @@ const Article = props => {
         },
         ...rest
     } = props;
-    console.log(slugTitleMapping);
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
@@ -99,27 +116,7 @@ const Article = props => {
     console.log({ contentNodes });
     console.log({ meta });
     console.log(rest);
-    console.log(pageContext);
-    const hasSeries = !!meta.series;
-    let ArticleSeries = () => null;
-    const currentSlug = slugTitleMapping[thisPage][0].value;
-    if (hasSeries) {
-        const mappedSeries = getSeries(
-            allSeries,
-            slugTitleMapping,
-            meta.series
-        );
-        if (mappedSeries.length) {
-            ArticleSeries = () => (
-                <>
-                    <Series name={meta.series} currentStep={currentSlug}>
-                        {mappedSeries}
-                    </Series>
-                    <br />
-                </>
-            );
-        }
-    }
+
     return (
         <Layout>
             <BlogPostTitleArea
@@ -145,7 +142,12 @@ const Article = props => {
                     slugTitleMapping={slugTitleMapping}
                     {...rest}
                 />
-                <ArticleSeries />
+                <ArticleSeries
+                    allSeries={allSeries}
+                    currentArticleSeries={meta.series}
+                    currentSlug={slugTitleMapping[thisPage][0].value}
+                    slugTitleMapping={slugTitleMapping}
+                />
             </ArticleContent>
 
             {/* TODO: Fix related data shape once stable  */}
