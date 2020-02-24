@@ -68,6 +68,7 @@ const getSeries = (allSeries, slugTitleMapping, seriesName) => {
         return mappedSeries;
     } catch (error) {
         console.error(error);
+        return [];
     }
 };
 
@@ -99,14 +100,16 @@ const Article = props => {
             slugTitleMapping,
             meta.series
         );
-        ArticleSeries = () => (
-            <>
-                <Series name={meta.series} currentStep={currentSlug}>
-                    {mappedSeries}
-                </Series>
-                <br />
-            </>
-        );
+        if (mappedSeries.length) {
+            ArticleSeries = () => (
+                <>
+                    <Series name={meta.series} currentStep={currentSlug}>
+                        {mappedSeries}
+                    </Series>
+                    <br />
+                </>
+            );
+        }
     }
     return (
         <Layout>
@@ -138,9 +141,10 @@ const Article = props => {
 
             <footer>
                 <ul>
-                    {meta.related.map(rel => (
-                        <li key={rel}>{rel}</li>
-                    ))}
+                    {meta.related.map(rel => {
+                        const relatedText = rel.children[0].value;
+                        return <li key={relatedText}>{relatedText}</li>;
+                    })}
                 </ul>
             </footer>
         </Layout>
