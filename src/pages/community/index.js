@@ -7,7 +7,8 @@ import GradientImage from '../../components/dev-hub/gradient-image';
 import Layout from '../../components/dev-hub/layout';
 import MediaBlock from '../../components/dev-hub/media-block';
 import Link from '../../components/dev-hub/link';
-import { Event, EventListPreview } from '../../components/dev-hub/events';
+import Event from '../../components/dev-hub/events';
+import { EventsListPreview } from '../../components/dev-hub/event-list';
 import { H1, H2, P, H4 } from '../../components/dev-hub/text';
 import {
     size,
@@ -140,7 +141,7 @@ export default ({ ...data }) => {
                         See all events
                     </Link>
                 </EventsHeader>
-                <EventListPreview />
+                <EventsListPreview />
                 <MobileViewAllBtn to="/community/events" secondary>
                     View all
                 </MobileViewAllBtn>
