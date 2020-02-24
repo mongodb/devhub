@@ -9,7 +9,7 @@ import { StorybookLayout } from '../components/dev-hub/layout';
 import BylineBlock from '../components/dev-hub/byline-block';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
-import { Event } from '../components/dev-hub/events';
+import Event from '../components/dev-hub/events';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
@@ -45,6 +45,7 @@ import mockCardImage from '../images/360-mock-img.png';
 import MockAuthorImage from '../images/1x/MDB-and-Node.js.png';
 import VideoEmbed from '../components/dev-hub/video-embed';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
+import FeatureBlock from '../components/dev-hub/feature-block';
 
 const Row = styled('div')`
     display: flex;
@@ -220,6 +221,7 @@ const EventStory = () => {
     };
     return (
         <>
+            <Event event={event1} />
             <Event event={event1} />
             <Event event={event2} />
         </>
@@ -549,6 +551,30 @@ export default () => (
             </Row>
             <SectionHeader>Events</SectionHeader>
             <EventStory />
+            <SectionHeader>Feature Block </SectionHeader>
+            <FeatureBlock
+                description="I'm a feature block that can be used to highlight content on any page"
+                title="Feature Block"
+                imgDescription="im an image description"
+                imgTitle="Image Title"
+                cta={{
+                    text: 'Learn More',
+                    to: '/storybook'
+                }}
+            />
+            <br />
+            <FeatureBlock
+                reverse
+                description="I'm a feature block that can be used to highlight content on any page"
+                title="Feature Block"
+                imgDescription="im an image description"
+                imgTitle="Image Title"
+                cta={{
+                    text: 'Learn More',
+                    to: '/storybook'
+                }}
+
+            />
         </StorybookContainer>
     </StorybookLayout>
 );

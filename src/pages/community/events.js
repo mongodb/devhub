@@ -16,6 +16,7 @@ import { H1, H2, P, H4 } from '../../components/dev-hub/text';
 import TempBackgroundImage from '../../images/1x/MDB-and-Node.js.png';
 import { colorMap } from '../../components/dev-hub/theme';
 import FilterBar from '../../components/dev-hub/filter-bar';
+import FeatureBlock from '../../components/dev-hub/feature-block';
 
 const PageDescription = styled(P)`
     color: ${colorMap.greyLightTwo};
@@ -41,12 +42,19 @@ export default ({ ...data }) => {
                 </PageDescription>
             </HeroBanner>
             <section>
-                <header>
-                    {/* TODO: Update filter bar below to filter by other content */}
-                    <FilterBar heading="All Events" />
-                </header>
-                <EventsList items={sampleEvents} />
+                {/* TODO: Update filter bar below to filter by other content */}
+                <FilterBar heading="All Events" />
+                <EventsList items={[ ...sampleEvents, ...sampleEvents]} />
             </section>
+            <FeatureBlock
+                title="Bring MongoDB to You"
+                description="Inspire, connect, and learn from MongoDB developers all around the world. Bring your friends and your local community together for MongoDB fun. We’ll support you along the way."
+                imgDescription="A fun arcade night hosted by the NYC Community."
+
+                cta={{
+                    text: 'Host your own MongoDB event'
+                }}
+            />
         </Layout>
     );
 };
