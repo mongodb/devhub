@@ -35,6 +35,7 @@ const LiveNowBadgeContainer = styled('div')`
     margin-right: ${size.small};
     padding: 0 ${size.small};
     text-transform: uppercase;
+    white-space: nowrap;
     &:before {
         /* TODO: codify this animation speed in the theme */
         animation: ${blink} 2s ease infinite;

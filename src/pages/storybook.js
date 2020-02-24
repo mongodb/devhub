@@ -18,7 +18,7 @@ import MediaBlock from '../components/dev-hub/media-block';
 import Modal from '../components/dev-hub/modal';
 import Notification from '../components/dev-hub/notification';
 import Select from '../components/dev-hub/select';
-import { H1, H2, H3, H4, P } from '../components/dev-hub/text';
+import { H1, H2, H3, H4, P, SubHeader } from '../components/dev-hub/text';
 import {
     colorMap,
     size,
@@ -279,6 +279,7 @@ export default () => (
             <H3>Heading 3</H3>
             <H4>Heading 4</H4>
             <P>Paragraph</P>
+            <SubHeader>SubHeader</SubHeader>
             <SectionHeader>Block Quote</SectionHeader>
             <BlockQuoteStory />
             <SectionHeader>Content Label</SectionHeader>

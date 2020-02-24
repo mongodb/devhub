@@ -46,7 +46,7 @@ const Wrapper = styled('div')`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 410px; /* 360px + padding + hand wavey amount */
+    max-width: ${({ maxWidth }) => `${maxWidth}px`};
     padding: ${size.medium};
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};
@@ -84,6 +84,7 @@ const CardTitle = styled(H5)`
  * @property {string?} props.target
  * @property {string?} props.title
  * @property {string?} props.to
+ * @property {number?} props.maxWidth
  */
 
 const Card = ({
@@ -99,6 +100,7 @@ const Card = ({
     tags,
     target,
     title,
+    maxWidth = 410 /* 360px + padding + hand wavey amount */,
 }) => {
     const isLink = !!(to || href);
     const ContentWrapper = isLink ? Wrapper.withComponent(Link) : Wrapper;
@@ -115,6 +117,7 @@ const Card = ({
         <ContentWrapper
             onClick={onClick}
             {...linkAttrs}
+            maxWidth={maxWidth}
             isClickable={isClickable}
             className={className}
         >

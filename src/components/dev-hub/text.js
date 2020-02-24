@@ -35,7 +35,8 @@ export const H1 = styled('h1')`
     line-height: ${lineHeight.jumbo};
     ${handleCollapse}
     @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.xlarge};
+        font-size: 28px;
+        line-height: 38px;
     }
 `;
 
@@ -44,8 +45,9 @@ export const H2 = styled('h2')`
     font-size: ${fontSize.xxlarge};
     line-height: ${lineHeight.xxlarge};
     ${handleCollapse}
-        @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToMedium} {
         font-size: ${fontSize.large};
+        line-height: 34px;
     }
 `;
 
@@ -54,8 +56,9 @@ export const H3 = styled('h3')`
     font-size: ${fontSize.xlarge};
     line-height: ${lineHeight.xlarge};
     ${handleCollapse}
-        @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToMedium} {
         font-size: ${fontSize.medium};
+        line-height: 30px;
     }
 `;
 
@@ -66,6 +69,7 @@ export const H4 = styled('h4')`
     ${handleCollapse}
         @media ${screenSize.upToMedium} {
         font-size: ${fontSize.default};
+        line-height: 26px;
     }
 `;
 
@@ -74,8 +78,9 @@ export const H5 = styled('h5')`
     font-size: ${fontSize.medium};
     line-height: ${lineHeight.medium};
     ${handleCollapse}
-        @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToMedium} {
         font-size: ${fontSize.small};
+        line-height: ${lineHeight.small};
     }
 `;
 export const P = styled('p')`
@@ -83,6 +88,16 @@ export const P = styled('p')`
     ${handleCollapse}
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.small};
+        line-height: ${lineHeight.small};
+    }
+`;
+export const SubHeader = styled(P)`
+    color: ${colorMap.greyLightTwo};
+    font-size: ${fontSize.large};
+    line-height: ${lineHeight.medium};
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.tiny};
+        line-height: ${lineHeight.small};
     }
 `;
 export const Pre = styled('pre')`
