@@ -40,7 +40,7 @@ const sampleEvents = [
             event_city: 'New York City',
         },
         title: 'Coffe With Your Data: Real-Time Analytics',
-        url: 'https://mongodbanddatabricks.splashthat.com/',
+        url: 'https://mongodbanddatabricks.splashthat.com',
         url_type: 'external',
     },
     {
@@ -157,7 +157,7 @@ const useEventData = url => {
         const getData = async () => {
             try {
                 const data = await fetch(url, {
-                    // credentials: 'same-origin',
+                    credentials: 'same-origin',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -199,8 +199,8 @@ const Event = ({ event, maxTitleLines = 2 }) => {
     );
 
     const urlProp = {
-        to: urlType === 'external' ? url : null,
-        href: urlType === 'alias' ? url : null,
+        to: urlType === 'alias' ? url : null,
+        href: urlType === 'external' ? url : null,
     };
     return (
         <StyledEvent
