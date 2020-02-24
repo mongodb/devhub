@@ -23,13 +23,22 @@ const StyledReactPlayer = styled(ReactPlayer)`
     }
 `;
 
-const VideoEmbed = ({ nodeData: { argument, name }, ...props }) => {
+const getVideoUrl = (provider, videoId) => {
+    if (!videoId) return null;
+    switch (provider) {
+        case 'twitch':
+            return `https://www.twitch.tv/videos/${videoId}`;
+        case 'youtube':
+            return `https://www.youtube.com/watch?v=${videoId}`;
+        default:
+            return null;
+    }
+};
+
+const VideoEmbed = ({ nodeData: { argument, name: provider }, ...props }) => {
     const videoId = argument[0].value;
-    const isYoutube = name === 'youtube';
-    // TODO: handle other directives (twitch) once format decided
-    const value = isYoutube
-        ? `https://www.youtube.com/watch?v=${videoId}`
-        : null;
+    const value = getVideoUrl(provider, videoId);
+    const isYoutube = provider === 'youtube';
     return (
         <ReactPlayerWrapper>
             <StyledReactPlayer
