@@ -17,6 +17,7 @@ import {
     screenSize,
 } from './theme';
 
+const MONGODB_WEBSITE = 'https://www.mongodb.com';
 export const sampleEvents = [
     {
         title: 'MongoDB.local San Francisco',
@@ -213,8 +214,9 @@ const Event = ({ event, maxTitleLines = 2, ...props }) => {
     );
 
     const urlProp = {
-        to: urlType === 'alias' ? url : null,
-        href: urlType === 'external' ? url : null,
+        // internal mdb event urls only contain relative path,
+        // so these must be updated manually
+        href: urlType === 'alias' ? `${MONGODB_WEBSITE}/${url}` : url,
     };
     return (
         <StyledEvent
