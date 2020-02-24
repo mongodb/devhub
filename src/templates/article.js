@@ -76,7 +76,7 @@ const getSeries = (allSeries, slugTitleMapping, seriesName) => {
 
 const ArticleContent = styled('article')`
     margin: 0 auto;
-    max-width: 740px;
+    max-width: ${size.maxContentWidth};
     padding-left: ${size.small};
     padding-right: ${size.small};
 `;
