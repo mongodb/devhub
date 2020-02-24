@@ -17,10 +17,7 @@ import {
     screenSize,
 } from './theme';
 
-const EVENTS_API =
-    'https://www.mongodb.com/api/event/all/1?sort=-created_at&populate=tag_ids,node_ids';
-// const EVENTS_API = 'https://www.mongodb.com/api/event/all/1';
-const sampleEvents = [
+export const sampleEvents = [
     {
         title: 'MongoDB.local San Francisco',
         node_type_attributes: {
@@ -53,6 +50,50 @@ const sampleEvents = [
         title: 'MongoDB.local London',
         url: 'events/bhm20',
         url_type: 'alias',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-06-11T18:30:00.000Z',
+            event_end: '2020-06-11T11:59:00.000Z',
+            event_country: 'United Kingdom',
+            event_city: 'London',
+        },
+        title: 'MongoDB.local London',
+        url: 'events/bhm20',
+        url_type: 'alias',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-04-11T18:30:00.000Z',
+            event_end: '2020-04-11T11:59:00.000Z',
+            event_country: 'Germany',
+            event_city: 'Berlin',
+        },
+        title: 'MongoDB.local Berlin',
+        url: 'https://mongodbanddatabricks.splashthat.com/',
+        url_type: 'external',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-05-11T18:30:00.000Z',
+            event_end: '2020-05-11T11:59:00.000Z',
+            event_country: 'France',
+            event_city: 'Paris',
+        },
+        title: 'MongoDB.local Paris',
+        url: 'https://mongodbanddatabricks.splashthat.com/',
+        url_type: 'external',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-06-11T18:30:00.000Z',
+            event_end: '2020-06-11T11:59:00.000Z',
+            event_country: 'Ireland',
+            event_city: 'Dublin',
+        },
+        title: 'MongoDB.local Dublin',
+        url: 'https://mongodbanddatabricks.splashthat.com/',
+        url_type: 'external',
     },
 ];
 
@@ -139,7 +180,7 @@ const StyledEvent = styled(Link)`
     }
 `;
 
-const AllEvents = styled('div')`
+const EventsPreview = styled('div')`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -150,33 +191,6 @@ const AllEvents = styled('div')`
     }
 `;
 
-const useEventData = url => {
-    const [events, setEvents] = useState(null);
-    const [error, setError] = useState(null);
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const data = await fetch(url, {
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (data) {
-                    console.log(data);
-                    setError(null);
-                    setEvents(data);
-                }
-            } catch (e) {
-                setError(e);
-                setEvents(null);
-            }
-        };
-        getData();
-    }, [url]);
-
-    return [events, error];
-};
 const DateIcon = ({ date }) => {
     const day = toDateString(date, { day: 'numeric', timezone: 'UTC' });
     const month = toDateString(date, { month: 'short', timezone: 'UTC' });
@@ -190,7 +204,7 @@ const DateIcon = ({ date }) => {
     );
 };
 
-const Event = ({ event, maxTitleLines = 2 }) => {
+const Event = ({ event, maxTitleLines = 2, ...props }) => {
     const [locationColor, setLocationColor] = useState(colorMap.greyLightThree);
     const { title, url, url_type: urlType } = event;
     const { event_city: city, event_country: country, event_start: date } = dlv(
@@ -207,6 +221,7 @@ const Event = ({ event, maxTitleLines = 2 }) => {
             onMouseEnter={() => setLocationColor(colorMap.greyLightOne)}
             onMouseLeave={() => setLocationColor(colorMap.greyLightThree)}
             {...urlProp}
+            {...props}
         >
             <DateIcon date={date} />
             <EventInfo>
@@ -224,18 +239,5 @@ const Event = ({ event, maxTitleLines = 2 }) => {
     );
 };
 
-const EventListPreview = () => {
-    let previews = sampleEvents;
-    const [events, error] = useEventData(EVENTS_API);
-    if (events) {
-        previews = events.length > 3 ? events.slice(0, 3) : events;
-    }
-    return previews.length ? (
-        <AllEvents>
-            {previews.map(event => (
-                <Event key={event.url} event={event} />
-            ))}
-        </AllEvents>
-    ) : null;
-};
-export { Event, EventListPreview };
+
+export default Event;
