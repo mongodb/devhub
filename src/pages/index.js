@@ -34,6 +34,7 @@ const Hero = styled('header')`
 const Heading = styled(H1)`
     max-width: 920px;
     margin: ${size.default} auto;
+    word-wrap: break-word;
 `;
 const Sub = styled(SubHeader)`
     margin: ${size.default} 0;
@@ -109,7 +110,6 @@ export default ({ ...data }) => {
             </Hero>
             <FeatureSection altBackground>
                 <MediaBlock
-                    mediaWidth={MEDIA_WIDTH}
                     mediaComponent={
                         <Card maxWidth={MEDIA_WIDTH} image={buildImage}>
                             Working with MongoDB and GraphQL
@@ -134,7 +134,6 @@ export default ({ ...data }) => {
             </FeatureSection>
             <FeatureSection>
                 <MediaBlock
-                    mediaWidth={MEDIA_WIDTH}
                     mediaComponent={
                         <Card
                             image={greenPatternImage}
