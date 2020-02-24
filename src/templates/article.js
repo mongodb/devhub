@@ -1,9 +1,11 @@
 import React from 'react';
 import dlv from 'dlv';
 import PropTypes from 'prop-types';
+import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
+import { size } from '../components/dev-hub/theme';
 import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
@@ -72,6 +74,13 @@ const getSeries = (allSeries, slugTitleMapping, seriesName) => {
     }
 };
 
+const ArticleContent = styled('article')`
+    margin: 0 auto;
+    max-width: 740px;
+    padding-left: ${size.small};
+    padding-right: ${size.small};
+`;
+
 const Article = props => {
     const {
         pageContext,
@@ -130,14 +139,14 @@ const Article = props => {
                 title={articleTitle}
             />
 
-            <section>
+            <ArticleContent>
                 <DocumentBody
                     pageNodes={contentNodes}
                     slugTitleMapping={slugTitleMapping}
                     {...rest}
                 />
                 <ArticleSeries />
-            </section>
+            </ArticleContent>
 
             {/* TODO: Fix related data shape once stable  */}
             {/* <footer>
