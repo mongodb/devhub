@@ -83,17 +83,17 @@ export const H5 = styled('h5')`
         line-height: ${lineHeight.small};
     }
 `;
-const P = styled('p')`
+const PStyles = styled('p')`
     font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
     ${handleCollapse}
 `;
-export const P1 = styled(P)`
+export const P = styled(PStyles)`
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.small};
         line-height: ${lineHeight.small};
     }
 `;
-export const P2 = styled(P)`
+export const P2 = styled(PStyles)`
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
     @media ${screenSize.upToMedium} {
@@ -101,7 +101,7 @@ export const P2 = styled(P)`
         line-height: ${lineHeight.tiny};
     }
 `;
-export const P3 = styled(P)`
+export const P3 = styled(PStyles)`
     font-size: ${fontSize.tiny};
     line-height: ${lineHeight.tiny};
     @media ${screenSize.upToMedium} {
@@ -109,7 +109,7 @@ export const P3 = styled(P)`
         line-height: ${lineHeight.xsmall};
     }
 `;
-export const P4 = styled(P)`
+export const P4 = styled(PStyles)`
     font-size: ${fontSize.xsmall};
     line-height: ${lineHeight.xsmall};
     @media ${screenSize.upToMedium} {
@@ -117,11 +117,11 @@ export const P4 = styled(P)`
         line-height: ${lineHeight.micro};
     }
 `;
-export const P5 = styled(P)`
+export const P5 = styled(PStyles)`
     font-size: ${fontSize.micro};
     line-height: ${lineHeight.micro};
 `;
-export const SubHeader = styled(P)`
+export const SubHeader = styled(PStyles)`
     color: ${colorMap.greyLightTwo};
     font-size: ${fontSize.large};
     line-height: ${lineHeight.medium};

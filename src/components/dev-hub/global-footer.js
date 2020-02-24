@@ -10,7 +10,7 @@ import LinkedIn from './icons/linkedin';
 import Github from './icons/github';
 import Youtube from './icons/youtube';
 import Twitch from './icons/twitch';
-import { P1 } from './text';
+import { P } from './text';
 
 const siteLinks = [
     {
@@ -138,7 +138,7 @@ const IconList = styled('ul')`
     }
     grid-area: icons;
 `;
-const Copyright = styled(P1)`
+const Copyright = styled(P)`
     font-size: ${fontSize.micro};
     grid-area: copyright;
     @media ${screenSize.upToMedium} {

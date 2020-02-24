@@ -20,7 +20,7 @@ import {
     H2,
     H3,
     H4,
-    P1,
+    P,
     P2,
     P3,
     P4,
@@ -122,11 +122,11 @@ const MediaBlockStory = ({ reverse }) => (
         <MediaBlockContent>
             <div>
                 <H2>Let's do it live!</H2>
-                <P1>
+                <P>
                     Connect with MongoDB engineers and community experts weekly
                     for live coding demos on Twitch. Ask questions, chat, or
                     just follow along.
-                </P1>
+                </P>
                 <button>Join us on Twitch</button>
             </div>
         </MediaBlockContent>
@@ -248,7 +248,7 @@ export default () => (
             <H2>Heading 2</H2>
             <H3>Heading 3</H3>
             <H4>Heading 4</H4>
-            <P1>Paragraph 1</P1>
+            <P>Paragraph 1</P>
             <P2>Paragraph 2</P2>
             <P3>Paragraph 3</P3>
             <P4>Paragraph 4</P4>
@@ -349,7 +349,7 @@ export default () => (
             <Notification />
             <SectionHeader>Code Block</SectionHeader>
             <CodeArticle>
-                <P1>Some fancy article content</P1>
+                <P>Some fancy article content</P>
                 <CodeBlock nodeData={{ value: shortCodeSample }} />
             </CodeArticle>
             <br />
@@ -385,9 +385,9 @@ export default () => (
                     colorName={colorName}
                     colorValue={colorMap[colorName]}
                 >
-                    <P1 collapse>
+                    <P collapse>
                         {colorMap[colorName]} - {colorName}
-                    </P1>
+                    </P>
                 </Swatch>
             ))}
             <SectionHeader>ToolTip/Content Menus</SectionHeader>
@@ -400,7 +400,7 @@ export default () => (
                 >
                     <div>
                         <H2 bold>Title</H2>
-                        <P1>I'm REVEALED AGAIN! asdfasdfasdsfda</P1>
+                        <P>I'm REVEALED AGAIN! asdfasdfasdsfda</P>
                     </div>
                 </Tooltip>
                 <Tooltip

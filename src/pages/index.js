@@ -4,7 +4,7 @@ import Card from '../components/dev-hub/card';
 import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
-import { H1, H2, P1, SubHeader } from '../components/dev-hub/text';
+import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
 import {
     colorMap,
     gradientMap,
@@ -72,7 +72,7 @@ const SectionContent = styled('div')`
         padding: 8%;
     }
 `;
-const DescriptiveText = styled(P1)`
+const DescriptiveText = styled(P)`
     color: ${colorMap.greyLightTwo};
     margin-bottom: ${size.medium};
 `;

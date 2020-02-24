@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
-import { P1 } from './text';
+import { P } from './text';
 import { animationSpeed, colorMap, fontSize, size } from './theme';
 
 const blink = keyframes`
@@ -10,7 +10,7 @@ const blink = keyframes`
   }
 `;
 
-const CloseIcon = styled(P1)`
+const CloseIcon = styled(P)`
     color: ${colorMap.devWhite};
     margin-left: auto;
     /* padding: ${size.default}; */
@@ -79,10 +79,10 @@ const Notification = ({ link = null, notificationType = 'twitch' }) => {
             <StyledNotification>
                 <NotificationText>
                     <LiveNowBadgeContainer>Live Now</LiveNowBadgeContainer>
-                    <P1 collapse>
+                    <P collapse>
                         Building the world’s first IoT kitty litter box — Join
                         us on Twitch!
-                    </P1>
+                    </P>
                 </NotificationText>
                 <CloseIcon collapse onClick={dismissNotification} />
             </StyledNotification>

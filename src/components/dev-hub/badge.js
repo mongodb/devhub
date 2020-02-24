@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { P1 } from './text';
+import { P } from './text';
 import { colorMap, fontSize, size } from './theme';
 
 /* TODO: Update font once decided */
-const BadgeText = styled(P1)`
+const BadgeText = styled(P)`
     background: ${colorMap.greyDarkThree};
     font-size: ${fontSize.micro};
     font-weight: bold;

@@ -3,7 +3,7 @@ import styled from '@emotion/styled-base';
 import { css } from '@emotion/core';
 import Tooltip from './tooltip';
 import ListIcon from './icons/list-icon';
-import { P1 } from './text';
+import { P } from './text';
 import Link from './link';
 import { animationSpeed, colorMap, size } from './theme';
 
@@ -59,7 +59,7 @@ const ContentsMenu = ({ title, contents = [] }) => {
 
     return (
         <Tooltip hasGradientBorder position={'right'} trigger={<ListIcon />}>
-            <P1 bold>{title}</P1>
+            <P bold>{title}</P>
             <Contents>
                 {contents.map(item => {
                     const isactive = item.to === activeItem ? 'true' : null;
