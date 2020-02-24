@@ -301,6 +301,13 @@ export default () => (
                     name: 'youtube',
                 }}
             />
+            <H4>Twitch</H4>
+            <VideoEmbed
+                nodeData={{
+                    argument: [{ value: '548256262' }],
+                    name: 'twitch',
+                }}
+            />
             <SectionHeader>Modal</SectionHeader>
             <Modal triggerComponent={<Button play />}>
                 <ModalContainer>
