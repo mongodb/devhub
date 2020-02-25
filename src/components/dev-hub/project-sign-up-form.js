@@ -5,7 +5,6 @@ import { size } from './theme';
 import { H5 } from './text';
 import Input from './input';
 import Button from './button';
-import UploadButton from './upload-button';
 import TextArea from './text-area';
 
 const ModalContainer = styled('div')`
@@ -15,7 +14,7 @@ const ModalContainer = styled('div')`
 const SubmitContainer = styled('div')`
     align-items: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin: ${size.large} ${size.large} 0 0;
 `;
 const Title = styled(H5)`
@@ -24,16 +23,12 @@ const Title = styled(H5)`
 const Form = React.memo(() => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [github, setGithub] = useState('');
     const [project, setProject] = useState('');
-    const [file, setFile] = useState(null);
     const handleSubmit = () => {
         console.log({
             name,
             email,
-            github,
             project,
-            file,
         });
     };
     return (
@@ -52,13 +47,6 @@ const Form = React.memo(() => {
                 onChange={e => setEmail(e.target.value)}
             />
             <br></br>
-            <Input
-                value={github}
-                required
-                placeholder="GitHub Repository URL"
-                onChange={e => setGithub(e.target.value)}
-            />
-            <br></br>
             <TextArea
                 value={project}
                 required
@@ -66,12 +54,6 @@ const Form = React.memo(() => {
                 onChange={e => setProject(e.target.value)}
             />
             <SubmitContainer>
-                <UploadButton
-                    label="Attach walkthrough (mov., .zip, etc)"
-                    name="walkthrough"
-                    onChange={e => setFile(e.target.files[0])}
-                    file={file}
-                />
                 <Button type="submit" primary>
                     Submit project
                 </Button>

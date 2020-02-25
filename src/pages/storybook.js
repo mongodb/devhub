@@ -58,6 +58,7 @@ import MockAuthorImage from '../images/1x/MDB-and-Node.js.png';
 import VideoEmbed from '../components/dev-hub/video-embed';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import Folder from '../components/dev-hub/icons/folder';
+import UploadButton from '../components/dev-hub/upload-button';
 
 const Row = styled('div')`
     display: flex;
@@ -272,7 +273,17 @@ const CodeArticle = styled('div')`
 const ModalContainer = styled('div')`
     padding: ${size.default};
 `;
-
+const UploadButtonStory = () => {
+    const [file, setFile] = useState(null);
+    return (
+        <UploadButton
+            label="Attach walkthrough (mov., .zip, etc)"
+            name="walkthrough"
+            onChange={e => setFile(e.target.files[0])}
+            file={file}
+        />
+    );
+};
 export default () => (
     <StorybookLayout>
         <StorybookContainer>
@@ -345,6 +356,7 @@ export default () => (
                     <br />
                     <H4>Select (Narrow)</H4>
                     <SelectStory narrow />
+                    <UploadButtonStory />
                 </ModalContainer>
             </Modal>
             <br />
