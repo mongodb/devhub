@@ -35,7 +35,7 @@ const StyledTextArea = styled('textarea')`
         transition: border ${animationSpeed.fast} linear ${animationSpeed.fast};
     }
     /* Needed for IE 11 */
-    ::-ms-input-placeholder {
+    ::-ms-textarea-placeholder {
         color: ${colorMap.greyLightTwo};
         opacity: 1;
     }
@@ -55,7 +55,7 @@ const InputContainer = styled('div')`
                     ? `top ${animationSpeed.fast}`
                     : `opacity ${animationSpeed.fast}`};
         }
-        input::-ms-input-placeholder {
+        textarea::-ms-textarea-placeholder {
             opacity: 0;
         }
         textarea::placeholder {
