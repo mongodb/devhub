@@ -56,6 +56,7 @@ import mockCardImage from '../images/360-mock-img.png';
 import MockAuthorImage from '../images/1x/MDB-and-Node.js.png';
 import VideoEmbed from '../components/dev-hub/video-embed';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
+import Folder from '../components/dev-hub/icons/folder';
 
 const Row = styled('div')`
     display: flex;
@@ -558,6 +559,7 @@ export default () => (
                 <Github color={colorMap.darkGreen} />
                 <Twitch color={colorMap.devWhite} />
                 <LocationIcon color={colorMap.violet} />
+                <Folder />
             </Row>
             <SectionHeader>Events</SectionHeader>
             <EventStory />

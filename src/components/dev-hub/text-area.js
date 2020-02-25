@@ -15,16 +15,17 @@ const LABEL_ABSOLUTE_LEFT = 22;
 const LABEL_END_TOP = -14;
 const LABEL_START_TOP = 9;
 
-const StyledInput = styled('input')`
+const StyledTextArea = styled('textarea')`
     background-color: ${colorMap.greyDarkTwo};
     border: ${FORM_ELEMENT_BORDER} solid transparent;
     color: ${colorMap.devWhite};
     font-family: 'Fira Mono', monospace;
     font-size: ${fontSize.default};
+    height: 180px;
     outline: none;
-    padding: ${({ narrow }) =>
-        narrow ? `${size.small} ${size.medium}` : size.medium};
+    padding: ${size.medium};
     position: relative;
+    resize: none;
     width: calc(
         100% - ${size.medium} - ${size.medium} - ${FORM_ELEMENT_BORDER} -
             ${FORM_ELEMENT_BORDER}
@@ -43,7 +44,6 @@ const StyledInput = styled('input')`
         opacity: 1;
     }
 `;
-
 const InputContainer = styled('div')`
     position: relative;
     :focus-within {
@@ -58,49 +58,45 @@ const InputContainer = styled('div')`
         input::-ms-input-placeholder {
             opacity: 0;
         }
-        input::placeholder {
+        textarea::placeholder {
             opacity: 0;
         }
     }
     :not(:focus-within) {
         label {
             opacity: 0;
-            top: ${({ narrow }) =>
-                narrow
-                    ? `${LABEL_START_TOP}px`
-                    : `calc(${LABEL_START_TOP}px + ${size.small})`};
+            top: calc(${LABEL_START_TOP}px + ${size.small});
             transition: top 0s ease-in-out ${animationSpeed.fast},
                 opacity ${animationSpeed.fast},
                 z-index 0s ease-in-out ${animationSpeed.fast};
             /* Need to push to back layer to allow clicking over */
             z-index: ${layer.superBack};
         }
-        input::ms-input-placeholder {
+        textarea::ms-textarea-placeholder {
             opacity: 1;
             transition: opacity ${animationSpeed.fast} ease-in-out
                 ${animationSpeed.fast};
         }
-        input::placeholder {
+        textarea::placeholder {
             opacity: 1;
             transition: opacity ${animationSpeed.fast} ease-in-out
                 ${animationSpeed.fast};
         }
     }
 `;
-
-const FormInput = ({ narrow, value, ...props }) => {
+const TextArea = ({ value, ...props }) => {
     const isEmpty = !value;
     return (
-        <InputContainer isEmpty={isEmpty} narrow={narrow}>
+        <InputContainer isEmpty={isEmpty}>
             <Label
                 labelAbsoluteLeft={LABEL_ABSOLUTE_LEFT}
                 labelStartTop={LABEL_START_TOP}
             >
                 {props.placeholder}
             </Label>
-            <StyledInput value={value} narrow={narrow} {...props} />
+            <StyledTextArea value={value} {...props} />
         </InputContainer>
     );
 };
 
-export default FormInput;
+export default TextArea;
