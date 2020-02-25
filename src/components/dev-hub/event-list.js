@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import dlv from 'dlv';
 import styled from '@emotion/styled';
 import Button from './button';
 import Event, { sampleEvents } from './events';
+import useEventData from '../../hooks/use-event-data';
 import { size, screenSize } from './theme';
 
 export const EVENTS_API =
@@ -21,9 +21,9 @@ const EventsPreview = styled('div')`
 
 const AllEvents = styled('div')`
     display: grid;
-    grid-row-gap: 0.5em;
-    grid-column-gap: 1em;
-    grid-template-columns: repeat(1, 1fr);
+    grid-row-gap: ${size.small};
+    grid-column-gap: ${size.medium};
+    grid-template-columns: 1fr;
     grid-template-rows: repeat(auto-fill, 1fr);
     padding-bottom: ${size.xlarge};
     width: 100%;
@@ -38,41 +38,12 @@ const CenterBlock = styled('div')`
     text-align: center;
 `;
 
-export const useEventData = url => {
-    const [events, setEvents] = useState(null);
-    const [error, setError] = useState(null);
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                // TODO: Get this working once cors issues resolved
-                const data = await fetch(url, {
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (data) {
-                    setError(null);
-                    setEvents(data);
-                }
-            } catch (e) {
-                setError(e);
-                setEvents(null);
-            }
-        };
-        getData();
-    }, [url]);
-
-    return [events, error];
-};
-
 export const EventsListPreview = () => {
-    let previews = sampleEvents;
+    // TODO: Update implementation below
+    // to handle load/error states when events api CORS issue resolved
     const [events, error] = useEventData(EVENTS_API);
-    if (events) {
-        previews = events;
-    }
-    previews = previews.slice(0, 3);
+    const previews = events ? events.slice(0, 3) : sampleEvents.slice(0, 3);
+
     return previews.length ? (
         <EventsPreview>
             {previews.map(event => (
