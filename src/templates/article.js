@@ -71,10 +71,13 @@ const ArticleSeries = ({
     const relevantSeries = allSeries[currentArticleSeries];
     // Handle if this series is not defined in the top-level content TOML file
     if (!relevantSeries || !relevantSeries.length) return null;
-    const mappedSeries = relevantSeries.map(s => ({
-        slug: s,
-        title: slugTitleMapping[s][0].value,
-    }));
+    const mappedSeries = relevantSeries.map(s => {
+        const articleTitle = dlv(slugTitleMapping, [s, 0, 'value'], s);
+        return {
+            slug: s,
+            title: articleTitle,
+        };
+    });
     return (
         <>
             <Series name={currentArticleSeries} currentStep={currentSlug}>
