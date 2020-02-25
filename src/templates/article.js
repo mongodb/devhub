@@ -66,31 +66,23 @@ const ArticleSeries = ({
     currentSlug,
     slugTitleMapping,
 }) => {
-    try {
-        if (!!currentArticleSeries) {
-            const relevantSeries = allSeries[currentArticleSeries];
-            const mappedSeries = relevantSeries.map(s => ({
-                slug: s,
-                title: slugTitleMapping[s][0].value,
-            }));
-            if (mappedSeries.length) {
-                return (
-                    <>
-                        <Series
-                            name={currentArticleSeries}
-                            currentStep={currentSlug}
-                        >
-                            {mappedSeries}
-                        </Series>
-                        <br />
-                    </>
-                );
-            }
-        }
-    } catch (error) {
-        console.error(error);
-    }
-    return null;
+    // Handle if this article is not in a series or no series are defined
+    if (!allSeries || !currentArticleSeries) return null;
+    const relevantSeries = allSeries[currentArticleSeries];
+    // Handle if this series is not defined in the top-level content TOML file
+    if (!relevantSeries || !relevantSeries.length) return null;
+    const mappedSeries = relevantSeries.map(s => ({
+        slug: s,
+        title: slugTitleMapping[s][0].value,
+    }));
+    return (
+        <>
+            <Series name={currentArticleSeries} currentStep={currentSlug}>
+                {mappedSeries}
+            </Series>
+            <br />
+        </>
+    );
 };
 
 const ArticleContent = styled('article')`
