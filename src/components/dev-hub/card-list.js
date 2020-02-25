@@ -33,16 +33,17 @@ const CenterBlock = styled('div')`
 export default ({ items = [], limit = 9 }) => {
     const [visibleCards, setVisibleCards] = useState(limit);
     const hasMore = items.length > visibleCards;
+    console.log(items);
     return (
         <>
             <CardContainer>
                 {items.slice(0, visibleCards).map(item => (
                     <ArticleCard
-                        key={item['meta-description']}
+                        key={item['_id']}
                         image={item['atf-image']}
-                        tags={item.languages}
+                        tags={[...item.languages, ...item.products]}
                     >
-                        {item['meta-description']}
+                        {item['meta-description'][0].children[0].value}
                     </ArticleCard>
                 ))}
             </CardContainer>

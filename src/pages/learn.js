@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
@@ -9,6 +9,8 @@ import FilterBar from '../components/dev-hub/filter-bar';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
 import mockCardImageSmall from '../images/260-mock-card.png';
+import { authenticate, callStitchFunction } from '../utils/stitch';
+import { useSiteMetadata } from '../hooks/use-site-metadata';
 
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
@@ -68,22 +70,39 @@ const createMockList = () => {
     return list;
 };
 
-export default () => (
-    <Layout>
-        <Header>
-            <H2>Make better, faster applications</H2>
-            <MainFeatureGrid>
-                <PrimarySection>
-                    <MediaBlock
-                        mediaComponent={<img src={mockCardImage} alt="" />}
-                        mediaWidth={360}
-                    >
-                        <Card
-                            maxDescriptionLines={4}
-                            to="/#"
-                            title="Building Modern Applications with Next.js and
+const parseArticles = arr =>
+    arr.map(({ _id, query_fields }) => {
+        return { _id, ...query_fields };
+    });
+const callStitch = async (metadata, key, callback) => {
+    const res = await callStitchFunction('fetchDevhubMetadata', metadata, key);
+    callback(parseArticles(res));
+};
+
+export default () => {
+    const metadata = useSiteMetadata();
+    const [articles, setArticles] = useState([]);
+
+    useEffect(() => {
+        authenticate();
+        callStitch(metadata, {}, setArticles);
+    }, [metadata]);
+    return (
+        <Layout>
+            <Header>
+                <H2>Make better, faster applications</H2>
+                <MainFeatureGrid>
+                    <PrimarySection>
+                        <MediaBlock
+                            mediaComponent={<img src={mockCardImage} alt="" />}
+                            mediaWidth={360}
+                        >
+                            <Card
+                                maxDescriptionLines={4}
+                                to="/#"
+                                title="Building Modern Applications with Next.js and
                             MongoDB"
-                            description="Developers have more choices than ever before when
+                                description="Developers have more choices than ever before when
                             it comes to choosing the technology stack for their
                             next application. Developer productivity is one of
                             the most important factors in choosing a modern
@@ -91,28 +110,29 @@ export default () => (
                             MongoDB can get you up and running on the next great
                             application in no time at all. Let’s find out how
                             and why!"
-                            tags={['nodejs']}
-                        />
-                    </MediaBlock>
-                </PrimarySection>
-                <SecondArticle
-                    title="Quick Start - Node.js"
-                    description=" Master all the CRUD operations in Node.js with
+                                tags={['nodejs']}
+                            />
+                        </MediaBlock>
+                    </PrimarySection>
+                    <SecondArticle
+                        title="Quick Start - Node.js"
+                        description=" Master all the CRUD operations in Node.js with
                             MongoDB"
-                    tags={['nodejs']}
-                />
+                        tags={['nodejs']}
+                    />
 
-                <LastArticle
-                    title="Visualising the Coronavirus"
-                    description="See the spread of the Coronavirus in MongoDB
+                    <LastArticle
+                        title="Visualising the Coronavirus"
+                        description="See the spread of the Coronavirus in MongoDB
                             Charts"
-                    tags={['charts']}
-                />
-            </MainFeatureGrid>
-        </Header>
-        <Article>
-            <FilterBar />
-            <CardList items={createMockList()} />
-        </Article>
-    </Layout>
-);
+                        tags={['charts']}
+                    />
+                </MainFeatureGrid>
+            </Header>
+            <Article>
+                <FilterBar />
+                <CardList items={articles} />
+            </Article>
+        </Layout>
+    );
+};
