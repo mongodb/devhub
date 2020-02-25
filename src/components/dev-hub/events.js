@@ -221,6 +221,8 @@ const Event = ({ event, maxTitleLines = 2, ...props }) => {
         <StyledEvent
             onMouseEnter={() => setLocationColor(colorMap.greyLightOne)}
             onMouseLeave={() => setLocationColor(colorMap.greyLightThree)}
+            target="_blank"
+            rel="noreferrer noopener"
             {...urlProp}
             {...props}
         >
