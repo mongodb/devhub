@@ -3,10 +3,13 @@ import dlv from 'dlv';
 import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import ComponentFactory from '../components/ComponentFactory';
 import DocumentBody from '../components/DocumentBody';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
+import Card from '../components/dev-hub/card';
 import Layout from '../components/dev-hub/layout';
-import { size } from '../components/dev-hub/theme';
+import { H4 } from '../components/dev-hub/text';
+import { colorMap, size } from '../components/dev-hub/theme';
 import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
@@ -91,6 +94,36 @@ const ArticleSeries = ({
     );
 };
 
+const RelatedContainer = styled('div')`
+    background-color: ${colorMap.devBlack};
+    padding: 70px 120px;
+    margin: 0 auto;
+`;
+
+const RelatedArticles = ({ related, slugTitleMapping }) => {
+    if (!related || !related.length) return null;
+    return (
+        <RelatedContainer>
+            <H4>Related</H4>
+            <div style={{ display: 'flex' }}>
+                {related.map(r => {
+                    const target = r.target;
+                    const slug = r.target.slice(1, r.target.length);
+                    /* TODO: Case on doc to link internal vs external */
+                    return (
+                        <Card
+                            image={ARTICLE_PLACEHOLDER}
+                            href={target}
+                            maxDescriptionLines={2}
+                            title={slugTitleMapping[slug][0].value}
+                        />
+                    );
+                })}
+            </div>
+        </RelatedContainer>
+    );
+};
+
 const ArticleContent = styled('article')`
     margin: 0 auto;
     max-width: ${size.maxContentWidth};
@@ -151,12 +184,35 @@ const Article = props => {
                 />
             </ArticleContent>
 
+            <RelatedArticles
+                related={[
+                    {
+                        type: 'role',
+                        position: {
+                            start: {
+                                line: 51,
+                            },
+                        },
+                        domain: '',
+                        name: 'doc',
+                        target:
+                            '/quickstart/nodejs-how-to-connect-to-your-database',
+                        children: [],
+                    },
+                ]}
+                slugTitleMapping={slugTitleMapping}
+            />
             {/* TODO: Fix related data shape once stable  */}
             {/* <footer>
                 <ul>
-                    {meta.related.map(rel => {
-                        const relatedText = rel.children[0].value;
-                        return <li key={relatedText}>{relatedText}</li>;
+                    {meta.related.map((rel, i) => {
+                        const test = {
+                            type: 'role',
+                            name: ':doc:',
+                            target:
+                                '/quickstart/nodejs-how-to-connect-to-your-database',
+                        };
+                        return <ComponentFactory nodeData={test} key={i} />;
                     })}
                 </ul>
             </footer> */}
