@@ -59,6 +59,7 @@ const getContent = nodes => {
     return nodesWeActuallyWant;
 };
 
+// TODO: series will no longer be defined in the article rST, this must be looked up from allSeries in createPages beforehand
 // This assumes each article belongs to at most one series
 const ArticleSeries = ({
     allSeries,
