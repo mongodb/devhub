@@ -13,6 +13,7 @@ import { Event } from '../components/dev-hub/events';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
+import TextArea from '../components/dev-hub/text-area';
 import HeroBanner from '../components/dev-hub/hero-banner';
 import MediaBlock from '../components/dev-hub/media-block';
 import Modal from '../components/dev-hub/modal';
@@ -335,6 +336,9 @@ export default () => (
                     <br />
                     <H4>Input (Narrow)</H4>
                     <InputStory narrow />
+                    <br />
+                    <H4>TextArea</H4>
+                    <TextArea placeholder="Email Address" />
                     <br />
                     <H4>Select</H4>
                     <SelectStory />
