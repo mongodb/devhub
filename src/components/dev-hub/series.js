@@ -55,6 +55,9 @@ const Breadcrumb = styled('li')`
 const DescriptiveText = styled(P)`
     color: ${colorMap.greyLightThree};
     font-size: ${fontSize.tiny};
+    @media ${screenSize.upToMedium} {
+        padding-bottom: ${size.tiny};
+    }
 `;
 
 const SeriesBreadcrumbs = styled('div')`
