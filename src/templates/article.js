@@ -9,6 +9,7 @@ import { size } from '../components/dev-hub/theme';
 import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
+import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 
 let articleTitle = '';
 
@@ -118,10 +119,7 @@ const Article = props => {
             target: `/type/${meta.type}`,
         });
     }
-    const tagList = meta.tags.map(t => ({
-        label: t,
-        to: `/tag/${t}`,
-    }));
+    const tagList = getTagLinksFromMeta(meta);
     console.log({ childNodes });
     console.log({ contentNodes });
     console.log({ meta });
