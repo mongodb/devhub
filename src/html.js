@@ -30,7 +30,6 @@ const HTML = ({
             {headComponents}
         </head>
         <body {...bodyAttributes}>
-            {/* <script async src={withPrefix('scripts/segment.js')} /> */}
             {preBodyComponents}
             {/* eslint-disable-next-line react/no-danger */}
             <div
