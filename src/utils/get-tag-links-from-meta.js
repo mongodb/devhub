@@ -1,3 +1,5 @@
+import { mapTagTypeToUrl } from './map-tag-type-to-url';
+
 export const getTagLinksFromMeta = meta => {
     const mappedTags = mapTagTypeToUrl(meta.tags, 'tag');
     const mappedLanguageTags = mapTagTypeToUrl(meta.languages, 'language');
@@ -8,13 +10,4 @@ export const getTagLinksFromMeta = meta => {
         ...mappedProductTags,
     ];
     return allTags;
-};
-
-const mapTagTypeToUrl = (tags, tagType) => {
-    // Allow tag type to be omitted in article rST
-    if (!tags || !tags.length) return [];
-    return tags.map(t => ({
-        label: t,
-        to: `/${tagType}/${t}`,
-    }));
 };
