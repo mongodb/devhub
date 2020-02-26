@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link as GatsbyLink } from 'gatsby';
+import DevHubLink from './dev-hub/link';
 import { isPreviewMode } from '../utils/is-preview-mode';
 
 /*
@@ -17,20 +17,15 @@ const Link = ({ children, to, activeClassName, partiallyActive, ...other }) => {
     if (!isPreviewMode() && to && !external) {
         if (!to.startsWith('/')) to = `/${to}`;
         return (
-            <GatsbyLink
-                to={to}
-                activeClassName={activeClassName}
-                partiallyActive={partiallyActive}
-                {...other}
-            >
+            <DevHubLink to={to} {...other}>
                 {children}
-            </GatsbyLink>
+            </DevHubLink>
         );
     }
     return (
-        <a href={to} {...other}>
+        <DevHubLink href={to} {...other}>
             {children}
-        </a>
+        </DevHubLink>
     );
 };
 
