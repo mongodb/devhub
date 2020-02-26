@@ -35,6 +35,9 @@ const globalStyles = css`
             padding: ${size.medium};
         }
     }
+    img {
+        max-width: 100%;
+    }
 `;
 
 const GlobalWrapper = styled('div')`
