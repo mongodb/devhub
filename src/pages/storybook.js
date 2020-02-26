@@ -304,7 +304,10 @@ export default () => (
                 ]}
             >
                 <H1>DevHub Component "Storybook"</H1>
-                <BylineBlock author="UP Team" authorImage={MockAuthorImage} />
+                <BylineBlock
+                    authorName="UP Team"
+                    authorImage={MockAuthorImage}
+                />
             </HeroBanner>
             <SectionHeader>Text</SectionHeader>
             <H1>Heading 1</H1>

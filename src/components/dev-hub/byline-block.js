@@ -1,4 +1,5 @@
 import React from 'react';
+import { withPrefix } from 'gatsby';
 import styled from '@emotion/styled';
 import Link from './link';
 import { P } from './text';
@@ -65,14 +66,14 @@ const ByLine = styled('div')`
     }
 `;
 
-const BylineBlock = ({ author, authorImage }) => {
+const BylineBlock = ({ authorName, authorImage }) => {
     return (
         <ByLine>
             <AuthorImage>
-                <img src={authorImage} alt={author} />
+                <img src={withPrefix(authorImage)} alt={authorName} />
             </AuthorImage>
             <AuthorText collapse>
-                By <AuthorLink to="#">{author}</AuthorLink>
+                By <AuthorLink to="#">{authorName}</AuthorLink>
             </AuthorText>
         </ByLine>
     );
