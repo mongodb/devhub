@@ -434,6 +434,11 @@ export default () => (
             <H4>Select (Narrow)</H4>
             <SelectStory narrow />
             <br />
+            <H4>TextArea</H4>
+            <TextArea placeholder="Email Address" />
+            <br />
+            <UploadButtonStory />
+            <br />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
                 <Swatch
