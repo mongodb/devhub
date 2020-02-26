@@ -1,5 +1,6 @@
 import React from 'react';
 import dlv from 'dlv';
+import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
@@ -128,8 +129,7 @@ const Article = props => {
     return (
         <Layout>
             <BlogPostTitleArea
-                // TODO: Pull real image once available
-                articleImage={meta['atf-image'] || ARTICLE_PLACEHOLDER}
+                articleImage={withPrefix(meta['atf-image'])}
                 author={meta.author}
                 // TODO: Get author image from the parser
                 authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
