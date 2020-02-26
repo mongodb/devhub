@@ -87,17 +87,14 @@ const constructDbFilter = () => ({
 
 const getRelatedPagesWithImages = pageNodes => {
     const related = dlv(pageNodes, 'query_fields.related', []);
-    let relatedPageInfo = [];
-    if (related.length) {
-        relatedPageInfo = related.map(r => ({
-            image: dlv(
-                RESOLVED_REF_DOC_MAPPING,
-                [r.target, 'query_fields', 'atf-image'],
-                null
-            ),
-            ...r,
-        }));
-    }
+    const relatedPageInfo = related.map(r => ({
+        image: dlv(
+            RESOLVED_REF_DOC_MAPPING,
+            [r.target, 'query_fields', 'atf-image'],
+            null
+        ),
+        ...r,
+    }));
     return relatedPageInfo;
 };
 

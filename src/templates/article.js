@@ -5,10 +5,9 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
-import Card from '../components/dev-hub/card';
 import Layout from '../components/dev-hub/layout';
-import { H4 } from '../components/dev-hub/text';
-import { colorMap, size } from '../components/dev-hub/theme';
+import RelatedArticles from '../components/dev-hub/related-articles';
+import { size } from '../components/dev-hub/theme';
 import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
@@ -90,48 +89,6 @@ const ArticleSeries = ({
             </Series>
             <br />
         </>
-    );
-};
-
-const RelatedContainer = styled('div')`
-    background-color: ${colorMap.devBlack};
-    padding: 70px 120px;
-    margin: 0 auto;
-    height: 575px;
-`;
-
-const RelatedCards = styled('div')`
-    display: flex;
-`;
-
-const RelatedArticles = ({ related, slugTitleMapping }) => {
-    if (!related || !related.length) return null;
-    return (
-        <RelatedContainer>
-            <H4>Related</H4>
-            <RelatedCards>
-                {related.map(r => {
-                    const target = r.target;
-                    const slug = r.target && r.target.slice(1, r.target.length);
-                    const image = r.image || ARTICLE_PLACEHOLDER;
-                    const title = dlv(
-                        slugTitleMapping,
-                        [slug, 0, 'value'],
-                        'Title Not Found'
-                    );
-                    /* TODO: Case on doc to link internal vs external */
-                    return (
-                        <Card
-                            image={image}
-                            href={target}
-                            maxDescriptionLines={2}
-                            title={title}
-                            maxWidth={260}
-                        />
-                    );
-                })}
-            </RelatedCards>
-        </RelatedContainer>
     );
 };
 
