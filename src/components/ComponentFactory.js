@@ -16,6 +16,7 @@ import Figure from './Figure';
 import Literal from './Literal';
 import Heading from './Heading';
 import BlockQuote from './BlockQuote';
+import Callout from './dev-hub/blockquote';
 import Reference from './Reference';
 import Strong from './Strong';
 import TitleReference from './TitleReference';
@@ -71,6 +72,7 @@ export default class ComponentFactory extends Component {
         this.componentMap = {
             admonition: Admonition,
             blockquote: BlockQuote,
+            callout: Callout,
             'card-group': CardGroup,
             class: CSSClass,
             code: CodeBlock,
