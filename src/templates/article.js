@@ -131,8 +131,6 @@ const Article = props => {
             <BlogPostTitleArea
                 articleImage={withPrefix(meta['atf-image'])}
                 author={meta.author}
-                // TODO: Get author image from the parser
-                authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={meta.pubdate}
                 tags={tagList}
