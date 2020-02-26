@@ -8,14 +8,13 @@ import Button from './button';
 import TextArea from './text-area';
 
 const ModalContainer = styled('div')`
-    padding: ${size.default};
-    padding-left: ${size.xlarge};
+    padding: 0 ${size.default};
 `;
 const SubmitContainer = styled('div')`
     align-items: center;
     display: flex;
     justify-content: flex-end;
-    margin: ${size.large} ${size.large} 0 0;
+    margin-top: ${size.medium};
 `;
 const Title = styled(H5)`
     padding-bottom: ${size.medium};
@@ -24,7 +23,8 @@ const Form = React.memo(() => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [project, setProject] = useState('');
-    const handleSubmit = () => {
+    const handleSubmit = e => {
+        e.preventDefault();
         console.log({
             name,
             email,

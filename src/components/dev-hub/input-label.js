@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { colorMap, layer } from './theme';
 
-export const StyledLabel = styled('label')`
+export const InputLabel = styled('label')`
     background: linear-gradient(
         180deg,
         transparent 50%,
@@ -17,5 +17,5 @@ export const StyledLabel = styled('label')`
 `;
 
 export default ({ children, ...props }) => {
-    return <StyledLabel {...props}>{children}</StyledLabel>;
+    return <InputLabel {...props}>{children}</InputLabel>;
 };

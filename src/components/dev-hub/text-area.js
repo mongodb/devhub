@@ -26,10 +26,7 @@ const StyledTextArea = styled('textarea')`
     padding: ${size.medium};
     position: relative;
     resize: none;
-    width: calc(
-        100% - ${size.medium} - ${size.medium} - ${FORM_ELEMENT_BORDER} -
-            ${FORM_ELEMENT_BORDER}
-    );
+    width: 100%;
     :focus {
         border-image: ${gradientMap.magentaSalmonYellow} 1;
         transition: border ${animationSpeed.fast} linear ${animationSpeed.fast};

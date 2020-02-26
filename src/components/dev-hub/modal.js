@@ -39,7 +39,7 @@ const CloseButtonWrapper = styled('div')`
     font-weight: bold;
     color: ${colorMap.greyLightThree};
     cursor: pointer;
-    padding: ${size.small};
+    padding: ${size.tiny};
 `;
 
 const ModalClose = ({ closeModalOnEnter, deactivateModal }) => (
