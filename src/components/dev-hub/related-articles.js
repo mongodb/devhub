@@ -27,11 +27,13 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
                     const target = r.target;
                     const slug = r.target && r.target.slice(1, r.target.length);
                     const image = r.image || ARTICLE_PLACEHOLDER;
-                    const title = dlv(
-                        slugTitleMapping,
-                        [slug, 0, 'value'],
-                        'Title Not Found'
-                    );
+                    const title = dlv(slugTitleMapping, [slug, 0, 'value'], '');
+                    if (title === '') {
+                        console.error(
+                            `No title found for this article ${slug}`,
+                            slugTitleMapping
+                        );
+                    }
                     /* TODO: Case on doc to link internal vs external */
                     return (
                         <Card
