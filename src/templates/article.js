@@ -3,15 +3,12 @@ import dlv from 'dlv';
 import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import ComponentFactory from '../components/ComponentFactory';
-import { useSiteMetadata } from '../hooks/use-site-metadata';
-import { callStitchFunction } from '../utils/stitch';
 import DocumentBody from '../components/DocumentBody';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Card from '../components/dev-hub/card';
 import Layout from '../components/dev-hub/layout';
 import { H4 } from '../components/dev-hub/text';
-import { colorMap, screenSize, size } from '../components/dev-hub/theme';
+import { colorMap, size } from '../components/dev-hub/theme';
 import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
@@ -199,36 +196,7 @@ const Article = props => {
             </ArticleContent>
 
             <RelatedArticles
-                related={[
-                    {
-                        image: null,
-                        type: 'role',
-                        position: {
-                            start: {
-                                line: 51,
-                            },
-                        },
-                        domain: '',
-                        name: 'doc',
-                        target:
-                            '/quickstart/nodejs-how-to-connect-to-your-database',
-                        children: [],
-                    },
-                    {
-                        image: null,
-                        type: 'role',
-                        position: {
-                            start: {
-                                line: 51,
-                            },
-                        },
-                        domain: '',
-                        name: 'doc',
-                        target:
-                            '/quickstart/nodejs-how-to-connect-to-your-database',
-                        children: [],
-                    },
-                ]}
+                related={meta.related}
                 slugTitleMapping={slugTitleMapping}
             />
         </Layout>
@@ -249,22 +217,3 @@ Article.propTypes = {
 };
 
 export default Article;
-
-/*
-[
-                    {
-                        image: null,
-                        type: 'role',
-                        position: {
-                            start: {
-                                line: 51,
-                            },
-                        },
-                        domain: '',
-                        name: 'doc',
-                        target:
-                            '/quickstart/nodejs-how-to-connect-to-your-database',
-                        children: [],
-                    },
-                ]
-*/
