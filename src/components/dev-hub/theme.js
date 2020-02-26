@@ -43,7 +43,7 @@ const size = {
     large: '32px',
     xlarge: '64px',
     xxlarge: '120px',
-    maxContentWidth: '740px',
+    maxContentWidth: '780px',
     maxWidth: '1440px',
     /** @type {function(string): number} */
     stripUnit(unit) {
