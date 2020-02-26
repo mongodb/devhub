@@ -4,17 +4,35 @@ import styled from '@emotion/styled';
 import ARTICLE_PLACEHOLDER from '../../images/1x/MDB-and-Node.js.png';
 import Card from './card';
 import { H4 } from './text';
-import { colorMap } from './theme';
+import { colorMap, screenSize } from './theme';
 
 const RelatedContainer = styled('div')`
     background-color: ${colorMap.devBlack};
     padding: 70px 120px;
-    margin: 0 auto;
-    height: 575px;
+    @media ${screenSize.mediumAndUp} {
+        height: 575px;
+    }
 `;
 
 const RelatedCards = styled('div')`
     display: flex;
+    @media ${screenSize.upToMedium} {
+        flex-direction: column;
+    }
+    @media ${screenSize.mediumAndUp} {
+        > a {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        > a:first-of-type {
+            margin-left: 0;
+        }
+        > a:last-of-type {
+            margin-right: 0;
+        }
+    }
 `;
 
 const RelatedArticles = ({ related, slugTitleMapping }) => {
@@ -41,7 +59,7 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
                             href={target}
                             maxDescriptionLines={2}
                             title={title}
-                            maxWidth={260}
+                            // maxWidth={260}
                         />
                     );
                 })}
