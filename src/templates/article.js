@@ -134,7 +134,7 @@ const Article = props => {
                 authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={meta.pubdate}
-                tags={[...meta.tags, ...meta.languages, ...meta.products]}
+                tags={meta.tags}
                 title={articleTitle}
             />
 

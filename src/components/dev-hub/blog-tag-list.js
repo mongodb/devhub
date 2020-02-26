@@ -59,7 +59,7 @@ const BlogTag = ({ children, ...props }) => (
 );
 
 // eslint-disable-next-line no-unused-vars
-const BlogTagList = ({ tags = [], tagLinkBase }) => {
+const BlogTagList = ({ tags = [], tagLinkBase = '/tag' }) => {
     // TODO: add in article link below once finalized
     // const getArticleLink = tagName => `${tagLinkBase}/${tagName}`
     const canExpand = tags.length >= MINIMUM_EXPANDABLE_SIZE;
