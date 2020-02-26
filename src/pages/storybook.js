@@ -262,14 +262,14 @@ namespace CSharpTutorials
 const BlogTagListStory = ({ short }) => {
     const blogTags = short
         ? [
-              { text: 'Kerberos', to: '#' },
-              { text: 'Golang', to: '#' },
+              { label: 'Kerberos', to: '#' },
+              { label: 'Golang', to: '#' },
           ]
         : [
-              { text: 'Kerberos', to: '#' },
-              { text: 'Golang', to: '#' },
-              { text: 'Python', to: '#' },
-              { text: 'Another Tag', to: '#' },
+              { label: 'Kerberos', to: '#' },
+              { label: 'Golang', to: '#' },
+              { label: 'Python', to: '#' },
+              { label: 'Another Tag', to: '#' },
           ];
     return <BlogTagList tags={blogTags} />;
 };
