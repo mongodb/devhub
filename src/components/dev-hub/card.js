@@ -143,7 +143,7 @@ const Card = ({
                 )}
             </div>
 
-            {tags && <TagList tags={mapTagTypeToUrl(tags, 'tag')} />}
+            {tags && <TagList tags={tags} />}
         </ContentWrapper>
     );
 };

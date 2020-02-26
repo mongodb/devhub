@@ -61,6 +61,7 @@ import Folder from '../components/dev-hub/icons/folder';
 import UploadButton from '../components/dev-hub/upload-button';
 import FeatureBlock from '../components/dev-hub/feature-block';
 import EventsList from '../components/dev-hub/event-list';
+import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 
 const Row = styled('div')`
     display: flex;
@@ -524,7 +525,7 @@ export default () => (
                 <Card
                     distinct
                     image={mockCardImage}
-                    tags={['tag one', 'tag two']}
+                    tags={mapTagTypeToUrl(['tag one', 'tag two'], 'tags')}
                     maxTitleLines={3}
                 >
                     I'm a Card For A Post on the New Devhub Platform! With no
@@ -533,7 +534,10 @@ export default () => (
                 <Card
                     href="#card-row"
                     image={mockCardImage}
-                    tags={['tag one', 'tag two', 'tag three']}
+                    tags={mapTagTypeToUrl(
+                        ['tag one', 'tag two', 'tag three'],
+                        'tags'
+                    )}
                 >
                     I'm a Card
                 </Card>

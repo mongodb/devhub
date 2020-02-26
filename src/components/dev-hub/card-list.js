@@ -5,6 +5,7 @@ import Button from './button';
 import { screenSize, size } from './theme';
 import { withPrefix } from 'gatsby';
 import { getNestedText } from '../../utils/get-nested-text';
+import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 
 const CardContainer = styled('div')`
     align-items: center;
@@ -42,11 +43,7 @@ export default ({ items = [], limit = 9 }) => {
                     <ArticleCard
                         key={item['_id']}
                         image={withPrefix(item['atf-image'])}
-                        tags={[
-                            ...item.tags,
-                            ...item.languages,
-                            ...item.products,
-                        ]}
+                        tags={getTagLinksFromMeta(item)}
                         title={getNestedText(item['title'])}
                         description={getNestedText(item['meta-description'])}
                     />
