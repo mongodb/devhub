@@ -10,6 +10,7 @@ import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
 import { authenticate, callStitchFunction } from '../utils/stitch';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
+import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
@@ -87,7 +88,7 @@ export default () => {
                             MongoDB can get you up and running on the next great
                             application in no time at all. Let’s find out how
                             and why!"
-                                tags={['nodejs']}
+                                tags={mapTagTypeToUrl(['nodejs'], 'language')}
                             />
                         </MediaBlock>
                     </PrimarySection>
@@ -95,14 +96,14 @@ export default () => {
                         title="Quick Start - Node.js"
                         description=" Master all the CRUD operations in Node.js with
                             MongoDB"
-                        tags={['nodejs']}
+                        tags={mapTagTypeToUrl(['nodejs'], 'language')}
                     />
 
                     <LastArticle
                         title="Visualising the Coronavirus"
                         description="See the spread of the Coronavirus in MongoDB
                             Charts"
-                        tags={['charts']}
+                        tags={mapTagTypeToUrl(['charts'], 'product')}
                     />
                 </MainFeatureGrid>
             </Header>
