@@ -90,7 +90,11 @@ const getRelatedPagesWithImages = pageNodes => {
     let relatedPageInfo = [];
     if (related.length) {
         relatedPageInfo = related.map(r => ({
-            image: dlv(RESOLVED_REF_DOC_MAPPING, [r.target, 'atf-image'], null),
+            image: dlv(
+                RESOLVED_REF_DOC_MAPPING,
+                [r.target, 'query_fields', 'atf-image'],
+                null
+            ),
             ...r,
         }));
     }
