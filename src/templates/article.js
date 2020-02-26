@@ -1,5 +1,6 @@
 import React from 'react';
 import dlv from 'dlv';
+import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
@@ -9,6 +10,7 @@ import { size } from '../components/dev-hub/theme';
 import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
+import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 
 let articleTitle = '';
 
@@ -108,6 +110,17 @@ const Article = props => {
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
+    const articleBreadcrumbs = [
+        { label: 'Home', target: '/' },
+        { label: 'Learn', target: '/learn' },
+    ];
+    if (meta.type && meta.type.length) {
+        articleBreadcrumbs.push({
+            label: meta.type[0].toUpperCase() + meta.type.substring(1),
+            target: `/type/${meta.type}`,
+        });
+    }
+    const tagList = getTagLinksFromMeta(meta);
     console.log({ childNodes });
     console.log({ contentNodes });
     console.log({ meta });
@@ -116,19 +129,13 @@ const Article = props => {
     return (
         <Layout>
             <BlogPostTitleArea
-                // TODO: Pull real image once available
-                // articleImage={meta['atf-image']}
-                articleImage={ARTICLE_PLACEHOLDER}
+                articleImage={withPrefix(meta['atf-image'])}
                 author={meta.author}
                 // TODO: Get author image from the parser
                 authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
-                breadcrumb={[
-                    { label: 'Home', target: '/' },
-                    { label: 'Learn', target: '/learn' },
-                    { label: 'Quick Start', target: '#' },
-                ]}
+                breadcrumb={articleBreadcrumbs}
                 originalDate={meta.pubdate}
-                tags={[...meta.tags, ...meta.languages, ...meta.products]}
+                tags={tagList}
                 title={articleTitle}
             />
 
