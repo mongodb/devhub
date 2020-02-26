@@ -27,12 +27,12 @@ const DateText = styled(P)`
 
 const BlogPostTitleArea = ({
     articleImage,
+    author,
     authorImage,
     breadcrumb,
     title,
     originalDate,
     tags,
-    author,
 }) => {
     return (
         <HeroBanner background={articleImage} breadcrumb={breadcrumb}>
@@ -41,7 +41,9 @@ const BlogPostTitleArea = ({
                 {originalDate && <DateText collapse>{originalDate}</DateText>}
                 <BlogTagList tags={tags} />
             </PostMetaLine>
-            <BylineBlock author={author} authorImage={authorImage} />
+            {author && (
+                <BylineBlock author={author} authorImage={authorImage} />
+            )}
         </HeroBanner>
     );
 };
