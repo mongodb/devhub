@@ -217,24 +217,45 @@ function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
 
-console.log(greeting('World'));`;
+genericFunction(greeting('World'));`;
 
 const codeSample = `
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
 
-console.log(greeting('World'));console.log(greeting('World'));
+genericFunction(greeting('World'));genericFunction(greeting('World'));
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
 
-console.log(greeting('World'));
+genericFunction(greeting('World'));
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
 
-console.log(greeting('World'));`;
+genericFunction(greeting('World'));
+
+`;
+
+const cSharpCodeSample = `
+using System;
+using System.Collections.Generic;
+
+namespace CSharpTutorials
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string message = "Hello World!!";
+            // collections can't be created inside a transaction so create it first await database.CreateCollectionAsync("products");
+            Console.WriteLine(message);
+        }
+    }
+}
+`;
+
 const BlogTagListStory = ({ short }) => {
     const blogTags = short
         ? [
@@ -393,6 +414,7 @@ export default () => (
             </CodeArticle>
             <br />
             <CodeBlock nodeData={{ value: codeSample }} />
+            <CodeBlock nodeData={{ value: cSharpCodeSample, lang: 'csp' }} />
             <SectionHeader>Links</SectionHeader>
             <Link href="#">Hello World</Link>
             <Link href="#" tertiary>
