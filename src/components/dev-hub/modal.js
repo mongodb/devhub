@@ -18,8 +18,8 @@ const transparentModalStyling = css`
 `;
 
 const Heading = styled('header')`
-    font-weight: bold;
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
 `;
 
 const ModalDialog = styled('div')`
@@ -36,11 +36,10 @@ const ModalDialog = styled('div')`
     ${({ transparent }) => transparent && transparentModalStyling};
 `;
 const CloseButtonWrapper = styled('div')`
+    font-weight: bold;
+    color: ${colorMap.greyLightThree};
     cursor: pointer;
-    &:after {
-        content: '\u00D7';
-        color: ${colorMap.greyLightThree};
-    }
+    padding: ${size.tiny};
 `;
 
 const ModalClose = ({ closeModalOnEnter, deactivateModal }) => (
@@ -49,7 +48,9 @@ const ModalClose = ({ closeModalOnEnter, deactivateModal }) => (
             tabIndex="0"
             onClick={deactivateModal}
             onKeyUp={closeModalOnEnter}
-        ></CloseButtonWrapper>
+        >
+            &times;
+        </CloseButtonWrapper>
     </Heading>
 );
 
@@ -62,6 +63,7 @@ const getApplicationNode = () => document.getElementById('root');
  * @property {JSX.Element[]= | JSX.Element=} props.children
  * @property {Object | String} props.contentStyle
  * @property {Object} props.dialogContainerStyle
+ * @property {Object} props.dialogMobileContainerStyle
  * @property {String=} props.title
  * @property {JSX.Element[]= | JSX.Element=} props.triggerComponent
  * @property {Bool=} props.isOpenToStart
@@ -77,6 +79,7 @@ export const Modal = ({
     contentStyle,
     // Dialog Container Style must be an object because of the react-aria-modal library styling
     dialogContainerStyle,
+    dialogMobileContainerStyle,
     title,
     triggerComponent,
     isOpenToStart = false,
@@ -102,7 +105,7 @@ export const Modal = ({
     };
     const dialogMobileStyle = {
         padding: `${size.large}`,
-        ...dialogContainerStyle,
+        ...dialogMobileContainerStyle,
     };
     const [isActive, setIsActive] = useState(isOpenToStart);
     const isMobile = useMedia(screenSize.upToMedium);
@@ -156,6 +159,7 @@ Modal.propTypes = {
     children: PropTypes.node,
     contentStyle: PropTypes.object,
     dialogContainerStyle: PropTypes.object,
+    dialogMobileContainerStyle: PropTypes.object,
     isOpenToStart: PropTypes.bool,
     isMounted: PropTypes.bool,
     title: PropTypes.string,

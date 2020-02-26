@@ -179,9 +179,9 @@ const getArrow = ({ pagination, primary, secondary }) => {
  * @property {string?} props.to
  */
 
-const Button = ({ children, href, play, to, ...props }) => {
+const Button = ({ children, href, play, to, hasArrow = true, ...props }) => {
     const isButton = !!(props.primary || props.secondary || play);
-    const arrow = getArrow(props);
+    const arrow = hasArrow ? getArrow(props) : null;
     if (href || to || !isButton) {
         // If the Button has a `to` or a `href` prop, then it renders as a `Link` element,
         const AsLink = StyledButton.withComponent(Link);

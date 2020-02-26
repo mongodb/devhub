@@ -9,10 +9,11 @@ import { StorybookLayout } from '../components/dev-hub/layout';
 import BylineBlock from '../components/dev-hub/byline-block';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
-import { Event } from '../components/dev-hub/events';
+import Event, { sampleEvents } from '../components/dev-hub/events';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
+import TextArea from '../components/dev-hub/text-area';
 import HeroBanner from '../components/dev-hub/hero-banner';
 import MediaBlock from '../components/dev-hub/media-block';
 import Modal from '../components/dev-hub/modal';
@@ -56,6 +57,10 @@ import mockCardImage from '../images/360-mock-img.png';
 import MockAuthorImage from '../images/1x/MDB-and-Node.js.png';
 import VideoEmbed from '../components/dev-hub/video-embed';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
+import Folder from '../components/dev-hub/icons/folder';
+import UploadButton from '../components/dev-hub/upload-button';
+import FeatureBlock from '../components/dev-hub/feature-block';
+import EventsList from '../components/dev-hub/event-list';
 
 const Row = styled('div')`
     display: flex;
@@ -210,43 +215,50 @@ const BlockQuoteStory = () => (
     ></Blockquote>
 );
 
-const EventStory = () => {
-    const event = {
-        date: new Date('January 20, 2020'),
-        title: 'MongoDB.local San Francisco',
-        location: 'San Francisco, California',
-        url: '/community',
-    };
-    return (
-        <>
-            <Event {...event} />
-            <Event {...event} date={new Date('February 13, 2020')} />
-        </>
-    );
-};
 const shortCodeSample = `
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
 
-console.log(greeting('World'));`;
+genericFunction(greeting('World'));`;
 
 const codeSample = `
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
 
-console.log(greeting('World'));console.log(greeting('World'));
+genericFunction(greeting('World'));genericFunction(greeting('World'));
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
 
-console.log(greeting('World'));
+genericFunction(greeting('World'));
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
 }
 
-console.log(greeting('World'));`;
+genericFunction(greeting('World'));
+
+`;
+
+const cSharpCodeSample = `
+using System;
+using System.Collections.Generic;
+
+namespace CSharpTutorials
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string message = "Hello World!!";
+            // collections can't be created inside a transaction so create it first await database.CreateCollectionAsync("products");
+            Console.WriteLine(message);
+        }
+    }
+}
+`;
+
 const BlogTagListStory = ({ short }) => {
     const blogTags = short
         ? [
@@ -270,7 +282,17 @@ const CodeArticle = styled('div')`
 const ModalContainer = styled('div')`
     padding: ${size.default};
 `;
-
+const UploadButtonStory = () => {
+    const [file, setFile] = useState(null);
+    return (
+        <UploadButton
+            label="Attach walkthrough (mov., .zip, etc)"
+            name="walkthrough"
+            onChange={e => setFile(e.target.files[0])}
+            file={file}
+        />
+    );
+};
 export default () => (
     <StorybookLayout>
         <StorybookContainer>
@@ -335,11 +357,15 @@ export default () => (
                     <H4>Input (Narrow)</H4>
                     <InputStory narrow />
                     <br />
+                    <H4>TextArea</H4>
+                    <TextArea placeholder="Email Address" />
+                    <br />
                     <H4>Select</H4>
                     <SelectStory />
                     <br />
                     <H4>Select (Narrow)</H4>
                     <SelectStory narrow />
+                    <UploadButtonStory />
                 </ModalContainer>
             </Modal>
             <br />
@@ -405,6 +431,7 @@ export default () => (
             </CodeArticle>
             <br />
             <CodeBlock nodeData={{ value: codeSample }} />
+            <CodeBlock nodeData={{ value: cSharpCodeSample, lang: 'csp' }} />
             <SectionHeader>Links</SectionHeader>
             <Link href="#">Hello World</Link>
             <Link href="#" tertiary>
@@ -428,6 +455,11 @@ export default () => (
             <br />
             <H4>Select (Narrow)</H4>
             <SelectStory narrow />
+            <br />
+            <H4>TextArea</H4>
+            <TextArea placeholder="Email Address" />
+            <br />
+            <UploadButtonStory />
             <br />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
@@ -558,9 +590,33 @@ export default () => (
                 <Github color={colorMap.darkGreen} />
                 <Twitch color={colorMap.devWhite} />
                 <LocationIcon color={colorMap.violet} />
+                <Folder />
             </Row>
             <SectionHeader>Events</SectionHeader>
-            <EventStory />
+            <EventsList items={sampleEvents} />
+            <SectionHeader>Feature Block </SectionHeader>
+            <FeatureBlock
+                description="I'm a feature block that can be used to highlight content on any page"
+                title="Feature Block"
+                imgDescription="im an image description"
+                imgTitle="Image Title"
+                cta={{
+                    text: 'Learn More',
+                    to: '/storybook',
+                }}
+            />
+            <br />
+            <FeatureBlock
+                reverse
+                description="I'm a feature block that can be used to highlight content on any page"
+                title="Feature Block"
+                imgDescription="im an image description"
+                imgTitle="Image Title"
+                cta={{
+                    text: 'Learn More',
+                    to: '/storybook',
+                }}
+            />
         </StorybookContainer>
     </StorybookLayout>
 );

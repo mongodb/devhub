@@ -98,7 +98,12 @@ const CopyButton = ({
     }, [copyString, feedbackString, feedbackTimeout, nodesToString, timeoutId]);
 
     return (
-        <StyledCopyButton secondary type="button" onClick={onClick}>
+        <StyledCopyButton
+            secondary
+            hasArrow={false}
+            type="button"
+            onClick={onClick}
+        >
             {feedbackMessage}
         </StyledCopyButton>
     );
