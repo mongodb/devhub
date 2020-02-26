@@ -4,12 +4,14 @@ import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import ComponentFactory from '../components/ComponentFactory';
+import { useSiteMetadata } from '../hooks/use-site-metadata';
+import { callStitchFunction } from '../utils/stitch';
 import DocumentBody from '../components/DocumentBody';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Card from '../components/dev-hub/card';
 import Layout from '../components/dev-hub/layout';
 import { H4 } from '../components/dev-hub/text';
-import { colorMap, size } from '../components/dev-hub/theme';
+import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
@@ -98,6 +100,11 @@ const RelatedContainer = styled('div')`
     background-color: ${colorMap.devBlack};
     padding: 70px 120px;
     margin: 0 auto;
+    height: 575px;
+`;
+
+const RelatedCards = styled('div')`
+    display: flex;
 `;
 
 const RelatedArticles = ({ related, slugTitleMapping }) => {
@@ -105,21 +112,28 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
     return (
         <RelatedContainer>
             <H4>Related</H4>
-            <div style={{ display: 'flex' }}>
+            <RelatedCards>
                 {related.map(r => {
                     const target = r.target;
-                    const slug = r.target.slice(1, r.target.length);
+                    const slug = r.target && r.target.slice(1, r.target.length);
+                    const image = r.image || ARTICLE_PLACEHOLDER;
+                    const title = dlv(
+                        slugTitleMapping,
+                        [slug, 0, 'value'],
+                        'Title Not Found'
+                    );
                     /* TODO: Case on doc to link internal vs external */
                     return (
                         <Card
-                            image={ARTICLE_PLACEHOLDER}
+                            image={image}
                             href={target}
                             maxDescriptionLines={2}
-                            title={slugTitleMapping[slug][0].value}
+                            title={title}
+                            maxWidth={260}
                         />
                     );
                 })}
-            </div>
+            </RelatedCards>
         </RelatedContainer>
     );
 };
@@ -187,6 +201,21 @@ const Article = props => {
             <RelatedArticles
                 related={[
                     {
+                        image: null,
+                        type: 'role',
+                        position: {
+                            start: {
+                                line: 51,
+                            },
+                        },
+                        domain: '',
+                        name: 'doc',
+                        target:
+                            '/quickstart/nodejs-how-to-connect-to-your-database',
+                        children: [],
+                    },
+                    {
+                        image: null,
                         type: 'role',
                         position: {
                             start: {
@@ -202,20 +231,6 @@ const Article = props => {
                 ]}
                 slugTitleMapping={slugTitleMapping}
             />
-            {/* TODO: Fix related data shape once stable  */}
-            {/* <footer>
-                <ul>
-                    {meta.related.map((rel, i) => {
-                        const test = {
-                            type: 'role',
-                            name: ':doc:',
-                            target:
-                                '/quickstart/nodejs-how-to-connect-to-your-database',
-                        };
-                        return <ComponentFactory nodeData={test} key={i} />;
-                    })}
-                </ul>
-            </footer> */}
         </Layout>
     );
 };
@@ -234,3 +249,22 @@ Article.propTypes = {
 };
 
 export default Article;
+
+/*
+[
+                    {
+                        image: null,
+                        type: 'role',
+                        position: {
+                            start: {
+                                line: 51,
+                            },
+                        },
+                        domain: '',
+                        name: 'doc',
+                        target:
+                            '/quickstart/nodejs-how-to-connect-to-your-database',
+                        children: [],
+                    },
+                ]
+*/
