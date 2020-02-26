@@ -121,18 +121,6 @@ const Hero = styled('header')`
 export default ({ ...data }) => {
     return (
         <Layout>
-            <Hero>
-                <HeroContent>
-                    <H2 bold>Find Your Place</H2>
-                    <P>
-                        Do you want to share your amazing work? Do you have a
-                        question or a problem and are looking for help? Do you
-                        want to get connected with and inspired by others with a
-                        passion for MongoDB? Join the MongoDB Community!
-                    </P>
-                    <Button primary>Join our online community</Button>
-                </HeroContent>
-            </Hero>
             <UpcomingEvents>
                 <EventsHeader>
                     <SectionTitle bold>Upcoming Events</SectionTitle>
@@ -145,6 +133,18 @@ export default ({ ...data }) => {
                     View all
                 </MobileViewAllBtn>
             </UpcomingEvents>
+            <Hero>
+                <HeroContent>
+                    <H2 bold>Find Your Place</H2>
+                    <P>
+                        Do you want to share your amazing work? Do you have a
+                        question or a problem and are looking for help? Do you
+                        want to get connected with and inspired by others with a
+                        passion for MongoDB? Join the MongoDB Community!
+                    </P>
+                    <Button primary>Join our online community</Button>
+                </HeroContent>
+            </Hero>
             <FeaturedProject>
                 <MediaBlock
                     mediaComponent={
