@@ -9,7 +9,7 @@ import { StorybookLayout } from '../components/dev-hub/layout';
 import BylineBlock from '../components/dev-hub/byline-block';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
-import { Event } from '../components/dev-hub/events';
+import Event, { sampleEvents } from '../components/dev-hub/events';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
@@ -59,6 +59,8 @@ import VideoEmbed from '../components/dev-hub/video-embed';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import Folder from '../components/dev-hub/icons/folder';
 import UploadButton from '../components/dev-hub/upload-button';
+import FeatureBlock from '../components/dev-hub/feature-block';
+import EventsList from '../components/dev-hub/event-list';
 
 const Row = styled('div')`
     display: flex;
@@ -213,20 +215,6 @@ const BlockQuoteStory = () => (
     ></Blockquote>
 );
 
-const EventStory = () => {
-    const event = {
-        date: new Date('January 20, 2020'),
-        title: 'MongoDB.local San Francisco',
-        location: 'San Francisco, California',
-        url: '/community',
-    };
-    return (
-        <>
-            <Event {...event} />
-            <Event {...event} date={new Date('February 13, 2020')} />
-        </>
-    );
-};
 const shortCodeSample = `
 function greeting(entity) {
   return \`Hello, \${entity}!\`;
@@ -578,7 +566,30 @@ export default () => (
                 <Folder />
             </Row>
             <SectionHeader>Events</SectionHeader>
-            <EventStory />
+            <EventsList items={sampleEvents} />
+            <SectionHeader>Feature Block </SectionHeader>
+            <FeatureBlock
+                description="I'm a feature block that can be used to highlight content on any page"
+                title="Feature Block"
+                imgDescription="im an image description"
+                imgTitle="Image Title"
+                cta={{
+                    text: 'Learn More',
+                    to: '/storybook',
+                }}
+            />
+            <br />
+            <FeatureBlock
+                reverse
+                description="I'm a feature block that can be used to highlight content on any page"
+                title="Feature Block"
+                imgDescription="im an image description"
+                imgTitle="Image Title"
+                cta={{
+                    text: 'Learn More',
+                    to: '/storybook',
+                }}
+            />
         </StorybookContainer>
     </StorybookLayout>
 );

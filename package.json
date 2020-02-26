@@ -1,7 +1,7 @@
 {
-  "name": "dev-hub",
+  "name": "devhub",
   "version": "0.1.0",
-  "repository": "github:10gen/dev-hub",
+  "repository": "github:mongodb/devhub",
   "scripts": {
     "build": "gatsby build --prefix-paths",
     "clean": "gatsby clean",

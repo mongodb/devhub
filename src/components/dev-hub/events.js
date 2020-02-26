@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import dlv from 'dlv';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 import LocationIcon from './icons/location-icon';
 import MediaBlock from './media-block';
 import GradientImage from './gradient-image';
 import Link from './link';
 import { H1, H2, P, H4 } from './text';
+import { toDateString } from '../../utils/format-dates';
 import {
     gradientMap,
     size,
@@ -15,24 +16,84 @@ import {
     screenSize,
 } from './theme';
 
-const sampleEvents = [
+const MONGODB_WEBSITE = 'https://www.mongodb.com';
+export const sampleEvents = [
     {
-        date: new Date('January 20, 2020'),
         title: 'MongoDB.local San Francisco',
-        location: 'San Francisco, California',
-        url: '/community',
+        node_type_attributes: {
+            event_start: '2020-02-27T05:00:00.000Z',
+            event_end: '2020-02-27T05:00:00.000Z',
+            event_country: 'United States',
+            event_city: 'San Francisco',
+        },
+        url: 'https://mongodbanddatabricks.splashthat.com/',
+        url_type: 'external',
     },
     {
-        date: new Date('January 29, 2020'),
+        node_type_attributes: {
+            event_start: '2020-01-29T05:00:00.000Z',
+            event_end: '2020-01-29T05:00:00.000Z',
+            event_country: 'United States',
+            event_city: 'New York City',
+        },
         title: 'Coffe With Your Data: Real-Time Analytics',
-        location: 'New York, New York',
-        url: '/community',
+        url: 'https://mongodbanddatabricks.splashthat.com',
+        url_type: 'external',
     },
     {
-        date: new Date('February 13, 2020'),
-        title: 'Happy Hour & Arcade',
-        location: 'Los Angeles, California',
-        url: '/community',
+        node_type_attributes: {
+            event_start: '2019-12-11T18:30:00.000Z',
+            event_end: '2019-12-11T11:59:00.000Z',
+            event_country: 'United Kingdom',
+            event_city: 'London',
+        },
+        title: 'MongoDB.local London',
+        url: 'events/bhm20',
+        url_type: 'alias',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-06-11T18:30:00.000Z',
+            event_end: '2020-06-11T11:59:00.000Z',
+            event_country: 'United Kingdom',
+            event_city: 'London',
+        },
+        title: 'MongoDB.local London',
+        url: 'events/bhm20',
+        url_type: 'alias',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-04-11T18:30:00.000Z',
+            event_end: '2020-04-11T11:59:00.000Z',
+            event_country: 'Germany',
+            event_city: 'Berlin',
+        },
+        title: 'MongoDB.local Berlin',
+        url: 'https://mongodbanddatabricks.splashthat.com/',
+        url_type: 'external',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-05-11T18:30:00.000Z',
+            event_end: '2020-05-11T11:59:00.000Z',
+            event_country: 'France',
+            event_city: 'Paris',
+        },
+        title: 'MongoDB.local Paris',
+        url: 'https://mongodbanddatabricks.splashthat.com/',
+        url_type: 'external',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-06-11T18:30:00.000Z',
+            event_end: '2020-06-11T11:59:00.000Z',
+            event_country: 'Ireland',
+            event_city: 'Dublin',
+        },
+        title: 'MongoDB.local Dublin',
+        url: 'https://mongodbanddatabricks.splashthat.com/',
+        url_type: 'external',
     },
 ];
 
@@ -119,7 +180,7 @@ const StyledEvent = styled(Link)`
     }
 `;
 
-const AllEvents = styled('div')`
+const EventsPreview = styled('div')`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -131,11 +192,8 @@ const AllEvents = styled('div')`
 `;
 
 const DateIcon = ({ date }) => {
-    const day = date.getUTCDate();
-    const month = date.toLocaleString('default', {
-        month: 'short',
-        timezone: 'UTC',
-    });
+    const day = toDateString(date, { day: 'numeric', timezone: 'UTC' });
+    const month = toDateString(date, { month: 'short', timezone: 'UTC' });
     return (
         <StyledDate>
             <CalendarDate data-name="event-date">
@@ -146,13 +204,27 @@ const DateIcon = ({ date }) => {
     );
 };
 
-const Event = ({ date, maxTitleLines = 2, location, title, url }) => {
+const Event = ({ event, maxTitleLines = 2, ...props }) => {
     const [locationColor, setLocationColor] = useState(colorMap.greyLightThree);
+    const { title, url, url_type: urlType } = event;
+    const { event_city: city, event_country: country, event_start: date } = dlv(
+        event,
+        'node_type_attributes'
+    );
+
+    const urlProp = {
+        // internal mdb event urls only contain relative path,
+        // so these must be updated manually
+        href: urlType === 'alias' ? `${MONGODB_WEBSITE}/${url}` : url,
+    };
     return (
         <StyledEvent
             onMouseEnter={() => setLocationColor(colorMap.greyLightOne)}
             onMouseLeave={() => setLocationColor(colorMap.greyLightThree)}
-            to={url}
+            target="_blank"
+            rel="noreferrer noopener"
+            {...urlProp}
+            {...props}
         >
             <DateIcon date={date} />
             <EventInfo>
@@ -163,21 +235,11 @@ const Event = ({ date, maxTitleLines = 2, location, title, url }) => {
                         height="15px"
                         width="15px"
                     />{' '}
-                    {location}
+                    {city}, {country}
                 </Location>
             </EventInfo>
         </StyledEvent>
     );
 };
 
-const EventListPreview = ({ events = sampleEvents }) => {
-    const previews = events.length > 3 ? events.slice(0, 3) : events;
-    return (
-        <AllEvents>
-            {previews.map(event => (
-                <Event key={event.title} {...event} />
-            ))}
-        </AllEvents>
-    );
-};
-export { Event, EventListPreview };
+export default Event;

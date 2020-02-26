@@ -6,18 +6,37 @@ import { H3, P } from './text';
 import {
     colorMap,
     fontSize,
-    gradientMap,
     layer,
+    lineHeight,
     screenSize,
     size,
 } from './theme';
 
-const BULLET_BOX_WIDTH = '14px';
-const BULLET_SIZE = '22px';
+const BULLET_BOX_WIDTH = '30px';
+const BULLET_SIZE = 36;
+
+// Needed to allow more magenta to account for proper text coloring
+const BULLET_GRADIENT = `linear-gradient(
+    315deg,
+    ${colorMap.sherbet} 0%,
+    ${colorMap.salmon} 40%,
+    ${colorMap.magenta} 100%
+);`;
+
+const BORDER_GRADIENT = `linear-gradient(
+    0deg,
+    ${colorMap.sherbet} 0%,
+    ${colorMap.salmon} 49.99%,
+    ${colorMap.magenta} 100%
+);`;
 
 const activeLiStyles = css`
-    content: '\u29BF';
-    font-size: ${fontSize.default};
+    font-size: 22px;
+    &:after {
+        /* Adjust the background bullet position for the bull's eye text */
+        font-size: 38px;
+        top: -2px;
+    }
 `;
 
 const activeLinkStyles = css`
@@ -25,53 +44,20 @@ const activeLinkStyles = css`
 `;
 
 const Breadcrumb = styled('li')`
-    margin-bottom: 0;
     padding-bottom: ${size.small};
     position: relative;
-    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     z-index: ${layer.back};
-    /* Create gradient bullet */
-    :before {
-        background: ${gradientMap.magentaSalmonSherbet};
-        background-clip: text;
-        content: '\u25E6';
-        display: inline-block;
-        font-size: ${BULLET_SIZE};
-        margin-right: ${size.small};
-        text-align: center;
-        width: ${BULLET_BOX_WIDTH};
-        z-index: ${layer.front};
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        ${({ active }) => active && activeLiStyles}
-    }
-
-    /* Create overflowing line to next element */
-    /* TODO: Allow text-overflow ellipsis but allow line below to next bullet */
-    :not(:last-of-type):after {
-        position: absolute;
-        content: '';
-        background-image: linear-gradient(
-                0deg,
-                transparent,
-                transparent 50%,
-                ${colorMap.greyDarkTwo} 50%,
-                ${colorMap.greyDarkTwo} 100%
-            ),
-            ${gradientMap.magentaSalmonSherbet};
-        background-size: ${size.medium} 3px, 100% 3px;
-        border-image-repeat: round;
-        left: 6px;
-        top: ${size.medium};
-        height: 30px;
-        width: 1px;
-        z-index: ${layer.superBack};
-    }
 `;
 
 const DescriptiveText = styled(P)`
     color: ${colorMap.greyLightThree};
     font-size: ${fontSize.tiny};
+    @media ${screenSize.upToMedium} {
+        padding-bottom: ${size.tiny};
+    }
 `;
 
 const SeriesBreadcrumbs = styled('div')`
@@ -80,12 +66,10 @@ const SeriesBreadcrumbs = styled('div')`
     flex: 1;
     margin: 0;
     padding: ${size.large};
-    /* TODO: fix overflow to allow ellipsis and line to next bullet */
     overflow: hidden;
-    white-space: nowrap;
     @media ${screenSize.upToMedium} {
         border-radius: 0 0 ${size.small} ${size.small};
-        padding: ${size.medium};
+        padding: 24px ${size.medium} ${size.medium};
     }
 `;
 
@@ -101,47 +85,116 @@ const SeriesLink = styled(Link)`
     font-size: ${fontSize.default};
     text-decoration: none;
     ${({ active }) => active && activeLinkStyles};
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.default};
+    }
+`;
+
+const BulletIcon = styled('div')`
+    background: ${BULLET_GRADIENT};
+    background-clip: text;
+    display: inline-block;
+    font-size: ${BULLET_SIZE}px;
+    line-height: ${lineHeight.tiny};
+    margin-top: 2px;
+    margin-right: 30px;
+    position: relative;
+    text-align: left;
+    vertical-align: top;
+    width: ${BULLET_BOX_WIDTH};
+    width: 16px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Create a bullet to match the bg to hide border passing through */
+    &:after {
+        background: ${colorMap.greyDarkTwo};
+        background-clip: text;
+        content: '\u2022';
+        left: 0;
+        font-size: ${BULLET_SIZE}px;
+        height: 100%;
+        margin-right: ${size.small};
+        position: absolute;
+        text-align: left;
+        top: 0px;
+        vertical-align: top;
+        width: ${BULLET_BOX_WIDTH};
+        z-index: ${layer.superBack};
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    @media ${screenSize.upToMedium} {
+        margin-right: 20px;
+    }
+    ${({ active }) => active && activeLiStyles};
 `;
 
 const SeriesList = styled('ul')`
     list-style: none;
+    margin-bottom: 0;
+    margin-top: 0;
     padding-left: 0;
+    position: relative;
+    /* Dashed border line */
+    &:after {
+        background-image: linear-gradient(
+                0deg,
+                transparent,
+                transparent 50%,
+                ${colorMap.greyDarkTwo} 50%,
+                ${colorMap.greyDarkTwo} 100%
+            ),
+            ${BORDER_GRADIENT};
+        background-size: ${size.medium} 2px, cover;
+        bottom: ${BULLET_SIZE / 2}px;
+        content: '';
+        left: 7px;
+        position: absolute;
+        top: ${BULLET_SIZE / 2}px;
+        width: 1px;
+    }
 `;
 
 const SeriesNameContainer = styled('div')`
     background-color: ${colorMap.greyDarkThree};
     border-radius: ${size.small} 0 0 ${size.small};
-    padding: ${size.large};
     flex: 1;
+    padding: ${size.large};
     @media ${screenSize.upToMedium} {
         border-radius: ${size.small} ${size.small} 0 0;
         padding: ${size.medium};
     }
 `;
 
-const Series = ({ children, currentStep, name }) => {
-    return (
-        <SeriesContainer>
-            <SeriesNameContainer>
-                <DescriptiveText>More from this series</DescriptiveText>
-                <H3>{name}</H3>
-            </SeriesNameContainer>
-            <SeriesBreadcrumbs>
-                <SeriesList>
-                    {children.map(({ title, slug }) => (
-                        <Breadcrumb active={title === currentStep}>
-                            <SeriesLink
-                                active={title === currentStep}
-                                to={slug}
-                            >
+const SeriesIcon = ({ active }) => (
+    <BulletIcon active={active}>
+        {/* x29BF is bull's eye bullet, x25E6 is hollow bullet */}
+        {active ? <>&#x29BF;</> : <>&#x25E6;</>}
+    </BulletIcon>
+);
+
+const Series = ({ children, currentStep, name }) => (
+    <SeriesContainer>
+        <SeriesNameContainer>
+            <DescriptiveText collapse>More from this series</DescriptiveText>
+            <H3 collapse>{name}</H3>
+        </SeriesNameContainer>
+        <SeriesBreadcrumbs>
+            <SeriesList>
+                {children.map(({ title, slug }) => {
+                    const isActive = title === currentStep;
+                    return (
+                        <Breadcrumb active={isActive}>
+                            <SeriesIcon active={isActive} />
+                            <SeriesLink active={isActive} to={slug}>
                                 {title}
                             </SeriesLink>
                         </Breadcrumb>
-                    ))}
-                </SeriesList>
-            </SeriesBreadcrumbs>
-        </SeriesContainer>
-    );
-};
+                    );
+                })}
+            </SeriesList>
+        </SeriesBreadcrumbs>
+    </SeriesContainer>
+);
 
 export default Series;
