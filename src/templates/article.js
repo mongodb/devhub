@@ -196,7 +196,36 @@ const Article = props => {
             </ArticleContent>
 
             <RelatedArticles
-                related={meta.related}
+                related={[
+                    {
+                        image: null,
+                        type: 'role',
+                        position: {
+                            start: {
+                                line: 51,
+                            },
+                        },
+                        domain: '',
+                        name: 'doc',
+                        target:
+                            '/quickstart/nodejs-how-to-connect-to-your-database',
+                        children: [],
+                    },
+                    {
+                        image: null,
+                        type: 'role',
+                        position: {
+                            start: {
+                                line: 51,
+                            },
+                        },
+                        domain: '',
+                        name: 'doc',
+                        target:
+                            '/quickstart/nodejs-how-to-connect-to-your-database',
+                        children: [],
+                    },
+                ]}
                 slugTitleMapping={slugTitleMapping}
             />
         </Layout>
