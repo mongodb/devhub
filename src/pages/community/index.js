@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import Button from '../components/dev-hub/button';
-import Card from '../components/dev-hub/card';
-import GradientImage from '../components/dev-hub/gradient-image';
-import Layout from '../components/dev-hub/layout';
-import MediaBlock from '../components/dev-hub/media-block';
-import Link from '../components/dev-hub/link';
-import { Event, EventListPreview } from '../components/dev-hub/events';
-import { H1, H2, P, H4 } from '../components/dev-hub/text';
+import Button from '../../components/dev-hub/button';
+import GradientImage from '../../components/dev-hub/gradient-image';
+import Layout from '../../components/dev-hub/layout';
+import MediaBlock from '../../components/dev-hub/media-block';
+import Link from '../../components/dev-hub/link';
+import { EventsListPreview } from '../../components/dev-hub/event-list';
+import { H2, P, H4 } from '../../components/dev-hub/text';
 import {
-    size,
     colorMap,
     screenSize,
     fontSize,
-} from '../components/dev-hub/theme';
-import mockCardImage from '../images/360-mock-card.png';
+    size,
+} from '../../components/dev-hub/theme';
+import ProjectSignUpForm from '../../components/dev-hub/project-sign-up-form';
+import mockCardImage from '../../images/360-mock-card.png';
 
 const maxWidthStyles = css`
     max-width: 500px;
@@ -136,12 +136,12 @@ export default ({ ...data }) => {
             <UpcomingEvents>
                 <EventsHeader>
                     <SectionTitle bold>Upcoming Events</SectionTitle>
-                    <Link to="/community" tertiary>
+                    <Link to="/community/events" tertiary>
                         See all events
                     </Link>
                 </EventsHeader>
-                <EventListPreview />
-                <MobileViewAllBtn to="/community" secondary>
+                <EventsListPreview />
+                <MobileViewAllBtn to="/community/events" secondary>
                     View all
                 </MobileViewAllBtn>
             </UpcomingEvents>
@@ -172,9 +172,11 @@ export default ({ ...data }) => {
                             <Button to="#" secondary>
                                 Learn how they did it
                             </Button>
-                            <Link to="#" tertiary>
-                                Share your project
-                            </Link>
+                            <ProjectSignUpForm
+                                triggerComponent={
+                                    <Link tertiary>Share your project</Link>
+                                }
+                            />
                         </ProjectActions>
                     </ProjectDescription>
                 </MediaBlock>

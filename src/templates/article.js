@@ -1,5 +1,6 @@
 import React from 'react';
 import dlv from 'dlv';
+import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
@@ -9,6 +10,7 @@ import { size } from '../components/dev-hub/theme';
 import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
+import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 
 let articleTitle = '';
 
@@ -59,19 +61,34 @@ const getContent = nodes => {
     return nodesWeActuallyWant;
 };
 
+// TODO: series will no longer be defined in the article rST, this must be looked up from allSeries in createPages beforehand
 // This assumes each article belongs to at most one series
-const getSeries = (allSeries, slugTitleMapping, seriesName) => {
-    try {
-        const relevantSeries = allSeries[seriesName];
-        const mappedSeries = relevantSeries.map(s => ({
+const ArticleSeries = ({
+    allSeries,
+    currentArticleSeries,
+    currentSlug,
+    slugTitleMapping,
+}) => {
+    // Handle if this article is not in a series or no series are defined
+    if (!allSeries || !currentArticleSeries) return null;
+    const relevantSeries = allSeries[currentArticleSeries];
+    // Handle if this series is not defined in the top-level content TOML file
+    if (!relevantSeries || !relevantSeries.length) return null;
+    const mappedSeries = relevantSeries.map(s => {
+        const articleTitle = dlv(slugTitleMapping, [s, 0, 'value'], s);
+        return {
             slug: s,
-            title: slugTitleMapping[s][0].value,
-        }));
-        return mappedSeries;
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
+            title: articleTitle,
+        };
+    });
+    return (
+        <>
+            <Series name={currentArticleSeries} currentStep={currentSlug}>
+                {mappedSeries}
+            </Series>
+            <br />
+        </>
+    );
 };
 
 const ArticleContent = styled('article')`
@@ -83,7 +100,6 @@ const ArticleContent = styled('article')`
 
 const Article = props => {
     const {
-        pageContext,
         pageContext: {
             __refDocMapping,
             slug: thisPage,
@@ -91,51 +107,35 @@ const Article = props => {
         },
         ...rest
     } = props;
-    console.log(slugTitleMapping);
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
+    const articleBreadcrumbs = [
+        { label: 'Home', target: '/' },
+        { label: 'Learn', target: '/learn' },
+    ];
+    if (meta.type && meta.type.length) {
+        articleBreadcrumbs.push({
+            label: meta.type[0].toUpperCase() + meta.type.substring(1),
+            target: `/type/${meta.type}`,
+        });
+    }
+    const tagList = getTagLinksFromMeta(meta);
     console.log({ childNodes });
     console.log({ contentNodes });
     console.log({ meta });
     console.log(rest);
-    console.log(pageContext);
-    const hasSeries = !!meta.series;
-    let ArticleSeries = () => null;
-    const currentSlug = slugTitleMapping[thisPage][0].value;
-    if (hasSeries) {
-        const mappedSeries = getSeries(
-            allSeries,
-            slugTitleMapping,
-            meta.series
-        );
-        if (mappedSeries.length) {
-            ArticleSeries = () => (
-                <>
-                    <Series name={meta.series} currentStep={currentSlug}>
-                        {mappedSeries}
-                    </Series>
-                    <br />
-                </>
-            );
-        }
-    }
+
     return (
         <Layout>
             <BlogPostTitleArea
-                // TODO: Pull real image once available
-                // articleImage={meta['atf-image']}
-                articleImage={ARTICLE_PLACEHOLDER}
+                articleImage={withPrefix(meta['atf-image'])}
                 author={meta.author}
                 // TODO: Get author image from the parser
                 authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
-                breadcrumb={[
-                    { label: 'Home', target: '/' },
-                    { label: 'Learn', target: '/learn' },
-                    { label: 'Quick Start', target: '#' },
-                ]}
+                breadcrumb={articleBreadcrumbs}
                 originalDate={meta.pubdate}
-                tags={[...meta.tags, ...meta.languages, ...meta.products]}
+                tags={tagList}
                 title={articleTitle}
             />
 
@@ -145,7 +145,12 @@ const Article = props => {
                     slugTitleMapping={slugTitleMapping}
                     {...rest}
                 />
-                <ArticleSeries />
+                <ArticleSeries
+                    allSeries={allSeries}
+                    currentArticleSeries={meta.series}
+                    currentSlug={slugTitleMapping[thisPage][0].value}
+                    slugTitleMapping={slugTitleMapping}
+                />
             </ArticleContent>
 
             {/* TODO: Fix related data shape once stable  */}

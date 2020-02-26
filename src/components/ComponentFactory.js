@@ -15,7 +15,7 @@ import Admonition from './Admonition';
 import Figure from './Figure';
 import Literal from './Literal';
 import Heading from './Heading';
-import BlockQuote from './BlockQuote';
+import BlockQuote from './dev-hub/blockquote';
 import Reference from './Reference';
 import Strong from './Strong';
 import TitleReference from './TitleReference';

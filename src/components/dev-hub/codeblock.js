@@ -64,7 +64,9 @@ const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
     return (
         <CodeContainer>
             <StyledCode
-                language={lang ? lang : 'auto'}
+                // remove this lang !== 'csp' hack once LG supports cs
+                // https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
+                language={lang && lang !== 'csp' ? lang : 'auto'}
                 numdigits={numDigits}
                 showLineNumbers
                 variant="dark"
