@@ -19,6 +19,9 @@ const SubmitContainer = styled('div')`
 const Title = styled(H5)`
     padding-bottom: ${size.medium};
 `;
+const StyledInput = styled(Input)`
+    margin-bottom: ${size.large};
+`;
 const Form = React.memo(() => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -33,20 +36,18 @@ const Form = React.memo(() => {
     };
     return (
         <form onSubmit={handleSubmit}>
-            <Input
+            <StyledInput
                 value={name}
                 required
                 placeholder="Name"
                 onChange={e => setName(e.target.value)}
             />
-            <br></br>
-            <Input
+            <StyledInput
                 value={email}
                 required
                 placeholder="Email Address"
                 onChange={e => setEmail(e.target.value)}
             />
-            <br></br>
             <TextArea
                 value={project}
                 required
