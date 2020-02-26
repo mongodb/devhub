@@ -4,13 +4,17 @@ import styled from '@emotion/styled';
 import ARTICLE_PLACEHOLDER from '../../images/1x/MDB-and-Node.js.png';
 import Card from './card';
 import { H4 } from './text';
-import { colorMap, screenSize } from './theme';
+import { colorMap, screenSize, size } from './theme';
+
+const DESKTOP_HEIGHT = '575px';
+const MAX_CARD_WIDTH = 260;
 
 const RelatedContainer = styled('div')`
     background-color: ${colorMap.devBlack};
-    padding: 70px 120px;
+    padding: 30px;
     @media ${screenSize.mediumAndUp} {
-        height: 575px;
+        height: ${DESKTOP_HEIGHT};
+        padding: 70px ${size.xxlarge};
     }
 `;
 
@@ -18,13 +22,18 @@ const RelatedCards = styled('div')`
     display: flex;
     @media ${screenSize.upToMedium} {
         flex-direction: column;
+        > a {
+            margin: 0 auto;
+            padding-left: 0;
+            padding-right: 0;
+        }
     }
     @media ${screenSize.mediumAndUp} {
         > a {
             padding-left: 0;
             padding-right: 0;
-            margin-left: 20px;
-            margin-right: 20px;
+            margin-left: ${size.medium};
+            margin-right: ${size.medium};
         }
         > a:first-of-type {
             margin-left: 0;
@@ -59,7 +68,7 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
                             href={target}
                             maxDescriptionLines={2}
                             title={title}
-                            // maxWidth={260}
+                            maxWidth={MAX_CARD_WIDTH}
                         />
                     );
                 })}
