@@ -55,7 +55,7 @@ const StyledCode = styled(Code)`
     }
 `;
 
-const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
+const CodeBlock = ({ nodeData: { value }, ...props }) => {
     // We wish to up padding based on the number of lines based on the size of the max number length
     const numLines = useMemo(() => value.split(/\r|\n/).length, [value]);
     const numDigits = useMemo(() => Math.floor(Math.log10(numLines) + 1), [
@@ -64,7 +64,7 @@ const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
     return (
         <CodeContainer>
             <StyledCode
-                language={lang ? lang : 'auto'}
+                language="auto"
                 numdigits={numDigits}
                 showLineNumbers
                 variant="dark"
