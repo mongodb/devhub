@@ -108,6 +108,16 @@ const Article = props => {
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
+    const articleBreadcrumbs = [
+        { label: 'Home', target: '/' },
+        { label: 'Learn', target: '/learn' },
+    ];
+    if (meta.type && meta.type.length) {
+        articleBreadcrumbs.push({
+            label: meta.type[0].toUpperCase() + meta.type.substring(1),
+            target: `/tag/${meta.type}`,
+        });
+    }
     console.log({ childNodes });
     console.log({ contentNodes });
     console.log({ meta });
@@ -122,11 +132,7 @@ const Article = props => {
                 author={meta.author}
                 // TODO: Get author image from the parser
                 authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
-                breadcrumb={[
-                    { label: 'Home', target: '/' },
-                    { label: 'Learn', target: '/learn' },
-                    { label: 'Quick Start', target: '#' },
-                ]}
+                breadcrumb={articleBreadcrumbs}
                 originalDate={meta.pubdate}
                 tags={[...meta.tags, ...meta.languages, ...meta.products]}
                 title={articleTitle}
