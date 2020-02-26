@@ -66,14 +66,20 @@ const ByLine = styled('div')`
     }
 `;
 
-const BylineBlock = ({ authorName, authorImage }) => {
+const BylineBlock = ({ authorName = '', authorImage }) => {
+    const authorLink = `/author/${encodeURIComponent(
+        authorName
+            .toLowerCase()
+            .split(' ')
+            .join('-')
+    )}`;
     return (
         <ByLine>
             <AuthorImage>
                 <img src={withPrefix(authorImage)} alt={authorName} />
             </AuthorImage>
             <AuthorText collapse>
-                By <AuthorLink to="#">{authorName}</AuthorLink>
+                By <AuthorLink to={authorLink}>{authorName}</AuthorLink>
             </AuthorText>
         </ByLine>
     );
