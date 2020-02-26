@@ -8,7 +8,6 @@ import CardList from '../components/dev-hub/card-list';
 import FilterBar from '../components/dev-hub/filter-bar';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
-import mockCardImageSmall from '../images/260-mock-card.png';
 import { authenticate, callStitchFunction } from '../utils/stitch';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 
@@ -47,33 +46,11 @@ const Article = styled('article')`
     padding: ${size.medium};
 `;
 
-const mockItems = [
-    {
-        'meta-description':
-            'Never miss us live. Sign up for the MongoDB Twitch stream today.',
-        'atf-image': mockCardImage,
-        languages: ['golang'],
-    },
-    {
-        'meta-description':
-            'Never miss us live. Sign up for the MongoDB Twitch stream today.',
-        'atf-image': mockCardImageSmall,
-        languages: ['golang'],
-    },
-];
-
-const createMockList = () => {
-    let list = [];
-    for (let index = 0; index < 10; index++) {
-        list = list.concat(mockItems);
-    }
-    return list;
-};
-
 const parseArticles = arr =>
     arr.map(({ _id, query_fields }) => {
         return { _id, ...query_fields };
     });
+
 const callStitch = async (metadata, key, callback) => {
     const res = await callStitchFunction('fetchDevhubMetadata', metadata, key);
     callback(parseArticles(res));
@@ -82,11 +59,11 @@ const callStitch = async (metadata, key, callback) => {
 export default () => {
     const metadata = useSiteMetadata();
     const [articles, setArticles] = useState([]);
-
+    const [filterValue, setFilterValue] = useState({});
     useEffect(() => {
         authenticate();
-        callStitch(metadata, {}, setArticles);
-    }, [metadata]);
+        callStitch(metadata, filterValue, setArticles);
+    }, [metadata, filterValue]);
     return (
         <Layout>
             <Header>
@@ -130,7 +107,10 @@ export default () => {
                 </MainFeatureGrid>
             </Header>
             <Article>
-                <FilterBar />
+                <FilterBar
+                    filterValue={filterValue}
+                    setFilterValue={setFilterValue}
+                />
                 <CardList items={articles} />
             </Article>
         </Layout>

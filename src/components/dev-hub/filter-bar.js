@@ -55,7 +55,7 @@ const callStitch = async (metadata, key, callback) => {
     callback(zipObjects(res));
 };
 
-export default ({ heading = 'All Articles' }) => {
+export default ({ heading = 'All Articles', filterValue, setFilterValue }) => {
     const metadata = useSiteMetadata();
     const [languages, setLanguages] = useState([]);
     const [products, setProducts] = useState([]);
@@ -70,7 +70,9 @@ export default ({ heading = 'All Articles' }) => {
             callStitch(metadata, 'products', setProducts);
         }
     }, [metadata, languages.length, products.length]);
-
+    const handleChange = (value, type) => {
+        setFilterValue({ ...filterValue, [type]: value });
+    };
     return (
         <FilterBar>
             <H3>{heading}</H3>
@@ -82,6 +84,8 @@ export default ({ heading = 'All Articles' }) => {
                         name="product"
                         choices={products}
                         defaultText="Product"
+                        value={filterValue.products}
+                        onChange={e => handleChange(e, 'products')}
                     ></Select>
                 </SelectWrapper>
                 <SelectWrapper>
@@ -90,6 +94,8 @@ export default ({ heading = 'All Articles' }) => {
                         name="language"
                         choices={languages}
                         defaultText="Language"
+                        value={filterValue.languages}
+                        onChange={e => handleChange(e, 'languages')}
                     ></Select>
                 </SelectWrapper>
             </ResponsiveFlexContainer>
