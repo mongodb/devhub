@@ -13,6 +13,7 @@ import Event, { sampleEvents } from '../components/dev-hub/events';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
+import TextArea from '../components/dev-hub/text-area';
 import HeroBanner from '../components/dev-hub/hero-banner';
 import MediaBlock from '../components/dev-hub/media-block';
 import Modal from '../components/dev-hub/modal';
@@ -56,6 +57,8 @@ import mockCardImage from '../images/360-mock-img.png';
 import MockAuthorImage from '../images/1x/MDB-and-Node.js.png';
 import VideoEmbed from '../components/dev-hub/video-embed';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
+import Folder from '../components/dev-hub/icons/folder';
+import UploadButton from '../components/dev-hub/upload-button';
 import FeatureBlock from '../components/dev-hub/feature-block';
 import EventsList from '../components/dev-hub/event-list';
 
@@ -258,7 +261,17 @@ const CodeArticle = styled('div')`
 const ModalContainer = styled('div')`
     padding: ${size.default};
 `;
-
+const UploadButtonStory = () => {
+    const [file, setFile] = useState(null);
+    return (
+        <UploadButton
+            label="Attach walkthrough (mov., .zip, etc)"
+            name="walkthrough"
+            onChange={e => setFile(e.target.files[0])}
+            file={file}
+        />
+    );
+};
 export default () => (
     <StorybookLayout>
         <StorybookContainer>
@@ -323,11 +336,15 @@ export default () => (
                     <H4>Input (Narrow)</H4>
                     <InputStory narrow />
                     <br />
+                    <H4>TextArea</H4>
+                    <TextArea placeholder="Email Address" />
+                    <br />
                     <H4>Select</H4>
                     <SelectStory />
                     <br />
                     <H4>Select (Narrow)</H4>
                     <SelectStory narrow />
+                    <UploadButtonStory />
                 </ModalContainer>
             </Modal>
             <br />
@@ -416,6 +433,11 @@ export default () => (
             <br />
             <H4>Select (Narrow)</H4>
             <SelectStory narrow />
+            <br />
+            <H4>TextArea</H4>
+            <TextArea placeholder="Email Address" />
+            <br />
+            <UploadButtonStory />
             <br />
             <SectionHeader>Colors</SectionHeader>
             {Object.keys(colorMap).map(colorName => (
@@ -546,6 +568,7 @@ export default () => (
                 <Github color={colorMap.darkGreen} />
                 <Twitch color={colorMap.devWhite} />
                 <LocationIcon color={colorMap.violet} />
+                <Folder />
             </Row>
             <SectionHeader>Events</SectionHeader>
             <EventsList items={sampleEvents} />

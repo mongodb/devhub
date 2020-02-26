@@ -2,20 +2,19 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Button from '../../components/dev-hub/button';
-import Card from '../../components/dev-hub/card';
 import GradientImage from '../../components/dev-hub/gradient-image';
 import Layout from '../../components/dev-hub/layout';
 import MediaBlock from '../../components/dev-hub/media-block';
 import Link from '../../components/dev-hub/link';
-import Event from '../../components/dev-hub/events';
 import { EventsListPreview } from '../../components/dev-hub/event-list';
-import { H1, H2, P, H4 } from '../../components/dev-hub/text';
+import { H2, P, H4 } from '../../components/dev-hub/text';
 import {
-    size,
     colorMap,
     screenSize,
     fontSize,
+    size,
 } from '../../components/dev-hub/theme';
+import ProjectSignUpForm from '../../components/dev-hub/project-sign-up-form';
 import mockCardImage from '../../images/360-mock-card.png';
 
 const maxWidthStyles = css`
@@ -173,9 +172,11 @@ export default ({ ...data }) => {
                             <Button to="#" secondary>
                                 Learn how they did it
                             </Button>
-                            <Link to="#" tertiary>
-                                Share your project
-                            </Link>
+                            <ProjectSignUpForm
+                                triggerComponent={
+                                    <Link tertiary>Share your project</Link>
+                                }
+                            />
                         </ProjectActions>
                     </ProjectDescription>
                 </MediaBlock>
