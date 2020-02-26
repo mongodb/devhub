@@ -1,7 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { mapTagTypeToUrl } from '../../utils/map-tag-type-to-url';
 import { animationSpeed, colorMap, size, fontSize } from './theme';
 import { H5, P } from './text';
 import Link from './link';
