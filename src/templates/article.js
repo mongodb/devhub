@@ -115,9 +115,13 @@ const Article = props => {
     if (meta.type && meta.type.length) {
         articleBreadcrumbs.push({
             label: meta.type[0].toUpperCase() + meta.type.substring(1),
-            target: `/tag/${meta.type}`,
+            target: `/type/${meta.type}`,
         });
     }
+    const tagList = meta.tags.map(t => ({
+        label: t,
+        to: `/tag/${t}`,
+    }));
     console.log({ childNodes });
     console.log({ contentNodes });
     console.log({ meta });
@@ -127,14 +131,13 @@ const Article = props => {
         <Layout>
             <BlogPostTitleArea
                 // TODO: Pull real image once available
-                // articleImage={meta['atf-image']}
-                articleImage={ARTICLE_PLACEHOLDER}
+                articleImage={meta['atf-image'] || ARTICLE_PLACEHOLDER}
                 author={meta.author}
                 // TODO: Get author image from the parser
                 authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={meta.pubdate}
-                tags={meta.tags}
+                tags={tagList}
                 title={articleTitle}
             />
 
