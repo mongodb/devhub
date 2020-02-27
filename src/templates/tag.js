@@ -58,13 +58,7 @@ const constructArticles = data =>
 
 const Tag = props => {
     const {
-        pageContext: {
-            pages,
-            author_image,
-            name,
-            // slug,
-            type,
-        },
+        pageContext: { pages, author_image, name, slug, type },
     } = props;
     const isAuthor = type === 'author';
     const articles = constructArticles(pages);
@@ -75,6 +69,7 @@ const Tag = props => {
                 breadcrumb={[
                     { label: 'Home', to: '/' },
                     { label: 'Learn', to: '/learn' },
+                    { label: name, to: slug },
                 ]}
             >
                 {!isAuthor && (
