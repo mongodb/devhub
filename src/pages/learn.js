@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
@@ -11,6 +11,7 @@ import mockCardImage from '../images/360-mock-card.png';
 import { authenticate, callStitchFunction } from '../utils/stitch';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
+import { buildQueryString, parseQueryString } from '../utils/query-string';
 
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
@@ -57,14 +58,17 @@ const callStitch = async (metadata, key, callback) => {
     callback(parseArticles(res));
 };
 
-export default () => {
+export default ({ location }) => {
     const metadata = useSiteMetadata();
     const [articles, setArticles] = useState([]);
-    const [filterValue, setFilterValue] = useState({});
+    const { search = {} } = location;
+    const [filterValue, setFilterValue] = useState(parseQueryString(search));
     useEffect(() => {
+        window.history.pushState({}, '', buildQueryString(filterValue));
         authenticate();
         callStitch(metadata, filterValue, setArticles);
     }, [metadata, filterValue]);
+    const updateFilter = useCallback(filter => setFilterValue(filter), []);
     return (
         <Layout>
             <Header>
@@ -110,7 +114,7 @@ export default () => {
             <Article>
                 <FilterBar
                     filterValue={filterValue}
-                    setFilterValue={setFilterValue}
+                    setFilterValue={updateFilter}
                 />
                 <CardList items={articles} />
             </Article>
