@@ -27,6 +27,14 @@ let PAGE_ID_PREFIX;
 const PAGES = [];
 const IMAGE_FILES = {};
 
+const STITCH_TYPE_TO_URL_PREFIX = {
+    author: 'author',
+    languages: 'language',
+    products: 'product',
+    tags: 'tag',
+    type: 'type',
+};
+
 // in-memory object with key/value = filename/document
 let RESOLVED_REF_DOC_MAPPING = {};
 
@@ -97,6 +105,72 @@ const getRelatedPagesWithImages = pageNodes => {
     return relatedPageInfo;
 };
 
+const createTagPageType = async (createPage, pageMetadata, stitchType) => {
+    const isAuthor = stitchType === 'author';
+    const pageType = STITCH_TYPE_TO_URL_PREFIX[stitchType];
+    const res = await stitchClient.callFunction('getValuesByKey', [
+        metadata,
+        stitchType,
+    ]);
+
+    const requests = [];
+
+    await res.forEach(async item => {
+        const requestKey = {};
+        requestKey[stitchType] = item._id;
+        requests.push(
+            stitchClient.callFunction('fetchDevhubMetadata', [
+                metadata,
+                requestKey,
+            ])
+        );
+    });
+
+    const pageData = await Promise.all(requests);
+
+    const allData = res.map((r, i) => ({ item: r, pages: pageData[i] }));
+
+    const PAGES = [];
+
+    allData.forEach(p => {
+        const name = isAuthor ? p.item._id.name : p.item._id;
+        // Some bad data for authors doesn't follow this structure, so ignore it
+        if (name) {
+            const urlSuffix = isAuthor
+                ? encodeURIComponent(
+                      name
+                          .toLowerCase()
+                          .split(' ')
+                          .join('-')
+                  )
+                : name.toLowerCase();
+            const newPage = {
+                type: pageType,
+                name: name,
+                slug: `/${pageType}/${urlSuffix}`,
+                pages: p.pages,
+            };
+            if (isAuthor) {
+                newPage['author_image'] = p.item._id.image;
+            }
+            PAGES.push(newPage);
+        }
+    });
+
+    PAGES.forEach(p => {
+        console.log(p.slug);
+        createPage({
+            path: p.slug,
+            component: path.resolve(`./src/templates/tag.js`),
+            context: {
+                metadata: pageMetadata,
+                snootyStitchId: SNOOTY_STITCH_ID,
+                ...p,
+            },
+        });
+    });
+};
+
 exports.sourceNodes = async () => {
     // setup env variables
     const envResults = validateEnvVariables();
@@ -147,7 +221,7 @@ exports.sourceNodes = async () => {
 
 exports.createPages = async ({ actions }) => {
     const { createPage } = actions;
-    const metadata = await stitchClient.callFunction('fetchDocument', [
+    const pageMetadata = await stitchClient.callFunction('fetchDocument', [
         DB,
         METADATA_COLLECTION,
         constructDbFilter(),
@@ -169,7 +243,7 @@ exports.createPages = async ({ actions }) => {
                 path: slug,
                 component: path.resolve(`./src/templates/${template}.js`),
                 context: {
-                    metadata,
+                    metadata: pageMetadata,
                     slug,
                     snootyStitchId: SNOOTY_STITCH_ID,
                     __refDocMapping: pageNodes,
@@ -177,6 +251,12 @@ exports.createPages = async ({ actions }) => {
             });
         }
     });
+
+    await createTagPageType(createPage, pageMetadata, 'author');
+    await createTagPageType(createPage, pageMetadata, 'languages');
+    await createTagPageType(createPage, pageMetadata, 'products');
+    await createTagPageType(createPage, pageMetadata, 'tags');
+    await createTagPageType(createPage, pageMetadata, 'type');
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
