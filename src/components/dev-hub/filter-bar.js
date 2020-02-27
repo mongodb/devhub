@@ -71,7 +71,13 @@ export default React.memo(
             }
         }, [metadata, languages.length, products.length]);
         const handleChange = (value, type) => {
-            setFilterValue({ ...filterValue, [type]: value });
+            // only update if the filter value has changed
+            if (filterValue[type]) {
+                filterValue[type] !== value &&
+                    setFilterValue({ ...filterValue, [type]: value });
+            } else {
+                setFilterValue({ ...filterValue, [type]: value });
+            }
         };
         return (
             <FilterBar>

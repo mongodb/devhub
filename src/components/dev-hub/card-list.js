@@ -33,7 +33,7 @@ const CenterBlock = styled('div')`
     text-align: center;
 `;
 
-export default ({ items = [], limit = 9 }) => {
+export default React.memo(({ items = [], limit = 9 }) => {
     const [visibleCards, setVisibleCards] = useState(limit);
     const hasMore = items.length > visibleCards;
     return (
@@ -41,6 +41,7 @@ export default ({ items = [], limit = 9 }) => {
             <CardContainer>
                 {items.slice(0, visibleCards).map(item => (
                     <ArticleCard
+                        to={item['slug']}
                         key={item['_id']}
                         image={withPrefix(item['atf-image'])}
                         tags={getTagLinksFromMeta(item)}
@@ -62,4 +63,4 @@ export default ({ items = [], limit = 9 }) => {
             )}
         </>
     );
-};
+});

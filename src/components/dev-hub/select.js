@@ -99,7 +99,6 @@ const FormSelect = ({
             if (choice && choice.length) {
                 setSelectValue(value);
                 setSelectText(choice[0][1]);
-                setShowOptions(false);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
