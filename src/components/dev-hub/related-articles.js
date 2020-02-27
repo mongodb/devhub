@@ -6,14 +6,12 @@ import Card from './card';
 import { H4 } from './text';
 import { colorMap, screenSize, size } from './theme';
 
-const DESKTOP_HEIGHT = '575px';
-const MAX_CARD_WIDTH = 260;
+const MAX_CARD_WIDTH = 270;
 
 const RelatedContainer = styled('div')`
     background-color: ${colorMap.devBlack};
     padding: 30px;
     @media ${screenSize.mediumAndUp} {
-        height: ${DESKTOP_HEIGHT};
         padding: 70px ${size.xxlarge};
     }
 `;
@@ -22,23 +20,23 @@ const RelatedCards = styled('div')`
     display: flex;
     @media ${screenSize.upToMedium} {
         flex-direction: column;
-        > a {
+        > a,
+        > div {
             margin: 0 auto;
-            padding-left: 0;
-            padding-right: 0;
         }
     }
     @media ${screenSize.mediumAndUp} {
-        > a {
+        > a,
+        > div {
             padding-left: 0;
             padding-right: 0;
             margin-left: ${size.medium};
             margin-right: ${size.medium};
         }
-        > a:first-of-type {
+        > :first-child {
             margin-left: 0;
         }
-        > a:last-of-type {
+        > :last-child {
             margin-right: 0;
         }
     }
