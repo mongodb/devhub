@@ -36,7 +36,7 @@ const SocialIcon = ({ type, href }) => {
     const Icon = iconMap[type];
     return (
         <SocialLink
-            onMouseEnter={() => setColor(colorMap.white)}
+            onMouseEnter={() => setColor(colorMap.devWhite)}
             onMouseLeave={() => setColor(colorMap.greyLightTwo)}
             href={href}
         >
