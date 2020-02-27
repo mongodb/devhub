@@ -22,7 +22,6 @@ const EventsPreview = styled('div')`
 const AllEvents = styled('div')`
     display: grid;
     grid-row-gap: ${size.small};
-    grid-column-gap: ${size.medium};
     grid-template-columns: 1fr;
     grid-template-rows: repeat(auto-fill, 1fr);
     padding-bottom: ${size.xlarge};
