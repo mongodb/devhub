@@ -77,9 +77,9 @@ const tertiaryStyles = css`
 
 const playStyles = css`
     background-color: ${colorMap.devBlack};
-    border: 1px solid ${colorMap.white};
+    border: 1px solid ${colorMap.devWhite};
     border-radius: 50%;
-    color: ${colorMap.white};
+    color: ${colorMap.devWhite};
     font-size: ${size.large};
     height: 80px;
     padding: ${size.default} ${size.default} ${size.default} ${size.medium};

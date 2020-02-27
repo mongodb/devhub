@@ -3,11 +3,11 @@ import dlv from 'dlv';
 import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import DocumentBody from '../components/DocumentBody';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
 import { size } from '../components/dev-hub/theme';
-import ARTICLE_PLACEHOLDER from '../../src/images/1x/MDB-and-Node.js.png';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
@@ -128,11 +128,12 @@ const Article = props => {
 
     return (
         <Layout>
+            <Helmet>
+                <title>{articleTitle}</title>
+            </Helmet>
             <BlogPostTitleArea
                 articleImage={withPrefix(meta['atf-image'])}
                 author={meta.author}
-                // TODO: Get author image from the parser
-                authorImage={meta.authorImage || ARTICLE_PLACEHOLDER}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={meta.pubdate}
                 tags={tagList}
