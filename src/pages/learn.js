@@ -59,12 +59,13 @@ const callStitch = async (metadata, key, callback) => {
 };
 // strip out the 'All' param from the url and the stitch function key
 const stripAllParam = filterValue => {
-    Object.keys(filterValue).map(key => {
-        if (filterValue[key] === 'all') {
-            delete filterValue[key];
+    const newFilter = {};
+    Object.keys(filterValue).forEach(key => {
+        if (filterValue[key] !== 'all') {
+            newFilter[key] = filterValue[key];
         }
     });
-    return filterValue;
+    return newFilter;
 };
 export default ({ location }) => {
     const metadata = useSiteMetadata();
@@ -76,7 +77,7 @@ export default ({ location }) => {
         const filter = stripAllParam(filterValue);
         const searchParams = buildQueryString(filter);
         // if the search params are empty, push the pathname state in order to remove params
-        window.history.pushState(
+        window.history.replaceState(
             {},
             '',
             searchParams === '' ? pathname : searchParams
