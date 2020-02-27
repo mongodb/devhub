@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import BlogTagList from './blog-tag-list';
 import { H2, P } from './text';
@@ -18,10 +19,28 @@ const PostMetaLine = styled('div')`
     }
 `;
 
+const bulletStyling = css`
+    @media ${screenSize.xSmallAndUp} {
+        &:before {
+            content: '\u2022';
+            margin-right: ${size.tiny};
+        }
+    }
+`;
+
 const DateText = styled(P)`
-    margin-right: ${size.medium};
+    margin-right: ${size.tiny};
     @media ${screenSize.upToLarge} {
         font-size: ${fontSize.xsmall};
+    }
+    ${({ withBullet }) => withBullet && bulletStyling};
+`;
+
+const DateTextContainer = styled('div')`
+    margin-right: ${size.medium};
+    display: flex;
+    @media ${screenSize.upToXSmall} {
+        flex-direction: column;
     }
 `;
 
@@ -29,15 +48,25 @@ const BlogPostTitleArea = ({
     articleImage,
     author,
     breadcrumb,
-    title,
     originalDate,
     tags,
+    title,
+    updatedDate,
 }) => {
     return (
         <HeroBanner background={articleImage} breadcrumb={breadcrumb}>
             <H2 collapse>{title}</H2>
             <PostMetaLine>
-                {originalDate && <DateText collapse>{originalDate}</DateText>}
+                <DateTextContainer>
+                    {originalDate && (
+                        <DateText collapse>{originalDate}</DateText>
+                    )}
+                    {updatedDate && (
+                        <DateText withBullet collapse>
+                            Updated {updatedDate}
+                        </DateText>
+                    )}
+                </DateTextContainer>
                 <BlogTagList tags={tags} />
             </PostMetaLine>
             {author && (
