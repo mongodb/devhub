@@ -94,7 +94,7 @@ const FormSelect = ({
      * this should populate the select item with the default choice if there is one
      */
     useEffect(() => {
-        if (selectOptions.length && value && value !== '') {
+        if (selectOptions.length && value) {
             const choice = selectOptions.filter(choice => choice[0] === value);
             if (choice && choice.length) {
                 setSelectValue(value);
