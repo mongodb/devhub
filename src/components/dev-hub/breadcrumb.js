@@ -28,7 +28,7 @@ const StyledBreadcrumb = styled(Link)`
 const BreadcrumbList = styled('div')`
     /* This assumes the list link is the active one */
     a:last-of-type {
-        color: ${colorMap.white};
+        color: ${colorMap.devWhite};
         :hover {
             color: ${colorMap.lightGreen};
         }
