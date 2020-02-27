@@ -48,7 +48,7 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
         <RelatedContainer>
             <H4>Related</H4>
             <RelatedCards>
-                {related.map(r => {
+                {related.map((r, i) => {
                     const target = r.target;
                     const slug = r.target && r.target.slice(1, r.target.length);
                     const image = r.image || ARTICLE_PLACEHOLDER;
@@ -62,6 +62,8 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
                     /* TODO: Case on doc to link internal vs external */
                     return (
                         <Card
+                            // Title may be undefined, so tacking on index keeps unique
+                            key={`${title}-${i}`}
                             image={image}
                             href={target}
                             maxDescriptionLines={2}
