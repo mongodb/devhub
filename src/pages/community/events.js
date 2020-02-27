@@ -18,10 +18,9 @@ const PageDescription = styled(P)`
     color: ${colorMap.greyLightTwo};
 `;
 
-export default ({ ...data }) => {
+export default () => {
     // TODO: uncomment below when events api is working
     // const [events, error] = useEventData(EVENTS_API);
-    console.log(data);
 
     return (
         <Layout>

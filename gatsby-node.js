@@ -33,14 +33,13 @@ let RESOLVED_REF_DOC_MAPPING = {};
 let stitchClient;
 
 const setupStitch = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         stitchClient = Stitch.hasAppClient(SNOOTY_STITCH_ID)
             ? Stitch.getAppClient(SNOOTY_STITCH_ID)
             : Stitch.initializeAppClient(SNOOTY_STITCH_ID);
         stitchClient.auth
             .loginWithCredential(new AnonymousCredential())
-            .then(user => {
-                console.log('logged into stitch');
+            .then(() => {
                 resolve();
             })
             .catch(console.error);

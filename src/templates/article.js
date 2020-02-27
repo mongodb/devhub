@@ -121,10 +121,6 @@ const Article = props => {
         });
     }
     const tagList = getTagLinksFromMeta(meta);
-    console.log({ childNodes });
-    console.log({ contentNodes });
-    console.log({ meta });
-    console.log(rest);
 
     return (
         <Layout>
