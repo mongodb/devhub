@@ -3,6 +3,9 @@ import styled from '@emotion/styled';
 import Card from './card';
 import Button from './button';
 import { screenSize, size } from './theme';
+import { withPrefix } from 'gatsby';
+import { getNestedText } from '../../utils/get-nested-text';
+import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 
 const CardContainer = styled('div')`
     align-items: center;
@@ -38,12 +41,12 @@ export default ({ items = [], limit = 9 }) => {
             <CardContainer>
                 {items.slice(0, visibleCards).map(item => (
                     <ArticleCard
-                        key={item['meta-description']}
-                        image={item['atf-image']}
-                        tags={item.languages}
-                    >
-                        {item['meta-description']}
-                    </ArticleCard>
+                        key={item['_id']}
+                        image={withPrefix(item['atf-image'])}
+                        tags={getTagLinksFromMeta(item)}
+                        title={getNestedText(item['title'])}
+                        description={getNestedText(item['meta-description'])}
+                    />
                 ))}
             </CardContainer>
             {hasMore && (
