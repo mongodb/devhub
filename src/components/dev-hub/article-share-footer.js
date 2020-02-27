@@ -4,12 +4,12 @@ import BlogTagList from './blog-tag-list';
 import { colorMap, screenSize, size } from './theme';
 
 const ArticleShareArea = styled('div')`
+    border-top: 1px solid ${colorMap.greyDarkTwo};
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid ${colorMap.greyDarkTwo};
+    margin-bottom: ${size.large};
     margin-top: ${size.xlarge};
     padding-top: ${size.medium};
-    margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
         margin-top: ${size.large};
     }
