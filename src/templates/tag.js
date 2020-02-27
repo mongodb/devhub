@@ -54,7 +54,7 @@ const ArticleContent = styled('article')`
 `;
 
 const constructArticles = data =>
-    data.reduce((accum, item) => accum.push({ ...item.query_fields }), []);
+    data.reduce((accum, item) => accum.concat({ ...item.query_fields }), []);
 
 const Tag = props => {
     const {
