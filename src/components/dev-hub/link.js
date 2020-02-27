@@ -50,7 +50,7 @@ const tertiaryLinkStyling = css`
 
 const linkStyling = css`
     color: #fff;
-    font-size: ${fontSize.small};
+    font-size: inherit;
     text-decoration: underline;
     &:visited {
         color: #fff;
