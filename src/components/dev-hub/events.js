@@ -161,7 +161,6 @@ const StyledEvent = styled(Link)`
     flex-direction: row;
     grid-template-areas: 'image content';
     grid-template-columns: 1fr 3fr;
-    margin-right: ${size.medium};
     max-width: 400px;
     padding: ${size.medium};
     text-decoration: none;
