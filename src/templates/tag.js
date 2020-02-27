@@ -56,10 +56,9 @@ const ArticleContent = styled('article')`
 const constructArticles = data =>
     data.reduce((accum, item) => accum.push({ ...item.query_fields }), []);
 
-// TODO change name of this
 const Tag = props => {
     const {
-        pathContext: {
+        pageContext: {
             pages,
             author_image,
             name,
@@ -103,7 +102,7 @@ const Tag = props => {
 };
 
 Tag.propTypes = {
-    pathContext: PropTypes.shape({
+    pageContext: PropTypes.shape({
         pages: PropTypes.arrayOf({
             query_field: PropTypes.shape({
                 author: PropTypes.string,
