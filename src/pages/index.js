@@ -85,8 +85,7 @@ const DescriptiveText = styled(P)`
     color: ${colorMap.greyLightTwo};
     margin-bottom: ${size.medium};
 `;
-export default ({ ...data }) => {
-    console.log(data);
+export default () => {
     return (
         <Layout>
             <Notification />
