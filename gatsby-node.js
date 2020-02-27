@@ -108,16 +108,19 @@ const getRelatedPagesWithImages = pageNodes => {
 const createTagPageType = async (createPage, pageMetadata, stitchType) => {
     const isAuthor = stitchType === 'author';
     const pageType = STITCH_TYPE_TO_URL_PREFIX[stitchType];
-    const res = await stitchClient.callFunction('getValuesByKey', [
-        metadata,
-        stitchType,
-    ]);
+
+    // Query for all possible values for this type of tag
+    const possibleTagValues = await stitchClient.callFunction(
+        'getValuesByKey',
+        [metadata, stitchType]
+    );
 
     const requests = [];
 
-    await res.forEach(async item => {
+    // For each possible tag value, query the pages that exist for it
+    await possibleTagValues.forEach(async tag => {
         const requestKey = {};
-        requestKey[stitchType] = item._id;
+        requestKey[stitchType] = tag._id;
         requests.push(
             stitchClient.callFunction('fetchDevhubMetadata', [
                 metadata,
@@ -129,7 +132,7 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
     const pageData = await Promise.all(requests);
 
     // Once requests finish, map the item with name (and optional image) to the response's return value
-    const itemsWithPageData = res.map((r, i) => ({
+    const itemsWithPageData = possibleTagValues.map((r, i) => ({
         item: r,
         pages: pageData[i],
     }));
@@ -256,11 +259,13 @@ exports.createPages = async ({ actions }) => {
         }
     });
 
-    await createTagPageType(createPage, pageMetadata, 'author');
-    await createTagPageType(createPage, pageMetadata, 'languages');
-    await createTagPageType(createPage, pageMetadata, 'products');
-    await createTagPageType(createPage, pageMetadata, 'tags');
-    await createTagPageType(createPage, pageMetadata, 'type');
+    await Promise.all([
+        createTagPageType(createPage, pageMetadata, 'author'),
+        createTagPageType(createPage, pageMetadata, 'languages'),
+        createTagPageType(createPage, pageMetadata, 'products'),
+        createTagPageType(createPage, pageMetadata, 'tags'),
+        createTagPageType(createPage, pageMetadata, 'type'),
+    ]);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
