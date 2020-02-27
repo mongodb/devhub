@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
@@ -70,7 +70,6 @@ const SelectedOption = styled('div')`
         narrow ? `${size.small} ${size.medium}` : size.medium};
     position: relative;
 `;
-
 const FormSelect = ({
     children,
     name,
@@ -89,7 +88,22 @@ const FormSelect = ({
     const selectOnClick = useCallback(() => {
         setShowOptions(!showOptions);
     }, [showOptions]);
-
+    const selectOptions = typeof choices !== 'undefined' ? choices : children;
+    /**
+     * This useEffect should only be called once the component first renders with choices,
+     * this should populate the select item with the default choice if there is one
+     */
+    useEffect(() => {
+        if (selectOptions.length && value && value !== '') {
+            const choice = selectOptions.filter(choice => choice[0] === value);
+            if (choice && choice.length) {
+                setSelectValue(value);
+                setSelectText(choice[0][1]);
+                setShowOptions(false);
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectOptions]);
     const showOptionsOnEnter = useCallback(
         e => {
             const enterKey = 13;
@@ -138,8 +152,6 @@ const FormSelect = ({
         },
         [setShowOptions]
     );
-
-    const selectOptions = typeof choices !== 'undefined' ? choices : children;
     return (
         <StyledCustomSelect
             aria-expanded={showOptions}
