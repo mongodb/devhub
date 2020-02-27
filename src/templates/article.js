@@ -8,6 +8,7 @@ import DocumentBody from '../components/DocumentBody';
 import ArticleShareFooter from '../components/dev-hub/article-share-footer';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
+import RelatedArticles from '../components/dev-hub/related-articles';
 import { size } from '../components/dev-hub/theme';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
@@ -152,15 +153,10 @@ const Article = props => {
                 />
             </ArticleContent>
 
-            {/* TODO: Fix related data shape once stable  */}
-            {/* <footer>
-                <ul>
-                    {meta.related.map(rel => {
-                        const relatedText = rel.children[0].value;
-                        return <li key={relatedText}>{relatedText}</li>;
-                    })}
-                </ul>
-            </footer> */}
+            <RelatedArticles
+                related={meta.related}
+                slugTitleMapping={slugTitleMapping}
+            />
         </Layout>
     );
 };
