@@ -55,7 +55,7 @@ const StyledCode = styled(Code)`
     }
 `;
 
-const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
+const CodeBlock = ({ nodeData: { /* lang = null, */ value } }) => {
     // We wish to up padding based on the number of lines based on the size of the max number length
     const numLines = useMemo(() => value.split(/\r|\n/).length, [value]);
     const numDigits = useMemo(() => Math.floor(Math.log10(numLines) + 1), [
@@ -66,11 +66,12 @@ const CodeBlock = ({ nodeData: { lang = null, value }, ...props }) => {
             <StyledCode
                 // remove this lang !== 'csp' hack once LG supports cs
                 // https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
-                language={lang && lang !== 'csp' ? lang : 'auto'}
+                // language={lang && lang !== 'csp' ? lang : 'auto'}
+                // try using auto for everything to debug codeblocks
+                language="auto"
                 numdigits={numDigits}
                 showLineNumbers
                 variant="dark"
-                {...props}
             >
                 {value}
             </StyledCode>
