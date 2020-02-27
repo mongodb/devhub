@@ -114,6 +114,7 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
 
     const pageData = await Promise.all(requests);
 
+    // Once requests finish, map the item with name (and optional image) to the response's return value
     const allData = res.map((r, i) => ({ item: r, pages: pageData[i] }));
 
     const PAGES = [];
@@ -129,7 +130,7 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
                           .split(' ')
                           .join('-')
                   )
-                : name.toLowerCase();
+                : encodeURIComponent(name.toLowerCase());
             const newPage = {
                 type: pageType,
                 name: name,
