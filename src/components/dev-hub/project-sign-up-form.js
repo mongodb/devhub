@@ -52,15 +52,21 @@ const Form = React.memo(({ setSuccess, success }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
+    const [canSubmit, setCanSubmit] = useState(true);
     const handleSubmit = e => {
         e.preventDefault();
+        setCanSubmit(false);
         const obj = {
             name,
             email,
             projectDescription,
         };
         authenticate();
-        callStitch(metadata, obj, setSuccess);
+        const callback = hasSuccess => {
+            setSuccess(hasSuccess);
+            setCanSubmit(!hasSuccess);
+        };
+        callStitch(metadata, obj, callback);
     };
     return (
         <form onSubmit={handleSubmit}>
@@ -87,7 +93,7 @@ const Form = React.memo(({ setSuccess, success }) => {
                 onChange={e => setProjectDescription(e.target.value)}
             />
             <SubmitContainer>
-                <Button type="submit" primary>
+                <Button disabled={!canSubmit} type="submit" primary>
                     Submit project
                 </Button>
             </SubmitContainer>
