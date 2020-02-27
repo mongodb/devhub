@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withPrefix } from 'gatsby';
+import { css } from '@emotion/core';
 import { getNestedValue } from '../utils/get-nested-value';
+import { size } from './dev-hub/theme';
+
+const ArticleImageStyle = css`
+    border-radius: ${size.small};
+    margin-bottom: ${size.default};
+    vertical-align: bottom; /* prevent the default image spacing below image */
+`;
 
 export default class Image extends Component {
     constructor(props) {
@@ -102,6 +110,7 @@ export default class Image extends Component {
             <img
                 src={this.getImgData(process.env.PREVIEW_MODE, imgSrc)}
                 alt={altText}
+                css={ArticleImageStyle}
                 className={[
                     getNestedValue(['option', 'class'], nodeData),
                     customAlign,
