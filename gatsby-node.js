@@ -137,12 +137,11 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
         pages: pageData[i],
     }));
 
-    const PAGES = [];
-
-    itemsWithPageData.forEach(page => {
+    const pageList = itemsWithPageData.map(page => {
         const name = isAuthor ? page.item._id.name : page.item._id;
         // Some bad data for authors doesn't follow this structure, so ignore it
-        if (name) {
+        if (!name) return null;
+        else {
             const urlSuffix = isAuthor
                 ? encodeURIComponent(
                       name
@@ -160,21 +159,23 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
             if (isAuthor) {
                 newPage['author_image'] = page.item._id.image;
             }
-            PAGES.push(newPage);
+            return newPage;
         }
     });
 
-    PAGES.forEach(page => {
-        console.log(page.slug);
-        createPage({
-            path: page.slug,
-            component: path.resolve(`./src/templates/tag.js`),
-            context: {
-                metadata: pageMetadata,
-                snootyStitchId: SNOOTY_STITCH_ID,
-                ...page,
-            },
-        });
+    pageList.forEach(page => {
+        if (page) {
+            console.log(page.slug);
+            createPage({
+                path: page.slug,
+                component: path.resolve(`./src/templates/tag.js`),
+                context: {
+                    metadata: pageMetadata,
+                    snootyStitchId: SNOOTY_STITCH_ID,
+                    ...page,
+                },
+            });
+        }
     });
 };
 
@@ -228,7 +229,7 @@ exports.sourceNodes = async () => {
 
 exports.createPages = async ({ actions }) => {
     const { createPage } = actions;
-    const pageMetadata = await stitchClient.callFunction('fetchDocument', [
+    const metadata = await stitchClient.callFunction('fetchDocument', [
         DB,
         METADATA_COLLECTION,
         constructDbFilter(),
@@ -250,7 +251,7 @@ exports.createPages = async ({ actions }) => {
                 path: slug,
                 component: path.resolve(`./src/templates/${template}.js`),
                 context: {
-                    metadata: pageMetadata,
+                    metadata: metadata,
                     slug,
                     snootyStitchId: SNOOTY_STITCH_ID,
                     __refDocMapping: pageNodes,
@@ -260,11 +261,11 @@ exports.createPages = async ({ actions }) => {
     });
 
     await Promise.all([
-        createTagPageType(createPage, pageMetadata, 'author'),
-        createTagPageType(createPage, pageMetadata, 'languages'),
-        createTagPageType(createPage, pageMetadata, 'products'),
-        createTagPageType(createPage, pageMetadata, 'tags'),
-        createTagPageType(createPage, pageMetadata, 'type'),
+        createTagPageType(createPage, metadata, 'author'),
+        createTagPageType(createPage, metadata, 'languages'),
+        createTagPageType(createPage, metadata, 'products'),
+        createTagPageType(createPage, metadata, 'tags'),
+        createTagPageType(createPage, metadata, 'type'),
     ]);
 };
 
