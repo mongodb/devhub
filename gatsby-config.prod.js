@@ -1,4 +1,3 @@
-const { normalizePath } = require('./src/utils/generate-path-prefix');
 const { getMetadata } = require('./src/utils/get-metadata');
 
 require('dotenv').config({
@@ -7,13 +6,8 @@ require('dotenv').config({
 
 const metadata = getMetadata();
 
-const { project, user, parserBranch } = metadata;
-
-const base = `${project}/${user}`;
-const pathPrefix = normalizePath(`/devhub/${base}/${parserBranch}`);
-
 module.exports = {
-    pathPrefix,
+    pathPrefix: '',
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
