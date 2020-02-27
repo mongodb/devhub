@@ -57,17 +57,33 @@ const callStitch = async (metadata, key, callback) => {
     const res = await callStitchFunction('fetchDevhubMetadata', metadata, key);
     callback(parseArticles(res));
 };
-
+// strip out the 'All' param from the url and the stitch function key
+const stripAllParam = filterValue => {
+    Object.keys(filterValue).map(key => {
+        if (filterValue[key] === 'all') {
+            delete filterValue[key];
+        }
+    });
+    return filterValue;
+};
 export default ({ location }) => {
     const metadata = useSiteMetadata();
     const [articles, setArticles] = useState([]);
-    const { search = {} } = location;
+    const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
+
     useEffect(() => {
-        window.history.pushState({}, '', buildQueryString(filterValue));
+        const filter = stripAllParam(filterValue);
+        const searchParams = buildQueryString(filter);
+        // if the search params are empty, push the pathname state in order to remove params
+        window.history.pushState(
+            {},
+            '',
+            searchParams === '' ? pathname : searchParams
+        );
         authenticate();
-        callStitch(metadata, filterValue, setArticles);
-    }, [metadata, filterValue]);
+        callStitch(metadata, filter, setArticles);
+    }, [metadata, filterValue, pathname]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
     return (
         <Layout>

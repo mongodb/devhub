@@ -52,7 +52,7 @@ const SelectWrapper = styled('div')`
 // These objects are then zipped into an array of arrays
 const callStitch = async (metadata, key, callback) => {
     const res = await callStitchFunction('getValuesByKey', metadata, key);
-    callback(zipObjects(res));
+    callback([['all', 'All'], ...zipObjects(res)]);
 };
 
 export default React.memo(
