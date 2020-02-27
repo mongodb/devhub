@@ -129,12 +129,15 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
     const pageData = await Promise.all(requests);
 
     // Once requests finish, map the item with name (and optional image) to the response's return value
-    const allData = res.map((r, i) => ({ item: r, pages: pageData[i] }));
+    const itemsWithPageData = res.map((r, i) => ({
+        item: r,
+        pages: pageData[i],
+    }));
 
     const PAGES = [];
 
-    allData.forEach(p => {
-        const name = isAuthor ? p.item._id.name : p.item._id;
+    itemsWithPageData.forEach(page => {
+        const name = isAuthor ? page.item._id.name : page.item._id;
         // Some bad data for authors doesn't follow this structure, so ignore it
         if (name) {
             const urlSuffix = isAuthor
@@ -149,24 +152,24 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
                 type: pageType,
                 name: name,
                 slug: `/${pageType}/${urlSuffix}`,
-                pages: p.pages,
+                pages: page.pages,
             };
             if (isAuthor) {
-                newPage['author_image'] = p.item._id.image;
+                newPage['author_image'] = page.item._id.image;
             }
             PAGES.push(newPage);
         }
     });
 
-    PAGES.forEach(p => {
-        console.log(p.slug);
+    PAGES.forEach(page => {
+        console.log(page.slug);
         createPage({
-            path: p.slug,
+            path: page.slug,
             component: path.resolve(`./src/templates/tag.js`),
             context: {
                 metadata: pageMetadata,
                 snootyStitchId: SNOOTY_STITCH_ID,
-                ...p,
+                ...page,
             },
         });
     });
