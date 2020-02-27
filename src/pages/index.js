@@ -92,26 +92,27 @@ export default ({ ...data }) => {
             <Notification />
             <Hero>
                 <Heading>
-                    {`ideas.find({"attributes" : ["fast", "innovative",
-                    "original"]})`}
+                    {`ideas.find({"attributes":`}
+                    <br />
+                    {`["fast", "innovative", "original"]})`}
                 </Heading>
                 <Sub>What will you create today?</Sub>
                 <CardGallery>
-                    <StyledTopCard image={unityImage}>
+                    <StyledTopCard image={unityImage} to="/article">
                         Rest APIs with Java, Spring Boot &amp; MongoDB
                     </StyledTopCard>
-                    <StyledTopCard image={nodejsImage}>
+                    <StyledTopCard image={nodejsImage} to="/article">
                         How to get connected to your MongoDB Cluster
                     </StyledTopCard>
-                    <StyledTopCard image={javaImage}>
+                    <StyledTopCard image={javaImage} to="/article">
                         Delete Operations
                     </StyledTopCard>
-                    <StyledTopCard image={devToolsImage}>
+                    <StyledTopCard image={devToolsImage} to="/article">
                         Stitch Hosting: a Drag and Drop Delight
                     </StyledTopCard>
                 </CardGallery>
                 <div>
-                    <Button to="/learn" primary arrow>
+                    <Button to="/learn" primary>
                         Learn MongoDB
                     </Button>
                 </div>
@@ -119,9 +120,7 @@ export default ({ ...data }) => {
             <FeatureSection altBackground>
                 <MediaBlock
                     mediaComponent={
-                        <Card maxWidth={MEDIA_WIDTH} image={buildImage}>
-                            Working with MongoDB and GraphQL
-                        </Card>
+                        <Card maxWidth={MEDIA_WIDTH} image={buildImage}></Card>
                     }
                 >
                     <SectionContent>
@@ -133,10 +132,12 @@ export default ({ ...data }) => {
                             </GradientUnderline>
                         </H2>
                         <DescriptiveText>
-                            Every Friday at 11.00am EST come watch our
-                            developers make the MongoDB platform come alive.
+                            Every Friday at noon EST come watch our developers
+                            make the MongoDB platform come alive.
                         </DescriptiveText>
-                        <Button secondary>Sign Up For Twitch</Button>
+                        <Button secondary href="https://www.twitch.tv/mongodb">
+                            Watch
+                        </Button>
                     </SectionContent>
                 </MediaBlock>
             </FeatureSection>
@@ -145,8 +146,6 @@ export default ({ ...data }) => {
                     mediaComponent={
                         <Card
                             image={greenPatternImage}
-                            title="MongoDB.local San Francisco"
-                            description="San Francisco  •  January 14"
                             maxWidth={MEDIA_WIDTH}
                         ></Card>
                     }
@@ -155,30 +154,26 @@ export default ({ ...data }) => {
                     <SectionContent>
                         <H2>
                             <GradientUnderline gradient={gradientMap.greenTeal}>
-                                MongoDB In-Person Events
+                                Events
                             </GradientUnderline>
                         </H2>
                         <DescriptiveText>
-                            The best way to learn what's new with MongoDB is at
-                            our .local and community events.
+                            Join us at our MongoDB .local and community events.
                         </DescriptiveText>
                         <DescriptiveText>
                             Come to learn, stay to connect.
                         </DescriptiveText>
-                        <Button to="/events" secondary>
-                            Join the Community
+                        <Button to="/community/events" secondary>
+                            Join Us
                         </Button>
                     </SectionContent>
                 </MediaBlock>
             </FeatureSection>
             <FeatureSection altBackground>
                 <MediaBlock
-                    mediaWidth={MEDIA_WIDTH}
                     mediaComponent={
                         <Card
                             image={meetupsImage}
-                            title="Radar"
-                            description="By Radar  •  Made with Atlas"
                             maxWidth={MEDIA_WIDTH}
                         ></Card>
                     }
@@ -188,15 +183,16 @@ export default ({ ...data }) => {
                             <GradientUnderline
                                 gradient={gradientMap.magentaSalmonSherbet}
                             >
-                                Showcase Your Knowledge
+                                Show Your Stuff
                             </GradientUnderline>
                         </H2>
                         <DescriptiveText>
-                            Show others what you have done with MongoDB. Help
-                            other beginners on their journey.
+                            Building something on MongoDB? Share your stories,
+                            demos, and wisdom with those still learning.
                         </DescriptiveText>
-                        <DescriptiveText>Share your knowledge.</DescriptiveText>
-                        <Button secondary>Tell Us About Your Project</Button>
+                        <Button to="/community" secondary>
+                            Share
+                        </Button>
                     </SectionContent>
                 </MediaBlock>
             </FeatureSection>

@@ -137,12 +137,12 @@ export default ({ ...data }) => {
                 <HeroContent>
                     <H2 bold>Find Your Place</H2>
                     <P>
-                        Do you want to share your amazing work? Do you have a
-                        question or a problem and are looking for help? Do you
-                        want to get connected with and inspired by others with a
-                        passion for MongoDB? Join the MongoDB Community!
+                        Have a burning question you want to ask? Looking for a
+                        community of like minded developers?
                     </P>
-                    <Button primary>Join our online community</Button>
+                    <Button primary href="https://community.mongodb.com/">
+                        Join
+                    </Button>
                 </HeroContent>
             </Hero>
             <FeaturedProject>
@@ -169,12 +169,14 @@ export default ({ ...data }) => {
                             around the globe.
                         </P>
                         <ProjectActions>
-                            <Button to="#" secondary>
+                            <Button to="/article" primary>
                                 Learn how they did it
                             </Button>
                             <ProjectSignUpForm
                                 triggerComponent={
-                                    <Link tertiary>Share your project</Link>
+                                    <Button secondary>
+                                        Share your project
+                                    </Button>
                                 }
                             />
                         </ProjectActions>
