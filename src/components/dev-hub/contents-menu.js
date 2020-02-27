@@ -8,11 +8,11 @@ import Link from './link';
 import { animationSpeed, colorMap, size } from './theme';
 
 const activeStyles = css`
-    color: ${colorMap.white};
+    color: ${colorMap.devWhite};
     font-weight: bold;
     &:hover,
     &:visited {
-        color: ${colorMap.white};
+        color: ${colorMap.devWhite};
     }
 `;
 

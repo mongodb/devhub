@@ -69,7 +69,6 @@ const colorMap = {
     teal: '#2F9FC5',
     violet: '#6E60F9',
     purple: '#4F4FBF',
-    white: '#F9FBFA',
     yellow: '#FDDC49',
 };
 

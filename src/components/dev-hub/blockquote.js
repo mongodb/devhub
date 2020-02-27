@@ -10,7 +10,7 @@ const BORDER_SIZE = 2;
 const StyledBlockquote = styled('blockquote')`
     background: ${colorMap.greyDarkThree};
     border-radius: ${size.tiny};
-    color: ${colorMap.white};
+    color: ${colorMap.devWhite};
     margin: 0;
     padding: ${size.medium};
 `;
