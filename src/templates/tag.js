@@ -25,6 +25,7 @@ const TagTitle = styled('div')`
 
     ${P} {
         color: ${colorMap.greyLightThree};
+        font-size: ${fontSize.tiny};
         margin: 0;
         padding: 0;
     }
