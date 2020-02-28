@@ -26,6 +26,7 @@ const MEDIA_WIDTH = '550';
 
 const BackgroundImage = styled('div')`
     background-image: url(${homepageBackground});
+    background-size: cover;
 `;
 const Hero = styled('header')`
     color: ${colorMap.devWhite};
