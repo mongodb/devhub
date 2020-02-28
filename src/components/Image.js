@@ -5,23 +5,21 @@ import { css } from '@emotion/core';
 import { getNestedValue } from '../utils/get-nested-value';
 import { size } from './dev-hub/theme';
 
-const ArticleImageStyle = customAlign => css`
+const ArticleImageStyle = (customAlign, scale) => css`
     ${customAlign && `float: ${customAlign};`}
     border-radius: ${size.small};
     margin-bottom: ${size.default};
     vertical-align: bottom; /* prevent the default image spacing below image */
+    width: ${scale || null};
 `;
 
 export default class Image extends Component {
     constructor(props) {
         super(props);
-        this.imgRef = React.createRef();
         // Can't use this.isMounted: https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html
         this._isMounted = false;
         this.state = {
             base64Uri: null,
-            height: null,
-            width: null,
         };
     }
 
@@ -52,30 +50,6 @@ export default class Image extends Component {
         this._isMounted = false;
     }
 
-    handleLoad = ({ target: img }) => {
-        const { handleImageLoaded, nodeData } = this.props;
-
-        handleImageLoaded(this.imgRef.current);
-
-        const scale = getNestedValue(['options', 'scale'], nodeData);
-        if (scale) {
-            this.scaleSize(img.naturalWidth, img.naturalHeight, scale);
-        } else {
-            const height = getNestedValue(['options', 'height'], nodeData);
-            const width = getNestedValue(['options', 'width'], nodeData);
-            if (height) this.setState({ height });
-            if (width) this.setState({ width });
-        }
-    };
-
-    scaleSize = (width, height, scale) => {
-        const scaleValue = parseInt(scale, 10) / 100.0;
-        this.setState({
-            height: height * scaleValue,
-            width: width * scaleValue,
-        });
-    };
-
     // Choose whether to use path to static asset file or base64 img data
     getImgData = (previewMode, imgSrc) => {
         // Use base64 data of image obtained from Stitch
@@ -91,30 +65,19 @@ export default class Image extends Component {
     };
 
     render() {
-        const { className, nodeData = {}, src } = this.props;
+        const { nodeData = {}, src } = this.props;
         const imgSrc =
             src || getNestedValue(['argument', 0, 'value'], nodeData);
         const altText = getNestedValue(['options', 'alt'], nodeData) || imgSrc;
         const customAlign = getNestedValue(['options', 'align'], nodeData);
-        const buildStyles = () => {
-            const { height, width } = this.state;
-            return {
-                ...(height && { height }),
-                ...(width && { width }),
-            };
-        };
+        const scale = getNestedValue(['options', 'scale'], nodeData);
+
         return (
             <img
                 src={this.getImgData(process.env.PREVIEW_MODE, imgSrc)}
                 alt={altText}
-                css={ArticleImageStyle(customAlign)}
-                className={[
-                    getNestedValue(['option', 'class'], nodeData),
-                    className,
-                ].join(' ')}
-                style={nodeData.options ? buildStyles() : {}}
+                css={ArticleImageStyle(customAlign, scale)}
                 onLoad={this.handleLoad}
-                ref={this.imgRef}
             />
         );
     }
