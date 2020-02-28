@@ -12,6 +12,7 @@ import {
     size,
 } from './theme';
 import { createShadowElement } from './utils';
+import DEFAULT_AUTHOR_IMAGE from '../../images/2x/Default-Profile@2x.png';
 
 const BYLINE_HEIGHT_OFFSET = 6;
 const BYLINE_IMAGE_HEIGHT = 50;
@@ -66,7 +67,10 @@ const ByLine = styled('div')`
     }
 `;
 
-const BylineBlock = ({ authorName = '', authorImage }) => {
+const BylineBlock = ({
+    authorName = '',
+    authorImage = DEFAULT_AUTHOR_IMAGE,
+}) => {
     const authorLink = `/author/${encodeURIComponent(
         authorName
             .toLowerCase()

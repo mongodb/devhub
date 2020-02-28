@@ -174,9 +174,7 @@ export default ({ ...data }) => {
                             </Button>
                             <ProjectSignUpForm
                                 triggerComponent={
-                                    <Button secondary>
-                                        Share your project
-                                    </Button>
+                                    <Link tertiary>Share your project</Link>
                                 }
                             />
                         </ProjectActions>

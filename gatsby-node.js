@@ -1,4 +1,5 @@
 const path = require('path');
+const dlv = require('dlv');
 const fs = require('fs').promises;
 const mkdirp = require('mkdirp');
 const { Stitch, AnonymousCredential } = require('mongodb-stitch-server-sdk');
@@ -83,6 +84,19 @@ const constructDbFilter = () => ({
     commit_hash: process.env.COMMIT_HASH || { $exists: false },
 });
 
+const getRelatedPagesWithImages = pageNodes => {
+    const related = dlv(pageNodes, 'query_fields.related', []);
+    const relatedPageInfo = related.map(r => ({
+        image: dlv(
+            RESOLVED_REF_DOC_MAPPING,
+            [r.target, 'query_fields', 'atf-image'],
+            null
+        ),
+        ...r,
+    }));
+    return relatedPageInfo;
+};
+
 exports.sourceNodes = async () => {
     // setup env variables
     const envResults = validateEnvVariables();
@@ -147,6 +161,10 @@ exports.createPages = async ({ actions }) => {
                 getNestedValue(['ast', 'options', 'template'], pageNodes)
             );
             const slug = getPageSlug(page);
+            if (pageNodes.query_fields) {
+                const relatedPages = getRelatedPagesWithImages(pageNodes);
+                pageNodes['query_fields'].related = relatedPages;
+            }
             createPage({
                 path: slug,
                 component: path.resolve(`./src/templates/${template}.js`),

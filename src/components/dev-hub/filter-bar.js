@@ -52,53 +52,60 @@ const SelectWrapper = styled('div')`
 // These objects are then zipped into an array of arrays
 const callStitch = async (metadata, key, callback) => {
     const res = await callStitchFunction('getValuesByKey', metadata, key);
-    callback(zipObjects(res));
+    callback([['all', 'All'], ...zipObjects(res)]);
 };
 
-export default ({ heading = 'All Articles', filterValue, setFilterValue }) => {
-    const metadata = useSiteMetadata();
-    const [languages, setLanguages] = useState([]);
-    const [products, setProducts] = useState([]);
+export default React.memo(
+    ({ heading = 'All Articles', filterValue, setFilterValue }) => {
+        const metadata = useSiteMetadata();
+        const [languages, setLanguages] = useState([]);
+        const [products, setProducts] = useState([]);
+        useEffect(() => {
+            authenticate();
+            if (languages.length === 0) {
+                callStitch(metadata, 'languages', setLanguages);
+            }
 
-    useEffect(() => {
-        authenticate();
-        if (languages.length === 0) {
-            callStitch(metadata, 'languages', setLanguages);
-        }
-
-        if (products.length === 0) {
-            callStitch(metadata, 'products', setProducts);
-        }
-    }, [metadata, languages.length, products.length]);
-    const handleChange = (value, type) => {
-        setFilterValue({ ...filterValue, [type]: value });
-    };
-    return (
-        <FilterBar>
-            <H3>{heading}</H3>
-            <ResponsiveFlexContainer>
-                <FilterLabel>Filter By</FilterLabel>
-                <SelectWrapper>
-                    <Select
-                        narrow
-                        name="product"
-                        choices={products}
-                        defaultText="Product"
-                        value={filterValue.products}
-                        onChange={e => handleChange(e, 'products')}
-                    ></Select>
-                </SelectWrapper>
-                <SelectWrapper>
-                    <Select
-                        narrow
-                        name="language"
-                        choices={languages}
-                        defaultText="Language"
-                        value={filterValue.languages}
-                        onChange={e => handleChange(e, 'languages')}
-                    ></Select>
-                </SelectWrapper>
-            </ResponsiveFlexContainer>
-        </FilterBar>
-    );
-};
+            if (products.length === 0) {
+                callStitch(metadata, 'products', setProducts);
+            }
+        }, [metadata, languages.length, products.length]);
+        const handleChange = (value, type) => {
+            // only update if the filter value has changed
+            if (filterValue[type]) {
+                filterValue[type] !== value &&
+                    setFilterValue({ ...filterValue, [type]: value });
+            } else {
+                setFilterValue({ ...filterValue, [type]: value });
+            }
+        };
+        return (
+            <FilterBar>
+                <H3>{heading}</H3>
+                <ResponsiveFlexContainer>
+                    <FilterLabel>Filter By</FilterLabel>
+                    <SelectWrapper>
+                        <Select
+                            narrow
+                            name="product"
+                            choices={products}
+                            defaultText="Product"
+                            value={filterValue.products}
+                            onChange={e => handleChange(e, 'products')}
+                        ></Select>
+                    </SelectWrapper>
+                    <SelectWrapper>
+                        <Select
+                            narrow
+                            name="language"
+                            choices={languages}
+                            defaultText="Language"
+                            value={filterValue.languages}
+                            onChange={e => handleChange(e, 'languages')}
+                        ></Select>
+                    </SelectWrapper>
+                </ResponsiveFlexContainer>
+            </FilterBar>
+        );
+    }
+);
