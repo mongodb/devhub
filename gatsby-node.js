@@ -27,6 +27,14 @@ let PAGE_ID_PREFIX;
 const PAGES = [];
 const IMAGE_FILES = {};
 
+const STITCH_TYPE_TO_URL_PREFIX = {
+    author: 'author',
+    languages: 'language',
+    products: 'product',
+    tags: 'tag',
+    type: 'type',
+};
+
 // in-memory object with key/value = filename/document
 let RESOLVED_REF_DOC_MAPPING = {};
 
@@ -95,6 +103,80 @@ const getRelatedPagesWithImages = pageNodes => {
         ...r,
     }));
     return relatedPageInfo;
+};
+
+const createTagPageType = async (createPage, pageMetadata, stitchType) => {
+    const isAuthor = stitchType === 'author';
+    const pageType = STITCH_TYPE_TO_URL_PREFIX[stitchType];
+
+    // Query for all possible values for this type of tag
+    const possibleTagValues = await stitchClient.callFunction(
+        'getValuesByKey',
+        [metadata, stitchType]
+    );
+
+    const requests = [];
+
+    // For each possible tag value, query the pages that exist for it
+    await possibleTagValues.forEach(async tag => {
+        const requestKey = {};
+        requestKey[stitchType] = tag._id;
+        requests.push(
+            stitchClient.callFunction('fetchDevhubMetadata', [
+                metadata,
+                requestKey,
+            ])
+        );
+    });
+
+    const pageData = await Promise.all(requests);
+
+    // Once requests finish, map the item with name (and optional image) to the response's return value
+    const itemsWithPageData = possibleTagValues.map((r, i) => ({
+        item: r,
+        pages: pageData[i],
+    }));
+
+    const pageList = itemsWithPageData.map(page => {
+        const name = isAuthor ? page.item._id.name : page.item._id;
+        // Some bad data for authors doesn't follow this structure, so ignore it
+        if (!name) return null;
+        else {
+            const urlSuffix = isAuthor
+                ? encodeURIComponent(
+                      name
+                          .toLowerCase()
+                          .split(' ')
+                          .join('-')
+                  )
+                : encodeURIComponent(name.toLowerCase());
+            const newPage = {
+                type: pageType,
+                name: name,
+                slug: `/${pageType}/${urlSuffix}`,
+                pages: page.pages,
+            };
+            if (isAuthor) {
+                newPage['author_image'] = page.item._id.image;
+            }
+            return newPage;
+        }
+    });
+
+    pageList.forEach(page => {
+        if (page) {
+            console.log(page.slug);
+            createPage({
+                path: page.slug,
+                component: path.resolve(`./src/templates/tag.js`),
+                context: {
+                    metadata: pageMetadata,
+                    snootyStitchId: SNOOTY_STITCH_ID,
+                    ...page,
+                },
+            });
+        }
+    });
 };
 
 exports.sourceNodes = async () => {
@@ -169,7 +251,7 @@ exports.createPages = async ({ actions }) => {
                 path: slug,
                 component: path.resolve(`./src/templates/${template}.js`),
                 context: {
-                    metadata,
+                    metadata: metadata,
                     slug,
                     snootyStitchId: SNOOTY_STITCH_ID,
                     __refDocMapping: pageNodes,
@@ -177,6 +259,14 @@ exports.createPages = async ({ actions }) => {
             });
         }
     });
+
+    await Promise.all([
+        createTagPageType(createPage, metadata, 'author'),
+        createTagPageType(createPage, metadata, 'languages'),
+        createTagPageType(createPage, metadata, 'products'),
+        createTagPageType(createPage, metadata, 'tags'),
+        createTagPageType(createPage, metadata, 'type'),
+    ]);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.

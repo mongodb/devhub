@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Button from '../../components/dev-hub/button';
 import GradientImage from '../../components/dev-hub/gradient-image';
+import HeroBanner from '../../components/dev-hub/hero-banner';
 import Layout from '../../components/dev-hub/layout';
 import MediaBlock from '../../components/dev-hub/media-block';
 import Link from '../../components/dev-hub/link';
@@ -16,6 +17,7 @@ import {
 } from '../../components/dev-hub/theme';
 import ProjectSignUpForm from '../../components/dev-hub/project-sign-up-form';
 import mockCardImage from '../../images/360-mock-card.png';
+import communityHeroBackground from '../../images/1x/Community-hero.png';
 
 const maxWidthStyles = css`
     max-width: 500px;
@@ -101,9 +103,7 @@ const UpcomingEvents = styled('section')`
 `;
 
 const HeroContent = styled('div')`
-    max-width: 640px;
-    text-align: left;
-
+    padding-top: ${size.large};
     p {
         color: ${colorMap.greyLightTwo};
         margin-bottom: ${size.xlarge};
@@ -113,14 +113,24 @@ const HeroContent = styled('div')`
     }
 `;
 
-const Hero = styled('header')`
-    background-color: ${colorMap.devBlack};
-    ${sectionPadding}
-`;
-
 export default ({ ...data }) => {
     return (
         <Layout>
+            <HeroBanner
+                background={communityHeroBackground}
+                showImageOnMobile={false}
+            >
+                <HeroContent>
+                    <H2 bold>Find Your Place</H2>
+                    <P>
+                        Have a burning question you want to ask? Looking for a
+                        community of like minded developers?
+                    </P>
+                    <Button primary href="https://community.mongodb.com/">
+                        Join
+                    </Button>
+                </HeroContent>
+            </HeroBanner>
             <UpcomingEvents>
                 <EventsHeader>
                     <SectionTitle bold>Upcoming Events</SectionTitle>
@@ -133,18 +143,6 @@ export default ({ ...data }) => {
                     View all
                 </MobileViewAllBtn>
             </UpcomingEvents>
-            <Hero>
-                <HeroContent>
-                    <H2 bold>Find Your Place</H2>
-                    <P>
-                        Have a burning question you want to ask? Looking for a
-                        community of like minded developers?
-                    </P>
-                    <Button primary href="https://community.mongodb.com/">
-                        Join
-                    </Button>
-                </HeroContent>
-            </Hero>
             <FeaturedProject>
                 <MediaBlock
                     mediaComponent={
