@@ -20,12 +20,12 @@ import greenPatternImage from '../images/1x/pattern-green.png';
 import meetupsImage from '../images/1x/Meetups.png';
 import buildImage from '../images/1x/Build.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
-import BACKGROUND_IMAGE from '../images/1x/homepage-background.png';
+import homepageBackground from '../images/1x/homepage-background.png';
 
 const MEDIA_WIDTH = '550';
 
 const BackgroundImage = styled('div')`
-    background-image: url(${BACKGROUND_IMAGE});
+    background-image: url(${homepageBackground});
 `;
 const Hero = styled('header')`
     color: ${colorMap.devWhite};
