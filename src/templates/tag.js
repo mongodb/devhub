@@ -110,9 +110,9 @@ const Tag = props => {
         <Layout>
             <HeroBanner
                 breadcrumb={[
-                    { label: 'Home', to: '/' },
-                    { label: 'Learn', to: '/learn' },
-                    { label: capitalizedBreadcrumb, to: slug },
+                    { label: 'Home', target: '/' },
+                    { label: 'Learn', target: '/learn' },
+                    { label: capitalizedBreadcrumb, target: slug },
                 ]}
             >
                 {!isAuthor && (
