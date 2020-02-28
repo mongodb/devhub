@@ -44,6 +44,7 @@ const HeroBannerContainer = styled('div')`
 `;
 
 const HeroBreadcrumb = styled(Breadcrumb)`
+    line-height: 1;
     margin-bottom: ${HERO_BOTTOM_MARGIN};
     > a {
         font-size: ${fontSize.xsmall};
