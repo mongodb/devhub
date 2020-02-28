@@ -21,9 +21,9 @@ const PostMetaLine = styled('div')`
 
 const bulletStyling = css`
     @media ${screenSize.xSmallAndUp} {
-        &:before {
+        &:after {
             content: '\u2022';
-            margin-right: ${size.tiny};
+            margin-left: ${size.tiny};
         }
     }
 `;
@@ -58,13 +58,13 @@ const BlogPostTitleArea = ({
             <H2 collapse>{title}</H2>
             <PostMetaLine>
                 <DateTextContainer>
-                    {originalDate && (
-                        <DateText collapse>{originalDate}</DateText>
-                    )}
                     {updatedDate && (
                         <DateText withBullet collapse>
                             Updated {updatedDate}
                         </DateText>
+                    )}
+                    {originalDate && (
+                        <DateText collapse>{originalDate}</DateText>
                     )}
                 </DateTextContainer>
                 <BlogTagList tags={tags} />
