@@ -61,15 +61,15 @@ const colorMap = {
     greyLightTwo: '#B8C4C2',
     greyLightThree: '#9FA1A2',
     lightGreen: '#0AD05B',
-    orange: '#ED7E22',
-    magenta: '#CD509B',
+    orange: '#F97216',
+    magenta: '#D34F94',
     pageBackground: '#061621',
     salmon: '#E55F55',
     sherbet: '#F7A76F',
     teal: '#2F9FC5',
     violet: '#6E60F9',
     purple: '#4F4FBF',
-    yellow: '#FDDC49',
+    yellow: '#FFDD49',
 };
 
 const gradientMap = {
