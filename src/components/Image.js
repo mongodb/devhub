@@ -5,7 +5,8 @@ import { css } from '@emotion/core';
 import { getNestedValue } from '../utils/get-nested-value';
 import { size } from './dev-hub/theme';
 
-const ArticleImageStyle = css`
+const ArticleImageStyle = customAlign => css`
+    ${customAlign && `float: ${customAlign};`}
     border-radius: ${size.small};
     margin-bottom: ${size.default};
     vertical-align: bottom; /* prevent the default image spacing below image */
@@ -94,10 +95,7 @@ export default class Image extends Component {
         const imgSrc =
             src || getNestedValue(['argument', 0, 'value'], nodeData);
         const altText = getNestedValue(['options', 'alt'], nodeData) || imgSrc;
-        const customAlign = getNestedValue(['options', 'align'], nodeData)
-            ? `align-${getNestedValue(['options', 'align'], nodeData)}`
-            : '';
-
+        const customAlign = getNestedValue(['options', 'align'], nodeData);
         const buildStyles = () => {
             const { height, width } = this.state;
             return {
@@ -105,15 +103,13 @@ export default class Image extends Component {
                 ...(width && { width }),
             };
         };
-
         return (
             <img
                 src={this.getImgData(process.env.PREVIEW_MODE, imgSrc)}
                 alt={altText}
-                css={ArticleImageStyle}
+                css={ArticleImageStyle(customAlign)}
                 className={[
                     getNestedValue(['option', 'class'], nodeData),
-                    customAlign,
                     className,
                 ].join(' ')}
                 style={nodeData.options ? buildStyles() : {}}
