@@ -40,6 +40,11 @@ const globalStyles = css`
     }
 `;
 
+const Main = styled('main')`
+    /* ensure content takes up full space between header & footer*/
+    min-height: calc(100vh - 300px);
+`;
+
 const GlobalWrapper = styled('div')`
     display: flex;
     flex-direction: column;
@@ -61,7 +66,7 @@ export default ({ children }) => (
     <GlobalWrapper>
         <Global styles={globalStyles} />
         <GlobalNav />
-        <main>{children}</main>
+        <Main>{children}</Main>
         <GlobalFooter />
     </GlobalWrapper>
 );
