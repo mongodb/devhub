@@ -10,11 +10,24 @@ import {
     layer,
     screenSize,
     size,
+    colorMap,
 } from '../components/dev-hub/theme';
 import { createShadowElement } from '../components/dev-hub/utils';
 
 const BYLINE_HEIGHT_OFFSET = 6;
 const BYLINE_IMAGE_HEIGHT = 50;
+
+const TagTitle = styled('div')`
+    ${H2} {
+        text-transform: capitalize;
+    }
+
+    ${P} {
+        color: ${colorMap.greyLightThree};
+        margin: 0;
+        padding: 0;
+    }
+`;
 
 const AuthorImage = styled('div')`
     @media ${screenSize.upToMedium} {
@@ -47,11 +60,17 @@ const AuthorByline = styled('div')`
 `;
 
 const ArticleContent = styled('article')`
-    padding: 80px ${size.xlarge};
+    padding: 80px ${size.xxlarge};
+    @media ${screenSize.upToLarge} {
+        padding: ${size.large} ${size.medium};
+    }
 `;
 
 const constructArticles = data =>
-    data.reduce((accum, item) => accum.concat({ ...item.query_fields }), []);
+    data.reduce(
+        (accum, item) => accum.concat({ ...item.query_fields, _id: item._id }),
+        []
+    );
 
 const Tag = props => {
     const {
@@ -59,21 +78,23 @@ const Tag = props => {
     } = props;
     const isAuthor = type === 'author';
     const articles = constructArticles(pages);
+    const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
     console.log('props: ', props);
+    console.log("articles: ', ", articles);
     return (
         <Layout>
             <HeroBanner
                 breadcrumb={[
                     { label: 'Home', to: '/' },
                     { label: 'Learn', to: '/learn' },
-                    { label: name, to: slug },
+                    { label: capitalizedBreadcrumb, to: slug },
                 ]}
             >
                 {!isAuthor && (
-                    <div>
-                        <P>Tagged in</P>
+                    <TagTitle>
+                        <P>TAGGED IN</P>
                         <H2>{name}</H2>
-                    </div>
+                    </TagTitle>
                 )}
                 {isAuthor && (
                     <AuthorByline>
@@ -98,10 +119,6 @@ Tag.propTypes = {
         pages: PropTypes.arrayOf({
             query_field: PropTypes.shape({
                 author: PropTypes.string,
-                // below prop comes back as 'atf-image'
-                // from RST. Writing it in PropTypes in this casing
-                // will throw an error
-                atf_image: PropTypes.string,
                 languages: PropTypes.arrayOf(PropTypes.string),
                 tags: PropTypes.arrayOf(PropTypes.string),
             }),
