@@ -134,7 +134,6 @@ const Article = props => {
                 originalDate={meta.pubdate}
                 tags={tagList}
                 title={articleTitle}
-                // TODO: Verify field name with Sophie
                 updatedDate={meta.updatedDate}
             />
 
