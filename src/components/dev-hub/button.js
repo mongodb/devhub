@@ -74,7 +74,6 @@ const tertiaryStyles = css`
         transition: color ${animationSpeed.fast} ease-in;
     }
 `;
-
 const playStyles = css`
     background-color: ${colorMap.devBlack};
     border: 1px solid ${colorMap.devWhite};
@@ -155,6 +154,11 @@ const StyledButton = styled('button')`
     ${({ play }) => play && playStyles}
     ${({ play, primary, secondary }) =>
         !primary && !secondary && !play && tertiaryStyles}
+    &[disabled],
+    &[disabled]:hover {
+        background: ${colorMap.greyLightThree};
+        cursor: not-allowed;
+    }
 `;
 
 const getArrow = ({ pagination, primary, secondary }) => {
