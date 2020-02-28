@@ -47,10 +47,7 @@ const AuthorByline = styled('div')`
 `;
 
 const ArticleContent = styled('article')`
-    margin: 0 auto;
-    max-width: ${size.maxContentWidth};
-    padding-left: ${size.small};
-    padding-right: ${size.small};
+    padding: 80px ${size.xlarge};
 `;
 
 const constructArticles = data =>
