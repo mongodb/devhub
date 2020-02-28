@@ -7,6 +7,7 @@ import Input from './input';
 import Button from './button';
 import TextArea from './text-area';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
+import useSegmentData from '../../hooks/use-segment-data';
 import { authenticate, callStitchFunction } from '../../utils/stitch';
 import SuccessIcon from './icons/success';
 
@@ -34,12 +35,13 @@ const SuccessContainer = styled('div')`
 const ErrorMessage = styled(P)`
     color: ${colorMap.salmon};
 `;
-const callStitch = async (metadata, object, callback) => {
+const callStitch = async (metadata, object, segmentData, callback) => {
     try {
         const res = await callStitchFunction(
             'submitDevhubProject',
             metadata,
-            object
+            object,
+            segmentData
         );
         res && callback(true);
     } catch {
@@ -49,6 +51,7 @@ const callStitch = async (metadata, object, callback) => {
 
 const Form = React.memo(({ setSuccess, success }) => {
     const metadata = useSiteMetadata();
+    const segmentData = useSegmentData();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
@@ -66,7 +69,7 @@ const Form = React.memo(({ setSuccess, success }) => {
             setSuccess(hasSuccess);
             setCanSubmit(!hasSuccess);
         };
-        callStitch(metadata, obj, callback);
+        callStitch(metadata, obj, segmentData, callback);
     };
     return (
         <form onSubmit={handleSubmit}>
