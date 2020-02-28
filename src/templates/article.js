@@ -136,6 +136,7 @@ const Article = props => {
                 originalDate={meta.pubdate}
                 tags={tagList}
                 title={articleTitle}
+                updatedDate={meta.updatedDate}
             />
 
             <ArticleContent>
