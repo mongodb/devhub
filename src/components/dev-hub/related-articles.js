@@ -43,6 +43,7 @@ const RelatedCards = styled('div')`
 `;
 
 const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
+    console.log(relatedArticle);
     const name = relatedArticle.name
         ? relatedArticle.name
         : relatedArticle.type;
