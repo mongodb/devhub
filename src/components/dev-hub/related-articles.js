@@ -43,14 +43,10 @@ const RelatedCards = styled('div')`
 `;
 
 const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
-    const name = relatedArticle.name;
+    const name = relatedArticle.name
+        ? relatedArticle.name
+        : relatedArticle.type;
     switch (name) {
-        case 'reference':
-            return {
-                image: ARTICLE_PLACEHOLDER,
-                target: relatedArticle.refuri,
-                title: dlv(relatedArticle, ['children', 0, 'value'], ''),
-            };
         case 'doc':
             const target = relatedArticle.target;
             const slug = target && target.slice(1, target.length);
@@ -63,6 +59,18 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
                 );
             }
             return { image, target, title };
+        case 'literal':
+            return {
+                image: ARTICLE_PLACEHOLDER,
+                target: null,
+                title: dlv(relatedArticle, ['children', 0, 'value'], ''),
+            };
+        case 'reference':
+            return {
+                image: ARTICLE_PLACEHOLDER,
+                target: relatedArticle.refuri,
+                title: dlv(relatedArticle, ['children', 0, 'value'], ''),
+            };
         default:
             console.error(`Related article type not implemented: ${name}`);
             return { title: null, image: null, target: null };
