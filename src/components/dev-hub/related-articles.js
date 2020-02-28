@@ -48,7 +48,7 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
         case 'reference':
             return {
                 image: ARTICLE_PLACEHOLDER,
-                target: relatedArticle.refUri,
+                target: relatedArticle.refuri,
                 title: dlv(relatedArticle, ['children', 0, 'value'], ''),
             };
         case 'doc':
