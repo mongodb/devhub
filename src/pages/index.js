@@ -20,9 +20,14 @@ import greenPatternImage from '../images/1x/pattern-green.png';
 import meetupsImage from '../images/1x/Meetups.png';
 import buildImage from '../images/1x/Build.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
+import homepageBackground from '../images/1x/homepage-background.png';
 
 const MEDIA_WIDTH = '550';
 
+const BackgroundImage = styled('div')`
+    background-image: url(${homepageBackground});
+    background-size: cover;
+`;
 const Hero = styled('header')`
     color: ${colorMap.devWhite};
     padding: ${size.xlarge} ${size.large};
@@ -88,113 +93,125 @@ const DescriptiveText = styled(P)`
 export default () => {
     return (
         <Layout>
-            <Notification />
-            <Hero>
-                <Heading>
-                    {`ideas.find({"attributes":`}
-                    <br />
-                    {`["fast", "innovative", "original"]})`}
-                </Heading>
-                <Sub>What will you create today?</Sub>
-                <CardGallery>
-                    <StyledTopCard image={unityImage} to="/article">
-                        Rest APIs with Java, Spring Boot &amp; MongoDB
-                    </StyledTopCard>
-                    <StyledTopCard image={nodejsImage} to="/article">
-                        How to get connected to your MongoDB Cluster
-                    </StyledTopCard>
-                    <StyledTopCard image={javaImage} to="/article">
-                        Delete Operations
-                    </StyledTopCard>
-                    <StyledTopCard image={devToolsImage} to="/article">
-                        Stitch Hosting: a Drag and Drop Delight
-                    </StyledTopCard>
-                </CardGallery>
-                <div>
-                    <Button to="/learn" primary>
-                        Learn MongoDB
-                    </Button>
-                </div>
-            </Hero>
-            <FeatureSection altBackground>
-                <MediaBlock
-                    mediaComponent={
-                        <Card maxWidth={MEDIA_WIDTH} image={buildImage}></Card>
-                    }
-                >
-                    <SectionContent>
-                        <H2>
-                            <GradientUnderline
-                                gradient={gradientMap.tealVioletPurple}
+            <BackgroundImage>
+                <Notification />
+                <Hero>
+                    <Heading>
+                        {`ideas.find({"attributes":`}
+                        <br />
+                        {`["fast", "innovative", "original"]})`}
+                    </Heading>
+                    <Sub>What will you create today?</Sub>
+                    <CardGallery>
+                        <StyledTopCard image={unityImage} to="/article">
+                            Rest APIs with Java, Spring Boot &amp; MongoDB
+                        </StyledTopCard>
+                        <StyledTopCard image={nodejsImage} to="/article">
+                            How to get connected to your MongoDB Cluster
+                        </StyledTopCard>
+                        <StyledTopCard image={javaImage} to="/article">
+                            Delete Operations
+                        </StyledTopCard>
+                        <StyledTopCard image={devToolsImage} to="/article">
+                            Stitch Hosting: a Drag and Drop Delight
+                        </StyledTopCard>
+                    </CardGallery>
+                    <div>
+                        <Button to="/learn" primary>
+                            Learn MongoDB
+                        </Button>
+                    </div>
+                </Hero>
+                <FeatureSection altBackground>
+                    <MediaBlock
+                        mediaComponent={
+                            <Card
+                                maxWidth={MEDIA_WIDTH}
+                                image={buildImage}
+                            ></Card>
+                        }
+                    >
+                        <SectionContent>
+                            <H2>
+                                <GradientUnderline
+                                    gradient={gradientMap.tealVioletPurple}
+                                >
+                                    Live Coding on Our Twitch Channel
+                                </GradientUnderline>
+                            </H2>
+                            <DescriptiveText>
+                                Every Friday at noon EST come watch our
+                                developers make the MongoDB platform come alive.
+                            </DescriptiveText>
+                            <Button
+                                secondary
+                                href="https://www.twitch.tv/mongodb"
                             >
-                                Live Coding on Our Twitch Channel
-                            </GradientUnderline>
-                        </H2>
-                        <DescriptiveText>
-                            Every Friday at noon EST come watch our developers
-                            make the MongoDB platform come alive.
-                        </DescriptiveText>
-                        <Button secondary href="https://www.twitch.tv/mongodb">
-                            Watch
-                        </Button>
-                    </SectionContent>
-                </MediaBlock>
-            </FeatureSection>
-            <FeatureSection>
-                <MediaBlock
-                    mediaComponent={
-                        <Card
-                            image={greenPatternImage}
-                            maxWidth={MEDIA_WIDTH}
-                        ></Card>
-                    }
-                    reverse
-                >
-                    <SectionContent>
-                        <H2>
-                            <GradientUnderline gradient={gradientMap.greenTeal}>
-                                Events
-                            </GradientUnderline>
-                        </H2>
-                        <DescriptiveText>
-                            Join us at our MongoDB .local and community events.
-                        </DescriptiveText>
-                        <DescriptiveText>
-                            Come to learn, stay to connect.
-                        </DescriptiveText>
-                        <Button to="/community/events" secondary>
-                            Join Us
-                        </Button>
-                    </SectionContent>
-                </MediaBlock>
-            </FeatureSection>
-            <FeatureSection altBackground>
-                <MediaBlock
-                    mediaComponent={
-                        <Card
-                            image={meetupsImage}
-                            maxWidth={MEDIA_WIDTH}
-                        ></Card>
-                    }
-                >
-                    <SectionContent>
-                        <H2>
-                            <GradientUnderline
-                                gradient={gradientMap.magentaSalmonSherbet}
-                            >
-                                Show Your Stuff
-                            </GradientUnderline>
-                        </H2>
-                        <DescriptiveText>
-                            Building something on MongoDB? Share your stories,
-                            demos, and wisdom with those still learning.
-                        </DescriptiveText>
-                        <Button to="/community" secondary>
-                            Share
-                        </Button>
-                    </SectionContent>
-                </MediaBlock>
-            </FeatureSection>
+                                Watch
+                            </Button>
+                        </SectionContent>
+                    </MediaBlock>
+                </FeatureSection>
+                <FeatureSection>
+                    <MediaBlock
+                        mediaComponent={
+                            <Card
+                                image={greenPatternImage}
+                                maxWidth={MEDIA_WIDTH}
+                            ></Card>
+                        }
+                        reverse
+                    >
+                        <SectionContent>
+                            <H2>
+                                <GradientUnderline
+                                    gradient={gradientMap.greenTeal}
+                                >
+                                    Events
+                                </GradientUnderline>
+                            </H2>
+                            <DescriptiveText>
+                                Join us at our MongoDB .local and community
+                                events.
+                            </DescriptiveText>
+                            <DescriptiveText>
+                                Come to learn, stay to connect.
+                            </DescriptiveText>
+                            <Button to="/community/events" secondary>
+                                Join Us
+                            </Button>
+                        </SectionContent>
+                    </MediaBlock>
+                </FeatureSection>
+                <FeatureSection altBackground>
+                    <MediaBlock
+                        mediaComponent={
+                            <Card
+                                image={meetupsImage}
+                                maxWidth={MEDIA_WIDTH}
+                            ></Card>
+                        }
+                    >
+                        <SectionContent>
+                            <H2>
+                                <GradientUnderline
+                                    gradient={gradientMap.magentaSalmonSherbet}
+                                >
+                                    Show Your Stuff
+                                </GradientUnderline>
+                            </H2>
+                            <DescriptiveText>
+                                Building something on MongoDB? Share your
+                                stories, demos, and wisdom with those still
+                                learning.
+                            </DescriptiveText>
+                            <Button to="/community" secondary>
+                                Share
+                            </Button>
+                        </SectionContent>
+                    </MediaBlock>
+                </FeatureSection>
+            </BackgroundImage>
         </Layout>
     );
 };
