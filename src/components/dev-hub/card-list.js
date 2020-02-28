@@ -8,7 +8,7 @@ import { getNestedText } from '../../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 
 const CardContainer = styled('div')`
-    align-items: center;
+    align-items: start;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
