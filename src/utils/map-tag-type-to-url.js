@@ -3,6 +3,6 @@ export const mapTagTypeToUrl = (tags, tagType) => {
     if (!tags || !tags.length) return [];
     return tags.map(t => ({
         label: t,
-        to: `/${tagType}/${t.toLowerCase()}`,
+        to: `/${tagType}/${t.toLowerCase().replace(/\W/g, '-')}`,
     }));
 };

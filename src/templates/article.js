@@ -119,7 +119,7 @@ const Article = props => {
     if (meta.type && meta.type.length) {
         articleBreadcrumbs.push({
             label: meta.type[0].toUpperCase() + meta.type.substring(1),
-            target: `/type/${meta.type}`,
+            target: `/type/${meta.type.toLowerCase().replace(/\W/g, '-')}`,
         });
     }
     const tagList = getTagLinksFromMeta(meta);

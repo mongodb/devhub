@@ -71,12 +71,11 @@ const BylineBlock = ({
     authorName = '',
     authorImage = DEFAULT_AUTHOR_IMAGE,
 }) => {
-    const authorLink = `/author/${encodeURIComponent(
-        authorName
-            .toLowerCase()
-            .split(' ')
-            .join('-')
-    )}`;
+    const authorLink = `/author/${authorName
+        .toLowerCase()
+        .split(' ')
+        .join('-')
+        .replace(/\W|\./, '-')}`;
     return (
         <ByLine>
             <AuthorImage>

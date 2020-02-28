@@ -143,13 +143,12 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
         if (!name) return null;
         else {
             const urlSuffix = isAuthor
-                ? encodeURIComponent(
-                      name
-                          .toLowerCase()
-                          .split(' ')
-                          .join('-')
-                  )
-                : encodeURIComponent(name.toLowerCase());
+                ? name
+                      .toLowerCase()
+                      .split(' ')
+                      .join('-')
+                      .replace(/\W/g, '-')
+                : name.toLowerCase().replace(/\W/g, '-');
             const newPage = {
                 type: pageType,
                 name: name,
