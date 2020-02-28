@@ -53,9 +53,10 @@ const BlogPostTitleArea = ({
     title,
     updatedDate,
 }) => {
+    const BlogTitle = H2.withComponent('h1');
     return (
         <HeroBanner background={articleImage} breadcrumb={breadcrumb}>
-            <H2 collapse>{title}</H2>
+            <BlogTitle collapse>{title}</BlogTitle>
             <PostMetaLine>
                 <DateTextContainer>
                     {updatedDate && (
