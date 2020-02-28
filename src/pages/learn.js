@@ -12,6 +12,7 @@ import { authenticate, callStitchFunction } from '../utils/stitch';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
+import Loading from '../components/dev-hub/loading';
 
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
@@ -72,7 +73,7 @@ export default ({ location }) => {
     const [articles, setArticles] = useState([]);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
-
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         const filter = stripAllParam(filterValue);
         const searchParams = buildQueryString(filter);
@@ -83,7 +84,11 @@ export default ({ location }) => {
             searchParams === '' ? pathname : searchParams
         );
         authenticate();
-        callStitch(metadata, filter, setArticles);
+        const callback = articles => {
+            setArticles(articles);
+            setIsLoading(false);
+        };
+        callStitch(metadata, filter, callback);
     }, [metadata, filterValue, pathname]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
     return (
@@ -133,7 +138,7 @@ export default ({ location }) => {
                     filterValue={filterValue}
                     setFilterValue={updateFilter}
                 />
-                <CardList items={articles} />
+                {isLoading ? <Loading /> : <CardList items={articles} />}
             </Article>
         </Layout>
     );
