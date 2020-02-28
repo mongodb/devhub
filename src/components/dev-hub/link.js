@@ -50,16 +50,13 @@ const tertiaryLinkStyling = css`
 
 const linkStyling = css`
     color: #fff;
-    font-size: ${fontSize.small};
+    font-size: inherit;
     text-decoration: underline;
     &:visited {
         color: #fff;
     }
     &:hover {
         color: ${colorMap.darkGreen};
-    }
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.tiny};
     }
 `;
 
