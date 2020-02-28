@@ -26,9 +26,9 @@ export default () => {
             <HeroBanner
                 background={TempBackgroundImage}
                 breadcrumb={[
-                    { label: 'Home', to: '/' },
-                    { label: 'Community', to: '/community' },
-                    { label: 'Events', to: '/community/events' },
+                    { label: 'Home', target: '/' },
+                    { label: 'Community', target: '/community' },
+                    { label: 'Events', target: '/community/events' },
                 ]}
             >
                 <H1>Events</H1>
