@@ -58,9 +58,6 @@ const linkStyling = css`
     &:hover {
         color: ${colorMap.darkGreen};
     }
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.tiny};
-    }
 `;
 
 const StyledLink = styled('a')`
