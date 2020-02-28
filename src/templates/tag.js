@@ -11,6 +11,7 @@ import {
     screenSize,
     size,
     colorMap,
+    fontSize,
 } from '../components/dev-hub/theme';
 import { createShadowElement } from '../components/dev-hub/utils';
 
@@ -53,10 +54,26 @@ const AuthorImage = styled('div')`
     }
 
 `;
+const AuthorName = styled('div')`
+    ${P} {
+        color: ${colorMap.greyLightThree};
+        font-size: ${fontSize.tiny};
+    }
+
+    ${H2} {
+        font-size: ${fontSize.xlarge};
+    }
+`;
+
 const AuthorByline = styled('div')`
     display: flex;
     flex-direction: row;
     justify-content: start;
+`;
+
+const AuthorHero = styled('div')`
+    display: flex;
+    flex-direction: row;
 `;
 
 const ArticleContent = styled('article')`
@@ -74,13 +91,20 @@ const constructArticles = data =>
 
 const Tag = props => {
     const {
-        pageContext: { pages, author_image, name, slug, type },
+        pageContext: {
+            bio,
+            pages,
+            author_image,
+            location,
+            name,
+            slug,
+            title,
+            type,
+        },
     } = props;
     const isAuthor = type === 'author';
     const articles = constructArticles(pages);
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
-    console.log('props: ', props);
-    console.log("articles: ', ", articles);
     return (
         <Layout>
             <HeroBanner
@@ -97,12 +121,22 @@ const Tag = props => {
                     </TagTitle>
                 )}
                 {isAuthor && (
-                    <AuthorByline>
-                        <AuthorImage>
-                            <img src={author_image} alt={name} />
-                        </AuthorImage>
-                        <H2>{name}</H2>
-                    </AuthorByline>
+                    <AuthorHero>
+                        <AuthorByline>
+                            <AuthorImage>
+                                <img src={author_image} alt={name} />
+                            </AuthorImage>
+                            <AuthorName>
+                                <H2>{name}</H2>
+                                {title && location && (
+                                    <P>
+                                        {title} - {location}
+                                    </P>
+                                )}
+                            </AuthorName>
+                        </AuthorByline>
+                        {bio && <P>{bio}</P>}
+                    </AuthorHero>
                 )}
             </HeroBanner>
 
@@ -123,9 +157,13 @@ Tag.propTypes = {
                 tags: PropTypes.arrayOf(PropTypes.string),
             }),
         }),
+        // TODO: Some of these fields are not yet part of author's data (ex: bio, location, title)
         author_image: PropTypes.string,
+        bio: PropTypes.string,
+        location: PropTypes.string,
         name: PropTypes.string.isRequired,
         slug: PropTypes.string.isRequired,
+        title: PropTypes.string,
         type: PropTypes.string.isRequired,
     }),
 };
