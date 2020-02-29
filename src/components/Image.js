@@ -5,10 +5,10 @@ import { css } from '@emotion/core';
 import { getNestedValue } from '../utils/get-nested-value';
 import { size } from './dev-hub/theme';
 
-const ArticleImageStyle = (customAlign, scale) => css`
+const ArticleImageStyle = (captioned, customAlign, scale) => css`
     ${customAlign && `float: ${customAlign};`}
     border-radius: ${size.small};
-    margin-bottom: ${size.default};
+    margin-bottom: ${captioned ? size.small : size.articleContent};
     vertical-align: bottom; /* prevent the default image spacing below image */
     width: ${scale || null};
 `;
@@ -65,7 +65,7 @@ export default class Image extends Component {
     };
 
     render() {
-        const { nodeData = {}, src } = this.props;
+        const { nodeData = {}, src, captioned } = this.props;
         const imgSrc =
             src || getNestedValue(['argument', 0, 'value'], nodeData);
         const altText = getNestedValue(['options', 'alt'], nodeData) || imgSrc;
@@ -76,7 +76,7 @@ export default class Image extends Component {
             <img
                 src={this.getImgData(process.env.PREVIEW_MODE, imgSrc)}
                 alt={altText}
-                css={ArticleImageStyle(customAlign, scale)}
+                css={ArticleImageStyle(captioned, customAlign, scale)}
                 onLoad={this.handleLoad}
             />
         );

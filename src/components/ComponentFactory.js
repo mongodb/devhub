@@ -118,6 +118,7 @@ export default class ComponentFactory extends Component {
             versionadded: VersionAdded,
             versionchanged: VersionChanged,
             youtube: VideoEmbed,
+            twitch: VideoEmbed,
             // devhub main content
             introduction: Container,
             prerequisites: Container,
@@ -154,6 +155,14 @@ export default class ComponentFactory extends Component {
         if (!ComponentType && ADMONITIONS.includes(name)) {
             ComponentType = this.componentMap.admonition;
         }
+
+        /* 
+            // todo for launch - only warn
+            if (!ComponentType) {
+            console.warn(`${name} (${type}) not yet implemented)`);
+            return null;
+        }
+        */
         // component with this type not implemented
         if (!ComponentType) {
             return (

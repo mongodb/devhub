@@ -1,7 +1,13 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
 import { P } from './dev-hub/text';
+import { size } from './dev-hub/theme';
+
+const contentStyles = css`
+    margin-bottom: ${size.articleContent};
+`;
 
 const SKIP_P_TAGS = ['caption', 'listItem', 'listTable', 'footnote'];
 
@@ -13,7 +19,7 @@ const Paragraph = ({ nodeData, parentNode, ...rest }) => {
         ));
     }
     return (
-        <P>
+        <P css={contentStyles}>
             {nodeData.children.map((element, index) => (
                 <ComponentFactory {...rest} nodeData={element} key={index} />
             ))}
