@@ -27,7 +27,7 @@ Section.propTypes = {
 };
 
 Section.defaultProps = {
-    sectionDepth: 0,
+    sectionDepth: 1,
 };
 
 export default Section;

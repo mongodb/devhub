@@ -83,6 +83,35 @@ export const H5 = styled('h5')`
         line-height: ${lineHeight.small};
     }
 `;
+
+export const ArticleH2 = styled('h2')`
+    ${commonHeading}
+    font-size: ${fontSize.medium};
+    line-height: ${lineHeight.medium};
+    margin: 0 0 ${size.small} 0;
+`;
+
+export const ArticleH3 = styled('h3')`
+    ${commonHeading}
+    font-size: ${fontSize.default};
+    line-height: ${lineHeight.default};
+    margin: 0 0 ${size.small} 0;
+`;
+
+export const ArticleH4 = styled('h4')`
+    ${commonHeading}
+    font-size: ${fontSize.small};
+    line-height: ${lineHeight.small};
+    margin: 0 0 ${size.small} 0;
+`;
+
+export const ArticleH5 = styled('h5')`
+    ${commonHeading}
+    font-size: ${fontSize.small};
+    line-height: ${lineHeight.small};
+    margin: 0 0 ${size.small} 0;
+`;
+
 const PStyles = styled('p')`
     font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
     ${handleCollapse}

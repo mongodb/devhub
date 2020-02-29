@@ -40,6 +40,7 @@ const size = {
     small: '10px',
     default: '16px',
     medium: '20px',
+    articleContent: '30px',
     large: '32px',
     xlarge: '64px',
     xxlarge: '120px',
