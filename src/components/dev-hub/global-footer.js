@@ -200,9 +200,7 @@ export default () => {
             <IconList>
                 {iconLinks.map(list => getLinksList(list, false))}
             </IconList>
-            <Copyright collapse>
-                © {new Date().getFullYear()} MongoDB, Inc.
-            </Copyright>
+            <Copyright collapse>© MongoDB, Inc.</Copyright>
         </GlobalFooter>
     );
 };
