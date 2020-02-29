@@ -6,7 +6,7 @@ import { size } from './theme';
 import PLACEHOLDER_IMAGE from '../../images/mock-video-placeholder.png';
 
 const ReactPlayerWrapper = styled('div')`
-    margin-bottom: ${size.default};
+    margin-bottom: ${size.articleContent};
     position: relative;
     /*
     https://github.com/CookPete/react-player#responsive-player

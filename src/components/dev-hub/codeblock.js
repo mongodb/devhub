@@ -11,6 +11,7 @@ const LEAFY_LINENUMBER_PADDING = 42;
 const CodeContainer = styled('div')`
     display: inline-block;
     position: relative;
+    margin-bottom: ${size.articleContent};
     width: 100%;
     /* The leafygreen Code component adds a wrapper div which can't be styled using emotion */
     > div:first-of-type {
@@ -55,7 +56,7 @@ const StyledCode = styled(Code)`
     }
 `;
 
-const CodeBlock = ({ nodeData: { /* lang = null, */ value } }) => {
+const CodeBlock = ({ nodeData: { lang = null, value } }) => {
     // We wish to up padding based on the number of lines based on the size of the max number length
     const numLines = useMemo(() => value.split(/\r|\n/).length, [value]);
     const numDigits = useMemo(() => Math.floor(Math.log10(numLines) + 1), [
@@ -66,9 +67,7 @@ const CodeBlock = ({ nodeData: { /* lang = null, */ value } }) => {
             <StyledCode
                 // remove this lang !== 'csp' hack once LG supports cs
                 // https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
-                // language={lang && lang !== 'csp' ? lang : 'auto'}
-                // try using auto for everything to debug codeblocks
-                language="auto"
+                language={lang && lang !== 'csp' ? lang : 'auto'}
                 numdigits={numDigits}
                 showLineNumbers
                 variant="dark"

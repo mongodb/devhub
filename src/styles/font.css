@@ -1,0 +1,38 @@
+@font-face {
+    font-display: swap;
+    font-family: akzidenz;
+    font-weight: normal;
+    src: url('../fonts/akzidgrostdreg-webfont.woff2') format('woff2'),
+        url('../fonts/akzidgrostdreg-webfont.woff') format('woff');
+}
+@font-face {
+    font-display: swap;
+    font-family: akzidenz;
+    font-style: italic;
+    src: url('../fonts/akzidgrostdita-webfont.woff2') format('woff2'),
+        url('../fonts/akzidgrostdita-webfont.woff') format('woff');
+}
+@font-face {
+    font-display: swap;
+    font-family: akzidenz;
+    font-weight: bold;
+    src: url('../fonts/akzidgrostdmed-webfont.woff2') format('woff2'),
+        url('../fonts/akzidgrostdmed-webfont.woff') format('woff');
+}
+@font-face {
+    font-display: swap;
+    font-family: akzidenz;
+    font-weight: bold;
+    font-style: italic;
+    src: url('../fonts/akzidgrostdmedita-webfont.woff2') format('woff2'),
+        url('../fonts/akzidgrostdmedita-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: akzidenz;
+    font-weight: 900;
+    font-style: normal;
+    src: url('../fonts/akzidgrostdsup-webfont.woff2') format('woff2'),
+        url('../fonts/akzidgrostdsup-webfont.woff') format('woff');
+}

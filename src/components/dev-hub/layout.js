@@ -5,6 +5,7 @@ import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
 
+import '../../styles/font.css';
 import 'typeface-fira-mono';
 
 const globalStyles = css`

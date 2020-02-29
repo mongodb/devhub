@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
+import { P2 } from './dev-hub/text';
+
+const Caption = P2.withComponent('figcaption');
 
 const CaptionLegend = ({ nodeData: { children }, ...rest }) => (
     <React.Fragment>
         {children.length > 0 && (
-            <p className="caption">
+            <Caption className="caption">
                 <span className="caption-text">
                     <ComponentFactory
                         {...rest}
@@ -13,7 +16,7 @@ const CaptionLegend = ({ nodeData: { children }, ...rest }) => (
                         parentNode="caption"
                     />
                 </span>
-            </p>
+            </Caption>
         )}
         {children.length > 1 && (
             <div className="legend">

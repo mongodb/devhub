@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
 import Link from './Link';
 
-const RefRole = ({
-    nodeData: { children, domain, fileid, name, target, url },
-    slug,
-}) => {
+const RefRole = ({ nodeData: { children, fileid, target, url }, slug }) => {
     // Render intersphinx target links
     if (url) {
         return (
@@ -21,8 +18,8 @@ const RefRole = ({
     // Render internal target links
     const link = fileid === slug ? `#${target}` : `${fileid}#${target}`;
     return (
-        <Link to={link} className="reference internal">
-            <span className={`${domain} ${domain}-ref`}>
+        <Link href={link}>
+            <span>
                 {children.map((node, i) => (
                     <ComponentFactory key={i} nodeData={node} />
                 ))}
