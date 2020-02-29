@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
 import CardList from '../components/dev-hub/card-list';
 import HeroBanner from '../components/dev-hub/hero-banner';
 import Layout from '../components/dev-hub/layout';
-import { H2, H3, P } from '../components/dev-hub/text';
+import { H2, H3, P, P3 } from '../components/dev-hub/text';
 import {
     gradientMap,
     layer,
@@ -18,17 +19,15 @@ import { createShadowElement } from '../components/dev-hub/utils';
 const BYLINE_HEIGHT_OFFSET = 6;
 const BYLINE_IMAGE_HEIGHT = 50;
 
-const TagTitle = styled('div')`
-    ${H2} {
-        text-transform: capitalize;
-    }
+const toTitleCase = css`
+    text-transform: capitalize;
+`;
 
-    ${P} {
-        color: ${colorMap.greyLightThree};
-        font-size: ${fontSize.tiny};
-        margin: 0;
-        padding: 0;
-    }
+const SubHead = styled(P3)`
+    color: ${colorMap.greyLightThree};
+    letter-spacing: 1px;
+    line-height: 1;
+    text-transform: uppercase;
 `;
 
 const AuthorImage = styled('div')`
@@ -56,9 +55,8 @@ const AuthorImage = styled('div')`
 
 `;
 const AuthorName = styled('div')`
-    ${P} {
+    ${P3} {
         color: ${colorMap.greyLightThree};
-        font-size: ${fontSize.tiny};
     }
 
     ${H2} {
@@ -116,10 +114,10 @@ const Tag = props => {
                 ]}
             >
                 {!isAuthor && (
-                    <TagTitle>
-                        <P>TAGGED IN</P>
-                        <H2>{name}</H2>
-                    </TagTitle>
+                    <>
+                        <SubHead bold>Tagged In</SubHead>
+                        <H2 css={toTitleCase}>{name}</H2>
+                    </>
                 )}
                 {isAuthor && (
                     <AuthorHero>
