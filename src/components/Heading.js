@@ -9,7 +9,7 @@ import Link from './dev-hub/link';
 const PermaLink = styled(Link)`
     float: left;
     font-weight: normal;
-    margin-left: -20px;
+    margin-left: -17px;
     padding-right: 5px;
     text-decoration: none;
     visibility: hidden;
