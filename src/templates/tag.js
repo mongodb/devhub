@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
 import CardList from '../components/dev-hub/card-list';
 import HeroBanner from '../components/dev-hub/hero-banner';
 import Layout from '../components/dev-hub/layout';
-import { H2, H3, P, P3 } from '../components/dev-hub/text';
+import { H2, H3, P } from '../components/dev-hub/text';
 import {
     gradientMap,
     layer,
@@ -19,15 +18,17 @@ import { createShadowElement } from '../components/dev-hub/utils';
 const BYLINE_HEIGHT_OFFSET = 6;
 const BYLINE_IMAGE_HEIGHT = 50;
 
-const toTitleCase = css`
-    text-transform: capitalize;
-`;
+const TagTitle = styled('div')`
+    ${H2} {
+        text-transform: capitalize;
+    }
 
-const SubHead = styled(P3)`
-    color: ${colorMap.greyLightThree};
-    letter-spacing: 1px;
-    line-height: 1;
-    text-transform: uppercase;
+    ${P} {
+        color: ${colorMap.greyLightThree};
+        font-size: ${fontSize.tiny};
+        margin: 0;
+        padding: 0;
+    }
 `;
 
 const AuthorImage = styled('div')`
@@ -55,8 +56,9 @@ const AuthorImage = styled('div')`
 
 `;
 const AuthorName = styled('div')`
-    ${P3} {
+    ${P} {
         color: ${colorMap.greyLightThree};
+        font-size: ${fontSize.tiny};
     }
 
     ${H2} {
@@ -108,16 +110,16 @@ const Tag = props => {
         <Layout>
             <HeroBanner
                 breadcrumb={[
-                    { label: 'Home', target: '/' },
-                    { label: 'Learn', target: '/learn' },
-                    { label: capitalizedBreadcrumb, target: slug },
+                    { label: 'Home', to: '/' },
+                    { label: 'Learn', to: '/learn' },
+                    { label: capitalizedBreadcrumb, to: slug },
                 ]}
             >
                 {!isAuthor && (
-                    <>
-                        <SubHead bold>Tagged In</SubHead>
-                        <H2 css={toTitleCase}>{name}</H2>
-                    </>
+                    <TagTitle>
+                        <P>TAGGED IN</P>
+                        <H2>{name}</H2>
+                    </TagTitle>
                 )}
                 {isAuthor && (
                     <AuthorHero>
