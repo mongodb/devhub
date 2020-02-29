@@ -6,7 +6,7 @@ import { getNestedValue } from '../utils/get-nested-value';
 import { size } from './dev-hub/theme';
 
 const Figure = styled('figure')`
-    margin-bottom: ${size.articleContent};
+    margin: 0 0 ${size.articleContent};
 `;
 export default ({ nodeData, ...rest }) => (
     <Figure
