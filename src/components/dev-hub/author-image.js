@@ -36,10 +36,10 @@ const CircularImage = styled('div')`
     @media ${screenSize.upToMedium} {
         display: none;
     }
-    margin-right: ${size.medium};
-    position: relative;
     border-radius: 50%;
     height: ${({ height }) => height}px;
+    margin-right: ${size.medium};
+    position: relative;
     width: ${({ width }) => width}px;
     ${({ image }) => imageStyles(image)};
 `;
