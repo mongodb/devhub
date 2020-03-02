@@ -4,7 +4,9 @@ const getSeriesArticles = (allSeries, slug) => {
     const series = Object.keys(allSeries);
     const seriesForThisArticle = {};
     series.forEach(s => {
-        if (allSeries[s].includes(slug)) seriesForThisArticle[s] = allSeries[s];
+        if (allSeries[s].includes(slug)) {
+            seriesForThisArticle[s] = allSeries[s];
+        }
     });
     return seriesForThisArticle;
 };

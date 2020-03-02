@@ -96,7 +96,7 @@ const BulletIcon = styled('div')`
     display: inline-block;
     font-size: ${BULLET_SIZE}px;
     line-height: ${lineHeight.tiny};
-    margin-top: 2px;
+    margin-top: 3px;
     margin-right: 30px;
     position: relative;
     text-align: left;
@@ -146,7 +146,7 @@ const SeriesList = styled('ul')`
             ),
             ${BORDER_GRADIENT};
         background-size: ${size.medium} 2px, cover;
-        bottom: calc(${BULLET_SIZE / 2}px + 2px);
+        bottom: ${BULLET_SIZE / 2 + 2}px;
         content: '';
         left: 7px;
         position: absolute;
