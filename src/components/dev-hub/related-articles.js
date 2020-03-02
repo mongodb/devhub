@@ -42,6 +42,42 @@ const RelatedCards = styled('div')`
     }
 `;
 
+const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
+    console.log(relatedArticle);
+    const name = relatedArticle.name
+        ? relatedArticle.name
+        : relatedArticle.type;
+    switch (name) {
+        case 'doc':
+            const target = relatedArticle.target;
+            const slug = target && target.slice(1, target.length);
+            const image = relatedArticle.image || ARTICLE_PLACEHOLDER;
+            const title = dlv(slugTitleMapping, [slug, 0, 'value'], '');
+            if (title === '') {
+                console.error(
+                    `No title found for this internal article ${slug}`,
+                    slugTitleMapping
+                );
+            }
+            return { image, target, title };
+        case 'literal':
+            return {
+                image: ARTICLE_PLACEHOLDER,
+                target: null,
+                title: dlv(relatedArticle, ['children', 0, 'value'], ''),
+            };
+        case 'reference':
+            return {
+                image: ARTICLE_PLACEHOLDER,
+                target: relatedArticle.refuri,
+                title: dlv(relatedArticle, ['children', 0, 'value'], ''),
+            };
+        default:
+            console.error(`Related article type not implemented: ${name}`);
+            return { title: null, image: null, target: null };
+    }
+};
+
 const RelatedArticles = ({ related, slugTitleMapping }) => {
     if (!related || !related.length) return null;
     return (
@@ -49,16 +85,12 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
             <H4>Related</H4>
             <RelatedCards>
                 {related.map((r, i) => {
-                    const target = r.target;
-                    const slug = r.target && r.target.slice(1, r.target.length);
-                    const image = r.image || ARTICLE_PLACEHOLDER;
-                    const title = dlv(slugTitleMapping, [slug, 0, 'value'], '');
-                    if (title === '') {
-                        console.error(
-                            `No title found for this article ${slug}`,
-                            slugTitleMapping
-                        );
-                    }
+                    const {
+                        image,
+                        target,
+                        title,
+                    } = getCardParamsFromRelatedType(r, slugTitleMapping);
+
                     /* TODO: Case on doc to link internal vs external */
                     return (
                         <Card
