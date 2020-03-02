@@ -21,6 +21,7 @@ import meetupsImage from '../images/1x/Meetups.png';
 import buildImage from '../images/1x/Build.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
+import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
 import useTwitchApi from '../utils/use-twitch-api';
 
 const MEDIA_WIDTH = '550';
@@ -216,9 +217,11 @@ export default () => {
                                 stories, demos, and wisdom with those still
                                 learning.
                             </DescriptiveText>
-                            <Button to="/community" secondary>
-                                Share
-                            </Button>
+                            <ProjectSignUpForm
+                                triggerComponent={
+                                    <Button secondary>Share</Button>
+                                }
+                            />
                         </SectionContent>
                     </MediaBlock>
                 </FeatureSection>
