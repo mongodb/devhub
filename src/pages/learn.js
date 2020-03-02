@@ -8,12 +8,10 @@ import CardList from '../components/dev-hub/card-list';
 import FilterBar from '../components/dev-hub/filter-bar';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
-import { authenticate, callStitchFunction } from '../utils/stitch';
+import { authenticate } from '../utils/stitch';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
-import Loading from '../components/dev-hub/loading';
 
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
@@ -55,10 +53,6 @@ const parseArticles = arr =>
         return { _id, ...query_fields };
     });
 
-const callStitch = async (metadata, key, callback) => {
-    const res = await callStitchFunction('fetchDevhubMetadata', metadata, key);
-    callback(parseArticles(res));
-};
 // strip out the 'All' param from the url and the stitch function key
 const stripAllParam = filterValue => {
     const newFilter = {};
@@ -69,12 +63,11 @@ const stripAllParam = filterValue => {
     });
     return newFilter;
 };
-export default ({ location }) => {
+export default ({ location, pageContext: { allArticles } }) => {
     const metadata = useSiteMetadata();
-    const [articles, setArticles] = useState([]);
+    const articles = parseArticles(allArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
-    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         const filter = stripAllParam(filterValue);
         const searchParams = buildQueryString(filter);
@@ -85,11 +78,6 @@ export default ({ location }) => {
             searchParams === '' ? pathname : searchParams
         );
         authenticate();
-        const callback = articles => {
-            setArticles(articles);
-            setIsLoading(false);
-        };
-        callStitch(metadata, filter, callback);
     }, [metadata, filterValue, pathname]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
     return (
@@ -141,7 +129,7 @@ export default ({ location }) => {
                     filterValue={filterValue}
                     setFilterValue={updateFilter}
                 />
-                {isLoading ? <Loading /> : <CardList items={articles} />}
+                <CardList items={articles} />
             </Article>
         </Layout>
     );
