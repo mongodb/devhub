@@ -13,6 +13,7 @@ import { size } from '../components/dev-hub/theme';
 import Series from '../components/dev-hub/series';
 import { getNestedText } from '../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
+import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 
 let articleTitle = '';
 
@@ -119,7 +120,7 @@ const Article = props => {
     if (meta.type && meta.type.length) {
         articleBreadcrumbs.push({
             label: meta.type[0].toUpperCase() + meta.type.substring(1),
-            target: `/type/${meta.type}`,
+            target: `/type/${getTagPageUriComponent(meta.type)}`,
         });
     }
     const tagList = getTagLinksFromMeta(meta);
