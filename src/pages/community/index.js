@@ -116,6 +116,18 @@ const HeroContent = styled('div')`
 export default ({ ...data }) => {
     return (
         <Layout>
+            <UpcomingEvents>
+                <EventsHeader>
+                    <SectionTitle bold>Upcoming Events</SectionTitle>
+                    <Link to="/community/events" tertiary>
+                        See all events
+                    </Link>
+                </EventsHeader>
+                <EventsListPreview />
+                <MobileViewAllBtn to="/community/events" secondary>
+                    View all
+                </MobileViewAllBtn>
+            </UpcomingEvents>
             <HeroBanner
                 background={communityHeroBackground}
                 showImageOnMobile={false}
@@ -131,18 +143,6 @@ export default ({ ...data }) => {
                     </Button>
                 </HeroContent>
             </HeroBanner>
-            <UpcomingEvents>
-                <EventsHeader>
-                    <SectionTitle bold>Upcoming Events</SectionTitle>
-                    <Link to="/community/events" tertiary>
-                        See all events
-                    </Link>
-                </EventsHeader>
-                <EventsListPreview />
-                <MobileViewAllBtn to="/community/events" secondary>
-                    View all
-                </MobileViewAllBtn>
-            </UpcomingEvents>
             <FeaturedProject>
                 <MediaBlock
                     mediaComponent={
