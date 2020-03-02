@@ -11,6 +11,7 @@ import {
     fontSize,
     size,
 } from './theme';
+import { getTagPageUriComponent } from '../../utils/get-tag-page-uri-component';
 import { createShadowElement } from './utils';
 import DEFAULT_AUTHOR_IMAGE from '../../images/2x/Default-Profile@2x.png';
 
@@ -71,11 +72,7 @@ const BylineBlock = ({
     authorName = '',
     authorImage = DEFAULT_AUTHOR_IMAGE,
 }) => {
-    const authorLink = `/author/${authorName
-        .toLowerCase()
-        .split(' ')
-        .join('-')
-        .replace(/\W|\./, '-')}`;
+    const authorLink = `/author/${getTagPageUriComponent(authorName)}`;
     return (
         <ByLine>
             <AuthorImage>
