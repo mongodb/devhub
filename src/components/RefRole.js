@@ -7,7 +7,7 @@ const RefRole = ({ nodeData: { children, fileid, target, url }, slug }) => {
     // Render intersphinx target links
     if (url) {
         return (
-            <Link to={url} className="reference external">
+            <Link to={url} className="ref-role-inter">
                 {children.map((node, i) => (
                     <ComponentFactory key={i} nodeData={node} />
                 ))}
@@ -18,7 +18,7 @@ const RefRole = ({ nodeData: { children, fileid, target, url }, slug }) => {
     // Render internal target links
     const link = fileid === slug ? `#${target}` : `${fileid}#${target}`;
     return (
-        <Link href={link}>
+        <Link to={link} className="ref-role-anchor">
             <span>
                 {children.map((node, i) => (
                     <ComponentFactory key={i} nodeData={node} />

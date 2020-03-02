@@ -2,22 +2,17 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
+import AuthorImage from '../components/dev-hub/author-image';
 import CardList from '../components/dev-hub/card-list';
 import HeroBanner from '../components/dev-hub/hero-banner';
 import Layout from '../components/dev-hub/layout';
 import { H2, H3, P, P3 } from '../components/dev-hub/text';
 import {
-    gradientMap,
-    layer,
     screenSize,
     size,
     colorMap,
     fontSize,
 } from '../components/dev-hub/theme';
-import { createShadowElement } from '../components/dev-hub/utils';
-
-const BYLINE_HEIGHT_OFFSET = 6;
-const BYLINE_IMAGE_HEIGHT = 50;
 
 const toTitleCase = css`
     text-transform: capitalize;
@@ -30,30 +25,6 @@ const SubHead = styled(P3)`
     text-transform: uppercase;
 `;
 
-const AuthorImage = styled('div')`
-    @media ${screenSize.upToMedium} {
-      display: none;
-    }
-    height: ${BYLINE_IMAGE_HEIGHT}px;
-    margin-right: ${size.medium};
-    position: relative;
-    z-index: ${layer.front};
-    > img {
-        border-radius: 50%;
-        height: ${BYLINE_IMAGE_HEIGHT}px;
-    }
-    &:before {
-        ${createShadowElement(
-            gradientMap.greenTealOffset,
-            size.large,
-            0,
-            -BYLINE_HEIGHT_OFFSET
-        )}
-        height: ${BYLINE_IMAGE_HEIGHT + BYLINE_HEIGHT_OFFSET}px;
-        width: ${BYLINE_IMAGE_HEIGHT + BYLINE_HEIGHT_OFFSET}px;
-    }
-
-`;
 const AuthorName = styled('div')`
     ${P3} {
         color: ${colorMap.greyLightThree};
@@ -80,6 +51,10 @@ const ArticleContent = styled('article')`
     @media ${screenSize.upToLarge} {
         padding: ${size.large} ${size.medium};
     }
+`;
+
+const SyledAuthorImage = styled(AuthorImage)`
+    margin-right: ${size.medium};
 `;
 
 const constructArticles = data =>
@@ -122,9 +97,7 @@ const Tag = props => {
                 {isAuthor && (
                     <AuthorHero>
                         <AuthorByline>
-                            <AuthorImage>
-                                <img src={author_image} alt={name} />
-                            </AuthorImage>
+                            <SyledAuthorImage image={author_image} />
                             <AuthorName>
                                 <H2>{name}</H2>
                                 {title && location && (

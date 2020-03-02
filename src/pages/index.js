@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import Card from '../components/dev-hub/card';
 import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
-import Notification from '../components/dev-hub/notification';
 import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
 import {
     colorMap,
@@ -12,15 +11,17 @@ import {
     size,
 } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
-import devToolsImage from '../images/1x/Dev-Tools.png';
-import javaImage from '../images/1x/Java.png';
+import cSharpImage from '../images/1x/c-sharp.png';
 import nodejsImage from '../images/1x/Node.JS-1.png';
-import unityImage from '../images/1x/Unity.png';
+import stichImage from '../images/2x/Stitch-triggers@2x.png';
 import greenPatternImage from '../images/1x/pattern-green.png';
 import meetupsImage from '../images/1x/Meetups.png';
 import buildImage from '../images/1x/Build.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
+import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
+// import Notification from '../components/dev-hub/notification';
+// import useTwitchApi from '../utils/use-twitch-api';
 
 const MEDIA_WIDTH = '550';
 
@@ -56,7 +57,7 @@ const CardGallery = styled('section')`
     }
 `;
 const StyledTopCard = styled(Card)`
-    max-width: 300px;
+    /* max-width: 300px; */
     @media ${screenSize.upToLarge} {
         flex-basis: 50%;
     }
@@ -64,7 +65,7 @@ const StyledTopCard = styled(Card)`
         flex-basis: 100%;
     }
 `;
-const FEATURE_SECTION_DISTANCE = '80px';
+
 const FeatureSection = styled('section')`
     ${({ altBackground }) =>
         altBackground && `background-color: ${colorMap.devBlack};`};
@@ -74,9 +75,8 @@ const FeatureSection = styled('section')`
         padding-bottom: ${size.medium};
     }
     @media ${screenSize.largeAndUp} {
-        margin: 0 ${size.large} ${FEATURE_SECTION_DISTANCE};
-        padding-bottom: ${FEATURE_SECTION_DISTANCE};
-        padding-top: ${FEATURE_SECTION_DISTANCE};
+        margin: 0 ${size.large} ${size.medium};
+        padding-top: ${size.medium};
     }
 `;
 const SectionContent = styled('div')`
@@ -91,10 +91,20 @@ const DescriptiveText = styled(P)`
     margin-bottom: ${size.medium};
 `;
 export default () => {
+    // TODO enable for launch
+    // const { error, live, pending, videos } = useTwitchApi();
     return (
         <Layout>
             <BackgroundImage>
-                <Notification />
+                {/* 
+                // TODO enable for launch
+                {live && (
+                    <Notification
+                        link={live.url}
+                        title={live.title}
+                    />
+                )} 
+                */}
                 <Hero>
                     <Heading>
                         {`ideas.find({"attributes":`}
@@ -103,17 +113,25 @@ export default () => {
                     </Heading>
                     <Sub>What will you create today?</Sub>
                     <CardGallery>
-                        <StyledTopCard image={unityImage} to="/article">
-                            Rest APIs with Java, Spring Boot &amp; MongoDB
+                        <StyledTopCard
+                            image={nodejsImage}
+                            to="/how-to/calling-the-mongodb-atlas-api--how-to-do-it-from-node-python-and-ruby"
+                        >
+                            Calling the MongoDB Atlas API - How to do it from
+                            Node, Python, and Ruby
                         </StyledTopCard>
-                        <StyledTopCard image={nodejsImage} to="/article">
-                            How to get connected to your MongoDB Cluster
+                        <StyledTopCard
+                            image={stichImage}
+                            to="/how-to/mongodb-stitch-authentication-triggers"
+                        >
+                            MongoDB Stitch Authentication Triggers
                         </StyledTopCard>
-                        <StyledTopCard image={javaImage} to="/article">
-                            Delete Operations
-                        </StyledTopCard>
-                        <StyledTopCard image={devToolsImage} to="/article">
-                            Stitch Hosting: a Drag and Drop Delight
+                        <StyledTopCard
+                            image={cSharpImage}
+                            to="/how-to/working-with-mongodb-transactions-with-c-and-the-net-framework"
+                        >
+                            Working with MongoDB Transactions with C# and the
+                            .NET Framework{' '}
                         </StyledTopCard>
                     </CardGallery>
                     <div>
@@ -127,7 +145,7 @@ export default () => {
                         mediaComponent={
                             <Card
                                 maxWidth={MEDIA_WIDTH}
-                                image={buildImage}
+                                image={greenPatternImage}
                             ></Card>
                         }
                     >
@@ -156,7 +174,7 @@ export default () => {
                     <MediaBlock
                         mediaComponent={
                             <Card
-                                image={greenPatternImage}
+                                image={meetupsImage}
                                 maxWidth={MEDIA_WIDTH}
                             ></Card>
                         }
@@ -187,7 +205,7 @@ export default () => {
                     <MediaBlock
                         mediaComponent={
                             <Card
-                                image={meetupsImage}
+                                image={buildImage}
                                 maxWidth={MEDIA_WIDTH}
                             ></Card>
                         }
@@ -205,9 +223,11 @@ export default () => {
                                 stories, demos, and wisdom with those still
                                 learning.
                             </DescriptiveText>
-                            <Button to="/community" secondary>
-                                Share
-                            </Button>
+                            <ProjectSignUpForm
+                                triggerComponent={
+                                    <Button secondary>Share</Button>
+                                }
+                            />
                         </SectionContent>
                     </MediaBlock>
                 </FeatureSection>

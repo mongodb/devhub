@@ -4,7 +4,7 @@ import Link from './Link';
 import { getNestedValue } from '../utils/get-nested-value';
 
 const Reference = ({ nodeData }) => (
-    <Link className="reference external" to={nodeData.refuri}>
+    <Link className="reference" to={nodeData.refuri} target="_blank">
         {getNestedValue(['children', 0, 'value'], nodeData)}
     </Link>
 );

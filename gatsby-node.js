@@ -6,10 +6,14 @@ const { Stitch, AnonymousCredential } = require('mongodb-stitch-server-sdk');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
-const { getNestedValue } = require('./src/utils/get-nested-value');
-const { getTemplate } = require('./src/utils/get-template');
-const { getPageSlug } = require('./src/utils/get-page-slug');
 const { getMetadata } = require('./src/utils/get-metadata');
+const { getNestedValue } = require('./src/utils/get-nested-value');
+const {
+    getTagPageUriComponent,
+} = require('./src/utils/get-tag-page-uri-component');
+const { getPageSlug } = require('./src/utils/get-page-slug');
+const { getSeriesArticles } = require('./src/utils/get-series-articles');
+const { getTemplate } = require('./src/utils/get-template');
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
@@ -142,14 +146,7 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
         // Some bad data for authors doesn't follow this structure, so ignore it
         if (!name) return null;
         else {
-            const urlSuffix = isAuthor
-                ? encodeURIComponent(
-                      name
-                          .toLowerCase()
-                          .split(' ')
-                          .join('-')
-                  )
-                : encodeURIComponent(name.toLowerCase());
+            const urlSuffix = getTagPageUriComponent(name);
             const newPage = {
                 type: pageType,
                 name: name,
@@ -235,6 +232,7 @@ exports.createPages = async ({ actions }) => {
         constructDbFilter(),
     ]);
 
+    const allSeries = metadata.pageGroups;
     PAGES.forEach(page => {
         const pageNodes = RESOLVED_REF_DOC_MAPPING[page];
 
@@ -247,11 +245,13 @@ exports.createPages = async ({ actions }) => {
                 const relatedPages = getRelatedPagesWithImages(pageNodes);
                 pageNodes['query_fields'].related = relatedPages;
             }
+            const seriesArticles = getSeriesArticles(allSeries, slug);
             createPage({
                 path: slug,
                 component: path.resolve(`./src/templates/${template}.js`),
                 context: {
                     metadata: metadata,
+                    seriesArticles,
                     slug,
                     snootyStitchId: SNOOTY_STITCH_ID,
                     __refDocMapping: pageNodes,

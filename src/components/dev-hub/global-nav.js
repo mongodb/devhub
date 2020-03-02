@@ -22,7 +22,7 @@ const GlobalNav = styled('nav')`
 
 const NavLink = styled(Link)`
     font-weight: 300;
-    letter-spacing: 0.07em;
+    letter-spacing: 1px;
     line-height: ${lineHeight.xxlarge};
     padding: ${size.small} ${size.xlarge};
     text-decoration: none;

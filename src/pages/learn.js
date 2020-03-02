@@ -12,6 +12,7 @@ import { authenticate, callStitchFunction } from '../utils/stitch';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
+import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import Loading from '../components/dev-hub/loading';
 
 const MainFeatureGrid = styled('div')`
@@ -103,33 +104,35 @@ export default ({ location }) => {
                         >
                             <Card
                                 maxDescriptionLines={4}
-                                to="/#"
-                                title="Building Modern Applications with Next.js and
-                            MongoDB"
-                                description="Developers have more choices than ever before when
-                            it comes to choosing the technology stack for their
-                            next application. Developer productivity is one of
-                            the most important factors in choosing a modern
-                            stack and I believe that Next.js coupled with
-                            MongoDB can get you up and running on the next great
-                            application in no time at all. Let’s find out how
-                            and why!"
-                                tags={mapTagTypeToUrl(['nodejs'], 'language')}
+                                to="/article/active-active-application-architectures-with-mongodb"
+                                title="Active-Active Application Architectures with MongoDB"
+                                description="This post will begin by describing the database capabilities required by modern multi-data center applications."
+                                tags={getTagLinksFromMeta({
+                                    products: ['MongoDB'],
+                                    tags: ['Technical'],
+                                })}
                             />
                         </MediaBlock>
                     </PrimarySection>
                     <SecondArticle
-                        title="Quick Start - Node.js"
-                        description=" Master all the CRUD operations in Node.js with
-                            MongoDB"
-                        tags={mapTagTypeToUrl(['nodejs'], 'language')}
+                        to="/how-to/storing-large-objects-and-files-in-mongodb"
+                        title="Storing Large Objects and Files in MongoDB"
+                        description="Discover how to store large objects and files in MongoDB."
+                        tags={getTagLinksFromMeta({
+                            products: ['MongoDB'],
+                            tags: ['Releases'],
+                        })}
                     />
 
                     <LastArticle
-                        title="Visualising the Coronavirus"
-                        description="See the spread of the Coronavirus in MongoDB
-                            Charts"
-                        tags={mapTagTypeToUrl(['charts'], 'product')}
+                        to="how-to/working-with-mongodb-stitch-through-the-mongo-shell"
+                        title="Working with MongoDB Stitch Through the mongo Shell – MongoDB Wire Protocol Support"
+                        description="The Stitch SDK is the best way to access MongoDB Stitch from your frontend application code – getting to your data and accessing your Stitch Services and Functions becomes child's play."
+                        tags={getTagLinksFromMeta({
+                            tags: ['Cloud', 'Stitch'],
+                            products: ['Stitch', 'Atlas'],
+                            languages: ['javascript'],
+                        })}
                     />
                 </MainFeatureGrid>
             </Header>
