@@ -21,6 +21,7 @@ import meetupsImage from '../images/1x/Meetups.png';
 import buildImage from '../images/1x/Build.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
+import useTwitchApi from '../utils/use-twitch-api';
 
 const MEDIA_WIDTH = '550';
 
@@ -91,10 +92,20 @@ const DescriptiveText = styled(P)`
     margin-bottom: ${size.medium};
 `;
 export default () => {
+    // TODO enable for launch
+    // const { error, live, pending, videos } = useTwitchApi();
     return (
         <Layout>
             <BackgroundImage>
-                <Notification />
+                {/* 
+                // TODO enable for launch
+                {live && (
+                    <Notification
+                        link={live.url}
+                        title={live.title}
+                    />
+                )} 
+                */}
                 <Hero>
                     <Heading>
                         {`ideas.find({"attributes":`}

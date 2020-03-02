@@ -44,11 +44,12 @@ const LiveNowBadgeContainer = styled('div')`
     }
 `;
 
-const NotificationText = styled('div')`
+const NotificationLink = styled('a')`
     align-items: center;
     color: ${colorMap.devWhite};
     display: flex;
     margin-left: auto;
+    text-decoration: none;
 `;
 
 const StyledNotification = styled('div')`
@@ -67,29 +68,32 @@ const StyledNotification = styled('div')`
 `;
 
 // TODO case on different notification types
-// eslint-disable-next-line no-unused-vars
-const Notification = ({ link = null, notificationType = 'twitch' }) => {
-    // TODO add async call to twitch
+// TODO handle non link notifications
+const Notification = ({
+    link = null,
+    title,
+    /* , notificationType = 'twitch' */
+}) => {
     const [isVisible, setIsVisible] = useState(true);
     const dismissNotification = useCallback(() => setIsVisible(false), [
         setIsVisible,
     ]);
+    if (!isVisible || !title) {
+        return null;
+    }
     return (
-        isVisible && (
-            <StyledNotification>
-                <NotificationText>
-                    <LiveNowBadgeContainer>Live Now</LiveNowBadgeContainer>
-                    <P collapse>
-                        Building the world’s first IoT kitty litter box — Join
-                        us on Twitch!
-                    </P>
-                </NotificationText>
-                <CloseIcon collapse onClick={dismissNotification} />
-            </StyledNotification>
-        )
+        <StyledNotification>
+            <NotificationLink
+                href={link}
+                target="_blank"
+                rel="noreferrer noopener"
+            >
+                <LiveNowBadgeContainer>Live Now</LiveNowBadgeContainer>
+                <P collapse>{title}</P>
+            </NotificationLink>
+            <CloseIcon collapse onClick={dismissNotification} />
+        </StyledNotification>
     );
 };
-
-Notification.displayName = 'Notification';
 
 export default Notification;
