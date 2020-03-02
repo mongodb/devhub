@@ -6,7 +6,6 @@ const getSeriesArticles = (allSeries, slug) => {
     series.forEach(s => {
         if (allSeries[s].includes(slug)) seriesForThisArticle[s] = allSeries[s];
     });
-    console.log(seriesForThisArticle);
     return seriesForThisArticle;
 };
 

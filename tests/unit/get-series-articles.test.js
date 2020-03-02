@@ -11,6 +11,9 @@ it('should correctly determine which series an article belongs to', () => {
         'seriesABC',
         'seriesAC',
     ]);
+    expect(getSeriesArticles(allSeries, 'slugA')['seriesAC']).toEqual(
+        allSeries['seriesAC']
+    );
     expect(Object.keys(getSeriesArticles(allSeries, 'slugB'))).toEqual([
         'seriesABC',
         'seriesB',
