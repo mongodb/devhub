@@ -34,8 +34,8 @@ const activeLiStyles = css`
     font-size: 22px;
     &:after {
         /* Adjust the background bullet position for the bull's eye text */
-        font-size: 38px;
-        top: -2px;
+        font-size: 54px;
+        top: 1px;
     }
 `;
 
@@ -111,12 +111,12 @@ const BulletIcon = styled('div')`
         background-clip: text;
         content: '\u2022';
         left: 0;
-        font-size: ${BULLET_SIZE}px;
+        font-size: ${fontSize.jumbo};
         height: 100%;
         margin-right: ${size.small};
         position: absolute;
         text-align: left;
-        top: 0px;
+        top: 3px;
         vertical-align: top;
         width: ${BULLET_BOX_WIDTH};
         z-index: ${layer.superBack};
@@ -146,7 +146,7 @@ const SeriesList = styled('ul')`
             ),
             ${BORDER_GRADIENT};
         background-size: ${size.medium} 2px, cover;
-        bottom: ${BULLET_SIZE / 2}px;
+        bottom: calc(${BULLET_SIZE / 2}px + 2px);
         content: '';
         left: 7px;
         position: absolute;

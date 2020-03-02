@@ -67,31 +67,38 @@ const getContent = nodes => {
 // TODO: series will no longer be defined in the article rST, this must be looked up from allSeries in createPages beforehand
 // This assumes each article belongs to at most one series
 const ArticleSeries = ({
-    allSeries,
-    currentArticleSeries,
+    allSeriesForArticle,
     currentSlug,
     slugTitleMapping,
 }) => {
+    console.log(allSeriesForArticle);
     // Handle if this article is not in a series or no series are defined
-    if (!allSeries || !currentArticleSeries) return null;
-    const relevantSeries = allSeries[currentArticleSeries];
+    if (!allSeriesForArticle) return null;
     // Handle if this series is not defined in the top-level content TOML file
-    if (!relevantSeries || !relevantSeries.length) return null;
-    const mappedSeries = relevantSeries.map(s => {
-        const articleTitle = dlv(slugTitleMapping, [s, 0, 'value'], s);
-        return {
-            slug: s,
-            title: articleTitle,
-        };
-    });
-    return (
+    const getMappedSeries = seriesSlugs => {
+        if (!seriesSlugs || !seriesSlugs.length) return null;
+        const mappedSeries = seriesSlugs.map(slug => {
+            const articleTitle = dlv(
+                slugTitleMapping,
+                [slug, 0, 'value'],
+                slug
+            );
+            return {
+                slug,
+                title: articleTitle,
+            };
+        });
+        return mappedSeries;
+    };
+
+    return Object.keys(allSeriesForArticle).map(series => (
         <>
-            <Series name={currentArticleSeries} currentStep={currentSlug}>
-                {mappedSeries}
+            <Series name={series} currentStep={currentSlug}>
+                {getMappedSeries(allSeriesForArticle[series])}
             </Series>
             <br />
         </>
-    );
+    ));
 };
 
 const ArticleContent = styled('article')`
@@ -105,8 +112,9 @@ const Article = props => {
     const {
         pageContext: {
             __refDocMapping,
+            seriesArticles,
             slug: thisPage,
-            metadata: { pageGroups: allSeries, slugToTitle: slugTitleMapping },
+            metadata: { slugToTitle: slugTitleMapping },
         },
         ...rest
     } = props;
@@ -147,8 +155,7 @@ const Article = props => {
                 />
                 <ArticleShareFooter tags={tagList} />
                 <ArticleSeries
-                    allSeries={allSeries}
-                    currentArticleSeries={meta.series}
+                    allSeriesForArticle={seriesArticles}
                     currentSlug={slugTitleMapping[thisPage][0].value}
                     slugTitleMapping={slugTitleMapping}
                 />
