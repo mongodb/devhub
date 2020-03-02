@@ -13,6 +13,9 @@ const StyledBlockquote = styled('blockquote')`
     color: ${colorMap.devWhite};
     margin: 0;
     padding: ${size.medium};
+    > :last-child {
+        margin-bottom: 0;
+    }
 `;
 
 const BlockquoteContainer = styled('div')`
