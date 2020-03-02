@@ -124,7 +124,6 @@ const Article = props => {
         });
     }
     const tagList = getTagLinksFromMeta(meta);
-
     return (
         <Layout>
             <Helmet>
