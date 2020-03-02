@@ -164,6 +164,8 @@ export default () => {
                             <Button
                                 secondary
                                 href="https://www.twitch.tv/mongodb"
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 Watch
                             </Button>
