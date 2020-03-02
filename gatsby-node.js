@@ -7,6 +7,9 @@ const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
 const { getNestedValue } = require('./src/utils/get-nested-value');
+const {
+    getTagPageUriComponent,
+} = require('./src/utils/get-tag-page-uri-component');
 const { getTemplate } = require('./src/utils/get-template');
 const { getPageSlug } = require('./src/utils/get-page-slug');
 const { getMetadata } = require('./src/utils/get-metadata');
@@ -142,13 +145,7 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
         // Some bad data for authors doesn't follow this structure, so ignore it
         if (!name) return null;
         else {
-            const urlSuffix = isAuthor
-                ? name
-                      .toLowerCase()
-                      .split(' ')
-                      .join('-')
-                      .replace(/\W/g, '-')
-                : name.toLowerCase().replace(/\W/g, '-');
+            const urlSuffix = getTagPageUriComponent(name);
             const newPage = {
                 type: pageType,
                 name: name,
