@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import { withPrefix } from 'gatsby';
 import { gradientMap, screenSize, size } from './theme';
 import { createShadowElement } from './utils';
 import DEFAULT_AUTHOR_IMAGE from '../../images/2x/Default-Profile@2x.png';
@@ -10,7 +11,7 @@ const DEFAULT_IMAGE_HEIGHT = 50;
 
 const imageStyles = background => css`
     background-image: ${background
-        ? `url(${background})`
+        ? `url(${withPrefix(background)})`
         : `url(${DEFAULT_AUTHOR_IMAGE})`};
     background-position: center center;
     background-size: auto 100%;
