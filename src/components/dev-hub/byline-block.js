@@ -68,15 +68,20 @@ const ByLine = styled('div')`
     }
 `;
 
-const BylineBlock = ({
-    authorName = '',
-    authorImage = DEFAULT_AUTHOR_IMAGE,
-}) => {
+const BylineBlock = ({ authorImage, authorName = '' }) => {
+    const hasImage = !!authorImage;
     const authorLink = `/author/${getTagPageUriComponent(authorName)}`;
     return (
         <ByLine>
             <AuthorImage>
-                <img src={withPrefix(authorImage)} alt={authorName} />
+                <img
+                    src={
+                        hasImage
+                            ? withPrefix(authorImage)
+                            : DEFAULT_AUTHOR_IMAGE
+                    }
+                    alt={authorName}
+                />
             </AuthorImage>
             <AuthorText collapse>
                 By <AuthorLink to={authorLink}>{authorName}</AuthorLink>
