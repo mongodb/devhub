@@ -69,14 +69,13 @@ const ByLine = styled('div')`
 `;
 
 const BylineBlock = ({ authorImage, authorName = '' }) => {
-    const hasImage = !!authorImage;
     const authorLink = `/author/${getTagPageUriComponent(authorName)}`;
     return (
         <ByLine>
             <AuthorImage>
                 <img
                     src={
-                        hasImage
+                        !!authorImage
                             ? withPrefix(authorImage)
                             : DEFAULT_AUTHOR_IMAGE
                     }
