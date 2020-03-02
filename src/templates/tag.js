@@ -53,6 +53,10 @@ const ArticleContent = styled('article')`
     }
 `;
 
+const SyledAuthorImage = styled(AuthorImage)`
+    margin-right: ${size.medium};
+`;
+
 const constructArticles = data =>
     data.reduce(
         (accum, item) => accum.concat({ ...item.query_fields, _id: item._id }),
@@ -93,7 +97,7 @@ const Tag = props => {
                 {isAuthor && (
                     <AuthorHero>
                         <AuthorByline>
-                            <AuthorImage image={author_image} />
+                            <SyledAuthorImage image={author_image} />
                             <AuthorName>
                                 <H2>{name}</H2>
                                 {title && location && (

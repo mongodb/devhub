@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Link from './link';
 import { P } from './text';
-import { colorMap, screenSize, fontSize } from './theme';
+import { colorMap, fontSize, screenSize, size } from './theme';
 import { getTagPageUriComponent } from '../../utils/get-tag-page-uri-component';
 import AuthorImage from './author-image';
 
@@ -32,11 +32,15 @@ const ByLine = styled('div')`
     }
 `;
 
+const StyledAuthorImage = styled(AuthorImage)`
+    margin-right: ${size.small};
+`;
+
 const BylineBlock = ({ authorImage, authorName = '' }) => {
     const authorLink = `/author/${getTagPageUriComponent(authorName)}`;
     return (
         <ByLine>
-            <AuthorImage image={authorImage} />
+            <StyledAuthorImage image={authorImage} />
             <AuthorText collapse>
                 By <AuthorLink to={authorLink}>{authorName}</AuthorLink>
             </AuthorText>

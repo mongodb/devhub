@@ -17,8 +17,16 @@ const imageStyles = background => css`
     background-size: auto 100%;
 `;
 
+const hideImageOnMobile = css`
+    @media ${screenSize.upToMedium} {
+        display: none;
+    }
+`;
+
 const AuthorImageContainer = styled('div')`
     position: relative;
+    height: ${({ height, gradientOffset }) => height + gradientOffset}px;
+    width: ${({ width, gradientOffset }) => width + gradientOffset}px;
     &:before {
         ${({ gradientOffset }) =>
             createShadowElement(
@@ -31,12 +39,10 @@ const AuthorImageContainer = styled('div')`
         width: ${({ width, gradientOffset }) => width + gradientOffset}px;
         z-index: unset;
     }
+    ${({ hideOnMobile }) => hideOnMobile && hideImageOnMobile}
 `;
 
 const CircularImage = styled('div')`
-    @media ${screenSize.upToMedium} {
-        display: none;
-    }
     border-radius: 50%;
     height: ${({ height }) => height}px;
     margin-right: ${size.medium};
@@ -48,11 +54,13 @@ const CircularImage = styled('div')`
 const AuthorImage = ({
     image,
     gradientOffset = DEFAULT_GRADIENT_POSITION_OFFSET,
+    hideOnMobile = true,
     height = DEFAULT_IMAGE_HEIGHT,
     width = DEFAULT_IMAGE_HEIGHT,
     ...props
 }) => (
     <AuthorImageContainer
+        hideOnMobile={hideOnMobile}
         gradientOffset={gradientOffset}
         height={height}
         width={width}
