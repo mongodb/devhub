@@ -64,13 +64,7 @@ const getContent = nodes => {
     return nodesWeActuallyWant;
 };
 
-// TODO: series will no longer be defined in the article rST, this must be looked up from allSeries in createPages beforehand
-// This assumes each article belongs to at most one series
-const ArticleSeries = ({
-    allSeriesForArticle,
-    currentSlug,
-    slugTitleMapping,
-}) => {
+const ArticleSeries = ({ allSeriesForArticle, slugTitleMapping, title }) => {
     console.log(allSeriesForArticle);
     // Handle if this article is not in a series or no series are defined
     if (!allSeriesForArticle) return null;
@@ -93,7 +87,7 @@ const ArticleSeries = ({
 
     return Object.keys(allSeriesForArticle).map(series => (
         <>
-            <Series name={series} currentStep={currentSlug}>
+            <Series name={series} currentStep={title}>
                 {getMappedSeries(allSeriesForArticle[series])}
             </Series>
             <br />
@@ -132,6 +126,8 @@ const Article = props => {
         });
     }
     const tagList = getTagLinksFromMeta(meta);
+    const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
+
     return (
         <Layout>
             <Helmet>
@@ -156,8 +152,8 @@ const Article = props => {
                 <ArticleShareFooter tags={tagList} />
                 <ArticleSeries
                     allSeriesForArticle={seriesArticles}
-                    currentSlug={slugTitleMapping[thisPage][0].value}
                     slugTitleMapping={slugTitleMapping}
+                    title={articleTitle}
                 />
             </ArticleContent>
 
