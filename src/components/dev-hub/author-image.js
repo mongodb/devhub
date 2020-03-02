@@ -24,8 +24,8 @@ const hideImageOnMobile = css`
 `;
 
 const AuthorImageContainer = styled('div')`
-    position: relative;
     height: ${({ height, gradientOffset }) => height + gradientOffset}px;
+    position: relative;
     width: ${({ width, gradientOffset }) => width + gradientOffset}px;
     &:before {
         ${({ gradientOffset }) =>
