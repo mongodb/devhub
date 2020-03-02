@@ -24,20 +24,20 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
     const callTwitch = useCallback(async () => {
         setPending(true);
         let currentStream = null;
-        // Get stream
-        if (getStream) {
-            const streamResp = await get(STREAMS_URL, headers);
-            // since we're only interested in one channel just get the first
-            currentStream = streamResp.data[0];
-            setStream(currentStream);
-        }
-        //get videos
-        if (!currentStream && videoLimit) {
-            const videoResp = await get(video_URL + videoLimit, headers);
-            // return the whole array of videos, but ignore pagination for now
-            setVideos(videoResp.data);
-        }
         try {
+            // Get stream
+            if (getStream) {
+                const streamResp = await get(STREAMS_URL, headers);
+                // since we're only interested in one channel just get the first
+                currentStream = streamResp.data[0];
+                setStream(currentStream);
+            }
+            //get videos
+            if (!currentStream && videoLimit) {
+                const videoResp = await get(video_URL + videoLimit, headers);
+                // return the whole array of videos, but ignore pagination for now
+                setVideos(videoResp.data);
+            }
         } catch (error) {
             console.error(error);
             setError(error);
