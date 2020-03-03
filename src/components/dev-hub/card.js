@@ -124,7 +124,7 @@ const Card = ({
             <div>
                 {image && (
                     <ImageWrapper>
-                        <Image src={image} />
+                        <Image src={image} alt="" />
                     </ImageWrapper>
                 )}
                 {cardTitle && (

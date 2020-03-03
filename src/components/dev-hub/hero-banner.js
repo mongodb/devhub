@@ -86,7 +86,7 @@ const HeroBanner = ({
                     )}
                     {isMobile && showImageOnMobile && (
                         <MobileMediaContainer>
-                            <img src={background} alt={background} />
+                            <img src={background} alt="" />
                         </MobileMediaContainer>
                     )}
                     {children}
