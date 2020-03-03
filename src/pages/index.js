@@ -20,6 +20,8 @@ import greenPatternImage from '../images/2x/pattern-green@2x.png';
 import productivityImage from '../images/2x/Productivity@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
 import unityImage from '../images/2x/Unity@2x.png';
+import pythonImage from '../images/2x/Charts@2x.png';
+import chartsImage from '../images/1x/Python.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
@@ -166,17 +168,18 @@ export default () => {
                     <Sub>What will you create today?</Sub>
                     <CardGallery>
                         <StyledTopCard
-                            image={unityImage}
+                            image={chartsImage}
                             to="/how-to/nextjs-building-modern-applications"
                         >
                             Building Modern Applications with Next.js and
                             MongoDB
                         </StyledTopCard>
                         <StyledTopCard
-                            image={buildImage}
+                            image={pythonImage}
                             to="/how-to/python-starlette-stitch"
                         >
-                            Getting Your Free MongoDB Atlas Cluster
+                            Build a Property Booking Website with Starlette,
+                            MongoDB, and Twilio
                         </StyledTopCard>
                         <StyledTopCard
                             image={graphqlImage}
@@ -186,7 +189,7 @@ export default () => {
                             Stitch
                         </StyledTopCard>
                         <StyledTopCard
-                            image={productivityImage}
+                            image={buildImage}
                             to="/quickstart/free-atlas-cluster"
                         >
                             Quick Start: Getting Your Free MongoDB Atlas Cluster
