@@ -1,5 +1,4 @@
 const { getMetadata } = require('./src/utils/get-metadata');
-const { SITE_URL } = require('./src/constants');
 
 require('dotenv').config({
     path: '.env.production',
@@ -26,6 +25,6 @@ module.exports = {
     siteMetadata: {
         ...metadata,
         title: 'MongoDB Developer Hub',
-        siteUrl: SITE_URL,
+        siteUrl: 'https://developer.mongodb.com',
     },
 };

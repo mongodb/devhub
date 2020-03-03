@@ -1,6 +1,5 @@
 const { generatePathPrefix } = require('./src/utils/generate-path-prefix');
 const { getMetadata } = require('./src/utils/get-metadata');
-const { SITE_URL } = require('./src/constants');
 
 const runningEnv = process.env.NODE_ENV || 'production';
 
@@ -30,6 +29,6 @@ module.exports = {
         ...metadata,
         title: 'MongoDB Developer Hub',
         // This value must start with `https://` or the build fails
-        siteUrl: SITE_URL,
+        siteUrl: 'https://developer.mongodb.com',
     },
 };

@@ -152,5 +152,3 @@ export const devhubMapping = {
     nodejs: 'Node.js',
     java: 'Java',
 };
-
-export const SITE_URL = 'https://developer.mongodb.com';
