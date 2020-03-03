@@ -49,6 +49,12 @@ const Article = styled('article')`
     padding: ${size.medium};
 `;
 
+const FEATURED_ARTICLE_URLS = [
+    '/quickstart/java-setup-crud-operations',
+    '/how-to/golang-alexa-skills',
+    '/how-to/polymorphic-pattern',
+];
+
 const parseArticles = arr =>
     arr.map(({ _id, query_fields }) => {
         return { _id, ...query_fields };
@@ -143,8 +149,21 @@ const FeaturedArticles = ({ articles }) => {
         );
         return null;
     }
+    const primaryFeature =
+        articles.find(
+            article => article.query_fields.slug === FEATURED_ARTICLE_URLS[0]
+        ) || articles[0];
+    const secondaryFeature =
+        articles.find(
+            article => article.query_fields.slug === FEATURED_ARTICLE_URLS[1]
+        ) || articles[1];
+    const tertiaryFeature =
+        articles.find(
+            article => article.query_fields.slug === FEATURED_ARTICLE_URLS[2]
+        ) || articles[2];
+
     const { description, image, slug, tags, title } = getFeaturedCardFields(
-        articles[0]
+        primaryFeature
     );
     return (
         <MainFeatureGrid>
@@ -163,11 +182,11 @@ const FeaturedArticles = ({ articles }) => {
                 </MediaBlock>
             </PrimarySection>
             <SecondaryFeaturedArticle
-                article={articles[1]}
+                article={secondaryFeature}
                 Wrapper={SecondArticle}
             />
             <SecondaryFeaturedArticle
-                article={articles[2]}
+                article={tertiaryFeature[2]}
                 Wrapper={LastArticle}
             />
         </MainFeatureGrid>
