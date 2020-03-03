@@ -313,10 +313,7 @@ const getLearnPageArticles = async () => {
 const getFeaturedLearnArticles = articles => {
     const result = [];
     FEATURED_LEARN_SLUGS.forEach((f, i) => {
-        const newArticle = articles.find(x => {
-            console.log(x);
-            return x.query_fields.slug === f;
-        });
+        const newArticle = articles.find(x => x.query_fields.slug === f);
         if (newArticle) {
             result.push(newArticle);
         } else {
