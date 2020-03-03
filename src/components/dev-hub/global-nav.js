@@ -49,11 +49,11 @@ const HomeLink = styled(NavLink)`
 export default () => {
     return (
         <GlobalNav>
-            <HomeLink to={withPrefix('/')}>
+            <HomeLink to="/">
                 <Leaf width={size.medium} /> <code>Developer</code>
             </HomeLink>
-            <NavLink to={withPrefix('/learn')}>Learn</NavLink>
-            <NavLink to={withPrefix('/community')}>Community</NavLink>
+            <NavLink to="/learn">Learn</NavLink>
+            <NavLink to="/community">Community</NavLink>
         </GlobalNav>
     );
 };
