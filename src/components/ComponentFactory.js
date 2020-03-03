@@ -155,24 +155,9 @@ export default class ComponentFactory extends Component {
         if (!ComponentType && ADMONITIONS.includes(name)) {
             ComponentType = this.componentMap.admonition;
         }
-
-        /* 
-            // todo for launch - only warn
-            if (!ComponentType) {
+        if (!ComponentType) {
             console.warn(`${name} (${type}) not yet implemented)`);
             return null;
-        }
-        */
-        // component with this type not implemented
-        if (!ComponentType) {
-            return (
-                <div>
-                    <span role="img" aria-label="">
-                        ⚠️
-                    </span>
-                    <strong>{name}</strong> ({type}) not yet implemented
-                </div>
-            );
         }
 
         return <ComponentType {...this.props} />;
