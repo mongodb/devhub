@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import Card from '../components/dev-hub/card';
 import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
+<<<<<<< HEAD
 import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
+=======
+import Notification from '../components/dev-hub/notification';
+import { H1, H2, P, SubHeader, H5 } from '../components/dev-hub/text';
+>>>>>>> Implement latest twitch video player into home page
 import {
     colorMap,
     gradientMap,
@@ -20,8 +25,14 @@ import buildImage from '../images/1x/Build.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
+<<<<<<< HEAD
 // import Notification from '../components/dev-hub/notification';
 // import useTwitchApi from '../utils/use-twitch-api';
+=======
+import useTwitchApi from '../utils/use-twitch-api';
+import { Modal } from '../components/dev-hub/modal';
+import VideoEmbed from '../components/dev-hub/video-embed';
+>>>>>>> Implement latest twitch video player into home page
 
 const MEDIA_WIDTH = '550';
 
@@ -90,18 +101,69 @@ const DescriptiveText = styled(P)`
     color: ${colorMap.greyLightTwo};
     margin-bottom: ${size.medium};
 `;
+
+const ThumbnailCard = styled(Card)`
+    position: relative;
+`;
+
+const ThumbnailButton = styled(Button)`
+    left: 40%;
+    position: absolute;
+    top: 35%;
+`;
+
+const Thumbnail = ({ thumbnailUrl = buildImage, videoId, ...props }) => (
+    <ThumbnailCard maxWidth={MEDIA_WIDTH} image={buildImage}>
+        <Modal
+            dialogContainerStyle={{
+                height: '90%',
+                padding: `0 ${size.large}`,
+                width: '90%',
+            }}
+            transparent
+            triggerComponent={<ThumbnailButton play />}
+        >
+            <VideoEmbed
+                nodeData={{
+                    argument: [{ value: videoId }],
+                    name: 'twitch',
+                }}
+            />
+        </Modal>
+        <H5>{props.title}</H5>
+    </ThumbnailCard>
+);
+
 export default () => {
     // TODO enable for launch
-    // const { error, live, pending, videos } = useTwitchApi();
+    const { error, stream, pending, videos } = useTwitchApi();
+    const twitchVideo = useMemo(() => {
+        if (stream) return stream;
+        if (videos && videos.length) return videos[0];
+        return null;
+    }, [stream, videos]);
+    const thumbnailUrl = useMemo(() => {
+        if (twitchVideo) {
+            const nail = twitchVideo.thumbnail_url;
+            let newUrl = nail.replace('%{height}', MEDIA_WIDTH);
+            newUrl = newUrl.replace(
+                '%{width}',
+                `${MEDIA_WIDTH}x${MEDIA_WIDTH}`
+            );
+            return newUrl;
+        } else {
+            return null;
+        }
+    }, [twitchVideo]);
     return (
         <Layout>
             <BackgroundImage>
                 {/* 
                 // TODO enable for launch
-                {live && (
+                {stream && (
                     <Notification
-                        link={live.url}
-                        title={live.title}
+                        link={stream.url}
+                        title={stream.title}
                     />
                 )} 
                 */}
@@ -143,10 +205,20 @@ export default () => {
                 <FeatureSection altBackground>
                     <MediaBlock
                         mediaComponent={
+<<<<<<< HEAD
                             <Card
                                 maxWidth={MEDIA_WIDTH}
                                 image={greenPatternImage}
                             ></Card>
+=======
+                            twitchVideo && (
+                                <Thumbnail
+                                    videoId={twitchVideo.id}
+                                    thumbnailUrl={thumbnailUrl}
+                                    title={twitchVideo.title}
+                                />
+                            )
+>>>>>>> Implement latest twitch video player into home page
                         }
                     >
                         <SectionContent>
@@ -161,6 +233,7 @@ export default () => {
                                 Every Friday at noon EST come watch our
                                 developers make the MongoDB platform come alive.
                             </DescriptiveText>
+<<<<<<< HEAD
                             <Button
                                 secondary
                                 href="https://www.twitch.tv/mongodb"
@@ -169,6 +242,13 @@ export default () => {
                             >
                                 Watch
                             </Button>
+=======
+                            {twitchVideo && (
+                                <Button secondary href={twitchVideo.url}>
+                                    Watch
+                                </Button>
+                            )}
+>>>>>>> Implement latest twitch video player into home page
                         </SectionContent>
                     </MediaBlock>
                 </FeatureSection>
