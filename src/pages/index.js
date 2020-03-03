@@ -133,6 +133,7 @@ const Thumbnail = ({ video }) => {
                         argument: [{ value: video.id }],
                         name: 'twitch',
                     }}
+                    autoplay={true}
                 />
             </Modal>
             <H5>{video.title}</H5>

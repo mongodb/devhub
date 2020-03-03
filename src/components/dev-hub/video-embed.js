@@ -37,7 +37,11 @@ const getVideoUrl = (provider, videoId) => {
     }
 };
 
-const VideoEmbed = ({ nodeData: { argument, name: provider }, ...props }) => {
+const VideoEmbed = ({
+    autoplay,
+    nodeData: { argument, name: provider },
+    ...props
+}) => {
     const videoId = argument[0].value;
     const value = getVideoUrl(provider, videoId);
     const isYoutube = provider === 'youtube';
@@ -50,6 +54,11 @@ const VideoEmbed = ({ nodeData: { argument, name: provider }, ...props }) => {
                             autohide: 1,
                             modestbranding: 1,
                             rel: 0,
+                        },
+                    },
+                    twitch: {
+                        options: {
+                            autoplay,
                         },
                     },
                 }}
