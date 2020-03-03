@@ -41,7 +41,7 @@ export const EventsListPreview = () => {
     // TODO: Update implementation below
     // to handle load/error states when events api CORS issue resolved
     const [events, error] = useEventData(EVENTS_API);
-    const previews = events.slice(0, 3);
+    const previews = events ? events.slice(0, 3) : [];
 
     return previews.length ? (
         <EventsPreview>
