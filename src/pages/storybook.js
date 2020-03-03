@@ -515,14 +515,6 @@ export default () => (
                     </GradientUnderline>
                 </H2>
             </Row>
-            <SectionHeader>Icons</SectionHeader>
-            <Row>
-                <ShareIcon color={colorMap.teal} />
-                <ListIcon color={colorMap.orange} />
-                <FacebookIcon color={colorMap.salmon} />
-                <TwitterIcon color={colorMap.violet} />
-                <EnvelopeIcon color={colorMap.magenta} />
-            </Row>
             <SectionHeader>Cards</SectionHeader>
             <Row id="card-row">
                 <Card

@@ -31,6 +31,12 @@ let PAGE_ID_PREFIX;
 const PAGES = [];
 const IMAGE_FILES = {};
 
+const FEATURED_LEARN_SLUGS = [
+    '/how-to/introducing-graphql-support-in-mongodb-atlas-with-stitch',
+    '/how-to/building-modern-applications-with-nextjs',
+    '/how-to/mongodb-and-data-streaming-implementing-a-mongodb-kafka-consumer',
+];
+
 const STITCH_TYPE_TO_URL_PREFIX = {
     author: 'author',
     languages: 'language',
@@ -162,7 +168,6 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
 
     pageList.forEach(page => {
         if (page) {
-            console.log(page.slug);
             createPage({
                 path: page.slug,
                 component: path.resolve(`./src/templates/tag.js`),
@@ -305,16 +310,26 @@ const getLearnPageArticles = async () => {
     return documents;
 };
 
+const getFeaturedLearnArticles = articles => {
+    const result = [];
+    FEATURED_LEARN_SLUGS.forEach(f => {
+        result.push(articles.find(x => x.query_fields.slug === f));
+    });
+    return result;
+};
+
 exports.onCreatePage = async ({ page, actions }) => {
     if (page.path === '/learn/') {
         const { createPage, deletePage } = actions;
         const allArticles = await getLearnPageArticles();
+        const featuredArticles = getFeaturedLearnArticles(allArticles);
         deletePage(page);
         createPage({
             ...page,
             context: {
                 ...page.context,
                 allArticles,
+                featuredArticles,
             },
         });
     }

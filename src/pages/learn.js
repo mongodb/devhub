@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
+import dlv from 'dlv';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
+import { withPrefix } from 'gatsby';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
@@ -8,7 +10,6 @@ import Card from '../components/dev-hub/card';
 import CardList from '../components/dev-hub/card-list';
 import FilterBar from '../components/dev-hub/filter-bar';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
-import mockCardImage from '../images/360-mock-card.png';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
@@ -87,7 +88,81 @@ const filterArticles = (filter, initialArticles) => {
     }, []);
 };
 
-export default ({ location, pageContext: { allArticles } }) => {
+const getFeaturedCardFields = article => {
+    const query_fields = article.query_fields;
+    const image = withPrefix(query_fields['atf-image']);
+    const slug = query_fields.slug;
+    const title = dlv(query_fields, ['title', 0, 'value']);
+    const description = dlv(query_fields, [
+        'meta-description',
+        0,
+        'children',
+        0,
+        'value',
+    ]);
+    const tags = {
+        products: query_fields.products,
+        tags: query_fields.tags,
+        languages: query_fields.languages,
+    };
+    return { image, slug, title, description, tags };
+};
+
+const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
+    const { description, slug, tags, title } = getFeaturedCardFields(article);
+    return (
+        <Wrapper
+            to={slug}
+            title={title}
+            description={description}
+            tags={getTagLinksFromMeta(tags)}
+        />
+    );
+};
+
+const FeaturedArticles = ({ articles }) => {
+    if (articles.length < 3) {
+        console.error(
+            `Expected three articles for featured section, got ${articles &&
+                articles.length}`
+        );
+        return null;
+    }
+    const { description, image, slug, tags, title } = getFeaturedCardFields(
+        articles[0]
+    );
+    return (
+        <MainFeatureGrid>
+            <PrimarySection>
+                <MediaBlock
+                    mediaComponent={<img src={withPrefix(image)} alt="" />}
+                    mediaWidth={360}
+                >
+                    <Card
+                        maxDescriptionLines={4}
+                        to={slug}
+                        title={title}
+                        description={description}
+                        tags={getTagLinksFromMeta(tags)}
+                    />
+                </MediaBlock>
+            </PrimarySection>
+            <SecondaryFeaturedArticle
+                article={articles[1]}
+                Wrapper={SecondArticle}
+            />
+            <SecondaryFeaturedArticle
+                article={articles[2]}
+                Wrapper={LastArticle}
+            />
+        </MainFeatureGrid>
+    );
+};
+
+export default ({
+    location,
+    pageContext: { allArticles, featuredArticles },
+}) => {
     const metadata = useSiteMetadata();
     const initialArticles = useMemo(() => parseArticles(allArticles), [
         allArticles,
@@ -119,45 +194,7 @@ export default ({ location, pageContext: { allArticles } }) => {
             </Helmet>
             <Header>
                 <H2>Make better, faster applications</H2>
-                <MainFeatureGrid>
-                    <PrimarySection>
-                        <MediaBlock
-                            mediaComponent={<img src={mockCardImage} alt="" />}
-                            mediaWidth={360}
-                        >
-                            <Card
-                                maxDescriptionLines={4}
-                                to="/article/active-active-application-architectures-with-mongodb"
-                                title="Active-Active Application Architectures with MongoDB"
-                                description="This post will begin by describing the database capabilities required by modern multi-data center applications."
-                                tags={getTagLinksFromMeta({
-                                    products: ['MongoDB'],
-                                    tags: ['Technical'],
-                                })}
-                            />
-                        </MediaBlock>
-                    </PrimarySection>
-                    <SecondArticle
-                        to="/how-to/storing-large-objects-and-files-in-mongodb"
-                        title="Storing Large Objects and Files in MongoDB"
-                        description="Discover how to store large objects and files in MongoDB."
-                        tags={getTagLinksFromMeta({
-                            products: ['MongoDB'],
-                            tags: ['Releases'],
-                        })}
-                    />
-
-                    <LastArticle
-                        to="how-to/working-with-mongodb-stitch-through-the-mongo-shell"
-                        title="Working with MongoDB Stitch Through the mongo Shell – MongoDB Wire Protocol Support"
-                        description="The Stitch SDK is the best way to access MongoDB Stitch from your frontend application code – getting to your data and accessing your Stitch Services and Functions becomes child's play."
-                        tags={getTagLinksFromMeta({
-                            tags: ['Cloud', 'Stitch'],
-                            products: ['Stitch', 'Atlas'],
-                            languages: ['javascript'],
-                        })}
-                    />
-                </MainFeatureGrid>
+                <FeaturedArticles articles={featuredArticles} />
             </Header>
             <Article>
                 <FilterBar

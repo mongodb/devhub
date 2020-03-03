@@ -61,7 +61,6 @@ const getContent = nodes => {
 };
 
 const ArticleSeries = ({ allSeriesForArticle, slugTitleMapping, title }) => {
-    console.log(allSeriesForArticle);
     // Handle if this article is not in a series or no series are defined
     if (!allSeriesForArticle) return null;
     // Handle if this series is not defined in the top-level content TOML file

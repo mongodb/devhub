@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import HeroBanner from '../../components/dev-hub/hero-banner';
 import Layout from '../../components/dev-hub/layout';
-import { sampleEvents } from '../../components/dev-hub/events';
-import EventsList from '../../components/dev-hub/event-list';
+import useEventData, { sampleEvents } from '../../hooks/use-event-data';
+import EventsList, { EVENTS_API } from '../../components/dev-hub/event-list';
 import { H1, H3, P } from '../../components/dev-hub/text';
 import TempBackgroundImage from '../../images/1x/MDB-and-Node.js.png';
 import { colorMap } from '../../components/dev-hub/theme';
@@ -26,7 +26,7 @@ const breadcrumbs = [
 
 export default () => {
     // TODO: uncomment below when events api is working
-    // const [events, error] = useEventData(EVENTS_API);
+    const [events, error] = useEventData(EVENTS_API);
 
     const metadata = useSiteMetadata();
     return (
@@ -50,8 +50,8 @@ export default () => {
                     {/* TODO: Add FilterBar */}
                     <H3>All Events</H3>
                 </EventsFilter>
-                {/* TODO: remove below when events_api is working */}
-                <EventsList items={[...sampleEvents, ...sampleEvents]} />
+                {!events && !error && <P>Loading...</P>}
+                {events && <EventsList items={events} />}
             </section>
         </Layout>
     );
