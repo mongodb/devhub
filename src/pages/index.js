@@ -214,7 +214,12 @@ export default () => {
                                 developers make the MongoDB platform come alive.
                             </DescriptiveText>
                             {twitchVideo && (
-                                <Button secondary href={twitchVideo.url}>
+                                <Button
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    secondary
+                                    href={twitchVideo.url}
+                                >
                                     Watch
                                 </Button>
                             )}
