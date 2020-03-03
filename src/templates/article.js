@@ -11,11 +11,10 @@ import Layout from '../components/dev-hub/layout';
 import RelatedArticles from '../components/dev-hub/related-articles';
 import { size } from '../components/dev-hub/theme';
 import Series from '../components/dev-hub/series';
-import { getNestedText } from '../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
-
-let articleTitle = '';
+import { normalizePath } from '../utils/normalize-path';
+import { useSiteMetadata } from '../hooks/use-site-metadata';
 
 /**
  * Name map of directives we want to display in an article
@@ -51,10 +50,7 @@ const getContent = nodes => {
                 childIndex++
             ) {
                 const grandChildNode = childNode.children[childIndex];
-                // TODO: This is a hack to pull the title out of the flow
-                if (grandChildNode.type === 'heading') {
-                    articleTitle = getNestedText(grandChildNode.children);
-                } else if (contentNodesMap[grandChildNode.name]) {
+                if (contentNodesMap[grandChildNode.name]) {
                     nodesWeActuallyWant.push(grandChildNode);
                 }
             }
@@ -112,6 +108,7 @@ const Article = props => {
         },
         ...rest
     } = props;
+    const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
@@ -127,11 +124,14 @@ const Article = props => {
     }
     const tagList = getTagLinksFromMeta(meta);
     const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
-
+    const articleUrl = normalizePath(`${siteUrl}/${thisPage}`);
     return (
         <Layout>
             <Helmet>
                 <title>{articleTitle}</title>
+                <meta property="og:title" content={articleTitle}></meta>
+                <meta property="og:url" content={articleUrl}></meta>
+                <link rel="canonical" href={articleUrl}></link>
             </Helmet>
             <BlogPostTitleArea
                 articleImage={withPrefix(meta['atf-image'])}

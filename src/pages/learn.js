@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
@@ -10,7 +11,6 @@ import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
 import { authenticate, callStitchFunction } from '../utils/stitch';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import Loading from '../components/dev-hub/loading';
@@ -94,6 +94,9 @@ export default ({ location }) => {
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
     return (
         <Layout>
+            <Helmet>
+                <title>Learn - {metadata.title}</title>
+            </Helmet>
             <Header>
                 <H2>Make better, faster applications</H2>
                 <MainFeatureGrid>

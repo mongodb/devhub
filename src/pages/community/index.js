@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import { css } from '@emotion/core';
 import Button from '../../components/dev-hub/button';
 import HeroBanner from '../../components/dev-hub/hero-banner';
@@ -14,6 +15,7 @@ import {
     size,
 } from '../../components/dev-hub/theme';
 import communityHeroBackground from '../../images/1x/Community-hero.png';
+import { useSiteMetadata } from '../../hooks/use-site-metadata';
 
 const sectionPadding = css`
     padding: ${size.xlarge} ${size.medium};
@@ -69,8 +71,12 @@ const HeroContent = styled('div')`
 `;
 
 export default () => {
+    const { title } = useSiteMetadata();
     return (
         <Layout>
+            <Helmet>
+                <title>Community - {title}</title>
+            </Helmet>
             <UpcomingEvents>
                 <EventsHeader>
                     <SectionTitle bold>Upcoming Events</SectionTitle>

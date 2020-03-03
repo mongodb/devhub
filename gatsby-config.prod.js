@@ -25,5 +25,6 @@ module.exports = {
     siteMetadata: {
         ...metadata,
         title: 'MongoDB Developer Hub',
+        siteUrl: 'https://developer.mongodb.com',
     },
 };

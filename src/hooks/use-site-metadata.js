@@ -13,6 +13,7 @@ export const useSiteMetadata = () => {
                         snootyBranch
                         title
                         user
+                        siteUrl
                     }
                 }
             }
