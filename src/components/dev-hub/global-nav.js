@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Link from './link';
 import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
 import Leaf from './icons/mdb-leaf';
+import { withPrefix } from 'gatsby';
 
 const GlobalNav = styled('nav')`
     align-items: center;
@@ -48,11 +49,11 @@ const HomeLink = styled(NavLink)`
 export default () => {
     return (
         <GlobalNav>
-            <HomeLink to="/">
+            <HomeLink to={withPrefix('/')}>
                 <Leaf width={size.medium} /> <code>Developer</code>
             </HomeLink>
-            <NavLink to="/learn">Learn</NavLink>
-            <NavLink to="/community">Community</NavLink>
+            <NavLink to={withPrefix('/learn')}>Learn</NavLink>
+            <NavLink to={withPrefix('/community')}>Community</NavLink>
         </GlobalNav>
     );
 };

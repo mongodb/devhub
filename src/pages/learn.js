@@ -89,6 +89,15 @@ const filterArticles = (filter, initialArticles) => {
 };
 
 const getFeaturedCardFields = article => {
+    if (!article) {
+        return {
+            image: null,
+            slug: null,
+            title: null,
+            description: null,
+            tags: null,
+        };
+    }
     const query_fields = article.query_fields;
     const image = withPrefix(query_fields['atf-image']);
     const slug = query_fields.slug;
@@ -109,15 +118,21 @@ const getFeaturedCardFields = article => {
 };
 
 const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
-    const { description, slug, tags, title } = getFeaturedCardFields(article);
-    return (
-        <Wrapper
-            to={slug}
-            title={title}
-            description={description}
-            tags={getTagLinksFromMeta(tags)}
-        />
-    );
+    try {
+        const { description, slug, tags, title } = getFeaturedCardFields(
+            article
+        );
+        return (
+            <Wrapper
+                to={slug}
+                title={title}
+                description={description}
+                tags={getTagLinksFromMeta(tags)}
+            />
+        );
+    } catch {
+        return null;
+    }
 };
 
 const FeaturedArticles = ({ articles }) => {

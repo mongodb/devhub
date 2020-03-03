@@ -45,7 +45,7 @@ const Breadcrumb = ({ children, ...props }) => {
     return (
         <BreadcrumbList {...props}>
             {children.map(c => (
-                <StyledBreadcrumb tertiary key={c.label} to={c.target}>
+                <StyledBreadcrumb tertiary key={c.label} to={c.to || c.target}>
                     {c.label}
                 </StyledBreadcrumb>
             ))}
