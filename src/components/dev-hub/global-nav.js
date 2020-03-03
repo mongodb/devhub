@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Link from './link';
-import { colorMap, lineHeight, screenSize, size } from './theme';
+import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
 import Leaf from './icons/mdb-leaf';
 
 const GlobalNav = styled('nav')`
@@ -31,6 +31,8 @@ const NavLink = styled(Link)`
         background-color: ${colorMap.devBlack};
     }
     @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.tiny};
+        line-height: ${lineHeight.xlarge};
         padding: ${size.small} ${size.default};
     }
 `;
