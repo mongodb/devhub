@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
@@ -113,6 +114,9 @@ export default ({ location, pageContext: { allArticles } }) => {
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
     return (
         <Layout>
+            <Helmet>
+                <title>Learn - {metadata.title}</title>
+            </Helmet>
             <Header>
                 <H2>Make better, faster applications</H2>
                 <MainFeatureGrid>
