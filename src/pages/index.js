@@ -18,6 +18,7 @@ import stichImage from '../images/2x/Stitch-triggers@2x.png';
 import greenPatternImage from '../images/1x/pattern-green.png';
 import meetupsImage from '../images/1x/Meetups.png';
 import buildImage from '../images/1x/Build.png';
+import buildImage3x from '../images/3x/Build@3x.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
@@ -104,7 +105,7 @@ const ThumbnailButton = styled(Button)`
 `;
 
 const Thumbnail = ({ video }) => {
-    let thumbnailUrl = buildImage; //fallback image if there is none
+    let thumbnailUrl = buildImage3x; //fallback image if there is none
     let dimensionsMatcher = '{width}x{height}';
     if (video.thumbnail_url) {
         const containsSpace = video.thumbnail_url.match('%{width}x%{height}');
