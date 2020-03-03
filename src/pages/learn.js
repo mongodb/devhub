@@ -68,8 +68,15 @@ const filterArticles = (filter, initialArticles) => {
     return initialArticles.reduce((acc, article) => {
         for (let i = 0; i < filterValues.length; i++) {
             const fv = filterValues[i];
+            const filterValuesForArticle = article[fv];
+            const filterValueRequired = filter[fv];
             // If the article does not pass this specific filter, don't include it
-            if (!(article[fv] && article[fv].includes(filter[fv]))) {
+            if (
+                !(
+                    filterValuesForArticle &&
+                    filterValuesForArticle.includes(filterValueRequired)
+                )
+            ) {
                 return acc;
             }
         }
