@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Button from './button';
-import Event, { sampleEvents } from './events';
+import Event from './events';
 import useEventData from '../../hooks/use-event-data';
 import { size, screenSize } from './theme';
 
@@ -41,7 +41,7 @@ export const EventsListPreview = () => {
     // TODO: Update implementation below
     // to handle load/error states when events api CORS issue resolved
     const [events, error] = useEventData(EVENTS_API);
-    const previews = events ? events.slice(0, 3) : sampleEvents.slice(0, 3);
+    const previews = events ? events.slice(0, 3) : [];
 
     return previews.length ? (
         <EventsPreview>
