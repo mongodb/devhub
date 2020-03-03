@@ -16,9 +16,10 @@ const RefRole = ({ nodeData: { children, fileid, target, url }, slug }) => {
     }
 
     // Render internal target links
-    const link = fileid === slug ? `#${target}` : `${fileid}#${target}`;
+    const link =
+        fileid && fileid === slug ? `#${target}` : `${fileid}#${target}`;
     return (
-        <Link to={link} className="ref-role-anchor">
+        <Link href={link} className="ref-role-anchor">
             <span>
                 {children.map((node, i) => (
                     <ComponentFactory key={i} nodeData={node} />
