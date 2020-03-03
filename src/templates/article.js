@@ -123,7 +123,7 @@ const Article = props => {
     }
     const tagList = getTagLinksFromMeta(meta);
     const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
-    const articleUrl = normalizePath(`${siteUrl}/${thisPage}`);
+    const articleUrl = `${siteUrl}/${thisPage}`;
     return (
         <Layout>
             <Helmet>
