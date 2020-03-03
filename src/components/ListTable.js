@@ -3,6 +3,21 @@ import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
 import CSSWrapper from './CSSWrapper';
 import { getNestedValue } from '../utils/get-nested-value';
+import styled from '@emotion/styled';
+import { colorMap, size } from '../components/dev-hub/theme';
+
+const Table = styled('table')`
+    border: 1px solid ${colorMap.greyLightTwo};
+    border-collapse: collapse;
+    margin: ${size.default} 0;
+    table-layout: fixed;
+    th,
+    td {
+        padding: ${size.small};
+        text-align: left;
+        border: 1px solid ${colorMap.greyLightTwo};
+    }
+`;
 
 const ListTable = ({ nodeData, nodeData: { children }, ...rest }) => {
     const headerRowCount =
@@ -28,7 +43,7 @@ const ListTable = ({ nodeData, nodeData: { children }, ...rest }) => {
     }
 
     return (
-        <table
+        <Table
             className={[
                 'docutils',
                 getNestedValue(['options', 'class'], nodeData) || '',
@@ -51,7 +66,7 @@ const ListTable = ({ nodeData, nodeData: { children }, ...rest }) => {
                 headerRowCount={headerRowCount}
                 stubColumnCount={stubColumnCount}
             />
-        </table>
+        </Table>
     );
 };
 
