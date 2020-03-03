@@ -149,7 +149,7 @@ const Article = props => {
                     slugTitleMapping={slugTitleMapping}
                     {...rest}
                 />
-                <ArticleShareFooter tags={tagList} />
+                <ArticleShareFooter url={articleUrl} tags={tagList} />
                 <ArticleSeries
                     allSeriesForArticle={seriesArticles}
                     slugTitleMapping={slugTitleMapping}

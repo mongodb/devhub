@@ -2,6 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import BlogTagList from './blog-tag-list';
 import { colorMap, screenSize, size } from './theme';
+import Link from './link';
+import FacebookIcon from './icons/facebook-icon';
 
 const ArticleShareArea = styled('div')`
     border-top: 1px solid ${colorMap.greyDarkTwo};
@@ -15,10 +17,17 @@ const ArticleShareArea = styled('div')`
     }
 `;
 
-const ArticleShareFooter = ({ tags }) => {
+const ArticleShareFooter = ({ tags, url }) => {
     return (
         <ArticleShareArea>
             <BlogTagList tags={tags} />
+            <div>
+                <Link
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
+                >
+                    <FacebookIcon />
+                </Link>
+            </div>
         </ArticleShareArea>
     );
 };
