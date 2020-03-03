@@ -4,6 +4,7 @@ import BlogTagList from './blog-tag-list';
 import { colorMap, screenSize, size } from './theme';
 import Link from './link';
 import FacebookIcon from './icons/facebook-icon';
+import TwitterIcon from './icons/twitter-icon';
 
 const ArticleShareArea = styled('div')`
     border-top: 1px solid ${colorMap.greyDarkTwo};
@@ -22,6 +23,9 @@ const ArticleShareFooter = ({ tags, url }) => {
         <ArticleShareArea>
             <BlogTagList tags={tags} />
             <div>
+                <Link href={`https://twitter.com/intent/tweet?url=${url}`}>
+                    <TwitterIcon />
+                </Link>
                 <Link
                     href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
                 >
