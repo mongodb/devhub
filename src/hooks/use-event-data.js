@@ -25,17 +25,6 @@ export const sampleEvents = [
     },
     {
         node_type_attributes: {
-            event_start: '2020-03-17T13:30:00.000Z',
-            event_end: '2020-03-17T22:30:00.000Z',
-            event_city: 'Seattle',
-            event_country: 'United States',
-        },
-        title: 'MongoDB.local Seattle',
-        url: 'https://dotlocalseattle.mongodb.events/',
-        url_type: 'external',
-    },
-    {
-        node_type_attributes: {
             event_start: '2020-03-18T09:00:00.000Z',
             event_end: '2020-03-18T14:00:00.000Z',
             event_city: 'London',
