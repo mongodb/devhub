@@ -15,7 +15,7 @@ import Button from '../components/dev-hub/button';
 import cSharpImage from '../images/1x/c-sharp.png';
 import nodejsImage from '../images/1x/Node.JS-1.png';
 import stichImage from '../images/2x/Stitch-triggers@2x.png';
-import greenPatternImage from '../images/3x/pattern-green@3x.png';
+import greenPatternImage from '../images/2x/pattern-green@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
 import buildImage from '../images/1x/Build.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
@@ -151,15 +151,9 @@ export default () => {
     return (
         <Layout>
             <BackgroundImage>
-                {/* 
-                // TODO enable for launch
                 {stream && (
-                    <Notification
-                        link={stream.url}
-                        title={stream.title}
-                    />
-                )} 
-                */}
+                    <Notification link={stream.url} title={stream.title} />
+                )}
                 <Hero>
                     <Heading>
                         {`ideas.find({"attributes":`}
