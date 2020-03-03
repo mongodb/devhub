@@ -34,7 +34,7 @@ const IMAGE_FILES = {};
 const FEATURED_LEARN_SLUGS = [
     '/how-to/introducing-graphql-support-in-mongodb-atlas-with-stitch',
     '/how-to/building-modern-applications-with-nextjs',
-    '/how-to/mongodb-and-data-streaming-implementing-a-mongodb-kafka-consumer',
+    '/how-to/kafka-consumer',
 ];
 
 const STITCH_TYPE_TO_URL_PREFIX = {
@@ -312,8 +312,16 @@ const getLearnPageArticles = async () => {
 
 const getFeaturedLearnArticles = articles => {
     const result = [];
-    FEATURED_LEARN_SLUGS.forEach(f => {
-        result.push(articles.find(x => x.query_fields.slug === f));
+    FEATURED_LEARN_SLUGS.forEach((f, i) => {
+        const newArticle = articles.find(x => {
+            console.log(x);
+            return x.query_fields.slug === f;
+        });
+        if (newArticle) {
+            result.push(newArticle);
+        } else {
+            result.push(articles[i]);
+        }
     });
     return result;
 };
