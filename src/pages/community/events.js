@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import HeroBanner from '../../components/dev-hub/hero-banner';
 import Layout from '../../components/dev-hub/layout';
 import { sampleEvents } from '../../components/dev-hub/events';
@@ -8,7 +9,7 @@ import { H1, H3, P } from '../../components/dev-hub/text';
 import TempBackgroundImage from '../../images/1x/MDB-and-Node.js.png';
 import { colorMap } from '../../components/dev-hub/theme';
 import { size } from '../../components/dev-hub/theme';
-
+import { useSiteMetadata } from '../../hooks/use-site-metadata';
 const EventsFilter = styled('div')`
     margin-bottom: ${size.medium};
 `;
@@ -17,19 +18,25 @@ const PageDescription = styled(P)`
     color: ${colorMap.greyLightTwo};
 `;
 
+const breadcrumbs = [
+    { label: 'Home', target: '/' },
+    { label: 'Community', target: '/community' },
+    { label: 'Events', target: '/community/events' },
+];
+
 export default () => {
     // TODO: uncomment below when events api is working
     // const [events, error] = useEventData(EVENTS_API);
 
+    const metadata = useSiteMetadata();
     return (
         <Layout>
+            <Helmet>
+                <title>Events - {metadata.title}</title>
+            </Helmet>
             <HeroBanner
                 background={TempBackgroundImage}
-                breadcrumb={[
-                    { label: 'Home', target: '/' },
-                    { label: 'Community', target: '/community' },
-                    { label: 'Events', target: '/community/events' },
-                ]}
+                breadcrumb={breadcrumbs}
             >
                 <H1>Events</H1>
                 <PageDescription>

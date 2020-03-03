@@ -296,3 +296,26 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
         },
     });
 };
+
+const getLearnPageArticles = async () => {
+    const documents = await stitchClient.callFunction('fetchDevhubMetadata', [
+        metadata,
+        {},
+    ]);
+    return documents;
+};
+
+exports.onCreatePage = async ({ page, actions }) => {
+    if (page.path === '/learn/') {
+        const { createPage, deletePage } = actions;
+        const allArticles = await getLearnPageArticles();
+        deletePage(page);
+        createPage({
+            ...page,
+            context: {
+                ...page.context,
+                allArticles,
+            },
+        });
+    }
+};

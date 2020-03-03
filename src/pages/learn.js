@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
@@ -8,12 +9,9 @@ import CardList from '../components/dev-hub/card-list';
 import FilterBar from '../components/dev-hub/filter-bar';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
-import { authenticate, callStitchFunction } from '../utils/stitch';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
-import Loading from '../components/dev-hub/loading';
 
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
@@ -55,10 +53,6 @@ const parseArticles = arr =>
         return { _id, ...query_fields };
     });
 
-const callStitch = async (metadata, key, callback) => {
-    const res = await callStitchFunction('fetchDevhubMetadata', metadata, key);
-    callback(parseArticles(res));
-};
 // strip out the 'All' param from the url and the stitch function key
 const stripAllParam = filterValue => {
     const newFilter = {};
@@ -69,12 +63,42 @@ const stripAllParam = filterValue => {
     });
     return newFilter;
 };
-export default ({ location }) => {
+
+const filterArticles = (filter, initialArticles) => {
+    const filterValues = Object.keys(filter);
+    return initialArticles.reduce((acc, article) => {
+        for (let i = 0; i < filterValues.length; i++) {
+            const fv = filterValues[i];
+            const filterValuesForArticle = article[fv];
+            const filterValueRequired = filter[fv];
+            // If the article does not pass this specific filter, don't include it
+            if (
+                !(
+                    filterValuesForArticle &&
+                    filterValuesForArticle.includes(filterValueRequired)
+                )
+            ) {
+                return acc;
+            }
+        }
+        // This article passes all filters, so include it
+        acc.push(article);
+        return acc;
+    }, []);
+};
+
+export default ({ location, pageContext: { allArticles } }) => {
     const metadata = useSiteMetadata();
-    const [articles, setArticles] = useState([]);
+    const initialArticles = useMemo(() => parseArticles(allArticles), [
+        allArticles,
+    ]);
+    const [articles, setArticles] = useState(initialArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
-    const [isLoading, setIsLoading] = useState(true);
+    const filterActiveArticles = useCallback(
+        filter => filterArticles(filter, initialArticles),
+        [initialArticles]
+    );
     useEffect(() => {
         const filter = stripAllParam(filterValue);
         const searchParams = buildQueryString(filter);
@@ -84,16 +108,15 @@ export default ({ location }) => {
             '',
             searchParams === '' ? pathname : searchParams
         );
-        authenticate();
-        const callback = articles => {
-            setArticles(articles);
-            setIsLoading(false);
-        };
-        callStitch(metadata, filter, callback);
-    }, [metadata, filterValue, pathname]);
+        const filteredArticles = filterActiveArticles(filter);
+        setArticles(filteredArticles);
+    }, [metadata, filterValue, pathname, filterActiveArticles]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
     return (
         <Layout>
+            <Helmet>
+                <title>Learn - {metadata.title}</title>
+            </Helmet>
             <Header>
                 <H2>Make better, faster applications</H2>
                 <MainFeatureGrid>
@@ -141,7 +164,7 @@ export default ({ location }) => {
                     filterValue={filterValue}
                     setFilterValue={updateFilter}
                 />
-                {isLoading ? <Loading /> : <CardList items={articles} />}
+                <CardList items={articles} />
             </Article>
         </Layout>
     );

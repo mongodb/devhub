@@ -13,5 +13,7 @@ export default ({ nodeData: { children, options } }) => (
             content={getNestedText(children)}
         />
         <meta property="twitter:image" content={options.image} />
+        {/* use twitter image for OG temporarily */}
+        <meta property="og:image" content={options.image} />
     </Helmet>
 );
