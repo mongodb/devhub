@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
@@ -8,7 +8,6 @@ import CardList from '../components/dev-hub/card-list';
 import FilterBar from '../components/dev-hub/filter-bar';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import mockCardImage from '../images/360-mock-card.png';
-import { authenticate } from '../utils/stitch';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
@@ -63,11 +62,35 @@ const stripAllParam = filterValue => {
     });
     return newFilter;
 };
+
+const filterArticles = (filter, initialArticles) => {
+    const filterValues = Object.keys(filter);
+    return initialArticles.reduce((acc, article) => {
+        for (let i = 0; i < filterValues.length; i++) {
+            const fv = filterValues[i];
+            // If the article does not pass this specific filter, don't include it
+            if (!(article[fv] && article[fv].includes(filter[fv]))) {
+                return acc;
+            }
+        }
+        // This article passes all filters, so include it
+        acc.push(article);
+        return acc;
+    }, []);
+};
+
 export default ({ location, pageContext: { allArticles } }) => {
     const metadata = useSiteMetadata();
-    const articles = parseArticles(allArticles);
+    const initialArticles = useMemo(() => parseArticles(allArticles), [
+        allArticles,
+    ]);
+    const [articles, setArticles] = useState(initialArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
+    const filterActiveArticles = useCallback(
+        filter => filterArticles(filter, initialArticles),
+        [initialArticles]
+    );
     useEffect(() => {
         const filter = stripAllParam(filterValue);
         const searchParams = buildQueryString(filter);
@@ -77,8 +100,9 @@ export default ({ location, pageContext: { allArticles } }) => {
             '',
             searchParams === '' ? pathname : searchParams
         );
-        authenticate();
-    }, [metadata, filterValue, pathname]);
+        const filteredArticles = filterActiveArticles(filter);
+        setArticles(filteredArticles);
+    }, [metadata, filterValue, pathname, filterActiveArticles]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
     return (
         <Layout>
