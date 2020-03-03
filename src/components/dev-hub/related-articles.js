@@ -10,36 +10,33 @@ const MAX_CARD_WIDTH = 270;
 
 const RelatedContainer = styled('div')`
     background-color: ${colorMap.devBlack};
-    padding: 30px;
+    padding: 30px ${size.medium};
     @media ${screenSize.mediumAndUp} {
-        padding: 70px ${size.xxlarge};
+        padding: 70px calc(${size.xxlarge} - ${size.medium});
     }
 `;
 
 const RelatedCards = styled('div')`
     display: flex;
-    @media ${screenSize.upToMedium} {
+    flex-wrap: wrap;
+    @media ${screenSize.upToLarge} {
         flex-direction: column;
         > a,
         > div {
             margin: 0 auto;
         }
     }
-    @media ${screenSize.mediumAndUp} {
+    @media ${screenSize.largeAndUp} {
         > a,
         > div {
-            padding-left: 0;
-            padding-right: 0;
             margin-left: ${size.medium};
             margin-right: ${size.medium};
         }
-        > :first-child {
-            margin-left: 0;
-        }
-        > :last-child {
-            margin-right: 0;
-        }
     }
+`;
+
+const RelatedHeaderText = styled(H4)`
+    margin-left: ${size.medium};
 `;
 
 const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
@@ -82,7 +79,7 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
     if (!related || !related.length) return null;
     return (
         <RelatedContainer>
-            <H4>Related</H4>
+            <RelatedHeaderText>Related</RelatedHeaderText>
             <RelatedCards>
                 {related.map((r, i) => {
                     const {
@@ -93,15 +90,17 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
 
                     /* TODO: Case on doc to link internal vs external */
                     return (
-                        <Card
-                            // Title may be undefined, so tacking on index keeps unique
-                            key={`${title}-${i}`}
-                            image={image}
-                            href={target}
-                            maxDescriptionLines={2}
-                            title={title}
-                            maxWidth={MAX_CARD_WIDTH}
-                        />
+                        <>
+                            <Card
+                                // Title may be undefined, so tacking on index keeps unique
+                                key={`${title}-${i}`}
+                                image={image}
+                                href={target}
+                                maxTitleLines={2}
+                                title={title}
+                                maxWidth={MAX_CARD_WIDTH}
+                            />
+                        </>
                     );
                 })}
             </RelatedCards>
