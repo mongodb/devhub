@@ -12,12 +12,12 @@ import {
     size,
 } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
-import cSharpImage from '../images/1x/c-sharp.png';
+import javaImage from '../images/2x/Java@2x.png';
 import nodejsImage from '../images/1x/Node.JS-1.png';
-import stichImage from '../images/2x/Stitch-triggers@2x.png';
+import buildImage from '../images/2x/Build@2x.png';
+import graphqlImage from '../images/1x/GraphQL.png';
 import greenPatternImage from '../images/2x/pattern-green@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
-import buildImage from '../images/1x/Build.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
@@ -142,7 +142,7 @@ const Thumbnail = ({ video }) => {
 };
 
 export default () => {
-    const { error, stream, pending, videos } = useTwitchApi();
+    const { stream, videos } = useTwitchApi();
     const twitchVideo = useMemo(() => {
         if (stream) return stream;
         if (videos && videos.length) return videos[0];
@@ -164,24 +164,23 @@ export default () => {
                     <Sub>What will you create today?</Sub>
                     <CardGallery>
                         <StyledTopCard
-                            image={nodejsImage}
-                            to="/how-to/calling-the-mongodb-atlas-api--how-to-do-it-from-node-python-and-ruby"
+                            image={graphqlImage}
+                            to="/how-to/introducing-graphql-support-in-mongodb-atlas-with-stitch"
                         >
-                            Calling the MongoDB Atlas API - How to do it from
-                            Node, Python, and Ruby
+                            Introducing GraphQL Support in MongoDB Atlas with
+                            Stitch
                         </StyledTopCard>
                         <StyledTopCard
-                            image={stichImage}
-                            to="/how-to/mongodb-stitch-authentication-triggers"
+                            image={buildImage}
+                            to="/quickstart/free-atlas-cluster"
                         >
-                            MongoDB Stitch Authentication Triggers
+                            Getting Your Free MongoDB Atlas Cluster
                         </StyledTopCard>
                         <StyledTopCard
-                            image={cSharpImage}
-                            to="/how-to/working-with-mongodb-transactions-with-c-and-the-net-framework"
+                            image={javaImage}
+                            to="/quickstart/java-aggregation-pipeline"
                         >
-                            Working with MongoDB Transactions with C# and the
-                            .NET Framework{' '}
+                            Java - Aggregation Pipeline
                         </StyledTopCard>
                     </CardGallery>
                     <div>
