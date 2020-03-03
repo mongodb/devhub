@@ -162,7 +162,6 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
 
     pageList.forEach(page => {
         if (page) {
-            console.log(page.slug);
             createPage({
                 path: page.slug,
                 component: path.resolve(`./src/templates/tag.js`),
