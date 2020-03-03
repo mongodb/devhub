@@ -99,7 +99,7 @@ const getFeaturedCardFields = article => {
         };
     }
     const query_fields = article.query_fields;
-    const image = withPrefix(query_fields['atf-image']);
+    const image = query_fields['atf-image'];
     const slug = query_fields.slug;
     const title = dlv(query_fields, ['title', 0, 'value']);
     const description = dlv(query_fields, [
