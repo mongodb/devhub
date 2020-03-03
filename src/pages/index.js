@@ -104,10 +104,17 @@ const ThumbnailButton = styled(Button)`
 `;
 
 const Thumbnail = ({ video }) => {
-    let thumbnailUrl = buildImage;
+    let thumbnailUrl = buildImage; //fallback image if there is none
+    let dimensionsMatcher = '{width}x{height}';
     if (video.thumbnail_url) {
-        thumbnailUrl = video.thumbnail_url.replace('%{height}', MEDIA_WIDTH);
-        thumbnailUrl = thumbnailUrl.replace('%{width}', MEDIA_WIDTH);
+        const containsSpace = video.thumbnail_url.match('%{width}x%{height}');
+        dimensionsMatcher = containsSpace
+            ? '%{width}x%{height}'
+            : dimensionsMatcher;
+        thumbnailUrl = video.thumbnail_url.replace(
+            dimensionsMatcher,
+            `${MEDIA_WIDTH}x${MEDIA_WIDTH}`
+        );
     }
 
     return (
