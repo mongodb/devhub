@@ -186,7 +186,7 @@ const FeaturedArticles = ({ articles }) => {
                 Wrapper={SecondArticle}
             />
             <SecondaryFeaturedArticle
-                article={tertiaryFeature[2]}
+                article={tertiaryFeature}
                 Wrapper={LastArticle}
             />
         </MainFeatureGrid>
