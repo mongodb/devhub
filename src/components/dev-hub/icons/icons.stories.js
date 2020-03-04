@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 import { storiesOf } from '@storybook/react';
 import { select, withKnobs } from '@storybook/addon-knobs';
 import ArrowheadIcon from './arrowhead-icon';

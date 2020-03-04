@@ -8,7 +8,6 @@ const ColorBlock = styled('div')`
     border-radius: ${size.small};
     height: 80px;
     margin-bottom: ${size.small};
-    position: relative;
     width: 80px;
 `;
 const Color = styled('div')`
