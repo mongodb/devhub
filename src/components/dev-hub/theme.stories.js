@@ -5,16 +5,16 @@ import { colorMap, size, fontSize } from './theme';
 
 const ColorBlock = styled('div')`
     background-color: ${props => props.color};
-    position: relative;
-    height: 80px;
-    width: 80px;
     border-radius: ${size.small};
+    height: 80px;
     margin-bottom: ${size.small};
+    position: relative;
+    width: 80px;
 `;
 const Color = styled('div')`
+    display: inline-block;
     font-family: 'Fira Mono', monospace;
     font-size: ${fontSize.xsmall};
-    display: inline-block;
     margin: ${size.medium};
     text-align: center;
 `;
