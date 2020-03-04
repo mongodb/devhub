@@ -111,7 +111,6 @@ const Card = ({
               href,
               target,
           };
-    const cardTitle = title || children;
     const isClickable = onClick || isLink;
     return (
         <ContentWrapper
@@ -127,12 +126,12 @@ const Card = ({
                         <Image src={image} alt="" />
                     </ImageWrapper>
                 )}
-                {cardTitle && (
+                {title && (
                     <CardTitle
                         css={truncate(maxTitleLines)}
                         collapse={!description}
                     >
-                        {cardTitle}
+                        {title}
                     </CardTitle>
                 )}
                 {description && (
@@ -141,7 +140,7 @@ const Card = ({
                     </DescriptionText>
                 )}
             </div>
-
+            {children}
             {tags && <TagList tags={tags} />}
         </ContentWrapper>
     );

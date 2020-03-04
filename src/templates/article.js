@@ -224,6 +224,7 @@ const Article = props => {
                     <DocumentBody
                         pageNodes={contentNodes}
                         slugTitleMapping={slugTitleMapping}
+                        slug={thisPage}
                         {...rest}
                     />
                     <ArticleShareFooter url={articleUrl} tags={tagList} />
