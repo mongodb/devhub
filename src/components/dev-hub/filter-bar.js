@@ -69,6 +69,7 @@ export default React.memo(
             const hasLanguageFilter =
                 filterValue.languages && filterValue.languages !== 'all';
             if (hasProductFilter) {
+                // Filter only languages which have an article in common with the selected product
                 const langs = filters.products[filterValue.products].languages;
                 setLanguages(
                     // Don't include counts if both filters are applied
@@ -78,6 +79,7 @@ export default React.memo(
                 setLanguages(initialLanguages);
             }
             if (hasLanguageFilter) {
+                // Filter only products which have an article in common with the selected language
                 const products =
                     filters.languages[filterValue.languages].products;
                 setProducts(

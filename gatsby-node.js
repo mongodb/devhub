@@ -334,6 +334,7 @@ const getLearnPageFilters = async () => {
         products: {},
     };
 
+    // Get possible language and product values from Stitch
     const languageValues = await stitchClient.callFunction('getValuesByKey', [
         metadata,
         'languages',
@@ -342,6 +343,8 @@ const getLearnPageFilters = async () => {
         metadata,
         'products',
     ]);
+
+    // For each language, build an object with its total count, and count for each product
     for (let i = 0; i < languageValues.length; i++) {
         const l = languageValues[i];
         filters.languages[l._id] = {
@@ -356,6 +359,8 @@ const getLearnPageFilters = async () => {
             filters.languages[l._id].products[pl._id] = pl.count;
         });
     }
+
+    // For each product, build an object with its total count, and count for each language
     for (let i = 0; i < productValues.length; i++) {
         const p = productValues[i];
         filters.products[p._id] = {
