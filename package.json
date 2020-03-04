@@ -13,6 +13,7 @@
     "prettier": "prettier \"**/*.{js,jsx,json,md}\"",
     "preview": "webpack-dev-server --open --config ./webpack.config.js --env.PREVIEW_MODE='cli'",
     "serve": "gatsby serve --prefix-paths",
+    "storybook": "start-storybook",
     "test": "jest",
     "test:regression": "jest regression",
     "test:unit": "jest unit"
@@ -67,6 +68,9 @@
     "webpack-dev-server": "^3.9.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "@storybook/addon-actions": "^5.3.14",
+    "@storybook/react": "^5.3.14",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-preset-gatsby": "^0.2.23",
