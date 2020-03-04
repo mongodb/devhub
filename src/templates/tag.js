@@ -95,20 +95,22 @@ const Tag = props => {
                     </>
                 )}
                 {isAuthor && (
-                    <AuthorHero>
-                        <AuthorByline>
-                            <SyledAuthorImage image={author_image} />
-                            <AuthorName>
-                                <H2>{name}</H2>
-                                {title && location && (
-                                    <P>
-                                        {title} - {location}
-                                    </P>
-                                )}
-                            </AuthorName>
-                        </AuthorByline>
+                    <div>
+                        <AuthorHero>
+                            <AuthorByline>
+                                <SyledAuthorImage image={author_image} />
+                                <AuthorName>
+                                    <H2>{name}</H2>
+                                    {title && location && (
+                                        <P>
+                                            {title} - {location}
+                                        </P>
+                                    )}
+                                </AuthorName>
+                            </AuthorByline>
+                        </AuthorHero>
                         {bio && <P>{bio}</P>}
-                    </AuthorHero>
+                    </div>
                 )}
             </HeroBanner>
 

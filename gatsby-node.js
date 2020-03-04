@@ -11,6 +11,7 @@ const { getNestedValue } = require('./src/utils/get-nested-value');
 const {
     getTagPageUriComponent,
 } = require('./src/utils/get-tag-page-uri-component');
+const { getNestedText } = require('./src/utils/get-nested-text');
 const { getPageSlug } = require('./src/utils/get-page-slug');
 const { getSeriesArticles } = require('./src/utils/get-series-articles');
 const { getTemplate } = require('./src/utils/get-template');
@@ -160,7 +161,23 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
                 pages: page.pages,
             };
             if (isAuthor) {
+                const authorBioPath =
+                    name === 'Ken W. Alger'
+                        ? 'includes/authors/alger-ken'
+                        : `includes/authors/${name
+                              .toLowerCase()
+                              .split(' ')
+                              .reverse()
+                              .join('-')}`;
+                const bio = !!RESOLVED_REF_DOC_MAPPING[authorBioPath]
+                    ? getNestedText(
+                          RESOLVED_REF_DOC_MAPPING[authorBioPath]['ast'][
+                              'children'
+                          ]
+                      )
+                    : null;
                 newPage['author_image'] = page.item._id.image;
+                newPage['bio'] = bio;
             }
             return newPage;
         }
