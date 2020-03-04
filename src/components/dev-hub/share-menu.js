@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled-base';
-import { css } from '@emotion/core';
+import styled from '@emotion/styled';
 import Tooltip from './tooltip';
 import ShareIcon from './icons/share-icon';
 import LinkIcon from './icons/link-icon';
