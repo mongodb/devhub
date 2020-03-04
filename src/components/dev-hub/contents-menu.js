@@ -6,7 +6,6 @@ import ListIcon from './icons/list-icon';
 import { P } from './text';
 import Link from './link';
 import { animationSpeed, colorMap, size } from './theme';
-import { getNestedValue } from '../../utils/get-nested-value';
 import { formatText } from '../../utils/format-text';
 
 const StyledListIcon = styled(ListIcon)`
