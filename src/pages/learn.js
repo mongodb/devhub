@@ -55,6 +55,38 @@ const FEATURED_ARTICLE_URLS = [
     '/how-to/polymorphic-pattern',
 ];
 
+const useFeaturedArticles = articles => {
+    const [primary, setPrimary] = useState(articles[0] || null);
+    const [secondary, setSecondary] = useState(articles[1] || null);
+    const [tertiary, setTertiary] = useState(articles[2] || null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (articles.length < 3) {
+            setError(
+                `Expected three articles for featured section, got ${articles &&
+                    articles.length}`
+            );
+        } else {
+            articles.map(article => {
+                if (article.query_fields.slug === FEATURED_ARTICLE_URLS[0]) {
+                    setPrimary(article);
+                } else if (
+                    article.query_fields.slug === FEATURED_ARTICLE_URLS[1]
+                ) {
+                    setSecondary(article);
+                } else if (
+                    article.query_fields.slug === FEATURED_ARTICLE_URLS[2]
+                ) {
+                    setTertiary(article);
+                }
+            });
+        }
+    }, [articles, setPrimary, setSecondary, setTertiary, setError]);
+
+    return { primary, secondary, tertiary, error };
+};
+
 const parseArticles = arr =>
     arr.map(({ _id, query_fields }) => {
         return { _id, ...query_fields };
@@ -142,28 +174,16 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
 };
 
 const FeaturedArticles = ({ articles }) => {
-    if (articles.length < 3) {
-        console.error(
-            `Expected three articles for featured section, got ${articles &&
-                articles.length}`
-        );
+    const { error, primary, secondary, tertiary } = useFeaturedArticles(
+        articles
+    );
+    if (error) {
+        console.error(error);
         return null;
     }
-    const primaryFeature =
-        articles.find(
-            article => article.query_fields.slug === FEATURED_ARTICLE_URLS[0]
-        ) || articles[0];
-    const secondaryFeature =
-        articles.find(
-            article => article.query_fields.slug === FEATURED_ARTICLE_URLS[1]
-        ) || articles[1];
-    const tertiaryFeature =
-        articles.find(
-            article => article.query_fields.slug === FEATURED_ARTICLE_URLS[2]
-        ) || articles[2];
 
     const { description, image, slug, tags, title } = getFeaturedCardFields(
-        primaryFeature
+        primary
     );
     return (
         <MainFeatureGrid>
@@ -182,11 +202,11 @@ const FeaturedArticles = ({ articles }) => {
                 </MediaBlock>
             </PrimarySection>
             <SecondaryFeaturedArticle
-                article={secondaryFeature}
+                article={secondary}
                 Wrapper={SecondArticle}
             />
             <SecondaryFeaturedArticle
-                article={tertiaryFeature}
+                article={tertiary}
                 Wrapper={LastArticle}
             />
         </MainFeatureGrid>
