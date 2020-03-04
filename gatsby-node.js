@@ -116,6 +116,20 @@ const getRelatedPagesWithImages = pageNodes => {
     return relatedPageInfo;
 };
 
+const getAuthorIncludesPath = authorName => {
+    switch (authorName) {
+        // Handle case where REF_DOC_MAP name isnt just lastname-firstname
+        case 'Ken W. Alger':
+            return 'includes/authors/alger-ken';
+        default:
+            return `includes/authors/${authorName
+                .toLowerCase()
+                .split(' ')
+                .reverse()
+                .join('-')}`;
+    }
+};
+
 const createTagPageType = async (createPage, pageMetadata, stitchType) => {
     const isAuthor = stitchType === 'author';
     const pageType = STITCH_TYPE_TO_URL_PREFIX[stitchType];
@@ -161,15 +175,13 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
                 pages: page.pages,
             };
             if (isAuthor) {
-                const authorBioPath =
-                    name === 'Ken W. Alger'
-                        ? 'includes/authors/alger-ken'
-                        : `includes/authors/${name
-                              .toLowerCase()
-                              .split(' ')
-                              .reverse()
-                              .join('-')}`;
-                const bio = !!RESOLVED_REF_DOC_MAPPING[authorBioPath]
+                const authorBioPath = getAuthorIncludesPath(name);
+                const hasBio = !!dlv(
+                    RESOLVED_REF_DOC_MAPPING[authorBioPath],
+                    ['ast', 'children'],
+                    null
+                );
+                const bio = hasBio
                     ? getNestedText(
                           RESOLVED_REF_DOC_MAPPING[authorBioPath]['ast'][
                               'children'
