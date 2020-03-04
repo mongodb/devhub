@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled-base';
+import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Tooltip from './tooltip';
 import ListIcon from './icons/list-icon';
 import { P } from './text';
 import Link from './link';
 import { animationSpeed, colorMap, size } from './theme';
+import { getNestedValue } from '../../utils/get-nested-value';
+import { formatText } from '../../utils/format-text';
+
+const StyledListIcon = styled(ListIcon)`
+    &:hover {
+        g {
+            path,
+            circle {
+                fill: ${colorMap.devWhite};
+            }
+        }
+    }
+`;
 
 const activeStyles = css`
     color: ${colorMap.devWhite};
@@ -22,13 +35,12 @@ const defaultStyles = css`
         transition: color ${animationSpeed.fast} ease ${animationSpeed.fast};
     }
 `;
-
-const StyledItem = styled(Link)`
+const StyledLink = styled(Link)`
     &:visited {
         color: ${colorMap.greyLightTwo};
     }
     color: ${colorMap.greyLightTwo};
-    padding: ${size.tiny} 0;
+    padding: ${size.small} 0;
     text-decoration: none;
     ${({ isactive }) => (isactive ? activeStyles : defaultStyles)}
     &:after {
@@ -41,7 +53,9 @@ const StyledItem = styled(Link)`
         padding-bottom: 0;
     }
 `;
-
+const StyledItem = styled('li')`
+    margin: ${size.small} 0;
+`;
 const Contents = styled('ul')`
     list-style-type: none;
     margin: 0;
@@ -54,27 +68,32 @@ const Contents = styled('ul')`
  * @property {object[]} props.contents
  */
 
-const ContentsMenu = ({ title, contents = [] }) => {
+const ContentsMenu = ({ title, headingNodes, ...props }) => {
     const [activeItem, setActiveItem] = useState(null);
 
     return (
-        <Tooltip hasGradientBorder position={'right'} trigger={<ListIcon />}>
+        <Tooltip
+            hasGradientBorder
+            position={'right'}
+            trigger={<StyledListIcon {...props} />}
+            maxWidth={400}
+        >
             <P bold>{title}</P>
             <Contents>
-                {contents.map(item => {
-                    const isactive = item.to === activeItem ? 'true' : null;
+                {headingNodes.map(({ id, title }) => {
+                    const isactive = id === activeItem ? 'true' : null;
                     return (
-                        <li key={item.to}>
-                            <StyledItem
+                        <StyledItem key={id}>
+                            <StyledLink
                                 tabIndex="0"
                                 isactive={isactive}
-                                onClick={() => setActiveItem(item.to)}
-                                onKeyPress={() => setActiveItem(item.to)}
-                                to={item.to}
+                                onClick={() => setActiveItem(id)}
+                                onKeyPress={() => setActiveItem(id)}
+                                href={`#${id}`}
                             >
-                                {item.title}
-                            </StyledItem>
-                        </li>
+                                {formatText(title)}
+                            </StyledLink>
+                        </StyledItem>
                     );
                 })}
             </Contents>

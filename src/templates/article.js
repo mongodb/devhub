@@ -9,12 +9,48 @@ import ArticleShareFooter from '../components/dev-hub/article-share-footer';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
 import RelatedArticles from '../components/dev-hub/related-articles';
-import { size } from '../components/dev-hub/theme';
+import { screenSize, size } from '../components/dev-hub/theme';
 import Series from '../components/dev-hub/series';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
-import { normalizePath } from '../utils/normalize-path';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
+import ShareMenu from '../components/dev-hub/share-menu';
+import ContentsMenu from '../components/dev-hub/contents-menu';
+import Contents from '../../src/components/Contents.js';
+import { getNestedValue } from '../utils/get-nested-value';
+
+const findSectionHeadings = (nodes, key, value) => {
+    const results = [];
+    const searchNode = (node, sectionDepth) => {
+        if (node[key] === value && sectionDepth > 1) {
+            const nodeTitle = node.children;
+            const newNode = {
+                children: [],
+                depth: sectionDepth,
+                id: node.id,
+                title: nodeTitle,
+            };
+            const lastElement = results[results.length - 1];
+            if (!lastElement || sectionDepth <= lastElement.depth) {
+                results.push(newNode);
+            } else {
+                lastElement.children.push(newNode);
+            }
+        }
+        // Don't include step headings in our TOC regardless of depth
+        if (node.children && node.name !== 'step') {
+            if (node.type === 'section') {
+                sectionDepth += 1; // eslint-disable-line no-param-reassign
+            }
+            return node.children.forEach(child =>
+                searchNode(child, sectionDepth)
+            );
+        }
+        return null;
+    };
+    nodes.forEach(node => searchNode(node, 0));
+    return results;
+};
 
 /**
  * Name map of directives we want to display in an article
@@ -91,12 +127,36 @@ const ArticleSeries = ({ allSeriesForArticle, slugTitleMapping, title }) => {
 };
 
 const ArticleContent = styled('article')`
-    margin: 0 auto;
     max-width: ${size.maxContentWidth};
     padding-left: ${size.small};
     padding-right: ${size.small};
 `;
-
+const Icons = styled('div')`
+    margin: ${size.tiny} ${size.default};
+    span {
+        padding: 0 ${size.tiny};
+    }
+    @media ${screenSize.smallAndUp} {
+        display: flex;
+        flex-direction: column;
+        span:not(:first-of-type) {
+            margin-top: ${size.small};
+        }
+    }
+    @media ${screenSize.upToSmall} {
+        margin: 0 ${size.small};
+        span:not(:first-of-type) {
+            margin-left: ${size.small};
+        }
+    }
+`;
+const Container = styled('div')`
+    margin: 0 auto;
+    @media ${screenSize.smallAndUp} {
+        display: flex;
+        justify-content: center;
+    }
+`;
 const Article = props => {
     const {
         pageContext: {
@@ -124,6 +184,11 @@ const Article = props => {
     const tagList = getTagLinksFromMeta(meta);
     const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
     const articleUrl = `${siteUrl}/${thisPage}`;
+    const headingNodes = findSectionHeadings(
+        getNestedValue(['ast', 'children'], __refDocMapping),
+        'type',
+        'heading'
+    );
     return (
         <Layout>
             <Helmet>
@@ -141,21 +206,34 @@ const Article = props => {
                 title={articleTitle}
                 updatedDate={meta.updatedDate}
             />
-
-            <ArticleContent>
-                <DocumentBody
-                    pageNodes={contentNodes}
-                    slugTitleMapping={slugTitleMapping}
-                    {...rest}
-                />
-                <ArticleShareFooter url={articleUrl} tags={tagList} />
-                <ArticleSeries
-                    allSeriesForArticle={seriesArticles}
-                    slugTitleMapping={slugTitleMapping}
-                    title={articleTitle}
-                />
-            </ArticleContent>
-
+            <Container>
+                <Icons>
+                    <ContentsMenu
+                        title="Table of Contents"
+                        headingNodes={headingNodes}
+                        height={size.default}
+                        width={size.default}
+                    />
+                    <ShareMenu
+                        url={articleUrl}
+                        height={size.default}
+                        width={size.default}
+                    />
+                </Icons>
+                <ArticleContent>
+                    <DocumentBody
+                        pageNodes={contentNodes}
+                        slugTitleMapping={slugTitleMapping}
+                        {...rest}
+                    />
+                    <ArticleShareFooter url={articleUrl} tags={tagList} />
+                    <ArticleSeries
+                        allSeriesForArticle={seriesArticles}
+                        slugTitleMapping={slugTitleMapping}
+                        title={articleTitle}
+                    />
+                </ArticleContent>
+            </Container>
             <RelatedArticles
                 related={meta.related}
                 slugTitleMapping={slugTitleMapping}

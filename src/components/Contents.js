@@ -23,7 +23,7 @@ ContentsListItem.propTypes = {
     title: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const ContentsList = ({ className, listItems }) => {
+const ContentsList = ({ className, listItems = [] }) => {
     return (
         <ul className={className}>
             {listItems.map(({ children, id, title }, index) => (

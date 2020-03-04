@@ -112,17 +112,48 @@ const TableOfContentsStory = () => {
     // TODO: Still not sure what the data-model will look like
     // For now using this simple structure to get base functionality
     const contents = [
-        { title: 'Getting Set Up', to: '/storybook#intro' },
-        { title: 'Created Data', to: '/storybook#create-data' },
-        { title: 'The Final Code', to: '/storybook#final-code' },
-        { title: 'Wrapping Up', to: '/storybook#conclusion' },
-        { title: 'End', to: '/storybook#end' },
+        {
+            children: [],
+            depth: 2,
+            id: 'what-is-starlette',
+            title: [
+                {
+                    type: 'text',
+                    position: { start: { line: 62 } },
+                    value: 'What is Starlette',
+                },
+            ],
+        },
+        {
+            children: [],
+            depth: 2,
+            id: 'today-s-project-mongobnb',
+            title: [
+                {
+                    type: 'text',
+                    position: { start: { line: 72 } },
+                    value: "Today's Project: MongoBnB",
+                },
+            ],
+        },
+        {
+            children: [],
+            depth: 2,
+            id: 'implementing-the-homepage',
+            title: [
+                {
+                    type: 'text',
+                    position: { start: { line: 261 } },
+                    value: 'Implementing the Homepage',
+                },
+            ],
+        },
     ];
 
     return (
         <>
-            <ShareMenu facebook="#" shareLink="#" twitter="#" />
-            <ContentsMenu title="Table of Contents" contents={contents} />
+            <ShareMenu url="/" />
+            <ContentsMenu title="Table of Contents" headingNodes={contents} />
         </>
     );
 };
