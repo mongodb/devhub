@@ -55,7 +55,6 @@ storiesOf('Icons', module)
                 </Row>
                 <Row>
                     <TwitchIcon color={color} />
-                    <TwitchIcon color={color} />
                     <TwitterIcon color={color} />
                     <Youtube color={color} />
                 </Row>
