@@ -12,14 +12,10 @@ import {
     size,
 } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
-import javaImage from '../images/2x/Java@2x.png';
-import nodejsImage from '../images/1x/Node.JS-1.png';
 import buildImage from '../images/2x/Build@2x.png';
 import graphqlImage from '../images/1x/GraphQL.png';
 import greenPatternImage from '../images/2x/pattern-green@2x.png';
-import productivityImage from '../images/2x/Productivity@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
-import unityImage from '../images/2x/Unity@2x.png';
 import nodejsIllustration from '../images/1x/Node.Js-Illustration.png';
 import pythonImage from '../images/1x/Python.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
