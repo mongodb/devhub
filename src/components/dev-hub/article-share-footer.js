@@ -6,6 +6,7 @@ import { colorMap, screenSize, size } from './theme';
 import Link from './link';
 import Tooltip from './tooltip';
 import LinkIcon from './icons/link-icon';
+import LinkedIn from './icons/linkedin';
 import FacebookIcon from './icons/facebook-icon';
 import TwitterIcon from './icons/twitter-icon';
 
@@ -46,6 +47,13 @@ const ArticleShareFooter = ({ tags, url }) => {
                 >
                     Article link copied to clipboard!
                 </Tooltip>
+
+                <Link
+                    target="_blank"
+                    href={`https://www.linkedin.com/shareArticle?url=${url}`}
+                >
+                    <LinkedIn />
+                </Link>
 
                 <Link
                     target="_blank"

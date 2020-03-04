@@ -9,7 +9,8 @@ import { StorybookLayout } from '../components/dev-hub/layout';
 import BylineBlock from '../components/dev-hub/byline-block';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
-import Event, { sampleEvents } from '../components/dev-hub/events';
+import Event from '../components/dev-hub/events';
+import { sampleEvents } from '../hooks/use-event-data';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
@@ -522,10 +523,9 @@ export default () => (
                     image={mockCardImage}
                     tags={mapTagTypeToUrl(['tag one', 'tag two'], 'tags')}
                     maxTitleLines={3}
-                >
-                    I'm a Card For A Post on the New Devhub Platform! With no
-                    links or clickable actions!
-                </Card>
+                    title="I'm a Card For A Post on the New Devhub Platform! With no
+                    links or clickable actions!"
+                ></Card>
                 <Card
                     href="#card-row"
                     image={mockCardImage}
@@ -533,16 +533,14 @@ export default () => (
                         ['tag one', 'tag two', 'tag three'],
                         'tags'
                     )}
-                >
-                    I'm a Card
-                </Card>
+                    title="I'm a Card"
+                ></Card>
                 <Card
                     image={mockCardImage}
                     onClick={() => console.log('Clicked!')}
                     highlight
-                >
-                    I'm a highlighted Card
-                </Card>
+                    card="I'm a highlighted Card"
+                ></Card>
             </Row>
             <Row>
                 <Card

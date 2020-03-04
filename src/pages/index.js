@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import Card from '../components/dev-hub/card';
 import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
@@ -12,18 +13,19 @@ import {
     size,
 } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
-import javaImage from '../images/2x/Java@2x.png';
-import nodejsImage from '../images/1x/Node.JS-1.png';
 import buildImage from '../images/2x/Build@2x.png';
 import graphqlImage from '../images/1x/GraphQL.png';
 import greenPatternImage from '../images/2x/pattern-green@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
+import nodejsIllustration from '../images/1x/Node.Js-Illustration.png';
+import pythonImage from '../images/1x/Python.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
 import useTwitchApi from '../utils/use-twitch-api';
 import { Modal } from '../components/dev-hub/modal';
 import VideoEmbed from '../components/dev-hub/video-embed';
+import { useSiteMetadata } from '../hooks/use-site-metadata';
 
 const MEDIA_WIDTH = '550';
 
@@ -118,7 +120,11 @@ const Thumbnail = ({ video }) => {
     }
 
     return (
-        <ThumbnailCard maxWidth={MEDIA_WIDTH} image={thumbnailUrl}>
+        <ThumbnailCard
+            maxWidth={MEDIA_WIDTH}
+            image={thumbnailUrl}
+            title={video.title}
+        >
             <Modal
                 dialogContainerStyle={{
                     height: '90%',
@@ -136,13 +142,13 @@ const Thumbnail = ({ video }) => {
                     autoplay={true}
                 />
             </Modal>
-            <H5>{video.title}</H5>
         </ThumbnailCard>
     );
 };
 
 export default () => {
     const { stream, videos } = useTwitchApi();
+    const { title } = useSiteMetadata();
     const twitchVideo = useMemo(() => {
         if (stream) return stream;
         if (videos && videos.length) return videos[0];
@@ -151,6 +157,9 @@ export default () => {
 
     return (
         <Layout>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             <BackgroundImage>
                 {stream && (
                     <Notification link={stream.url} title={stream.title} />
@@ -164,24 +173,32 @@ export default () => {
                     <Sub>What will you create today?</Sub>
                     <CardGallery>
                         <StyledTopCard
-                            image={graphqlImage}
-                            to="/how-to/introducing-graphql-support-in-mongodb-atlas-with-stitch"
-                        >
-                            Introducing GraphQL Support in MongoDB Atlas with
-                            Stitch
-                        </StyledTopCard>
+                            maxTitleLines={3}
+                            image={nodejsIllustration}
+                            to="/how-to/nextjs-building-modern-applications"
+                            title="Building Modern Applications with Next.js and
+                            MongoDB"
+                        />
                         <StyledTopCard
+                            maxTitleLines={3}
+                            image={pythonImage}
+                            to="/how-to/python-starlette-stitch"
+                            title="Build a Property Booking Website with Starlette,
+                            MongoDB, and Twilio"
+                        />
+                        <StyledTopCard
+                            maxTitleLines={3}
+                            image={graphqlImage}
+                            to="/how-to/graphql-support-atlas-stitch"
+                            title="Introducing GraphQL Support in MongoDB Atlas with
+                            Stitch"
+                        />
+                        <StyledTopCard
+                            maxTitleLines={3}
                             image={buildImage}
                             to="/quickstart/free-atlas-cluster"
-                        >
-                            Getting Your Free MongoDB Atlas Cluster
-                        </StyledTopCard>
-                        <StyledTopCard
-                            image={javaImage}
-                            to="/quickstart/java-aggregation-pipeline"
-                        >
-                            Java - Aggregation Pipeline
-                        </StyledTopCard>
+                            title="Quick Start: Getting Your Free MongoDB Atlas Cluster"
+                        />
                     </CardGallery>
                     <div>
                         <Button to="/learn" primary>

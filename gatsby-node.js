@@ -32,9 +32,9 @@ const PAGES = [];
 const IMAGE_FILES = {};
 
 const FEATURED_LEARN_SLUGS = [
-    '/how-to/introducing-graphql-support-in-mongodb-atlas-with-stitch',
-    '/how-to/building-modern-applications-with-nextjs',
-    '/how-to/kafka-consumer',
+    '/quickstart/java-setup-crud-operations',
+    '/how-to/golang-alexa-skills',
+    '/how-to/polymorphic-pattern',
 ];
 
 const STITCH_TYPE_TO_URL_PREFIX = {
@@ -307,7 +307,12 @@ const getLearnPageArticles = async () => {
         metadata,
         {},
     ]);
-    return documents;
+    // Ignore bad data, including links to the home page as an "article"
+    const filteredDocuments = documents.filter(d => {
+        const route = dlv(d, ['query_fields', 'slug'], null);
+        return route !== '/';
+    });
+    return filteredDocuments;
 };
 
 const getFeaturedLearnArticles = articles => {

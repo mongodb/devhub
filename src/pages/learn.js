@@ -143,6 +143,7 @@ const FeaturedArticles = ({ articles }) => {
         );
         return null;
     }
+
     const { description, image, slug, tags, title } = getFeaturedCardFields(
         articles[0]
     );

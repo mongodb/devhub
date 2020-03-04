@@ -16,8 +16,7 @@ const RefRole = ({ nodeData: { children, fileid, target, url }, slug }) => {
     }
 
     // Render internal target links
-    const link =
-        fileid && fileid === slug ? `#${target}` : `${fileid}#${target}`;
+    const link = fileid === slug ? `#${target}` : `${fileid}#${target}`;
     return (
         <Link href={link} className="ref-role-anchor">
             <span>
