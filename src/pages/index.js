@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import Card from '../components/dev-hub/card';
 import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
@@ -24,6 +25,7 @@ import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
 import useTwitchApi from '../utils/use-twitch-api';
 import { Modal } from '../components/dev-hub/modal';
 import VideoEmbed from '../components/dev-hub/video-embed';
+import { useSiteMetadata } from '../hooks/use-site-metadata';
 
 const MEDIA_WIDTH = '550';
 
@@ -143,6 +145,7 @@ const Thumbnail = ({ video }) => {
 
 export default () => {
     const { stream, videos } = useTwitchApi();
+    const { title } = useSiteMetadata();
     const twitchVideo = useMemo(() => {
         if (stream) return stream;
         if (videos && videos.length) return videos[0];
@@ -151,6 +154,9 @@ export default () => {
 
     return (
         <Layout>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             <BackgroundImage>
                 {stream && (
                     <Notification link={stream.url} title={stream.title} />
