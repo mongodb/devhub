@@ -12,12 +12,12 @@ import {
     size,
 } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
-import javaImage from '../images/2x/Java@2x.png';
-import nodejsImage from '../images/1x/Node.JS-1.png';
 import buildImage from '../images/2x/Build@2x.png';
 import graphqlImage from '../images/1x/GraphQL.png';
 import greenPatternImage from '../images/2x/pattern-green@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
+import nodejsIllustration from '../images/1x/Node.Js-Illustration.png';
+import pythonImage from '../images/1x/Python.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
@@ -164,8 +164,22 @@ export default () => {
                     <Sub>What will you create today?</Sub>
                     <CardGallery>
                         <StyledTopCard
+                            image={nodejsIllustration}
+                            to="/how-to/nextjs-building-modern-applications"
+                        >
+                            Building Modern Applications with Next.js and
+                            MongoDB
+                        </StyledTopCard>
+                        <StyledTopCard
+                            image={pythonImage}
+                            to="/how-to/python-starlette-stitch"
+                        >
+                            Build a Property Booking Website with Starlette,
+                            MongoDB, and Twilio
+                        </StyledTopCard>
+                        <StyledTopCard
                             image={graphqlImage}
-                            to="/how-to/introducing-graphql-support-in-mongodb-atlas-with-stitch"
+                            to="/how-to/graphql-support-atlas-stitch"
                         >
                             Introducing GraphQL Support in MongoDB Atlas with
                             Stitch
@@ -174,13 +188,7 @@ export default () => {
                             image={buildImage}
                             to="/quickstart/free-atlas-cluster"
                         >
-                            Getting Your Free MongoDB Atlas Cluster
-                        </StyledTopCard>
-                        <StyledTopCard
-                            image={javaImage}
-                            to="/quickstart/java-aggregation-pipeline"
-                        >
-                            Java - Aggregation Pipeline
+                            Quick Start: Getting Your Free MongoDB Atlas Cluster
                         </StyledTopCard>
                     </CardGallery>
                     <div>
