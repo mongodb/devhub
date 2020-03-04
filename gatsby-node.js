@@ -115,6 +115,20 @@ const getRelatedPagesWithImages = pageNodes => {
     return relatedPageInfo;
 };
 
+const getAuthorIncludesPath = authorName => {
+    switch (authorName) {
+        // Handle case where REF_DOC_MAP name isnt just lastname-firstname
+        case 'Ken W. Alger':
+            return 'includes/authors/alger-ken';
+        default:
+            return `includes/authors/${authorName
+                .toLowerCase()
+                .split(' ')
+                .reverse()
+                .join('-')}`;
+    }
+};
+
 const createTagPageType = async (createPage, pageMetadata, stitchType) => {
     const isAuthor = stitchType === 'author';
     const pageType = STITCH_TYPE_TO_URL_PREFIX[stitchType];
@@ -160,7 +174,14 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
                 pages: page.pages,
             };
             if (isAuthor) {
+                const authorBioPath = getAuthorIncludesPath(name);
+                const bio = dlv(
+                    RESOLVED_REF_DOC_MAPPING[authorBioPath],
+                    ['ast', 'children', 0, 'children', 0],
+                    null
+                );
                 newPage['author_image'] = page.item._id.image;
+                newPage['bio'] = bio;
             }
             return newPage;
         }

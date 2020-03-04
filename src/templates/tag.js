@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
+import ComponentFactory from '../components/ComponentFactory';
 import AuthorImage from '../components/dev-hub/author-image';
 import CardList from '../components/dev-hub/card-list';
 import HeroBanner from '../components/dev-hub/hero-banner';
@@ -95,20 +96,22 @@ const Tag = props => {
                     </>
                 )}
                 {isAuthor && (
-                    <AuthorHero>
-                        <AuthorByline>
-                            <SyledAuthorImage image={author_image} />
-                            <AuthorName>
-                                <H2>{name}</H2>
-                                {title && location && (
-                                    <P>
-                                        {title} - {location}
-                                    </P>
-                                )}
-                            </AuthorName>
-                        </AuthorByline>
-                        {bio && <P>{bio}</P>}
-                    </AuthorHero>
+                    <div>
+                        <AuthorHero>
+                            <AuthorByline>
+                                <SyledAuthorImage image={author_image} />
+                                <AuthorName>
+                                    <H2>{name}</H2>
+                                    {title && location && (
+                                        <P>
+                                            {title} - {location}
+                                        </P>
+                                    )}
+                                </AuthorName>
+                            </AuthorByline>
+                        </AuthorHero>
+                        {bio && <ComponentFactory nodeData={bio} />}
+                    </div>
                 )}
             </HeroBanner>
 
