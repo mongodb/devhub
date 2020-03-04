@@ -177,7 +177,7 @@ const FeaturedArticles = ({ articles }) => {
 
 export default ({
     location,
-    pageContext: { allArticles, featuredArticles },
+    pageContext: { allArticles, featuredArticles, filters },
 }) => {
     const metadata = useSiteMetadata();
     const initialArticles = useMemo(() => parseArticles(allArticles), [
@@ -214,6 +214,7 @@ export default ({
             </Header>
             <Article>
                 <FilterBar
+                    filters={filters}
                     filterValue={filterValue}
                     setFilterValue={updateFilter}
                 />

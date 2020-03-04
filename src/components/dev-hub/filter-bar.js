@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { H3 } from './text';
 import Select from './select';
 import { screenSize, size } from './theme';
-import { authenticate, callStitchFunction } from '../../utils/stitch';
-import { useSiteMetadata } from '../../hooks/use-site-metadata';
-import { devhubMapping } from '../../constants';
 
 // Zip array of objects into array of 2-element arrays to populate Select forms
 // Replace key with label text, if defined (e.g. nodejs => Node.js)
-const zipObjects = arr =>
-    arr.map(({ _id, count }) => {
-        const label = devhubMapping[_id] || _id;
-        return [_id, `${label} (${count})`];
-    });
+const zipFilterObjects = (
+    filterObject,
+    includeCount = true,
+    findCount = x => x.count
+) => [
+    ['all', 'All'],
+    ...Object.keys(filterObject).map(p => [
+        p,
+        `${p} ${includeCount ? `(${findCount(filterObject[p])})` : ''}`,
+    ]),
+];
 
 const ResponsiveFlexContainer = styled('div')`
     align-items: center;
@@ -47,29 +50,49 @@ const SelectWrapper = styled('div')`
     }
 `;
 
-// Populate forms by fetching all values associated with given key
-// Returns array of {_id: 'Name', count: X} objects in descending count order
-// These objects are then zipped into an array of arrays
-const callStitch = async (metadata, key, callback) => {
-    const res = await callStitchFunction('getValuesByKey', metadata, key);
-    callback([['all', 'All'], ...zipObjects(res)]);
-};
-
 export default React.memo(
-    ({ heading = 'All Articles', filterValue, setFilterValue }) => {
-        const metadata = useSiteMetadata();
-        const [languages, setLanguages] = useState([]);
-        const [products, setProducts] = useState([]);
+    ({ heading = 'All Articles', filters, filterValue, setFilterValue }) => {
+        const initialLanguages = useMemo(
+            () => zipFilterObjects(filters.languages),
+            [filters.languages]
+        );
+        const initialProducts = useMemo(
+            () => zipFilterObjects(filters.products),
+            [filters.products]
+        );
+        const [languages, setLanguages] = useState(initialLanguages);
+        const [products, setProducts] = useState(initialProducts);
+        // Update filter values when changed
         useEffect(() => {
-            authenticate();
-            if (languages.length === 0) {
-                callStitch(metadata, 'languages', setLanguages);
+            const hasProductFilter =
+                filterValue.products && filterValue.products !== 'all';
+            const hasLanguageFilter =
+                filterValue.languages && filterValue.languages !== 'all';
+            if (hasProductFilter) {
+                const langs = filters.products[filterValue.products].languages;
+                setLanguages(
+                    // Don't include counts if both filters are applied
+                    zipFilterObjects(langs, !hasLanguageFilter, l => l)
+                );
+            } else {
+                setLanguages(initialLanguages);
             }
-
-            if (products.length === 0) {
-                callStitch(metadata, 'products', setProducts);
+            if (hasLanguageFilter) {
+                const products =
+                    filters.languages[filterValue.languages].products;
+                setProducts(
+                    zipFilterObjects(products, !hasProductFilter, p => p)
+                );
+            } else {
+                setProducts(initialProducts);
             }
-        }, [metadata, languages.length, products.length]);
+        }, [
+            filterValue,
+            filters.languages,
+            filters.products,
+            initialLanguages,
+            initialProducts,
+        ]);
         const handleChange = (value, type) => {
             // only update if the filter value has changed
             if (filterValue[type]) {
