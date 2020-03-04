@@ -118,7 +118,11 @@ const Thumbnail = ({ video }) => {
     }
 
     return (
-        <ThumbnailCard maxWidth={MEDIA_WIDTH} image={thumbnailUrl}>
+        <ThumbnailCard
+            maxWidth={MEDIA_WIDTH}
+            image={thumbnailUrl}
+            title={video.title}
+        >
             <Modal
                 dialogContainerStyle={{
                     height: '90%',
@@ -136,7 +140,6 @@ const Thumbnail = ({ video }) => {
                     autoplay={true}
                 />
             </Modal>
-            <H5>{video.title}</H5>
         </ThumbnailCard>
     );
 };
@@ -164,32 +167,32 @@ export default () => {
                     <Sub>What will you create today?</Sub>
                     <CardGallery>
                         <StyledTopCard
+                            maxTitleLines={3}
                             image={nodejsIllustration}
                             to="/how-to/nextjs-building-modern-applications"
-                        >
-                            Building Modern Applications with Next.js and
-                            MongoDB
-                        </StyledTopCard>
+                            title="Building Modern Applications with Next.js and
+                            MongoDB"
+                        />
                         <StyledTopCard
+                            maxTitleLines={3}
                             image={pythonImage}
                             to="/how-to/python-starlette-stitch"
-                        >
-                            Build a Property Booking Website with Starlette,
-                            MongoDB, and Twilio
-                        </StyledTopCard>
+                            title="Build a Property Booking Website with Starlette,
+                            MongoDB, and Twilio"
+                        />
                         <StyledTopCard
+                            maxTitleLines={3}
                             image={graphqlImage}
                             to="/how-to/graphql-support-atlas-stitch"
-                        >
-                            Introducing GraphQL Support in MongoDB Atlas with
-                            Stitch
-                        </StyledTopCard>
+                            title="Introducing GraphQL Support in MongoDB Atlas with
+                            Stitch"
+                        />
                         <StyledTopCard
+                            maxTitleLines={3}
                             image={buildImage}
                             to="/quickstart/free-atlas-cluster"
-                        >
-                            Quick Start: Getting Your Free MongoDB Atlas Cluster
-                        </StyledTopCard>
+                            title="Quick Start: Getting Your Free MongoDB Atlas Cluster"
+                        />
                     </CardGallery>
                     <div>
                         <Button to="/learn" primary>

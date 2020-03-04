@@ -523,10 +523,9 @@ export default () => (
                     image={mockCardImage}
                     tags={mapTagTypeToUrl(['tag one', 'tag two'], 'tags')}
                     maxTitleLines={3}
-                >
-                    I'm a Card For A Post on the New Devhub Platform! With no
-                    links or clickable actions!
-                </Card>
+                    title="I'm a Card For A Post on the New Devhub Platform! With no
+                    links or clickable actions!"
+                ></Card>
                 <Card
                     href="#card-row"
                     image={mockCardImage}
@@ -534,16 +533,14 @@ export default () => (
                         ['tag one', 'tag two', 'tag three'],
                         'tags'
                     )}
-                >
-                    I'm a Card
-                </Card>
+                    title="I'm a Card"
+                ></Card>
                 <Card
                     image={mockCardImage}
                     onClick={() => console.log('Clicked!')}
                     highlight
-                >
-                    I'm a highlighted Card
-                </Card>
+                    card="I'm a highlighted Card"
+                ></Card>
             </Row>
             <Row>
                 <Card
