@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
+import ComponentFactory from '../components/ComponentFactory';
 import AuthorImage from '../components/dev-hub/author-image';
 import CardList from '../components/dev-hub/card-list';
 import HeroBanner from '../components/dev-hub/hero-banner';
@@ -109,7 +110,7 @@ const Tag = props => {
                                 </AuthorName>
                             </AuthorByline>
                         </AuthorHero>
-                        {bio && <P>{bio}</P>}
+                        {bio && <ComponentFactory nodeData={bio} />}
                     </div>
                 )}
             </HeroBanner>

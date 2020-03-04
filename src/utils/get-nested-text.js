@@ -3,7 +3,7 @@
  * @param {Array} child an ast children array
  * @returns {String} description text
  */
-const getNestedText = child => {
+export const getNestedText = child => {
     if (!child) {
         return '';
     }
@@ -19,5 +19,3 @@ const getNestedText = child => {
     // There wasn't any content
     return '';
 };
-
-module.exports.getNestedText = getNestedText;

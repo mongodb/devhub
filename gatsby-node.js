@@ -11,7 +11,6 @@ const { getNestedValue } = require('./src/utils/get-nested-value');
 const {
     getTagPageUriComponent,
 } = require('./src/utils/get-tag-page-uri-component');
-const { getNestedText } = require('./src/utils/get-nested-text');
 const { getPageSlug } = require('./src/utils/get-page-slug');
 const { getSeriesArticles } = require('./src/utils/get-series-articles');
 const { getTemplate } = require('./src/utils/get-template');
@@ -176,18 +175,11 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
             };
             if (isAuthor) {
                 const authorBioPath = getAuthorIncludesPath(name);
-                const hasBio = !!dlv(
+                const bio = dlv(
                     RESOLVED_REF_DOC_MAPPING[authorBioPath],
-                    ['ast', 'children'],
+                    ['ast', 'children', 0, 'children', 0],
                     null
                 );
-                const bio = hasBio
-                    ? getNestedText(
-                          RESOLVED_REF_DOC_MAPPING[authorBioPath]['ast'][
-                              'children'
-                          ]
-                      )
-                    : null;
                 newPage['author_image'] = page.item._id.image;
                 newPage['bio'] = bio;
             }
