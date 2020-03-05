@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import BlogTagList from './blog-tag-list';
 import { H2, P } from './text';
@@ -19,29 +18,16 @@ const PostMetaLine = styled('div')`
     }
 `;
 
-const bulletStyling = css`
-    @media ${screenSize.xSmallAndUp} {
-        &:after {
-            content: '\u2022';
-            margin-left: ${size.tiny};
-        }
-    }
-`;
-
 const DateText = styled(P)`
     margin-right: ${size.tiny};
     @media ${screenSize.upToLarge} {
         font-size: ${fontSize.xsmall};
     }
-    ${({ withBullet }) => withBullet && bulletStyling};
 `;
 
 const DateTextContainer = styled('div')`
     margin-right: ${size.medium};
     display: flex;
-    @media ${screenSize.upToXSmall} {
-        flex-direction: column;
-    }
 `;
 
 const BlogPostTitleArea = ({
@@ -60,12 +46,10 @@ const BlogPostTitleArea = ({
             <PostMetaLine>
                 <DateTextContainer>
                     {updatedDate && (
-                        <DateText withBullet collapse>
-                            Updated {updatedDate}
-                        </DateText>
+                        <DateText collapse>Updated: {updatedDate} | </DateText>
                     )}
                     {originalDate && (
-                        <DateText collapse>{originalDate}</DateText>
+                        <DateText collapse>Published: {originalDate}</DateText>
                     )}
                 </DateTextContainer>
                 <BlogTagList tags={tags} />
