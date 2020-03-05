@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getNestedValue } from '../utils/get-nested-value';
 import { formatText } from '../utils/format-text';
-
+import { findSectionHeadings } from '../utils/find-section-headings';
 const CONTENT_LIST_ITEM_SHAPE = {
     children: PropTypes.arrayOf(PropTypes.object),
     id: PropTypes.string.isRequired,
@@ -52,48 +52,12 @@ const Contents = ({ nodeData: { argument, options }, refDocMapping }) => {
     const maxDepth =
         typeof options.depth === 'undefined' ? Infinity : options.depth;
 
-    const findSectionHeadings = (nodes, key, value) => {
-        const results = [];
-        const searchNode = (node, sectionDepth) => {
-            if (
-                node[key] === value &&
-                sectionDepth - 1 <= maxDepth &&
-                sectionDepth > 1
-            ) {
-                const nodeTitle = node.children;
-                const newNode = {
-                    children: [],
-                    depth: sectionDepth,
-                    id: node.id,
-                    title: nodeTitle,
-                };
-                const lastElement = results[results.length - 1];
-                if (!lastElement || sectionDepth <= lastElement.depth) {
-                    results.push(newNode);
-                } else {
-                    lastElement.children.push(newNode);
-                }
-            }
-            // Don't include step headings in our TOC regardless of depth
-            if (node.children && node.name !== 'step') {
-                if (node.type === 'section') {
-                    sectionDepth += 1; // eslint-disable-line no-param-reassign
-                }
-                return node.children.forEach(child =>
-                    searchNode(child, sectionDepth)
-                );
-            }
-            return null;
-        };
-        nodes.forEach(node => searchNode(node, 0));
-        return results;
-    };
-
     const displayText = getNestedValue([0, 'value'], argument);
     const headingNodes = findSectionHeadings(
         getNestedValue(['ast', 'children'], refDocMapping),
         'type',
-        'heading'
+        'heading',
+        maxDepth
     );
     return (
         <div

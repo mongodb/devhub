@@ -16,42 +16,8 @@ import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
-import Contents from '../../src/components/Contents.js';
 import { getNestedValue } from '../utils/get-nested-value';
-
-const findSectionHeadings = (nodes, key, value) => {
-    const results = [];
-    const searchNode = (node, sectionDepth) => {
-        if (node[key] === value && sectionDepth > 1) {
-            const nodeTitle = node.children;
-            const newNode = {
-                children: [],
-                depth: sectionDepth,
-                id: node.id,
-                title: nodeTitle,
-            };
-            const lastElement = results[results.length - 1];
-            if (!lastElement || sectionDepth <= lastElement.depth) {
-                results.push(newNode);
-            } else {
-                lastElement.children.push(newNode);
-            }
-        }
-        // Don't include step headings in our TOC regardless of depth
-        if (node.children && node.name !== 'step') {
-            if (node.type === 'section') {
-                sectionDepth += 1; // eslint-disable-line no-param-reassign
-            }
-            return node.children.forEach(child =>
-                searchNode(child, sectionDepth)
-            );
-        }
-        return null;
-    };
-    nodes.forEach(node => searchNode(node, 0));
-    return results;
-};
-
+import { findSectionHeadings } from '../utils/find-section-headings';
 /**
  * Name map of directives we want to display in an article
  */
@@ -187,7 +153,8 @@ const Article = props => {
     const headingNodes = findSectionHeadings(
         getNestedValue(['ast', 'children'], __refDocMapping),
         'type',
-        'heading'
+        'heading',
+        1
     );
     return (
         <Layout>
