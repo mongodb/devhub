@@ -45,7 +45,7 @@ const Options = styled('ul')`
         narrow
             ? `${OPTIONS_POSITION_OFFSET_NARROW}px`
             : `${OPTIONS_POSITION_OFFSET}px`};
-    width: 100%;
+    width: calc(100% + ${2 * BORDER_SIZE}px);
     z-index: ${layer.middle};
 `;
 
@@ -78,6 +78,7 @@ const FormSelect = ({
     errors = [],
     narrow = false,
     onChange = null,
+    styleSelectedText = null,
     validationStatus = null,
     value = '',
     ...extraProps
@@ -89,6 +90,15 @@ const FormSelect = ({
         setShowOptions(!showOptions);
     }, [showOptions]);
     const selectOptions = typeof choices !== 'undefined' ? choices : children;
+    const updateSelectedText = useCallback(
+        text => {
+            const updatedText = styleSelectedText
+                ? styleSelectedText(text)
+                : text;
+            setSelectText(updatedText);
+        },
+        [styleSelectedText]
+    );
     /**
      * This useEffect should only be called once the component first renders with choices,
      * this should populate the select item with the default choice if there is one
@@ -98,7 +108,7 @@ const FormSelect = ({
             const choice = selectOptions.filter(choice => choice[0] === value);
             if (choice && choice.length) {
                 setSelectValue(value);
-                setSelectText(choice[0][1]);
+                updateSelectedText(choice[0][1]);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,13 +130,13 @@ const FormSelect = ({
     const optionOnClick = useCallback(
         (value, text) => {
             setSelectValue(value);
-            setSelectText(text);
+            updateSelectedText(text);
             if (onChange) {
                 onChange(value, text);
             }
             setShowOptions(false);
         },
-        [onChange]
+        [onChange, updateSelectedText]
     );
 
     const optionOnEnter = useCallback(

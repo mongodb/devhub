@@ -349,11 +349,62 @@ const getFeaturedLearnArticles = articles => {
     return result;
 };
 
+const getLearnPageFilters = async () => {
+    const filters = {
+        languages: {},
+        products: {},
+    };
+
+    // Get possible language and product values from Stitch
+    const languageValues = await stitchClient.callFunction('getValuesByKey', [
+        metadata,
+        'languages',
+    ]);
+    const productValues = await stitchClient.callFunction('getValuesByKey', [
+        metadata,
+        'products',
+    ]);
+
+    // For each language, build an object with its total count, and count for each product
+    for (let i = 0; i < languageValues.length; i++) {
+        const l = languageValues[i];
+        filters.languages[l._id] = {
+            count: l.count,
+            products: {},
+        };
+        const productValuesForLanguage = await stitchClient.callFunction(
+            'getValuesByKey',
+            [metadata, 'products', { languages: l._id }]
+        );
+        productValuesForLanguage.forEach(pl => {
+            filters.languages[l._id].products[pl._id] = pl.count;
+        });
+    }
+
+    // For each product, build an object with its total count, and count for each language
+    for (let i = 0; i < productValues.length; i++) {
+        const p = productValues[i];
+        filters.products[p._id] = {
+            count: p.count,
+            languages: {},
+        };
+        const languageValuesForProduct = await stitchClient.callFunction(
+            'getValuesByKey',
+            [metadata, 'languages', { products: p._id }]
+        );
+        languageValuesForProduct.forEach(lp => {
+            filters.products[p._id].languages[lp._id] = lp.count;
+        });
+    }
+    return filters;
+};
+
 exports.onCreatePage = async ({ page, actions }) => {
     if (page.path === '/learn/') {
         const { createPage, deletePage } = actions;
         const allArticles = await getLearnPageArticles();
         const featuredArticles = getFeaturedLearnArticles(allArticles);
+        const filters = await getLearnPageFilters(allArticles);
         deletePage(page);
         createPage({
             ...page,
@@ -361,6 +412,7 @@ exports.onCreatePage = async ({ page, actions }) => {
                 ...page.context,
                 allArticles,
                 featuredArticles,
+                filters,
             },
         });
     }
