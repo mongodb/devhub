@@ -13,7 +13,7 @@ import { size } from '../components/dev-hub/theme';
 import Series from '../components/dev-hub/series';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
-import { normalizePath } from '../utils/normalize-path';
+import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 
 /**
@@ -26,6 +26,12 @@ const contentNodesMap = {
     'meta-description': true,
     summary: true,
     twitter: true,
+};
+
+const dateFormatOptions = {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
 };
 
 /**
@@ -124,6 +130,15 @@ const Article = props => {
     const tagList = getTagLinksFromMeta(meta);
     const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
     const articleUrl = `${siteUrl}/${thisPage}`;
+    const formattedPublishedDate = toDateString(
+        meta.pubdate,
+        dateFormatOptions
+    );
+    const formattedUpdatedDate = toDateString(
+        meta.updatedDate,
+        dateFormatOptions
+    );
+
     return (
         <Layout>
             <Helmet>
@@ -136,10 +151,10 @@ const Article = props => {
                 articleImage={withPrefix(meta['atf-image'])}
                 author={meta.author}
                 breadcrumb={articleBreadcrumbs}
-                originalDate={meta.pubdate}
+                originalDate={formattedPublishedDate}
                 tags={tagList}
                 title={articleTitle}
-                updatedDate={meta.updatedDate}
+                updatedDate={formattedUpdatedDate}
             />
 
             <ArticleContent>

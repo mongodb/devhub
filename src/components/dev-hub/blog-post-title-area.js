@@ -19,12 +19,10 @@ const PostMetaLine = styled('div')`
     }
 `;
 
-const bulletStyling = css`
-    @media ${screenSize.xSmallAndUp} {
-        &:after {
-            content: '\u2022';
-            margin-left: ${size.tiny};
-        }
+const breakStyling = css`
+    &:after {
+        content: '|';
+        margin-left: ${size.tiny};
     }
 `;
 
@@ -33,15 +31,14 @@ const DateText = styled(P)`
     @media ${screenSize.upToLarge} {
         font-size: ${fontSize.xsmall};
     }
-    ${({ withBullet }) => withBullet && bulletStyling};
+    :first-of-type :not(:last-of-type) {
+        ${breakStyling};
+    }
 `;
 
 const DateTextContainer = styled('div')`
     margin-right: ${size.medium};
     display: flex;
-    @media ${screenSize.upToXSmall} {
-        flex-direction: column;
-    }
 `;
 
 const BlogPostTitleArea = ({
@@ -60,12 +57,10 @@ const BlogPostTitleArea = ({
             <PostMetaLine>
                 <DateTextContainer>
                     {updatedDate && (
-                        <DateText withBullet collapse>
-                            Updated {updatedDate}
-                        </DateText>
+                        <DateText collapse>Updated: {updatedDate}</DateText>
                     )}
                     {originalDate && (
-                        <DateText collapse>{originalDate}</DateText>
+                        <DateText collapse>Published: {originalDate}</DateText>
                     )}
                 </DateTextContainer>
                 <BlogTagList tags={tags} />
