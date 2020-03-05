@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import Tooltip from './tooltip';
+import ControlledTooltip from './controlled-tooltip';
 import ListIcon from './icons/list-icon';
 import { H5, P } from './text';
 import Link from './link';
@@ -69,24 +69,20 @@ const Contents = styled('ul')`
 
 const ContentsMenu = ({ title, headingNodes, ...props }) => {
     const [activeItem, setActiveItem] = useState(null);
-    const [closeTooltip, setCloseTooltip] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const handleClick = id => {
-        setCloseTooltip(true);
+        setIsOpen(false);
         setActiveItem(id);
     };
     return (
-        <Tooltip
+        <ControlledTooltip
             hasGradientBorder
-            closeTooltip={closeTooltip}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
             position={'right'}
             trigger={
                 <HoverTooltip
-                    trigger={
-                        <StyledListIcon
-                            onClick={() => setCloseTooltip(false)}
-                            {...props}
-                        />
-                    }
+                    trigger={<StyledListIcon {...props} />}
                     text="Contents"
                     {...props}
                 />
@@ -112,7 +108,7 @@ const ContentsMenu = ({ title, headingNodes, ...props }) => {
                     );
                 })}
             </Contents>
-        </Tooltip>
+        </ControlledTooltip>
     );
 };
 
