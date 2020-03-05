@@ -45,7 +45,7 @@ const Options = styled('ul')`
         narrow
             ? `${OPTIONS_POSITION_OFFSET_NARROW}px`
             : `${OPTIONS_POSITION_OFFSET}px`};
-    width: 100%;
+    width: calc(100% + ${2 * BORDER_SIZE}px);
     z-index: ${layer.middle};
 `;
 

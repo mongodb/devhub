@@ -103,7 +103,6 @@ export default React.memo(
             initialProducts,
         ]);
         const handleChange = (value, type) => {
-            console.log(value, type);
             // only update if the filter value has changed
             if (filterValue[type]) {
                 filterValue[type] !== value &&
