@@ -2,6 +2,8 @@ import { configure, addParameters } from '@storybook/react';
 import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
 
+const WELCOME_PAGE_KIND = 'Welcome';
+
 addParameters({
     docs: {
         container: DocsContainer,
@@ -9,10 +11,17 @@ addParameters({
         prepareForInline: storyFn => storyFn(),
     },
     options: {
-        storySort: (a, b) =>
-            a[1].kind === b[1].kind
+        storySort: (a, b) => {
+            if (a[1].kind === WELCOME_PAGE_KIND) {
+                return 0;
+            }
+            if (b[1].kind === WELCOME_PAGE_KIND) {
+                return 1;
+            }
+            return a[1].kind === b[1].kind
                 ? 0
-                : a[1].id.localeCompare(b[1].id, undefined, { numeric: true }),
+                : a[1].id.localeCompare(b[1].id, undefined, { numeric: true });
+        },
     },
 });
 
