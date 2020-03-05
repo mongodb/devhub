@@ -23,7 +23,6 @@ const Image = styled('img')`
 
 const ImageWrapper = styled('div')`
     border-radius: ${size.small};
-    height: 300px;
     margin-bottom: ${size.medium};
     overflow: hidden;
     padding: 0;
