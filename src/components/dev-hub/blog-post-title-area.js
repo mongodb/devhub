@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import BlogTagList from './blog-tag-list';
 import { H2, P } from './text';
@@ -19,20 +18,10 @@ const PostMetaLine = styled('div')`
     }
 `;
 
-const breakStyling = css`
-    &:after {
-        content: '|';
-        margin-left: ${size.tiny};
-    }
-`;
-
 const DateText = styled(P)`
     margin-right: ${size.tiny};
     @media ${screenSize.upToLarge} {
         font-size: ${fontSize.xsmall};
-    }
-    :first-of-type :not(:last-of-type) {
-        ${breakStyling};
     }
 `;
 
@@ -57,7 +46,7 @@ const BlogPostTitleArea = ({
             <PostMetaLine>
                 <DateTextContainer>
                     {updatedDate && (
-                        <DateText collapse>Updated: {updatedDate}</DateText>
+                        <DateText collapse>Updated: {updatedDate} | </DateText>
                     )}
                     {originalDate && (
                         <DateText collapse>Published: {originalDate}</DateText>
