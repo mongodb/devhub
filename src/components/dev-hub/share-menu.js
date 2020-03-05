@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 import Tooltip from './tooltip';
 import ShareIcon from './icons/share-icon';
 import LinkIcon from './icons/link-icon';
@@ -9,7 +10,7 @@ import Link from './link';
 import { colorMap, size } from './theme';
 import LinkedIn from './icons/linkedin';
 import copy from 'copy-to-clipboard';
-import { P4 } from './text';
+import SuccessIcon from './icons/success';
 
 const StyledShareIcon = styled(ShareIcon)`
     &:hover {
@@ -33,8 +34,8 @@ const Contents = styled('div')`
     display: flex;
     flex-direction: row;
 `;
-const TooltipContainer = styled('div')`
-    height: ${size.large};
+const hide = css`
+    display: none;
 `;
 const SocialIcon = ({ type, href, ...props }) => {
     const [color, setColor] = useState(colorMap.greyLightTwo);
@@ -43,17 +44,19 @@ const SocialIcon = ({ type, href, ...props }) => {
         shareLink: LinkIcon,
         twitter: TwitterIcon,
         linkedin: LinkedIn,
+        success: SuccessIcon,
     };
     const Icon = iconMap[type];
+    const isClickable = href || props.onClick;
     return (
         <SocialLink
-            onMouseEnter={() => setColor(colorMap.devWhite)}
-            onMouseLeave={() => setColor(colorMap.greyLightTwo)}
+            onMouseEnter={() => isClickable && setColor(colorMap.devWhite)}
+            onMouseLeave={() => isClickable && setColor(colorMap.greyLightTwo)}
             href={href}
             target="_blank"
             {...props}
         >
-            <Icon color={color} />
+            <Icon color={color} width={size.default} height={size.default} />
         </SocialLink>
     );
 };
@@ -63,11 +66,15 @@ const SocialIcon = ({ type, href, ...props }) => {
  */
 const ShareMenu = ({ url, ...props }) => {
     const [showCopyMessage, setShowCopyMessage] = useState(false);
-    const onCopyLink = useCallback(() => {
-        copy(url);
-        setShowCopyMessage(true);
-        setTimeout(() => setShowCopyMessage(false), 2000);
-    }, [url]);
+    const onCopyLink = useCallback(
+        e => {
+            e.preventDefault();
+            copy(url);
+            setShowCopyMessage(true);
+            setTimeout(() => setShowCopyMessage(false), 2000);
+        },
+        [url]
+    );
 
     return (
         <Tooltip
@@ -75,24 +82,26 @@ const ShareMenu = ({ url, ...props }) => {
             position={'right'}
             trigger={<StyledShareIcon {...props} />}
         >
-            <TooltipContainer>
-                <Contents>
-                    <SocialIcon type="shareLink" onClick={onCopyLink} />
-                    <SocialIcon
-                        type="facebook"
-                        href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
-                    />
-                    <SocialIcon
-                        type="twitter"
-                        href={`https://twitter.com/intent/tweet?url=${url}`}
-                    />
-                    <SocialIcon
-                        type="linkedin"
-                        href={`https://www.linkedin.com/shareArticle?url=${url}`}
-                    />
-                </Contents>
-                {showCopyMessage && <P4 collapse>Copied!</P4>}
-            </TooltipContainer>
+            <Contents>
+                <SocialIcon css={!showCopyMessage && hide} type="success" />
+                <SocialIcon
+                    css={showCopyMessage && hide}
+                    type="shareLink"
+                    onClick={onCopyLink}
+                />
+                <SocialIcon
+                    type="facebook"
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
+                />
+                <SocialIcon
+                    type="twitter"
+                    href={`https://twitter.com/intent/tweet?url=${url}`}
+                />
+                <SocialIcon
+                    type="linkedin"
+                    href={`https://www.linkedin.com/shareArticle?url=${url}`}
+                />
+            </Contents>
         </Tooltip>
     );
 };
