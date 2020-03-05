@@ -124,6 +124,7 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
         );
         return (
             <Wrapper
+                collapseImage
                 to={slug}
                 title={title}
                 description={description}
@@ -155,6 +156,7 @@ const FeaturedArticles = ({ articles }) => {
                     mediaWidth={360}
                 >
                     <Card
+                        collapseImage
                         maxDescriptionLines={4}
                         to={slug}
                         title={title}
