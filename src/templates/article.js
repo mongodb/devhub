@@ -176,7 +176,7 @@ const Article = props => {
             <Container>
                 <Icons>
                     <ContentsMenu
-                        title="Table of Contents"
+                        title="Contents"
                         headingNodes={headingNodes}
                         height={size.default}
                         width={size.default}

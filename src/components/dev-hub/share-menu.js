@@ -11,6 +11,7 @@ import { colorMap, size } from './theme';
 import LinkedIn from './icons/linkedin';
 import copy from 'copy-to-clipboard';
 import SuccessIcon from './icons/success';
+import HoverTooltip from './hover-tooltip';
 
 const StyledShareIcon = styled(ShareIcon)`
     &:hover {
@@ -80,7 +81,13 @@ const ShareMenu = ({ url, ...props }) => {
         <Tooltip
             hasGradientBorder
             position={'right'}
-            trigger={<StyledShareIcon {...props} />}
+            trigger={
+                <HoverTooltip
+                    trigger={<StyledShareIcon {...props} />}
+                    text="Share"
+                    {...props}
+                />
+            }
         >
             <Contents>
                 <SocialIcon css={!showCopyMessage && hide} type="success" />

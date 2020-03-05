@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Popover from 'react-tiny-popover';
@@ -257,6 +257,8 @@ const contentLocation = padding => ({
  * @property {string} props.position
  * @property {node} props.trigger
  * @property {boolean} props.maxWidth
+ * @property {boolean} props.displayOnHover
+ * @property {boolean} props.closeTooltip
  */
 
 const Tooltip = ({
@@ -265,8 +267,14 @@ const Tooltip = ({
     position,
     trigger,
     maxWidth,
+    displayOnHover,
+    contentStyle,
+    closeTooltip,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    useEffect(() => {
+        closeTooltip && setIsOpen(false);
+    }, [closeTooltip]);
     const tooltipProps = {
         align: TOOLTIP_ALIGNMENT_MAP[position],
         containerStyle: { overflow: 'visible', zIndex: layer.superFront },
@@ -277,6 +285,16 @@ const Tooltip = ({
         position: position,
         transitionDuration: 0.15,
     };
+    const triggerProps = displayOnHover
+        ? {
+              onMouseEnter: () => setIsOpen(true),
+              onMouseLeave: () => setIsOpen(false),
+          }
+        : {
+              onClick: () => setIsOpen(!isOpen),
+              onKeyPress: () => setIsOpen(!isOpen),
+              tabIndex: '0',
+          };
 
     return (
         <Popover
@@ -286,19 +304,14 @@ const Tooltip = ({
                     hasGradientBorder={hasGradientBorder}
                     position={position}
                     maxWidth={maxWidth}
+                    css={contentStyle}
                 >
                     {children}
                 </Content>
             }
             {...tooltipProps}
         >
-            <Trigger
-                tabIndex="0"
-                onClick={() => setIsOpen(!isOpen)}
-                onKeyPress={() => setIsOpen(!isOpen)}
-            >
-                {trigger}
-            </Trigger>
+            <Trigger {...triggerProps}>{trigger}</Trigger>
         </Popover>
     );
 };

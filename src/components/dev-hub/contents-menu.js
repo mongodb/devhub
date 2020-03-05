@@ -3,10 +3,11 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Tooltip from './tooltip';
 import ListIcon from './icons/list-icon';
-import { P } from './text';
+import { H5, P } from './text';
 import Link from './link';
 import { animationSpeed, colorMap, size } from './theme';
 import { formatText } from '../../utils/format-text';
+import HoverTooltip from './hover-tooltip';
 
 const StyledListIcon = styled(ListIcon)`
     &:hover {
@@ -39,7 +40,6 @@ const StyledLink = styled(Link)`
         color: ${colorMap.greyLightTwo};
     }
     color: ${colorMap.greyLightTwo};
-    padding: ${size.small} 0;
     text-decoration: none;
     ${({ isactive }) => (isactive ? activeStyles : defaultStyles)}
     &:after {
@@ -69,15 +69,31 @@ const Contents = styled('ul')`
 
 const ContentsMenu = ({ title, headingNodes, ...props }) => {
     const [activeItem, setActiveItem] = useState(null);
-
+    const [closeTooltip, setCloseTooltip] = useState(false);
+    const handleClick = id => {
+        setCloseTooltip(true);
+        setActiveItem(id);
+    };
     return (
         <Tooltip
             hasGradientBorder
+            closeTooltip={closeTooltip}
             position={'right'}
-            trigger={<StyledListIcon {...props} />}
+            trigger={
+                <HoverTooltip
+                    trigger={
+                        <StyledListIcon
+                            onClick={() => setCloseTooltip(false)}
+                            {...props}
+                        />
+                    }
+                    text="Contents"
+                    {...props}
+                />
+            }
             maxWidth={400}
         >
-            <P bold>{title}</P>
+            <H5 bold>{title}</H5>
             <Contents>
                 {headingNodes.map(({ id, title }) => {
                     const isactive = id === activeItem ? 'true' : null;
@@ -86,11 +102,11 @@ const ContentsMenu = ({ title, headingNodes, ...props }) => {
                             <StyledLink
                                 tabIndex="0"
                                 isactive={isactive}
-                                onClick={() => setActiveItem(id)}
-                                onKeyPress={() => setActiveItem(id)}
+                                onClick={() => handleClick(id)}
+                                onKeyPress={() => handleClick(id)}
                                 href={`#${id}`}
                             >
-                                {formatText(title)}
+                                <P>{formatText(title)}</P>
                             </StyledLink>
                         </StyledItem>
                     );
