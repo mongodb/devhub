@@ -6,15 +6,11 @@ import { screenSize, size } from './theme';
 
 // Zip array of objects into array of 2-element arrays to populate Select forms
 // Replace key with label text, if defined (e.g. nodejs => Node.js)
-const zipFilterObjects = (
-    filterObject,
-    includeCount = true,
-    findCount = x => x.count
-) => [
+const zipFilterObjects = (filterObject, findCount = x => x.count) => [
     ['all', 'All'],
     ...Object.keys(filterObject).map(p => [
         p,
-        `${p} ${includeCount ? `(${findCount(filterObject[p])})` : ''}`,
+        `${p} ${`(${findCount(filterObject[p])})`}`,
     ]),
 ];
 
@@ -62,18 +58,29 @@ export default React.memo(
         );
         const [languages, setLanguages] = useState(initialLanguages);
         const [products, setProducts] = useState(initialProducts);
+        const hasProductFilter = useMemo(
+            () => filterValue.products && filterValue.products !== 'all',
+            [filterValue.products]
+        );
+        const hasLanguageFilter = useMemo(
+            () => filterValue.languages && filterValue.languages !== 'all',
+            [filterValue.languages]
+        );
+        const selectTextFormatting = useMemo(
+            () =>
+                hasLanguageFilter && hasProductFilter
+                    ? x => x.replace(/\(\d*\)/g, '')
+                    : null,
+            [hasLanguageFilter, hasProductFilter]
+        );
         // Update filter values when changed
         useEffect(() => {
-            const hasProductFilter =
-                filterValue.products && filterValue.products !== 'all';
-            const hasLanguageFilter =
-                filterValue.languages && filterValue.languages !== 'all';
             if (hasProductFilter) {
                 // Filter only languages which have an article in common with the selected product
                 const langs = filters.products[filterValue.products].languages;
                 setLanguages(
                     // Don't include counts if both filters are applied
-                    zipFilterObjects(langs, !hasLanguageFilter, l => l)
+                    zipFilterObjects(langs, l => l)
                 );
             } else {
                 setLanguages(initialLanguages);
@@ -82,9 +89,7 @@ export default React.memo(
                 // Filter only products which have an article in common with the selected language
                 const products =
                     filters.languages[filterValue.languages].products;
-                setProducts(
-                    zipFilterObjects(products, !hasProductFilter, p => p)
-                );
+                setProducts(zipFilterObjects(products, p => p));
             } else {
                 setProducts(initialProducts);
             }
@@ -92,10 +97,13 @@ export default React.memo(
             filterValue,
             filters.languages,
             filters.products,
+            hasLanguageFilter,
+            hasProductFilter,
             initialLanguages,
             initialProducts,
         ]);
         const handleChange = (value, type) => {
+            console.log(value, type);
             // only update if the filter value has changed
             if (filterValue[type]) {
                 filterValue[type] !== value &&
@@ -117,6 +125,7 @@ export default React.memo(
                             defaultText="Product"
                             value={filterValue.products}
                             onChange={e => handleChange(e, 'products')}
+                            styleSelectedText={selectTextFormatting}
                         ></Select>
                     </SelectWrapper>
                     <SelectWrapper>
@@ -127,6 +136,7 @@ export default React.memo(
                             defaultText="Language"
                             value={filterValue.languages}
                             onChange={e => handleChange(e, 'languages')}
+                            styleSelectedText={selectTextFormatting}
                         ></Select>
                     </SelectWrapper>
                 </ResponsiveFlexContainer>
