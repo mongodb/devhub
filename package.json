@@ -10,7 +10,7 @@
     "format:fix": "npm run prettier -- --write",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern 'preview/*' --ext .js,.jsx .",
     "lint:fix": "npm run lint -- --fix",
-    "prettier": "prettier \"**/*.{js,jsx,json,md}\"",
+    "prettier": "prettier \"**/*.{js,jsx,json,md,mdx}\"",
     "preview": "webpack-dev-server --open --config ./webpack.config.js --env.PREVIEW_MODE='cli'",
     "serve": "gatsby serve --prefix-paths",
     "storybook": "start-storybook",
