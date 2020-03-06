@@ -31,6 +31,10 @@ const PrimarySection = styled('div')`
     padding-right: ${size.medium};
 `;
 
+const PrimaryImage = styled('img')`
+    border-radius: ${size.small};
+`;
+
 const SecondArticle = styled(Card)`
     grid-area: secondary;
 `;
@@ -43,10 +47,17 @@ const Header = styled('header')`
     background: ${colorMap.devBlack};
     margin-bottom: ${size.xlarge};
     padding: ${size.xlarge} ${size.medium};
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.large};
+    }
 `;
 
 const Article = styled('article')`
     padding: ${size.medium};
+`;
+
+const StyledFilterBar = styled(FilterBar)`
+    padding-bottom: ${size.default};
 `;
 
 const parseArticles = arr =>
@@ -152,7 +163,9 @@ const FeaturedArticles = ({ articles }) => {
         <MainFeatureGrid>
             <PrimarySection>
                 <MediaBlock
-                    mediaComponent={<img src={withPrefix(image)} alt="" />}
+                    mediaComponent={
+                        <PrimaryImage src={withPrefix(image)} alt="" />
+                    }
                     mediaWidth={360}
                 >
                     <Card
@@ -215,7 +228,7 @@ export default ({
                 <FeaturedArticles articles={featuredArticles} />
             </Header>
             <Article>
-                <FilterBar
+                <StyledFilterBar
                     filters={filters}
                     filterValue={filterValue}
                     setFilterValue={updateFilter}

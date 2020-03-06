@@ -46,8 +46,20 @@ const SelectWrapper = styled('div')`
     }
 `;
 
+const HeadingText = styled(H3)`
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.default};
+    }
+`;
+
 export default React.memo(
-    ({ heading = 'All Articles', filters, filterValue, setFilterValue }) => {
+    ({
+        heading = 'All Articles',
+        filters,
+        filterValue,
+        setFilterValue,
+        ...props
+    }) => {
         const initialLanguages = useMemo(
             () => zipFilterObjects(filters.languages),
             [filters.languages]
@@ -112,8 +124,8 @@ export default React.memo(
             }
         };
         return (
-            <FilterBar>
-                <H3>{heading}</H3>
+            <FilterBar {...props}>
+                <HeadingText collapse>{heading}</HeadingText>
                 <ResponsiveFlexContainer>
                     <FilterLabel>Filter By</FilterLabel>
                     <SelectWrapper>
