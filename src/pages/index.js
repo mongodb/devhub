@@ -105,6 +105,26 @@ const ThumbnailButton = styled(Button)`
     top: 35%;
 `;
 
+const TwitchVideoModal = ({ id, trigger }) => (
+    <Modal
+        dialogContainerStyle={{
+            height: '90%',
+            padding: `0 ${size.large}`,
+            width: '90%',
+        }}
+        transparent
+        triggerComponent={trigger}
+    >
+        <VideoEmbed
+            nodeData={{
+                argument: [{ value: id }],
+                name: 'twitch',
+            }}
+            autoplay={true}
+        />
+    </Modal>
+);
+
 const Thumbnail = ({ video }) => {
     let thumbnailUrl = greenPatternImage; //fallback image if there is none
     let dimensionsMatcher = '{width}x{height}';
@@ -125,23 +145,10 @@ const Thumbnail = ({ video }) => {
             image={thumbnailUrl}
             title={video.title}
         >
-            <Modal
-                dialogContainerStyle={{
-                    height: '90%',
-                    padding: `0 ${size.large}`,
-                    width: '90%',
-                }}
-                transparent
-                triggerComponent={<ThumbnailButton play />}
-            >
-                <VideoEmbed
-                    nodeData={{
-                        argument: [{ value: video.id }],
-                        name: 'twitch',
-                    }}
-                    autoplay={true}
-                />
-            </Modal>
+            <TwitchVideoModal
+                id={video.id}
+                trigger={<ThumbnailButton play />}
+            />
         </ThumbnailCard>
     );
 };
@@ -225,14 +232,10 @@ export default () => {
                                 developers make the MongoDB platform come alive.
                             </DescriptiveText>
                             {twitchVideo && (
-                                <Button
-                                    target="_blank"
-                                    rel="noreferrer noopener"
-                                    secondary
-                                    href={twitchVideo.url}
-                                >
-                                    Watch
-                                </Button>
+                                <TwitchVideoModal
+                                    id={twitchVideo.id}
+                                    trigger={<Button secondary>Watch</Button>}
+                                />
                             )}
                         </SectionContent>
                     </MediaBlock>
