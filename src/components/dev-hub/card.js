@@ -51,6 +51,7 @@ const Wrapper = styled('div')`
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};
     width: ${({ width = 'auto' }) => width};
+    ${({ collapseImage }) => !collapseImage && `min-height: 562px`};
     ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
     ${({ isClickable }) => isClickable && hoverStyles}
 `;
@@ -72,6 +73,7 @@ const CardTitle = styled(H5)`
  * @param {Object<string, any>} props
  * @property {node} props.children
  * @property {string} props.className
+ * @property {boolean?} props.collapseImage
  * @property {string} props.description
  * @property {bool?} props.gradient
  * @property {bool?} props.highlight
@@ -90,6 +92,7 @@ const CardTitle = styled(H5)`
 const Card = ({
     children,
     className,
+    collapseImage = false,
     description,
     href,
     image,
@@ -119,11 +122,12 @@ const Card = ({
             maxWidth={maxWidth}
             isClickable={isClickable}
             className={className}
+            collapseImage={collapseImage}
         >
             <div>
-                {image && (
+                {!collapseImage && (
                     <ImageWrapper>
-                        <Image src={image} alt="" />
+                        {image && <Image src={image} alt="" />}
                     </ImageWrapper>
                 )}
                 {title && (
