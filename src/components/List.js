@@ -17,6 +17,9 @@ const UnorderedList = styled('ul')`
         position: relative;
         top: -3px;
     }
+    li {
+        display: flex;
+    }
 `;
 
 const List = props => {
