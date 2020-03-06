@@ -13,6 +13,7 @@ import { screenSize, size } from '../components/dev-hub/theme';
 import Series from '../components/dev-hub/series';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
+import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
@@ -28,6 +29,12 @@ const contentNodesMap = {
     'meta-description': true,
     summary: true,
     twitter: true,
+};
+
+const dateFormatOptions = {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
 };
 
 /**
@@ -156,6 +163,15 @@ const Article = props => {
         'heading',
         1
     );
+    const formattedPublishedDate = toDateString(
+        meta.pubdate,
+        dateFormatOptions
+    );
+    const formattedUpdatedDate = toDateString(
+        meta.updatedDate,
+        dateFormatOptions
+    );
+
     return (
         <Layout>
             <Helmet>
@@ -168,10 +184,10 @@ const Article = props => {
                 articleImage={withPrefix(meta['atf-image'])}
                 author={meta.author}
                 breadcrumb={articleBreadcrumbs}
-                originalDate={meta.pubdate}
+                originalDate={formattedPublishedDate}
                 tags={tagList}
                 title={articleTitle}
-                updatedDate={meta.updatedDate}
+                updatedDate={formattedUpdatedDate}
             />
             <Container>
                 <Icons>

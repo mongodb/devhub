@@ -115,6 +115,20 @@ const getRelatedPagesWithImages = pageNodes => {
     return relatedPageInfo;
 };
 
+const getAuthorIncludesPath = authorName => {
+    switch (authorName) {
+        // Handle case where REF_DOC_MAP name isnt just lastname-firstname
+        case 'Ken W. Alger':
+            return 'includes/authors/alger-ken';
+        default:
+            return `includes/authors/${authorName
+                .toLowerCase()
+                .split(' ')
+                .reverse()
+                .join('-')}`;
+    }
+};
+
 const createTagPageType = async (createPage, pageMetadata, stitchType) => {
     const isAuthor = stitchType === 'author';
     const pageType = STITCH_TYPE_TO_URL_PREFIX[stitchType];
@@ -160,7 +174,14 @@ const createTagPageType = async (createPage, pageMetadata, stitchType) => {
                 pages: page.pages,
             };
             if (isAuthor) {
+                const authorBioPath = getAuthorIncludesPath(name);
+                const bio = dlv(
+                    RESOLVED_REF_DOC_MAPPING[authorBioPath],
+                    ['ast', 'children', 0, 'children', 0],
+                    null
+                );
                 newPage['author_image'] = page.item._id.image;
+                newPage['bio'] = bio;
             }
             return newPage;
         }
@@ -328,11 +349,62 @@ const getFeaturedLearnArticles = articles => {
     return result;
 };
 
+const getLearnPageFilters = async () => {
+    const filters = {
+        languages: {},
+        products: {},
+    };
+
+    // Get possible language and product values from Stitch
+    const languageValues = await stitchClient.callFunction('getValuesByKey', [
+        metadata,
+        'languages',
+    ]);
+    const productValues = await stitchClient.callFunction('getValuesByKey', [
+        metadata,
+        'products',
+    ]);
+
+    // For each language, build an object with its total count, and count for each product
+    for (let i = 0; i < languageValues.length; i++) {
+        const l = languageValues[i];
+        filters.languages[l._id] = {
+            count: l.count,
+            products: {},
+        };
+        const productValuesForLanguage = await stitchClient.callFunction(
+            'getValuesByKey',
+            [metadata, 'products', { languages: l._id }]
+        );
+        productValuesForLanguage.forEach(pl => {
+            filters.languages[l._id].products[pl._id] = pl.count;
+        });
+    }
+
+    // For each product, build an object with its total count, and count for each language
+    for (let i = 0; i < productValues.length; i++) {
+        const p = productValues[i];
+        filters.products[p._id] = {
+            count: p.count,
+            languages: {},
+        };
+        const languageValuesForProduct = await stitchClient.callFunction(
+            'getValuesByKey',
+            [metadata, 'languages', { products: p._id }]
+        );
+        languageValuesForProduct.forEach(lp => {
+            filters.products[p._id].languages[lp._id] = lp.count;
+        });
+    }
+    return filters;
+};
+
 exports.onCreatePage = async ({ page, actions }) => {
     if (page.path === '/learn/') {
         const { createPage, deletePage } = actions;
         const allArticles = await getLearnPageArticles();
         const featuredArticles = getFeaturedLearnArticles(allArticles);
+        const filters = await getLearnPageFilters(allArticles);
         deletePage(page);
         createPage({
             ...page,
@@ -340,6 +412,7 @@ exports.onCreatePage = async ({ page, actions }) => {
                 ...page.context,
                 allArticles,
                 featuredArticles,
+                filters,
             },
         });
     }
