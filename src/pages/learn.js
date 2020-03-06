@@ -124,6 +124,7 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
         );
         return (
             <Wrapper
+                collapseImage
                 to={slug}
                 title={title}
                 description={description}
@@ -155,6 +156,7 @@ const FeaturedArticles = ({ articles }) => {
                     mediaWidth={360}
                 >
                     <Card
+                        collapseImage
                         maxDescriptionLines={4}
                         to={slug}
                         title={title}
@@ -177,7 +179,7 @@ const FeaturedArticles = ({ articles }) => {
 
 export default ({
     location,
-    pageContext: { allArticles, featuredArticles },
+    pageContext: { allArticles, featuredArticles, filters },
 }) => {
     const metadata = useSiteMetadata();
     const initialArticles = useMemo(() => parseArticles(allArticles), [
@@ -214,6 +216,7 @@ export default ({
             </Header>
             <Article>
                 <FilterBar
+                    filters={filters}
                     filterValue={filterValue}
                     setFilterValue={updateFilter}
                 />

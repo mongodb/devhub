@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SuccessIcon = props => (
+const SuccessIcon = ({ color = 'url(#linearGradient-1)', ...props }) => (
     <svg width="48px" height="48px" viewBox="0 0 48 48" {...props}>
         <defs>
             <linearGradient
@@ -16,10 +16,7 @@ const SuccessIcon = props => (
             </linearGradient>
         </defs>
         <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-            <g
-                transform="translate(-696.000000, -366.000000)"
-                fill="url(#linearGradient-1)"
-            >
+            <g transform="translate(-696.000000, -366.000000)" fill={color}>
                 <g id="Modal" transform="translate(420.000000, 326.000000)">
                     <g id="Group-3" transform="translate(40.000000, 20.000000)">
                         <g

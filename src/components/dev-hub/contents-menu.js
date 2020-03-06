@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled-base';
+import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import Tooltip from './tooltip';
+import ControlledTooltip from './controlled-tooltip';
 import ListIcon from './icons/list-icon';
-import { P } from './text';
+import { H5, P } from './text';
 import Link from './link';
 import { animationSpeed, colorMap, size } from './theme';
+import { formatText } from '../../utils/format-text';
+import HoverTooltip from './hover-tooltip';
+
+const StyledListIcon = styled(ListIcon)`
+    &:hover {
+        g {
+            path,
+            circle {
+                fill: ${colorMap.devWhite};
+            }
+        }
+    }
+`;
 
 const activeStyles = css`
     color: ${colorMap.devWhite};
@@ -19,16 +32,14 @@ const activeStyles = css`
 const defaultStyles = css`
     &:hover {
         color: ${colorMap.devWhite};
-        transition: color ${animationSpeed.fast} ease ${animationSpeed.fast};
+        transition: color ${animationSpeed.fast};
     }
 `;
-
-const StyledItem = styled(Link)`
+const StyledLink = styled(Link)`
     &:visited {
         color: ${colorMap.greyLightTwo};
     }
     color: ${colorMap.greyLightTwo};
-    padding: ${size.tiny} 0;
     text-decoration: none;
     ${({ isactive }) => (isactive ? activeStyles : defaultStyles)}
     &:after {
@@ -41,7 +52,9 @@ const StyledItem = styled(Link)`
         padding-bottom: 0;
     }
 `;
-
+const StyledItem = styled('li')`
+    margin: ${size.small} 0;
+`;
 const Contents = styled('ul')`
     list-style-type: none;
     margin: 0;
@@ -54,31 +67,48 @@ const Contents = styled('ul')`
  * @property {object[]} props.contents
  */
 
-const ContentsMenu = ({ title, contents = [] }) => {
+const ContentsMenu = ({ title, headingNodes, ...props }) => {
     const [activeItem, setActiveItem] = useState(null);
-
+    const [isOpen, setIsOpen] = useState(false);
+    const handleClick = id => {
+        setIsOpen(false);
+        setActiveItem(id);
+    };
     return (
-        <Tooltip hasGradientBorder position={'right'} trigger={<ListIcon />}>
-            <P bold>{title}</P>
+        <ControlledTooltip
+            hasGradientBorder
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            position={'right'}
+            trigger={
+                <HoverTooltip
+                    trigger={<StyledListIcon {...props} />}
+                    text="Contents"
+                    {...props}
+                />
+            }
+            maxWidth={400}
+        >
+            <H5 bold>{title}</H5>
             <Contents>
-                {contents.map(item => {
-                    const isactive = item.to === activeItem ? 'true' : null;
+                {headingNodes.map(({ id, title }) => {
+                    const isactive = id === activeItem ? 'true' : null;
                     return (
-                        <li key={item.to}>
-                            <StyledItem
+                        <StyledItem key={id}>
+                            <StyledLink
                                 tabIndex="0"
                                 isactive={isactive}
-                                onClick={() => setActiveItem(item.to)}
-                                onKeyPress={() => setActiveItem(item.to)}
-                                to={item.to}
+                                onClick={() => handleClick(id)}
+                                onKeyPress={() => handleClick(id)}
+                                href={`#${id}`}
                             >
-                                {item.title}
-                            </StyledItem>
-                        </li>
+                                <P>{formatText(title)}</P>
+                            </StyledLink>
+                        </StyledItem>
                     );
                 })}
             </Contents>
-        </Tooltip>
+        </ControlledTooltip>
     );
 };
 
