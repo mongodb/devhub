@@ -30,6 +30,9 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
                 const streamResp = await get(STREAMS_URL, headers);
                 // since we're only interested in one channel just get the first
                 currentStream = streamResp.data[0];
+                if (currentStream) {
+                    currentStream.url = `https://twitch.tv/${currentStream.user_name}`;
+                }
                 setStream(currentStream);
             }
             //get videos
