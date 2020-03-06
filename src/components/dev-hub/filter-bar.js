@@ -47,7 +47,13 @@ const SelectWrapper = styled('div')`
 `;
 
 export default React.memo(
-    ({ heading = 'All Articles', filters, filterValue, setFilterValue }) => {
+    ({
+        heading = 'All Articles',
+        filters,
+        filterValue,
+        setFilterValue,
+        ...props
+    }) => {
         const initialLanguages = useMemo(
             () => zipFilterObjects(filters.languages),
             [filters.languages]
@@ -112,7 +118,7 @@ export default React.memo(
             }
         };
         return (
-            <FilterBar>
+            <FilterBar {...props}>
                 <H3>{heading}</H3>
                 <ResponsiveFlexContainer>
                     <FilterLabel>Filter By</FilterLabel>

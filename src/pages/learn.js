@@ -53,6 +53,10 @@ const Article = styled('article')`
     padding: ${size.medium};
 `;
 
+const StyledFilterBar = styled(FilterBar)`
+    padding-bottom: ${size.default};
+`;
+
 const parseArticles = arr =>
     arr.map(({ _id, query_fields }) => {
         return { _id, ...query_fields };
@@ -221,7 +225,7 @@ export default ({
                 <FeaturedArticles articles={featuredArticles} />
             </Header>
             <Article>
-                <FilterBar
+                <StyledFilterBar
                     filters={filters}
                     filterValue={filterValue}
                     setFilterValue={updateFilter}
