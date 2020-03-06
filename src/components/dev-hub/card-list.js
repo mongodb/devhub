@@ -8,19 +8,12 @@ import { getNestedText } from '../../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 
 const CardContainer = styled('div')`
-    align-items: start;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 350px);
+    grid-row-gap: ${size.small};
+    justify-content: center;
     margin: 0 -${size.medium};
 
-    @media ${screenSize.xlargeAndUp} {
-        &:after {
-            /* Hack to prevent last row cards from expanding */
-            content: '';
-            flex-grow: 1000000000;
-        }
-    }
     @media ${screenSize.upToMedium} {
         display: block;
     }
