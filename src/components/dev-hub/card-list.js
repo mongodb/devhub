@@ -10,7 +10,6 @@ import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 const CardContainer = styled('div')`
     display: grid;
     grid-template-columns: repeat(auto-fill, 350px);
-    grid-column-gap: ${size.small};
     grid-row-gap: ${size.small};
     justify-content: center;
     margin: 0 -${size.medium};
