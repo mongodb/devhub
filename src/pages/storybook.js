@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import Badge from '../components/dev-hub/badge';
 import Breadcrumb from '../components/dev-hub/breadcrumb';
 import Blockquote from '../components/dev-hub/blockquote';
 import BlogTagList from '../components/dev-hub/blog-tag-list';
@@ -356,13 +355,6 @@ export default () => (
             <SubHeader>SubHeader</SubHeader>
             <SectionHeader>Block Quote</SectionHeader>
             <BlockQuoteStory />
-            <SectionHeader>Content Label</SectionHeader>
-            <Badge>How-To</Badge>
-            <Badge>Quick Start</Badge>
-            <Badge>Article</Badge>
-            <Badge>Event</Badge>
-            <Badge>Community</Badge>
-            <Badge>Deep Dive</Badge>
             <SectionHeader>Blog Tags</SectionHeader>
             <H4>Short List</H4>
             <BlogTagListStory short />
