@@ -31,6 +31,10 @@ const PrimarySection = styled('div')`
     padding-right: ${size.medium};
 `;
 
+const PrimaryImage = styled('img')`
+    border-radius: ${size.small};
+`;
+
 const SecondArticle = styled(Card)`
     grid-area: secondary;
 `;
@@ -152,7 +156,9 @@ const FeaturedArticles = ({ articles }) => {
         <MainFeatureGrid>
             <PrimarySection>
                 <MediaBlock
-                    mediaComponent={<img src={withPrefix(image)} alt="" />}
+                    mediaComponent={
+                        <PrimaryImage src={withPrefix(image)} alt="" />
+                    }
                     mediaWidth={360}
                 >
                     <Card
