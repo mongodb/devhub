@@ -59,6 +59,7 @@ const VideoEmbed = ({
                     twitch: {
                         options: {
                             autoplay,
+                            video: videoId,
                         },
                     },
                 }}
