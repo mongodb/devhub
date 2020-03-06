@@ -26,7 +26,7 @@ const globalStyles = css`
             Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
             'Segoe UI Symbol';
         font-size: ${fontSize.default};
-        line-height: ${lineHeight.default};
+        line-height: ${lineHeight.medium};
         margin: 0;
         padding: 0;
     }

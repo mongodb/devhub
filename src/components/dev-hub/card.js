@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { animationSpeed, colorMap, size, fontSize } from './theme';
+import { animationSpeed, colorMap, lineHeight, size, fontSize } from './theme';
 import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
@@ -64,6 +64,7 @@ const truncate = maxLines => css`
 const DescriptionText = styled(P)`
     color: ${colorMap.greyLightTwo};
     font-size: ${fontSize.small};
+    line-height: ${lineHeight.small};
 `;
 const CardTitle = styled(H5)`
     text-align: left;
