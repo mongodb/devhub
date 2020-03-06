@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Popover from 'react-tiny-popover';
-import { colorMap, layer, size } from './theme';
+import { animationSpeed, colorMap, layer, size } from './theme';
 
 const CONTENT_MAX_WIDTH = 250;
 const TOOLTIP_DISTANCE = 15;
@@ -280,7 +280,7 @@ const ControlledTooltip = ({
         onClickOutside: () => setIsOpen(false),
         padding: TOOLTIP_DISTANCE,
         position: position,
-        transitionDuration: 0.15,
+        transitionDuration: `${animationSpeed.fast}`,
     };
     const triggerProps = displayOnHover
         ? {

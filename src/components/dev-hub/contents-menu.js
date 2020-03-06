@@ -32,7 +32,7 @@ const activeStyles = css`
 const defaultStyles = css`
     &:hover {
         color: ${colorMap.devWhite};
-        transition: color ${animationSpeed.fast} ease ${animationSpeed.fast};
+        transition: color ${animationSpeed.fast};
     }
 `;
 const StyledLink = styled(Link)`
