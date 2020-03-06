@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
@@ -82,6 +83,9 @@ const Tag = props => {
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
     return (
         <Layout>
+            <Helmet>
+                <meta name="robots" content="noindex" />
+            </Helmet>
             <HeroBanner
                 breadcrumb={[
                     { label: 'Home', to: '/' },

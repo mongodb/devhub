@@ -13,9 +13,15 @@ const StyledCopyButton = styled(Button)`
     border-radius: ${size.small};
     background-color: transparent;
     color: ${colorMap.black};
-    padding: 0 ${size.default};
-    width: ${COPY_BUTTON_WIDTH}px;
     height: ${size.large};
+    left: 0;
+    padding: 0 ${size.default};
+    position: absolute;
+    top: 0;
+    width: ${COPY_BUTTON_WIDTH}px;
+    @media ${screenSize.upToMedium} {
+        padding: 0 ${size.default};
+    }
     /* Remove pseudoelements since no visible animation is occurring */
     &:active,
     &:hover,
@@ -29,9 +35,12 @@ const StyledCopyButton = styled(Button)`
     }
 `;
 
-const CopyText = styled('span')`
+const CopyText = styled('div')`
+    align-items: center;
+    display: flex;
     font-family: 'Fira Mono', monospace;
     font-size: ${fontSize.micro};
+    justify-content: center;
     @media ${screenSize.upToMedium} {
         font-family: 'Fira Mono', monospace;
         font-size: ${fontSize.micro};
@@ -87,7 +96,7 @@ const CopyButton = ({
             if (!wasCopied) {
                 setFeedbackMessage(<CopyText>Error</CopyText>);
             } else {
-                setFeedbackMessage(feedbackString);
+                setFeedbackMessage(<CopyText>{feedbackString}</CopyText>);
             }
             const newTimeoutId = setTimeout(() => {
                 setFeedbackMessage(copyString);
