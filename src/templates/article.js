@@ -9,13 +9,16 @@ import ArticleShareFooter from '../components/dev-hub/article-share-footer';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
 import RelatedArticles from '../components/dev-hub/related-articles';
-import { size } from '../components/dev-hub/theme';
+import { screenSize, size } from '../components/dev-hub/theme';
 import Series from '../components/dev-hub/series';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-
+import ShareMenu from '../components/dev-hub/share-menu';
+import ContentsMenu from '../components/dev-hub/contents-menu';
+import { getNestedValue } from '../utils/get-nested-value';
+import { findSectionHeadings } from '../utils/find-section-headings';
 /**
  * Name map of directives we want to display in an article
  */
@@ -97,12 +100,36 @@ const ArticleSeries = ({ allSeriesForArticle, slugTitleMapping, title }) => {
 };
 
 const ArticleContent = styled('article')`
-    margin: 0 auto;
     max-width: ${size.maxContentWidth};
     padding-left: ${size.small};
     padding-right: ${size.small};
 `;
-
+const Icons = styled('div')`
+    margin: ${size.tiny} ${size.default};
+    span {
+        padding: 0 ${size.tiny};
+    }
+    @media ${screenSize.smallAndUp} {
+        display: flex;
+        flex-direction: column;
+        span:not(:first-of-type) {
+            margin-top: ${size.small};
+        }
+    }
+    @media ${screenSize.upToSmall} {
+        margin: 0 ${size.small};
+        span:not(:first-of-type) {
+            margin-left: ${size.small};
+        }
+    }
+`;
+const Container = styled('div')`
+    margin: 0 auto;
+    @media ${screenSize.smallAndUp} {
+        display: flex;
+        justify-content: center;
+    }
+`;
 const Article = props => {
     const {
         pageContext: {
@@ -130,6 +157,12 @@ const Article = props => {
     const tagList = getTagLinksFromMeta(meta);
     const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
     const articleUrl = `${siteUrl}/${thisPage}`;
+    const headingNodes = findSectionHeadings(
+        getNestedValue(['ast', 'children'], __refDocMapping),
+        'type',
+        'heading',
+        1
+    );
     const formattedPublishedDate = toDateString(
         meta.pubdate,
         dateFormatOptions
@@ -156,22 +189,35 @@ const Article = props => {
                 title={articleTitle}
                 updatedDate={formattedUpdatedDate}
             />
-
-            <ArticleContent>
-                <DocumentBody
-                    pageNodes={contentNodes}
-                    slugTitleMapping={slugTitleMapping}
-                    slug={thisPage}
-                    {...rest}
-                />
-                <ArticleShareFooter url={articleUrl} tags={tagList} />
-                <ArticleSeries
-                    allSeriesForArticle={seriesArticles}
-                    slugTitleMapping={slugTitleMapping}
-                    title={articleTitle}
-                />
-            </ArticleContent>
-
+            <Container>
+                <Icons>
+                    <ContentsMenu
+                        title="Contents"
+                        headingNodes={headingNodes}
+                        height={size.default}
+                        width={size.default}
+                    />
+                    <ShareMenu
+                        url={articleUrl}
+                        height={size.default}
+                        width={size.default}
+                    />
+                </Icons>
+                <ArticleContent>
+                    <DocumentBody
+                        pageNodes={contentNodes}
+                        slugTitleMapping={slugTitleMapping}
+                        slug={thisPage}
+                        {...rest}
+                    />
+                    <ArticleShareFooter url={articleUrl} tags={tagList} />
+                    <ArticleSeries
+                        allSeriesForArticle={seriesArticles}
+                        slugTitleMapping={slugTitleMapping}
+                        title={articleTitle}
+                    />
+                </ArticleContent>
+            </Container>
             <RelatedArticles
                 related={meta.related}
                 slugTitleMapping={slugTitleMapping}
