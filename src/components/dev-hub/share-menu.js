@@ -23,6 +23,7 @@ const StyledShareIcon = styled(ShareIcon)`
 const SocialLink = styled(Link)`
     padding-right: ${size.default};
     text-decoration: none;
+    ${({ isClickable }) => isClickable && 'cursor: pointer;'}
     &:after {
         content: '';
     }
@@ -55,6 +56,7 @@ const SocialIcon = ({ type, href, ...props }) => {
             onMouseLeave={() => isClickable && setColor(colorMap.greyLightTwo)}
             href={href}
             target="_blank"
+            isClickable={isClickable}
             {...props}
         >
             <Icon color={color} width={size.default} height={size.default} />
