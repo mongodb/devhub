@@ -62,8 +62,9 @@ const useEventData = url => {
                     },
                 });
                 if (data) {
+                    const parsedData = await data.json();
                     setError(null);
-                    setEvents(data);
+                    setEvents(parsedData);
                 }
             } catch (e) {
                 setError(e);
