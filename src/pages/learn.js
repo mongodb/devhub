@@ -47,6 +47,9 @@ const Header = styled('header')`
     background: ${colorMap.devBlack};
     margin-bottom: ${size.xlarge};
     padding: ${size.xlarge} ${size.medium};
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.large};
+    }
 `;
 
 const Article = styled('article')`

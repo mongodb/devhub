@@ -46,6 +46,12 @@ const SelectWrapper = styled('div')`
     }
 `;
 
+const HeadingText = styled(H3)`
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.default};
+    }
+`;
+
 export default React.memo(
     ({
         heading = 'All Articles',
@@ -119,7 +125,7 @@ export default React.memo(
         };
         return (
             <FilterBar {...props}>
-                <H3>{heading}</H3>
+                <HeadingText collapse>{heading}</HeadingText>
                 <ResponsiveFlexContainer>
                     <FilterLabel>Filter By</FilterLabel>
                     <SelectWrapper>
