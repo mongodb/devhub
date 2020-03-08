@@ -1,6 +1,7 @@
 import React from 'react';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
@@ -65,6 +66,13 @@ export const StorybookLayout = ({ children }) => {
 
 export default ({ children }) => (
     <GlobalWrapper>
+        <Helmet>
+            <meta name="robots" content="index" />
+            <link
+                rel="shortcut icon"
+                href="https://www.mongodb.com/assets/images/global/favicon.ico"
+            />
+        </Helmet>
         <Global styles={globalStyles} />
         <GlobalNav />
         <Main>{children}</Main>
