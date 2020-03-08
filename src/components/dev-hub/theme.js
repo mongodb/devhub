@@ -85,11 +85,6 @@ const gradientMap = {
         ${colorMap.lightGreen} 0%,
         ${colorMap.teal} 100%
     )`,
-    greenTealReverse: `linear-gradient(
-        270deg,
-        ${colorMap.teal} 0%,
-        ${colorMap.lightGreen} 100%
-    )`,
     greenTealOffset: `linear-gradient(
         315deg,
         ${colorMap.teal} 0%,
@@ -145,11 +140,6 @@ const borderGradients = {
     greenTeal: `
         border: 2px solid;
         border-image: ${gradientMap.greenTeal};
-        border-image-slice: 1;
-    `,
-    greenTealReverse: `
-        border: 2px solid;
-        border-image: ${gradientMap.greenTealReverse};
         border-image-slice: 1;
     `,
     tealViolet: `

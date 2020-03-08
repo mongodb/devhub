@@ -1,0 +1,69 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Button from './button';
+import { colorMap } from './theme';
+
+<Meta title="Buttons" />
+
+# Buttons
+
+### Primary Buttons
+
+<Preview style={{ background: colorMap.devBlack }}>
+    <Story name="primary button">
+        <Button primary>Button (Primary)</Button>
+    </Story>
+    <Story name="primary external link">
+        <Button href="#" primary>
+            External Link (Primary)
+        </Button>
+    </Story>
+    <Story name="primary internal link">
+        <Button to="#" primary>
+            External Link (Primary)
+        </Button>
+    </Story>
+</Preview>
+
+### Secondary Buttons
+
+<Preview style={{ background: colorMap.devBlack }}>
+    <Story name="secondary button">
+        <Button secondary>Button (Secondary)</Button>
+    </Story>
+    <Story name="secondary external link">
+        <Button href="#" secondary>
+            External Link (Secondary)
+        </Button>
+    </Story>
+    <Story name="secondary internal link">
+        <Button to="#" secondary>
+            External Link (Secondary)
+        </Button>
+    </Story>
+</Preview>
+
+### Tertiary Buttons
+
+<Preview style={{ background: colorMap.devBlack }}>
+    <Story name="tertiary button">
+        <Button tertiary>Button (Tertiary)</Button>
+    </Story>
+    <Story name="tertiary external link">
+        <Button href="#" tertiary>
+            External Link (Tertiary)
+        </Button>
+    </Story>
+    <Story name="tertiary internal link">
+        <Button to="#" tertiary>
+            External Link (Tertiary)
+        </Button>
+    </Story>
+</Preview>
+
+### Play Button
+
+<Preview style={{ background: colorMap.devBlack }}>
+    <Story name="play button">
+        <Button play />
+    </Story>
+</Preview>

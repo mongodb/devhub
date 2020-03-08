@@ -1,0 +1,64 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import styled from '@emotion/styled';
+import { colorMap, gradientMap, size, fontSize } from './theme';
+
+<Meta title="Theme" />
+
+# Theme
+
+## Colors
+
+<Preview>
+    <Story name="colors">
+        {() => {
+            const Color = styled('div')`
+                display: inline-block;
+                fontfamily: 'Fira Mono', monospace;
+                fontsize: ${fontSize.xsmall};
+                margin: ${size.medium};
+                width: 80px;
+            `;
+            const ColorBlock = styled('div')`
+                background: ${({ color }) => color};
+                borderradius: ${size.small};
+                height: 80px;
+                width: 80px;
+            `;
+            return Object.keys(colorMap).map(color => (
+                <Color>
+                    <ColorBlock color={colorMap[color]} />
+                    <span>
+                        <strong>{color}</strong> ({colorMap[color]})
+                    </span>
+                </Color>
+            ));
+        }}
+    </Story>
+</Preview>
+
+## Gradients
+
+<Preview>
+    <Story name="gradients">
+        {() => {
+            const Wrapper = styled('div')`
+                fontfamily: 'Fira Mono', monospace;
+                fontsize: ${fontSize.xsmall};
+                margin: ${size.medium};
+            `;
+            const GradientLine = styled('div')`
+                background: ${({ gradient }) => gradient};
+                height: ${size.large};
+                width: 100%;
+            `;
+            return Object.keys(gradientMap).map(gradient => (
+                <Wrapper>
+                    <GradientLine gradient={gradientMap[gradient]} />
+                    <span>
+                        <strong>{gradient}</strong> = {gradientMap[gradient]}
+                    </span>
+                </Wrapper>
+            ));
+        }}
+    </Story>
+</Preview>

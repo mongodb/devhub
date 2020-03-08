@@ -37,6 +37,7 @@ const secondaryHoverStyles = css`
     &:active,
     &:hover,
     &:focus {
+        color: ${colorMap.devWhite};
         border: 2px solid ${colorMap.lightGreen};
     }
 `;
@@ -61,7 +62,6 @@ const secondaryStyles = css`
     border: 2px solid ${colorMap.greyDarkOne};
     position: relative;
     text-decoration: none;
-    ${buttonHoverStyles}
     ${buttonPadding}
     ${secondaryHoverStyles}
 `;

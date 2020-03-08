@@ -1,0 +1,34 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import BlogTagList from './blog-tag-list';
+
+<Meta title="Tags" />
+
+# Tags
+
+You can have a short tag list.
+
+<Preview>
+    <Story name="short-tag-list">
+        <BlogTagList
+            tags={[
+                { label: 'Kerberos', to: '#' },
+                { label: 'Golang', to: '#' },
+            ]}
+        />
+    </Story>
+</Preview>
+
+Or you can have a long tag list that will preview the first two.
+
+<Preview>
+    <Story name="long-tag-list">
+        <BlogTagList
+            tags={[
+                { label: 'Kerberos', to: '#' },
+                { label: 'Golang', to: '#' },
+                { label: 'Python', to: '#' },
+                { label: 'Another Tag', to: '#' },
+            ]}
+        />
+    </Story>
+</Preview>
