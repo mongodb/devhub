@@ -51,7 +51,6 @@ const Wrapper = styled('div')`
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};
     width: ${({ width = 'auto' }) => width};
-    ${({ collapseImage }) => !collapseImage && `min-height: 562px`};
     ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
     ${({ isClickable }) => isClickable && hoverStyles}
 `;
