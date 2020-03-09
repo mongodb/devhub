@@ -134,7 +134,6 @@ const Container = styled('div')`
 `;
 const Article = props => {
     const {
-        pageContext,
         pageContext: {
             __refDocMapping,
             seriesArticles,
@@ -146,7 +145,6 @@ const Article = props => {
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
-    console.log(contentNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
@@ -176,8 +174,6 @@ const Article = props => {
         meta.updatedDate,
         dateFormatOptions
     );
-
-    console.log(pageContext, meta);
 
     return (
         <Layout>
