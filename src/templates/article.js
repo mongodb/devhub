@@ -186,7 +186,7 @@ const Article = props => {
                     {getPageSchema(articleUrl, {
                         articleBody: __refDocMapping.source,
                         author: meta.author,
-                        datemodified: meta.updatedDate,
+                        dateModified: meta.updatedDate,
                         datePublished: meta.pubdate,
                         description: articleDescription,
                         headline: articleTitle,

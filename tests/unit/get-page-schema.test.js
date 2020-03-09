@@ -32,7 +32,7 @@ it('should correctly generate a schema for SEO on article pages', () => {
     headline: articleTitle,
     description: aritcleDescription,
     datePublished: datePublished,
-    datemodified: datemodified,
+    dateModified: dateModified,
     mainEntityOfPage: {  
         '@type': 'WebPage',
         url: articleURL
@@ -52,14 +52,14 @@ it('should correctly generate a schema for SEO on article pages', () => {
     const articleUrl = 'article.url';
     const author = { name: 'Maxime Beugnet' };
     const datePublished = '2017-01-18';
-    const datemodified = '2017-01-19';
+    const dateModified = '2017-01-19';
     const description = 'description';
     const headline = 'headline';
     const logoUrl = 'foo.img';
     const articleParams = {
         articleBody,
         author,
-        datemodified,
+        dateModified,
         datePublished,
         description,
         headline,
@@ -72,7 +72,7 @@ it('should correctly generate a schema for SEO on article pages', () => {
     expect(pageSchema.headline).toBe(headline);
     expect(pageSchema.description).toBe(description);
     expect(pageSchema.datePublished).toBe(datePublished);
-    expect(pageSchema.datemodified).toBe(datemodified);
+    expect(pageSchema.dateModified).toBe(dateModified);
 
     expect(pageSchema.mainEntityOfPage).toBeTruthy();
     expect(pageSchema.mainEntityOfPage['@type']).toBe('WebPage');

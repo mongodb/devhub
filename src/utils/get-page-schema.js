@@ -13,7 +13,7 @@ export const getPageSchema = (url, articleInfo = null) => {
             articleBody,
             author,
             datePublished,
-            datemodified,
+            dateModified,
             description,
             headline,
             logoUrl,
@@ -22,7 +22,7 @@ export const getPageSchema = (url, articleInfo = null) => {
         schema.headline = headline;
         schema.description = description;
         schema.datePublished = datePublished;
-        schema.datemodified = datemodified;
+        schema.dateModified = dateModified;
         schema.mainEntityOfPage = {
             '@type': 'WebPage',
             url: url,
