@@ -105,14 +105,15 @@ const ThumbnailButton = styled(Button)`
     top: 35%;
 `;
 
+const SIZE_TOKEN = '%{width}x%{height}';
+const SIZE_TOKEN_ALT = '{width}x{height}';
+
 const getThumbnail = (url, width = MEDIA_WIDTH, height = MEDIA_WIDTH) => {
     if (!url) {
         return greenPatternImage;
     }
-    const containsSpace = url.match('%{width}x%{height}');
-    const dimensionsMatcher = containsSpace
-        ? '%{width}x%{height}'
-        : '{width}x{height}';
+    const containsSpace = url.match(SIZE_TOKEN);
+    const dimensionsMatcher = containsSpace ? SIZE_TOKEN : SIZE_TOKEN_ALT;
     return url.replace(dimensionsMatcher, `${width}x${height}`);
 };
 

@@ -46,8 +46,7 @@ const VideoEmbed = ({
     const videoId = argument[0].value;
     const value = getVideoUrl(provider, videoId);
     const isYoutube = provider === 'youtube';
-    const image = thumbnail || isYoutube || PLACEHOLDER_IMAGE;
-    console.log({ thumbnail });
+    const previewImage = thumbnail || isYoutube || PLACEHOLDER_IMAGE;
 
     return (
         <ReactPlayerWrapper>
@@ -69,7 +68,7 @@ const VideoEmbed = ({
                 }}
                 controls
                 // If is youtube, use the default youtube thumbnail
-                light={image}
+                light={previewImage}
                 playIcon={<Button play />}
                 playing
                 url={value}
