@@ -16,7 +16,7 @@ import {
     fontSize,
 } from '../components/dev-hub/theme';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-import { getSerializedPageSchema } from '../utils/get-serialized-page-schema';
+import { getPageSchema } from '../utils/get-page-schema';
 
 const toTitleCase = css`
     text-transform: capitalize;
@@ -90,7 +90,7 @@ const Tag = props => {
             <Helmet>
                 <meta name="robots" content="noindex" />
                 <script type="application/ld+json">
-                    {getSerializedPageSchema(pageUrl)}
+                    {getPageSchema(pageUrl)}
                 </script>
             </Helmet>
             <HeroBanner

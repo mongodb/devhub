@@ -1,4 +1,4 @@
-export const getSerializedPageSchema = (url, articleInfo = null) => {
+export const getPageSchema = (url, articleInfo = null) => {
     const schema = {
         '@context': 'http://schema.org',
         url: url,
@@ -38,7 +38,7 @@ export const getSerializedPageSchema = (url, articleInfo = null) => {
         };
         schema.author = {
             '@type': 'Person',
-            // TODO fix below to support multiple authors
+            // TODO address below to support multiple authors
             name: author ? author.name : null,
         };
         schema.inLanguage = 'English';

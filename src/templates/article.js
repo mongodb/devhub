@@ -19,7 +19,7 @@ import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedValue } from '../utils/get-nested-value';
-import { getSerializedPageSchema } from '../utils/get-serialized-page-schema';
+import { getPageSchema } from '../utils/get-page-schema';
 import { getNestedText } from '../utils/get-nested-text';
 /**
  * Name map of directives we want to display in an article
@@ -187,11 +187,11 @@ const Article = props => {
                 <meta property="og:url" content={articleUrl}></meta>
                 <link rel="canonical" href={articleUrl}></link>
                 <script type="application/ld+json">
-                    {getSerializedPageSchema(articleUrl, {
+                    {getPageSchema(articleUrl, {
                         articleBody: __refDocMapping.source,
                         author: meta.author,
-                        datePublished: meta.pubdate,
                         datemodified: meta.updatedDate,
+                        datePublished: meta.pubdate,
                         description: articleDescription,
                         headline: articleTitle,
                         logoUrl: `${siteUrl}${withPrefix(meta['atf-image'])}`,
