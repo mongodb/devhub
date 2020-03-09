@@ -15,6 +15,8 @@ import {
     colorMap,
     fontSize,
 } from '../components/dev-hub/theme';
+import { useSiteMetadata } from '../hooks/use-site-metadata';
+import { getSerializedPageSchema } from '../utils/get-serialized-page-schema';
 
 const toTitleCase = css`
     text-transform: capitalize;
@@ -78,6 +80,8 @@ const Tag = props => {
             type,
         },
     } = props;
+    const { siteUrl } = useSiteMetadata();
+    const pageUrl = `${siteUrl}/${slug}`;
     const isAuthor = type === 'author';
     const articles = constructArticles(pages);
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
@@ -85,6 +89,9 @@ const Tag = props => {
         <Layout>
             <Helmet>
                 <meta name="robots" content="noindex" />
+                <script type="application/ld+json">
+                    {getSerializedPageSchema(pageUrl)}
+                </script>
             </Helmet>
             <HeroBanner
                 breadcrumb={[
@@ -148,3 +155,32 @@ Tag.propTypes = {
 };
 
 export default Tag;
+
+/*
+
+<script type="application/ld+json"> 
+    {{'@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    url:'https://mongodb.com/blog/post/quick-start-java-and-mongodb--change-streams',  headline:'Quick Start: Java and MongoDB - Change Streams',                        description:'Learn how to use the Change Streams using the MongoDB Java Driver.',  datePublished: 'February 27, 2020',
+    datemodified: 'February 27, 2020',
+    mainEntityOfPage: {  
+        '@type': 'WebPage',
+        url:'https://mongodb.com/blog/post/quick-start-java-and-mongodb--change-streams',
+    },
+    image: {
+        '@type': 'imageObject',
+        url: 'https://webassets.mongodb.com/_com_assets/cms/Quick Start - Java (Blog)-r6hn1ky9vl.png',
+    },
+    publisher: {
+        '@type': 'Organization', 
+        name: 'MongoDB',
+        logo: {
+            '@type': 'imageObject',
+            url: 'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
+            },
+    },
+    author: { '@type': 'Person', name: 'Maxime Beugnet' },                        inLanguage: 'English',
+    articleBody: 'Learn how to use the Change Streams using the MongoDB Java Driver.',
+    }}                </script> 
+
+*/
