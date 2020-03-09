@@ -25,7 +25,6 @@ const breadcrumbs = [
 ];
 
 export default () => {
-    // TODO: uncomment below when events api is working
     const [events, error] = useEventData(EVENTS_API);
 
     const metadata = useSiteMetadata();

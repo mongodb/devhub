@@ -49,6 +49,13 @@ export const sampleEvents = [
     },
 ];
 
+const sortEvents = events =>
+    events.sort((a, b) => {
+        const date1 = new Date(a.node_type_attributes.event_start).getTime();
+        const date2 = new Date(b.node_type_attributes.event_start).getTime();
+        return date1 - date2;
+    });
+
 const useEventData = url => {
     const [events, setEvents] = useState(null);
     const [error, setError] = useState(null);
@@ -64,7 +71,7 @@ const useEventData = url => {
                 if (data) {
                     const parsedData = await data.json();
                     setError(null);
-                    setEvents(parsedData);
+                    setEvents(sortEvents(parsedData));
                 }
             } catch (e) {
                 setError(e);
