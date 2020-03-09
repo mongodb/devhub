@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Link from './link';
 import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
 import Leaf from './icons/mdb-leaf';
+import DevLeaf from './icons/mdb-dev-leaf';
 import { withPrefix } from 'gatsby';
 
 const GlobalNav = styled('nav')`
@@ -41,8 +42,12 @@ const HomeLink = styled(NavLink)`
     align-items: center;
     display: flex;
     padding-left: ${size.medium};
-    svg {
-        margin-right: ${size.medium};
+    @media ${screenSize.upToMedium} {
+        svg {
+            /* align svg with other nav links */
+            margin-top: -4px;
+            width: 100px;
+        }
     }
 `;
 
@@ -50,7 +55,7 @@ export default () => {
     return (
         <GlobalNav>
             <HomeLink to="/">
-                <Leaf width={size.medium} /> <code>Developer</code>
+                <DevLeaf width={size.xxlarge} />
             </HomeLink>
             <NavLink to="/learn">Learn</NavLink>
             <NavLink to="/community">Community</NavLink>
