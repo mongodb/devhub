@@ -139,12 +139,11 @@ const TwitchVideoModal = ({ id, trigger, thumbnail }) => (
 );
 
 const Thumbnail = ({ video }) => {
-    let thumbnailUrl = getThumbnail(video.thumbnail_url);
     return (
         <ThumbnailCard
             maxWidth={MEDIA_WIDTH}
-            image={thumbnailUrl}
-            title={getThumbnail(video.thumbnail_url)}
+            image={getThumbnail(video.thumbnail_url)}
+            title={video.title}
         >
             <TwitchVideoModal
                 id={video.id}
@@ -237,7 +236,10 @@ export default () => {
                                 <TwitchVideoModal
                                     id={twitchVideo.id}
                                     trigger={<Button secondary>Watch</Button>}
-                                    thumbnail={twitchVideo.thumbnail}
+                                    thumbnail={getThumbnail(
+                                        twitchVideo.thumbnail_url,
+                                        1200
+                                    )}
                                 />
                             )}
                         </SectionContent>
