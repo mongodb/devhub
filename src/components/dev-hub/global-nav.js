@@ -3,7 +3,10 @@ import styled from '@emotion/styled';
 import Link from './link';
 import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
 import Leaf from './icons/mdb-leaf';
+import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
+import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
 import { withPrefix } from 'gatsby';
+import useMedia from '../../hooks/use-media';
 
 const GlobalNav = styled('nav')`
     align-items: center;
@@ -40,17 +43,24 @@ const NavLink = styled(Link)`
 const HomeLink = styled(NavLink)`
     align-items: center;
     display: flex;
-    padding-left: ${size.medium};
-    svg {
-        margin-right: ${size.medium};
+    padding: 22px ${size.xlarge} 22px ${size.medium};
+    @media ${screenSize.upToMedium} {
+        padding: ${size.default};
+        svg {
+            /* align svg with other nav links */
+            margin-top: -4px;
+            width: 100px;
+        }
     }
 `;
 
 export default () => {
+    const isMobile = useMedia(screenSize.upToMedium);
     return (
         <GlobalNav>
             <HomeLink to="/">
-                <Leaf width={size.medium} /> <code>Developer</code>
+                {!isMobile && <DevLeafDesktop width="185px" />}
+                {isMobile && <DevLeafMobile width={size.xxlarge} />}
             </HomeLink>
             <NavLink to="/learn">Learn</NavLink>
             <NavLink to="/community">Community</NavLink>
