@@ -105,7 +105,18 @@ const ThumbnailButton = styled(Button)`
     top: 35%;
 `;
 
-const TwitchVideoModal = ({ id, trigger }) => (
+const getThumbnail = (url, width = MEDIA_WIDTH, height = MEDIA_WIDTH) => {
+    if (!url) {
+        return greenPatternImage;
+    }
+    const containsSpace = url.match('%{width}x%{height}');
+    const dimensionsMatcher = containsSpace
+        ? '%{width}x%{height}'
+        : '{width}x{height}';
+    return url.replace(dimensionsMatcher, `${width}x${height}`);
+};
+
+const TwitchVideoModal = ({ id, trigger, thumbnail }) => (
     <Modal
         dialogContainerStyle={{
             height: '90%',
@@ -121,33 +132,23 @@ const TwitchVideoModal = ({ id, trigger }) => (
                 name: 'twitch',
             }}
             autoplay={true}
+            thumbnail={thumbnail}
         />
     </Modal>
 );
 
 const Thumbnail = ({ video }) => {
-    let thumbnailUrl = greenPatternImage; //fallback image if there is none
-    let dimensionsMatcher = '{width}x{height}';
-    if (video.thumbnail_url) {
-        const containsSpace = video.thumbnail_url.match('%{width}x%{height}');
-        dimensionsMatcher = containsSpace
-            ? '%{width}x%{height}'
-            : dimensionsMatcher;
-        thumbnailUrl = video.thumbnail_url.replace(
-            dimensionsMatcher,
-            `${MEDIA_WIDTH}x${MEDIA_WIDTH}`
-        );
-    }
-
+    let thumbnailUrl = getThumbnail(video.thumbnail_url);
     return (
         <ThumbnailCard
             maxWidth={MEDIA_WIDTH}
             image={thumbnailUrl}
-            title={video.title}
+            title={getThumbnail(video.thumbnail_url)}
         >
             <TwitchVideoModal
                 id={video.id}
                 trigger={<ThumbnailButton play />}
+                thumbnail={getThumbnail(video.thumbnail_url, 1200)}
             />
         </ThumbnailCard>
     );
@@ -235,6 +236,7 @@ export default () => {
                                 <TwitchVideoModal
                                     id={twitchVideo.id}
                                     trigger={<Button secondary>Watch</Button>}
+                                    thumbnail={twitchVideo.thumbnail}
                                 />
                             )}
                         </SectionContent>
