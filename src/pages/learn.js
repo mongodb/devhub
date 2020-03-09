@@ -12,6 +12,7 @@ import FilterBar from '../components/dev-hub/filter-bar';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
+import { getPageSchema } from '../utils/get-page-schema';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 
 const MainFeatureGrid = styled('div')`
@@ -198,6 +199,9 @@ export default ({
     const initialArticles = useMemo(() => parseArticles(allArticles), [
         allArticles,
     ]);
+    const pageUrl = useMemo(() => `${metadata.siteUrl}/learn`, [
+        metadata.siteUrl,
+    ]);
     const [articles, setArticles] = useState(initialArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
@@ -222,6 +226,9 @@ export default ({
         <Layout>
             <Helmet>
                 <title>Learn - {metadata.title}</title>
+                <script type="application/ld+json">
+                    {getPageSchema(pageUrl)}
+                </script>
             </Helmet>
             <Header>
                 <H2>Make better, faster applications</H2>

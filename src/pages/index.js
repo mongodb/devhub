@@ -5,7 +5,7 @@ import Card from '../components/dev-hub/card';
 import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
-import { H1, H2, P, SubHeader, H5 } from '../components/dev-hub/text';
+import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
 import {
     colorMap,
     gradientMap,
@@ -22,6 +22,7 @@ import pythonImage from '../images/1x/Python.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
+import { getPageSchema } from '../utils/get-page-schema';
 import useTwitchApi from '../utils/use-twitch-api';
 import { Modal } from '../components/dev-hub/modal';
 import VideoEmbed from '../components/dev-hub/video-embed';
@@ -155,7 +156,7 @@ const Thumbnail = ({ video }) => {
 
 export default () => {
     const { stream, videos } = useTwitchApi();
-    const { title } = useSiteMetadata();
+    const { siteUrl, title } = useSiteMetadata();
     const twitchVideo = useMemo(() => {
         if (stream) return stream;
         if (videos && videos.length) return videos[0];
@@ -166,6 +167,9 @@ export default () => {
         <Layout>
             <Helmet>
                 <title>{title}</title>
+                <script type="application/ld+json">
+                    {getPageSchema(siteUrl)}
+                </script>
             </Helmet>
             <BackgroundImage>
                 {stream && (

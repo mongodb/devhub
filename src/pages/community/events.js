@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import HeroBanner from '../../components/dev-hub/hero-banner';
 import Layout from '../../components/dev-hub/layout';
-import useEventData, { sampleEvents } from '../../hooks/use-event-data';
+import useEventData from '../../hooks/use-event-data';
 import EventsList, { EVENTS_API } from '../../components/dev-hub/event-list';
 import { H1, H3, P } from '../../components/dev-hub/text';
 import TempBackgroundImage from '../../images/1x/MDB-and-Node.js.png';
 import { colorMap } from '../../components/dev-hub/theme';
 import { size } from '../../components/dev-hub/theme';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
+import { getPageSchema } from '../../utils/get-page-schema';
+
 const EventsFilter = styled('div')`
     margin-bottom: ${size.medium};
 `;
@@ -29,10 +31,16 @@ export default () => {
     const [events, error] = useEventData(EVENTS_API);
 
     const metadata = useSiteMetadata();
+    const pageUrl = useMemo(() => `${metadata.siteUrl}/community/events`, [
+        metadata.siteUrl,
+    ]);
     return (
         <Layout>
             <Helmet>
                 <title>Events - {metadata.title}</title>
+                <script type="application/ld+json">
+                    {getPageSchema(pageUrl)}
+                </script>
             </Helmet>
             <HeroBanner
                 background={TempBackgroundImage}
