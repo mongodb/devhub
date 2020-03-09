@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import { css } from '@emotion/core';
@@ -73,13 +73,12 @@ const HeroContent = styled('div')`
 
 export default () => {
     const { siteUrl, title } = useSiteMetadata();
-    const pageUrl = useMemo(() => `${siteUrl}/community`, [siteUrl]);
     return (
         <Layout>
             <Helmet>
                 <title>Community - {title}</title>
                 <script type="application/ld+json">
-                    {getPageSchema(pageUrl)}
+                    {getPageSchema(siteUrl, 'community')}
                 </script>
             </Helmet>
             <UpcomingEvents>

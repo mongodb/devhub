@@ -168,7 +168,7 @@ export default () => {
             <Helmet>
                 <title>{title}</title>
                 <script type="application/ld+json">
-                    {getPageSchema(siteUrl)}
+                    {getPageSchema(siteUrl, '')}
                 </script>
             </Helmet>
             <BackgroundImage>

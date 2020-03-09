@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import HeroBanner from '../../components/dev-hub/hero-banner';
@@ -31,15 +31,12 @@ export default () => {
     const [events, error] = useEventData(EVENTS_API);
 
     const metadata = useSiteMetadata();
-    const pageUrl = useMemo(() => `${metadata.siteUrl}/community/events`, [
-        metadata.siteUrl,
-    ]);
     return (
         <Layout>
             <Helmet>
                 <title>Events - {metadata.title}</title>
                 <script type="application/ld+json">
-                    {getPageSchema(pageUrl)}
+                    {getPageSchema(metadata.siteUrl, 'community/events')}
                 </script>
             </Helmet>
             <HeroBanner

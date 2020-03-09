@@ -81,7 +81,6 @@ const Tag = props => {
         },
     } = props;
     const { siteUrl } = useSiteMetadata();
-    const pageUrl = `${siteUrl}/${slug}`;
     const isAuthor = type === 'author';
     const articles = constructArticles(pages);
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
@@ -90,7 +89,7 @@ const Tag = props => {
             <Helmet>
                 <meta name="robots" content="noindex" />
                 <script type="application/ld+json">
-                    {getPageSchema(pageUrl)}
+                    {getPageSchema(siteUrl, slug)}
                 </script>
             </Helmet>
             <HeroBanner

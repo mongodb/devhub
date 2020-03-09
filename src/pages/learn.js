@@ -199,9 +199,6 @@ export default ({
     const initialArticles = useMemo(() => parseArticles(allArticles), [
         allArticles,
     ]);
-    const pageUrl = useMemo(() => `${metadata.siteUrl}/learn`, [
-        metadata.siteUrl,
-    ]);
     const [articles, setArticles] = useState(initialArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
@@ -227,7 +224,7 @@ export default ({
             <Helmet>
                 <title>Learn - {metadata.title}</title>
                 <script type="application/ld+json">
-                    {getPageSchema(pageUrl)}
+                    {getPageSchema(metadata.siteUrl, 'learn')}
                 </script>
             </Helmet>
             <Header>

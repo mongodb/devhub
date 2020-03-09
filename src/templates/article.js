@@ -183,7 +183,7 @@ const Article = props => {
                 <meta property="og:url" content={articleUrl}></meta>
                 <link rel="canonical" href={articleUrl}></link>
                 <script type="application/ld+json">
-                    {getPageSchema(articleUrl, {
+                    {getPageSchema(siteUrl, thisPage, {
                         articleBody: __refDocMapping.source,
                         author: meta.author,
                         dateModified: meta.updatedDate,

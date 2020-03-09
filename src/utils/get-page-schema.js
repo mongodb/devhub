@@ -1,12 +1,15 @@
-export const getPageSchema = (url, articleInfo = null) => {
+import { withPrefix } from 'gatsby';
+import MONGODB_LOGO from '../images/mongodb-logo.png';
+
+export const getPageSchema = (siteUrl, slug, articleInfo = null) => {
+    const url = `${siteUrl}/${slug}`;
     const schema = {
         '@context': 'http://schema.org',
         url: url,
     };
     const siteImageObject = {
         '@type': 'imageObject',
-        url:
-            'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
+        url: `${siteUrl}${withPrefix(MONGODB_LOGO)}`,
     };
     if (articleInfo) {
         const {

@@ -14,10 +14,11 @@ it('should correctly generate a schema for SEO on non-article pages', () => {
     }}
   */
     const url = 'nonarticle.page';
-    const generatedSchema = JSON.parse(getPageSchema(url));
+    const slug = 'home';
+    const generatedSchema = JSON.parse(getPageSchema(url, slug));
     expect(generatedSchema['@context']).toBe('http://schema.org');
     expect(generatedSchema['@type']).toBe('Organization');
-    expect(generatedSchema.url).toBe(url);
+    expect(generatedSchema.url).toBe(`${url}/${slug}`);
     expect(generatedSchema.logo).toBeTruthy();
     expect(generatedSchema.logo['@type']).toBe('imageObject');
     expect(generatedSchema.logo.url).toBeTruthy();
@@ -49,6 +50,7 @@ it('should correctly generate a schema for SEO on article pages', () => {
     }}
   */
     const articleBody = 'article body';
+    const articleSlug = 'new-article';
     const articleUrl = 'article.url';
     const author = { name: 'Maxime Beugnet' };
     const datePublished = '2017-01-18';
@@ -65,7 +67,9 @@ it('should correctly generate a schema for SEO on article pages', () => {
         headline,
         logoUrl,
     };
-    const pageSchema = JSON.parse(getPageSchema(articleUrl, articleParams));
+    const pageSchema = JSON.parse(
+        getPageSchema(articleUrl, articleSlug, articleParams)
+    );
 
     expect(pageSchema['@context']).toBe('http://schema.org');
     expect(pageSchema['@type']).toBe('BlogPosting');
@@ -76,7 +80,9 @@ it('should correctly generate a schema for SEO on article pages', () => {
 
     expect(pageSchema.mainEntityOfPage).toBeTruthy();
     expect(pageSchema.mainEntityOfPage['@type']).toBe('WebPage');
-    expect(pageSchema.mainEntityOfPage.url).toBe(articleUrl);
+    expect(pageSchema.mainEntityOfPage.url).toBe(
+        `${articleUrl}/${articleSlug}`
+    );
 
     expect(pageSchema.image).toBeTruthy();
     expect(pageSchema.image['@type']).toBe('imageObject');
