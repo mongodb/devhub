@@ -1,5 +1,7 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import GradientUnderline from './gradient-underline';
 import { H1, H2, H3, H4, P, P2, P3, P4, P5, SubHeader } from './text';
+import { gradientMap } from './theme';
 
 <Meta title="Text" />
 
@@ -18,6 +20,11 @@ import { H1, H2, H3, H4, P, P2, P3, P4, P5, SubHeader } from './text';
             <P4>Paragraph 4</P4>
             <P5>Paragraph 1</P5>
             <SubHeader>SubHeader</SubHeader>
+            <H2>
+                <GradientUnderline gradient={gradientMap.violentMagentaOrange}>
+                    Gradient Underline Heading
+                </GradientUnderline>
+            </H2>
         </div>
     </Story>
 </Preview>
