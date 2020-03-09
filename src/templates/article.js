@@ -17,8 +17,10 @@ import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
-import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
+import { getNestedValue } from '../utils/get-nested-value';
+import { getSerializedPageSchema } from '../utils/get-serialized-page-schema';
+import { getNestedText } from '../utils/get-nested-text';
 /**
  * Name map of directives we want to display in an article
  */
@@ -132,6 +134,7 @@ const Container = styled('div')`
 `;
 const Article = props => {
     const {
+        pageContext,
         pageContext: {
             __refDocMapping,
             seriesArticles,
@@ -143,6 +146,7 @@ const Article = props => {
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
+    console.log(contentNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
@@ -157,6 +161,7 @@ const Article = props => {
     const tagList = getTagLinksFromMeta(meta);
     const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
     const articleUrl = `${siteUrl}/${thisPage}`;
+    const articleDescription = getNestedText(meta['meta-description']);
     const headingNodes = findSectionHeadings(
         getNestedValue(['ast', 'children'], __refDocMapping),
         'type',
@@ -172,6 +177,8 @@ const Article = props => {
         dateFormatOptions
     );
 
+    console.log(pageContext, meta);
+
     return (
         <Layout>
             <Helmet>
@@ -179,6 +186,17 @@ const Article = props => {
                 <meta property="og:title" content={articleTitle}></meta>
                 <meta property="og:url" content={articleUrl}></meta>
                 <link rel="canonical" href={articleUrl}></link>
+                <script type="application/ld+json">
+                    {getSerializedPageSchema(articleUrl, {
+                        articleBody: __refDocMapping.source,
+                        author: meta.author,
+                        datePublished: meta.pubdate,
+                        datemodified: meta.updatedDate,
+                        description: articleDescription,
+                        headline: articleTitle,
+                        logoUrl: `${siteUrl}${withPrefix(meta['atf-image'])}`,
+                    })}
+                </script>
             </Helmet>
             <BlogPostTitleArea
                 articleImage={withPrefix(meta['atf-image'])}
