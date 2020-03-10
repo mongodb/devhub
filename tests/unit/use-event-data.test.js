@@ -1,4 +1,5 @@
 import { removePastEvents, sortEvents } from '../../src/hooks/use-event-data';
+import { createDateObject, toDateString } from '../../src/utils/format-dates';
 
 const events = [
     {
@@ -17,7 +18,27 @@ const events = [
 
 it('should remove events that have past', () => {
     const filtered = removePastEvents(events);
+    const today = createDateObject(new Date());
+    const todayAsia = today.toLocaleString('en-US', {
+        timeZone: 'Asia/Shanghai',
+    });
+
+    const timezonedEvents = [
+        {
+            node_type_attributes: {
+                event_start: todayAsia,
+                event_end: todayAsia,
+            },
+        },
+        {
+            node_type_attributes: {
+                event_start: new Date(),
+                event_end: new Date(),
+            },
+        },
+    ];
     expect(filtered).toEqual([events[0]]);
+    expect(removePastEvents(timezonedEvents)).toEqual(timezonedEvents);
 });
 
 it('should sort all events', () => {
