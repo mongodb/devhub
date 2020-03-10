@@ -45,7 +45,7 @@ export const EventsListPreview = () => {
     return (
         <EventsPreview>
             {!error &&
-                previews.length &&
+                !!previews.length &&
                 previews.map(event => <Event key={event.url} event={event} />)}
             {error && <P>Check back later for upcoming events</P>}
         </EventsPreview>
