@@ -25,7 +25,6 @@ const breadcrumbs = [
 ];
 
 export default () => {
-    // TODO: uncomment below when events api is working
     const [events, error] = useEventData(EVENTS_API);
 
     const metadata = useSiteMetadata();
@@ -52,6 +51,7 @@ export default () => {
                 </EventsFilter>
                 {!events && !error && <P>Loading...</P>}
                 {events && <EventsList items={events} />}
+                {error && <P>Check back later for upcoming events</P>}
             </section>
         </Layout>
     );

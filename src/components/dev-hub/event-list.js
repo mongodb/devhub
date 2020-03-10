@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Button from './button';
 import Event from './events';
+import { P } from './text';
 import useEventData from '../../hooks/use-event-data';
 import { size, screenSize } from './theme';
 
 export const EVENTS_API =
-    'https://www.mongodb.com/api/event/all/1?sort=-created_at&populate=tag_ids,node_ids';
+    'https://www.mongodb.com/api/event/all/1?sort=-node_type_attributes.event_start';
 
 const EventsPreview = styled('div')`
     display: flex;
@@ -38,18 +39,17 @@ const CenterBlock = styled('div')`
 `;
 
 export const EventsListPreview = () => {
-    // TODO: Update implementation below
-    // to handle load/error states when events api CORS issue resolved
     const [events, error] = useEventData(EVENTS_API);
     const previews = events ? events.slice(0, 3) : [];
 
-    return previews.length ? (
+    return (
         <EventsPreview>
-            {previews.map(event => (
-                <Event key={event.url} event={event} />
-            ))}
+            {!error &&
+                previews.length &&
+                previews.map(event => <Event key={event.url} event={event} />)}
+            {error && <P>Check back later for upcoming events</P>}
         </EventsPreview>
-    ) : null;
+    );
 };
 
 const EventsList = ({ items = [], limit = 12 }) => {
