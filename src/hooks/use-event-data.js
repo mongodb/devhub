@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createDateObject } from '../utils/format-dates';
 
 export const sampleEvents = [
     {
@@ -50,17 +51,19 @@ export const sampleEvents = [
 ];
 
 export const removePastEvents = events => {
-    const today = new Date();
+    const today = createDateObject(new Date());
     return events.filter(
-        e => new Date(e.node_type_attributes.event_end) >= today
+        e =>
+            createDateObject(new Date(e.node_type_attributes.event_end)) >=
+            today
     );
 };
 export const sortEvents = events =>
     // create new list first so original does not get mutated
     // this improves testability and reduces side-effects
     [...events].sort((a, b) => {
-        const date1 = new Date(a.node_type_attributes.event_start).getTime();
-        const date2 = new Date(b.node_type_attributes.event_start).getTime();
+        const date1 = createDateObject(a.node_type_attributes.event_start);
+        const date2 = createDateObject(b.node_type_attributes.event_start);
         return date1 - date2;
     });
 
