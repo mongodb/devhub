@@ -35,6 +35,7 @@ const dateFormatOptions = {
     month: 'short',
     day: '2-digit',
     year: 'numeric',
+    timeZone: 'UTC',
 };
 
 /**
