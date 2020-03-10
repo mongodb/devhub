@@ -54,7 +54,7 @@ const iconLinks = [
     },
     {
         name: <Twitch {...iconProps} />,
-        url: 'https://m.twitch.tv/mongodb/profile',
+        url: 'https://twitch.tv/mongodb/profile',
     },
     {
         name: <Youtube {...iconProps} />,
