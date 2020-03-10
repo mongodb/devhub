@@ -49,9 +49,9 @@ export default () => {
                     {/* TODO: Add FilterBar */}
                     <H3>All Events</H3>
                 </EventsFilter>
-                {(error || !events || !events.length) && <P>Check back later for upcoming events</P>}
                 {!events && !error && <P>Loading...</P>}
                 {events && <EventsList items={events} />}
+                {error && <P>Check back later for upcoming events</P>}
             </section>
         </Layout>
     );

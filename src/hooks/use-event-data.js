@@ -73,7 +73,6 @@ const useEventData = url => {
                 });
                 if (data) {
                     const parsedData = await data.json();
-                    console.log(parsedData);
                     const upcomingEvents = removePastEvents(parsedData);
                     setError(null);
                     setEvents(upcomingEvents.reverse());
