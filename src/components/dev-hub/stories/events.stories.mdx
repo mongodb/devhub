@@ -1,0 +1,24 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Event from '../events';
+import EventsList from '../event-list';
+import { sampleEvents } from '../../../hooks/use-event-data';
+
+<Meta title="Events" component={Event} />
+
+# Events
+
+### Event
+
+<Preview>
+    <Story name="single event">
+        <Event event={sampleEvents[0]} />
+    </Story>
+</Preview>
+
+### Events List
+
+<Preview>
+    <Story name="events list">
+        <EventsList items={sampleEvents} />
+    </Story>
+</Preview>
