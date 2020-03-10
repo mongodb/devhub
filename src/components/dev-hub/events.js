@@ -132,18 +132,13 @@ const Event = ({ event, maxTitleLines = 2, ...props }) => {
         'node_type_attributes'
     );
 
-    const urlProp = {
-        // internal mdb event urls only contain relative path,
-        // so these must be updated manually
-        href: urlType === 'alias' ? `${MONGODB_WEBSITE}/${url}` : url,
-    };
     return (
         <StyledEvent
             onMouseEnter={() => setLocationColor(colorMap.greyLightOne)}
             onMouseLeave={() => setLocationColor(colorMap.greyLightThree)}
             target="_blank"
             rel="noreferrer noopener"
-            {...urlProp}
+            href={url}
             {...props}
         >
             <DateIcon date={date} />
