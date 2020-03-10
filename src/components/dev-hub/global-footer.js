@@ -26,7 +26,7 @@ const siteLinks = [
         url: 'https://university.mongodb.com/',
     },
     {
-        name: 'Community',
+        name: 'Community Forums',
         url: 'https://community.mongodb.com/',
     },
 ];

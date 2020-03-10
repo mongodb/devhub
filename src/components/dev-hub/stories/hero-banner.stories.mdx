@@ -1,0 +1,27 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import HeroBanner from '../hero-banner';
+import { H1 } from '../text';
+import BylineBlock from '../byline-block';
+import MockAuthorImage from '../../../images/1x/MDB-and-Node.js.png';
+
+<Meta title="Hero Banner" />
+
+# Hero Banner
+
+<Preview>
+    <Story name="hero banner">
+        <HeroBanner
+            background={MockAuthorImage}
+            breadcrumb={[
+                { label: 'Home', to: '#' },
+                { label: 'Storybook', to: '#' }
+            ]}
+        >
+           <H1>DevHub Component "Storybook"</H1>
+            <BylineBlock
+                authorName="UP Team"
+                authorImage={MockAuthorImage}
+            />
+        </HeroBanner>
+    </Story>
+</Preview>

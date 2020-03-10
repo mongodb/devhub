@@ -1,0 +1,69 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Input from '../input';
+import Select from '../select';
+import TextArea from '../text-area';
+
+<Meta title="Forms" />
+
+# Forms
+
+### Input
+
+You may use both a default
+
+<Preview>
+    <Story name="default input">
+        <Input value="" placeholder="Email Address" />
+    </Story>
+</Preview>
+
+or narrow input element
+
+<Preview>
+    <Story name="narrow input">
+        <Input narrow value="" placeholder="Email Address" />
+    </Story>
+</Preview>
+
+### Selectors
+
+similarly you may have a default select
+
+<Preview>
+    <Story name="default select">
+        <Select
+            name="test-select"
+            choices={[
+                ['A', 'Choice A'],
+                ['B', 'Choice B'],
+                ['C', 'Choice C'],
+            ]}
+            defaultText="Choose an option..."
+        />
+    </Story>
+</Preview>
+
+or a narrow select
+
+<Preview>
+    <Story name="narrow select">
+        <Select
+            narrow
+            name="test-select"
+            choices={[
+                ['A', 'Choice A'],
+                ['B', 'Choice B'],
+                ['C', 'Choice C'],
+            ]}
+            defaultText="Choose an option..."
+        />
+    </Story>
+</Preview>
+
+### Text Area
+
+<Preview>
+    <Story name="textarea">
+        <TextArea placeholder="Email Address" />
+    </Story>
+</Preview>

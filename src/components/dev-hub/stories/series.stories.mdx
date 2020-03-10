@@ -1,0 +1,24 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Series from '../series';
+import { colorMap } from '../theme';
+
+<Meta title="Series" />
+
+# Article Series
+
+<Preview style={{ background: colorMap.devBlack }}>
+    <Story name="article series">
+        {() => {
+            const series = [
+                { title: 'Step 1', slug: '#' },
+                { title: 'Step 2', slug: '#' },
+                { title: 'Step 3', slug: '#' },
+            ];
+            return (
+                <Series name="Storybook Series" currentStep="Step 2">
+                    {series}
+                </Series>
+            );
+        }}
+    </Story>
+</Preview>

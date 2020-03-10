@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const sampleEvents = [
     {
@@ -49,6 +49,15 @@ export const sampleEvents = [
     },
 ];
 
+export const removePastEvents = events => {
+    const today = new Date();
+    return events.filter(
+        e =>
+            new Date(e.node_type_attributes.event_end) >= today &&
+            e.status === 'published'
+    );
+};
+
 const useEventData = url => {
     const [events, setEvents] = useState(null);
     const [error, setError] = useState(null);
@@ -63,12 +72,13 @@ const useEventData = url => {
                 });
                 if (data) {
                     const parsedData = await data.json();
+                    const upcomingEvents = removePastEvents(parsedData);
                     setError(null);
-                    setEvents(parsedData);
+                    setEvents(upcomingEvents.reverse());
                 }
             } catch (e) {
                 setError(e);
-                setEvents(sampleEvents);
+                setEvents(null);
             }
         };
         getData();
