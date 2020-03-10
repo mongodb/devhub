@@ -40,11 +40,14 @@ const getVideoUrl = (provider, videoId) => {
 const VideoEmbed = ({
     autoplay,
     nodeData: { argument, name: provider },
+    thumbnail,
     ...props
 }) => {
     const videoId = argument[0].value;
     const value = getVideoUrl(provider, videoId);
     const isYoutube = provider === 'youtube';
+    const previewImage = thumbnail || isYoutube || PLACEHOLDER_IMAGE;
+
     return (
         <ReactPlayerWrapper>
             <StyledReactPlayer
@@ -65,7 +68,7 @@ const VideoEmbed = ({
                 }}
                 controls
                 // If is youtube, use the default youtube thumbnail
-                light={isYoutube ? true : PLACEHOLDER_IMAGE}
+                light={previewImage}
                 playIcon={<Button play />}
                 playing
                 url={value}
