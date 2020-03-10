@@ -331,7 +331,9 @@ const getLearnPageArticles = async () => {
     // Ignore bad data, including links to the home page as an "article"
     const filteredDocuments = documents.filter(d => {
         const route = dlv(d, ['query_fields', 'slug'], null);
-        return route !== '/';
+        const title = dlv(d, ['query_fields', 'title'], null);
+        const image = dlv(d, ['query_fields', 'atf-image'], null);
+        return route !== '/' && !!title && !!image;
     });
     return filteredDocuments;
 };
