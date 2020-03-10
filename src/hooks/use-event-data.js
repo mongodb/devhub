@@ -55,7 +55,7 @@ export const removePastEvents = events => {
     return events.filter(
         e =>
             createDateObject(new Date(e.node_type_attributes.event_end)) >=
-            today
+                today && e.status === 'published'
     );
 };
 export const sortEvents = events =>
