@@ -1,4 +1,4 @@
-import { removePastEvents, sortEvents } from '../../src/hooks/use-event-data';
+import { removePastEvents } from '../../src/hooks/use-event-data';
 import { createDateObject, toDateString } from '../../src/utils/format-dates';
 
 const events = [
@@ -18,33 +18,29 @@ const events = [
     },
 ];
 
-it('should remove events that have past', () => {
-    const filtered = removePastEvents(events);
-    const today = createDateObject(new Date());
-    const todayAsia = today.toLocaleString('en-US', {
-        timeZone: 'Asia/Shanghai',
-    });
-
-    const timezonedEvents = [
-        {
-            node_type_attributes: {
-                event_start: todayAsia,
-                event_end: todayAsia,
-            },
-            status: 'published',
-        },
-        {
-            node_type_attributes: {
-                event_start: new Date(),
-                event_end: new Date(),
-            },
-            status: 'published',
-        },
-    ];
-    expect(filtered).toEqual([events[0]]);
-    expect(removePastEvents(timezonedEvents)).toEqual(timezonedEvents);
+const today = createDateObject(new Date());
+const todayAsia = today.toLocaleString('en-US', {
+    timeZone: 'Asia/Shanghai',
 });
 
-it('should sort all events', () => {
-    expect(sortEvents(events)).toEqual([events[1], events[0]]);
+const timezonedEvents = [
+    {
+        node_type_attributes: {
+            event_start: todayAsia,
+            event_end: todayAsia,
+        },
+        status: 'published',
+    },
+    {
+        node_type_attributes: {
+            event_start: new Date(),
+            event_end: new Date(),
+        },
+        status: 'published',
+    },
+];
+it('should remove events that have past', () => {
+    const filtered = removePastEvents(events);
+    expect(filtered).toEqual([events[0]]);
+    expect(removePastEvents(timezonedEvents)).toEqual(timezonedEvents);
 });

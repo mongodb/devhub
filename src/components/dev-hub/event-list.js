@@ -50,7 +50,9 @@ export const EventsListPreview = () => {
                 <Event key={event.url} event={event} />
             ))}
         </EventsPreview>
-    ) : null;
+    ) : (
+        <P>Check back later for upcoming events</P>
+    );
 };
 
 const EventsList = ({ items = [], limit = 12 }) => {

@@ -58,14 +58,6 @@ export const removePastEvents = events => {
                 today && e.status === 'published'
     );
 };
-export const sortEvents = events =>
-    // create new list first so original does not get mutated
-    // this improves testability and reduces side-effects
-    [...events].sort((a, b) => {
-        const date1 = createDateObject(a.node_type_attributes.event_start);
-        const date2 = createDateObject(b.node_type_attributes.event_start);
-        return date1 - date2;
-    });
 
 const useEventData = url => {
     const [events, setEvents] = useState(null);
@@ -81,13 +73,14 @@ const useEventData = url => {
                 });
                 if (data) {
                     const parsedData = await data.json();
+                    console.log(parsedData);
                     const upcomingEvents = removePastEvents(parsedData);
                     setError(null);
-                    setEvents(sortEvents(upcomingEvents));
+                    setEvents(upcomingEvents.reverse());
                 }
             } catch (e) {
                 setError(e);
-                setEvents(sampleEvents);
+                setEvents(null);
             }
         };
         getData();
