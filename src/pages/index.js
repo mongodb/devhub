@@ -61,7 +61,7 @@ const CardGallery = styled('section')`
     }
 `;
 const StyledTopCard = styled(Card)`
-    /* max-width: 300px; */
+    width: 100%;
     @media ${screenSize.upToLarge} {
         flex-basis: 50%;
     }
