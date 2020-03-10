@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'gatsby';
-import { animationSpeed, colorMap, fontSize, screenSize } from './theme';
+import { animationSpeed, colorMap, fontSize } from './theme';
 
 // Takes an event handler, and wraps it to call preventDefault.
 // If the handler is falsey, it is returned unchanged.
