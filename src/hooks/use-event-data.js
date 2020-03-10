@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { createDateObject } from '../utils/format-dates';
 
 export const sampleEvents = [
     {
@@ -51,11 +50,11 @@ export const sampleEvents = [
 ];
 
 export const removePastEvents = events => {
-    const today = createDateObject(new Date());
+    const today = new Date();
     return events.filter(
         e =>
-            createDateObject(new Date(e.node_type_attributes.event_end)) >=
-                today && e.status === 'published'
+            new Date(e.node_type_attributes.event_end) >= today &&
+            e.status === 'published'
     );
 };
 
