@@ -49,8 +49,16 @@ export const sampleEvents = [
     },
 ];
 
-const sortEvents = events =>
-    events.sort((a, b) => {
+export const removePastEvents = events => {
+    const today = new Date();
+    return events.filter(
+        e => new Date(e.node_type_attributes.event_end) >= today
+    );
+};
+export const sortEvents = events =>
+    // create new list first so original does not get mutated
+    // this improves testability and reduces side-effects
+    [...events].sort((a, b) => {
         const date1 = new Date(a.node_type_attributes.event_start).getTime();
         const date2 = new Date(b.node_type_attributes.event_start).getTime();
         return date1 - date2;
@@ -70,8 +78,9 @@ const useEventData = url => {
                 });
                 if (data) {
                     const parsedData = await data.json();
+                    const upcomingEvents = removePastEvents(parsedData);
                     setError(null);
-                    setEvents(sortEvents(parsedData));
+                    setEvents(sortEvents(upcomingEvents));
                 }
             } catch (e) {
                 setError(e);
