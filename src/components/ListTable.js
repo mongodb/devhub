@@ -5,6 +5,7 @@ import CSSWrapper from './CSSWrapper';
 import { getNestedValue } from '../utils/get-nested-value';
 import styled from '@emotion/styled';
 import { colorMap, size } from '../components/dev-hub/theme';
+import { H5 } from './dev-hub/text';
 
 const Table = styled('table')`
     border: 1px solid ${colorMap.greyLightTwo};
@@ -20,6 +21,7 @@ const Table = styled('table')`
 `;
 
 const ListTable = ({ nodeData, nodeData: { children }, ...rest }) => {
+    const title = getNestedValue(['argument', 0, 'value'], nodeData);
     const headerRowCount =
         parseInt(getNestedValue(['options', 'header-rows'], nodeData), 10) || 0;
     const stubColumnCount =
@@ -43,30 +45,33 @@ const ListTable = ({ nodeData, nodeData: { children }, ...rest }) => {
     }
 
     return (
-        <Table
-            className={[
-                'docutils',
-                getNestedValue(['options', 'class'], nodeData) || '',
-                widths,
-                customAlign,
-            ].join(' ')}
-            style={{ width: customWidth }}
-        >
-            {widths === 'colwidths-given' && (
-                <ColGroup widths={customWidths.split(/[ ,]+/)} />
-            )}
-            <ListTableHeader
-                {...rest}
-                rows={headerRows}
-                stubColumnCount={stubColumnCount}
-            />
-            <ListTableBody
-                {...rest}
-                rows={bodyRows}
-                headerRowCount={headerRowCount}
-                stubColumnCount={stubColumnCount}
-            />
-        </Table>
+        <div>
+            <H5>{title}</H5>
+            <Table
+                className={[
+                    'docutils',
+                    getNestedValue(['options', 'class'], nodeData) || '',
+                    widths,
+                    customAlign,
+                ].join(' ')}
+                style={{ width: customWidth }}
+            >
+                {widths === 'colwidths-given' && (
+                    <ColGroup widths={customWidths.split(/[ ,]+/)} />
+                )}
+                <ListTableHeader
+                    {...rest}
+                    rows={headerRows}
+                    stubColumnCount={stubColumnCount}
+                />
+                <ListTableBody
+                    {...rest}
+                    rows={bodyRows}
+                    headerRowCount={headerRowCount}
+                    stubColumnCount={stubColumnCount}
+                />
+            </Table>
+        </div>
     );
 };
 

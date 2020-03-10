@@ -61,7 +61,7 @@ const CardGallery = styled('section')`
     }
 `;
 const StyledTopCard = styled(Card)`
-    /* max-width: 300px; */
+    width: 100%;
     @media ${screenSize.upToLarge} {
         flex-basis: 50%;
     }
@@ -105,7 +105,19 @@ const ThumbnailButton = styled(Button)`
     top: 35%;
 `;
 
-const TwitchVideoModal = ({ id, trigger }) => (
+const SIZE_TOKEN = '%{width}x%{height}';
+const SIZE_TOKEN_ALT = '{width}x{height}';
+
+const getThumbnail = (url, width = MEDIA_WIDTH, height = MEDIA_WIDTH) => {
+    if (!url) {
+        return greenPatternImage;
+    }
+    const containsSpace = url.match(SIZE_TOKEN);
+    const dimensionsMatcher = containsSpace ? SIZE_TOKEN : SIZE_TOKEN_ALT;
+    return url.replace(dimensionsMatcher, `${width}x${height}`);
+};
+
+const TwitchVideoModal = ({ id, trigger, thumbnail }) => (
     <Modal
         dialogContainerStyle={{
             height: '90%',
@@ -121,33 +133,22 @@ const TwitchVideoModal = ({ id, trigger }) => (
                 name: 'twitch',
             }}
             autoplay={true}
+            thumbnail={thumbnail}
         />
     </Modal>
 );
 
 const Thumbnail = ({ video }) => {
-    let thumbnailUrl = greenPatternImage; //fallback image if there is none
-    let dimensionsMatcher = '{width}x{height}';
-    if (video.thumbnail_url) {
-        const containsSpace = video.thumbnail_url.match('%{width}x%{height}');
-        dimensionsMatcher = containsSpace
-            ? '%{width}x%{height}'
-            : dimensionsMatcher;
-        thumbnailUrl = video.thumbnail_url.replace(
-            dimensionsMatcher,
-            `${MEDIA_WIDTH}x${MEDIA_WIDTH}`
-        );
-    }
-
     return (
         <ThumbnailCard
             maxWidth={MEDIA_WIDTH}
-            image={thumbnailUrl}
+            image={getThumbnail(video.thumbnail_url)}
             title={video.title}
         >
             <TwitchVideoModal
                 id={video.id}
                 trigger={<ThumbnailButton play />}
+                thumbnail={getThumbnail(video.thumbnail_url, 1200)}
             />
         </ThumbnailCard>
     );
@@ -235,6 +236,10 @@ export default () => {
                                 <TwitchVideoModal
                                     id={twitchVideo.id}
                                     trigger={<Button secondary>Watch</Button>}
+                                    thumbnail={getThumbnail(
+                                        twitchVideo.thumbnail_url,
+                                        1200
+                                    )}
                                 />
                             )}
                         </SectionContent>
