@@ -1,22 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import LocationIcon from './icons/location-icon';
-import MediaBlock from './media-block';
-import GradientImage from './gradient-image';
 import Link from './link';
-import { H1, H2, P, H4 } from './text';
+import { P, H4 } from './text';
 import { toDateString } from '../../utils/format-dates';
-import {
-    gradientMap,
-    size,
-    colorMap,
-    fontSize,
-    animationSpeed,
-    screenSize,
-} from './theme';
-
-const MONGODB_WEBSITE = 'https://www.mongodb.com';
+import { gradientMap, size, colorMap, fontSize, animationSpeed } from './theme';
 
 const Day = styled('span')`
     display: block;
@@ -69,8 +58,7 @@ const Title = styled(H4)`
     margin: 0;
     /* truncate text to "maxTitleLines" lines */
     display: -webkit-box;
-    -webkit-line-clamp: ${props =>
-        props.maxTitleLines}; /* supported cross browser */
+    -webkit-line-clamp: ${props => props.maxTitleLines};
     -webkit-box-orient: vertical;
     overflow: hidden;
 `;
@@ -100,17 +88,6 @@ const StyledEvent = styled(Link)`
     }
 `;
 
-const EventsPreview = styled('div')`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    @media ${screenSize.upToMedium} {
-        flex-direction: column;
-        justify-content: start;
-    }
-`;
-
 const DateIcon = ({ date }) => {
     const day = toDateString(date, { day: 'numeric', timezone: 'UTC' });
     const month = toDateString(date, { month: 'short', timezone: 'UTC' });
@@ -126,24 +103,19 @@ const DateIcon = ({ date }) => {
 
 const Event = ({ event, maxTitleLines = 2, ...props }) => {
     const [locationColor, setLocationColor] = useState(colorMap.greyLightThree);
-    const { title, url, url_type: urlType } = event;
+    const { title, url } = event;
     const { event_city: city, event_country: country, event_start: date } = dlv(
         event,
         'node_type_attributes'
     );
 
-    const urlProp = {
-        // internal mdb event urls only contain relative path,
-        // so these must be updated manually
-        href: urlType === 'alias' ? `${MONGODB_WEBSITE}/${url}` : url,
-    };
     return (
         <StyledEvent
             onMouseEnter={() => setLocationColor(colorMap.greyLightOne)}
             onMouseLeave={() => setLocationColor(colorMap.greyLightThree)}
             target="_blank"
             rel="noreferrer noopener"
-            {...urlProp}
+            href={url}
             {...props}
         >
             <DateIcon date={date} />

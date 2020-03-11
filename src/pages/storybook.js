@@ -8,8 +8,6 @@ import { StorybookLayout } from '../components/dev-hub/layout';
 import BylineBlock from '../components/dev-hub/byline-block';
 import Card from '../components/dev-hub/card';
 import CodeBlock from '../components/dev-hub/codeblock';
-import Event from '../components/dev-hub/events';
-import { sampleEvents } from '../hooks/use-event-data';
 import Link from '../components/dev-hub/link';
 import Image from '../components/Image';
 import Input from '../components/dev-hub/input';
@@ -62,6 +60,55 @@ import UploadButton from '../components/dev-hub/upload-button';
 import FeatureBlock from '../components/dev-hub/feature-block';
 import EventsList from '../components/dev-hub/event-list';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
+
+const sampleEvents = [
+    {
+        node_type_attributes: {
+            event_start: '2020-03-11T09:00:00.000Z',
+            event_end: '2020-03-11T13:30:00.000Z',
+            event_city: 'Stockholm',
+            event_country: 'Sweden',
+        },
+        title: 'MongoDB Atlas on GCP Workshop ',
+        url: 'https://gcpstockholmworkshop.splashthat.com/',
+        url_type: 'external',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-03-12T22:00:00.000Z',
+            event_end: '2020-03-13T00:00:00.000Z',
+            event_city: 'Coppell, TX',
+            event_country: 'United States',
+        },
+        title: 'Happy Hour with MongoDB',
+        url: 'events/happy-hour-with-mongodb-mr-cooper',
+        url_type: 'alias',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-03-18T09:00:00.000Z',
+            event_end: '2020-03-18T14:00:00.000Z',
+            event_city: 'London',
+            event_country: 'United Kingdom',
+        },
+        title: 'MongoDB Atlas on GCP Workshop ',
+        url: 'https://mdbgcpworkshop.splashthat.com',
+        url_type: 'external',
+    },
+    {
+        node_type_attributes: {
+            event_start: '2020-03-26T16:30:00.000Z',
+            event_end: '2020-03-26T23:00:00.000Z',
+            event_city: 'Houston, TX',
+            event_country: 'United States',
+        },
+        title:
+            'Global Cloud Strategy with MongoDB, Datadog, Alibaba, and Deloitte',
+        url:
+            'https://www.datadoghq.com/event/houston-cloudstrategy-lunch/?utm_source=email&utm_medium=FieldMarketing&utm_campaign=Bespoke-202003GlobalCloudStrategyLunchHoustonMongoDB',
+        url_type: 'external',
+    },
+];
 
 const Row = styled('div')`
     display: flex;
