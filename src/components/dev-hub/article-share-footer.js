@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import copy from 'copy-to-clipboard';
 import styled from '@emotion/styled';
+import { getArticleShareLinks } from '../../utils/get-article-share-links';
 import BlogTagList from './blog-tag-list';
 import { colorMap, screenSize, size } from './theme';
 import Link from './link';
@@ -33,6 +34,10 @@ const ArticleShareFooter = ({ tags, title, url }) => {
     const onCopyLink = useCallback(() => {
         copy(url);
     }, [url]);
+    const { facebookUrl, linkedInUrl, twitterUrl } = getArticleShareLinks(
+        title,
+        url
+    );
     return (
         <ArticleShareArea>
             <BlogTagList tags={tags} />
@@ -48,25 +53,14 @@ const ArticleShareFooter = ({ tags, title, url }) => {
                     Article link copied to clipboard!
                 </Tooltip>
 
-                <Link
-                    target="_blank"
-                    href={`https://www.linkedin.com/shareArticle?url=${url}`}
-                >
+                <Link target="_blank" href={linkedInUrl}>
                     <LinkedIn />
                 </Link>
 
-                <Link
-                    target="_blank"
-                    href={`https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(
-                        `Here is a post from @mongodb on "${title}"`
-                    )}`}
-                >
+                <Link target="_blank" href={twitterUrl}>
                     <TwitterIcon />
                 </Link>
-                <Link
-                    target="_blank"
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
-                >
+                <Link target="_blank" href={facebookUrl}>
                     <FacebookIcon height="22" width="22" />
                 </Link>
             </BlogShareLinks>
