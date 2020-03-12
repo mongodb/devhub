@@ -67,7 +67,7 @@ const SocialIcon = ({ type, href, ...props }) => {
  * @param {Object<string, any>} props
  * @property {string} props.url
  */
-const ShareMenu = ({ url, ...props }) => {
+const ShareMenu = ({ title, url, ...props }) => {
     const [showCopyMessage, setShowCopyMessage] = useState(false);
     const onCopyLink = useCallback(
         e => {
@@ -104,7 +104,9 @@ const ShareMenu = ({ url, ...props }) => {
                 />
                 <SocialIcon
                     type="twitter"
-                    href={`https://twitter.com/intent/tweet?url=${url}`}
+                    href={`https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(
+                        `Here is a post from @mongodb on "${title}"`
+                    )}`}
                 />
                 <SocialIcon
                     type="linkedin"

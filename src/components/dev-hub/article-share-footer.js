@@ -29,7 +29,7 @@ const BlogShareLinks = styled('div')`
     }
 `;
 
-const ArticleShareFooter = ({ tags, url }) => {
+const ArticleShareFooter = ({ tags, title, url }) => {
     const onCopyLink = useCallback(() => {
         copy(url);
     }, [url]);
@@ -57,7 +57,9 @@ const ArticleShareFooter = ({ tags, url }) => {
 
                 <Link
                     target="_blank"
-                    href={`https://twitter.com/intent/tweet?url=${url}`}
+                    href={`https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(
+                        `Here is a post from @mongodb on "${title}"`
+                    )}`}
                 >
                     <TwitterIcon />
                 </Link>
