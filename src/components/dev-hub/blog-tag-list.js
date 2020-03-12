@@ -59,13 +59,11 @@ const BlogTagList = ({ tags = [] }) => {
     return (
         <TagList>
             {isExpanded &&
-                tags
-                    .map(t => (
-                        <BlogTag key={t.label} to={t.to}>
-                            {t.label}
-                        </BlogTag>
-                    ))
-                    .slice(0, MAX_TAG_LIST_SIZE)}
+                tags.slice(0, MAX_TAG_LIST_SIZE).map(t => (
+                    <BlogTag key={t.label} to={t.to}>
+                        {t.label}
+                    </BlogTag>
+                ))}
             {!isExpanded && canExpand && (
                 <>
                     {/* Since this can expand, we know value[0] and value[1] exist */}
