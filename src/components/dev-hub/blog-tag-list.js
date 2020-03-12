@@ -4,6 +4,7 @@ import Link from './link';
 import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
 
 const MINIMUM_EXPANDABLE_SIZE = 3;
+const MAX_TAG_LIST_SIZE = 5;
 
 const TagLink = styled(Link)`
     background-color: ${colorMap.greyDarkThree};
@@ -41,17 +42,6 @@ const TagListItem = styled('li')`
     display: inline-block;
 `;
 
-const getTagData = (tags, tagLinkBase) =>
-    tags.map(tag => {
-        if (typeof tag === 'string') {
-            return {
-                text: tag,
-                to: `${tagLinkBase}/${tag}`,
-            };
-        }
-        return tag;
-    });
-
 const BlogTag = ({ children, ...props }) => (
     <TagListItem>
         <TagLink {...props}>{children}</TagLink>
@@ -69,7 +59,7 @@ const BlogTagList = ({ tags = [] }) => {
     return (
         <TagList>
             {isExpanded &&
-                tags.map(t => (
+                tags.slice(0, MAX_TAG_LIST_SIZE).map(t => (
                     <BlogTag key={t.label} to={t.to}>
                         {t.label}
                     </BlogTag>
