@@ -16,6 +16,8 @@ module.exports = {
             resolve: 'gatsby-plugin-google-tagmanager',
             options: {
                 id: 'GTM-GDFN',
+                // Exclude paths we are using the noindex tag on
+                exclude: ['/language/*', '/product/*', '/tag/*'],
 
                 // Include GTM in development.
                 // Defaults to false meaning GTM will only be loaded in production.
