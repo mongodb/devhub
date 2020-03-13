@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
+import { getArticleShareLinks } from '../../utils/get-article-share-links';
 import Tooltip from './tooltip';
 import ShareIcon from './icons/share-icon';
 import LinkIcon from './icons/link-icon';
@@ -67,7 +68,7 @@ const SocialIcon = ({ type, href, ...props }) => {
  * @param {Object<string, any>} props
  * @property {string} props.url
  */
-const ShareMenu = ({ url, ...props }) => {
+const ShareMenu = ({ title, url, ...props }) => {
     const [showCopyMessage, setShowCopyMessage] = useState(false);
     const onCopyLink = useCallback(
         e => {
@@ -77,6 +78,10 @@ const ShareMenu = ({ url, ...props }) => {
             setTimeout(() => setShowCopyMessage(false), 2000);
         },
         [url]
+    );
+    const { facebookUrl, linkedInUrl, twitterUrl } = getArticleShareLinks(
+        title,
+        url
     );
 
     return (
@@ -98,18 +103,9 @@ const ShareMenu = ({ url, ...props }) => {
                     type="shareLink"
                     onClick={onCopyLink}
                 />
-                <SocialIcon
-                    type="facebook"
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
-                />
-                <SocialIcon
-                    type="twitter"
-                    href={`https://twitter.com/intent/tweet?url=${url}`}
-                />
-                <SocialIcon
-                    type="linkedin"
-                    href={`https://www.linkedin.com/shareArticle?url=${url}`}
-                />
+                <SocialIcon type="facebook" href={facebookUrl} />
+                <SocialIcon type="twitter" href={twitterUrl} />
+                <SocialIcon type="linkedin" href={linkedInUrl} />
             </Contents>
         </Tooltip>
     );
