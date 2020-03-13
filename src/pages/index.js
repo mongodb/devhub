@@ -15,6 +15,7 @@ import {
 import Button from '../components/dev-hub/button';
 import buildImage from '../images/2x/Build@2x.png';
 import graphqlImage from '../images/1x/GraphQL.png';
+import atlasCluster from '../images/1x/Atlas-Cluster.png';
 import greenPatternImage from '../images/2x/pattern-green@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
 import nodejsIllustration from '../images/1x/Node.Js-Illustration.png';
@@ -198,14 +199,13 @@ export default () => {
                             maxTitleLines={3}
                             image={graphqlImage}
                             to="/how-to/graphql-support-atlas-stitch"
-                            title="Introducing GraphQL Support in MongoDB Atlas with
-                            Stitch"
+                            title="Introducing GraphQL Support in MongoDB Atlas with Stitch"
                         />
                         <StyledTopCard
                             maxTitleLines={3}
-                            image={buildImage}
+                            image={atlasCluster}
                             to="/quickstart/free-atlas-cluster"
-                            title="Quick Start: Getting Your Free MongoDB Atlas Cluster"
+                            title="Getting Your Free MongoDB Atlas Cluster"
                         />
                     </CardGallery>
                     <div>
