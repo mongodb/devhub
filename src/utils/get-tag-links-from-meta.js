@@ -5,9 +5,9 @@ export const getTagLinksFromMeta = meta => {
     const mappedLanguageTags = mapTagTypeToUrl(meta.languages, 'language');
     const mappedProductTags = mapTagTypeToUrl(meta.products, 'product');
     const allTags = [
-        ...mappedTags,
-        ...mappedLanguageTags,
         ...mappedProductTags,
+        ...mappedLanguageTags,
+        ...mappedTags,
     ];
     return allTags;
 };
