@@ -83,9 +83,11 @@ const Tag = props => {
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
     return (
         <Layout>
-            <Helmet>
-                <meta name="robots" content="noindex" />
-            </Helmet>
+            {!isAuthor && (
+                <Helmet>
+                    <meta name="robots" content="noindex" />
+                </Helmet>
+            )}
             <HeroBanner
                 breadcrumb={[
                     { label: 'Home', to: '/' },

@@ -56,7 +56,7 @@ const Form = React.memo(({ setSuccess, success }) => {
     const [email, setEmail] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
     const [canSubmit, setCanSubmit] = useState(true);
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         setCanSubmit(false);
         const obj = {
@@ -64,7 +64,7 @@ const Form = React.memo(({ setSuccess, success }) => {
             email,
             projectDescription,
         };
-        authenticate();
+        await authenticate();
         const callback = hasSuccess => {
             setSuccess(hasSuccess);
             setCanSubmit(!hasSuccess);

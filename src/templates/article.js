@@ -199,6 +199,7 @@ const Article = props => {
                         width={size.default}
                     />
                     <ShareMenu
+                        title={articleTitle}
                         url={articleUrl}
                         height={size.default}
                         width={size.default}
@@ -211,7 +212,11 @@ const Article = props => {
                         slug={thisPage}
                         {...rest}
                     />
-                    <ArticleShareFooter url={articleUrl} tags={tagList} />
+                    <ArticleShareFooter
+                        title={articleTitle}
+                        url={articleUrl}
+                        tags={tagList}
+                    />
                     <ArticleSeries
                         allSeriesForArticle={seriesArticles}
                         slugTitleMapping={slugTitleMapping}
