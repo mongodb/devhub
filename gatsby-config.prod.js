@@ -1,3 +1,4 @@
+const dlv = require('dlv');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { plugins } = require('./gatsby-config');
 

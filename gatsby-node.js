@@ -270,6 +270,8 @@ exports.createPages = async ({ actions }) => {
             if (pageNodes.query_fields) {
                 const relatedPages = getRelatedPagesWithImages(pageNodes);
                 pageNodes['query_fields'].related = relatedPages;
+                pageNodes['query_fields'].meta_description =
+                    pageNodes['query_fields']['meta-description'];
             }
             const seriesArticles = getSeriesArticles(allSeries, slug);
             createPage({
@@ -281,6 +283,7 @@ exports.createPages = async ({ actions }) => {
                     slug,
                     snootyStitchId: SNOOTY_STITCH_ID,
                     __refDocMapping: pageNodes,
+                    _xrefDocMapping: pageNodes,
                 },
             });
         }
