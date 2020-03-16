@@ -14,16 +14,17 @@ module.exports = {
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
-        'gatsby-plugin-sitemap',
+        {
+            resolve: 'gatsby-plugin-sitemap',
+            options: {
+                // Exclude paths we are using the noindex tag on
+                exclude: ['/language/*', '/product/*', '/tag/*', '/type/*'],
+            },
+        },
         {
             resolve: 'gatsby-plugin-google-tagmanager',
             options: {
                 id: 'GTM-GDFN',
-                // Exclude paths we are using the noindex tag on
-                exclude: ['/language/*', '/product/*', '/tag/*'],
-
-                // Include GTM in development.
-                // Defaults to false meaning GTM will only be loaded in production.
                 includeInDevelopment: false,
             },
         },
