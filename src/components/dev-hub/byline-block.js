@@ -6,6 +6,10 @@ import { colorMap, fontSize, screenSize, size } from './theme';
 import { getTagPageUriComponent } from '../../utils/get-tag-page-uri-component';
 import AuthorImage from './author-image';
 
+const AuthorImageContainer = styled('div')`
+    display: flex;
+`;
+
 const AuthorLink = styled(Link)`
     font-size: ${fontSize.tiny};
     :visited {
@@ -17,8 +21,20 @@ const AuthorLink = styled(Link)`
 `;
 
 const AuthorText = styled(P)`
+    display: inline-block;
     @media ${screenSize.upToLarge} {
         font-size: ${fontSize.xsmall};
+    }
+    &:before {
+        content: 'By ';
+    }
+    &:after {
+        content: '\u00a0';
+    }
+    :not(:first-of-type) {
+        &:before {
+            content: 'and ';
+        }
     }
 `;
 
@@ -34,14 +50,17 @@ const ByLine = styled('div')`
 
 const StyledAuthorImage = styled(AuthorImage)`
     margin-right: ${size.small};
+    :not(:last-of-type) {
+        margin-right: -${size.small};
+    }
 `;
 
 const AuthorImages = ({ authors }) => (
-    <div>
+    <AuthorImageContainer>
         {authors.map(({ name, image }) => (
             <StyledAuthorImage image={image} key={name} />
         ))}
-    </div>
+    </AuthorImageContainer>
 );
 
 const AuthorNames = ({ authors }) => (
@@ -50,7 +69,7 @@ const AuthorNames = ({ authors }) => (
             const authorLink = `/author/${getTagPageUriComponent(name)}`;
             return (
                 <AuthorText collapse key={name}>
-                    By <AuthorLink to={authorLink}>{name}</AuthorLink>
+                    <AuthorLink to={authorLink}>{name}</AuthorLink>
                 </AuthorText>
             );
         })}
