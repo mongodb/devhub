@@ -183,7 +183,7 @@ const Article = props => {
             </Helmet>
             <BlogPostTitleArea
                 articleImage={withPrefix(meta['atf-image'])}
-                author={meta.author}
+                authors={meta.author}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={formattedPublishedDate}
                 tags={tagList}

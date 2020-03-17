@@ -36,14 +36,33 @@ const StyledAuthorImage = styled(AuthorImage)`
     margin-right: ${size.small};
 `;
 
-const BylineBlock = ({ authorImage, authorName = '' }) => {
-    const authorLink = `/author/${getTagPageUriComponent(authorName)}`;
+const AuthorImages = ({ authors }) => (
+    <div>
+        {authors.map(({ name, image }) => (
+            <StyledAuthorImage image={image} key={name} />
+        ))}
+    </div>
+);
+
+const AuthorNames = ({ authors }) => (
+    <div>
+        {authors.map(({ name }) => {
+            const authorLink = `/author/${getTagPageUriComponent(name)}`;
+            return (
+                <AuthorText collapse key={name}>
+                    By <AuthorLink to={authorLink}>{name}</AuthorLink>
+                </AuthorText>
+            );
+        })}
+    </div>
+);
+
+const BylineBlock = ({ authors }) => {
+    if (!authors || !authors.length) return null;
     return (
         <ByLine>
-            <StyledAuthorImage image={authorImage} />
-            <AuthorText collapse>
-                By <AuthorLink to={authorLink}>{authorName}</AuthorLink>
-            </AuthorText>
+            <AuthorImages authors={authors} />
+            <AuthorNames authors={authors} />
         </ByLine>
     );
 };
