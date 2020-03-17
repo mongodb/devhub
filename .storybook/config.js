@@ -1,16 +1,13 @@
 import { configure, addParameters } from '@storybook/react';
 import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
+import theme from './theme';
 
 const WELCOME_PAGE_KIND = 'Welcome';
 
 addParameters({
-    docs: {
-        container: DocsContainer,
-        page: DocsPage,
-        prepareForInline: storyFn => storyFn(),
-    },
     options: {
+        theme,
         storySort: (a, b) => {
             if (a[1].kind === WELCOME_PAGE_KIND) {
                 return 0;
@@ -22,6 +19,11 @@ addParameters({
                 ? 0
                 : a[1].id.localeCompare(b[1].id, undefined, { numeric: true });
         },
+    },
+    docs: {
+        container: DocsContainer,
+        page: DocsPage,
+        prepareForInline: storyFn => storyFn(),
     },
 });
 
