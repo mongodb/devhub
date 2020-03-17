@@ -3,9 +3,7 @@ import { colorMap, FORM_ELEMENT_BORDER } from '../src/components/dev-hub/theme';
 
 export default create({
     base: colorMap.pageBackground,
-
-    colorPrimary: 'hotpink',
-    colorSecondary: 'deepskyblue',
+    colorSecondary: colorMap.teal,
 
     // UI
     appBg: colorMap.pageBackground,
@@ -24,7 +22,7 @@ export default create({
 
     // Toolbar default and active colors
     barTextColor: '#fff',
-    barSelectedColor: colorMap.devBlack,
+    barSelectedColor: colorMap.teal,
     barBg: colorMap.greyDarkThree,
 
     // Form colors
