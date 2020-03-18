@@ -31,7 +31,14 @@ let PAGE_ID_PREFIX;
 const PAGES = [];
 const IMAGE_FILES = {};
 
-const FEATURED_LEARN_SLUGS = [
+const DEFAULT_FEATURED_HOME_SLUGS = [
+    '/how-to/nextjs-building-modern-applications',
+    '/how-to/python-starlette-stitch',
+    '/how-to/graphql-support-atlas-stitch',
+    '/quickstart/free-atlas-cluster',
+];
+
+const DEFAULT_FEATURED_LEARN_SLUGS = [
     '/quickstart/java-setup-crud-operations',
     '/how-to/golang-alexa-skills',
     '/how-to/polymorphic-pattern',
@@ -338,13 +345,16 @@ const getLearnPageArticles = async () => {
     return filteredDocuments;
 };
 
-const getFeaturedArticles = (allArticles, featuredArticles) => {
+const getFeaturedArticles = (allArticles, featuredArticleSlugs) => {
     const result = [];
-    featuredArticles.forEach((f, i) => {
-        const newArticle = allArticles.find(x => x.query_fields.slug === f);
+    featuredArticleSlugs.forEach((featuredSlug, i) => {
+        const newArticle = allArticles.find(
+            x => x.query_fields.slug === featuredSlug
+        );
         if (newArticle) {
             result.push(newArticle);
         } else {
+            // This article was not found. pick an existing article and add it instead.
             result.push(allArticles[i]);
         }
     });
@@ -401,28 +411,64 @@ const getLearnPageFilters = async () => {
     return filters;
 };
 
-exports.onCreatePage = async ({ page, actions }) => {
-    if (page.path === '/learn/') {
-        const { createPage, deletePage } = actions;
-        const allArticles = await getLearnPageArticles();
-        // TODO: Verify field names with docsp
-        const featuredLearnArticlesArray =
-            getNestedValue(['featuredArticles', 'learnPage']) ||
-            FEATURED_LEARN_SLUGS;
-        const featuredArticles = getFeaturedArticles(
-            allArticles,
-            featuredLearnArticlesArray
-        );
-        const filters = await getLearnPageFilters(allArticles);
-        deletePage(page);
-        createPage({
-            ...page,
-            context: {
-                ...page.context,
-                allArticles,
-                featuredArticles,
-                filters,
-            },
-        });
+const getFeaturedArticlesForPage = async (
+    page,
+    defaultFeaturedArticles,
+    allArticles = null
+) => {
+    if (!allArticles) {
+        allArticles = await getLearnPageArticles();
+    }
+    // TODO: Verify field names with docsp
+    const featuredArticleSlugs =
+        getNestedValue(['featuredArticles', `${page}Page`], metadata) ||
+        defaultFeaturedArticles;
+    const featuredArticles = getFeaturedArticles(
+        allArticles,
+        featuredArticleSlugs
+    );
+    return featuredArticles;
+};
+
+exports.onCreatePage = async ({
+    page,
+    actions: { createPage, deletePage },
+}) => {
+    switch (page.path) {
+        case '/learn/':
+            const allArticles = await getLearnPageArticles();
+            const filters = await getLearnPageFilters(allArticles);
+            const featuredLearnArticles = await getFeaturedArticlesForPage(
+                'learn',
+                DEFAULT_FEATURED_LEARN_SLUGS,
+                allArticles
+            );
+            deletePage(page);
+            createPage({
+                ...page,
+                context: {
+                    ...page.context,
+                    allArticles,
+                    featuredArticles: featuredLearnArticles,
+                    filters,
+                },
+            });
+            break;
+        case '/':
+            const featuredHomeArticles = await getFeaturedArticlesForPage(
+                'home',
+                DEFAULT_FEATURED_HOME_SLUGS
+            );
+            deletePage(page);
+            createPage({
+                ...page,
+                context: {
+                    ...page.context,
+                    featuredArticles: featuredHomeArticles,
+                },
+            });
+            break;
+        default:
+            break;
     }
 };
