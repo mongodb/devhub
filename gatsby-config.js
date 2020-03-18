@@ -1,4 +1,4 @@
-const dlv = require('dlv');
+const { getNestedValue } = require('./src/utils/get-nested-value');
 const { generatePathPrefix } = require('./src/utils/generate-path-prefix');
 const { getMetadata } = require('./src/utils/get-metadata');
 
@@ -52,27 +52,35 @@ module.exports = {
                     {
                         serialize: ({ query: { site, allSitePage } }) => {
                             return allSitePage.edges.map(edge => {
-                                const path = dlv(edge, 'node.path');
-                                const query_fields = dlv(
-                                    edge,
-                                    'node.context._xrefDocMapping.query_fields'
+                                const path = getNestedValue(
+                                    ['node', 'path'],
+                                    edge
                                 );
-                                const description = dlv(
-                                    query_fields,
+                                const query_fields = getNestedValue(
                                     [
-                                        'meta_description',
-                                        0,
-                                        'children',
-                                        0,
-                                        'value',
+                                        'node',
+                                        'context',
+                                        '_xrefDocMapping',
+                                        'query_fields',
                                     ],
-                                    'No description available'
+                                    edge
                                 );
-                                const title = dlv(
-                                    query_fields,
-                                    ['title', 0, 'value'],
-                                    'No title available'
-                                );
+                                const description =
+                                    getNestedValue(
+                                        [
+                                            'meta_description',
+                                            0,
+                                            'children',
+                                            0,
+                                            'value',
+                                        ],
+                                        query_fields
+                                    ) || '';
+                                const title =
+                                    getNestedValue(
+                                        ['title', 0, 'value'],
+                                        query_fields
+                                    ) || '';
                                 return {
                                     title: title,
                                     description: description,
