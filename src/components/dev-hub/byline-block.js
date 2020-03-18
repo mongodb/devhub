@@ -25,17 +25,6 @@ const AuthorText = styled(P)`
     @media ${screenSize.upToLarge} {
         font-size: ${fontSize.xsmall};
     }
-    &:before {
-        content: 'By ';
-    }
-    &:after {
-        content: '\u00a0';
-    }
-    :not(:first-of-type) {
-        &:before {
-            content: 'and ';
-        }
-    }
 `;
 
 const ByLine = styled('div')`
@@ -65,10 +54,12 @@ const AuthorImages = ({ authors }) => (
 
 const AuthorNames = ({ authors }) => (
     <div>
-        {authors.map(({ name }) => {
+        {authors.map(({ name }, index) => {
             const authorLink = `/author/${getTagPageUriComponent(name)}`;
+            const prefix = index === 0 ? 'By ' : '\u00a0and ';
             return (
                 <AuthorText collapse key={name}>
+                    {prefix}
                     <AuthorLink to={authorLink}>{name}</AuthorLink>
                 </AuthorText>
             );
