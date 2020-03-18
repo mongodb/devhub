@@ -338,14 +338,14 @@ const getLearnPageArticles = async () => {
     return filteredDocuments;
 };
 
-const getFeaturedLearnArticles = articles => {
+const getFeaturedArticles = (allArticles, featuredArticles) => {
     const result = [];
-    FEATURED_LEARN_SLUGS.forEach((f, i) => {
-        const newArticle = articles.find(x => x.query_fields.slug === f);
+    featuredArticles.forEach((f, i) => {
+        const newArticle = allArticles.find(x => x.query_fields.slug === f);
         if (newArticle) {
             result.push(newArticle);
         } else {
-            result.push(articles[i]);
+            result.push(allArticles[i]);
         }
     });
     return result;
@@ -405,7 +405,14 @@ exports.onCreatePage = async ({ page, actions }) => {
     if (page.path === '/learn/') {
         const { createPage, deletePage } = actions;
         const allArticles = await getLearnPageArticles();
-        const featuredArticles = getFeaturedLearnArticles(allArticles);
+        // TODO: Verify field names with docsp
+        const featuredLearnArticlesArray =
+            getNestedValue(['featuredArticles', 'learnPage']) ||
+            FEATURED_LEARN_SLUGS;
+        const featuredArticles = getFeaturedArticles(
+            allArticles,
+            featuredLearnArticlesArray
+        );
         const filters = await getLearnPageFilters(allArticles);
         deletePage(page);
         createPage({
