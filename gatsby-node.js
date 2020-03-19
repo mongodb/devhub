@@ -2,6 +2,7 @@ const path = require('path');
 const dlv = require('dlv');
 const fs = require('fs').promises;
 const mkdirp = require('mkdirp');
+const memoizerific = require('memoizerific');
 const { Stitch, AnonymousCredential } = require('mongodb-stitch-server-sdk');
 const {
     validateEnvVariables,
@@ -17,6 +18,10 @@ const { getTemplate } = require('./src/utils/get-template');
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
+
+const requestStitch = async (functionName, ...args) =>
+    stitchClient.callFunction(functionName, [metadata, ...args]);
+const memoizedStitchRequest = memoizerific(10)(requestStitch);
 
 // Atlas DB config
 const DB = metadata.database;
@@ -330,11 +335,8 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
     });
 };
 
-const getLearnPageArticles = async () => {
-    const documents = await stitchClient.callFunction('fetchDevhubMetadata', [
-        metadata,
-        {},
-    ]);
+const getAllArticles = memoizerific(1)(async () => {
+    const documents = await memoizedStitchRequest('fetchDevhubMetadata', {});
     // Ignore bad data, including links to the home page as an "article"
     const filteredDocuments = documents.filter(d => {
         const route = dlv(d, ['query_fields', 'slug'], null);
@@ -343,7 +345,7 @@ const getLearnPageArticles = async () => {
         return route !== '/' && !!title && !!image;
     });
     return filteredDocuments;
-};
+});
 
 const getFeaturedArticles = (allArticles, featuredArticleSlugs) => {
     const result = [];
@@ -411,14 +413,8 @@ const getLearnPageFilters = async () => {
     return filters;
 };
 
-const getFeaturedArticlesForPage = async (
-    page,
-    defaultFeaturedArticles,
-    allArticles = null
-) => {
-    if (!allArticles) {
-        allArticles = await getLearnPageArticles();
-    }
+const getFeaturedArticlesForPage = async (page, defaultFeaturedArticles) => {
+    const allArticles = await getAllArticles();
     // TODO: Verify field names with docsp
     const featuredArticleSlugs =
         getNestedValue(['featuredArticles', `${page}Page`], metadata) ||
@@ -436,12 +432,11 @@ exports.onCreatePage = async ({
 }) => {
     switch (page.path) {
         case '/learn/':
-            const allArticles = await getLearnPageArticles();
+            const allArticles = await getAllArticles();
             const filters = await getLearnPageFilters(allArticles);
             const featuredLearnArticles = await getFeaturedArticlesForPage(
                 'learn',
-                DEFAULT_FEATURED_LEARN_SLUGS,
-                allArticles
+                DEFAULT_FEATURED_LEARN_SLUGS
             );
             deletePage(page);
             createPage({
