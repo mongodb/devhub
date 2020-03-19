@@ -150,7 +150,7 @@ exports.sourceNodes = async () => {
 
 exports.createPages = async ({ actions }) => {
     const { createPage } = actions;
-    const pageMetadata = await stitchClient.callFunction('fetchDocument', [
+    const metadata = await stitchClient.callFunction('fetchDocument', [
         DB,
         METADATA_COLLECTION,
         constructDbFilter(),
@@ -174,7 +174,7 @@ exports.createPages = async ({ actions }) => {
                 path: slug,
                 component: path.resolve(`./src/templates/${template}.js`),
                 context: {
-                    metadata: pageMetadata,
+                    metadata,
                     seriesArticles,
                     slug,
                     snootyStitchId: SNOOTY_STITCH_ID,
@@ -189,7 +189,7 @@ exports.createPages = async ({ actions }) => {
         createTagPageType(
             type,
             createPage,
-            pageMetadata,
+            metadata,
             RESOLVED_REF_DOC_MAPPING,
             stitchClient
         )
