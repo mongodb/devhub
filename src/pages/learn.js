@@ -26,9 +26,11 @@ const MainFeatureGrid = styled('div')`
 `;
 
 const PrimarySection = styled('div')`
-    border-right: 1px solid ${colorMap.greyDarkTwo};
     grid-area: primary;
-    padding-right: ${size.medium};
+    @media ${screenSize.mediumAndUp} {
+        border-right: 1px solid ${colorMap.greyDarkTwo};
+        padding-right: ${size.medium};
+    }
 `;
 
 const PrimaryImage = styled('img')`
