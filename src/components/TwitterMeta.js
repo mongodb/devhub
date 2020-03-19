@@ -5,22 +5,18 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 
 const isExternalUrl = /^http(s)?:\/\//;
 
-const getImageMeta = (src, siteUrl) => {
+const getImageSrc = (src, siteUrl) => {
     if (!src) {
         return null;
     }
-    let content = isExternalUrl.test(src) ? src : siteUrl + src;
 
-    return (
-        <>
-            <meta property="og:image" content={content} />
-            <meta property="twitter:image" content={content} />
-        </>
-    );
+    return isExternalUrl.test(src) ? src : siteUrl + src;
 };
 
 export default ({ nodeData: { children, options } }) => {
     const { siteUrl } = useSiteMetadata();
+    const imgSrc = getImageSrc(options.image, siteUrl);
+
     return (
         <Helmet>
             <meta name="twitter:card" content="summary" />
@@ -31,7 +27,8 @@ export default ({ nodeData: { children, options } }) => {
                 property="twitter:description"
                 content={getNestedText(children)}
             />
-            {getImageMeta(options.image, siteUrl)}
+            {imgSrc && <meta property="og:image" content={imgSrc} />}
+            {imgSrc && <meta property="twitter:image" content={imgSrc} />}
         </Helmet>
     );
 };
