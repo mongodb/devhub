@@ -177,9 +177,10 @@ const Article = props => {
         <Layout>
             <Helmet>
                 <title>{articleTitle}</title>
-                <meta property="og:title" content={articleTitle}></meta>
-                <meta property="og:url" content={articleUrl}></meta>
-                <link rel="canonical" href={articleUrl}></link>
+                <meta property="og:title" content={articleTitle} />
+                <meta property="og:url" content={articleUrl} />
+                <meta property="og:type" content="article" />
+                <link rel="canonical" href={articleUrl} />
             </Helmet>
             <BlogPostTitleArea
                 articleImage={withPrefix(meta['atf-image'])}
