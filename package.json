@@ -75,6 +75,7 @@
     "@storybook/react": "^5.3.14",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
+    "babel-plugin-emotion": "^10.0.29",
     "babel-preset-gatsby": "^0.2.23",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",

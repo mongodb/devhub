@@ -2,7 +2,7 @@ import { create } from '@storybook/theming/create';
 import { colorMap, FORM_ELEMENT_BORDER } from '../src/components/dev-hub/theme';
 
 export default create({
-    base: colorMap.pageBackground,
+    base: 'dark',
     colorSecondary: colorMap.teal,
 
     // UI

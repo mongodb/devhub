@@ -29,6 +29,7 @@ module.exports = ({ config }) => {
                 loader: 'babel-loader',
                 options: {
                     plugins: ['@babel/plugin-transform-react-jsx'],
+                    presets: [require.resolve("@emotion/babel-preset-css-prop"]
                 },
             },
             {
