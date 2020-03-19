@@ -28,5 +28,4 @@ export default create({
     inputBorderRadius: 4,
 
     brandTitle: 'MongDB Dev-Hub',
-    //   brandImage: 'https://placehold.it/350x150',
 });
