@@ -125,6 +125,9 @@ const TwitchVideoModal = ({ id, trigger, thumbnail }) => (
             padding: `0 ${size.large}`,
             width: '90%',
         }}
+        dialogMobileContainerStyle={{
+            width: '100%',
+        }}
         transparent
         triggerComponent={trigger}
     >
