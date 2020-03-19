@@ -2,11 +2,11 @@ const path = require('path');
 const dlv = require('dlv');
 const fs = require('fs').promises;
 const mkdirp = require('mkdirp');
-const memoizerific = require('memoizerific');
 const { Stitch, AnonymousCredential } = require('mongodb-stitch-server-sdk');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
+const { onCreatePage } = require('./src/utils/setup/on-create-page');
 const { createTagPageType } = require('./src/utils/setup/create-tag-page-type');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { getNestedValue } = require('./src/utils/get-nested-value');
@@ -30,28 +30,11 @@ let PAGE_ID_PREFIX;
 const PAGES = [];
 const IMAGE_FILES = {};
 
-const DEFAULT_FEATURED_HOME_SLUGS = [
-    '/how-to/nextjs-building-modern-applications',
-    '/how-to/python-starlette-stitch',
-    '/how-to/graphql-support-atlas-stitch',
-    '/quickstart/free-atlas-cluster',
-];
-
-const DEFAULT_FEATURED_LEARN_SLUGS = [
-    '/quickstart/java-setup-crud-operations',
-    '/how-to/golang-alexa-skills',
-    '/how-to/polymorphic-pattern',
-];
-
 // in-memory object with key/value = filename/document
 let RESOLVED_REF_DOC_MAPPING = {};
 
 // stich client connection
 let stitchClient;
-
-const requestStitch = async (functionName, ...args) =>
-    stitchClient.callFunction(functionName, [metadata, ...args]);
-const memoizedStitchRequest = memoizerific(10)(requestStitch);
 
 const setupStitch = () => {
     return new Promise(resolve => {
@@ -208,8 +191,7 @@ exports.createPages = async ({ actions }) => {
             createPage,
             pageMetadata,
             RESOLVED_REF_DOC_MAPPING,
-            stitchClient,
-            metadata
+            stitchClient
         )
     );
     await Promise.all(tagPages);
@@ -243,135 +225,5 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
     });
 };
 
-const getAllArticles = memoizerific(1)(async () => {
-    const documents = await memoizedStitchRequest('fetchDevhubMetadata', {});
-    // Ignore bad data, including links to the home page as an "article"
-    const filteredDocuments = documents.filter(d => {
-        const route = dlv(d, ['query_fields', 'slug'], null);
-        const title = dlv(d, ['query_fields', 'title'], null);
-        const image = dlv(d, ['query_fields', 'atf-image'], null);
-        return route !== '/' && !!title && !!image;
-    });
-    return filteredDocuments;
-});
-
-const getFeaturedArticles = (allArticles, featuredArticleSlugs) => {
-    const result = [];
-    featuredArticleSlugs.forEach((featuredSlug, i) => {
-        const newArticle = allArticles.find(
-            x => x.query_fields.slug === featuredSlug
-        );
-        if (newArticle) {
-            result.push(newArticle);
-        } else {
-            // This article was not found. pick an existing article and add it instead.
-            result.push(allArticles[i]);
-        }
-    });
-    return result;
-};
-
-const getLearnPageFilters = async () => {
-    const filters = {
-        languages: {},
-        products: {},
-    };
-
-    // Get possible language and product values from Stitch
-    const languageValues = await stitchClient.callFunction('getValuesByKey', [
-        metadata,
-        'languages',
-    ]);
-    const productValues = await stitchClient.callFunction('getValuesByKey', [
-        metadata,
-        'products',
-    ]);
-
-    // For each language, build an object with its total count, and count for each product
-    for (let i = 0; i < languageValues.length; i++) {
-        const l = languageValues[i];
-        filters.languages[l._id] = {
-            count: l.count,
-            products: {},
-        };
-        const productValuesForLanguage = await stitchClient.callFunction(
-            'getValuesByKey',
-            [metadata, 'products', { languages: l._id }]
-        );
-        productValuesForLanguage.forEach(pl => {
-            filters.languages[l._id].products[pl._id] = pl.count;
-        });
-    }
-
-    // For each product, build an object with its total count, and count for each language
-    for (let i = 0; i < productValues.length; i++) {
-        const p = productValues[i];
-        filters.products[p._id] = {
-            count: p.count,
-            languages: {},
-        };
-        const languageValuesForProduct = await stitchClient.callFunction(
-            'getValuesByKey',
-            [metadata, 'languages', { products: p._id }]
-        );
-        languageValuesForProduct.forEach(lp => {
-            filters.products[p._id].languages[lp._id] = lp.count;
-        });
-    }
-    return filters;
-};
-
-const getFeaturedArticlesForPage = async (page, defaultFeaturedArticles) => {
-    const allArticles = await getAllArticles();
-    // TODO: Verify field names with docsp
-    const featuredArticleSlugs =
-        getNestedValue(['featuredArticles', `${page}Page`], metadata) ||
-        defaultFeaturedArticles;
-    const featuredArticles = getFeaturedArticles(
-        allArticles,
-        featuredArticleSlugs
-    );
-    return featuredArticles;
-};
-
-exports.onCreatePage = async ({
-    page,
-    actions: { createPage, deletePage },
-}) => {
-    switch (page.path) {
-        case '/learn/':
-            const allArticles = await getAllArticles();
-            const filters = await getLearnPageFilters(allArticles);
-            const featuredLearnArticles = await getFeaturedArticlesForPage(
-                'learn',
-                DEFAULT_FEATURED_LEARN_SLUGS
-            );
-            deletePage(page);
-            createPage({
-                ...page,
-                context: {
-                    ...page.context,
-                    allArticles,
-                    featuredArticles: featuredLearnArticles,
-                    filters,
-                },
-            });
-            break;
-        case '/':
-            const featuredHomeArticles = await getFeaturedArticlesForPage(
-                'home',
-                DEFAULT_FEATURED_HOME_SLUGS
-            );
-            deletePage(page);
-            createPage({
-                ...page,
-                context: {
-                    ...page.context,
-                    featuredArticles: featuredHomeArticles,
-                },
-            });
-            break;
-        default:
-            break;
-    }
-};
+exports.onCreatePage = async ({ page, actions }) =>
+    onCreatePage(page, actions, stitchClient);

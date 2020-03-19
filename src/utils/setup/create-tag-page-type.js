@@ -2,6 +2,9 @@ const dlv = require('dlv');
 const path = require('path');
 const { getTagPageUriComponent } = require('../get-tag-page-uri-component');
 const { SNOOTY_STITCH_ID } = require('../../build-constants');
+const { getMetadata } = require('../get-metadata');
+
+const metadata = getMetadata();
 
 const STITCH_TYPE_TO_URL_PREFIX = {
     author: 'author',
@@ -30,8 +33,7 @@ const createTagPageType = async (
     createPage,
     pageMetadata,
     RESOLVED_REF_DOC_MAPPING,
-    stitchClient,
-    metadata
+    stitchClient
 ) => {
     const isAuthor = stitchType === 'author';
     const pageType = STITCH_TYPE_TO_URL_PREFIX[stitchType];
