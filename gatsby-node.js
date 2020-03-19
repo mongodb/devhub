@@ -7,29 +7,23 @@ const { Stitch, AnonymousCredential } = require('mongodb-stitch-server-sdk');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
+const { createTagPageType } = require('./src/utils/setup/create-tag-page-type');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { getNestedValue } = require('./src/utils/get-nested-value');
-const {
-    getTagPageUriComponent,
-} = require('./src/utils/get-tag-page-uri-component');
 const { getPageSlug } = require('./src/utils/get-page-slug');
 const { getSeriesArticles } = require('./src/utils/get-series-articles');
 const { getTemplate } = require('./src/utils/get-template');
+const {
+    DOCUMENTS_COLLECTION,
+    ASSETS_COLLECTION,
+    METADATA_COLLECTION,
+    SNOOTY_STITCH_ID,
+} = require('./src/build-constants');
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
 
-const requestStitch = async (functionName, ...args) =>
-    stitchClient.callFunction(functionName, [metadata, ...args]);
-const memoizedStitchRequest = memoizerific(10)(requestStitch);
-
-// Atlas DB config
 const DB = metadata.database;
-const DOCUMENTS_COLLECTION = 'documents';
-const ASSETS_COLLECTION = 'assets';
-const METADATA_COLLECTION = 'metadata';
-
-const SNOOTY_STITCH_ID = 'snooty-koueq';
 let PAGE_ID_PREFIX;
 
 // different types of references
@@ -49,19 +43,15 @@ const DEFAULT_FEATURED_LEARN_SLUGS = [
     '/how-to/polymorphic-pattern',
 ];
 
-const STITCH_TYPE_TO_URL_PREFIX = {
-    author: 'author',
-    languages: 'language',
-    products: 'product',
-    tags: 'tag',
-    type: 'type',
-};
-
 // in-memory object with key/value = filename/document
 let RESOLVED_REF_DOC_MAPPING = {};
 
 // stich client connection
 let stitchClient;
+
+const requestStitch = async (functionName, ...args) =>
+    stitchClient.callFunction(functionName, [metadata, ...args]);
+const memoizedStitchRequest = memoizerific(10)(requestStitch);
 
 const setupStitch = () => {
     return new Promise(resolve => {
@@ -127,93 +117,6 @@ const getRelatedPagesWithImages = pageNodes => {
     return relatedPageInfo;
 };
 
-const getAuthorIncludesPath = authorName => {
-    switch (authorName) {
-        // Handle case where REF_DOC_MAP name isnt just lastname-firstname
-        case 'Ken W. Alger':
-            return 'includes/authors/alger-ken';
-        default:
-            return `includes/authors/${authorName
-                .toLowerCase()
-                .split(' ')
-                .reverse()
-                .join('-')}`;
-    }
-};
-
-const createTagPageType = async (createPage, pageMetadata, stitchType) => {
-    const isAuthor = stitchType === 'author';
-    const pageType = STITCH_TYPE_TO_URL_PREFIX[stitchType];
-
-    // Query for all possible values for this type of tag
-    const possibleTagValues = await stitchClient.callFunction(
-        'getValuesByKey',
-        [metadata, stitchType]
-    );
-
-    const requests = [];
-
-    // For each possible tag value, query the pages that exist for it
-    await possibleTagValues.forEach(async tag => {
-        const requestKey = {};
-        requestKey[stitchType] = tag._id;
-        requests.push(
-            stitchClient.callFunction('fetchDevhubMetadata', [
-                metadata,
-                requestKey,
-            ])
-        );
-    });
-
-    const pageData = await Promise.all(requests);
-
-    // Once requests finish, map the item with name (and optional image) to the response's return value
-    const itemsWithPageData = possibleTagValues.map((r, i) => ({
-        item: r,
-        pages: pageData[i],
-    }));
-
-    const pageList = itemsWithPageData.map(page => {
-        const name = isAuthor ? page.item._id.name : page.item._id;
-        // Some bad data for authors doesn't follow this structure, so ignore it
-        if (!name) return null;
-        else {
-            const urlSuffix = getTagPageUriComponent(name);
-            const newPage = {
-                type: pageType,
-                name: name,
-                slug: `/${pageType}/${urlSuffix}`,
-                pages: page.pages,
-            };
-            if (isAuthor) {
-                const authorBioPath = getAuthorIncludesPath(name);
-                const bio = dlv(
-                    RESOLVED_REF_DOC_MAPPING[authorBioPath],
-                    ['ast', 'children', 0, 'children', 0],
-                    null
-                );
-                newPage['author_image'] = page.item._id.image;
-                newPage['bio'] = bio;
-            }
-            return newPage;
-        }
-    });
-
-    pageList.forEach(page => {
-        if (page) {
-            createPage({
-                path: page.slug,
-                component: path.resolve(`./src/templates/tag.js`),
-                context: {
-                    metadata: pageMetadata,
-                    snootyStitchId: SNOOTY_STITCH_ID,
-                    ...page,
-                },
-            });
-        }
-    });
-};
-
 exports.sourceNodes = async () => {
     // setup env variables
     const envResults = validateEnvVariables();
@@ -264,7 +167,7 @@ exports.sourceNodes = async () => {
 
 exports.createPages = async ({ actions }) => {
     const { createPage } = actions;
-    const metadata = await stitchClient.callFunction('fetchDocument', [
+    const pageMetadata = await stitchClient.callFunction('fetchDocument', [
         DB,
         METADATA_COLLECTION,
         constructDbFilter(),
@@ -288,7 +191,7 @@ exports.createPages = async ({ actions }) => {
                 path: slug,
                 component: path.resolve(`./src/templates/${template}.js`),
                 context: {
-                    metadata: metadata,
+                    metadata: pageMetadata,
                     seriesArticles,
                     slug,
                     snootyStitchId: SNOOTY_STITCH_ID,
@@ -298,13 +201,18 @@ exports.createPages = async ({ actions }) => {
         }
     });
 
-    await Promise.all([
-        createTagPageType(createPage, metadata, 'author'),
-        createTagPageType(createPage, metadata, 'languages'),
-        createTagPageType(createPage, metadata, 'products'),
-        createTagPageType(createPage, metadata, 'tags'),
-        createTagPageType(createPage, metadata, 'type'),
-    ]);
+    const tagTypes = ['author', 'languages', 'products', 'tags', 'type'];
+    const tagPages = tagTypes.map(type =>
+        createTagPageType(
+            type,
+            createPage,
+            pageMetadata,
+            RESOLVED_REF_DOC_MAPPING,
+            stitchClient,
+            metadata
+        )
+    );
+    await Promise.all(tagPages);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
