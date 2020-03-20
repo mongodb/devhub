@@ -1,16 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`List renders correctly 1`] = `
-<ul>
+<ul
+  class="css-8yefd3-UnorderedList e1ex3t400"
+>
   <li>
-    create a free account on Atlas, MongoDB's managed database solution in the cloud
+    <div>
+      create a free account on Atlas, MongoDB's managed database solution in the cloud
+    </div>
   </li>
   <li>
-    create a free MongoDB 
-    <em>
-      cluster
-    </em>
-    , or group of database instances.
+    <div>
+      create a free MongoDB 
+      <em>
+        cluster
+      </em>
+      , or group of database instances.
+    </div>
   </li>
 </ul>
 `;

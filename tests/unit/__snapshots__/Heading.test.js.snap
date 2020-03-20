@@ -2,8 +2,16 @@
 
 exports[`renders correctly 1`] = `
 <h3
-  class="css-gwxar1"
+  class="css-fyycbg-ArticleH3-commonHeading e1top8006"
+  id="create-an-administrative-username-and-password"
 >
+  <a
+    class="e1hiqreu0 css-14asc4k-StyledLink-linkStyling-PermaLink eygprlc0"
+    href="#create-an-administrative-username-and-password"
+    title="Permalink to this headline"
+  >
+    #
+  </a>
   Create an administrative username and password
 </h3>
 `;
