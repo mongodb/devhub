@@ -1,5 +1,5 @@
 import { removePastEvents } from '../../src/hooks/use-event-data';
-import { createDateObject } from '../../src/utils/format-dates';
+// import { createDateObject } from '../../src/utils/format-dates';
 
 const events = [
     {
@@ -18,6 +18,7 @@ const events = [
     },
 ];
 
+/*
 const today = createDateObject(new Date());
 const todayAsia = today.toLocaleString('en-US', {
     timeZone: 'Asia/Shanghai',
@@ -38,10 +39,11 @@ const timezonedEvents = [
         },
         status: 'published',
     },
-];
+]; */
 it('should remove events that have past', () => {
     const filtered = removePastEvents(events);
-    const timezoneFiltered = removePastEvents(timezonedEvents);
+
+    // const timezoneFiltered = removePastEvents(timezonedEvents);
     expect(filtered).toEqual([events[0]]);
     // TODO: uncomment below when browser inconsistencies with `createDateObject()`
     // comparisons is resolved
