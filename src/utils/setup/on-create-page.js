@@ -57,11 +57,10 @@ const getLearnPageFilters = async () => {
     const allArticles = await getAllArticles();
 
     allArticles.forEach(a => {
-        const langs = a.query_fields.languages;
-        const prods = a.query_fields.products;
-        // Just lang
-        if (langs) {
-            langs.forEach(l => {
+        const languagesForArticle = a.query_fields.languages;
+        const productsForArticle = a.query_fields.products;
+        if (languagesForArticle) {
+            languagesForArticle.forEach(l => {
                 if (languages[l]) {
                     languages[l].count++;
                 } else {
@@ -70,20 +69,17 @@ const getLearnPageFilters = async () => {
                         products: {},
                     };
                 }
-                if (prods) {
-                    prods.forEach(p => {
-                        if (languages[l].products[p]) {
-                            languages[l].products[p]++;
-                        } else {
-                            languages[l].products[p] = 1;
-                        }
+                if (productsForArticle) {
+                    productsForArticle.forEach(p => {
+                        languages[l].products[p]
+                            ? languages[l].products[p]++
+                            : (languages[l].products[p] = 1);
                     });
                 }
             });
         }
-        if (prods) {
-            // Just products
-            prods.forEach(p => {
+        if (productsForArticle) {
+            productsForArticle.forEach(p => {
                 if (products[p]) {
                     products[p].count++;
                 } else {
@@ -92,19 +88,16 @@ const getLearnPageFilters = async () => {
                         languages: {},
                     };
                 }
-                if (langs) {
-                    langs.forEach(l => {
-                        if (products[p].languages[l]) {
-                            products[p].languages[l]++;
-                        } else {
-                            products[p].languages[l] = 1;
-                        }
+                if (languagesForArticle) {
+                    languagesForArticle.forEach(l => {
+                        products[p].languages[l]
+                            ? products[p].languages[l]++
+                            : (products[p].languages[l] = 1);
                     });
                 }
             });
         }
     });
-
     return { languages, products };
 };
 
