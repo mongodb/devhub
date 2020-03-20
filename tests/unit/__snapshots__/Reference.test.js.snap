@@ -2,8 +2,10 @@
 
 exports[`renders correctly 1`] = `
 <a
-  class="reference external"
+  class="reference css-pct7cv-StyledLink-linkStyling eygprlc0"
   href="https://docs.mlab.com/subscriptions/#change-plans-using-rnr"
+  rel="noreferrer noopener"
+  target="_blank"
 >
   mLab documentation
 </a>
