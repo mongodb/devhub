@@ -51,10 +51,8 @@ const findArticlesFromSlugs = (allArticles, articleSlugs) => {
 };
 
 const getLearnPageFilters = async () => {
-    const filters = {
-        languages: {},
-        products: {},
-    };
+    const languages = {};
+    const products = {};
 
     // Get possible language and product values from Stitch
     const languageValues = await stitchClient.callFunction('getValuesByKey', [
@@ -69,7 +67,7 @@ const getLearnPageFilters = async () => {
     // For each language, build an object with its total count, and count for each product
     for (let i = 0; i < languageValues.length; i++) {
         const l = languageValues[i];
-        filters.languages[l._id] = {
+        languages[l._id] = {
             count: l.count,
             products: {},
         };
@@ -78,14 +76,14 @@ const getLearnPageFilters = async () => {
             [metadata, 'products', { languages: l._id }]
         );
         productValuesForLanguage.forEach(pl => {
-            filters.languages[l._id].products[pl._id] = pl.count;
+            languages[l._id].products[pl._id] = pl.count;
         });
     }
 
     // For each product, build an object with its total count, and count for each language
     for (let i = 0; i < productValues.length; i++) {
         const p = productValues[i];
-        filters.products[p._id] = {
+        products[p._id] = {
             count: p.count,
             languages: {},
         };
@@ -94,10 +92,10 @@ const getLearnPageFilters = async () => {
             [metadata, 'languages', { products: p._id }]
         );
         languageValuesForProduct.forEach(lp => {
-            filters.products[p._id].languages[lp._id] = lp.count;
+            products[p._id].languages[lp._id] = lp.count;
         });
     }
-    return filters;
+    return { languages, products };
 };
 
 const onCreatePage = async (
