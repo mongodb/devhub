@@ -1,5 +1,5 @@
-import { removePastEvents } from '../src/hooks/use-event-data';
-import { createDateObject, toDateString } from '../src/utils/format-dates';
+import { removePastEvents } from '../../src/hooks/use-event-data';
+import { createDateObject } from '../../src/utils/format-dates';
 
 const events = [
     {
