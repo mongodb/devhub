@@ -41,6 +41,7 @@ const timezonedEvents = [
 ];
 it('should remove events that have past', () => {
     const filtered = removePastEvents(events);
+    // eslint-disable-next-line no-unused-vars
     const timezoneFiltered = removePastEvents(timezonedEvents);
     expect(filtered).toEqual([events[0]]);
     // TODO: uncomment below when browser inconsistencies with `createDateObject()`

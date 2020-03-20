@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
@@ -243,6 +244,8 @@ const contentLocation = padding => ({
             left = targetRect.right + padding;
             // our adjustment
             topAdjustment = -20;
+            break;
+        default:
             break;
     }
     const finalTop = top + window.pageYOffset + topAdjustment;

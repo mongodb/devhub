@@ -1,6 +1,6 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import ReactDOM from 'react-dom';
-// eslint-disable-next-line import/no-unresolved
 import { getPageData } from 'previewSetup'; // Alias found in gatsby-node and webpack.config.js
 // Layouts
 import Layout from './src/components/dev-hub/layout';

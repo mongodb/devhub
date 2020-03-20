@@ -5,7 +5,7 @@ import Card from '../components/dev-hub/card';
 import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
-import { H1, H2, P, SubHeader, H5 } from '../components/dev-hub/text';
+import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
 import {
     colorMap,
     gradientMap,

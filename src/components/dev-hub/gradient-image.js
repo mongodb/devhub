@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { gradientMap, size, colorMap } from './theme';
+import { gradientMap, size } from './theme';
 
 const fullSizeAbsolute = css`
     bottom: 0;
