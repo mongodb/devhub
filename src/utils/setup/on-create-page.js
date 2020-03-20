@@ -54,47 +54,57 @@ const getLearnPageFilters = async () => {
     const languages = {};
     const products = {};
 
-    // Get possible language and product values from Stitch
-    const languageValues = await stitchClient.callFunction('getValuesByKey', [
-        metadata,
-        'languages',
-    ]);
-    const productValues = await stitchClient.callFunction('getValuesByKey', [
-        metadata,
-        'products',
-    ]);
+    const allArticles = await getAllArticles();
 
-    // For each language, build an object with its total count, and count for each product
-    for (let i = 0; i < languageValues.length; i++) {
-        const l = languageValues[i];
-        languages[l._id] = {
-            count: l.count,
-            products: {},
-        };
-        const productValuesForLanguage = await stitchClient.callFunction(
-            'getValuesByKey',
-            [metadata, 'products', { languages: l._id }]
-        );
-        productValuesForLanguage.forEach(pl => {
-            languages[l._id].products[pl._id] = pl.count;
-        });
-    }
+    allArticles.forEach(a => {
+        const langs = a.query_fields.languages;
+        const prods = a.query_fields.products;
+        // Just lang
+        if (langs) {
+            langs.forEach(l => {
+                if (languages[l]) {
+                    languages[l].count++;
+                } else {
+                    languages[l] = {
+                        count: 1,
+                        products: {},
+                    };
+                }
+                if (prods) {
+                    prods.forEach(p => {
+                        if (languages[l].products[p]) {
+                            languages[l].products[p]++;
+                        } else {
+                            languages[l].products[p] = 1;
+                        }
+                    });
+                }
+            });
+        }
+        if (prods) {
+            // Just products
+            prods.forEach(p => {
+                if (products[p]) {
+                    products[p].count++;
+                } else {
+                    products[p] = {
+                        count: 1,
+                        languages: {},
+                    };
+                }
+                if (langs) {
+                    langs.forEach(l => {
+                        if (products[p].languages[l]) {
+                            products[p].languages[l]++;
+                        } else {
+                            products[p].languages[l] = 1;
+                        }
+                    });
+                }
+            });
+        }
+    });
 
-    // For each product, build an object with its total count, and count for each language
-    for (let i = 0; i < productValues.length; i++) {
-        const p = productValues[i];
-        products[p._id] = {
-            count: p.count,
-            languages: {},
-        };
-        const languageValuesForProduct = await stitchClient.callFunction(
-            'getValuesByKey',
-            [metadata, 'languages', { products: p._id }]
-        );
-        languageValuesForProduct.forEach(lp => {
-            products[p._id].languages[lp._id] = lp.count;
-        });
-    }
     return { languages, products };
 };
 
