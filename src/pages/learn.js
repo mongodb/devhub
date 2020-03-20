@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
-import dlv from 'dlv';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import { withPrefix } from 'gatsby';
@@ -12,6 +11,7 @@ import FilterBar from '../components/dev-hub/filter-bar';
 import { colorMap, screenSize, size } from '../components/dev-hub/theme';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
+import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 
 const MainFeatureGrid = styled('div')`
@@ -99,35 +99,6 @@ const filterArticles = (filter, initialArticles) => {
         acc.push(article);
         return acc;
     }, []);
-};
-
-const getFeaturedCardFields = article => {
-    if (!article) {
-        return {
-            image: null,
-            slug: null,
-            title: null,
-            description: null,
-            tags: null,
-        };
-    }
-    const query_fields = article.query_fields;
-    const image = query_fields['atf-image'];
-    const slug = query_fields.slug;
-    const title = dlv(query_fields, ['title', 0, 'value']);
-    const description = dlv(query_fields, [
-        'meta-description',
-        0,
-        'children',
-        0,
-        'value',
-    ]);
-    const tags = {
-        products: query_fields.products,
-        tags: query_fields.tags,
-        languages: query_fields.languages,
-    };
-    return { image, slug, title, description, tags };
 };
 
 const SecondaryFeaturedArticle = ({ article, Wrapper }) => {

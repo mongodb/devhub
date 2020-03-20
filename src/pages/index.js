@@ -5,7 +5,7 @@ import Card from '../components/dev-hub/card';
 import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
-import { H1, H2, P, SubHeader, H5 } from '../components/dev-hub/text';
+import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
 import {
     colorMap,
     gradientMap,
@@ -14,12 +14,8 @@ import {
 } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import buildImage from '../images/2x/Build@2x.png';
-import graphqlImage from '../images/1x/GraphQL.png';
-import atlasCluster from '../images/1x/Atlas-Cluster.png';
 import greenPatternImage from '../images/2x/pattern-green@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
-import nodejsIllustration from '../images/1x/Node.Js-Illustration.png';
-import pythonImage from '../images/1x/Python.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
@@ -27,6 +23,7 @@ import useTwitchApi from '../utils/use-twitch-api';
 import { Modal } from '../components/dev-hub/modal';
 import VideoEmbed from '../components/dev-hub/video-embed';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
+import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 
 const MEDIA_WIDTH = '550';
 
@@ -158,7 +155,7 @@ const Thumbnail = ({ video }) => {
     );
 };
 
-export default () => {
+export default ({ pageContext: { featuredArticles } }) => {
     const { stream, videos } = useTwitchApi();
     const { title } = useSiteMetadata();
     const twitchVideo = useMemo(() => {
@@ -184,32 +181,22 @@ export default () => {
                     </Heading>
                     <Sub>What will you create today?</Sub>
                     <CardGallery>
-                        <StyledTopCard
-                            maxTitleLines={3}
-                            image={nodejsIllustration}
-                            to="/how-to/nextjs-building-modern-applications"
-                            title="Building Modern Applications with Next.js and
-                            MongoDB"
-                        />
-                        <StyledTopCard
-                            maxTitleLines={3}
-                            image={pythonImage}
-                            to="/how-to/python-starlette-stitch"
-                            title="Build a Property Booking Website with Starlette,
-                            MongoDB, and Twilio"
-                        />
-                        <StyledTopCard
-                            maxTitleLines={3}
-                            image={graphqlImage}
-                            to="/how-to/graphql-support-atlas-stitch"
-                            title="Introducing GraphQL Support in MongoDB Atlas with Stitch"
-                        />
-                        <StyledTopCard
-                            maxTitleLines={3}
-                            image={atlasCluster}
-                            to="/quickstart/free-atlas-cluster"
-                            title="Getting Your Free MongoDB Atlas Cluster"
-                        />
+                        {featuredArticles.map(article => {
+                            const {
+                                image,
+                                slug,
+                                title,
+                            } = getFeaturedCardFields(article);
+                            return (
+                                <StyledTopCard
+                                    maxTitleLines={3}
+                                    image={image}
+                                    to={slug}
+                                    title={title}
+                                    key={title}
+                                />
+                            );
+                        })}
                     </CardGallery>
                     <div>
                         <Button to="/learn" primary>
