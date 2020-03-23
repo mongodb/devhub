@@ -14,7 +14,7 @@ const buildChartUrl = (baseUrl, options) => {
         theme: options.theme || DEFAULT_CHART_THEME,
     };
     const queryString = buildQueryString(params);
-    return `${baseUrl}/embed/charts?${queryString}`;
+    return `${baseUrl}/embed/charts${queryString}`;
 };
 
 const StyledChart = styled('iframe')`
@@ -26,7 +26,7 @@ const Chart = ({ nodeData: { options } }) => {
     const chartHostUrl = options.url;
     const chartHeight = options.height || DEFAULT_CHART_HEIGHT;
     const chartWidth = options.width || DEFAULT_CHART_WIDTH;
-    const chartTitle = options.title || 'MongoDB Chart';
+    const chartTitle = options.title;
     const customAlign = options.align;
     const chartSrc = useMemo(() => buildChartUrl(chartHostUrl, options), [
         chartHostUrl,
@@ -34,12 +34,12 @@ const Chart = ({ nodeData: { options } }) => {
     ]);
     return (
         <StyledChart
-            height={chartHeight}
-            src={chartSrc}
-            title={chartTitle}
             // Use styled width responsive iframe
             chartWidth={chartWidth}
             customAlign={customAlign}
+            height={chartHeight}
+            title={chartTitle}
+            src={chartSrc}
         />
     );
 };
