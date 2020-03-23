@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { buildQueryString } from '../../utils/query-string';
+import styled from '@emotion/styled';
 
 const DEFAULT_CHART_HEIGHT = '570';
 const DEFAULT_CHART_WIDTH = '760';
@@ -16,21 +17,28 @@ const buildChartUrl = (baseUrl, options) => {
     return `${baseUrl}/embed/charts?${queryString}`;
 };
 
+const StyledChart = styled('iframe')`
+    ${({ customAlign }) => !customAlign && `float: ${customAlign};`};
+    ${({ chartWidth }) => `width: min(100%, ${chartWidth}px)`};
+`;
+
 const Chart = ({ nodeData: { options } }) => {
     const chartHostUrl = options.url;
     const chartHeight = options.height || DEFAULT_CHART_HEIGHT;
     const chartWidth = options.width || DEFAULT_CHART_WIDTH;
     const chartTitle = options.title || 'MongoDB Chart';
+    const customAlign = options.align;
     const chartSrc = useMemo(() => buildChartUrl(chartHostUrl, options), [
         chartHostUrl,
         options,
     ]);
     return (
-        <iframe
+        <StyledChart
             height={chartHeight}
             src={chartSrc}
             title={chartTitle}
-            width={chartWidth}
+            chartWidth={chartWidth}
+            customAlign={customAlign}
         />
     );
 };
