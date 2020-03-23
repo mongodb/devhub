@@ -18,6 +18,7 @@ const buildChartUrl = options => {
 };
 
 const StyledChart = styled('iframe')`
+    border: none;
     ${({ customAlign }) => !customAlign && `float: ${customAlign};`};
     max-width: 100%;
 `;
