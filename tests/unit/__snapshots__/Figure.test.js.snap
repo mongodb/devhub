@@ -1,38 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<div
-  class="figure"
+<figure
+  class="figure css-qwl3ci-Figure e1afvbh00"
   style="width:700px"
 >
   <img
     alt="/images/firstcluster.png"
-    class="  "
+    css="You have tried to stringify object returned from \`css\` function. It isn't supposed to be used directly (e.g. as value of the \`className\` prop), but rather handed to emotion so it can handle it (e.g. as value of \`css\` prop)."
     src="/images/firstcluster.png"
   />
-</div>
+</figure>
 `;
 
 exports[`renders lightbox correctly when specified as an option 1`] = `
-<div
-  class="figure lightbox"
+<figure
+  class="figure css-qwl3ci-Figure e1afvbh00"
   style="width:700px"
 >
-  <div
-    class="lightbox__imageWrapper"
-    role="button"
-    tabindex="-1"
-  >
-    <img
-      alt="/images/firstcluster.png"
-      class="  "
-      src="/images/firstcluster.png"
-    />
-    <div
-      class="lightbox__caption"
-    >
-      click to enlarge
-    </div>
-  </div>
-</div>
+  <img
+    alt="/images/firstcluster.png"
+    css="You have tried to stringify object returned from \`css\` function. It isn't supposed to be used directly (e.g. as value of the \`className\` prop), but rather handed to emotion so it can handle it (e.g. as value of \`css\` prop)."
+    src="/images/firstcluster.png"
+  />
+</figure>
 `;

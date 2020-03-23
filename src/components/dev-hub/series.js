@@ -44,11 +44,9 @@ const activeLinkStyles = css`
 `;
 
 const Breadcrumb = styled('li')`
+    display: flex;
     padding-bottom: ${size.small};
     position: relative;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     z-index: ${layer.back};
 `;
 
@@ -146,7 +144,7 @@ const SeriesList = styled('ul')`
             ),
             ${BORDER_GRADIENT};
         background-size: ${size.medium} 2px, cover;
-        bottom: ${BULLET_SIZE / 2 + 2}px;
+        bottom: ${BULLET_SIZE / 2 + 3}px;
         content: '';
         left: 7px;
         position: absolute;

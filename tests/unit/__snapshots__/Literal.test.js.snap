@@ -6,6 +6,14 @@ exports[`renders correctly 1`] = `
 >
   <span
     className="pre"
+    css={
+      Object {
+        "map": "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkxpdGVyYWwuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSzZCIiwiZmlsZSI6IkxpdGVyYWwuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnQGVtb3Rpb24vY29yZSc7XG5pbXBvcnQgUHJvcFR5cGVzIGZyb20gJ3Byb3AtdHlwZXMnO1xuaW1wb3J0IHsgZ2V0TmVzdGVkVmFsdWUgfSBmcm9tICcuLi91dGlscy9nZXQtbmVzdGVkLXZhbHVlJztcblxuY29uc3QgYnJlYWtXb3JkT3ZlcmZsb3cgPSBjc3NgXG4gICAgb3ZlcmZsb3ctd3JhcDogYnJlYWstd29yZDtcbmA7XG5cbmNvbnN0IExpdGVyYWwgPSAoeyBub2RlRGF0YSB9KSA9PiAoXG4gICAgPGNvZGUgY2xhc3NOYW1lPVwiZG9jdXRpbHMgbGl0ZXJhbCBub3RyYW5zbGF0ZVwiPlxuICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJwcmVcIiBjc3M9e2JyZWFrV29yZE92ZXJmbG93fT5cbiAgICAgICAgICAgIHtnZXROZXN0ZWRWYWx1ZShbJ2NoaWxkcmVuJywgMCwgJ3ZhbHVlJ10sIG5vZGVEYXRhKX1cbiAgICAgICAgPC9zcGFuPlxuICAgIDwvY29kZT5cbik7XG5cbkxpdGVyYWwucHJvcFR5cGVzID0ge1xuICAgIG5vZGVEYXRhOiBQcm9wVHlwZXMuc2hhcGUoe1xuICAgICAgICBjaGlsZHJlbjogUHJvcFR5cGVzLmFycmF5T2YoXG4gICAgICAgICAgICBQcm9wVHlwZXMuc2hhcGUoe1xuICAgICAgICAgICAgICAgIHZhbHVlOiBQcm9wVHlwZXMuc3RyaW5nLmlzUmVxdWlyZWQsXG4gICAgICAgICAgICB9KVxuICAgICAgICApLmlzUmVxdWlyZWQsXG4gICAgfSkuaXNSZXF1aXJlZCxcbn07XG5cbmV4cG9ydCBkZWZhdWx0IExpdGVyYWw7XG4iXX0= */",
+        "name": "12btru0-breakWordOverflow",
+        "styles": "overflow-wrap:break-word;;label:breakWordOverflow;",
+        "toString": [Function],
+      }
+    }
   >
     N. Virginia (us-east-1)
   </span>

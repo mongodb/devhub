@@ -1,52 +1,53 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ADMONITIONS } from '../constants';
-import Step from './Step';
-import Paragraph from './Paragraph';
+import Admonition from './Admonition';
+import BlockQuote from './dev-hub/blockquote';
+import CardGroup from './CardGroup';
+import CodeBlock from './dev-hub/codeblock';
+import Chart from './dev-hub/chart';
+import Cond from './Cond';
+import Contents from './Contents';
+import Container from './Container';
+import CSSClass from './CSSClass';
+import DefinitionList from './DefinitionList';
+import DefinitionListItem from './DefinitionListItem';
+import Deprecated from './Deprecated';
+import Emphasis from './Emphasis';
+import Figure from './Figure';
+import Footnote from './Footnote';
+import FootnoteReference from './FootnoteReference';
+import Heading from './Heading';
+import HorizontalList from './HorizontalList';
+import Image from './Image';
+import Include from './Include';
+import Line from './Line';
+import LineBlock from './LineBlock';
 import List from './List';
 import ListItem from './ListItem';
 import ListTable from './ListTable';
-import Emphasis from './Emphasis';
-import Include from './Include';
-import Section from './Section';
-import CodeBlock from './dev-hub/codeblock';
-import LiteralInclude from './LiteralInclude';
-import Admonition from './Admonition';
-import Figure from './Figure';
 import Literal from './Literal';
-import Heading from './Heading';
-import BlockQuote from './dev-hub/blockquote';
-import Reference from './Reference';
-import Strong from './Strong';
-import TitleReference from './TitleReference';
-import Text from './Text';
-import DefinitionList from './DefinitionList';
-import DefinitionListItem from './DefinitionListItem';
-import Transition from './Transition';
-import CSSClass from './CSSClass';
-import SubstitutionReference from './SubstitutionReference';
-import Line from './Line';
-import LineBlock from './LineBlock';
-import HorizontalList from './HorizontalList';
-import Contents from './Contents';
-import Container from './Container';
-import Cond from './Cond';
-import Meta from './Meta';
-import VersionChanged from './VersionChanged';
-import VersionAdded from './VersionAdded';
-import Deprecated from './Deprecated';
-import CardGroup from './CardGroup';
-import Footnote from './Footnote';
-import FootnoteReference from './FootnoteReference';
 import LiteralBlock from './LiteralBlock';
-import Topic from './Topic';
+import LiteralInclude from './LiteralInclude';
+import Meta from './Meta';
+import MetaDescription from './meta-description';
+import Paragraph from './Paragraph';
+import Reference from './Reference';
+import RefRole from './RefRole';
+import Section from './Section';
+import Step from './Step';
+import Strong from './Strong';
 import Subscript from './Subscript';
 import Superscript from './Superscript';
-import Image from './Image';
-import RefRole from './RefRole';
-import TwitterMeta from './TwitterMeta';
-import MetaDescription from './meta-description';
+import SubstitutionReference from './SubstitutionReference';
 import Target from './Target';
+import Text from './Text';
+import TitleReference from './TitleReference';
+import Topic from './Topic';
+import Transition from './Transition';
+import TwitterMeta from './TwitterMeta';
+import VersionAdded from './VersionAdded';
+import VersionChanged from './VersionChanged';
 import VideoEmbed from './dev-hub/video-embed';
 
 import RoleAbbr from './Roles/Abbr';
@@ -72,6 +73,7 @@ export default class ComponentFactory extends Component {
             admonition: Admonition,
             blockquote: BlockQuote,
             'card-group': CardGroup,
+            chart: Chart,
             class: CSSClass,
             code: CodeBlock,
             cond: Cond,

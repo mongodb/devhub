@@ -12,9 +12,10 @@ import { colorMap, gradientMap, size, fontSize } from '../theme';
     <Story name="colors">
         {() => {
             const Color = styled('div')`
+                color: #fff;
                 display: inline-block;
-                fontfamily: 'Fira Mono', monospace;
-                fontsize: ${fontSize.xsmall};
+                font-family: 'Fira Mono', monospace;
+                font-size: ${fontSize.xsmall};
                 margin: ${size.medium};
                 width: 80px;
             `;
@@ -42,8 +43,9 @@ import { colorMap, gradientMap, size, fontSize } from '../theme';
     <Story name="gradients">
         {() => {
             const Wrapper = styled('div')`
-                fontfamily: 'Fira Mono', monospace;
-                fontsize: ${fontSize.xsmall};
+                color: #fff;
+                font-family: 'Fira Mono', monospace;
+                font-size: ${fontSize.xsmall};
                 margin: ${size.medium};
             `;
             const GradientLine = styled('div')`

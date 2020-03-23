@@ -205,16 +205,8 @@ const Trigger = styled('span')`
 // In order to provide custom positioning of right/left tooltips
 // we must hook into the logic of the library and add the
 // adjustments needed
-const contentLocation = padding => ({
-    align,
-    position,
-    popoverRect,
-    targetRect,
-    nudgedLeft,
-    nudgedTop,
-}) => {
+const contentLocation = padding => ({ position, popoverRect, targetRect }) => {
     const targetMidX = targetRect.left + targetRect.width / 2;
-    const targetMidY = targetRect.top + targetRect.height / 2;
     let top;
     let left;
     let topAdjustment = 0; // this is our 'top' adjustment
@@ -243,6 +235,8 @@ const contentLocation = padding => ({
             left = targetRect.right + padding;
             // our adjustment
             topAdjustment = -20;
+            break;
+        default:
             break;
     }
     const finalTop = top + window.pageYOffset + topAdjustment;

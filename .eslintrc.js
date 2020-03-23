@@ -8,6 +8,7 @@ module.exports = {
         browser: true,
     },
     extends: ['react-app', 'plugin:import/errors'],
+    ignorePatterns: ['.gitignore', 'preview/'],
     plugins: ['emotion', 'jest'],
     rules: {
         'emotion/syntax-preference': [WARN, 'string'],
