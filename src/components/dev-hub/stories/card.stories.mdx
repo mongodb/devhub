@@ -1,0 +1,87 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Card from '../card';
+import { colorMap } from '../theme';
+import mockCardImage from '../../../images/360-mock-img.png';
+import { mapTagTypeToUrl } from '../../../utils/map-tag-type-to-url';
+
+<Meta title="Cards" />
+
+# Cards
+
+A card can have a link, image, title, and description.
+<Preview>
+    <Story name="default card">
+        <div>
+            <Card
+                distinct
+                image={mockCardImage}
+                maxTitleLines={3}
+                title="Title for Card"
+                description="Description for card that has a link."
+                href="#cards"
+            ></Card>
+            <Card
+                distinct
+                image={mockCardImage}
+                maxTitleLines={3}
+                title="Title for Card"
+                description="Description for card with no link."
+            ></Card>
+        </div>
+    </Story>
+</Preview>
+
+Cards can also have a list of tags associated with them (max 5 tags).
+<Preview>
+    <Story name="tag-list card">
+        <div>
+            <Card
+                distinct
+                image={mockCardImage}
+                tags={mapTagTypeToUrl(['tag one', 'tag two'], 'tags')}
+                maxTitleLines={3}
+                title="I'm a Card For A Post on the New Devhub Platform! I have 2 tags!"
+                href="#cards"
+            ></Card>
+            <Card
+                href="#card-row"
+                image={mockCardImage}
+                tags={mapTagTypeToUrl(
+                    ['tag one', 'tag two', 'tag three', 'tag four', 'tag five'],
+                    'tags'
+                )}
+                title="I'm a Card on the New Devhub! I have a long list of tags!"
+                href="#cards"
+            ></Card>
+        </div>
+    </Story>
+</Preview>
+
+Cards do not need images and can handle short and long titles. You can configure
+the max number of lines a title can have using the `maxTitleLines` prop.
+<Preview>
+    <Story name="no-image card">
+        <div>
+            <Card
+                width="300px"
+                title="I'm a card with a really really really really really really really really really really long title"
+                description="This card has a long title, displaying 2 lines by default."
+                href="#cards"
+            />
+            <Card
+                width="300px"
+                title="I'm a card with a really really really really really really really really really really long title.I'm a card with a really really really really really really really really really really long title"
+                maxTitleLines={4}
+                description="This card has a long title, displaying 4 lines though the 'maxTitleLines' prop."
+                href="#cards"
+            />
+            <Card
+                highlight
+                width="300px"
+                title="I'm a card with a short title"
+                description="written by Author"
+                href="#cards"
+            />
+        </div>
+    </Story>
+</Preview>
