@@ -1,22 +1,36 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { getNestedValue } from '../../utils/get-nested-value';
+import { buildQueryString } from '../../utils/query-string';
 
 const DEFAULT_CHART_HEIGHT = '570';
 const DEFAULT_CHART_WIDTH = '760';
+const DEFAULT_CHART_THEME = 'dark';
 
-const Chart = ({ nodeData: { argument, options, src } }) => {
-    const imgSrc = src || getNestedValue([0, 'value'], argument);
+const buildChartUrl = (baseUrl, options) => {
+    const params = {
+        autorefresh: options.autorefresh,
+        id: options.id,
+        theme: options.theme || DEFAULT_CHART_THEME,
+    };
+    const queryString = buildQueryString(params);
+    return `${baseUrl}/embed/charts?${queryString}`;
+};
+
+const Chart = ({ nodeData: { options } }) => {
+    const chartHostUrl = options.url;
     const chartHeight = options.height || DEFAULT_CHART_HEIGHT;
     const chartWidth = options.width || DEFAULT_CHART_WIDTH;
     const chartTitle = options.title || 'MongoDB Chart';
-    const chartSrc = useMemo(() => `${imgSrc}&theme=dark`, [imgSrc]);
+    const chartSrc = useMemo(() => buildChartUrl(chartHostUrl, options), [
+        chartHostUrl,
+        options,
+    ]);
     return (
         <iframe
-            height={chartWidth}
+            height={chartHeight}
             src={chartSrc}
             title={chartTitle}
-            width={chartHeight}
+            width={chartWidth}
         />
     );
 };
@@ -30,12 +44,10 @@ Chart.propTypes = {
             })
         ),
         options: PropTypes.shape({
-            align: PropTypes.string,
-            alt: PropTypes.string,
-            checksum: PropTypes.string,
+            autorefresh: PropTypes.string,
             height: PropTypes.string,
-            scale: PropTypes.string,
-            title: PropTypes.string,
+            id: PropTypes.string,
+            theme: PropTypes.string,
             width: PropTypes.string,
         }),
     }),
