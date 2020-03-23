@@ -59,7 +59,7 @@ const Article = styled('article')`
 `;
 
 const StyledFilterBar = styled(FilterBar)`
-    padding-bottom: ${size.default};
+    padding-bottom: ${size.medium};
 `;
 
 const parseArticles = arr =>
