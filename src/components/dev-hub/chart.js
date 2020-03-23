@@ -18,8 +18,8 @@ const buildChartUrl = (baseUrl, options) => {
 };
 
 const StyledChart = styled('iframe')`
-    ${({ customAlign }) => !customAlign && `float: ${customAlign};`};
     ${({ chartWidth }) => `width: min(100%, ${chartWidth}px)`};
+    ${({ customAlign }) => !customAlign && `float: ${customAlign};`};
 `;
 
 const Chart = ({ nodeData: { options } }) => {
@@ -37,6 +37,7 @@ const Chart = ({ nodeData: { options } }) => {
             height={chartHeight}
             src={chartSrc}
             title={chartTitle}
+            // Use styled width responsive iframe
             chartWidth={chartWidth}
             customAlign={customAlign}
         />
@@ -46,20 +47,16 @@ const Chart = ({ nodeData: { options } }) => {
 Chart.propTypes = {
     className: PropTypes.string,
     nodeData: PropTypes.shape({
-        argument: PropTypes.arrayOf(
-            PropTypes.shape({
-                value: PropTypes.string.isRequired,
-            })
-        ),
         options: PropTypes.shape({
+            align: PropTypes.string,
             autorefresh: PropTypes.string,
             height: PropTypes.string,
             id: PropTypes.string,
             theme: PropTypes.string,
+            url: PropTypes.string,
             width: PropTypes.string,
         }),
     }),
-    src: PropTypes.string,
 };
 
 export default Chart;
