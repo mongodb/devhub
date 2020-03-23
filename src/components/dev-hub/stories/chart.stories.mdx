@@ -1,0 +1,23 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Chart from '../chart';
+
+<Meta title="Chart" />
+
+# Embedded MongoDB Chart
+
+We support embedded MongoDB Charts through the component factory for articles.
+
+<Preview>
+    <Story name="Chart">
+        <Chart
+            nodeData={{
+                options: {
+                    id: '6f921f0c-a1ee-4106-839c-412fad3c64e7',
+                    width: 760,
+                    height: 570,
+                    url: 'https://charts.mongodb.com/charts-coronavirus-lwlvn',
+                },
+            }}
+        />
+    </Story>
+</Preview>
