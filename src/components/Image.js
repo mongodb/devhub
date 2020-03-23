@@ -5,8 +5,29 @@ import { css } from '@emotion/core';
 import { getNestedValue } from '../utils/get-nested-value';
 import { size } from './dev-hub/theme';
 
+const getAlignment = align => {
+    switch (align) {
+        case 'left':
+            return css`
+                float: left;
+            `;
+        case 'right':
+            return css`
+                float: right;
+            `;
+        case 'center':
+            return css`
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            `;
+        default:
+            return null;
+    }
+};
+
 const ArticleImageStyle = (captioned, customAlign, scale) => css`
-    ${customAlign && `float: ${customAlign};`}
+    ${getAlignment(customAlign)}
     border-radius: ${size.small};
     margin-bottom: ${captioned ? size.small : size.articleContent};
     vertical-align: bottom; /* prevent the default image spacing below image */
