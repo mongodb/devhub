@@ -18,8 +18,8 @@ const buildChartUrl = options => {
 };
 
 const StyledChart = styled('iframe')`
-    ${({ chartWidth }) => `width: min(100%, ${chartWidth}px)`};
     ${({ customAlign }) => !customAlign && `float: ${customAlign};`};
+    max-width: 100%;
 `;
 
 const Chart = ({ nodeData: { options } }) => {
@@ -30,12 +30,11 @@ const Chart = ({ nodeData: { options } }) => {
     const chartSrc = useMemo(() => buildChartUrl(options), [options]);
     return (
         <StyledChart
-            // Use styled width responsive iframe
-            chartWidth={chartWidth}
             customAlign={customAlign}
             height={chartHeight}
             title={chartTitle}
             src={chartSrc}
+            width={chartWidth}
         />
     );
 };
