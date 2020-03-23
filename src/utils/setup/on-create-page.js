@@ -50,15 +50,14 @@ const findArticlesFromSlugs = (allArticles, articleSlugs) => {
     return result;
 };
 
-const getLearnPageFilters = async () => {
+const getLearnPageFilters = allArticles => {
     const languages = {};
     const products = {};
-
-    const allArticles = await getAllArticles();
 
     allArticles.forEach(a => {
         const languagesForArticle = a.query_fields.languages;
         const productsForArticle = a.query_fields.products;
+        // Go through languages for this article and update filter info
         if (languagesForArticle) {
             languagesForArticle.forEach(l => {
                 if (languages[l]) {
@@ -70,6 +69,7 @@ const getLearnPageFilters = async () => {
                     };
                 }
                 if (productsForArticle) {
+                    // If this article also has products, update those counts as well for this language
                     productsForArticle.forEach(p => {
                         languages[l].products[p]
                             ? languages[l].products[p]++
@@ -78,6 +78,7 @@ const getLearnPageFilters = async () => {
                 }
             });
         }
+        // Go through products for this article and update filter info
         if (productsForArticle) {
             productsForArticle.forEach(p => {
                 if (products[p]) {
@@ -89,6 +90,7 @@ const getLearnPageFilters = async () => {
                     };
                 }
                 if (languagesForArticle) {
+                    // If this article also has languages, update those counts as well for this products
                     languagesForArticle.forEach(l => {
                         products[p].languages[l]
                             ? products[p].languages[l]++
@@ -148,4 +150,4 @@ const onCreatePage = async (
     }
 };
 
-module.exports = { onCreatePage };
+module.exports = { getLearnPageFilters, onCreatePage };
