@@ -3,7 +3,6 @@ import { colorMap, FORM_ELEMENT_BORDER } from '../src/components/dev-hub/theme';
 
 export default create({
     base: 'dark',
-    colorSecondary: colorMap.teal,
 
     // UI
     appBg: colorMap.pageBackground,
@@ -12,25 +11,21 @@ export default create({
     appBorderRadius: 4,
 
     // Typography
-    fontBase: `akzidenz, -apple-system, BlinkMacSystemFont, "Segoe UI",
-            Helvetica, Arial, sans-serif, 'Apple Color Emoji', "Segoe UI Emoji",
-            "Segoe UI Symbol"`,
+    fontBase: `"Fira Mono", monospace`,
 
     // Text colors
-    textColor: '#fff',
-    textInverseColor: colorMap.devWhite,
+    textColor: colorMap.devWhite,
 
     // Toolbar default and active colors
-    barTextColor: '#fff',
+    barTextColor: colorMap.devWhite,
     barSelectedColor: colorMap.teal,
     barBg: colorMap.greyDarkThree,
 
     // Form colors
     inputBg: colorMap.greyDarkTwo,
     inputBorder: `${FORM_ELEMENT_BORDER} solid transparent`,
-    inputTextColor: '#fff',
+    inputTextColor: colorMap.devWhite,
     inputBorderRadius: 4,
 
     brandTitle: 'MongDB Dev-Hub',
-    //   brandImage: 'https://placehold.it/350x150',
 });

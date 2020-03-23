@@ -2,6 +2,7 @@
 
 exports[`Link component renders a variety of strings correctly empty string 1`] = `
 <a
+  class="css-pct7cv-StyledLink-linkStyling eygprlc0"
   href=""
 >
   Empty string
@@ -10,6 +11,7 @@ exports[`Link component renders a variety of strings correctly empty string 1`] 
 
 exports[`Link component renders a variety of strings correctly external URL 1`] = `
 <a
+  class="css-pct7cv-StyledLink-linkStyling eygprlc0"
   href="http://mongodb.com"
 >
   MongoDB Company
@@ -18,7 +20,7 @@ exports[`Link component renders a variety of strings correctly external URL 1`] 
 
 exports[`Link component renders a variety of strings correctly internal link 1`] = `
 <a
-  class="test-class"
+  class="test-class css-104ly9j-AsInternalLink-StyledLink-linkStyling eygprlc1"
   href="/drivers/c"
 >
   C Driver

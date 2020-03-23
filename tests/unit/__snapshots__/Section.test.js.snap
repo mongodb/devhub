@@ -25,7 +25,7 @@ exports[`renders correctly 1`] = `
         "type": "heading",
       }
     }
-    sectionDepth={1}
+    sectionDepth={2}
   />
   <ComponentFactory
     key="1"
@@ -62,7 +62,7 @@ exports[`renders correctly 1`] = `
         "type": "directive",
       }
     }
-    sectionDepth={1}
+    sectionDepth={2}
   />
   <ComponentFactory
     key="2"
@@ -99,7 +99,7 @@ exports[`renders correctly 1`] = `
         "type": "directive",
       }
     }
-    sectionDepth={1}
+    sectionDepth={2}
   />
 </section>
 `;
