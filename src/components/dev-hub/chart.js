@@ -7,14 +7,14 @@ const DEFAULT_CHART_HEIGHT = '570';
 const DEFAULT_CHART_WIDTH = '760';
 const DEFAULT_CHART_THEME = 'dark';
 
-const buildChartUrl = (baseUrl, options) => {
+const buildChartUrl = options => {
     const params = {
         autorefresh: options.autorefresh,
         id: options.id,
         theme: options.theme || DEFAULT_CHART_THEME,
     };
     const queryString = buildQueryString(params);
-    return `${baseUrl}/embed/charts${queryString}`;
+    return `${options.url}/embed/charts${queryString}`;
 };
 
 const StyledChart = styled('iframe')`
@@ -23,15 +23,11 @@ const StyledChart = styled('iframe')`
 `;
 
 const Chart = ({ nodeData: { options } }) => {
-    const chartHostUrl = options.url;
     const chartHeight = options.height || DEFAULT_CHART_HEIGHT;
     const chartWidth = options.width || DEFAULT_CHART_WIDTH;
     const chartTitle = options.title;
     const customAlign = options.align;
-    const chartSrc = useMemo(() => buildChartUrl(chartHostUrl, options), [
-        chartHostUrl,
-        options,
-    ]);
+    const chartSrc = useMemo(() => buildChartUrl(options), [options]);
     return (
         <StyledChart
             // Use styled width responsive iframe
