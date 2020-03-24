@@ -1,4 +1,4 @@
-import { getFeaturedArticles } from '../../src/utils/setup/on-create-page';
+import { findArticlesFromSlugs } from '../../src/utils/setup/on-create-page';
 
 it('should correctly find featured articles given a set of requested articles', () => {
     let requestedFeaturedSlugs = [
@@ -19,7 +19,7 @@ it('should correctly find featured articles given a set of requested articles', 
         },
     }));
 
-    let result = getFeaturedArticles(allArticles, requestedFeaturedSlugs).map(
+    let result = findArticlesFromSlugs(allArticles, requestedFeaturedSlugs).map(
         a => a.query_fields.slug
     );
 
@@ -32,7 +32,7 @@ it('should correctly find featured articles given a set of requested articles', 
         '/how-to/polymorphic-pattern',
     ];
 
-    result = getFeaturedArticles(allArticles, requestedFeaturedSlugs).map(
+    result = findArticlesFromSlugs(allArticles, requestedFeaturedSlugs).map(
         a => a.query_fields.slug
     );
 

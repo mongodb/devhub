@@ -150,4 +150,4 @@ const onCreatePage = async (
     }
 };
 
-module.exports = { getFeaturedArticles, getLearnPageFilters, onCreatePage };
+module.exports = { findArticlesFromSlugs, getLearnPageFilters, onCreatePage };
