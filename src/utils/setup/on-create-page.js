@@ -5,6 +5,9 @@ const { getMetadata } = require('../get-metadata');
 const metadata = getMetadata();
 let stitchClient;
 
+const MAX_LEARN_PAGE_FEATURED_ARTICLES = 3;
+const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
+
 const DEFAULT_FEATURED_HOME_SLUGS = [
     '/how-to/nextjs-building-modern-applications',
     '/how-to/python-starlette-stitch',
@@ -34,9 +37,10 @@ const getAllArticles = memoizerific(1)(async () => {
     return filteredDocuments;
 });
 
-const findArticlesFromSlugs = (allArticles, articleSlugs) => {
+const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     const result = [];
-    articleSlugs.forEach((featuredSlug, i) => {
+    // If maxSize is undefined, this will return a shallow copy of articleSlugs
+    articleSlugs.slice(0, maxSize).forEach((featuredSlug, i) => {
         const newArticle = allArticles.find(
             x => x.query_fields.slug === featuredSlug
         );
@@ -122,7 +126,8 @@ const onCreatePage = async (
             const filters = await getLearnPageFilters(allArticles);
             const featuredLearnArticles = findArticlesFromSlugs(
                 allArticles,
-                learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS
+                learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS,
+                MAX_LEARN_PAGE_FEATURED_ARTICLES
             );
             deletePage(page);
             createPage({
@@ -138,7 +143,8 @@ const onCreatePage = async (
         case '/':
             const featuredHomeArticles = findArticlesFromSlugs(
                 await getAllArticles(),
-                homeFeaturedArticles || DEFAULT_FEATURED_HOME_SLUGS
+                homeFeaturedArticles || DEFAULT_FEATURED_HOME_SLUGS,
+                MAX_HOME_PAGE_FEATURED_ARTICLES
             );
             deletePage(page);
             createPage({

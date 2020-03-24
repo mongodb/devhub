@@ -43,4 +43,14 @@ it('should correctly find featured articles given a set of requested articles', 
         '/how-to/golang-alexa-skills',
         '/how-to/polymorphic-pattern',
     ]);
+
+    const maxSize = 1;
+    foundSlugs = findArticlesFromSlugs(
+        allArticles,
+        requestedFeaturedSlugs,
+        maxSize
+    ).map(a => a.query_fields.slug);
+
+    // Since we only want a max of one, only consider the first slug to check
+    expect(foundSlugs).toStrictEqual(['/foo']);
 });
