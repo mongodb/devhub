@@ -68,11 +68,13 @@ const AuthorNames = ({ authors }) => (
 );
 
 const BylineBlock = ({ authors }) => {
-    if (!authors || !authors.length) return null;
+    if (!authors) return null;
+    // TODO: Remove below once the authors type change is in the parser
+    const authorsArray = Array.isArray(authors) ? authors : [authors];
     return (
         <ByLine>
-            <AuthorImages authors={authors} />
-            <AuthorNames authors={authors} />
+            <AuthorImages authors={authorsArray} />
+            <AuthorNames authors={authorsArray} />
         </ByLine>
     );
 };
