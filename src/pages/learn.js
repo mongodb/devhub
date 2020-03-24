@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
-import { withPrefix } from 'gatsby';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
@@ -136,9 +135,7 @@ const FeaturedArticles = ({ articles }) => {
         <MainFeatureGrid>
             <PrimarySection>
                 <MediaBlock
-                    mediaComponent={
-                        <PrimaryImage src={withPrefix(image)} alt="" />
-                    }
+                    mediaComponent={<PrimaryImage src={image} alt="" />}
                     mediaWidth={360}
                 >
                     <Card
