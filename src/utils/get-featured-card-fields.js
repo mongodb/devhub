@@ -1,4 +1,5 @@
 import { getNestedValue } from './get-nested-value';
+import { withPrefix } from 'gatsby';
 
 export const getFeaturedCardFields = article => {
     if (!article || !article.query_fields) {
@@ -12,7 +13,7 @@ export const getFeaturedCardFields = article => {
     }
     const query_fields = article.query_fields;
     return {
-        image: query_fields['atf-image'],
+        image: withPrefix(query_fields['atf-image']),
         slug: query_fields['slug'],
         title: getNestedValue(['title', 0, 'value'], query_fields) || '',
         description: getNestedValue(
