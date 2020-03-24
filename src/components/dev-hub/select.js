@@ -181,7 +181,7 @@ const FormSelect = ({
                 {...extraProps}
             >
                 <P collapse>{selectText}</P>
-                <ArrowheadIcon down={showOptions} />
+                <ArrowheadIcon down={!showOptions} />
             </SelectedOption>
             {showOptions && (
                 <Options narrow={narrow}>

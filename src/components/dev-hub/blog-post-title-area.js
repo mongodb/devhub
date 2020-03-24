@@ -32,7 +32,7 @@ const DateTextContainer = styled('div')`
 
 const BlogPostTitleArea = ({
     articleImage,
-    author,
+    authors,
     breadcrumb,
     originalDate,
     tags,
@@ -54,12 +54,7 @@ const BlogPostTitleArea = ({
                 </DateTextContainer>
                 <BlogTagList tags={tags} />
             </PostMetaLine>
-            {author && (
-                <BylineBlock
-                    authorName={author.name}
-                    authorImage={author.image}
-                />
-            )}
+            <BylineBlock authors={authors} />
         </HeroBanner>
     );
 };
