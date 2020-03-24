@@ -18,12 +18,6 @@ const DEFAULT_FEATURED_LEARN_SLUGS = [
     '/how-to/polymorphic-pattern',
 ];
 
-// TODO: Verify field names with docsp
-const pageRouteToName = {
-    '/': 'home',
-    '/learn/': 'learn',
-};
-
 const requestStitch = async (functionName, ...args) =>
     stitchClient.callFunction(functionName, [metadata, ...args]);
 const memoizedStitchRequest = memoizerific(10)(requestStitch);
@@ -40,9 +34,9 @@ const getAllArticles = memoizerific(1)(async () => {
     return filteredDocuments;
 });
 
-const getFeaturedArticles = (allArticles, featuredArticleSlugs) => {
+const findArticlesFromSlugs = (allArticles, articleSlugs) => {
     const result = [];
-    featuredArticleSlugs.forEach((featuredSlug, i) => {
+    articleSlugs.forEach((featuredSlug, i) => {
         const newArticle = allArticles.find(
             x => x.query_fields.slug === featuredSlug
         );
@@ -106,33 +100,22 @@ const getLearnPageFilters = async () => {
     return filters;
 };
 
-const getFeaturedArticlesForPage = async (
-    pageRoute,
-    defaultFeaturedArticles
+const onCreatePage = async (
+    page,
+    actions,
+    inheritedStitchClient,
+    homeFeaturedArticles,
+    learnFeaturedArticles
 ) => {
-    const allArticles = await getAllArticles();
-    const featuredArticleSlugs =
-        getNestedValue(
-            ['featuredArticles', pageRouteToName[pageRoute]],
-            metadata
-        ) || defaultFeaturedArticles;
-    const featuredArticles = getFeaturedArticles(
-        allArticles,
-        featuredArticleSlugs
-    );
-    return featuredArticles;
-};
-
-const onCreatePage = async (page, actions, inheritedStitchClient) => {
     const { createPage, deletePage } = actions;
     stitchClient = inheritedStitchClient;
     switch (page.path) {
         case '/learn/':
             const allArticles = await getAllArticles();
             const filters = await getLearnPageFilters(allArticles);
-            const featuredLearnArticles = await getFeaturedArticlesForPage(
-                page.path,
-                DEFAULT_FEATURED_LEARN_SLUGS
+            const featuredLearnArticles = findArticlesFromSlugs(
+                allArticles,
+                learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS
             );
             deletePage(page);
             createPage({
@@ -146,9 +129,9 @@ const onCreatePage = async (page, actions, inheritedStitchClient) => {
             });
             break;
         case '/':
-            const featuredHomeArticles = await getFeaturedArticlesForPage(
-                page.path,
-                DEFAULT_FEATURED_HOME_SLUGS
+            const featuredHomeArticles = findArticlesFromSlugs(
+                await getAllArticles(),
+                homeFeaturedArticles || DEFAULT_FEATURED_HOME_SLUGS
             );
             deletePage(page);
             createPage({

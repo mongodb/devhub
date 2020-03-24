@@ -36,6 +36,10 @@ let RESOLVED_REF_DOC_MAPPING = {};
 // stich client connection
 let stitchClient;
 
+// Featured articles for home/learn pages
+let homeFeaturedArticles;
+let learnFeaturedArticles;
+
 const setupStitch = () => {
     return new Promise(resolve => {
         stitchClient = Stitch.hasAppClient(SNOOTY_STITCH_ID)
@@ -157,6 +161,12 @@ exports.createPages = async ({ actions }) => {
     ]);
 
     const allSeries = metadata.pageGroups;
+
+    // featured aricles are in pageGroups but not series, so we remove them
+    homeFeaturedArticles = allSeries.home;
+    learnFeaturedArticles = allSeries.learn;
+    delete allSeries.home;
+    delete allSeries.learn;
     PAGES.forEach(page => {
         const pageNodes = RESOLVED_REF_DOC_MAPPING[page];
 
@@ -226,4 +236,10 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
 };
 
 exports.onCreatePage = async ({ page, actions }) =>
-    onCreatePage(page, actions, stitchClient);
+    onCreatePage(
+        page,
+        actions,
+        stitchClient,
+        homeFeaturedArticles,
+        learnFeaturedArticles
+    );
