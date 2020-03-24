@@ -22,7 +22,9 @@ const ArticleCard = styled(Card)`
     flex: 1 1 360px;
 `;
 
-const CenterBlock = styled('div')`
+const HasMoreButtonContainer = styled('div')`
+    margin-bottom: ${size.large};
+    margin-top: ${size.large};
     text-align: center;
 `;
 
@@ -44,7 +46,7 @@ export default React.memo(({ items = [], limit = 9 }) => {
                 ))}
             </CardContainer>
             {hasMore && (
-                <CenterBlock>
+                <HasMoreButtonContainer>
                     <Button
                         secondary
                         pagination
@@ -52,7 +54,7 @@ export default React.memo(({ items = [], limit = 9 }) => {
                     >
                         Load more
                     </Button>
-                </CenterBlock>
+                </HasMoreButtonContainer>
             )}
         </>
     );
