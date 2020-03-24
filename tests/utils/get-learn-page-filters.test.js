@@ -28,9 +28,7 @@ it('should correctly create filters for the learn page based on article tags', (
         },
     ];
 
-    const result = getLearnPageFilters(allArticles);
-    const languages = result.languages;
-    const products = result.products;
+    const { languages, products } = getLearnPageFilters(allArticles);
 
     const expectedLanguages = {
         node: {

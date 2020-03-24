@@ -54,47 +54,51 @@ const getLearnPageFilters = allArticles => {
     const languages = {};
     const products = {};
 
-    allArticles.forEach(a => {
-        const languagesForArticle = a.query_fields.languages;
-        const productsForArticle = a.query_fields.products;
-        // Go through languages for this article and update filter info
+    allArticles.forEach(article => {
+        const languagesForArticle = article.query_fields.languages;
+        const productsForArticle = article.query_fields.products;
+        // Go through languages for this article and update filter info.
+        // Add a count of how many times this language appears and keep track
+        // of how many itmes we see a product with this language
         if (languagesForArticle) {
-            languagesForArticle.forEach(l => {
-                if (languages[l]) {
-                    languages[l].count++;
+            languagesForArticle.forEach(language => {
+                if (languages[language]) {
+                    languages[language].count++;
                 } else {
-                    languages[l] = {
+                    languages[language] = {
                         count: 1,
                         products: {},
                     };
                 }
                 if (productsForArticle) {
                     // If this article also has products, update those counts as well for this language
-                    productsForArticle.forEach(p => {
-                        languages[l].products[p]
-                            ? languages[l].products[p]++
-                            : (languages[l].products[p] = 1);
+                    productsForArticle.forEach(product => {
+                        languages[language].products[product]
+                            ? languages[language].products[product]++
+                            : (languages[language].products[product] = 1);
                     });
                 }
             });
         }
-        // Go through products for this article and update filter info
+        // Go through products for this article and update filter info.
+        // Add a count of how many times this product appears and keep track
+        // of how many itmes we see a language with this product
         if (productsForArticle) {
-            productsForArticle.forEach(p => {
-                if (products[p]) {
-                    products[p].count++;
+            productsForArticle.forEach(product => {
+                if (products[product]) {
+                    products[product].count++;
                 } else {
-                    products[p] = {
+                    products[product] = {
                         count: 1,
                         languages: {},
                     };
                 }
                 if (languagesForArticle) {
                     // If this article also has languages, update those counts as well for this products
-                    languagesForArticle.forEach(l => {
-                        products[p].languages[l]
-                            ? products[p].languages[l]++
-                            : (products[p].languages[l] = 1);
+                    languagesForArticle.forEach(language => {
+                        products[product].languages[language]
+                            ? products[product].languages[language]++
+                            : (products[product].languages[language] = 1);
                     });
                 }
             });
