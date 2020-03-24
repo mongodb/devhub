@@ -28,8 +28,6 @@ it('should correctly create filters for the learn page based on article tags', (
         },
     ];
 
-    const { languages, products } = getLearnPageFilters(allArticles);
-
     const expectedLanguages = {
         node: {
             count: 1,
@@ -77,6 +75,8 @@ it('should correctly create filters for the learn page based on article tags', (
             },
         },
     };
+
+    const { languages, products } = getLearnPageFilters(allArticles);
 
     expect(languages).toStrictEqual(expectedLanguages);
     expect(products).toStrictEqual(expectedProducts);
