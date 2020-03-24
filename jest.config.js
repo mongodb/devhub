@@ -25,5 +25,15 @@ module.exports = {
                 '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,
             },
         },
+        {
+            displayName: 'utils',
+            globals: {
+                __PATH_PREFIX__: '',
+            },
+            testMatch: ['<rootDir>/tests/utils/*.test.js'],
+            transform: {
+                '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,
+            },
+        },
     ],
 };
