@@ -66,9 +66,11 @@ const getLearnPageFilters = allArticles => {
         // of how many itmes we see a product with this language
         if (languagesForArticle) {
             languagesForArticle.forEach(language => {
-                if (languages[language]) {
-                    languages[language].count++;
+                const currentLanguage = languages[language];
+                if (currentLanguage) {
+                    currentLanguage.count++;
                 } else {
+                    // Update language reference directly in outer block object
                     languages[language] = {
                         count: 1,
                         products: {},
@@ -76,10 +78,11 @@ const getLearnPageFilters = allArticles => {
                 }
                 if (productsForArticle) {
                     // If this article also has products, update those counts as well for this language
+                    const productsForLanguage = languages[language].products;
                     productsForArticle.forEach(product => {
-                        languages[language].products[product]
-                            ? languages[language].products[product]++
-                            : (languages[language].products[product] = 1);
+                        productsForLanguage[product]
+                            ? productsForLanguage[product]++
+                            : (productsForLanguage[product] = 1);
                     });
                 }
             });
@@ -89,9 +92,11 @@ const getLearnPageFilters = allArticles => {
         // of how many itmes we see a language with this product
         if (productsForArticle) {
             productsForArticle.forEach(product => {
-                if (products[product]) {
-                    products[product].count++;
+                const currentProduct = products[product];
+                if (currentProduct) {
+                    currentProduct.count++;
                 } else {
+                    // Update product reference directly in outer block object
                     products[product] = {
                         count: 1,
                         languages: {},
@@ -99,10 +104,11 @@ const getLearnPageFilters = allArticles => {
                 }
                 if (languagesForArticle) {
                     // If this article also has languages, update those counts as well for this products
+                    const languagesForProduct = products[product].languages;
                     languagesForArticle.forEach(language => {
-                        products[product].languages[language]
-                            ? products[product].languages[language]++
-                            : (products[product].languages[language] = 1);
+                        languagesForProduct[language]
+                            ? languagesForProduct[language]++
+                            : (languagesForProduct[language] = 1);
                     });
                 }
             });
