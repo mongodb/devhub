@@ -157,7 +157,7 @@ const Article = props => {
     }
     const tagList = getTagLinksFromMeta(meta);
     const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
-    const articleUrl = `${siteUrl}/${thisPage}`;
+    const articleUrl = `${siteUrl}/${thisPage}/`;
     const headingNodes = findSectionHeadings(
         getNestedValue(['ast', 'children'], __refDocMapping),
         'type',

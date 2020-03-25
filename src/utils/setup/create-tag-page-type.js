@@ -66,15 +66,14 @@ const createTagPageType = async (
         pages: pageData[i],
     }));
 
-    const pageList = itemsWithPageData.map(page => {
+    itemsWithPageData.forEach(page => {
         const name = isAuthor ? page.item._id.name : page.item._id;
         // Some bad data for authors doesn't follow this structure, so ignore it
-        if (!name) return null;
-        else {
+        if (name) {
             const urlSuffix = getTagPageUriComponent(name);
             const newPage = {
+                name,
                 type: pageType,
-                name: name,
                 slug: `/${pageType}/${urlSuffix}`,
                 pages: page.pages,
             };
@@ -88,19 +87,13 @@ const createTagPageType = async (
                 newPage['author_image'] = page.item._id.image;
                 newPage['bio'] = bio;
             }
-            return newPage;
-        }
-    });
-
-    pageList.forEach(page => {
-        if (page) {
             createPage({
-                path: page.slug,
+                path: newPage.slug,
                 component: path.resolve(`./src/templates/tag.js`),
                 context: {
                     metadata: pageMetadata,
                     snootyStitchId: SNOOTY_STITCH_ID,
-                    ...page,
+                    ...newPage,
                 },
             });
         }
