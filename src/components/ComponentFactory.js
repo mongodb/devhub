@@ -74,6 +74,7 @@ export default class ComponentFactory extends Component {
             blockquote: BlockQuote,
             'card-group': CardGroup,
             chart: Chart,
+            charts: Chart,
             class: CSSClass,
             code: CodeBlock,
             cond: Cond,
