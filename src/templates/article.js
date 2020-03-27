@@ -145,6 +145,7 @@ const Article = props => {
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
+    const og = meta.og || {};
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
@@ -177,10 +178,16 @@ const Article = props => {
         <Layout>
             <Helmet>
                 <title>{articleTitle}</title>
-                <meta property="og:title" content={articleTitle} />
-                <meta property="og:url" content={articleUrl} />
-                <meta property="og:type" content="article" />
-                <link rel="canonical" href={articleUrl} />
+                <meta
+                    property="og:image"
+                    content={
+                        og.image || `${siteUrl}${withPrefix(meta['atf-image'])}`
+                    }
+                />
+                <meta property="og:title" content={og.title || articleTitle} />
+                <meta property="og:url" content={og.url || articleUrl} />
+                <meta property="og:type" content={og.type || 'article'} />
+                <link rel="canonical" href={og.url || articleUrl} />
             </Helmet>
             <BlogPostTitleArea
                 articleImage={withPrefix(meta['atf-image'])}
