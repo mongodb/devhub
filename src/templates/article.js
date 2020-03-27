@@ -178,12 +178,7 @@ const Article = props => {
         <Layout>
             <Helmet>
                 <title>{articleTitle}</title>
-                <meta
-                    property="og:image"
-                    content={
-                        og.image || `${siteUrl}${withPrefix(meta['atf-image'])}`
-                    }
-                />
+                {og.image && <meta property="og:image" content={og.image} />}
                 <meta property="og:title" content={og.title || articleTitle} />
                 <meta property="og:url" content={og.url || articleUrl} />
                 <meta property="og:type" content={og.type || 'article'} />
