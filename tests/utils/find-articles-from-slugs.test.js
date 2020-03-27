@@ -2,9 +2,9 @@ import { findArticlesFromSlugs } from '../../src/utils/setup/on-create-page';
 
 it('should correctly find featured articles given a set of requested articles', () => {
     let requestedFeaturedSlugs = [
-        '/quickstart/java-setup-crud-operations',
-        '/how-to/golang-alexa-skills',
-        '/how-to/polymorphic-pattern',
+        'quickstart/java-setup-crud-operations',
+        'how-to/golang-alexa-skills',
+        'how-to/polymorphic-pattern',
     ];
 
     const allArticles = [
@@ -24,8 +24,14 @@ it('should correctly find featured articles given a set of requested articles', 
         requestedFeaturedSlugs
     ).map(a => a.query_fields.slug);
 
+    const expectedArticleSlugsFound = [
+        allArticles[3].query_fields.slug,
+        allArticles[1].query_fields.slug,
+        allArticles[2].query_fields.slug,
+    ];
+
     // All articles were found, so we should get them back in order
-    expect(foundSlugs).toStrictEqual(requestedFeaturedSlugs);
+    expect(foundSlugs).toStrictEqual(expectedArticleSlugsFound);
 
     requestedFeaturedSlugs = [
         '/quickstart',

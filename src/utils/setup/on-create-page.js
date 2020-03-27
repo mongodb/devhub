@@ -9,16 +9,16 @@ const MAX_LEARN_PAGE_FEATURED_ARTICLES = 3;
 const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
 
 const DEFAULT_FEATURED_HOME_SLUGS = [
-    '/how-to/nextjs-building-modern-applications',
-    '/how-to/python-starlette-stitch',
-    '/how-to/graphql-support-atlas-stitch',
-    '/quickstart/free-atlas-cluster',
+    'how-to/nextjs-building-modern-applications',
+    'how-to/python-starlette-stitch',
+    'how-to/graphql-support-atlas-stitch',
+    'quickstart/free-atlas-cluster',
 ];
 
 const DEFAULT_FEATURED_LEARN_SLUGS = [
-    '/quickstart/java-setup-crud-operations',
-    '/how-to/golang-alexa-skills',
-    '/how-to/polymorphic-pattern',
+    'quickstart/java-setup-crud-operations',
+    'how-to/golang-alexa-skills',
+    'how-to/polymorphic-pattern',
 ];
 
 const requestStitch = async (functionName, ...args) =>
@@ -42,7 +42,9 @@ const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     // If maxSize is undefined, this will return a shallow copy of articleSlugs
     articleSlugs.slice(0, maxSize).forEach((featuredSlug, i) => {
         const newArticle = allArticles.find(
-            x => x.query_fields.slug === featuredSlug
+            x =>
+                x.query_fields.slug === featuredSlug ||
+                x.query_fields.slug === `/${featuredSlug}`
         );
         if (newArticle) {
             result.push(newArticle);
