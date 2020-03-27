@@ -45,7 +45,6 @@ import Text from './Text';
 import TitleReference from './TitleReference';
 import Topic from './Topic';
 import Transition from './Transition';
-import TwitterMeta from './TwitterMeta';
 import VersionAdded from './VersionAdded';
 import VersionChanged from './VersionChanged';
 import VideoEmbed from './dev-hub/video-embed';
@@ -117,7 +116,6 @@ export default class ComponentFactory extends Component {
             title_reference: TitleReference,
             topic: Topic,
             transition: Transition,
-            twitter: TwitterMeta,
             versionadded: VersionAdded,
             versionchanged: VersionChanged,
             youtube: VideoEmbed,

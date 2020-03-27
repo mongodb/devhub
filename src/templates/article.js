@@ -3,13 +3,13 @@ import dlv from 'dlv';
 import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { Helmet } from 'react-helmet';
 import DocumentBody from '../components/DocumentBody';
 import ArticleShareFooter from '../components/dev-hub/article-share-footer';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
 import RelatedArticles from '../components/dev-hub/related-articles';
 import { screenSize, size } from '../components/dev-hub/theme';
+import SEO from '../components/dev-hub/SEO';
 import Series from '../components/dev-hub/series';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
@@ -146,6 +146,12 @@ const Article = props => {
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
     const og = meta.og || {};
+    const twitterNode = contentNodes.find(node => node.name === 'twitter');
+    if (twitterNode) {
+        // Remove it from content nodes
+        const index = contentNodes.indexOf(twitterNode);
+        contentNodes.splice(index, 1);
+    }
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
@@ -176,14 +182,14 @@ const Article = props => {
 
     return (
         <Layout>
-            <Helmet>
-                <title>{articleTitle}</title>
-                {og.image && <meta property="og:image" content={og.image} />}
-                <meta property="og:title" content={og.title || articleTitle} />
-                <meta property="og:url" content={og.url || articleUrl} />
-                <meta property="og:type" content={og.type || 'article'} />
-                <link rel="canonical" href={og.url || articleUrl} />
-            </Helmet>
+            <SEO
+                articleTitle={articleTitle}
+                image={og.image}
+                ogTitle={og.title || articleTitle}
+                twitterNode={twitterNode}
+                type={og.type || 'article'}
+                url={og.url || articleUrl}
+            />
             <BlogPostTitleArea
                 articleImage={withPrefix(meta['atf-image'])}
                 authors={meta.author}
