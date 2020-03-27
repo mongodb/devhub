@@ -14,20 +14,10 @@ jobs:
         steps:
             - name: Checkout target branch
               uses: actions/checkout@v2
-            - name: Cache Packages
-              uses: actions/cache@v1
-              env:
-                  cache-name: cache-node-modules
-              with:
-                  path: ~/.npm
-                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-build-${{ env.cache-name }}-
-                      ${{ runner.os }}-build-
-                      ${{ runner.os }}-
             - name: Use Node.js 12.x
               uses: actions/setup-node@v1
               with:
                   node-version: '12.x'
-            - run: npm ci
+            - name: Cache Packages
+              uses: bahmutov/npm-install@v1
             - run: npm test
