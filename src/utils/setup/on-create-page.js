@@ -41,10 +41,9 @@ const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     const result = [];
     // If maxSize is undefined, this will return a shallow copy of articleSlugs
     articleSlugs.slice(0, maxSize).forEach((featuredSlug, i) => {
-        const newArticle = allArticles.find(
-            x =>
-                x.query_fields.slug === featuredSlug ||
-                x.query_fields.slug === `/${featuredSlug}`
+        const targetSlug = new RegExp(`^/?${featuredSlug}$`);
+        const newArticle = allArticles.find(x =>
+            x.query_fields.slug.match(targetSlug)
         );
         if (newArticle) {
             result.push(newArticle);
