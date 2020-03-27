@@ -1,4 +1,6 @@
-# MongoDB Documentation Front-End
+![](https://github.com/mongodb/hello-world/devhub/DevHub%20npm%20test/badge.svg?branch=master)
+
+# MongoDB Developer Hub Front-End
 
 Uses [Gatsby](https://www.gatsbyjs.org/) to build static site.
 
