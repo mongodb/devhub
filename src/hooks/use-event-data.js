@@ -12,8 +12,10 @@ export const removePastEvents = events => {
 const useEventData = url => {
     const [events, setEvents] = useState(null);
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         const getData = async () => {
+            setIsLoading(true);
             try {
                 const data = await fetch(url, {
                     credentials: 'same-origin',
@@ -24,10 +26,12 @@ const useEventData = url => {
                 if (data) {
                     const parsedData = await data.json();
                     const upcomingEvents = removePastEvents(parsedData);
+                    setIsLoading(false);
                     setError(null);
                     setEvents(upcomingEvents.reverse());
                 }
             } catch (e) {
+                setIsLoading(false);
                 setError(e);
                 setEvents(null);
             }
@@ -35,7 +39,7 @@ const useEventData = url => {
         getData();
     }, [url]);
 
-    return [events, error];
+    return [events, error, isLoading];
 };
 
 export default useEventData;
