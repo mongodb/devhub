@@ -39,11 +39,12 @@ const CenterBlock = styled('div')`
 `;
 
 export const EventsListPreview = () => {
-    const [events, error] = useEventData(EVENTS_API);
+    const [events, error, isLoading] = useEventData(EVENTS_API);
     const previews = events ? events.slice(0, 3) : [];
 
     return (
         <EventsPreview>
+            {isLoading && <P>Loading...</P>}
             {!error &&
                 !!previews.length &&
                 previews.map(event => <Event key={event.url} event={event} />)}
