@@ -13,6 +13,7 @@ const EventsPreview = styled('div')`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    min-height: ${size.xxlarge};
     width: 100%;
     @media ${screenSize.upToMedium} {
         flex-direction: column;
