@@ -19,6 +19,7 @@ const SEO = ({ articleTitle, ogTitle, image, url, type, twitterNode }) => {
         ? getNestedText(twitterNode.children)
         : null;
     const { siteUrl } = useSiteMetadata();
+    const ogImgSrc = image ? getImageSrc(image, siteUrl) : null;
     const twitterImgSrc = twitter.image
         ? getImageSrc(twitter.image, siteUrl)
         : null;
@@ -28,7 +29,7 @@ const SEO = ({ articleTitle, ogTitle, image, url, type, twitterNode }) => {
             {type && <meta property="og:type" content={type} />}
 
             {/* og:image Tag */}
-            {image && <meta property="og:image" content={image} />}
+            {ogImgSrc && <meta property="og:image" content={ogImgSrc} />}
 
             {/* Title Tags */}
             {articleTitle && <title>{articleTitle}</title>}
