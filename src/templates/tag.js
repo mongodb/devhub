@@ -3,6 +3,8 @@ import Helmet from 'react-helmet';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
+import AuthorHeroBackground from '../images/1x/author-hero-background.png';
+import TagBackground from '../images/1x/tag-background.png';
 import ComponentFactory from '../components/ComponentFactory';
 import AuthorImage from '../components/dev-hub/author-image';
 import CardList from '../components/dev-hub/card-list';
@@ -94,6 +96,10 @@ const Tag = props => {
                     { label: 'Learn', to: '/learn' },
                     { label: capitalizedBreadcrumb, to: slug },
                 ]}
+                collapse
+                background={isAuthor ? AuthorHeroBackground : TagBackground}
+                shouldContainBackground={isAuthor}
+                showImageOnMobile={false}
             >
                 {!isAuthor && (
                     <>
