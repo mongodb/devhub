@@ -44,16 +44,18 @@ const globalStyles = css`
 
 const Main = styled('main')`
     /* ensure content takes up full space between header & footer*/
+    margin: 0 auto;
+    max-width: ${size.maxWidth};
     min-height: calc(100vh - 300px);
+    width: 100%;
 `;
 
 const GlobalWrapper = styled('div')`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 0 auto;
-    max-width: ${size.maxWidth};
     min-height: 100vh;
+    width: 100%;
 `;
 export const StorybookLayout = ({ children }) => {
     return (
