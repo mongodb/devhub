@@ -37,7 +37,7 @@ const NavLink = styled(Link)`
     text-decoration: none;
     &:hover,
     &[aria-current='page'] {
-        background-color: ${colorMap.pageBackground};
+        background-color: ${colorMap.greyDarkTwo};
     }
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.tiny};
