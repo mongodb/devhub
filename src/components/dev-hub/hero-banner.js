@@ -18,9 +18,9 @@ const ContentContainer = styled('div')`
 `;
 
 const Header = styled('header')`
-    margin-bottom: ${HERO_BOTTOM_MARGIN};
+    ${({ collapse }) => `margin-bottom: ${collapse ? 0 : HERO_BOTTOM_MARGIN}`};
     @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.small};
+        ${({ collapse }) => `margin-bottom: ${collapse ? 0 : size.small}`};
     }
 `;
 
@@ -68,6 +68,7 @@ const HeroBanner = ({
     background,
     breadcrumb,
     children,
+    collapse,
     // Setting below to false would allow for bleed effect on bg
     shouldContainBackground = true,
     showImageOnMobile = true,
@@ -75,7 +76,7 @@ const HeroBanner = ({
 }) => {
     const isMobile = useMedia(screenSize.upToLarge);
     return (
-        <Header {...props}>
+        <Header collapse={collapse} {...props}>
             <HeroBannerContainer
                 background={background}
                 shouldContainBackground={shouldContainBackground}

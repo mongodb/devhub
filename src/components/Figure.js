@@ -15,7 +15,7 @@ export default ({ nodeData, ...rest }) => (
             width: getNestedValue(['options', 'figwidth'], nodeData) || 'auto',
         }}
     >
-        <Image nodeData={nodeData} />
+        <Image nodeData={nodeData} captioned={!!nodeData.children.length} />
         <CaptionLegend {...rest} nodeData={nodeData} />
     </Figure>
 );
