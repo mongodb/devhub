@@ -12,6 +12,9 @@ import Youtube from './icons/youtube';
 import Twitch from './icons/twitch';
 import { P } from './text';
 
+// Logo size 150px + 64px padding right
+const LOGO_DESKTOP_COLUMN_SIZE = 214;
+
 const siteLinks = [
     {
         name: 'Developer Hub',
@@ -75,16 +78,19 @@ const iconLinks = [
 ];
 const GlobalFooter = styled('footer')`
     background: ${colorMap.greyDarkThree};
+    width: 100%;
+`;
+const FooterContent = styled('div')`
     color: ${colorMap.greyLightTwo};
     display: grid;
     @media ${screenSize.mediumAndUp} {
-        grid-gap: 0 ${size.large};
+        grid-gap: 0 ${size.xlarge};
         grid-template-areas:
             'logo list'
             'logo icons'
             'logo copyright';
-        grid-template-columns: 25% 70%;
-        padding: ${size.large};
+        grid-template-columns: ${LOGO_DESKTOP_COLUMN_SIZE}px auto;
+        padding: ${size.large} ${size.default};
     }
     @media ${screenSize.upToMedium} {
         grid-template-areas:
@@ -94,6 +100,9 @@ const GlobalFooter = styled('footer')`
         grid-template-columns: 49% 49%;
         padding: 0 ${size.default};
     }
+    margin: 0 auto;
+    max-width: ${size.maxWidth};
+    width: 100%;
 `;
 const logoStyles = css`
     @media ${screenSize.upToMedium} {
@@ -108,7 +117,7 @@ const LogoContainer = styled('section')`
     justify-content: center;
     @media ${screenSize.mediumAndUp} {
         border-right: 1px solid ${colorMap.greyLightTwo};
-        padding: ${size.large};
+        padding-right: ${size.xlarge};
     }
     @media ${screenSize.upToMedium} {
         border-top: 1px solid ${colorMap.greyLightTwo};
@@ -189,18 +198,23 @@ const getLinksList = (link, isListType) => (
 export default () => {
     return (
         <GlobalFooter>
-            <LogoContainer>
-                <FooterLink css={iconstyles} href="https://www.mongodb.com/">
-                    <MongodbLogoIcon css={logoStyles} />
-                </FooterLink>
-            </LogoContainer>
-            <LinksList>
-                {siteLinks.map(list => getLinksList(list, true))}
-            </LinksList>
-            <IconList>
-                {iconLinks.map(list => getLinksList(list, false))}
-            </IconList>
-            <Copyright collapse>© MongoDB, Inc.</Copyright>
+            <FooterContent>
+                <LogoContainer>
+                    <FooterLink
+                        css={iconstyles}
+                        href="https://www.mongodb.com/"
+                    >
+                        <MongodbLogoIcon css={logoStyles} />
+                    </FooterLink>
+                </LogoContainer>
+                <LinksList>
+                    {siteLinks.map(list => getLinksList(list, true))}
+                </LinksList>
+                <IconList>
+                    {iconLinks.map(list => getLinksList(list, false))}
+                </IconList>
+                <Copyright collapse>© MongoDB, Inc.</Copyright>
+            </FooterContent>
         </GlobalFooter>
     );
 };
