@@ -59,35 +59,7 @@
                   "line": 17
                 }
               },
-              "value": "create a free MongoDB "
-            },
-            {
-              "type": "emphasis",
-              "position": {
-                "start": {
-                  "line": 17
-                }
-              },
-              "children": [
-                {
-                  "type": "text",
-                  "position": {
-                    "start": {
-                      "line": 17
-                    }
-                  },
-                  "value": "cluster"
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "position": {
-                "start": {
-                  "line": 17
-                }
-              },
-              "value": ", or group of database instances."
+              "value": "create a free MongoDB"
             }
           ]
         }
