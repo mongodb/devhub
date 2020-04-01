@@ -7,12 +7,9 @@ import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
 import useMedia from '../../hooks/use-media';
 
 const GlobalNav = styled('nav')`
-    align-items: center;
     background-color: ${colorMap.greyDarkThree};
-    color: ${colorMap.greyLightOne};
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    flex-direction: column;
     width: 100%;
     &:after {
         background: radial-gradient(circle, #3ebb8c 0%, #76d3b1 100%);
@@ -20,6 +17,16 @@ const GlobalNav = styled('nav')`
         height: 4px;
         width: 100%;
     }
+`;
+
+const NavContent = styled('div')`
+    align-items: center;
+    color: ${colorMap.greyLightOne};
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: ${size.maxWidth};
+    width: 100%;
 `;
 
 const NavLink = styled(Link)`
@@ -30,7 +37,7 @@ const NavLink = styled(Link)`
     text-decoration: none;
     &:hover,
     &[aria-current='page'] {
-        background-color: ${colorMap.devBlack};
+        background-color: ${colorMap.greyDarkTwo};
     }
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.tiny};
@@ -56,12 +63,14 @@ export default () => {
     const isMobile = useMedia(screenSize.upToMedium);
     return (
         <GlobalNav>
-            <HomeLink to="/">
-                {!isMobile && <DevLeafDesktop width="185px" />}
-                {isMobile && <DevLeafMobile width={size.xxlarge} />}
-            </HomeLink>
-            <NavLink to="/learn">Learn</NavLink>
-            <NavLink to="/community">Community</NavLink>
+            <NavContent>
+                <HomeLink to="/">
+                    {!isMobile && <DevLeafDesktop width="185px" />}
+                    {isMobile && <DevLeafMobile width={size.xxlarge} />}
+                </HomeLink>
+                <NavLink to="/learn">Learn</NavLink>
+                <NavLink to="/community">Community</NavLink>
+            </NavContent>
         </GlobalNav>
     );
 };

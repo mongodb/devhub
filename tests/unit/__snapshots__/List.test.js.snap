@@ -11,11 +11,7 @@ exports[`List renders correctly 1`] = `
   </li>
   <li>
     <div>
-      create a free MongoDB 
-      <em>
-        cluster
-      </em>
-      , or group of database instances.
+      create a free MongoDB
     </div>
   </li>
 </ul>

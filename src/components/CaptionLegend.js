@@ -1,9 +1,14 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
-import { P2 } from './dev-hub/text';
+import { P3 } from './dev-hub/text';
+import { colorMap } from './dev-hub/theme';
 
-const Caption = P2.withComponent('figcaption');
+const StyledCaption = styled(P3)`
+    color: ${colorMap.greyLightTwo};
+`;
+const Caption = StyledCaption.withComponent('figcaption');
 
 const CaptionLegend = ({ nodeData: { children }, ...rest }) => (
     <React.Fragment>

@@ -25,7 +25,7 @@ const breadcrumbs = [
 ];
 
 export default () => {
-    const [events, error] = useEventData(EVENTS_API);
+    const [events, error, isLoading] = useEventData(EVENTS_API);
 
     const metadata = useSiteMetadata();
     return (
@@ -49,7 +49,7 @@ export default () => {
                     {/* TODO: Add FilterBar */}
                     <H3>All Events</H3>
                 </EventsFilter>
-                {!events && !error && <P>Loading...</P>}
+                {isLoading && <P>Loading...</P>}
                 {events && <EventsList items={events} />}
                 {error && <P>Check back later for upcoming events</P>}
             </section>
