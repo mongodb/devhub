@@ -66,14 +66,9 @@ const getRelatedPagesWithImages = pageNodes => {
     return relatedPageInfo;
 };
 
+exports.onPreBootstrap = validateEnvVariables;
+
 exports.sourceNodes = async () => {
-    // setup env variables
-    const envResults = validateEnvVariables();
-
-    if (envResults.error) {
-        throw Error(envResults.message);
-    }
-
     // wait to connect to stitch
     await setupStitch();
 
