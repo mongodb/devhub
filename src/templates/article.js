@@ -179,11 +179,17 @@ const Article = props => {
         meta.updatedDate,
         dateFormatOptions
     );
+    const canonicalUrl = dlv(
+        __refDocMapping,
+        'ast.options.canonical-href',
+        null
+    );
 
     return (
         <Layout>
             <SEO
                 articleTitle={articleTitle}
+                canonicalUrl={canonicalUrl}
                 image={og.image}
                 ogTitle={og.title || articleTitle}
                 twitterNode={twitterNode}
