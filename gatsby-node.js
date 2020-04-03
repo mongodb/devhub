@@ -1,7 +1,7 @@
 const path = require('path');
 const dlv = require('dlv');
-const { Stitch, AnonymousCredential } = require('mongodb-stitch-server-sdk');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
+const { initStitch } = require('./src/utils/setup/init-stich');
 const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
@@ -39,20 +39,6 @@ let stitchClient;
 let homeFeaturedArticles;
 let learnFeaturedArticles;
 
-const setupStitch = () => {
-    return new Promise(resolve => {
-        stitchClient = Stitch.hasAppClient(SNOOTY_STITCH_ID)
-            ? Stitch.getAppClient(SNOOTY_STITCH_ID)
-            : Stitch.initializeAppClient(SNOOTY_STITCH_ID);
-        stitchClient.auth
-            .loginWithCredential(new AnonymousCredential())
-            .then(() => {
-                resolve();
-            })
-            .catch(console.error);
-    });
-};
-
 const getRelatedPagesWithImages = pageNodes => {
     const related = dlv(pageNodes, 'query_fields.related', []);
     const relatedPageInfo = related.map(r => ({
@@ -75,7 +61,7 @@ exports.sourceNodes = async () => {
     }
 
     // wait to connect to stitch
-    await setupStitch();
+    stitchClient = await initStitch();
 
     const { parserBranch, project, user } = metadata;
     PAGE_ID_PREFIX = `${project}/${user}/${parserBranch}`;
