@@ -16,9 +16,9 @@ const getImageSrc = (src, siteUrl) => {
 const SEO = ({
     articleTitle,
     canonicalUrl,
-    ogTitle,
     image,
-    url,
+    ogTitle,
+    ogUrl,
     type,
     twitterNode,
 }) => {
@@ -65,8 +65,8 @@ const SEO = ({
             )}
 
             {/* URL Tags */}
-            {url && <meta property="og:url" content={url} />}
-            {url && <link rel="canonical" href={canonicalUrl || url} />}
+            {ogUrl && <meta property="og:url" content={ogUrl} />}
+            {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
         </Helmet>
     );
 };

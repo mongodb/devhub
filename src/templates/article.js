@@ -182,7 +182,7 @@ const Article = props => {
     const canonicalUrl = dlv(
         __refDocMapping,
         'ast.options.canonical-href',
-        null
+        og.url || articleUrl
     );
 
     return (
@@ -192,9 +192,9 @@ const Article = props => {
                 canonicalUrl={canonicalUrl}
                 image={og.image}
                 ogTitle={og.title || articleTitle}
+                ogUrl={og.url || articleUrl}
                 twitterNode={twitterNode}
                 type={og.type || 'article'}
-                url={og.url || articleUrl}
             />
             <BlogPostTitleArea
                 articleImage={withPrefix(meta['atf-image'])}
