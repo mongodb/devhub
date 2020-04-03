@@ -27,7 +27,6 @@ let PAGE_ID_PREFIX;
 
 // different types of references
 const PAGES = [];
-const IMAGE_FILES = {};
 
 // in-memory object with key/value = filename/document
 let RESOLVED_REF_DOC_MAPPING = {};
@@ -50,6 +49,22 @@ const getRelatedPagesWithImages = pageNodes => {
         ...r,
     }));
     return relatedPageInfo;
+};
+
+const postprocessDocument = (doc, assetsArray, pagesArray) => {
+    const { page_id, ...rest } = doc;
+    const slug = page_id.replace(`${PAGE_ID_PREFIX}/`, '');
+    RESOLVED_REF_DOC_MAPPING[slug] = rest;
+    const pageNode = getNestedValue(['ast', 'children'], rest);
+    const filename = getNestedValue(['filename'], rest) || '';
+    const isArticlePage =
+        !filename.includes('images/') && filename.endsWith('.txt');
+    if (pageNode) {
+        assetsArray.push(...rest.static_assets);
+    }
+    if (isArticlePage) {
+        pagesArray.push(slug);
+    }
 };
 
 exports.sourceNodes = async () => {
@@ -75,26 +90,10 @@ exports.sourceNodes = async () => {
         console.error('No documents matched your query.');
     }
 
-    documents.forEach(doc => {
-        const { page_id, ...rest } = doc;
-        RESOLVED_REF_DOC_MAPPING[
-            page_id.replace(`${PAGE_ID_PREFIX}/`, '')
-        ] = rest;
-    });
-
     // Identify page documents and parse each document for images
     const assets = [];
-    Object.entries(RESOLVED_REF_DOC_MAPPING).forEach(([key, val]) => {
-        const pageNode = getNestedValue(['ast', 'children'], val);
-        const filename = getNestedValue(['filename'], val) || '';
-        if (pageNode) {
-            assets.push(...val.static_assets);
-        }
-        if (key.includes('images/')) {
-            IMAGE_FILES[key] = val;
-        } else if (filename.endsWith('.txt')) {
-            PAGES.push(key);
-        }
+    documents.forEach(doc => {
+        postprocessDocument(doc, assets, PAGES);
     });
 
     await saveAssetFiles(assets, stitchClient);
