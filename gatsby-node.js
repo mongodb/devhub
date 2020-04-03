@@ -1,10 +1,12 @@
 const path = require('path');
-const dlv = require('dlv');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
 const { initStitch } = require('./src/utils/setup/init-stich');
 const {
     postprocessDocument,
 } = require('./src/utils/setup/postprocess-document');
+const {
+    getRelatedPagesWithImages,
+} = require('./src/utils/setup/get-related-pages-with-images');
 const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
@@ -40,19 +42,6 @@ let stitchClient;
 // Featured articles for home/learn pages
 let homeFeaturedArticles;
 let learnFeaturedArticles;
-
-const getRelatedPagesWithImages = pageNodes => {
-    const related = dlv(pageNodes, 'query_fields.related', []);
-    const relatedPageInfo = related.map(r => ({
-        image: dlv(
-            RESOLVED_REF_DOC_MAPPING,
-            [r.target, 'query_fields', 'atf-image'],
-            null
-        ),
-        ...r,
-    }));
-    return relatedPageInfo;
-};
 
 exports.onPreBootstrap = validateEnvVariables;
 
@@ -109,7 +98,10 @@ exports.createPages = async ({ actions }) => {
             );
             const slug = getPageSlug(page);
             if (pageNodes.query_fields) {
-                const relatedPages = getRelatedPagesWithImages(pageNodes);
+                const relatedPages = getRelatedPagesWithImages(
+                    pageNodes,
+                    RESOLVED_REF_DOC_MAPPING
+                );
                 pageNodes['query_fields'].related = relatedPages;
             }
             const seriesArticles = getSeriesArticles(allSeries, slug);
