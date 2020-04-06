@@ -21,10 +21,10 @@ describe('Should properly postprocess a document node after it is fetched', () =
     it('should properly add an asset to the in-memory assets array', () => {
         const assets = [];
         postprocessDocument(articleNodeContent, articleSlug, assets, [], {});
-        expect(assets).toStrictEqual(['STATIC_ASSET']);
+        expect(assets).toStrictEqual(articleNodeContent.static_assets);
         postprocessDocument(imageNodeContent, imageSlug, assets, [], {});
         // No assets added, but should keep old assets
-        expect(assets).toStrictEqual(['STATIC_ASSET']);
+        expect(assets).toStrictEqual(articleNodeContent.static_assets);
     });
 
     it('should properly add a page to the in-memory page array', () => {
