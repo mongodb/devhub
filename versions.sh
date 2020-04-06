@@ -27,4 +27,4 @@ log_flags=(
 
 echo
 echo changes in staging but not production:
-git log "${log_flags[@]}" $MASTER..$STAGING
+git log "${log_flags[@]}" $PROD..$STAGING
