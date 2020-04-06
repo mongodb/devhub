@@ -6,6 +6,9 @@ import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
 import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
 import useMedia from '../../hooks/use-media';
 
+// nav height is 58px: 24px line height + 2 * 17px vertical padding
+const LINK_VERTICAL_PADDING = '17px';
+
 const GlobalNav = styled('nav')`
     background-color: ${colorMap.greyDarkThree};
     display: flex;
@@ -14,7 +17,7 @@ const GlobalNav = styled('nav')`
     &:after {
         background: radial-gradient(circle, #3ebb8c 0%, #76d3b1 100%);
         content: ' ';
-        height: 4px;
+        height: 2px;
         width: 100%;
     }
 `;
@@ -30,14 +33,16 @@ const NavContent = styled('div')`
 `;
 
 const NavLink = styled(Link)`
+    font-size: ${fontSize.small};
     font-weight: 300;
     letter-spacing: 1px;
-    line-height: ${lineHeight.xxlarge};
-    padding: ${size.small} ${size.xlarge};
+    line-height: ${lineHeight.small};
+    padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
     text-decoration: none;
     &:hover,
     &[aria-current='page'] {
-        background-color: ${colorMap.greyDarkTwo};
+        /* 66 is 40% opacity in hex */
+        background-color: ${`${colorMap.greyDarkTwo}66`};
     }
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.tiny};
@@ -48,7 +53,12 @@ const NavLink = styled(Link)`
 const HomeLink = styled(NavLink)`
     align-items: center;
     display: flex;
-    padding: 22px ${size.xlarge} 22px ${size.medium};
+    padding: ${LINK_VERTICAL_PADDING} ${size.xlarge} ${LINK_VERTICAL_PADDING}
+        ${size.medium};
+    &:hover,
+    &[aria-current='page'] {
+        background-color: unset;
+    }
     @media ${screenSize.upToMedium} {
         padding: ${size.default};
         svg {
