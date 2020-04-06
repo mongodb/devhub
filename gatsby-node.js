@@ -2,6 +2,9 @@ const path = require('path');
 const dlv = require('dlv');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
 const { initStitch } = require('./src/utils/setup/init-stich');
+const {
+    postprocessDocument,
+} = require('./src/utils/setup/postprocess-document');
 const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
@@ -51,22 +54,6 @@ const getRelatedPagesWithImages = pageNodes => {
     return relatedPageInfo;
 };
 
-const postprocessDocument = (doc, assetsArray, pagesArray) => {
-    const { page_id, ...rest } = doc;
-    const slug = page_id.replace(`${PAGE_ID_PREFIX}/`, '');
-    RESOLVED_REF_DOC_MAPPING[slug] = rest;
-    const pageNode = getNestedValue(['ast', 'children'], rest);
-    const filename = getNestedValue(['filename'], rest) || '';
-    const isArticlePage =
-        !filename.includes('images/') && filename.endsWith('.txt');
-    if (pageNode) {
-        assetsArray.push(...rest.static_assets);
-    }
-    if (isArticlePage) {
-        pagesArray.push(slug);
-    }
-};
-
 exports.sourceNodes = async () => {
     // setup env variables
     const envResults = validateEnvVariables();
@@ -90,10 +77,17 @@ exports.sourceNodes = async () => {
         console.error('No documents matched your query.');
     }
 
-    // Identify page documents and parse each document for images
     const assets = [];
     documents.forEach(doc => {
-        postprocessDocument(doc, assets, PAGES);
+        // Mimics onCreateNode
+        // TODO: Implement using createNode, onCreateNode
+        postprocessDocument(
+            doc,
+            assets,
+            PAGES,
+            PAGE_ID_PREFIX,
+            RESOLVED_REF_DOC_MAPPING
+        );
     });
 
     await saveAssetFiles(assets, stitchClient);
