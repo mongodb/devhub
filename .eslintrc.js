@@ -7,9 +7,16 @@ module.exports = {
         __PATH_PREFIX__: true,
         browser: true,
     },
-    extends: ['react-app', 'plugin:import/errors'],
+    env: {
+        'cypress/globals': true,
+    },
+    extends: [
+        'react-app',
+        'plugin:cypress/recommended',
+        'plugin:import/errors',
+    ],
     ignorePatterns: ['.gitignore', 'preview/'],
-    plugins: ['emotion', 'jest'],
+    plugins: ['cypress', 'emotion', 'jest'],
     rules: {
         'emotion/syntax-preference': [WARN, 'string'],
         eqeqeq: [WARN, 'always', { null: 'ignore' }],
