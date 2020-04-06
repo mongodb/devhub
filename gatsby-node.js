@@ -2,6 +2,9 @@ const path = require('path');
 const dlv = require('dlv');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
 const { initStitch } = require('./src/utils/setup/init-stich');
+const {
+    postprocessDocument,
+} = require('./src/utils/setup/postprocess-document');
 const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
@@ -23,11 +26,10 @@ const {
 const metadata = getMetadata();
 
 const DB = metadata.database;
-let PAGE_ID_PREFIX;
+const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBranch}`;
 
 // different types of references
 const PAGES = [];
-const IMAGE_FILES = {};
 
 // in-memory object with key/value = filename/document
 let RESOLVED_REF_DOC_MAPPING = {};
@@ -63,8 +65,6 @@ exports.sourceNodes = async () => {
     // wait to connect to stitch
     stitchClient = await initStitch();
 
-    const { parserBranch, project, user } = metadata;
-    PAGE_ID_PREFIX = `${project}/${user}/${parserBranch}`;
     const query = constructDbFilter(PAGE_ID_PREFIX);
     const documents = await stitchClient.callFunction('fetchDocuments', [
         DB,
@@ -75,26 +75,16 @@ exports.sourceNodes = async () => {
         console.error('No documents matched your query.');
     }
 
-    documents.forEach(doc => {
-        const { page_id, ...rest } = doc;
-        RESOLVED_REF_DOC_MAPPING[
-            page_id.replace(`${PAGE_ID_PREFIX}/`, '')
-        ] = rest;
-    });
-
-    // Identify page documents and parse each document for images
     const assets = [];
-    Object.entries(RESOLVED_REF_DOC_MAPPING).forEach(([key, val]) => {
-        const pageNode = getNestedValue(['ast', 'children'], val);
-        const filename = getNestedValue(['filename'], val) || '';
-        if (pageNode) {
-            assets.push(...val.static_assets);
-        }
-        if (key.includes('images/')) {
-            IMAGE_FILES[key] = val;
-        } else if (filename.endsWith('.txt')) {
-            PAGES.push(key);
-        }
+    documents.forEach(doc => {
+        // Mimics onCreateNode
+        postprocessDocument(
+            doc,
+            PAGE_ID_PREFIX,
+            assets,
+            PAGES,
+            RESOLVED_REF_DOC_MAPPING
+        );
     });
 
     await saveAssetFiles(assets, stitchClient);
