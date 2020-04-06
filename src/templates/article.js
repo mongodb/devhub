@@ -28,7 +28,6 @@ const contentNodesMap = {
     content: true,
     'meta-description': true,
     summary: true,
-    twitter: true,
 };
 
 const dateFormatOptions = {
@@ -146,12 +145,7 @@ const Article = props => {
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
     const og = meta.og || {};
-    const twitterNode = contentNodes.find(node => node.name === 'twitter');
-    if (twitterNode) {
-        // Remove it from content nodes
-        const index = contentNodes.indexOf(twitterNode);
-        contentNodes.splice(index, 1);
-    }
+    const twitterNode = childNodes.find(node => node.name === 'twitter');
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
