@@ -26,7 +26,7 @@ const {
 const metadata = getMetadata();
 
 const DB = metadata.database;
-let PAGE_ID_PREFIX;
+const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBranch}`;
 
 // different types of references
 const PAGES = [];
@@ -65,8 +65,6 @@ exports.sourceNodes = async () => {
     // wait to connect to stitch
     stitchClient = await initStitch();
 
-    const { parserBranch, project, user } = metadata;
-    PAGE_ID_PREFIX = `${project}/${user}/${parserBranch}`;
     const query = constructDbFilter(PAGE_ID_PREFIX);
     const documents = await stitchClient.callFunction('fetchDocuments', [
         DB,
@@ -80,11 +78,9 @@ exports.sourceNodes = async () => {
     const assets = [];
     documents.forEach(doc => {
         // Mimics onCreateNode
-        const { page_id, ...nodeContent } = doc;
-        const slug = page_id.replace(`${PAGE_ID_PREFIX}/`, '');
         postprocessDocument(
-            nodeContent,
-            slug,
+            doc,
+            PAGE_ID_PREFIX,
             assets,
             PAGES,
             RESOLVED_REF_DOC_MAPPING
