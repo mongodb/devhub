@@ -13,7 +13,15 @@ const getImageSrc = (src, siteUrl) => {
     return isExternalUrl.test(src) ? src : siteUrl + src;
 };
 
-const SEO = ({ articleTitle, ogTitle, image, url, type, twitterNode }) => {
+const SEO = ({
+    articleTitle,
+    canonicalUrl,
+    image,
+    ogTitle,
+    ogUrl,
+    type,
+    twitterNode,
+}) => {
     const twitter = twitterNode ? twitterNode.options : {};
     const twitterDescription = twitterNode
         ? getNestedText(twitterNode.children)
@@ -57,8 +65,8 @@ const SEO = ({ articleTitle, ogTitle, image, url, type, twitterNode }) => {
             )}
 
             {/* URL Tags */}
-            {url && <meta property="og:url" content={url} />}
-            {url && <link rel="canonical" href={url} />}
+            {ogUrl && <meta property="og:url" content={ogUrl} />}
+            {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
         </Helmet>
     );
 };
