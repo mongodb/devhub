@@ -28,7 +28,7 @@ it('should get pages and images for posts related to an article', () => {
     expect(getRelatedPagesWithImages(blankArticle, articleData)).toEqual([]);
     expect(
         getRelatedPagesWithImages(articleWithRelatedImage, articleData)[0].image
-    ).toBe('IMAGE_FILE');
+    ).toBe(articleData['/foo'].query_fields['atf-image']);
     expect(
         getRelatedPagesWithImages(articleWithoutRelatedImage, articleData)[0]
             .image
