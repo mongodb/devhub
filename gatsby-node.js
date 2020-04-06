@@ -80,12 +80,13 @@ exports.sourceNodes = async () => {
     const assets = [];
     documents.forEach(doc => {
         // Mimics onCreateNode
-        // TODO: Implement using createNode, onCreateNode
+        const { page_id, ...nodeContent } = doc;
+        const slug = page_id.replace(`${PAGE_ID_PREFIX}/`, '');
         postprocessDocument(
-            doc,
+            nodeContent,
+            slug,
             assets,
             PAGES,
-            PAGE_ID_PREFIX,
             RESOLVED_REF_DOC_MAPPING
         );
     });
