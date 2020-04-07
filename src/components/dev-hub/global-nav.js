@@ -41,8 +41,8 @@ const NavLink = styled(Link)`
     text-decoration: none;
     &:hover,
     &[aria-current='page'] {
-        /* 66 is 40% opacity in hex */
-        background-color: ${`${colorMap.greyDarkTwo}66`};
+        /* greyDarkTwo at 40% opacity on greyDarkThree */
+        background-color: #2c3d47;
     }
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.tiny};
