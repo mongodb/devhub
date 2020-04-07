@@ -8,6 +8,11 @@ static/*
 coverage/
 .coverage
 .env.*
+
+# Test information
 tests/unit/data/site/__testDataLatest.json
+cypress/videos
+cypress/screenshots
+
 preview/page-ast.json
 preview/bundle.js
