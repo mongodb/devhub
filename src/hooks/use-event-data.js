@@ -1,35 +1,26 @@
 import { useEffect, useState } from 'react';
-
-export const removePastEvents = events => {
-    const today = new Date();
-    return events.filter(
-        e =>
-            new Date(e.node_type_attributes.event_end) >= today &&
-            e.status === 'published'
-    );
-};
+import fetchEventData from '../utils/fetch-event-data';
+import fetchLiveEventData from '../utils/fetch-live-event-data';
 
 const useEventData = url => {
     const [events, setEvents] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
             try {
-                const data = await fetch(url, {
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (data) {
-                    const parsedData = await data.json();
-                    const upcomingEvents = removePastEvents(parsedData);
-                    setIsLoading(false);
-                    setError(null);
-                    setEvents(upcomingEvents.reverse());
-                }
+                const eventData = await fetchEventData(url);
+                const liveData = await fetchLiveEventData();
+                const allData = [...eventData, ...liveData].sort(
+                    (a, b) =>
+                        new Date(a.node_type_attributes.event_start) -
+                        new Date(b.node_type_attributes.event_start)
+                );
+                setIsLoading(false);
+                setError(null);
+                setEvents(allData);
             } catch (e) {
                 setIsLoading(false);
                 setError(e);
