@@ -6,7 +6,7 @@ const { getMetadata } = require('../get-metadata');
 const metadata = getMetadata();
 const DB = metadata.database;
 
-const saveAssetFile = async asset => {
+const saveFile = async asset => {
     await fs.mkdir(path.join('static', path.dirname(asset.filename)), {
         recursive: true,
     });
@@ -18,17 +18,17 @@ const saveAssetFile = async asset => {
 };
 
 // Write all assets to static directory
-const saveAssetFiles = async (assets, stitchClient) => {
+const saveAssetFile = async (asset, stitchClient) => {
     const promises = [];
-    const assetQuery = { _id: { $in: assets } };
+    const assetQuery = { _id: { $eq: asset } };
     const assetDataDocuments = await stitchClient.callFunction(
         'fetchDocuments',
         [DB, ASSETS_COLLECTION, assetQuery]
     );
     assetDataDocuments.forEach(asset => {
-        promises.push(saveAssetFile(asset));
+        promises.push(saveFile(asset));
     });
     return Promise.all(promises);
 };
 
-module.exports = { saveAssetFiles };
+module.exports = { saveAssetFile };

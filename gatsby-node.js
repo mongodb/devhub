@@ -4,7 +4,8 @@ const { initStitch } = require('./src/utils/setup/init-stich');
 const {
     postprocessDocument,
 } = require('./src/utils/setup/postprocess-document');
-const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
+const { getNestedValue } = require('./src/get-nested-value');
+const { saveAssetFile } = require('./src/utils/setup/save-asset-file');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
@@ -38,7 +39,10 @@ let learnFeaturedArticles;
 
 exports.onPreBootstrap = validateEnvVariables;
 
-exports.sourceNodes = async () => {
+exports.sourceNodes = async ({
+    actions: { createNode },
+    createContentDigest,
+}) => {
     // wait to connect to stitch
     stitchClient = await initStitch();
 
@@ -52,19 +56,33 @@ exports.sourceNodes = async () => {
         console.error('No documents matched your query.');
     }
 
-    const assets = [];
     documents.forEach(doc => {
+        const pageNode = getNestedValue(['ast', 'children'], doc);
+        if (pageNode) {
+            // Cache static assets to save file i/o on repeated builds
+            doc.static_assets.forEach(asset => {
+                const assetNode = {
+                    id: asset,
+                    parent: null,
+                    children: [],
+                    internal: {
+                        type: 'Asset',
+                        content: asset,
+                        contentDigest: createContentDigest(asset),
+                    },
+                };
+                createNode(assetNode);
+            });
+        }
         // Mimics onCreateNode
-        postprocessDocument(
-            doc,
-            PAGE_ID_PREFIX,
-            assets,
-            pages,
-            slugContentMapping
-        );
+        postprocessDocument(doc, PAGE_ID_PREFIX, pages, slugContentMapping);
     });
+};
 
-    await saveAssetFiles(assets, stitchClient);
+exports.onCreateNode = async ({ node }) => {
+    if (node.internal.type === 'Asset') {
+        await saveAssetFile(node.id, stitchClient);
+    }
 };
 
 exports.createPages = async ({ actions }) => {
