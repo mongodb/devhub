@@ -1,10 +1,12 @@
 const path = require('path');
-const dlv = require('dlv');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
 const { initStitch } = require('./src/utils/setup/init-stich');
 const {
     postprocessDocument,
 } = require('./src/utils/setup/postprocess-document');
+const {
+    getRelatedPagesWithImages,
+} = require('./src/utils/setup/get-related-pages-with-images');
 const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
@@ -32,7 +34,7 @@ const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBr
 const PAGES = [];
 
 // in-memory object with key/value = filename/document
-let RESOLVED_REF_DOC_MAPPING = {};
+const slugContentMapping = {};
 
 // stich client connection
 let stitchClient;
@@ -40,19 +42,6 @@ let stitchClient;
 // Featured articles for home/learn pages
 let homeFeaturedArticles;
 let learnFeaturedArticles;
-
-const getRelatedPagesWithImages = pageNodes => {
-    const related = dlv(pageNodes, 'query_fields.related', []);
-    const relatedPageInfo = related.map(r => ({
-        image: dlv(
-            RESOLVED_REF_DOC_MAPPING,
-            [r.target, 'query_fields', 'atf-image'],
-            null
-        ),
-        ...r,
-    }));
-    return relatedPageInfo;
-};
 
 exports.onPreBootstrap = validateEnvVariables;
 
@@ -78,7 +67,7 @@ exports.sourceNodes = async () => {
             PAGE_ID_PREFIX,
             assets,
             PAGES,
-            RESOLVED_REF_DOC_MAPPING
+            slugContentMapping
         );
     });
 
@@ -101,7 +90,7 @@ exports.createPages = async ({ actions }) => {
     delete allSeries.home;
     delete allSeries.learn;
     PAGES.forEach(page => {
-        const pageNodes = RESOLVED_REF_DOC_MAPPING[page];
+        const pageNodes = slugContentMapping[page];
 
         if (pageNodes && Object.keys(pageNodes).length > 0) {
             const template = getTemplate(
@@ -109,7 +98,10 @@ exports.createPages = async ({ actions }) => {
             );
             const slug = getPageSlug(page);
             if (pageNodes.query_fields) {
-                const relatedPages = getRelatedPagesWithImages(pageNodes);
+                const relatedPages = getRelatedPagesWithImages(
+                    pageNodes,
+                    slugContentMapping
+                );
                 pageNodes['query_fields'].related = relatedPages;
             }
             const seriesArticles = getSeriesArticles(allSeries, slug);
@@ -133,7 +125,7 @@ exports.createPages = async ({ actions }) => {
             type,
             createPage,
             metadata,
-            RESOLVED_REF_DOC_MAPPING,
+            slugContentMapping,
             stitchClient
         )
     );
