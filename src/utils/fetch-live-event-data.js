@@ -13,7 +13,7 @@ const fetchLiveEventData = async () => {
         if (data) {
             const parsedData = await data.json();
             return parsedData.results.map(e => ({
-                // mongodb.com events api returns relevant fields in `node_type_attributes`
+                // mongodb.com events api returns relevant fields in `node_type_attributes`, our components are expecting this structure
                 node_type_attributes: {
                     event_start: e.start_date,
                     event_end: e.end_date,
