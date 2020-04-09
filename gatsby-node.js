@@ -4,8 +4,7 @@ const { initStitch } = require('./src/utils/setup/init-stich');
 const {
     postprocessDocument,
 } = require('./src/utils/setup/postprocess-document');
-const { getNestedValue } = require('./src/get-nested-value');
-const { saveAssetFile } = require('./src/utils/setup/save-asset-file');
+const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
@@ -26,6 +25,7 @@ const DB = metadata.database;
 const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBranch}`;
 
 // different types of references
+const assets = [];
 const pages = [];
 
 // in-memory object with key/value = filename/document
@@ -66,11 +66,12 @@ exports.sourceNodes = async ({
 
 exports.onCreateNode = async ({ node }) => {
     if (node.internal.type === 'Asset') {
-        await saveAssetFile(node.id, stitchClient);
+        assets.push(node.id);
     }
 };
 
 exports.createPages = async ({ actions }) => {
+    await saveAssetFiles(assets, stitchClient);
     const { createPage } = actions;
     const metadata = await stitchClient.callFunction('fetchDocument', [
         DB,
