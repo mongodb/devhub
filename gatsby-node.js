@@ -34,7 +34,7 @@ const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBr
 const PAGES = [];
 
 // in-memory object with key/value = filename/document
-let RESOLVED_REF_DOC_MAPPING = {};
+const slugContentMapping = {};
 
 // stich client connection
 let stitchClient;
@@ -67,7 +67,7 @@ exports.sourceNodes = async () => {
             PAGE_ID_PREFIX,
             assets,
             PAGES,
-            RESOLVED_REF_DOC_MAPPING
+            slugContentMapping
         );
     });
 
@@ -90,7 +90,7 @@ exports.createPages = async ({ actions }) => {
     delete allSeries.home;
     delete allSeries.learn;
     PAGES.forEach(page => {
-        const pageNodes = RESOLVED_REF_DOC_MAPPING[page];
+        const pageNodes = slugContentMapping[page];
 
         if (pageNodes && Object.keys(pageNodes).length > 0) {
             const template = getTemplate(
@@ -100,7 +100,7 @@ exports.createPages = async ({ actions }) => {
             if (pageNodes.query_fields) {
                 const relatedPages = getRelatedPagesWithImages(
                     pageNodes,
-                    RESOLVED_REF_DOC_MAPPING
+                    slugContentMapping
                 );
                 pageNodes['query_fields'].related = relatedPages;
             }
@@ -125,7 +125,7 @@ exports.createPages = async ({ actions }) => {
             type,
             createPage,
             metadata,
-            RESOLVED_REF_DOC_MAPPING,
+            slugContentMapping,
             stitchClient
         )
     );
