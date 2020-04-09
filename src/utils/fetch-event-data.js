@@ -12,16 +12,20 @@ export const removePastEvents = events => {
 
 // Fetches data from mongodb.com/events api
 const fetchEventData = async () => {
-    const data = await fetch(EVENTS_URL, {
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if (data) {
-        const parsedData = await data.json();
-        const upcomingEvents = removePastEvents(parsedData);
-        return upcomingEvents;
+    try {
+        const data = await fetch(EVENTS_URL, {
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (data) {
+            const parsedData = await data.json();
+            const upcomingEvents = removePastEvents(parsedData);
+            return upcomingEvents;
+        }
+    } catch (e) {
+        console.error(e);
     }
     return [];
 };
