@@ -11,16 +11,19 @@ const useEventData = url => {
         const getData = async () => {
             setIsLoading(true);
             try {
-                const eventData = await fetchEventData(url);
-                const liveData = await fetchLiveEventData();
-                const allData = [...eventData, ...liveData].sort(
-                    (a, b) =>
-                        new Date(a.node_type_attributes.event_start) -
-                        new Date(b.node_type_attributes.event_start)
-                );
+                const eventData = fetchEventData(url);
+                const liveData = fetchLiveEventData();
+                const allData = await Promise.all([eventData, liveData]);
+                const events = allData
+                    .flat(1)
+                    .sort(
+                        (a, b) =>
+                            new Date(a.node_type_attributes.event_start) -
+                            new Date(b.node_type_attributes.event_start)
+                    );
                 setIsLoading(false);
                 setError(null);
-                setEvents(allData);
+                setEvents(events);
             } catch (e) {
                 setIsLoading(false);
                 setError(e);
