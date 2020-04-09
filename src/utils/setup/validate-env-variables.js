@@ -7,15 +7,10 @@ const validateEnvVariables = () => {
         !process.env.GATSBY_PARSER_USER ||
         !process.env.GATSBY_PARSER_BRANCH
     ) {
-        return {
-            error: true,
-            message: `${process.env.NODE_ENV} requires the variables GATSBY_SITE, GATSBY_PARSER_USER, and GATSBY_PARSER_BRANCH`,
-        };
+        throw new Error(
+            `${process.env.NODE_ENV} requires the variables GATSBY_SITE, GATSBY_PARSER_USER, and GATSBY_PARSER_BRANCH`
+        );
     }
-    // create split prefix for use in stitch function
-    return {
-        error: false,
-    };
 };
 
 module.exports.validateEnvVariables = validateEnvVariables;
