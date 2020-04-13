@@ -1,4 +1,5 @@
 const path = require('path');
+const { pages } = require('./src/queries/pages');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
 const { initStitch } = require('./src/utils/setup/init-stich');
 const {
@@ -27,7 +28,6 @@ const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBr
 
 // different types of references
 const assets = [];
-const pages = [];
 
 // in-memory object with key/value = filename/document
 const slugContentMapping = {};
@@ -61,8 +61,7 @@ exports.sourceNodes = async ({
     documents.forEach(doc => {
         createAssetNodes(doc, createNode, createContentDigest);
         createArticleNode(doc, PAGE_ID_PREFIX, createNode, createContentDigest);
-        // Mimics onCreateNode
-        postprocessDocument(doc, PAGE_ID_PREFIX, pages, slugContentMapping);
+        postprocessDocument(doc, PAGE_ID_PREFIX, slugContentMapping);
     });
 };
 
@@ -72,16 +71,21 @@ exports.onCreateNode = async ({ node }) => {
     }
 };
 
-exports.createPages = async ({ actions }) => {
+exports.createPages = async ({ actions, graphql }) => {
     const { createPage } = actions;
-    const [, metadata] = await Promise.all([
+    const [, metadata, result] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
         stitchClient.callFunction('fetchDocument', [
             DB,
             METADATA_COLLECTION,
             constructDbFilter(PAGE_ID_PREFIX),
         ]),
+        graphql(pages),
     ]);
+
+    if (result.error) {
+        throw new Error(`Page build error: ${result.error}`);
+    }
 
     const allSeries = metadata.pageGroups;
 
@@ -90,9 +94,9 @@ exports.createPages = async ({ actions }) => {
     learnFeaturedArticles = allSeries.learn;
     delete allSeries.home;
     delete allSeries.learn;
-    pages.forEach(page => {
+    result.data.allArticle.nodes.forEach(article => {
         createArticlePage(
-            page,
+            article.slug,
             slugContentMapping,
             allSeries,
             metadata,
