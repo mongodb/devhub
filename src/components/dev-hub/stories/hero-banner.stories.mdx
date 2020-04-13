@@ -10,23 +10,18 @@ import MockAuthorImage from '../../../images/1x/MDB-and-Node.js.png';
 
 <Preview>
     <Story name="hero banner">
-        {() => {
-            const breadcrumbs = [
+        <HeroBanner
+            background={MockAuthorImage}
+            breadcrumb={[
                 { label: 'Home', to: '#' },
                 { label: 'Storybook', to: '#' },
-            ];
-            return (
-                <HeroBanner
-                    background={MockAuthorImage}
-                    breadcrumb={breadcrumbs}
-                >
-                    <H1>DevHub Component "Storybook"</H1>
-                    <BylineBlock
-                        authorName="UP Team"
-                        authorImage={MockAuthorImage}
-                    />
-                </HeroBanner>
-            );
-        }}
+            ]}
+        >
+            <H1>DevHub Component "Storybook"</H1>
+            <BylineBlock
+                authorName="UP Team"
+                authorImage={MockAuthorImage}
+            />
+        </HeroBanner>
     </Story>
 </Preview>
