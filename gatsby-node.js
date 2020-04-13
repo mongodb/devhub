@@ -1,8 +1,8 @@
 const path = require('path');
 const dlv = require('dlv');
-const fs = require('fs').promises;
-const mkdirp = require('mkdirp');
 const { Stitch, AnonymousCredential } = require('mongodb-stitch-server-sdk');
+const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
+const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
@@ -15,7 +15,6 @@ const { getSeriesArticles } = require('./src/utils/get-series-articles');
 const { getTemplate } = require('./src/utils/get-template');
 const {
     DOCUMENTS_COLLECTION,
-    ASSETS_COLLECTION,
     METADATA_COLLECTION,
     SNOOTY_STITCH_ID,
 } = require('./src/build-constants');
@@ -36,6 +35,10 @@ let RESOLVED_REF_DOC_MAPPING = {};
 // stich client connection
 let stitchClient;
 
+// Featured articles for home/learn pages
+let homeFeaturedArticles;
+let learnFeaturedArticles;
+
 const setupStitch = () => {
     return new Promise(resolve => {
         stitchClient = Stitch.hasAppClient(SNOOTY_STITCH_ID)
@@ -49,43 +52,6 @@ const setupStitch = () => {
             .catch(console.error);
     });
 };
-
-const saveAssetFile = async asset => {
-    return new Promise((resolve, reject) => {
-        // Create nested directories as specified by the asset filenames if they do not exist
-        mkdirp(path.join('static', path.dirname(asset.filename)), err => {
-            if (err) return reject(err);
-            fs.writeFile(
-                path.join('static', asset.filename),
-                asset.data.buffer,
-                'binary',
-                err => {
-                    if (err) reject(err);
-                }
-            );
-            resolve();
-        });
-    });
-};
-
-// Write all assets to static directory
-const saveAssetFiles = async assets => {
-    const promises = [];
-    const assetQuery = { _id: { $in: assets } };
-    const assetDataDocuments = await stitchClient.callFunction(
-        'fetchDocuments',
-        [DB, ASSETS_COLLECTION, assetQuery]
-    );
-    assetDataDocuments.forEach(asset => {
-        promises.push(saveAssetFile(asset));
-    });
-    return Promise.all(promises);
-};
-
-const constructDbFilter = () => ({
-    page_id: { $regex: new RegExp(`^${PAGE_ID_PREFIX}/*`) },
-    commit_hash: process.env.COMMIT_HASH || { $exists: false },
-});
 
 const getRelatedPagesWithImages = pageNodes => {
     const related = dlv(pageNodes, 'query_fields.related', []);
@@ -113,7 +79,7 @@ exports.sourceNodes = async () => {
 
     const { parserBranch, project, user } = metadata;
     PAGE_ID_PREFIX = `${project}/${user}/${parserBranch}`;
-    const query = constructDbFilter();
+    const query = constructDbFilter(PAGE_ID_PREFIX);
     const documents = await stitchClient.callFunction('fetchDocuments', [
         DB,
         DOCUMENTS_COLLECTION,
@@ -145,7 +111,7 @@ exports.sourceNodes = async () => {
         }
     });
 
-    await saveAssetFiles(assets);
+    await saveAssetFiles(assets, stitchClient);
 };
 
 exports.createPages = async ({ actions }) => {
@@ -153,10 +119,16 @@ exports.createPages = async ({ actions }) => {
     const metadata = await stitchClient.callFunction('fetchDocument', [
         DB,
         METADATA_COLLECTION,
-        constructDbFilter(),
+        constructDbFilter(PAGE_ID_PREFIX),
     ]);
 
     const allSeries = metadata.pageGroups;
+
+    // featured aricles are in pageGroups but not series, so we remove them
+    homeFeaturedArticles = allSeries.home;
+    learnFeaturedArticles = allSeries.learn;
+    delete allSeries.home;
+    delete allSeries.learn;
     PAGES.forEach(page => {
         const pageNodes = RESOLVED_REF_DOC_MAPPING[page];
 
@@ -226,4 +198,10 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
 };
 
 exports.onCreatePage = async ({ page, actions }) =>
-    onCreatePage(page, actions, stitchClient);
+    onCreatePage(
+        page,
+        actions,
+        stitchClient,
+        homeFeaturedArticles,
+        learnFeaturedArticles
+    );

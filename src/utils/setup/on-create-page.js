@@ -5,24 +5,21 @@ const { getMetadata } = require('../get-metadata');
 const metadata = getMetadata();
 let stitchClient;
 
+const MAX_LEARN_PAGE_FEATURED_ARTICLES = 3;
+const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
+
 const DEFAULT_FEATURED_HOME_SLUGS = [
-    '/how-to/nextjs-building-modern-applications',
-    '/how-to/python-starlette-stitch',
-    '/how-to/graphql-support-atlas-stitch',
-    '/quickstart/free-atlas-cluster',
+    'how-to/nextjs-building-modern-applications',
+    'how-to/python-starlette-stitch',
+    'how-to/graphql-support-atlas-stitch',
+    'quickstart/free-atlas-cluster',
 ];
 
 const DEFAULT_FEATURED_LEARN_SLUGS = [
-    '/quickstart/java-setup-crud-operations',
-    '/how-to/golang-alexa-skills',
-    '/how-to/polymorphic-pattern',
+    'quickstart/java-setup-crud-operations',
+    'how-to/golang-alexa-skills',
+    'how-to/polymorphic-pattern',
 ];
-
-// TODO: Verify field names with docsp
-const pageRouteToName = {
-    '/': 'home',
-    '/learn/': 'learn',
-};
 
 const requestStitch = async (functionName, ...args) =>
     stitchClient.callFunction(functionName, [metadata, ...args]);
@@ -40,11 +37,13 @@ const getAllArticles = memoizerific(1)(async () => {
     return filteredDocuments;
 });
 
-const getFeaturedArticles = (allArticles, featuredArticleSlugs) => {
+const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     const result = [];
-    featuredArticleSlugs.forEach((featuredSlug, i) => {
-        const newArticle = allArticles.find(
-            x => x.query_fields.slug === featuredSlug
+    // If maxSize is undefined, this will return a shallow copy of articleSlugs
+    articleSlugs.slice(0, maxSize).forEach((featuredSlug, i) => {
+        const targetSlug = new RegExp(`^/?${featuredSlug}$`);
+        const newArticle = allArticles.find(x =>
+            x.query_fields.slug.match(targetSlug)
         );
         if (newArticle) {
             result.push(newArticle);
@@ -56,83 +55,86 @@ const getFeaturedArticles = (allArticles, featuredArticleSlugs) => {
     return result;
 };
 
-const getLearnPageFilters = async () => {
-    const filters = {
-        languages: {},
-        products: {},
-    };
+const getLearnPageFilters = allArticles => {
+    const languages = {};
+    const products = {};
 
-    // Get possible language and product values from Stitch
-    const languageValues = await stitchClient.callFunction('getValuesByKey', [
-        metadata,
-        'languages',
-    ]);
-    const productValues = await stitchClient.callFunction('getValuesByKey', [
-        metadata,
-        'products',
-    ]);
-
-    // For each language, build an object with its total count, and count for each product
-    for (let i = 0; i < languageValues.length; i++) {
-        const l = languageValues[i];
-        filters.languages[l._id] = {
-            count: l.count,
-            products: {},
-        };
-        const productValuesForLanguage = await stitchClient.callFunction(
-            'getValuesByKey',
-            [metadata, 'products', { languages: l._id }]
-        );
-        productValuesForLanguage.forEach(pl => {
-            filters.languages[l._id].products[pl._id] = pl.count;
-        });
-    }
-
-    // For each product, build an object with its total count, and count for each language
-    for (let i = 0; i < productValues.length; i++) {
-        const p = productValues[i];
-        filters.products[p._id] = {
-            count: p.count,
-            languages: {},
-        };
-        const languageValuesForProduct = await stitchClient.callFunction(
-            'getValuesByKey',
-            [metadata, 'languages', { products: p._id }]
-        );
-        languageValuesForProduct.forEach(lp => {
-            filters.products[p._id].languages[lp._id] = lp.count;
-        });
-    }
-    return filters;
+    allArticles.forEach(article => {
+        const languagesForArticle = article.query_fields.languages;
+        const productsForArticle = article.query_fields.products;
+        // Go through languages for this article and update filter info.
+        // Add a count of how many times this language appears and keep track
+        // of how many itmes we see a product with this language
+        if (languagesForArticle) {
+            languagesForArticle.forEach(language => {
+                const currentLanguage = languages[language];
+                if (currentLanguage) {
+                    currentLanguage.count++;
+                } else {
+                    // Update language reference directly in outer block object
+                    languages[language] = {
+                        count: 1,
+                        products: {},
+                    };
+                }
+                if (productsForArticle) {
+                    // If this article also has products, update those counts as well for this language
+                    const productsForLanguage = languages[language].products;
+                    productsForArticle.forEach(product => {
+                        productsForLanguage[product]
+                            ? productsForLanguage[product]++
+                            : (productsForLanguage[product] = 1);
+                    });
+                }
+            });
+        }
+        // Go through products for this article and update filter info.
+        // Add a count of how many times this product appears and keep track
+        // of how many itmes we see a language with this product
+        if (productsForArticle) {
+            productsForArticle.forEach(product => {
+                const currentProduct = products[product];
+                if (currentProduct) {
+                    currentProduct.count++;
+                } else {
+                    // Update product reference directly in outer block object
+                    products[product] = {
+                        count: 1,
+                        languages: {},
+                    };
+                }
+                if (languagesForArticle) {
+                    // If this article also has languages, update those counts as well for this products
+                    const languagesForProduct = products[product].languages;
+                    languagesForArticle.forEach(language => {
+                        languagesForProduct[language]
+                            ? languagesForProduct[language]++
+                            : (languagesForProduct[language] = 1);
+                    });
+                }
+            });
+        }
+    });
+    return { languages, products };
 };
 
-const getFeaturedArticlesForPage = async (
-    pageRoute,
-    defaultFeaturedArticles
+const onCreatePage = async (
+    page,
+    actions,
+    inheritedStitchClient,
+    homeFeaturedArticles,
+    learnFeaturedArticles
 ) => {
-    const allArticles = await getAllArticles();
-    const featuredArticleSlugs =
-        getNestedValue(
-            ['featuredArticles', pageRouteToName[pageRoute]],
-            metadata
-        ) || defaultFeaturedArticles;
-    const featuredArticles = getFeaturedArticles(
-        allArticles,
-        featuredArticleSlugs
-    );
-    return featuredArticles;
-};
-
-const onCreatePage = async (page, actions, inheritedStitchClient) => {
     const { createPage, deletePage } = actions;
     stitchClient = inheritedStitchClient;
     switch (page.path) {
         case '/learn/':
             const allArticles = await getAllArticles();
             const filters = await getLearnPageFilters(allArticles);
-            const featuredLearnArticles = await getFeaturedArticlesForPage(
-                page.path,
-                DEFAULT_FEATURED_LEARN_SLUGS
+            const featuredLearnArticles = findArticlesFromSlugs(
+                allArticles,
+                learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS,
+                MAX_LEARN_PAGE_FEATURED_ARTICLES
             );
             deletePage(page);
             createPage({
@@ -146,9 +148,10 @@ const onCreatePage = async (page, actions, inheritedStitchClient) => {
             });
             break;
         case '/':
-            const featuredHomeArticles = await getFeaturedArticlesForPage(
-                page.path,
-                DEFAULT_FEATURED_HOME_SLUGS
+            const featuredHomeArticles = findArticlesFromSlugs(
+                await getAllArticles(),
+                homeFeaturedArticles || DEFAULT_FEATURED_HOME_SLUGS,
+                MAX_HOME_PAGE_FEATURED_ARTICLES
             );
             deletePage(page);
             createPage({
@@ -164,4 +167,4 @@ const onCreatePage = async (page, actions, inheritedStitchClient) => {
     }
 };
 
-module.exports = { onCreatePage };
+module.exports = { findArticlesFromSlugs, getLearnPageFilters, onCreatePage };

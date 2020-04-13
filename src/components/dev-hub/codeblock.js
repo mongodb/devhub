@@ -29,7 +29,7 @@ const CopyContainer = styled('div')`
 `;
 
 const StyledCode = styled(Code)`
-    border-radius: ${size.small};
+    border-radius: ${size.xsmall};
     line-height: ${lineHeight.xsmall};
     padding-right: ${size.xlarge};
     padding-top: ${size.large};
