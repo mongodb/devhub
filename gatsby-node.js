@@ -9,6 +9,7 @@ const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
 const { onCreatePage } = require('./src/utils/setup/on-create-page');
+const { createAssetNodes } = require('./src/utils/setup/create-asset-nodes');
 const { createTagPageType } = require('./src/utils/setup/create-tag-page-type');
 const { getMetadata } = require('./src/utils/get-metadata');
 const {
@@ -24,6 +25,7 @@ const DB = metadata.database;
 const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBranch}`;
 
 // different types of references
+const assets = [];
 const pages = [];
 
 // in-memory object with key/value = filename/document
@@ -38,7 +40,10 @@ let learnFeaturedArticles;
 
 exports.onPreBootstrap = validateEnvVariables;
 
-exports.sourceNodes = async () => {
+exports.sourceNodes = async ({
+    actions: { createNode },
+    createContentDigest,
+}) => {
     // wait to connect to stitch
     stitchClient = await initStitch();
 
@@ -52,27 +57,28 @@ exports.sourceNodes = async () => {
         console.error('No documents matched your query.');
     }
 
-    const assets = [];
     documents.forEach(doc => {
+        createAssetNodes(doc, createNode, createContentDigest);
         // Mimics onCreateNode
-        postprocessDocument(
-            doc,
-            PAGE_ID_PREFIX,
-            assets,
-            pages,
-            slugContentMapping
-        );
+        postprocessDocument(doc, PAGE_ID_PREFIX, pages, slugContentMapping);
     });
+};
 
-    await saveAssetFiles(assets, stitchClient);
+exports.onCreateNode = async ({ node }) => {
+    if (node.internal.type === 'Asset') {
+        assets.push(node.id);
+    }
 };
 
 exports.createPages = async ({ actions }) => {
     const { createPage } = actions;
-    const metadata = await stitchClient.callFunction('fetchDocument', [
-        DB,
-        METADATA_COLLECTION,
-        constructDbFilter(PAGE_ID_PREFIX),
+    const [, metadata] = await Promise.all([
+        saveAssetFiles(assets, stitchClient),
+        stitchClient.callFunction('fetchDocument', [
+            DB,
+            METADATA_COLLECTION,
+            constructDbFilter(PAGE_ID_PREFIX),
+        ]),
     ]);
 
     const allSeries = metadata.pageGroups;

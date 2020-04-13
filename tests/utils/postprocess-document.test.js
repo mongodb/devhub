@@ -9,7 +9,6 @@ describe('Should properly postprocess a document node after it is fetched', () =
         },
         filename: `${articleSlug}.txt`,
         page_id: `${pageIdPrefix}/${articleSlug}`,
-        static_assets: ['STATIC_ASSET'],
     };
     const imageSlug = 'image/test-image';
     const imageNode = {
@@ -18,27 +17,17 @@ describe('Should properly postprocess a document node after it is fetched', () =
         },
         filename: `${imageSlug}.png`,
         page_id: `${pageIdPrefix}/${imageSlug}`,
-        static_assets: [],
     };
-
-    it('should properly add an asset to the in-memory assets array', () => {
-        const assets = [];
-        postprocessDocument(articleNode, pageIdPrefix, assets, [], {});
-        expect(assets).toStrictEqual(articleNode.static_assets);
-        postprocessDocument(imageNode, pageIdPrefix, assets, [], {});
-        // No assets added, but should keep old assets
-        expect(assets).toStrictEqual(articleNode.static_assets);
-    });
 
     it('should properly add a page to the in-memory page array without the page id prefix', () => {
         const pages = [];
-        postprocessDocument(articleNode, pageIdPrefix, [], pages, {});
+        postprocessDocument(articleNode, pageIdPrefix, pages, {});
         expect(pages).toStrictEqual([articleSlug]);
     });
 
     it('should not add an image to the in-memory page array', () => {
         const pages = [];
-        postprocessDocument(imageNode, pageIdPrefix, [], pages, {});
+        postprocessDocument(imageNode, pageIdPrefix, pages, {});
         expect(pages).toStrictEqual([]);
     });
 
@@ -46,8 +35,8 @@ describe('Should properly postprocess a document node after it is fetched', () =
         const mapping = {};
         const { page_id: articlePageId, ...articleContentNode } = articleNode;
         const { page_id: imagePageId, ...imageContentNode } = imageNode;
-        postprocessDocument(articleNode, pageIdPrefix, [], [], mapping);
-        postprocessDocument(imageNode, pageIdPrefix, [], [], mapping);
+        postprocessDocument(articleNode, pageIdPrefix, [], mapping);
+        postprocessDocument(imageNode, pageIdPrefix, [], mapping);
         // refDocMapping should not include page_id, but should contain everything else
         expect(mapping[articleSlug]).toStrictEqual(articleContentNode);
         // Should still contain non-page content nodes in __refDocMapping
