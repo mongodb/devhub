@@ -71,12 +71,14 @@ exports.onCreateNode = async ({ node }) => {
 };
 
 exports.createPages = async ({ actions }) => {
-    await saveAssetFiles(assets, stitchClient);
     const { createPage } = actions;
-    const metadata = await stitchClient.callFunction('fetchDocument', [
-        DB,
-        METADATA_COLLECTION,
-        constructDbFilter(PAGE_ID_PREFIX),
+    const [, metadata] = await Promise.all([
+        saveAssetFiles(assets, stitchClient),
+        stitchClient.callFunction('fetchDocument', [
+            DB,
+            METADATA_COLLECTION,
+            constructDbFilter(PAGE_ID_PREFIX),
+        ]),
     ]);
 
     const allSeries = metadata.pageGroups;
