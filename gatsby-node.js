@@ -9,6 +9,7 @@ const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
 const { onCreatePage } = require('./src/utils/setup/on-create-page');
+const { createArticleNode } = require('./src/utils/setup/create-article-node');
 const { createAssetNodes } = require('./src/utils/setup/create-asset-nodes');
 const { createTagPageType } = require('./src/utils/setup/create-tag-page-type');
 const { getMetadata } = require('./src/utils/get-metadata');
@@ -59,6 +60,7 @@ exports.sourceNodes = async ({
 
     documents.forEach(doc => {
         createAssetNodes(doc, createNode, createContentDigest);
+        createArticleNode(doc, PAGE_ID_PREFIX, createNode, createContentDigest);
         // Mimics onCreateNode
         postprocessDocument(doc, PAGE_ID_PREFIX, pages, slugContentMapping);
     });
