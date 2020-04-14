@@ -204,7 +204,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                         </Button>
                     </div>
                 </Hero>
-                <FeatureSection altBackground>
+                <FeatureSection altBackground data-test="twitch">
                     <MediaBlock
                         mediaComponent={
                             twitchVideo && <Thumbnail video={twitchVideo} />
@@ -235,7 +235,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                         </SectionContent>
                     </MediaBlock>
                 </FeatureSection>
-                <FeatureSection>
+                <FeatureSection data-test="events">
                     <MediaBlock
                         mediaComponent={
                             <Card
