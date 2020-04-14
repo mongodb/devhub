@@ -48,6 +48,7 @@ const ModalClose = ({ closeModalOnEnter, deactivateModal }) => (
             tabIndex="0"
             onClick={deactivateModal}
             onKeyUp={closeModalOnEnter}
+            data-test="modal-close"
         >
             &times;
         </CloseButtonWrapper>
@@ -120,6 +121,7 @@ export const Modal = ({
     const ResponsiveModal = () =>
         isActive && (
             <AriaModal
+                data-test="modal"
                 mounted={isMounted}
                 focusDialog
                 titleText={title || 'Popup Modal'}
