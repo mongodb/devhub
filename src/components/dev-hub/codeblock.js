@@ -15,6 +15,7 @@ const CodeContainer = styled('div')`
     width: 100%;
     /* The leafygreen Code component adds a wrapper div which can't be styled using emotion */
     > div:first-of-type {
+        border-radius: ${size.small};
         width: 100%;
     }
 `;
@@ -62,12 +63,13 @@ const CodeBlock = ({ nodeData: { lang = null, value } }) => {
     const numDigits = useMemo(() => Math.floor(Math.log10(numLines) + 1), [
         numLines,
     ]);
+    // Leafy expects 'csp' as 'cs'
+    const language = lang === 'csp' ? 'cs' : lang || 'auto';
     return (
         <CodeContainer>
             <StyledCode
-                // remove this lang !== 'csp' hack once LG supports cs
-                // https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
-                language={lang && lang !== 'csp' ? lang : 'auto'}
+                copyable={false}
+                language={language}
                 numdigits={numDigits}
                 showLineNumbers
                 variant="dark"
