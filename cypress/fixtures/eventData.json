@@ -1,0 +1,22 @@
+[
+    {
+        "_id": "5e5d64282529760dbd303904",
+        "node_type": "event",
+        "node_type_attributes": {
+            "event_start": "2030-09-16T14:00:00.000Z",
+            "event_end": "2030-09-16T23:00:00.000Z",
+            "event_city": "London",
+            "event_type": "MongoDB",
+            "event_country": "United Kingdom"
+        },
+        "title": "MongoDB.local London",
+        "status": "published",
+        "published_at": "2020-03-02T19:49:00.000Z",
+        "content_expires_at": "2030-09-17T05:00:00.000Z",
+        "expired_redirect_to": "https://mongodb.com/local",
+        "url": "https://www.eventbrite.com/e/mongodblocal-london-2020-tickets-92125823819",
+        "url_type": "external",
+        "updated_at": "2020-03-20T16:52:23.223Z",
+        "created_at": "2020-03-02T19:53:12.074Z"
+    }
+]
