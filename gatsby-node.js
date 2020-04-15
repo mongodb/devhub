@@ -1,5 +1,5 @@
 const path = require('path');
-const { pages } = require('./src/queries/pages');
+const { articles } = require('./src/queries/articles');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
 const { initStitch } = require('./src/utils/setup/init-stich');
 const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
@@ -82,7 +82,7 @@ exports.createPages = async ({ actions, graphql }) => {
             METADATA_COLLECTION,
             constructDbFilter(PAGE_ID_PREFIX),
         ]),
-        graphql(pages),
+        graphql(articles),
     ]);
 
     if (result.error) {

@@ -1,4 +1,4 @@
-const pages = `
+const articles = `
     query Pages {
         allArticle {
             nodes {
@@ -8,4 +8,4 @@ const pages = `
     }
 `;
 
-module.exports = { pages };
+module.exports = { articles };
