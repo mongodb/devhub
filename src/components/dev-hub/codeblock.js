@@ -15,7 +15,7 @@ const CodeContainer = styled('div')`
     width: 100%;
     /* The leafygreen Code component adds a wrapper div which can't be styled using emotion */
     > div:first-of-type {
-        border-radius: ${size.small};
+        border: none;
         width: 100%;
     }
 `;
@@ -30,7 +30,8 @@ const CopyContainer = styled('div')`
 `;
 
 const StyledCode = styled(Code)`
-    border-radius: ${size.xsmall};
+    border: 1px solid ${colorMap.greyDarkThree};
+    border-radius: ${size.small};
     line-height: ${lineHeight.xsmall};
     padding-right: ${size.xlarge};
     padding-top: ${size.large};
