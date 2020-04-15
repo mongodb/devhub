@@ -1,14 +1,13 @@
 const path = require('path');
+const { articles } = require('./src/queries/articles');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
 const { initStitch } = require('./src/utils/setup/init-stich');
-const {
-    postprocessDocument,
-} = require('./src/utils/setup/postprocess-document');
 const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
 const { onCreatePage } = require('./src/utils/setup/on-create-page');
+const { createArticleNode } = require('./src/utils/setup/create-article-node');
 const { createAssetNodes } = require('./src/utils/setup/create-asset-nodes');
 const { createTagPageType } = require('./src/utils/setup/create-tag-page-type');
 const { getMetadata } = require('./src/utils/get-metadata');
@@ -26,7 +25,6 @@ const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBr
 
 // different types of references
 const assets = [];
-const pages = [];
 
 // in-memory object with key/value = filename/document
 const slugContentMapping = {};
@@ -59,8 +57,13 @@ exports.sourceNodes = async ({
 
     documents.forEach(doc => {
         createAssetNodes(doc, createNode, createContentDigest);
-        // Mimics onCreateNode
-        postprocessDocument(doc, PAGE_ID_PREFIX, pages, slugContentMapping);
+        createArticleNode(
+            doc,
+            PAGE_ID_PREFIX,
+            createNode,
+            createContentDigest,
+            slugContentMapping
+        );
     });
 };
 
@@ -70,16 +73,21 @@ exports.onCreateNode = async ({ node }) => {
     }
 };
 
-exports.createPages = async ({ actions }) => {
+exports.createPages = async ({ actions, graphql }) => {
     const { createPage } = actions;
-    const [, metadata] = await Promise.all([
+    const [, metadata, result] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
         stitchClient.callFunction('fetchDocument', [
             DB,
             METADATA_COLLECTION,
             constructDbFilter(PAGE_ID_PREFIX),
         ]),
+        graphql(articles),
     ]);
+
+    if (result.error) {
+        throw new Error(`Page build error: ${result.error}`);
+    }
 
     const allSeries = metadata.pageGroups;
 
@@ -88,9 +96,9 @@ exports.createPages = async ({ actions }) => {
     learnFeaturedArticles = allSeries.learn;
     delete allSeries.home;
     delete allSeries.learn;
-    pages.forEach(page => {
+    result.data.allArticle.nodes.forEach(article => {
         createArticlePage(
-            page,
+            article.slug,
             slugContentMapping,
             allSeries,
             metadata,
