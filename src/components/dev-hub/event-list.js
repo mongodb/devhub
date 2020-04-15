@@ -6,9 +6,6 @@ import { P } from './text';
 import useEventData from '../../hooks/use-event-data';
 import { size, screenSize } from './theme';
 
-export const EVENTS_API =
-    'https://www.mongodb.com/api/event/all/1?sort=-node_type_attributes.event_start';
-
 const EventsPreview = styled('div')`
     display: flex;
     flex-direction: row;
@@ -40,7 +37,7 @@ const CenterBlock = styled('div')`
 `;
 
 export const EventsListPreview = () => {
-    const [events, error, isLoading] = useEventData(EVENTS_API);
+    const [events, error, isLoading] = useEventData();
     const previews = events ? events.slice(0, 3) : [];
 
     return (

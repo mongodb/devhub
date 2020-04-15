@@ -117,6 +117,7 @@ const Card = ({
     const isClickable = onClick || isLink;
     return (
         <ContentWrapper
+            data-test="card"
             onClick={onClick}
             {...linkAttrs}
             maxWidth={maxWidth}

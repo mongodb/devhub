@@ -1,28 +1,21 @@
 const path = require('path');
+const { articles } = require('./src/queries/articles');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
 const { initStitch } = require('./src/utils/setup/init-stich');
-const {
-    postprocessDocument,
-} = require('./src/utils/setup/postprocess-document');
-const {
-    getRelatedPagesWithImages,
-} = require('./src/utils/setup/get-related-pages-with-images');
 const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
 const { onCreatePage } = require('./src/utils/setup/on-create-page');
+const { createArticleNode } = require('./src/utils/setup/create-article-node');
+const { createAssetNodes } = require('./src/utils/setup/create-asset-nodes');
 const { createTagPageType } = require('./src/utils/setup/create-tag-page-type');
 const { getMetadata } = require('./src/utils/get-metadata');
-const { getNestedValue } = require('./src/utils/get-nested-value');
-const { getPageSlug } = require('./src/utils/get-page-slug');
-const { getSeriesArticles } = require('./src/utils/get-series-articles');
-const { getTemplate } = require('./src/utils/get-template');
 const {
     DOCUMENTS_COLLECTION,
     METADATA_COLLECTION,
-    SNOOTY_STITCH_ID,
 } = require('./src/build-constants');
+const { createArticlePage } = require('./src/utils/setup/create-article-page');
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
@@ -31,7 +24,7 @@ const DB = metadata.database;
 const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBranch}`;
 
 // different types of references
-const PAGES = [];
+const assets = [];
 
 // in-memory object with key/value = filename/document
 const slugContentMapping = {};
@@ -45,7 +38,10 @@ let learnFeaturedArticles;
 
 exports.onPreBootstrap = validateEnvVariables;
 
-exports.sourceNodes = async () => {
+exports.sourceNodes = async ({
+    actions: { createNode },
+    createContentDigest,
+}) => {
     // wait to connect to stitch
     stitchClient = await initStitch();
 
@@ -59,28 +55,39 @@ exports.sourceNodes = async () => {
         console.error('No documents matched your query.');
     }
 
-    const assets = [];
     documents.forEach(doc => {
-        // Mimics onCreateNode
-        postprocessDocument(
+        createAssetNodes(doc, createNode, createContentDigest);
+        createArticleNode(
             doc,
             PAGE_ID_PREFIX,
-            assets,
-            PAGES,
+            createNode,
+            createContentDigest,
             slugContentMapping
         );
     });
-
-    await saveAssetFiles(assets, stitchClient);
 };
 
-exports.createPages = async ({ actions }) => {
+exports.onCreateNode = async ({ node }) => {
+    if (node.internal.type === 'Asset') {
+        assets.push(node.id);
+    }
+};
+
+exports.createPages = async ({ actions, graphql }) => {
     const { createPage } = actions;
-    const metadata = await stitchClient.callFunction('fetchDocument', [
-        DB,
-        METADATA_COLLECTION,
-        constructDbFilter(PAGE_ID_PREFIX),
+    const [, metadata, result] = await Promise.all([
+        saveAssetFiles(assets, stitchClient),
+        stitchClient.callFunction('fetchDocument', [
+            DB,
+            METADATA_COLLECTION,
+            constructDbFilter(PAGE_ID_PREFIX),
+        ]),
+        graphql(articles),
     ]);
+
+    if (result.error) {
+        throw new Error(`Page build error: ${result.error}`);
+    }
 
     const allSeries = metadata.pageGroups;
 
@@ -89,34 +96,14 @@ exports.createPages = async ({ actions }) => {
     learnFeaturedArticles = allSeries.learn;
     delete allSeries.home;
     delete allSeries.learn;
-    PAGES.forEach(page => {
-        const pageNodes = slugContentMapping[page];
-
-        if (pageNodes && Object.keys(pageNodes).length > 0) {
-            const template = getTemplate(
-                getNestedValue(['ast', 'options', 'template'], pageNodes)
-            );
-            const slug = getPageSlug(page);
-            if (pageNodes.query_fields) {
-                const relatedPages = getRelatedPagesWithImages(
-                    pageNodes,
-                    slugContentMapping
-                );
-                pageNodes['query_fields'].related = relatedPages;
-            }
-            const seriesArticles = getSeriesArticles(allSeries, slug);
-            createPage({
-                path: slug,
-                component: path.resolve(`./src/templates/${template}.js`),
-                context: {
-                    metadata,
-                    seriesArticles,
-                    slug,
-                    snootyStitchId: SNOOTY_STITCH_ID,
-                    __refDocMapping: pageNodes,
-                },
-            });
-        }
+    result.data.allArticle.nodes.forEach(article => {
+        createArticlePage(
+            article.slug,
+            slugContentMapping,
+            allSeries,
+            metadata,
+            createPage
+        );
     });
 
     const tagTypes = ['author', 'languages', 'products', 'tags', 'type'];

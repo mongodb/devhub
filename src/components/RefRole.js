@@ -4,7 +4,12 @@ import ComponentFactory from './ComponentFactory';
 import Link from './Link';
 
 const RefRole = ({ nodeData: { children, fileid, target, url }, slug }) => {
-    const link = fileid === slug ? `#${target}` : `${fileid}#${target}`;
+    let link;
+    if (target) {
+        link = fileid === slug ? `#${target}` : `${fileid}#${target}`;
+    } else {
+        link = fileid;
+    }
     return (
         <Link to={url || link} className="ref-role">
             {children.map((node, i) => (
