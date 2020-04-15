@@ -17,6 +17,7 @@ const createArticleNode = (
         const content = {
             title: getNestedText(doc.query_fields['title']),
             description: getNestedText(doc.query_fields['meta-description']),
+            pubdate: doc.query_fields['pubdate'],
         };
         createNode({
             id: slug,

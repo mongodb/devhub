@@ -1,10 +1,11 @@
 const rssFeedArticleData = `
     query RSSFeedArticleData {
-        allArticle {
+        allArticle(sort: {fields: pubdate, order: DESC}) {
             nodes {
                 slug: id
-                title
                 description
+                pubdate
+                title
             }
         }
     }
