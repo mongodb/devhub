@@ -1,5 +1,5 @@
 const serializeRssData = ({ query: { site, allArticle } }) =>
-    allArticle.map(article => ({
+    allArticle.nodes.map(article => ({
         description: article.description,
         title: article.title,
         url: site.siteMetadata.siteUrl + article.slug,

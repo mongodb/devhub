@@ -3,6 +3,8 @@ const rssFeedArticleData = `
         allArticle {
             nodes {
                 slug: id
+                title
+                description
             }
         }
     }
