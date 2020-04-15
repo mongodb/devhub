@@ -111,6 +111,7 @@ const Event = ({ event, maxTitleLines = 2, ...props }) => {
 
     return (
         <StyledEvent
+            data-test="event"
             onMouseEnter={() => setLocationColor(colorMap.greyLightOne)}
             onMouseLeave={() => setLocationColor(colorMap.greyLightThree)}
             target="_blank"
