@@ -23,10 +23,6 @@ Cypress.Commands.add('mockEventsApi', () => {
 // we can fallback to XMLHttpRequests
 // https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/stubbing-spying__window-fetch#readme
 
-Cypress.on('window:before:load', win => {
-    delete win.fetch;
-});
-
 Cypress.Commands.add('visitWithoutFetch', path => {
     cy.visit(path, {
         onBeforeLoad(win) {
