@@ -22,6 +22,8 @@ Cypress.Commands.add('checkArticleCard', card => {
             .first()
             .should('have.attr', 'href')
             .should('match', /\/(tag|product|language)/);
+    });
+});
 
 // Mock data from events servers
 Cypress.Commands.add('mockEventsApi', () => {
