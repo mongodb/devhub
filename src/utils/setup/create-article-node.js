@@ -5,12 +5,14 @@ const createArticleNode = (
     doc,
     PAGE_ID_PREFIX,
     createNode,
-    createContentDigest
+    createContentDigest,
+    slugContentMapping
 ) => {
     const filename = getNestedValue(['filename'], doc) || '';
     const isArticlePage =
         !filename.includes('images/') && filename.endsWith('.txt');
     const slug = doc.page_id.replace(`${PAGE_ID_PREFIX}/`, '');
+    slugContentMapping[slug] = doc;
     if (isArticlePage) {
         const content = {
             title: getNestedText(doc.query_fields['title']),

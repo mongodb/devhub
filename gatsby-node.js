@@ -2,9 +2,6 @@ const path = require('path');
 const { pages } = require('./src/queries/pages');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
 const { initStitch } = require('./src/utils/setup/init-stich');
-const {
-    postprocessDocument,
-} = require('./src/utils/setup/postprocess-document');
 const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
@@ -60,8 +57,13 @@ exports.sourceNodes = async ({
 
     documents.forEach(doc => {
         createAssetNodes(doc, createNode, createContentDigest);
-        createArticleNode(doc, PAGE_ID_PREFIX, createNode, createContentDigest);
-        postprocessDocument(doc, PAGE_ID_PREFIX, slugContentMapping);
+        createArticleNode(
+            doc,
+            PAGE_ID_PREFIX,
+            createNode,
+            createContentDigest,
+            slugContentMapping
+        );
     });
 };
 
