@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import fetchEventData from '../utils/fetch-event-data';
 import fetchLiveEventData from '../utils/fetch-live-event-data';
 
-const useEventData = url => {
+const useEventData = () => {
     const [events, setEvents] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -11,7 +11,7 @@ const useEventData = url => {
         const getData = async () => {
             setIsLoading(true);
             try {
-                const eventData = fetchEventData(url);
+                const eventData = fetchEventData();
                 const liveData = fetchLiveEventData();
                 const allData = await Promise.all([eventData, liveData]);
                 const events = allData
@@ -31,7 +31,7 @@ const useEventData = url => {
             }
         };
         getData();
-    }, [url]);
+    }, []);
 
     return [events, error, isLoading];
 };

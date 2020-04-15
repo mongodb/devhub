@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import HeroBanner from '../../components/dev-hub/hero-banner';
 import Layout from '../../components/dev-hub/layout';
 import useEventData from '../../hooks/use-event-data';
-import EventsList, { EVENTS_API } from '../../components/dev-hub/event-list';
+import EventsList from '../../components/dev-hub/event-list';
 import { H1, H3, P } from '../../components/dev-hub/text';
 import TempBackgroundImage from '../../images/1x/MDB-and-Node.js.png';
 import { colorMap } from '../../components/dev-hub/theme';
@@ -25,7 +25,7 @@ const breadcrumbs = [
 ];
 
 export default () => {
-    const [events, error, isLoading] = useEventData(EVENTS_API);
+    const [events, error, isLoading] = useEventData();
 
     const metadata = useSiteMetadata();
     return (
