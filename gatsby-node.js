@@ -36,6 +36,9 @@ let stitchClient;
 let homeFeaturedArticles;
 let learnFeaturedArticles;
 
+// Excluded articles from the learn page
+let excludedLearnPageArticles;
+
 exports.onPreBootstrap = validateEnvVariables;
 
 exports.sourceNodes = async ({
@@ -73,6 +76,18 @@ exports.onCreateNode = async ({ node }) => {
     }
 };
 
+const filteredPageGroups = allSeries => {
+    // featured articles are in pageGroups but not series, so we remove them
+    homeFeaturedArticles = allSeries.home;
+    learnFeaturedArticles = allSeries.learn;
+    // also remove a group of excluded articles
+    excludedLearnPageArticles = allSeries.learnPageExclude;
+    delete allSeries.home;
+    delete allSeries.learn;
+    delete allSeries.learnPageExclude;
+    return allSeries;
+};
+
 exports.createPages = async ({ actions, graphql }) => {
     const { createPage } = actions;
     const [, metadata, result] = await Promise.all([
@@ -89,13 +104,8 @@ exports.createPages = async ({ actions, graphql }) => {
         throw new Error(`Page build error: ${result.error}`);
     }
 
-    const allSeries = metadata.pageGroups;
+    const allSeries = filteredPageGroups(metadata.pageGroups);
 
-    // featured aricles are in pageGroups but not series, so we remove them
-    homeFeaturedArticles = allSeries.home;
-    learnFeaturedArticles = allSeries.learn;
-    delete allSeries.home;
-    delete allSeries.learn;
     result.data.allArticle.nodes.forEach(article => {
         createArticlePage(
             article.slug,
@@ -153,5 +163,6 @@ exports.onCreatePage = async ({ page, actions }) =>
         actions,
         stitchClient,
         homeFeaturedArticles,
-        learnFeaturedArticles
+        learnFeaturedArticles,
+        excludedLearnPageArticles
     );
