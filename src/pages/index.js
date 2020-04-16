@@ -98,9 +98,13 @@ const ThumbnailCard = styled(Card)`
 `;
 
 const ThumbnailButton = styled(Button)`
-    left: 40%;
+    left: 0;
+    right: 0;
+    top: 0;
+    /* Account for bottom margin and title of card */
+    bottom: 52px;
+    margin: auto;
     position: absolute;
-    top: 35%;
 `;
 
 const SIZE_TOKEN = '%{width}x%{height}';
