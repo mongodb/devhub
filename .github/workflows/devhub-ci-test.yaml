@@ -1,0 +1,35 @@
+name: DevHub CI test
+on:
+    pull_request:
+        branches: [master, staging]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout target branch
+              uses: actions/checkout@v2
+            - name: Use Node.js 12.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: '12.x'
+            - name: Cache Packages
+              uses: bahmutov/npm-install@v1
+            - name: Create .env.development file
+              run: |
+                  touch .env.development
+                  echo "GATSBY_SITE=devhub" > .env.development; \
+                  echo "GATSBY_PARSER_USER=sophstad" >> .env.development; \
+                  echo "GATSBY_PARSER_BRANCH=master" >> .env.development; \
+                  echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
+            - name: Cypress run
+              uses: cypress-io/github-action@v1
+              with:
+                  start: npm run develop
+                  wait-on: 'http://localhost:8000'
+                  config-file: cypress.json
+            - name: Generate artifacts on failure
+              uses: actions/upload-artifact@v1
+              if: failure()
+              with:
+                  name: cypress-screenshots
+                  path: cypress/screenshots
