@@ -12,6 +12,17 @@ jobs:
               uses: actions/setup-node@v1
               with:
                   node-version: '12.x'
+            - name: Cache node modules
+              uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+
+            - name: Install Dependencies
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: npm ci
             - name: Create .env.development file
               run: |
                   touch .env.development
@@ -22,6 +33,7 @@ jobs:
             - name: Cypress run
               uses: cypress-io/github-action@v1
               with:
+                  install: false
                   start: npm run develop
                   wait-on: 'http://localhost:8000'
                   config-file: cypress.json
