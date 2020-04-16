@@ -15,6 +15,7 @@ import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
+const PRIMARY_FEATURED_ARTICLE_WIDTH = '790px';
 
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
@@ -48,6 +49,12 @@ const SecondArticle = styled(Card)`
 
 const LastArticle = styled(Card)`
     grid-area: tertiary;
+`;
+
+const InnerCard = styled(Card)`
+    height: 100%;
+    padding-bottom: ${size.tiny};
+    padding-top: 0;
 `;
 
 const Header = styled('header')`
@@ -146,19 +153,24 @@ const FeaturedArticles = ({ articles }) => {
     return (
         <MainFeatureGrid>
             <PrimarySection>
-                <MediaBlock
-                    mediaComponent={<PrimaryImage src={image} alt="" />}
-                    mediaWidth={360}
+                <Card
+                    collapseImage
+                    to={slug}
+                    maxWidth={PRIMARY_FEATURED_ARTICLE_WIDTH}
                 >
-                    <Card
-                        collapseImage
-                        maxDescriptionLines={4}
-                        to={slug}
-                        title={title}
-                        description={description}
-                        tags={getTagLinksFromMeta(tags)}
-                    />
-                </MediaBlock>
+                    <MediaBlock
+                        mediaComponent={<PrimaryImage src={image} alt="" />}
+                        mediaWidth={360}
+                    >
+                        <InnerCard
+                            collapseImage
+                            maxDescriptionLines={4}
+                            title={title}
+                            description={description}
+                            tags={getTagLinksFromMeta(tags)}
+                        />
+                    </MediaBlock>
+                </Card>
             </PrimarySection>
             <SecondaryFeaturedArticle
                 article={articles[1]}
