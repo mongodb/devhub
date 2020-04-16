@@ -32,7 +32,7 @@ jobs:
               run: npm ci
             - name: Install Cypress
               if: steps.cypresscache.outputs.cache-hit != 'true'
-              run: npm ci cypress
+              run: npm install cypress
 
             - name: Create .env.development file
               run: |
