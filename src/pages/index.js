@@ -247,6 +247,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                                 maxWidth={MEDIA_WIDTH}
                             ></Card>
                         }
+                        mediaWidth={MEDIA_WIDTH}
                         reverse
                     >
                         <SectionContent>

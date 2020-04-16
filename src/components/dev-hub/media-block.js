@@ -43,7 +43,7 @@ const MediaBlockContainer = styled('div')`
 const MediaWrapper = styled('div')`
     grid-area: image;
     @media ${screenSize.largeAndUp} {
-        margin-right: ${size.medium};
+        ${({ reverse }) => !reverse && `margin-right: ${size.medium};`};
     }
     max-width: 100%;
     > img {
@@ -76,7 +76,9 @@ const MediaBlock = ({
         mediaWidth={mediaWidth}
         className={className}
     >
-        {mediaComponent && <MediaWrapper>{mediaComponent}</MediaWrapper>}
+        {mediaComponent && (
+            <MediaWrapper reverse={reverse}>{mediaComponent}</MediaWrapper>
+        )}
         <ContentWrapper>{children}</ContentWrapper>
     </MediaBlockContainer>
 );
