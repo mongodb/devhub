@@ -28,13 +28,13 @@ jobs:
               if: steps.cache.outputs.cache-hit == 'true'
               run: ./node_modules/.bin/cypress install
 
-            - name: Create .env.development file
+            - name: Create .env.production file
               run: |
-                  touch .env.development
-                  echo "GATSBY_SITE=devhub" > .env.development; \
-                  echo "GATSBY_PARSER_USER=sophstad" >> .env.development; \
-                  echo "GATSBY_PARSER_BRANCH=master" >> .env.development; \
-                  echo "GATSBY_SNOOTY_DEV=true" >> .env.development; \
+                  touch .env.production
+                  echo "GATSBY_SITE=devhub" > .env.production; \
+                  echo "GATSBY_PARSER_USER=sophstad" >> .env.production; \
+                  echo "GATSBY_PARSER_BRANCH=master" >> .env.production; \
+                  echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
             - name: Build Gatsby
               run: npm run build
             - name: Cypress run
