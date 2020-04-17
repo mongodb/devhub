@@ -1,4 +1,5 @@
 const memoizerific = require('memoizerific');
+const { removeExcludedArticles } = require('./remove-excluded-articles');
 const { getNestedValue } = require('../get-nested-value');
 const { getMetadata } = require('../get-metadata');
 
@@ -123,16 +124,21 @@ const onCreatePage = async (
     actions,
     inheritedStitchClient,
     homeFeaturedArticles,
-    learnFeaturedArticles
+    learnFeaturedArticles,
+    excludedLearnPageArticles
 ) => {
     const { createPage, deletePage } = actions;
     stitchClient = inheritedStitchClient;
     switch (page.path) {
         case '/learn/':
             const allArticles = await getAllArticles();
-            const filters = await getLearnPageFilters(allArticles);
-            const featuredLearnArticles = findArticlesFromSlugs(
+            const learnPageArticles = removeExcludedArticles(
                 allArticles,
+                excludedLearnPageArticles
+            );
+            const filters = await getLearnPageFilters(learnPageArticles);
+            const featuredLearnArticles = findArticlesFromSlugs(
+                learnPageArticles,
                 learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS,
                 MAX_LEARN_PAGE_FEATURED_ARTICLES
             );
@@ -141,7 +147,7 @@ const onCreatePage = async (
                 ...page,
                 context: {
                     ...page.context,
-                    allArticles,
+                    allArticles: learnPageArticles,
                     featuredArticles: featuredLearnArticles,
                     filters,
                 },
