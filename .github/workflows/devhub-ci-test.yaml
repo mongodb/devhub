@@ -39,9 +39,10 @@ jobs:
               uses: cypress-io/github-action@v1
               with:
                   install: false
-                  start: npm run develop
-                  wait-on: 'http://localhost:8000'
-                  config-file: cypress.json
+                  start: |
+                      npm run build
+                      npm run serve
+                  wait-on: 'http://localhost:9000'
             - name: Generate artifacts on failure
               uses: actions/upload-artifact@v1
               if: failure()
