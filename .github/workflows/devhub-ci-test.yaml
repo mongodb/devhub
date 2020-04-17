@@ -34,7 +34,7 @@ jobs:
                   echo "GATSBY_SITE=devhub" > .env.development; \
                   echo "GATSBY_PARSER_USER=sophstad" >> .env.development; \
                   echo "GATSBY_PARSER_BRANCH=master" >> .env.development; \
-                  echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
+                  echo "GATSBY_SNOOTY_DEV=true" >> .env.development; \
             - name: Cypress run
               uses: cypress-io/github-action@v1
               with:
