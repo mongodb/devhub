@@ -42,7 +42,7 @@ jobs:
               with:
                   install: false
                   start: npm run serve
-                  wait-on: 'http://localhost:9000'
+                  wait-on: 'http://localhost:9000/master/devhub/sophstad/HEAD'
                   config-file: cypress.json
             - name: Generate artifacts on failure
               uses: actions/upload-artifact@v1
