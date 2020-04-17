@@ -1,12 +1,13 @@
 import { buildQueryString } from '../utils/query-string';
 
 const API_ENDPOINT = 'https://www.googleapis.com/youtube/v3/playlistItems';
+const YT_API_KEY = 'Your-Google-API-Key';
 
 // Fetches data from youtube api
-const fetchYoutubeData = async (KEY, PLAYLIST_ID, maxResults) => {
+const fetchYoutubeData = async (PLAYLIST_ID, maxResults = 5) => {
     const options = {
         playlistId: PLAYLIST_ID,
-        key: KEY,
+        key: YT_API_KEY,
         part: 'snippet',
         maxResults: maxResults,
     };
