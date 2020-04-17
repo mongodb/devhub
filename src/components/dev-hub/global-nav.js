@@ -75,8 +75,11 @@ export default () => {
         <GlobalNav>
             <NavContent>
                 <HomeLink to="/">
-                    {!isMobile && <DevLeafDesktop width="185px" />}
-                    {isMobile && <DevLeafMobile width={size.xxlarge} />}
+                    {isMobile ? (
+                        <DevLeafMobile width={size.xxlarge} />
+                    ) : (
+                        <DevLeafDesktop />
+                    )}
                 </HomeLink>
                 <NavLink to="/learn">Learn</NavLink>
                 <NavLink to="/community">Community</NavLink>
