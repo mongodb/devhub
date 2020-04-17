@@ -35,14 +35,15 @@ jobs:
                   echo "GATSBY_PARSER_USER=sophstad" >> .env.development; \
                   echo "GATSBY_PARSER_BRANCH=master" >> .env.development; \
                   echo "GATSBY_SNOOTY_DEV=true" >> .env.development; \
+            - name: Build Gatsby
+              run: npm run build
             - name: Cypress run
               uses: cypress-io/github-action@v1
               with:
                   install: false
-                  start: |
-                      ./node_modules/.bin/gatsby build --prefix-paths;
-                      ./node_modules/.bin/gatsby serve --prefix-paths;
+                  start: npm run serve
                   wait-on: 'http://localhost:9000'
+                  config-file: cypress.json
             - name: Generate artifacts on failure
               uses: actions/upload-artifact@v1
               if: failure()
