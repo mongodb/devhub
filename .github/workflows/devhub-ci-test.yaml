@@ -40,8 +40,8 @@ jobs:
               with:
                   install: false
                   start: |
-                      npm run build;
-                      npm run serve;
+                      ./node_modules/.bin/gatsby build --prefix-paths;
+                      ./node_modules/.bin/gatsby serve --prefix-paths;
                   wait-on: 'http://localhost:9000'
             - name: Generate artifacts on failure
               uses: actions/upload-artifact@v1
