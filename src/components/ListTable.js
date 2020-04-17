@@ -20,6 +20,10 @@ const Table = styled('table')`
     }
 `;
 
+const TableContainer = styled('div')`
+    overflow-x: auto;
+`;
+
 const ListTable = ({ nodeData, nodeData: { children }, ...rest }) => {
     const title = getNestedValue(['argument', 0, 'value'], nodeData);
     const headerRowCount =
@@ -45,7 +49,7 @@ const ListTable = ({ nodeData, nodeData: { children }, ...rest }) => {
     }
 
     return (
-        <div>
+        <TableContainer>
             <H5>{title}</H5>
             <Table
                 className={[
@@ -71,7 +75,7 @@ const ListTable = ({ nodeData, nodeData: { children }, ...rest }) => {
                     stubColumnCount={stubColumnCount}
                 />
             </Table>
-        </div>
+        </TableContainer>
     );
 };
 
