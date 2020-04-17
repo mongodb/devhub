@@ -25,6 +25,7 @@ jobs:
               if: steps.cache.outputs.cache-hit != 'true'
               run: npm ci
             - name: Install Cypress
+              if: steps.cache.outputs.cache-hit == 'true'
               run: ./node_modules/.bin/cypress install
 
             - name: Create .env.development file
