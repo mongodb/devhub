@@ -157,6 +157,6 @@ export const devhubMapping = {
 export const TWITCH_API_ENDPOINT = 'https://api.twitch.tv/helix/';
 export const TWITCH_CLIENT_ID = '041r2glmgub2pt357ss0la44j2sz95';
 export const TWITCH_MDB_CHANNEL_ID = '467752938';
-export const TWITCH_headers = { 'Client-ID': TWITCH_CLIENT_ID };
+export const TWITCH_HEADERS = { 'Client-ID': TWITCH_CLIENT_ID };
 export const TWITCH_STREAMS_URL = `${TWITCH_API_ENDPOINT}streams?user_id=${TWITCH_MDB_CHANNEL_ID}`;
 export const TWITCH_VIDEO_URL = `${TWITCH_API_ENDPOINT}videos?user_id=${TWITCH_MDB_CHANNEL_ID}&first=`;

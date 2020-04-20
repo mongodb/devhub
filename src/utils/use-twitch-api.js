@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import fetchTwitchVideos from '../utils/fetch-twitch-videos';
 import { get } from './request';
 import {
-    TWITCH_headers,
+    TWITCH_HEADERS,
     TWITCH_STREAMS_URL,
     TWITCH_VIDEO_URL,
 } from '../constants';
@@ -27,7 +27,7 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
             if (getStream) {
                 const streamResp = await get(
                     TWITCH_STREAMS_URL,
-                    TWITCH_headers
+                    TWITCH_HEADERS
                 );
                 // since we're only interested in one channel just get the first
                 currentStream = streamResp.data[0];
@@ -39,7 +39,7 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
             //get videos
             if (!currentStream && videoLimit) {
                 const videoRespData = await fetchTwitchVideos(
-                    TWITCH_headers,
+                    TWITCH_HEADERS,
                     TWITCH_VIDEO_URL,
                     videoLimit
                 );
