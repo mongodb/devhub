@@ -1,13 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
+import fetchTwitchVideos from '../utils/fetch-twitch-videos';
 import { get } from './request';
-
-const TWITCH_API_ENDPOINT = 'https://api.twitch.tv/helix/';
-const CLIENT_ID = '041r2glmgub2pt357ss0la44j2sz95';
-const MDB_CHANNEL_ID = '467752938';
-const STREAMS_URL = `${TWITCH_API_ENDPOINT}streams?user_id=${MDB_CHANNEL_ID}`;
-const video_URL = `${TWITCH_API_ENDPOINT}videos?user_id=${MDB_CHANNEL_ID}&first=`;
-
-const headers = { 'Client-ID': CLIENT_ID };
+import {
+    TWITCH_HEADERS,
+    TWITCH_STREAMS_URL,
+    TWITCH_VIDEO_URL,
+} from '../constants';
 
 /**
  * @param {Object} config
@@ -27,7 +25,10 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
         try {
             // Get stream
             if (getStream) {
-                const streamResp = await get(STREAMS_URL, headers);
+                const streamResp = await get(
+                    TWITCH_STREAMS_URL,
+                    TWITCH_HEADERS
+                );
                 // since we're only interested in one channel just get the first
                 currentStream = streamResp.data[0];
                 if (currentStream) {
@@ -37,9 +38,13 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
             }
             //get videos
             if (!currentStream && videoLimit) {
-                const videoResp = await get(video_URL + videoLimit, headers);
+                const videoRespData = await fetchTwitchVideos(
+                    TWITCH_HEADERS,
+                    TWITCH_VIDEO_URL,
+                    videoLimit
+                );
                 // return the whole array of videos, but ignore pagination for now
-                setVideos(videoResp.data);
+                setVideos(videoRespData);
             }
         } catch (error) {
             console.error(error);
