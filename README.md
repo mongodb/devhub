@@ -1,4 +1,5 @@
 ![DevHub npm test](https://github.com/mongodb/devhub/workflows/DevHub%20npm%20test/badge.svg)
+![DevHub CI test](https://github.com/mongodb/devhub/workflows/DevHub%20ci%20test/badge.svg)
 
 # MongoDB Developer Hub Front-End
 
