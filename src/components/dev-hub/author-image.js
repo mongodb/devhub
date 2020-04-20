@@ -60,6 +60,7 @@ const AuthorImage = ({
     ...props
 }) => (
     <AuthorImageContainer
+        data-test="author-image"
         hideOnMobile={hideOnMobile}
         gradientOffset={gradientOffset}
         height={height}
