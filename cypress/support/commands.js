@@ -24,9 +24,14 @@ Cypress.Commands.add('mockEventsApi', () => {
 // https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/stubbing-spying__window-fetch#readme
 
 Cypress.Commands.add('visitWithoutFetch', path => {
-    cy.visit(path, {
-        onBeforeLoad(win) {
-            delete win.fetch;
-        },
-    });
+    cy.readFile('node_modules/whatwg-fetch/dist/fetch.umd.js').then(
+        polyfill => {
+            cy.visit(path, {
+                onBeforeLoad(win) {
+                    delete win.fetch;
+                    win.eval(polyfill);
+                },
+            });
+        }
+    );
 });

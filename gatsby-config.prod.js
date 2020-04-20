@@ -1,3 +1,6 @@
+const { rssFeedArticleData } = require('./src/queries/rss-feed-article-data');
+const { siteUrl } = require('./src/queries/site-url');
+const { serializeRssData } = require('./src/utils/setup/serialize-rss-data');
 const { getMetadata } = require('./src/utils/get-metadata');
 
 require('dotenv').config({
@@ -29,6 +32,20 @@ module.exports = {
             options: {
                 id: 'GTM-GDFN',
                 includeInDevelopment: false,
+            },
+        },
+        {
+            resolve: 'gatsby-plugin-feed',
+            options: {
+                query: siteUrl,
+                feeds: [
+                    {
+                        serialize: serializeRssData,
+                        query: rssFeedArticleData,
+                        output: '/rss.xml',
+                        title: 'MongoDB Developer Hub RSS Feed',
+                    },
+                ],
             },
         },
     ],

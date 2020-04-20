@@ -5,27 +5,27 @@ import { useEffect, useState } from 'react';
 const isClient = typeof window === 'object';
 
 const useMedia = (query, defaultState = false) => {
-    const [state, setState] = useState(
-        isClient ? () => window.matchMedia(query).matches : defaultState
-    );
+    const [state, setState] = useState(defaultState);
 
     useEffect(() => {
-        let mounted = true;
-        const mql = window.matchMedia(query);
-        const onChange = () => {
-            if (!mounted) {
-                return;
-            }
-            setState(!!mql.matches);
-        };
+        if (isClient) {
+            let mounted = true;
+            const mql = window.matchMedia(query);
+            const onChange = () => {
+                if (!mounted) {
+                    return;
+                }
+                setState(!!mql.matches);
+            };
 
-        mql.addListener(onChange);
-        setState(mql.matches);
+            mql.addListener(onChange);
+            setState(mql.matches);
 
-        return () => {
-            mounted = false;
-            mql.removeListener(onChange);
-        };
+            return () => {
+                mounted = false;
+                mql.removeListener(onChange);
+            };
+        }
     }, [query]);
 
     return state;

@@ -36,6 +36,7 @@
     "dotenv": "^8.2.0",
     "gatsby": "^2.20.16",
     "gatsby-plugin-emotion": "^4.2.1",
+    "gatsby-plugin-feed": "^2.4.1",
     "gatsby-plugin-google-tagmanager": "^2.2.1",
     "gatsby-plugin-react-helmet": "^3.2.1",
     "gatsby-plugin-sitemap": "^2.3.1",
@@ -54,7 +55,8 @@
     "typeface-fira-mono": "0.0.72",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.10.3",
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
