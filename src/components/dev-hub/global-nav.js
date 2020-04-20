@@ -74,7 +74,7 @@ export default () => {
     return (
         <GlobalNav>
             <NavContent>
-                <HomeLink to="/">
+                <HomeLink aria-label="Home" to="/">
                     {isMobile ? (
                         <DevLeafMobile width={size.xxlarge} />
                     ) : (
