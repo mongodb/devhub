@@ -1,14 +1,13 @@
 const path = require('path');
+const { articles } = require('./src/queries/articles');
 const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
 const { initStitch } = require('./src/utils/setup/init-stich');
-const {
-    postprocessDocument,
-} = require('./src/utils/setup/postprocess-document');
 const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
 const {
     validateEnvVariables,
 } = require('./src/utils/setup/validate-env-variables');
 const { onCreatePage } = require('./src/utils/setup/on-create-page');
+const { createArticleNode } = require('./src/utils/setup/create-article-node');
 const { createAssetNodes } = require('./src/utils/setup/create-asset-nodes');
 const { createTagPageType } = require('./src/utils/setup/create-tag-page-type');
 const { getMetadata } = require('./src/utils/get-metadata');
@@ -26,7 +25,6 @@ const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBr
 
 // different types of references
 const assets = [];
-const pages = [];
 
 // in-memory object with key/value = filename/document
 const slugContentMapping = {};
@@ -37,6 +35,9 @@ let stitchClient;
 // Featured articles for home/learn pages
 let homeFeaturedArticles;
 let learnFeaturedArticles;
+
+// Excluded articles from the learn page
+let excludedLearnPageArticles;
 
 exports.onPreBootstrap = validateEnvVariables;
 
@@ -59,8 +60,13 @@ exports.sourceNodes = async ({
 
     documents.forEach(doc => {
         createAssetNodes(doc, createNode, createContentDigest);
-        // Mimics onCreateNode
-        postprocessDocument(doc, PAGE_ID_PREFIX, pages, slugContentMapping);
+        createArticleNode(
+            doc,
+            PAGE_ID_PREFIX,
+            createNode,
+            createContentDigest,
+            slugContentMapping
+        );
     });
 };
 
@@ -70,27 +76,39 @@ exports.onCreateNode = async ({ node }) => {
     }
 };
 
-exports.createPages = async ({ actions }) => {
+const filteredPageGroups = allSeries => {
+    // featured articles are in pageGroups but not series, so we remove them
+    homeFeaturedArticles = allSeries.home;
+    learnFeaturedArticles = allSeries.learn;
+    // also remove a group of excluded articles
+    excludedLearnPageArticles = allSeries.learnPageExclude;
+    delete allSeries.home;
+    delete allSeries.learn;
+    delete allSeries.learnPageExclude;
+    return allSeries;
+};
+
+exports.createPages = async ({ actions, graphql }) => {
     const { createPage } = actions;
-    const [, metadata] = await Promise.all([
+    const [, metadata, result] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
         stitchClient.callFunction('fetchDocument', [
             DB,
             METADATA_COLLECTION,
             constructDbFilter(PAGE_ID_PREFIX),
         ]),
+        graphql(articles),
     ]);
 
-    const allSeries = metadata.pageGroups;
+    if (result.error) {
+        throw new Error(`Page build error: ${result.error}`);
+    }
 
-    // featured aricles are in pageGroups but not series, so we remove them
-    homeFeaturedArticles = allSeries.home;
-    learnFeaturedArticles = allSeries.learn;
-    delete allSeries.home;
-    delete allSeries.learn;
-    pages.forEach(page => {
+    const allSeries = filteredPageGroups(metadata.pageGroups);
+
+    result.data.allArticle.nodes.forEach(article => {
         createArticlePage(
-            page,
+            article.slug,
             slugContentMapping,
             allSeries,
             metadata,
@@ -145,5 +163,6 @@ exports.onCreatePage = async ({ page, actions }) =>
         actions,
         stitchClient,
         homeFeaturedArticles,
-        learnFeaturedArticles
+        learnFeaturedArticles,
+        excludedLearnPageArticles
     );

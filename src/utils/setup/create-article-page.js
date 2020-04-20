@@ -16,7 +16,6 @@ const createArticlePage = (
     createPage
 ) => {
     const pageNodes = slugContentMapping[page];
-
     if (pageNodes && Object.keys(pageNodes).length > 0) {
         const template = getTemplate(
             getNestedValue(['ast', 'options', 'template'], pageNodes)
