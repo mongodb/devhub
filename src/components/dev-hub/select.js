@@ -176,6 +176,7 @@ const FormSelect = ({
                 name={name}
                 narrow={narrow}
                 showOptions={showOptions}
+                role="option"
                 validationStatus={validationStatus}
                 value={selectValue}
                 {...extraProps}
@@ -191,6 +192,7 @@ const FormSelect = ({
                             narrow={narrow}
                             onClick={() => optionOnClick(choiceValue, text)}
                             onKeyDown={optionOnEnter(choiceValue, text)}
+                            role="option"
                             tabIndex="0"
                             value={choiceValue}
                         >
