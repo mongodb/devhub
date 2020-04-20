@@ -36,6 +36,7 @@ export default () => {
             <HeroBanner
                 background={TempBackgroundImage}
                 breadcrumb={breadcrumbs}
+                showImageOnMobile={false}
             >
                 <H1>Events</H1>
                 <PageDescription>
