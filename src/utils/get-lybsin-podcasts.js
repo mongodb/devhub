@@ -1,40 +1,44 @@
 // Fetches podcast info from https://mongodb.libsyn.com/rss
 
 const RSS_URL = `https://mongodb.libsyn.com/rss`;
-let prodcastList = [];
+
+export const simplifyPodcast = podcast => {
+    const podcastJSON = {
+        title: podcast['title'],
+        publishDate: podcast['pubDate'],
+        summary: podcast['itunes:summary'],
+        url: podcast['enclosure']['@_url'],
+    };
+    return podcastJSON;
+};
 
 export const parsePodcasts = podcastXML => {
-    for (var podcast of podcastXML) {
-        const title = podcast.getElementsByTagName('title')[0].innerHTML;
-        const pubDate = podcast.getElementsByTagName('pubDate')[0].innerHTML;
-        const summary = podcast.getElementsByTagName('itunes:summary')[0]
-            .innerHTML;
-        const url = podcast
-            .getElementsByTagName('enclosure')[0]
-            .getAttribute('url');
+    var parser = require('fast-xml-parser');
 
-        var podcastJSON = {
-            title: title,
-            publishDate: pubDate,
-            summary: summary,
-            url: url,
-        };
-        prodcastList.push(podcastJSON);
+    var options = {
+        ignoreAttributes: false,
+        parseAttributeValue: true,
+    };
+
+    try {
+        var jsonObj = parser.parse(podcastXML, options, true);
+        const podcasts = jsonObj.rss.channel.item;
+        podcasts.pop(); //removing the introductory podcast
+
+        const parsedPodcasts = podcasts.map(item => simplifyPodcast(item));
+        return parsedPodcasts;
+    } catch (error) {
+        console.log(error.message);
     }
-    return prodcastList;
+
+    return [];
 };
 
 const getLybsinPodcasts = async () => {
     try {
         const response = await fetch(RSS_URL);
         if (response) {
-            const responseData = await response.text();
-            const xmlDoc = new window.DOMParser().parseFromString(
-                responseData,
-                'text/xml'
-            );
-            const podcastXML = xmlDoc.getElementsByTagName('item');
-            podcastXML[podcastXML.length - 1].remove(); //removing the intro podcast
+            const podcastXML = await response.text();
             const podcastList = parsePodcasts(podcastXML);
             return podcastList;
         }
