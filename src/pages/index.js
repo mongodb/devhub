@@ -19,7 +19,7 @@ import meetupsImage from '../images/1x/Meetups.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
-import useTwitchApi from '../utils/use-twitch-api';
+import useTwitchApi from '../hooks/use-twitch-api';
 import { Modal } from '../components/dev-hub/modal';
 import VideoEmbed from '../components/dev-hub/video-embed';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
