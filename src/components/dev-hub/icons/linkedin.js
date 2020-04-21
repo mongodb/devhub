@@ -2,7 +2,13 @@ import React from 'react';
 import { colorMap } from '../theme';
 
 const LinkedIn = ({ color = colorMap.greyLightTwo, ...props }) => (
-    <svg width="20" height="20" viewBox="0 0 635 540" {...props}>
+    <svg
+        aria-label="LinkedIn"
+        width="20"
+        height="20"
+        viewBox="0 0 635 540"
+        {...props}
+    >
         <g
             transform="translate(0,540) scale(0.1,-0.1)"
             fill={color}

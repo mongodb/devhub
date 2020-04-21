@@ -2,7 +2,13 @@ import React from 'react';
 import { colorMap } from '../theme';
 
 const Youtube = ({ color = colorMap.greyLightTwo, ...props }) => (
-    <svg width="20" height="20" viewBox="0 0 16 11" {...props}>
+    <svg
+        aria-label="YouTube"
+        width="20"
+        height="20"
+        viewBox="0 0 16 11"
+        {...props}
+    >
         <g>
             <path
                 fill={color}

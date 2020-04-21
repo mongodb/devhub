@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
+import { useSiteMetadata } from '../hooks/use-site-metadata';
 import AuthorHeroBackground from '../images/1x/author-hero-background.png';
 import TagBackground from '../images/1x/tag-background.png';
 import ComponentFactory from '../components/ComponentFactory';
@@ -80,16 +81,18 @@ const Tag = props => {
             type,
         },
     } = props;
+    const metadata = useSiteMetadata();
     const isAuthor = type === 'author';
     const articles = constructArticles(pages);
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
     return (
         <Layout>
-            {!isAuthor && (
-                <Helmet>
-                    <meta name="robots" content="noindex" />
-                </Helmet>
-            )}
+            <Helmet>
+                <title>
+                    {name} - {metadata.title}
+                </title>
+                {!isAuthor && <meta name="robots" content="noindex" />}
+            </Helmet>
             <HeroBanner
                 breadcrumb={[
                     { label: 'Home', to: '/' },
