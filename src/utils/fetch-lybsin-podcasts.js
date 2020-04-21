@@ -5,7 +5,7 @@ import dlv from 'dlv';
 
 const RSS_URL = `https://mongodb.libsyn.com/rss`;
 
-export const simplifyPodcast = podcast => {
+const simplifyPodcast = podcast => {
     const podcastJSON = {
         title: podcast['title'],
         publishDate: podcast['pubDate'],
@@ -16,7 +16,7 @@ export const simplifyPodcast = podcast => {
     return podcastJSON;
 };
 
-export const parsePodcasts = podcastXML => {
+const parsePodcasts = podcastXML => {
     const options = {
         attributeNamePrefix: '',
         ignoreAttributes: false,
@@ -35,13 +35,12 @@ export const parsePodcasts = podcastXML => {
     return [];
 };
 
-const getLybsinPodcasts = async () => {
+const fetchLybsinPodcasts = async () => {
     try {
         const response = await fetch(RSS_URL);
         if (response) {
             const podcastXML = await response.text();
             const podcastList = parsePodcasts(podcastXML);
-            console.log(podcastList);
             return podcastList;
         }
     } catch (e) {
@@ -50,4 +49,4 @@ const getLybsinPodcasts = async () => {
     return [];
 };
 
-export default getLybsinPodcasts;
+export default fetchLybsinPodcasts;
