@@ -23,7 +23,7 @@ const useAllMedia = () => {
                     twitchVideos,
                     lybsinPodcasts,
                 ]);
-                const mediaList = allMedia.flat(1);
+                const mediaList = allMedia.flat();
 
                 setIsLoading(false);
                 setError(null);

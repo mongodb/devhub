@@ -15,7 +15,7 @@ const useEventData = () => {
                 const liveData = fetchLiveEventData();
                 const allData = await Promise.all([eventData, liveData]);
                 const events = allData
-                    .flat(1)
+                    .flat()
                     .sort(
                         (a, b) =>
                             new Date(a.node_type_attributes.event_start) -
