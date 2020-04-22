@@ -1,4 +1,5 @@
 import { buildQueryString } from '../utils/query-string';
+import dlv from 'dlv';
 
 const API_ENDPOINT = 'https://www.googleapis.com/youtube/v3/playlistItems';
 const YT_API_KEY = 'AIzaSyB2V7htFuJNO2RDrYFzGBzfYmyDVzfK6Yw';
@@ -12,10 +13,9 @@ const simplifyResponse = responseData => {
         title: video['title'],
         publishDate: video['publishedAt'],
         summary: video['description'],
-        videoId: video['resourceId'] && video['resourceId']['videoId'],
+        videoId: dlv(video, 'resourceId.videoId', []),
         playlistId: video['playlistId'],
-        image_url:
-            video['thumbnails'] && video['thumbnails']['standard']['url'],
+        image_url: dlv(video, 'thumbnails.standard.url', []),
     };
 
     return youtubeJSON;
