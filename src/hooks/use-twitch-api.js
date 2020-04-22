@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import fetchTwitchVideos from '../utils/fetch-twitch-videos';
-import { get } from './request';
+import { get } from '../utils/request';
 import {
     TWITCH_HEADERS,
     TWITCH_STREAMS_URL,
