@@ -68,7 +68,7 @@ export const StorybookLayout = ({ children }) => {
 
 export default ({ children }) => (
     <GlobalWrapper>
-        <Helmet>
+        <Helmet htmlAttributes={{ lang: 'en' }}>
             <meta name="robots" content="index" />
             <link
                 rel="shortcut icon"

@@ -2,7 +2,13 @@ import React from 'react';
 import { colorMap } from '../theme';
 
 const TwitterIcon = ({ color = colorMap.greyLightTwo, ...props }) => (
-    <svg width="20" height="20" viewBox="0 0 512 512" {...props}>
+    <svg
+        aria-label="Twitter"
+        width="20"
+        height="20"
+        viewBox="0 0 512 512"
+        {...props}
+    >
         <g>
             <path
                 fill={color}

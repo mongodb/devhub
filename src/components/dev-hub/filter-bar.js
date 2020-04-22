@@ -18,7 +18,7 @@ const ResponsiveFlexContainer = styled('div')`
     align-items: center;
     display: flex;
     justify-content: space-between;
-    @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToLarge} {
         display: block;
     }
 `;
@@ -29,7 +29,7 @@ const FilterBar = styled('div')`
     h3 {
         flex: 2;
     }
-    @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToLarge} {
         display: block;
     }
 `;
@@ -41,13 +41,13 @@ const FilterLabel = styled('span')`
 const SelectWrapper = styled('div')`
     margin: 0 ${size.small};
     min-width: 250px;
-    @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToLarge} {
         margin: ${size.small} 0;
     }
 `;
 
 const HeadingText = styled(H3)`
-    @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToLarge} {
         margin-bottom: ${size.default};
     }
 `;

@@ -43,7 +43,7 @@ const CloseButtonWrapper = styled('div')`
 `;
 
 const ModalClose = ({ closeModalOnEnter, deactivateModal }) => (
-    <Heading>
+    <Heading aria-label="close">
         <CloseButtonWrapper
             tabIndex="0"
             onClick={deactivateModal}

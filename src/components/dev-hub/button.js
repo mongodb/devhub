@@ -200,7 +200,9 @@ const Button = ({ children, href, play, to, hasArrow = true, ...props }) => {
     return (
         <StyledButton play={play} {...props}>
             {play ? (
-                <PlayButtonWrapper>{children}</PlayButtonWrapper>
+                <PlayButtonWrapper aria-label="play">
+                    {children}
+                </PlayButtonWrapper>
             ) : (
                 children
             )}

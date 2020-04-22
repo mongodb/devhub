@@ -103,20 +103,23 @@ const ArticleContent = styled('article')`
     max-width: ${size.maxContentWidth};
     padding-left: ${size.small};
     padding-right: ${size.small};
+    @media ${screenSize.upToLarge} {
+        margin: 0 auto;
+    }
 `;
 const Icons = styled('div')`
     margin: ${size.tiny} ${size.default};
     span {
         padding: 0 ${size.tiny};
     }
-    @media ${screenSize.smallAndUp} {
+    @media ${screenSize.largeAndUp} {
         display: flex;
         flex-direction: column;
         span:not(:first-of-type) {
             margin-top: ${size.small};
         }
     }
-    @media ${screenSize.upToSmall} {
+    @media ${screenSize.upToLarge} {
         margin: 0 ${size.small};
         span:not(:first-of-type) {
             margin-left: ${size.small};
@@ -125,7 +128,7 @@ const Icons = styled('div')`
 `;
 const Container = styled('div')`
     margin: 0 auto;
-    @media ${screenSize.smallAndUp} {
+    @media ${screenSize.largeAndUp} {
         display: flex;
         justify-content: center;
     }

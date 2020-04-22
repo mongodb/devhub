@@ -7,6 +7,24 @@ Cypress.Commands.add('useBodyReference', () => {
     cy.get('body').as('body');
 });
 
+// Basic sanity checks for an article card (image, title, tags, etc)
+Cypress.Commands.add('checkArticleCard', card => {
+    cy.get(card).within(() => {
+        // Title
+        cy.get('h5').should('not.be.empty');
+        // Description
+        cy.get('p').should('not.be.empty');
+        cy.get('img')
+            .should('have.attr', 'src')
+            .should('not.be.empty');
+        // Tags
+        cy.get('ul li a')
+            .first()
+            .should('have.attr', 'href')
+            .should('match', /\/(tag|product|language)/);
+    });
+});
+
 // Mock data from events servers
 Cypress.Commands.add('mockEventsApi', () => {
     cy.fixture('liveEventData.json').as('liveEventData');
