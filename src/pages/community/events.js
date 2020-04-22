@@ -6,7 +6,7 @@ import Layout from '../../components/dev-hub/layout';
 import useEventData from '../../hooks/use-event-data';
 import EventsList from '../../components/dev-hub/event-list';
 import { H1, H3, P } from '../../components/dev-hub/text';
-import TempBackgroundImage from '../../images/1x/MDB-and-Node.js.png';
+import AllEventsBackgroundImage from '../../images/1x/all-events-hero.png';
 import { colorMap } from '../../components/dev-hub/theme';
 import { size } from '../../components/dev-hub/theme';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
@@ -34,8 +34,9 @@ export default () => {
                 <title>Events - {metadata.title}</title>
             </Helmet>
             <HeroBanner
-                background={TempBackgroundImage}
+                background={AllEventsBackgroundImage}
                 breadcrumb={breadcrumbs}
+                showImageOnMobile={false}
             >
                 <H1>Events</H1>
                 <PageDescription>

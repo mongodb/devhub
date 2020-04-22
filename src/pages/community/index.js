@@ -70,6 +70,12 @@ const HeroContent = styled('div')`
     }
 `;
 
+const CommunityHeroBanner = styled(HeroBanner)`
+    @media ${screenSize.largeAndUp} {
+        margin-bottom: ${size.xxlarge};
+    }
+`;
+
 export default () => {
     const { title } = useSiteMetadata();
     return (
@@ -89,7 +95,7 @@ export default () => {
                     View all
                 </MobileViewAllBtn>
             </UpcomingEvents>
-            <HeroBanner
+            <CommunityHeroBanner
                 background={communityHeroBackground}
                 showImageOnMobile={false}
             >
@@ -103,7 +109,7 @@ export default () => {
                         Join
                     </Button>
                 </HeroContent>
-            </HeroBanner>
+            </CommunityHeroBanner>
         </Layout>
     );
 };
