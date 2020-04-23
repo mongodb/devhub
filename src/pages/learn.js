@@ -13,6 +13,9 @@ import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 
+const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
+const FEATURED_ARTICLE_CARD_WIDTH = '410px';
+
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
         display: grid;
@@ -21,6 +24,9 @@ const MainFeatureGrid = styled('div')`
             'primary tertiary';
         grid-gap: ${size.medium};
         margin-top: ${size.large};
+    }
+    @media ${screenSize.largeAndUp} {
+        grid-template-columns: auto ${FEATURED_ARTICLE_CARD_WIDTH};
     }
 `;
 
@@ -51,6 +57,12 @@ const Header = styled('header')`
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.large};
     }
+`;
+
+const HeaderContent = styled('div')`
+    max-width: ${FEATURED_ARTICLE_MAX_WIDTH};
+    margin-left: auto;
+    margin-right: auto;
 `;
 
 const Article = styled('article')`
@@ -194,8 +206,10 @@ export default ({
                 <title>Learn - {metadata.title}</title>
             </Helmet>
             <Header>
-                <H2>Make better, faster applications</H2>
-                <FeaturedArticles articles={featuredArticles} />
+                <HeaderContent>
+                    <H2>Make better, faster applications</H2>
+                    <FeaturedArticles articles={featuredArticles} />
+                </HeaderContent>
             </Header>
             <Article>
                 <StyledFilterBar
