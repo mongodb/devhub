@@ -26,7 +26,7 @@ const gridStructure = ({ reverse, flexible }) => css`
     @media ${screenSize.upToLarge} {
         /* If flexible is true, this will allow media block to allow content to stack on smaller screens */
         ${flexible &&
-            `grid-template-areas: 'image'
+        `grid-template-areas: 'image'
         'content';`}
     }
 `;
@@ -43,7 +43,10 @@ const MediaBlockContainer = styled('div')`
 const MediaWrapper = styled('div')`
     grid-area: image;
     @media ${screenSize.largeAndUp} {
-        ${({ reverse }) => !reverse && `margin-right: ${size.medium};`};
+        ${({ reverse }) =>
+            reverse
+                ? `margin-left: ${size.medium};`
+                : `margin-right: ${size.medium};`};
     }
     max-width: 100%;
     > img {
