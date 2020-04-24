@@ -14,7 +14,6 @@ import {
 } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import buildImage from '../images/2x/Build@2x.png';
-import greenPatternImage from '../images/2x/pattern-green@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
@@ -24,6 +23,7 @@ import { Modal } from '../components/dev-hub/modal';
 import VideoEmbed from '../components/dev-hub/video-embed';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
+import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
 
 const MEDIA_WIDTH = '550';
 
@@ -107,18 +107,6 @@ const ThumbnailButton = styled(Button)`
     position: absolute;
 `;
 
-const SIZE_TOKEN = '%{width}x%{height}';
-const SIZE_TOKEN_ALT = '{width}x{height}';
-
-const getThumbnail = (url, width = MEDIA_WIDTH, height = MEDIA_WIDTH) => {
-    if (!url) {
-        return greenPatternImage;
-    }
-    const containsSpace = url.match(SIZE_TOKEN);
-    const dimensionsMatcher = containsSpace ? SIZE_TOKEN : SIZE_TOKEN_ALT;
-    return url.replace(dimensionsMatcher, `${width}x${height}`);
-};
-
 const TwitchVideoModal = ({ id, trigger, thumbnail }) => (
     <Modal
         dialogContainerStyle={{
@@ -147,13 +135,13 @@ const Thumbnail = ({ video }) => {
     return (
         <ThumbnailCard
             maxWidth={MEDIA_WIDTH}
-            image={getThumbnail(video.thumbnail_url)}
+            image={getTwitchThumbnail(video.thumbnail_url)}
             title={video.title}
         >
             <TwitchVideoModal
                 id={video.id}
                 trigger={<ThumbnailButton play />}
-                thumbnail={getThumbnail(video.thumbnail_url, 1200)}
+                thumbnail={getTwitchThumbnail(video.thumbnail_url, 1200)}
             />
         </ThumbnailCard>
     );
@@ -230,7 +218,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                                 <TwitchVideoModal
                                     id={twitchVideo.id}
                                     trigger={<Button secondary>Watch</Button>}
-                                    thumbnail={getThumbnail(
+                                    thumbnail={getTwitchThumbnail(
                                         twitchVideo.thumbnail_url,
                                         1200
                                     )}
