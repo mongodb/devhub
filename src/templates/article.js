@@ -89,14 +89,20 @@ const ArticleSeries = ({ allSeriesForArticle, slugTitleMapping, title }) => {
         return mappedSeries;
     };
 
-    return Object.keys(allSeriesForArticle).map(series => (
-        <>
-            <Series name={series} currentStep={title}>
-                {getMappedSeries(allSeriesForArticle[series])}
-            </Series>
-            <br />
-        </>
-    ));
+    return Object.keys(allSeriesForArticle).map(series => {
+        const seriesItems = getMappedSeries(allSeriesForArticle[series]);
+        const activeSeriesIndex = seriesItems.findIndex(
+            seriesItem => seriesItem.title === title
+        );
+        return (
+            <>
+                <Series name={series} activeStepIndex={activeSeriesIndex}>
+                    {seriesItems}
+                </Series>
+                <br />
+            </>
+        );
+    });
 };
 
 const ArticleContent = styled('article')`
