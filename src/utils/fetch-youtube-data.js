@@ -8,14 +8,14 @@ const YT_API_KEY = 'AIzaSyB2V7htFuJNO2RDrYFzGBzfYmyDVzfK6Yw';
 
 const simplifyResponse = responseData => {
     const video = responseData.snippet;
-
     const youtubeJSON = {
+        media_type: 'youtube',
         title: video['title'],
-        publishDate: video['publishedAt'],
-        summary: video['description'],
+        published_at: video['publishedAt'],
+        description: video['description'],
         videoId: dlv(video, 'resourceId.videoId', []),
         playlistId: video['playlistId'],
-        image_url: dlv(video, 'thumbnails.standard.url', []),
+        thumbnail_url: dlv(video, 'thumbnails.standard.url', []),
     };
 
     return youtubeJSON;

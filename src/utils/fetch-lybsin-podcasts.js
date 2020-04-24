@@ -7,11 +7,13 @@ const RSS_URL = `https://mongodb.libsyn.com/rss`;
 
 const simplifyPodcast = podcast => {
     const podcastJSON = {
+        media_type: 'podcast',
         title: podcast['title'],
-        publishDate: podcast['pubDate'],
-        summary: podcast['itunes:summary'],
+        published_at: podcast['pubDate'],
+        description: podcast['itunes:summary'],
         url: podcast['enclosure'] && podcast['enclosure']['url'],
-        image_url: podcast['itunes:image'] && podcast['itunes:image']['href'],
+        thumbnail_url:
+            podcast['itunes:image'] && podcast['itunes:image']['href'],
     };
     return podcastJSON;
 };
