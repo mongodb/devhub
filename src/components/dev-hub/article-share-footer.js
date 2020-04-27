@@ -41,7 +41,7 @@ const ArticleShareFooter = ({ tags, title, url }) => {
     return (
         <ArticleShareArea>
             <BlogTagList tags={tags} />
-            <BlogShareLinks>
+            <BlogShareLinks data-test="article-share-links">
                 <Tooltip
                     position="bottom"
                     trigger={
