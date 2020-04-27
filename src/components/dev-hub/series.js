@@ -172,7 +172,7 @@ const SeriesIcon = ({ active }) => (
 );
 
 const Series = ({ children, name }) => (
-    <SeriesContainer>
+    <SeriesContainer data-test="series">
         <SeriesNameContainer>
             <DescriptiveText collapse>More from this series</DescriptiveText>
             <H3 collapse>{name}</H3>

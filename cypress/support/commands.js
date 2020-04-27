@@ -7,6 +7,13 @@ Cypress.Commands.add('useBodyReference', () => {
     cy.get('body').as('body');
 });
 
+Cypress.Commands.add('checkTagListProperties', () => {
+    cy.get('ul li a')
+        .first()
+        .should('have.attr', 'href')
+        .should('match', /\/(tag|product|language)/);
+});
+
 // Basic sanity checks for an article card (image, title, tags, etc)
 Cypress.Commands.add('checkArticleCard', card => {
     cy.get(card).within(() => {
@@ -14,15 +21,14 @@ Cypress.Commands.add('checkArticleCard', card => {
         cy.get('h5').should('not.be.empty');
         // Description
         cy.get('p').should('not.be.empty');
-        cy.get('img')
-            .should('have.attr', 'src')
-            .should('not.be.empty');
+        cy.get('img').should('have.attr', 'src').should('not.be.empty');
         // Tags
-        cy.get('ul li a')
-            .first()
-            .should('have.attr', 'href')
-            .should('match', /\/(tag|product|language)/);
+        cy.checkTagListProperties();
     });
+});
+
+Cypress.Commands.add('checkMetaContentProperty', (query, value) => {
+    cy.get(`head meta[${query}]`).should('have.prop', 'content', value);
 });
 
 // Mock data from events servers

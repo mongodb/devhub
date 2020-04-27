@@ -82,7 +82,12 @@ const ContentsMenu = ({ title, headingNodes, ...props }) => {
             position={'right'}
             trigger={
                 <HoverTooltip
-                    trigger={<StyledListIcon {...props} />}
+                    trigger={
+                        <StyledListIcon
+                            data-test="contents-tooltip"
+                            {...props}
+                        />
+                    }
                     text="Contents"
                     {...props}
                 />
@@ -90,7 +95,7 @@ const ContentsMenu = ({ title, headingNodes, ...props }) => {
             maxWidth={400}
         >
             <H5 bold>{title}</H5>
-            <Contents>
+            <Contents data-test="contents-list">
                 {headingNodes.map(({ id, title }) => {
                     const isactive = id === activeItem ? 'true' : null;
                     return (
