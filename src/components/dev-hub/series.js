@@ -73,8 +73,10 @@ const SeriesBreadcrumbs = styled('div')`
 
 const SeriesContainer = styled('div')`
     display: flex;
+    margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
         flex-direction: column;
+        margin-bottom: ${size.medium};
     }
 `;
 
@@ -169,7 +171,7 @@ const SeriesIcon = ({ active }) => (
     </BulletIcon>
 );
 
-const Series = ({ activeStepIndex, children, name }) => (
+const Series = ({ children, name }) => (
     <SeriesContainer>
         <SeriesNameContainer>
             <DescriptiveText collapse>More from this series</DescriptiveText>
@@ -177,9 +179,9 @@ const Series = ({ activeStepIndex, children, name }) => (
         </SeriesNameContainer>
         <SeriesBreadcrumbs>
             <SeriesList>
-                {children.map(({ title, slug }, i) => {
+                {children.map(({ position, title, slug }) => {
                     // TODO: Add styling for past and upcoming series articles
-                    const isActive = i === activeStepIndex;
+                    const isActive = position === 'active';
                     return (
                         <Breadcrumb>
                             <SeriesIcon active={isActive} />

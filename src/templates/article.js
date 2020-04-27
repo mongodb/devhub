@@ -10,7 +10,7 @@ import Layout from '../components/dev-hub/layout';
 import RelatedArticles from '../components/dev-hub/related-articles';
 import { screenSize, size } from '../components/dev-hub/theme';
 import SEO from '../components/dev-hub/SEO';
-import Series from '../components/dev-hub/series';
+import ArticleSeries from '../components/dev-hub/article-series';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { toDateString } from '../utils/format-dates';
@@ -67,42 +67,6 @@ const getContent = nodes => {
     }
 
     return nodesWeActuallyWant;
-};
-
-const ArticleSeries = ({ allSeriesForArticle, slugTitleMapping, title }) => {
-    // Handle if this article is not in a series or no series are defined
-    if (!allSeriesForArticle) return null;
-    // Handle if this series is not defined in the top-level content TOML file
-    const getMappedSeries = seriesSlugs => {
-        if (!seriesSlugs || !seriesSlugs.length) return null;
-        const mappedSeries = seriesSlugs.map(slug => {
-            const articleTitle = dlv(
-                slugTitleMapping,
-                [slug, 0, 'value'],
-                slug
-            );
-            return {
-                slug,
-                title: articleTitle,
-            };
-        });
-        return mappedSeries;
-    };
-
-    return Object.keys(allSeriesForArticle).map(series => {
-        const seriesItems = getMappedSeries(allSeriesForArticle[series]);
-        const activeSeriesIndex = seriesItems.findIndex(
-            seriesItem => seriesItem.title === title
-        );
-        return (
-            <>
-                <Series name={series} activeStepIndex={activeSeriesIndex}>
-                    {seriesItems}
-                </Series>
-                <br />
-            </>
-        );
-    });
 };
 
 const ArticleContent = styled('article')`
