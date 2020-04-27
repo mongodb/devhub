@@ -10,7 +10,10 @@ describe('Tag page', () => {
             // Check the breadcrumb is being populated correctly
             cy.get('div').within(() => {
                 cy.get('a').last().contains(TITLE);
-                cy.get('a').last().should('have.attr', 'href', TAG_PAGE_URL);
+                cy.get('a')
+                    .last()
+                    .should('have.attr', 'href')
+                    .and('include', TAG_PAGE_URL);
             });
         });
     });
