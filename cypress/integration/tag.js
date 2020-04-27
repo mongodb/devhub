@@ -24,19 +24,18 @@ describe('Tag page', () => {
     });
     it('should contain an article tagged with this tag', () => {
         cy.visit(TAG_ARTICLE_URL);
-        // Get tags
+        // Get SQL tag and check this article appears on the tag page
         cy.get('header').within(() => {
             cy.get('ul li a').last().contains(TITLE);
             cy.get('ul li a').last().click();
             cy.url().should('include', TAG_PAGE_URL);
-            cy.get('[data-test="card"]')
-                .eq(1)
-                .should('have.attr', 'href')
-                .and('include', TAG_ARTICLE_URL);
         });
+        cy.get('[data-test="card"]')
+            .eq(1)
+            .should('have.attr', 'href')
+            .and('include', TAG_ARTICLE_URL);
     });
     it('should not be indexed for SEO', () => {
-        // use helper from article test to check robots noindex
-        // cy.checkMetaContentProperty('name="robots"', 'noindex')
+        cy.checkMetaContentProperty('name="robots"', 'noindex');
     });
 });

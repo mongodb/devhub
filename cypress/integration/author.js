@@ -25,7 +25,4 @@ describe('Author Page', () => {
                 cy.checkArticleCard(card);
             });
     });
-    it('should not be indexed for SEO', () => {
-        // use helper from article test to check robots noindex
-    });
 });
