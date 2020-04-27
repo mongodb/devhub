@@ -73,8 +73,10 @@ const SeriesBreadcrumbs = styled('div')`
 
 const SeriesContainer = styled('div')`
     display: flex;
+    margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
         flex-direction: column;
+        margin-bottom: ${size.medium};
     }
 `;
 
@@ -82,7 +84,6 @@ const SeriesLink = styled(Link)`
     font-family: 'Fira Mono', monospace;
     font-size: ${fontSize.default};
     text-decoration: none;
-    ${({ active }) => active && activeLinkStyles};
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.default};
     }
@@ -124,7 +125,6 @@ const BulletIcon = styled('div')`
     @media ${screenSize.upToMedium} {
         margin-right: 20px;
     }
-    ${({ active }) => active && activeLiStyles};
 `;
 
 const SeriesList = styled('ul')`
@@ -165,13 +165,13 @@ const SeriesNameContainer = styled('div')`
 `;
 
 const SeriesIcon = ({ active }) => (
-    <BulletIcon active={active}>
+    <BulletIcon css={active && activeLiStyles}>
         {/* x29BF is bull's eye bullet, x25E6 is hollow bullet */}
         {active ? <>&#x29BF;</> : <>&#x25E6;</>}
     </BulletIcon>
 );
 
-const Series = ({ children, currentStep, name }) => (
+const Series = ({ children, name }) => (
     <SeriesContainer data-test="series">
         <SeriesNameContainer>
             <DescriptiveText collapse>More from this series</DescriptiveText>
@@ -179,12 +179,16 @@ const Series = ({ children, currentStep, name }) => (
         </SeriesNameContainer>
         <SeriesBreadcrumbs>
             <SeriesList>
-                {children.map(({ title, slug }) => {
-                    const isActive = title === currentStep;
+                {children.map(({ position, title, slug }) => {
+                    // TODO: Add styling for past and upcoming series articles
+                    const isActive = position === 'active';
                     return (
-                        <Breadcrumb active={isActive}>
+                        <Breadcrumb>
                             <SeriesIcon active={isActive} />
-                            <SeriesLink active={isActive} to={slug}>
+                            <SeriesLink
+                                to={slug}
+                                css={isActive && activeLinkStyles}
+                            >
                                 {title}
                             </SeriesLink>
                         </Breadcrumb>
