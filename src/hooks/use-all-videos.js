@@ -1,43 +1,40 @@
 import { useEffect, useState } from 'react';
 import fetchTwitchVideos from '../utils/fetch-twitch-videos';
 import fetchYoutubeData from '../utils/fetch-youtube-data';
-import fetchLybsinPodcasts from '../utils/fetch-lybsin-podcasts';
 
 const YT_PLAYLIST = 'PLN3n1USn4xlmyw3ebYuZmGp60mcENitdM';
 
-const useAllMedia = () => {
-    const [media, setMedia] = useState(null);
+const useAllVideos = () => {
+    const [videos, setVideos] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        const getMedia = async () => {
+        const getVideos = async () => {
             setIsLoading(true);
             try {
                 const youtubeVideos = fetchYoutubeData(YT_PLAYLIST);
                 const twitchVideos = fetchTwitchVideos();
-                const lybsinPodcasts = fetchLybsinPodcasts();
 
-                const allMedia = await Promise.all([
+                const allVideos = await Promise.all([
                     youtubeVideos,
                     twitchVideos,
-                    lybsinPodcasts,
                 ]);
-                const mediaList = allMedia.flat();
+                const videoList = allVideos.flat();
 
                 setIsLoading(false);
                 setError(null);
-                setMedia(mediaList);
+                setVideos(videoList);
             } catch (e) {
                 setIsLoading(false);
                 setError(e);
-                setMedia(null);
+                setVideos(null);
             }
         };
-        getMedia();
+        getVideos();
     }, []);
 
-    return { media, error, isLoading };
+    return { videos, error, isLoading };
 };
 
-export default useAllMedia;
+export default useAllVideos;

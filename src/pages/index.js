@@ -135,13 +135,13 @@ const Thumbnail = ({ video }) => {
     return (
         <ThumbnailCard
             maxWidth={MEDIA_WIDTH}
-            image={getTwitchThumbnail(video.thumbnail_url)}
+            image={getTwitchThumbnail(video.thumbnailUrl)}
             title={video.title}
         >
             <TwitchVideoModal
-                id={video.id}
+                id={video.videoId}
                 trigger={<ThumbnailButton play />}
-                thumbnail={getTwitchThumbnail(video.thumbnail_url, 1200)}
+                thumbnail={getTwitchThumbnail(video.thumbnailUrl, 1200)}
             />
         </ThumbnailCard>
     );
@@ -216,10 +216,10 @@ export default ({ pageContext: { featuredArticles } }) => {
                             </DescriptiveText>
                             {twitchVideo && (
                                 <TwitchVideoModal
-                                    id={twitchVideo.id}
+                                    id={twitchVideo.videoId}
                                     trigger={<Button secondary>Watch</Button>}
                                     thumbnail={getTwitchThumbnail(
-                                        twitchVideo.thumbnail_url,
+                                        twitchVideo.thumbnailUrl,
                                         1200
                                     )}
                                 />
