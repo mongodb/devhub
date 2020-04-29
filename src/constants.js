@@ -1,55 +1,3 @@
-export const LANGUAGES = [
-    'shell',
-    'compass',
-    'python',
-    'java-sync',
-    'nodejs',
-    'php',
-    'motor',
-    'java-async',
-    'c',
-    'cpp',
-    'csharp',
-    'perl',
-    'ruby',
-    'scala',
-    'go',
-];
-
-export const DEPLOYMENTS = ['cloud', 'local'];
-
-export const PLATFORMS = ['windows', 'macos', 'linux', 'debian', 'rhel'];
-
-export const SLUG_TO_STRING = {
-    shell: 'Mongo Shell',
-    compass: 'Compass',
-    python: 'Python',
-    javasync: 'Java (Sync)',
-    'java-sync': 'Java (Sync)',
-    nodejs: 'Node.js',
-    php: 'PHP',
-    motor: 'Motor',
-    'java-async': 'Java (Async)',
-    c: 'C',
-    cpp: 'C++11',
-    csharp: 'C#',
-    perl: 'Perl',
-    ruby: 'Ruby',
-    scala: 'Scala',
-    go: 'Go',
-    cloud: 'Cloud',
-    local: 'Local',
-    macos: 'macOS',
-    linux: 'Linux',
-    windows: 'Windows',
-    debian: 'Debian',
-    rhel: 'RHEL',
-};
-
-export const stringifyTab = tabName => {
-    return SLUG_TO_STRING[tabName] || tabName;
-};
-
 // hardcoded for now because this target lookup will be complex
 // as it relies on other sites (e.g. manual) cc. Andrew
 export const REF_TARGETS = {
@@ -72,43 +20,6 @@ export const REF_TARGETS = {
         'https://docs.mongodb.com/manual/reference/configuration-options/#configuration-options',
 };
 
-export const SUGGESTION_WHITELIST = [
-    'tutorial/install-mongodb-on-windows',
-    'tutorial/install-mongodb-on-ubuntu',
-    'tutorial/query-documents',
-    'reference/method/db.collection.find',
-    'reference/method/db.collection.updateOne',
-];
-
-export const REF_LABELS = {
-    'install-rhel-configure-selinux': 'Configure SELinux',
-    'write-op-insert-behavior': 'Insert Behavior',
-};
-
-export const SECTION_NAME_MAPPING = {
-    prerequisites: {
-        id: 'what-you-ll-need',
-        title: 'What You’ll Need',
-    },
-    check_your_environment: {
-        id: 'check-your-environment',
-        title: 'Check Your Environment',
-    },
-    procedure: {
-        id: 'procedure',
-        title: 'Procedure',
-    },
-    summary: { id: 'summary', title: 'Summary' },
-    whats_next: {
-        id: 'what-s-next',
-        title: 'What’s Next',
-    },
-    seealso: {
-        id: 'see-also',
-        title: 'See Also',
-    },
-};
-
 export const ADMONITIONS = [
     'admonition',
     'example',
@@ -119,44 +30,10 @@ export const ADMONITIONS = [
     'warning',
 ];
 
-export const URL_SLUGS = {
-    server: [
-        'manual',
-        'master',
-        'v3.6',
-        'v3.4',
-        'v3.2',
-        'v3.0',
-        'v2.6',
-        'v2.4',
-        'v2.2',
-    ],
-    drivers: ['ecosystem', 'ruby-driver', 'mongoid'],
-    cloud: ['cloud', 'stitch'],
-    tools: [
-        'tools',
-        'bi-connector',
-        'charts',
-        'compass',
-        'kubernetes-operator',
-        'spark-connector',
-    ],
-    guides: ['guides'],
-};
-
-export const URL_SUBDOMAINS = {
-    cloud: ['atlas', 'cloudmanager', 'opsmanager'],
-};
-
-export const devhubMapping = {
-    nodejs: 'Node.js',
-    java: 'Java',
-};
-
 // Twitch API constants
 export const TWITCH_API_ENDPOINT = 'https://api.twitch.tv/helix/';
 export const TWITCH_CLIENT_ID = '041r2glmgub2pt357ss0la44j2sz95';
 export const TWITCH_MDB_CHANNEL_ID = '467752938';
 export const TWITCH_HEADERS = { 'Client-ID': TWITCH_CLIENT_ID };
 export const TWITCH_STREAMS_URL = `${TWITCH_API_ENDPOINT}streams?user_id=${TWITCH_MDB_CHANNEL_ID}`;
-export const TWITCH_VIDEO_URL = `${TWITCH_API_ENDPOINT}videos?user_id=${TWITCH_MDB_CHANNEL_ID}&first=`;
+export const TWITCH_VIDEO_URL = `${TWITCH_API_ENDPOINT}videos?user_id=${TWITCH_MDB_CHANNEL_ID}`;

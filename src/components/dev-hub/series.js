@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from './link';
-import { H3, P } from './text';
+import { H5, P3 } from './text';
 import {
     colorMap,
     fontSize,
@@ -12,8 +12,8 @@ import {
     size,
 } from './theme';
 
-const BULLET_BOX_WIDTH = '30px';
-const BULLET_SIZE = 36;
+const MAX_CONTENT_WIDTH = '410px';
+const PAST_LINK_COLOR = '#89989b';
 
 // Needed to allow more magenta to account for proper text coloring
 const BULLET_GRADIENT = `linear-gradient(
@@ -31,100 +31,113 @@ const BORDER_GRADIENT = `linear-gradient(
 );`;
 
 const activeLiStyles = css`
-    font-size: 22px;
+    font-size: ${fontSize.xsmall};
+    padding-left: 1px;
+    line-height: ${lineHeight.small};
     &:after {
         /* Adjust the background bullet position for the bull's eye text */
-        font-size: 54px;
-        top: 1px;
+        top: -1px;
     }
 `;
 
 const activeLinkStyles = css`
     font-weight: bold;
 `;
+const pastLinkStyles = css`
+    color: ${PAST_LINK_COLOR};
+    &:visited {
+        color: ${PAST_LINK_COLOR};
+    }
+    &:hover {
+        color: ${colorMap.darkGreen};
+    }
+`;
 
 const Breadcrumb = styled('li')`
     display: flex;
-    padding-bottom: ${size.small};
+    padding-bottom: ${size.mediumLarge};
     position: relative;
     z-index: ${layer.back};
+    :last-of-type {
+        padding-bottom: 0;
+        > div {
+            &:before {
+                background: ${colorMap.greyDarkThree};
+                content: '';
+                top: ${size.small};
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                z-index: ${layer.superBack};
+            }
+        }
+    }
 `;
 
-const DescriptiveText = styled(P)`
+const DescriptiveText = styled(P3)`
     color: ${colorMap.greyLightThree};
-    font-size: ${fontSize.tiny};
-    @media ${screenSize.upToMedium} {
-        padding-bottom: ${size.tiny};
-    }
 `;
 
 const SeriesBreadcrumbs = styled('div')`
-    border-radius: 0 ${size.small} ${size.small} 0;
-    background-color: ${colorMap.greyDarkTwo};
+    border-radius: 0 0 ${size.small} ${size.small};
+    background-color: ${colorMap.greyDarkThree};
     flex: 1;
     margin: 0;
-    padding: ${size.large};
+    padding: ${size.large} 40px;
     overflow: hidden;
-    @media ${screenSize.upToMedium} {
-        border-radius: 0 0 ${size.small} ${size.small};
-        padding: 24px ${size.medium} ${size.medium};
-    }
 `;
 
 const SeriesContainer = styled('div')`
     display: flex;
+    flex-direction: column;
+    margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
-        flex-direction: column;
+        margin-bottom: ${size.medium};
     }
 `;
 
 const SeriesLink = styled(Link)`
     font-family: 'Fira Mono', monospace;
-    font-size: ${fontSize.default};
+    font-size: ${fontSize.small};
+    line-height: ${lineHeight.small};
+    max-width: ${MAX_CONTENT_WIDTH};
     text-decoration: none;
-    ${({ active }) => active && activeLinkStyles};
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.default};
-    }
+    ${({ isActive }) => isActive && activeLinkStyles};
+    ${({ isPast }) => isPast && pastLinkStyles};
 `;
 
 const BulletIcon = styled('div')`
     background: ${BULLET_GRADIENT};
     background-clip: text;
     display: inline-block;
-    font-size: ${BULLET_SIZE}px;
+    font-family: 'Fira Mono', monospace;
+    font-size: ${fontSize.large};
     line-height: ${lineHeight.tiny};
-    margin-top: 3px;
-    margin-right: 30px;
+    margin-right: ${size.medium};
     position: relative;
     text-align: left;
     vertical-align: top;
-    width: ${BULLET_BOX_WIDTH};
-    width: 16px;
+    width: ${size.default};
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     /* Create a bullet to match the bg to hide border passing through */
     &:after {
-        background: ${colorMap.greyDarkTwo};
+        background: ${colorMap.greyDarkThree};
         background-clip: text;
-        content: '\u2022';
+        content: '\u25CF';
         left: 0;
-        font-size: ${fontSize.jumbo};
-        height: 100%;
+        font-family: 'Fira Mono', monospace;
+        font-size: ${fontSize.large};
         margin-right: ${size.small};
         position: absolute;
-        text-align: left;
-        top: 3px;
-        vertical-align: top;
-        width: ${BULLET_BOX_WIDTH};
+        width: ${size.default};
         z-index: ${layer.superBack};
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
     @media ${screenSize.upToMedium} {
-        margin-right: 20px;
+        margin-right: ${size.medium};
     }
-    ${({ active }) => active && activeLiStyles};
 `;
 
 const SeriesList = styled('ul')`
@@ -139,52 +152,61 @@ const SeriesList = styled('ul')`
                 0deg,
                 transparent,
                 transparent 50%,
-                ${colorMap.greyDarkTwo} 50%,
-                ${colorMap.greyDarkTwo} 100%
+                ${colorMap.greyDarkThree} 50%,
+                ${colorMap.greyDarkThree} 100%
             ),
             ${BORDER_GRADIENT};
         background-size: ${size.medium} 2px, cover;
-        bottom: ${BULLET_SIZE / 2 + 3}px;
+        bottom: 0;
         content: '';
-        left: 7px;
+        left: 6px;
         position: absolute;
-        top: ${BULLET_SIZE / 2}px;
+        top: ${size.default};
         width: 1px;
     }
 `;
 
 const SeriesNameContainer = styled('div')`
-    background-color: ${colorMap.greyDarkThree};
-    border-radius: ${size.small} 0 0 ${size.small};
+    background-color: ${colorMap.greyDarkTwo};
+    border-radius: ${size.small} ${size.small} 0 0;
     flex: 1;
-    padding: ${size.large};
-    @media ${screenSize.upToMedium} {
-        border-radius: ${size.small} ${size.small} 0 0;
-        padding: ${size.medium};
-    }
+    padding: ${size.default} ${size.mediumLarge};
 `;
 
-const SeriesIcon = ({ active }) => (
-    <BulletIcon active={active}>
-        {/* x29BF is bull's eye bullet, x25E6 is hollow bullet */}
-        {active ? <>&#x29BF;</> : <>&#x25E6;</>}
+const SeriesIcon = ({ isActive, isPast, isUpcoming }) => (
+    <BulletIcon css={isActive && activeLiStyles}>
+        {/* x25C9 is bull's eye bullet, x25CB is hollow bullet, x25CF is filled bullet */}
+        {isActive && <>&#x25C9;</>}
+        {isPast && <>&#x25CB;</>}
+        {isUpcoming && <>&#x25CF;</>}
     </BulletIcon>
 );
 
-const Series = ({ children, currentStep, name }) => (
-    <SeriesContainer>
+const Series = ({ children, name }) => (
+    <SeriesContainer data-test="series">
         <SeriesNameContainer>
             <DescriptiveText collapse>More from this series</DescriptiveText>
-            <H3 collapse>{name}</H3>
+            <H5 collapse>{name}</H5>
         </SeriesNameContainer>
         <SeriesBreadcrumbs>
             <SeriesList>
-                {children.map(({ title, slug }) => {
-                    const isActive = title === currentStep;
+                {children.map(({ position, title, slug }) => {
+                    // TODO: Add styling for past and upcoming series articles
+                    const isActive = position === 'active';
+                    const isPast = position === 'past';
+                    const isUpcoming = position === 'upcoming';
                     return (
-                        <Breadcrumb active={isActive}>
-                            <SeriesIcon active={isActive} />
-                            <SeriesLink active={isActive} to={slug}>
+                        <Breadcrumb>
+                            <SeriesIcon
+                                isActive={isActive}
+                                isPast={isPast}
+                                isUpcoming={isUpcoming}
+                            />
+                            <SeriesLink
+                                isActive={isActive}
+                                isPast={isPast}
+                                to={slug}
+                            >
                                 {title}
                             </SeriesLink>
                         </Breadcrumb>

@@ -32,7 +32,7 @@ jobs:
               run: |
                   touch .env.production
                   echo "GATSBY_SITE=devhub" > .env.production; \
-                  echo "GATSBY_PARSER_USER=sophstad" >> .env.production; \
+                  echo "GATSBY_PARSER_USER=jordanstapinski" >> .env.production; \
                   echo "GATSBY_PARSER_BRANCH=master" >> .env.production; \
                   echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
             - name: Build Gatsby
@@ -42,7 +42,7 @@ jobs:
               with:
                   install: false
                   start: npm run serve
-                  wait-on: 'http://localhost:9000/master/devhub/sophstad/HEAD'
+                  wait-on: 'http://localhost:9000/master/devhub/jordanstapinski/HEAD'
                   config-file: cypress.json
             - name: Generate artifacts on failure
               uses: actions/upload-artifact@v1

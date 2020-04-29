@@ -1,11 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import fetchTwitchVideos from '../utils/fetch-twitch-videos';
-import { get } from './request';
-import {
-    TWITCH_HEADERS,
-    TWITCH_STREAMS_URL,
-    TWITCH_VIDEO_URL,
-} from '../constants';
+import { get } from '../utils/request';
+import { TWITCH_HEADERS, TWITCH_STREAMS_URL } from '../constants';
 
 /**
  * @param {Object} config
@@ -38,11 +34,7 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
             }
             //get videos
             if (!currentStream && videoLimit) {
-                const videoRespData = await fetchTwitchVideos(
-                    TWITCH_HEADERS,
-                    TWITCH_VIDEO_URL,
-                    videoLimit
-                );
+                const videoRespData = await fetchTwitchVideos(videoLimit);
                 // return the whole array of videos, but ignore pagination for now
                 setVideos(videoRespData);
             }
