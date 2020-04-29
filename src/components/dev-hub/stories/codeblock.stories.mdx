@@ -1,0 +1,44 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import CodeBlock from '../codeblock';
+const codeSample = `
+function greeting(entity) {
+  return \`Hello, \${entity}!\`;
+}
+genericFunction(greeting('World'));
+genericFunction(greeting('World'));
+function greeting(entity) {
+    return \`Hello, \$(entity)!\`;
+}
+genericFunction(greeting('World'));
+`;
+const cSharpCodeSample = `
+using System;
+using System.Collection.Generic;
+namespace CSharpTutorials
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string message = "Hello World";
+            // collections can't be created inside a transaction so create it first await
+            database.CreateCollectionAsync("products");
+            Console.WriteLine(message);
+        }
+    }
+}
+`;
+
+<Meta title="CodeBlock" />
+
+# Code Block
+
+CodeBlocks can render code across programming languages such as JavaScript and C#.
+<Preview>
+    <Story name="code block javascript">
+        <CodeBlock nodeData={{ value: codeSample }} />
+    </Story>
+    <Story name="code block c#">
+        <CodeBlock nodeData={{ value: cSharpCodeSample, lang: 'csp' }} />
+    </Story>
+</Preview>

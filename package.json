@@ -60,13 +60,15 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.8.6",
+    "@emotion/babel-preset-css-prop": "^10.0.27",
     "@storybook/addon-actions": "^5.3.14",
     "@storybook/addon-docs": "^5.3.14",
     "@storybook/addon-knobs": "^5.3.14",
     "@storybook/react": "^5.3.14",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.1.0",
+    "babel-plugin-emotion": "^10.0.29",
     "babel-preset-gatsby": "^0.3.1",
     "cypress": "^4.3.0",
     "enzyme": "^3.11.0",
