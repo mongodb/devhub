@@ -36,12 +36,12 @@ const StyledCode = styled(Code)`
     padding-right: ${size.xlarge};
     padding-top: ${size.large};
     ${({ numdigits }) =>
-        `padding-left: calc(${LEAFY_LINENUMBER_PADDING}px + ${numdigits *
-            size.stripUnit(size.xsmall)}px)`};
+        `padding-left: calc(${LEAFY_LINENUMBER_PADDING}px + ${
+            numdigits * size.stripUnit(size.xsmall)
+        }px)`};
     /* Line Numbers */
     > div {
         background-color: ${colorMap.greyDarkTwo};
-        border: none;
         border-image: linear-gradient(
                 0deg,
                 ${colorMap.sherbet} 0%,
@@ -49,7 +49,8 @@ const StyledCode = styled(Code)`
                 ${colorMap.magenta} 100%
             )
             1;
-        border-right: 2px solid;
+        border-width: 0 2px 0 0;
+        border-right-style: solid;
         color: ${colorMap.greyLightTwo};
         left: 0;
         padding: ${LEAFY_CODEBLOCK_PADDING}px;
