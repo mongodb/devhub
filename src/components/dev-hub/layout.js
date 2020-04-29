@@ -51,6 +51,7 @@ const Main = styled('main')`
 `;
 
 const GlobalWrapper = styled('div')`
+    background: ${colorMap.pageBackground};
     display: flex;
     flex-direction: column;
     justify-content: space-between;
