@@ -16,7 +16,7 @@ export default () => {
     return (
         <Layout>
             {(isLoading || isLoadingPodcasts) && <P>Loading...</P>}
-            {videos && <CardList videos={videos} podcasts={podcasts} />}
+            <CardList videos={videos} podcasts={podcasts} />
             {(error || errorPodcasts) && (
                 <P>Check back later for upcoming media contents</P>
             )}
