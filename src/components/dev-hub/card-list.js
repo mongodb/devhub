@@ -7,7 +7,7 @@ import { withPrefix } from 'gatsby';
 import { getNestedText } from '../../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 import getTwitchThumbnail from '../../utils/get-twitch-thumbnail';
-import { VideoCard, VideoModal } from './video-card';
+import VideoModal from './video-modal';
 
 const CardContainer = styled('div')`
     display: grid;
@@ -24,6 +24,11 @@ const ArticleCard = styled(Card)`
     flex: 1 1 360px;
 `;
 
+const VideoCard = styled(Card)`
+    flex: 1 1 360px;
+    cursor: pointer;
+`;
+
 const HasMoreButtonContainer = styled('div')`
     margin-bottom: ${size.large};
     margin-top: ${size.large};
@@ -36,63 +41,82 @@ const getThumbnailUrl = media => {
         : media.thumbnailUrl;
 };
 
-export default React.memo(({ videos = [], items = [], limit = 9 }) => {
-    const [visibleCards, setVisibleCards] = useState(limit);
-    const hasMore = videos.length
-        ? videos.length > visibleCards
-        : items.length > visibleCards;
+export default React.memo(
+    ({ videos = [], articles = [], podcasts = [], limit = 9 }) => {
+        const [visibleCards, setVisibleCards] = useState(limit);
 
-    return (
-        <>
-            {items.length > 0 && (
-                <CardContainer>
-                    {items.slice(0, visibleCards).map(item => (
-                        <ArticleCard
-                            to={item['slug']}
-                            key={item['_id']}
-                            image={withPrefix(item['atf-image'])}
-                            tags={getTagLinksFromMeta(item)}
-                            title={getNestedText(item['title'])}
-                            description={getNestedText(
-                                item['meta-description']
-                            )}
-                        />
-                    ))}
-                </CardContainer>
-            )}
+        //TODO: modify once the tab component is ready
+        const hasMore = videos.length
+            ? videos.length > visibleCards
+            : articles.length > visibleCards;
 
-            {videos.length > 0 && (
-                <CardContainer>
-                    {videos.slice(0, visibleCards).map(video => (
-                        <VideoModal
-                            key={video.videoId}
-                            id={video.videoId}
-                            name={video.mediaType}
-                            trigger={
-                                <VideoCard
-                                    key={video['title']}
-                                    image={getThumbnailUrl(video)}
-                                    title={video['title']}
-                                    description={video['description']}
-                                />
+        return (
+            <>
+                {articles.length > 0 && (
+                    <CardContainer>
+                        {articles.slice(0, visibleCards).map(article => (
+                            <ArticleCard
+                                to={article['slug']}
+                                key={article['_id']}
+                                image={withPrefix(article['atf-image'])}
+                                tags={getTagLinksFromMeta(article)}
+                                title={getNestedText(article['title'])}
+                                description={getNestedText(
+                                    article['meta-description']
+                                )}
+                            />
+                        ))}
+                    </CardContainer>
+                )}
+
+                {videos.length > 0 && (
+                    <CardContainer>
+                        {videos.slice(0, visibleCards).map(video => (
+                            <VideoModal
+                                key={video.videoId}
+                                id={video.videoId}
+                                name={video.mediaType}
+                                trigger={
+                                    <VideoCard
+                                        key={video.title}
+                                        image={getThumbnailUrl(video)}
+                                        title={video.title}
+                                        description={video.description}
+                                    />
+                                }
+                                thumbnail={getThumbnailUrl(video)}
+                            />
+                        ))}
+                    </CardContainer>
+                )}
+
+                {podcasts.length > 0 && (
+                    <CardContainer>
+                        {podcasts.slice(0, visibleCards).map(podcast => (
+                            <ArticleCard
+                                key={podcast.title}
+                                image={getThumbnailUrl(podcast)}
+                                title={podcast.title}
+                                description={podcast.description}
+                            />
+                        ))}
+                    </CardContainer>
+                )}
+
+                {hasMore && (
+                    <HasMoreButtonContainer>
+                        <Button
+                            secondary
+                            pagination
+                            onClick={() =>
+                                setVisibleCards(visibleCards + limit)
                             }
-                            thumbnail={getThumbnailUrl(video)}
-                        />
-                    ))}
-                </CardContainer>
-            )}
-
-            {hasMore && (
-                <HasMoreButtonContainer>
-                    <Button
-                        secondary
-                        pagination
-                        onClick={() => setVisibleCards(visibleCards + limit)}
-                    >
-                        Load more
-                    </Button>
-                </HasMoreButtonContainer>
-            )}
-        </>
-    );
-});
+                        >
+                            Load more
+                        </Button>
+                    </HasMoreButtonContainer>
+                )}
+            </>
+        );
+    }
+);

@@ -24,6 +24,7 @@ import VideoEmbed from '../components/dev-hub/video-embed';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
+import VideoModal from '../components/dev-hub/video-modal';
 
 const MEDIA_WIDTH = '550';
 
@@ -107,30 +108,6 @@ const ThumbnailButton = styled(Button)`
     position: absolute;
 `;
 
-const TwitchVideoModal = ({ id, trigger, thumbnail }) => (
-    <Modal
-        dialogContainerStyle={{
-            height: '90%',
-            padding: `0 ${size.large}`,
-            width: '90%',
-        }}
-        dialogMobileContainerStyle={{
-            width: '100%',
-        }}
-        transparent
-        triggerComponent={trigger}
-    >
-        <VideoEmbed
-            nodeData={{
-                argument: [{ value: id }],
-                name: 'twitch',
-            }}
-            autoplay={true}
-            thumbnail={thumbnail}
-        />
-    </Modal>
-);
-
 const Thumbnail = ({ video }) => {
     return (
         <ThumbnailCard
@@ -138,8 +115,9 @@ const Thumbnail = ({ video }) => {
             image={getTwitchThumbnail(video.thumbnailUrl)}
             title={video.title}
         >
-            <TwitchVideoModal
+            <VideoModal
                 id={video.videoId}
+                name={video.mediaType}
                 trigger={<ThumbnailButton play />}
                 thumbnail={getTwitchThumbnail(video.thumbnailUrl, 1200)}
             />
@@ -215,8 +193,9 @@ export default ({ pageContext: { featuredArticles } }) => {
                                 developers make the MongoDB platform come alive.
                             </DescriptiveText>
                             {twitchVideo && (
-                                <TwitchVideoModal
+                                <VideoModal
                                     id={twitchVideo.videoId}
+                                    name={twitchVideo.mediaType}
                                     trigger={<Button secondary>Watch</Button>}
                                     thumbnail={getTwitchThumbnail(
                                         twitchVideo.thumbnailUrl,

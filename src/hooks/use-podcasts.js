@@ -10,9 +10,7 @@ const usePodcasts = () => {
         const getMedia = async () => {
             setIsLoading(true);
             try {
-                const lybsinPodcasts = fetchLybsinPodcasts();
-
-                const podcastList = await Promise.all([lybsinPodcasts]);
+                const podcastList = await fetchLybsinPodcasts();
 
                 setIsLoading(false);
                 setError(null);
