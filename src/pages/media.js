@@ -7,7 +7,12 @@ import usePodcasts from '../hooks/use-podcasts';
 
 export default () => {
     const { videos, error, isLoading } = useAllVideos();
-    const { podcasts, errorPodcasts, isLoadingPodcasts } = usePodcasts();
+    const {
+        podcasts,
+        error: errorPodcasts,
+        isLoading: isLoadingPodcasts,
+    } = usePodcasts();
+
     return (
         <Layout>
             {(isLoading || isLoadingPodcasts) && <P>Loading...</P>}
