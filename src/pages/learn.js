@@ -217,7 +217,7 @@ export default ({
                     filterValue={filterValue}
                     setFilterValue={updateFilter}
                 />
-                <CardList items={articles} />
+                <CardList articles={articles} />
             </Article>
         </Layout>
     );

@@ -35,7 +35,6 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
             //get videos
             if (!currentStream && videoLimit) {
                 const videoRespData = await fetchTwitchVideos(videoLimit);
-                // return the whole array of videos, but ignore pagination for now
                 setVideos(videoRespData);
             }
         } catch (error) {
