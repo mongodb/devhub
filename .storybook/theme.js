@@ -1,5 +1,6 @@
 import { create } from '@storybook/theming/create';
 import { colorMap, FORM_ELEMENT_BORDER } from '../src/components/dev-hub/theme';
+import 'typeface-fira-mono';
 
 export default create({
     base: 'dark',
@@ -27,5 +28,5 @@ export default create({
     inputTextColor: colorMap.devWhite,
     inputBorderRadius: 4,
 
-    brandTitle: 'MongDB Dev-Hub',
+    brandTitle: 'MongoDB Dev-Hub',
 });

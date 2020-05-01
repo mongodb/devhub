@@ -10,9 +10,9 @@ import { colorMap } from '../theme';
     <Story name="article series">
         {() => {
             const series = [
-                { title: 'Step 1', slug: '#' },
-                { title: 'Step 2', slug: '#' },
-                { title: 'Step 3', slug: '#' },
+                { title: 'Step 1', slug: '#', position: 'past' },
+                { title: 'Step 2', slug: '#', position: 'active' },
+                { title: 'Step 3', slug: '#', position: 'upcoming' },
             ];
             return (
                 <Series name="Storybook Series" currentStep="Step 2">

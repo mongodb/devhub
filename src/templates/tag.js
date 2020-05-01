@@ -64,7 +64,8 @@ const SyledAuthorImage = styled(AuthorImage)`
 
 const constructArticles = data =>
     data.reduce(
-        (accum, item) => accum.concat({ ...item.query_fields, _id: item._id }),
+        (accum, article) =>
+            accum.concat({ ...article.query_fields, _id: article._id }),
         []
     );
 
@@ -132,7 +133,7 @@ const Tag = props => {
 
             <ArticleContent>
                 {isAuthor && <H3>Articles by {name}</H3>}
-                <CardList items={articles} />
+                <CardList articles={articles} />
             </ArticleContent>
         </Layout>
     );
