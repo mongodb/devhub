@@ -13,6 +13,7 @@ module.exports = {
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
+        'gatsby-source-mongodb-stitch',
         {
             resolve: 'gatsby-plugin-sitemap',
             options: {
