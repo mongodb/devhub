@@ -8,7 +8,7 @@ const articleRssFeed = {
     query: rssFeedArticleData,
     output: '/rss.xml',
     title: 'MongoDB Developer Hub',
-    image_url: siteUrl + '/images/MongoDB_Leaf.svg',
+    image_url: siteUrl + '/public/images/MongoDB_Leaf.svg',
     site_url: siteUrl,
     feed_url: siteUrl + '/rss.xml',
 };

@@ -2,6 +2,10 @@ node_modules/
 public/
 .cache/
 .DS_Store
+# Assets are populated into the static folder dynamically
+static/*
+# Assets we can add manually into the static folder
+!static/public
 coverage/
 .coverage
 .env.*
