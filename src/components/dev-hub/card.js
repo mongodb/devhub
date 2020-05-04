@@ -27,6 +27,8 @@ const ImageWrapper = styled('div')`
     overflow: hidden;
     padding: 0;
     width: 100%;
+    ${({ placeChildrenOnImage }) =>
+        placeChildrenOnImage && 'position: relative;'};
 `;
 const hoverStyles = css`
     &:hover,
@@ -69,26 +71,6 @@ const CardTitle = styled(H5)`
     text-align: left;
 `;
 
-/**
- * @param {Object<string, any>} props
- * @property {node} props.children
- * @property {string} props.className
- * @property {boolean?} props.collapseImage
- * @property {string} props.description
- * @property {bool?} props.gradient
- * @property {bool?} props.highlight
- * @property {string?} props.href
- * @property {string?} props.image
- * @property {number?} props.maxDescriptionLines
- * @property {number?} props.maxTitleLines
- * @property {func?} props.onClick
- * @property {string[]?} props.tags
- * @property {string?} props.target
- * @property {string?} props.title
- * @property {string?} props.to
- * @property {number?} props.maxWidth
- */
-
 const Card = ({
     children,
     className,
@@ -99,6 +81,7 @@ const Card = ({
     maxDescriptionLines = 3,
     maxTitleLines = 2,
     onClick,
+    placeChildrenOnImage,
     to,
     tags,
     target,
@@ -127,8 +110,10 @@ const Card = ({
         >
             <div>
                 {!collapseImage && (
-                    <ImageWrapper>
+                    <ImageWrapper placeChildrenOnImage={placeChildrenOnImage}>
                         {image && <Image src={image} alt="" />}
+                        {/* Expect children to be absolutely positioned on the image */}
+                        {placeChildrenOnImage && children}
                     </ImageWrapper>
                 )}
                 {title && (
@@ -145,7 +130,7 @@ const Card = ({
                     </DescriptionText>
                 )}
             </div>
-            {children}
+            {!placeChildrenOnImage && children}
             {tags && <TagList tags={tags} />}
         </ContentWrapper>
     );
