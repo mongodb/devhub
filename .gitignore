@@ -2,9 +2,6 @@ node_modules/
 public/
 .cache/
 .DS_Store
-static/*
-# Don't ignore the scripts directory
-!static/scripts
 coverage/
 .coverage
 .env.*
