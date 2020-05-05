@@ -13,12 +13,9 @@ const Tab = styled('div')`
 const activeStyles = css`
     color: ${colorMap.devWhite};
     border-bottom-color: ${colorMap.darkGreen};
-    &:hover {
-        color: ${colorMap.devWhite};
-    }
 `;
 
-const defaultStyles = css`
+const hoverStyle = css`
     &:hover {
         color: ${colorMap.devWhite};
     }
@@ -39,7 +36,7 @@ const TabButton = styled('button')`
     color: ${colorMap.greyDarkOne};
     font-family: 'Fira Mono';
 
-    ${({ isActive }) => (isActive ? activeStyles : defaultStyles)}
+    ${({ isActive }) => isActive && activeStyles}
 `;
 
 const mapTabTextToButton = (textList, activeItem, handleClick) => {
@@ -50,6 +47,7 @@ const mapTabTextToButton = (textList, activeItem, handleClick) => {
                 key={item}
                 isActive={isActive}
                 onClick={() => handleClick(item)}
+                style={hoverStyle}
             >
                 <P collapse>{item}</P>
             </TabButton>

@@ -16,17 +16,13 @@ export default () => {
 
     const [activeItem, setActiveItem] = useState('All');
 
-    const display = content => {
-        setActiveItem(content);
-    };
-
     const leftTabs = ['All'];
     const rightTabs = ['Articles', 'Videos', 'Podcasts'];
 
     return (
         <Layout>
             <Tab
-                handleClick={display}
+                handleClick={setActiveItem}
                 leftTabs={leftTabs}
                 rightTabs={rightTabs}
                 activeItem={activeItem}
