@@ -1,14 +1,16 @@
 const { rssFeedArticleData } = require('../../queries/rss-feed-article-data');
 const { serializeRssData } = require('./serialize-rss-data');
 
+const siteUrl = 'https://developer.mongodb.com';
+
 const articleRssFeed = {
     serialize: serializeRssData,
     query: rssFeedArticleData,
     output: '/rss.xml',
-    title: 'MongoDB Developer Hub RSS Feed',
-    image_url: 'https://media.mongodb.org/favicon.ico',
-    site_url: 'https://developer.mongodb.com',
-    feed_url: 'https://developer.mongodb.com/rss.xml',
+    title: 'MongoDB Developer Hub',
+    image_url: siteUrl + '/public/images/MongoDB_Leaf.svg',
+    site_url: siteUrl,
+    feed_url: siteUrl + '/rss.xml',
 };
 
 module.exports = { articleRssFeed };
