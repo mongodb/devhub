@@ -14,21 +14,21 @@ export default () => {
         isLoading: isLoadingPodcasts,
     } = usePodcasts();
 
-    const [showContent, setShowContent] = useState('All');
     const [activeItem, setActiveItem] = useState('All');
 
     const display = content => {
-        setShowContent(content);
         setActiveItem(content);
     };
 
-    const tabTexts = ['All', 'Articles', 'Videos', 'Podcasts'];
+    const leftTabs = ['All'];
+    const rightTabs = ['Articles', 'Videos', 'Podcasts'];
 
     return (
         <Layout>
             <Tab
                 handleClick={display}
-                tabTexts={tabTexts}
+                leftTabs={leftTabs}
+                rightTabs={rightTabs}
                 activeItem={activeItem}
             />
 
@@ -36,11 +36,11 @@ export default () => {
 
             {/*TODO: display articles once we have access to them*/}
 
-            {showContent === 'All' && (
+            {activeItem === 'All' && (
                 <CardList videos={videos} podcasts={podcasts} />
             )}
-            {showContent === 'Videos' && <CardList videos={videos} />}
-            {showContent === 'Podcasts' && <CardList podcasts={podcasts} />}
+            {activeItem === 'Videos' && <CardList videos={videos} />}
+            {activeItem === 'Podcasts' && <CardList podcasts={podcasts} />}
 
             {(error || errorPodcasts) && (
                 <P>Check back later for upcoming media contents</P>

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { colorMap, size, fontSize } from './theme';
+import { P } from '../dev-hub/text';
 
 const Tab = styled('div')`
     display: flex;
@@ -40,18 +41,15 @@ const TabButton = styled('button')`
     ${({ isActive }) => (isActive ? activeStyles : defaultStyles)}
 `;
 
-const LeftContent = styled('div')``;
-
-const RightContent = styled('div')``;
-
-export default ({ handleClick, tabTexts, activeItem }) => {
+export default ({ handleClick, leftTabs, rightTabs, activeItem }) => {
     return (
         <Tab>
-            <RightContent>
-                {tabTexts.slice(0, 1).map(item => {
-                    const isActive = item === activeItem ? 'true' : null;
+            <div>
+                {leftTabs.map(item => {
+                    const isActive = item === activeItem;
                     return (
                         <TabButton
+                            key={item}
                             isActive={isActive}
                             onClick={() => handleClick(item)}
                         >
@@ -59,13 +57,14 @@ export default ({ handleClick, tabTexts, activeItem }) => {
                         </TabButton>
                     );
                 })}
-            </RightContent>
+            </div>
 
-            <LeftContent>
-                {tabTexts.slice(1).map(item => {
-                    const isActive = item === activeItem ? 'true' : null;
+            <div>
+                {rightTabs.map(item => {
+                    const isActive = item === activeItem;
                     return (
                         <TabButton
+                            key={item}
                             isActive={isActive}
                             onClick={() => handleClick(item)}
                         >
@@ -73,7 +72,7 @@ export default ({ handleClick, tabTexts, activeItem }) => {
                         </TabButton>
                     );
                 })}
-            </LeftContent>
+            </div>
         </Tab>
     );
 };
