@@ -1,0 +1,28 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Blockquote from '../blockquote';
+import { colorMap } from '../theme';
+
+<Meta title="Blockquote" />
+
+# Blockquote
+
+The blockquote is a callout for some children provided. The children are passed
+through to the component factory to ensure proper components are applied.
+
+<Preview style={{ background: colorMap.devBlack }}>
+    <Story name="blockquote">
+      <Blockquote
+        nodeData={{
+            children: [
+                {
+                    name: 'text',
+                    type: 'text',
+                    value:
+                        "If you didn't set up your free cluster on MongoDB Atlas, now is a great time to do so. You have all the instructions in this blog post.",
+                },
+            ],
+        }}
+    ></Blockquote>
+    </Story>
+</Preview>
+
