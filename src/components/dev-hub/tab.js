@@ -29,7 +29,7 @@ const TabButton = styled('button')`
         color: ${colorMap.devWhite};
     }
     outline: none;
-    padding: ${size.micro} ${size.mediumLarge} ${size.medium};
+    padding: ${size.small} ${size.mediumLarge};
     transition: 0.3s;
     width: ${TAB_WIDTH};
     ${({ isActive }) => isActive && activeStyles}
