@@ -1,111 +1,71 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Starter for a Gatsby Plugin
-</h1>
+## MongoDB Stitch Source Plugin for Gatsby
 
-A minimal boilerplate for the essential files Gatsby looks for in a plugin.
+## Description
 
-## 🚀 Quick start
+This source plugin serves as a simple wrapper for MongoDB Stitch access within Gatsby. Specifically, the plugin calls a number of supplied `functions` at build-time to gather nodes.
 
-To get started creating a new plugin, you can follow these steps:
+This plugin expects the result type from stitch to be an array of objects, where each object will be a node in Gatsby.
 
-1. Initialize a new plugin from the starter with `gatsby new`
+TODO: Support authentication-required applications.
 
-```shell
-gatsby new my-plugin https://github.com/gatsbyjs/gatsby-starter-plugin
-```
+### Learning Resources (optional)
 
-If you already have a Gatsby site, you can use it. Otherwise, you can [create a new Gatsby site](https://www.gatsbyjs.org/tutorial/part-zero/#create-a-gatsby-site) to test your plugin.
+For help setting up a serverless architecture in MongoDB Stitch, feel free to [consult the docs](https://docs.mongodb.com/stitch/).
 
-Your directory structure will look similar to this:
+## How to install
 
-```text
-/my-gatsby-site
-├── gatsby-config.js
-└── /src
-    └── /pages
-        └── /index.js
-/my-plugin
-├── gatsby-browser.js
-├── gatsby-node.js
-├── gatsby-ssr.js
-├── index.js
-├── package.json
-└── README.md
-```
+TBD (TODO once in `npm`).
 
-With `my-gatsby-site` being your Gatsby site, and `my-plugin` being your plugin. You could also include the plugin in your [site's `plugins` folder](https://www.gatsbyjs.org/docs/loading-plugins-from-your-local-plugins-folder/).
+## Available options
 
-2. Include the plugin in a Gatsby site
+| option      | required? | description                                                                                                                |
+| ----------- | --------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `stitchId`  | Yes       | The ID of your MongoDB Stitch Application                                                                                  |
+| `functions` | Yes       | An array of function calls to execute via Stitch. Each element of `functions` is to be an object with the below properties |
+|             |           |                                                                                                                            |
 
-Inside of the `gatsby-config.js` file of your site (in this case, `my-gatsby-site`), include the plugin in the `plugins` array:
+### Functions
+
+Each supplied function should have the following properties:
+
+| option       | required? | description                                              |
+| ------------ | --------- | -------------------------------------------------------- |
+| `name`       | Yes       | The name of the function to call                         |
+| `args`       | No        | An array of arguments to invoke the function `name` with |
+| `resultType` | Yes       | The type to use for resulting nodes                      |
+
+## Examples of usage
+
+Once installed, register the plugin by adding to `plugins` in `gatsby-config`:
 
 ```javascript
-module.exports = {
-  plugins: [
-    // other gatsby plugins
-    // ...
-    require.resolve(`../my-plugin`),
-  ],
-}
+{
+    resolve: 'gatsby-source-mongodb-stitch',
+    options: {
+        stitchId: /* stitch-app-id */,
+        functions: [
+            {
+                name: /* function-name */,
+                args: [/* some-function-args */],
+                resultType: /* result-node-type*/,
+            },
+        ],
+    },
+},
 ```
 
-The line `require.resolve('../my-plugin')` is what accesses the plugin based on its filepath on your computer, and adds it as a plugin when Gatsby runs.
+## How to query for data (source plugins only)
 
-_You can use this method to test and develop your plugin before you publish it to a package registry like npm. Once published, you would instead install it and [add the plugin name to the array](https://www.gatsbyjs.org/docs/using-a-plugin-in-your-site/). You can read about other ways to connect your plugin to your site including using `npm link` or `yarn workspaces` in the [doc on creating local plugins](https://www.gatsbyjs.org/docs/creating-a-local-plugin/#developing-a-local-plugin-that-is-outside-your-project)._
+You will be able to query for the type specified as the `resultType` for that function after the `sourceNodes` step is complete.
 
-3. Verify the plugin was added correctly
+## How to run tests
 
-The plugin added by the starter implements a single Gatsby API in the `gatsby-node` that logs a message to the console. When you run `gatsby develop` or `gatsby build` in the site that implements your plugin, you should see this message.
+TBD
 
-You can verify your plugin was added to your site correctly by running `gatsby develop` for the site.
+## How to develop locally
 
-You should now see a message logged to the console in the preinit phase of the Gatsby build process:
+TBD
 
-```shell
-$ gatsby develop
-success open and validate gatsby-configs - 0.033s
-success load plugins - 0.074s
-Loaded gatsby-starter-plugin
-success onPreInit - 0.016s
-...
-```
+## How to contribute
 
-4. Rename the plugin in the `package.json`
-
-When you clone the site, the information in the `package.json` will need to be updated. Name your plugin based off of [Gatsby's conventions for naming plugins](https://www.gatsbyjs.org/docs/naming-a-plugin/).
-
-## 🧐 What's inside?
-
-This starter generates the [files Gatsby looks for in plugins](https://www.gatsbyjs.org/docs/files-gatsby-looks-for-in-a-plugin/).
-
-```text
-/my-plugin
-├── .gitignore
-├── gatsby-browser.js
-├── gatsby-node.js
-├── gatsby-ssr.js
-├── index.js
-├── package.json
-└── README.md
-```
-
-- **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-- **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-- **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-- **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-- **`index.js`**: A file that will be loaded by default when the plugin is [required by another application](https://docs.npmjs.com/creating-node-js-modules#create-the-file-that-will-be-loaded-when-your-module-is-required-by-another-application0). You can adjust what file is used by updating the `main` field of the `package.json`.
-- **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the plugin's name, author, etc). This manifest is how npm knows which packages to install for your project.
-- **`README.md`**: A text file containing useful reference information about your plugin.
-
-## 🎓 Learning Gatsby
-
-If you're looking for more guidance on plugins, how they work, or what their role is in the Gatsby ecosystem, check out some of these resources:
-
-- The [Creating Plugins](https://www.gatsbyjs.org/docs/creating-plugins/) section of the docs has information on authoring and maintaining plugins yourself.
-- The conceptual guide on [Plugins, Themes, and Starters](https://www.gatsbyjs.org/docs/plugins-themes-and-starters/) compares and contrasts plugins with other pieces of the Gatsby ecosystem. It can also help you [decide what to choose between a plugin, starter, or theme](https://www.gatsbyjs.org/docs/plugins-themes-and-starters/#deciding-which-to-use).
-- The [Gatsby plugin library](https://www.gatsbyjs.org/plugins/) has over 1750 official as well as community developed plugins that can get you up and running faster and borrow ideas from.
+If you have unanswered questions, would like help with enhancing or debugging the plugin, it is nice to include instructions for people who want to contribute to your plugin.

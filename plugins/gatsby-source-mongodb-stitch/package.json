@@ -14,5 +14,8 @@
     "stitch"
   ],
   "author": "Jordan Stapinski <jordan.stapinski@10gen.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mongodb-stitch-server-sdk": "^4.8.0"
+  }
 }
