@@ -4,7 +4,7 @@ import Tab from '../components/dev-hub/tab';
 import useAllVideos from '../hooks/use-all-videos';
 import usePodcasts from '../hooks/use-podcasts';
 import { P } from '../components/dev-hub/text';
-import CardList from '../components/dev-hub//card-list';
+import CardList from '../components/dev-hub/card-list';
 
 export default () => {
     const { videos, error, isLoading } = useAllVideos();
