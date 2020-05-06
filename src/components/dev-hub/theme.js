@@ -208,6 +208,13 @@ const FORM_ELEMENT_BORDER = '2px';
 
 const HERO_CONTENT_WIDTH = '640px';
 
+// Use colors with emotion theme
+export const theme = {
+    borderGradients,
+    colorMap,
+    gradientMap,
+};
+
 export {
     animationSpeed,
     borderGradients,

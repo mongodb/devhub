@@ -1,10 +1,11 @@
 import React from 'react';
+import { ThemeProvider } from 'emotion-theming';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
-import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
+import { fontSize, lineHeight, screenSize, size, theme } from './theme';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
@@ -21,8 +22,8 @@ const globalStyles = css`
         box-sizing: inherit;
     }
     body {
-        background: ${colorMap.pageBackground};
-        color: ${colorMap.devWhite};
+        background: ${theme.colorMap.pageBackground};
+        color: ${theme.colorMap.devWhite};
         font-family: akzidenz, -apple-system, BlinkMacSystemFont, 'Segoe UI',
             Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
             'Segoe UI Symbol';
@@ -51,7 +52,7 @@ const Main = styled('main')`
 `;
 
 const GlobalWrapper = styled('div')`
-    background: ${colorMap.pageBackground};
+    background: ${theme.colorMap.pageBackground};
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -61,8 +62,10 @@ const GlobalWrapper = styled('div')`
 export const StorybookLayout = ({ children }) => {
     return (
         <GlobalWrapper>
-            <Global styles={globalStyles} />
-            <main>{children}</main>
+            <ThemeProvider theme={theme}>
+                <Global styles={globalStyles} />
+                <main>{children}</main>
+            </ThemeProvider>
         </GlobalWrapper>
     );
 };
@@ -76,9 +79,11 @@ export default ({ children }) => (
                 href="https://www.mongodb.com/assets/images/global/favicon.ico"
             />
         </Helmet>
-        <Global styles={globalStyles} />
-        <GlobalNav />
-        <Main>{children}</Main>
-        <GlobalFooter />
+        <ThemeProvider theme={theme}>
+            <Global styles={globalStyles} />
+            <GlobalNav />
+            <Main>{children}</Main>
+            <GlobalFooter />
+        </ThemeProvider>
     </GlobalWrapper>
 );
