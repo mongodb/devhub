@@ -1,0 +1,35 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import VideoEmbed from '../video-embed.js';
+import TWITCH_IMG from '../../../images/1x/Community-card-illustration.png';
+
+<Meta title="Video Embed" />
+
+# Video Embed
+
+We can embed videos from YouTube
+
+<Preview>
+    <Story name="YouTube Embedded Video">
+        <VideoEmbed
+            nodeData={{
+                argument: [{ value: 'Yx7OCVfeXlY' }],
+                name: 'youtube',
+            }}
+        />
+    </Story>
+</Preview>
+
+We can also embed videos from Twitch (and provide custom thumbnails with the
+`thumbnail` prop)
+
+<Preview>
+    <Story name="Twitch Embedded Video">
+        <VideoEmbed
+            nodeData={{
+                argument: [{ value: '601256367' }],
+                name: 'twitch',
+            }}
+            thumbnail="https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/10f667dc39f04f52c24a_mongodb_37710862064_1425764118/thumb/thumb0-550x550.jpg"
+        />
+    </Story>
+</Preview>

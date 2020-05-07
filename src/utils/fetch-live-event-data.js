@@ -1,4 +1,3 @@
-const API_KEY = '00411c8fd1b9c3224260259d245dd29890130b94';
 const LIVE_EVENTS_URL = 'https://live.mongodb.com/api/event?status=Live';
 
 // Fetches data from live.mongodb.com events api
@@ -6,7 +5,6 @@ const fetchLiveEventData = async () => {
     try {
         const data = await fetch(LIVE_EVENTS_URL, {
             headers: {
-                Authorization: `Token ${API_KEY}`,
                 'Content-Type': 'application/json',
             },
         });
