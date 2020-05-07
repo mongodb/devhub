@@ -8,6 +8,7 @@ import { getNestedText } from '../../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 import getTwitchThumbnail from '../../utils/get-twitch-thumbnail';
 import VideoModal from './video-modal';
+import CardBadge from './card-badge';
 
 const CardContainer = styled('div')`
     display: grid;
@@ -53,7 +54,6 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
     const hasMore = videos.length
         ? videos.length > visibleCards
         : articles.length > visibleCards;
-
     return (
         <>
             <CardContainer>
@@ -70,6 +70,12 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
                                 description={getNestedText(
                                     article['meta-description']
                                 )}
+                                badge={
+                                    <CardBadge
+                                        key={article['_id']}
+                                        contentType="article"
+                                    />
+                                }
                             />
                         ))}
 
@@ -87,6 +93,12 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
                                         image={getThumbnailUrl(video)}
                                         title={video.title}
                                         description={video.description}
+                                        badge={
+                                            <CardBadge
+                                                key={video.mediaType}
+                                                contentType={video.mediaType}
+                                            />
+                                        }
                                     />
                                 }
                                 thumbnail={getThumbnailUrl(video)}
@@ -102,6 +114,12 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
                                 image={getThumbnailUrl(podcast)}
                                 title={podcast.title}
                                 description={podcast.description}
+                                badge={
+                                    <CardBadge
+                                        key={podcast.mediaType}
+                                        contentType={podcast.mediaType}
+                                    />
+                                }
                             />
                         ))}
             </CardContainer>
