@@ -132,7 +132,7 @@ const Card = ({
                 {!collapseImage && (
                     <ImageWrapper>
                         {image && <Image src={image} alt="" />}
-                        <CardBadge contentType={badge} />
+                        {badge && <CardBadge contentType={badge} />}
                     </ImageWrapper>
                 )}
                 {title && (

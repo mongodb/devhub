@@ -6,7 +6,6 @@ import styled from '@emotion/styled';
 const CardBadge = styled('div')`
     bottom: 0;
     background-color: ${colorMap.greyDarkThree};
-    display: inline-block;
     font-family: akzidenz;
     letter-spacing: 1px;
     margin: ${size.default};
@@ -30,16 +29,15 @@ const determineColor = contentType => {
     }
 };
 
-export default ({ contentType, color = '' }) => {
-    return (
-        <CardBadge color={color || determineColor(contentType)}>
-            <P5 collapse>
-                <strong>
-                    {contentType === 'youtube' || contentType === 'twitch'
-                        ? contentType + ' video'
-                        : contentType}
-                </strong>
-            </P5>
-        </CardBadge>
-    );
-};
+const badgeContent = contentType =>
+    contentType === 'youtube' || contentType === 'twitch'
+        ? contentType + ' video'
+        : contentType;
+
+export default ({ contentType, color = '' }) => (
+    <CardBadge color={color || determineColor(contentType)}>
+        <P5 bold collapse>
+            {badgeContent(contentType)}
+        </P5>
+    </CardBadge>
+);
