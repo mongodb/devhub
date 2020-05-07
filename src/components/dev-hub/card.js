@@ -5,6 +5,7 @@ import { animationSpeed, colorMap, lineHeight, size, fontSize } from './theme';
 import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
+import CardBadge from './card-badge';
 
 const Image = styled('img')`
     border-radius: ${size.small};
@@ -27,6 +28,7 @@ const ImageWrapper = styled('div')`
     overflow: hidden;
     padding: 0;
     width: 100%;
+    position: relative;
 `;
 const hoverStyles = css`
     &:hover,
@@ -99,6 +101,7 @@ const Card = ({
     maxDescriptionLines = 3,
     maxTitleLines = 2,
     onClick,
+    badge,
     to,
     tags,
     target,
@@ -129,6 +132,7 @@ const Card = ({
                 {!collapseImage && (
                     <ImageWrapper>
                         {image && <Image src={image} alt="" />}
+                        {badge && <CardBadge contentType={badge} />}
                     </ImageWrapper>
                 )}
                 {title && (
