@@ -93,37 +93,6 @@ const DescriptiveText = styled(P)`
     margin-bottom: ${size.medium};
 `;
 
-const ThumbnailCard = styled(Card)`
-    position: relative;
-`;
-
-const ThumbnailButton = styled(Button)`
-    left: 0;
-    right: 0;
-    top: 0;
-    /* Account for bottom margin and title of card */
-    bottom: 52px;
-    margin: auto;
-    position: absolute;
-`;
-
-const Thumbnail = ({ video }) => {
-    return (
-        <ThumbnailCard
-            maxWidth={MEDIA_WIDTH}
-            image={getTwitchThumbnail(video.thumbnailUrl)}
-            title={video.title}
-        >
-            <VideoModal
-                id={video.videoId}
-                name={video.mediaType}
-                trigger={<ThumbnailButton play />}
-                thumbnail={getTwitchThumbnail(video.thumbnailUrl, 1200)}
-            />
-        </ThumbnailCard>
-    );
-};
-
 export default ({ pageContext: { featuredArticles } }) => {
     const { stream, videos } = useTwitchApi();
     const { title } = useSiteMetadata();
@@ -178,7 +147,17 @@ export default ({ pageContext: { featuredArticles } }) => {
                         mediaWidth={MEDIA_WIDTH}
                         mediaComponent={
                             twitchVideo ? (
-                                <Thumbnail video={twitchVideo} />
+                                <Card
+                                    image={getTwitchThumbnail(
+                                        twitchVideo.thumbnailUrl
+                                    )}
+                                    maxWidth={MEDIA_WIDTH}
+                                    videoModalThumbnail={getTwitchThumbnail(
+                                        twitchVideo.thumbnailUrl,
+                                        1200
+                                    )}
+                                    video={twitchVideo}
+                                />
                             ) : (
                                 <TwitchFallbackCard maxWidth={MEDIA_WIDTH} />
                             )

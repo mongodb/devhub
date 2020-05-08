@@ -1,10 +1,12 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import Button from './button';
 import { animationSpeed, colorMap, lineHeight, size, fontSize } from './theme';
 import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
+import VideoModal from './video-modal';
 import CardBadge from './card-badge';
 
 const Image = styled('img')`
@@ -71,25 +73,14 @@ const CardTitle = styled(H5)`
     text-align: left;
 `;
 
-/**
- * @param {Object<string, any>} props
- * @property {node} props.children
- * @property {string} props.className
- * @property {boolean?} props.collapseImage
- * @property {string} props.description
- * @property {bool?} props.gradient
- * @property {bool?} props.highlight
- * @property {string?} props.href
- * @property {string?} props.image
- * @property {number?} props.maxDescriptionLines
- * @property {number?} props.maxTitleLines
- * @property {func?} props.onClick
- * @property {string[]?} props.tags
- * @property {string?} props.target
- * @property {string?} props.title
- * @property {string?} props.to
- * @property {number?} props.maxWidth
- */
+const VideoThumbnailButton = styled(Button)`
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+`;
 
 const Card = ({
     children,
@@ -106,6 +97,8 @@ const Card = ({
     tags,
     target,
     title,
+    video,
+    videoModalThumbnail,
     maxWidth = 410 /* 360px + padding + hand wavey amount */,
 }) => {
     const isLink = !!(to || href);
@@ -132,6 +125,14 @@ const Card = ({
                 {!collapseImage && (
                     <ImageWrapper>
                         {image && <Image src={image} alt="" />}
+                        {video && (
+                            <VideoModal
+                                id={video.videoId}
+                                name={video.mediaType}
+                                trigger={<VideoThumbnailButton play />}
+                                thumbnail={videoModalThumbnail || image}
+                            />
+                        )}
                         {badge && <CardBadge contentType={badge} />}
                     </ImageWrapper>
                 )}
