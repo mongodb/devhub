@@ -21,6 +21,7 @@ const getMetadata = () => ({
     commitHash: process.env.COMMIT_HASH || '',
     database: getDatabase(),
     parserBranch: process.env.GATSBY_PARSER_BRANCH,
+    patchId: process.env.PATCH_ID || '',
     project: process.env.GATSBY_SITE,
     snootyBranch: getGitBranch(),
     user: process.env.GATSBY_PARSER_USER,
