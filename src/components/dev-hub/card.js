@@ -124,7 +124,7 @@ const Card = ({
             <div>
                 {!collapseImage && (
                     <ImageWrapper>
-                        {image && <Image src={image} alt="" />}
+                        {image && <Image loading="lazy" src={image} alt="" />}
                         {video && (
                             <VideoModal
                                 id={video.videoId}
