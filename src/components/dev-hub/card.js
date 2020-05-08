@@ -1,10 +1,12 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import Button from './button';
 import { animationSpeed, colorMap, lineHeight, size, fontSize } from './theme';
 import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
+import VideoModal from './video-modal';
 
 const Image = styled('img')`
     border-radius: ${size.small};
@@ -27,8 +29,7 @@ const ImageWrapper = styled('div')`
     overflow: hidden;
     padding: 0;
     width: 100%;
-    ${({ placeChildrenOnImage }) =>
-        placeChildrenOnImage && 'position: relative;'};
+    position: relative;
 `;
 const hoverStyles = css`
     &:hover,
@@ -71,6 +72,15 @@ const CardTitle = styled(H5)`
     text-align: left;
 `;
 
+const VideoThumbnailButton = styled(Button)`
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+`;
+
 const Card = ({
     children,
     className,
@@ -81,11 +91,12 @@ const Card = ({
     maxDescriptionLines = 3,
     maxTitleLines = 2,
     onClick,
-    placeChildrenOnImage,
     to,
     tags,
     target,
     title,
+    video,
+    videoModalThumbnail,
     maxWidth = 410 /* 360px + padding + hand wavey amount */,
 }) => {
     const isLink = !!(to || href);
@@ -110,10 +121,16 @@ const Card = ({
         >
             <div>
                 {!collapseImage && (
-                    <ImageWrapper placeChildrenOnImage={placeChildrenOnImage}>
+                    <ImageWrapper>
                         {image && <Image src={image} alt="" />}
-                        {/* Expect children to be absolutely positioned on the image */}
-                        {placeChildrenOnImage && children}
+                        {video && (
+                            <VideoModal
+                                id={video.videoId}
+                                name={video.mediaType}
+                                trigger={<VideoThumbnailButton play />}
+                                thumbnail={videoModalThumbnail || image}
+                            />
+                        )}
                     </ImageWrapper>
                 )}
                 {title && (
@@ -130,7 +147,7 @@ const Card = ({
                     </DescriptionText>
                 )}
             </div>
-            {!placeChildrenOnImage && children}
+            {children}
             {tags && <TagList tags={tags} />}
         </ContentWrapper>
     );

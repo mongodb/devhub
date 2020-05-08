@@ -22,7 +22,6 @@ import useTwitchApi from '../hooks/use-twitch-api';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
-import VideoCard from '../components/dev-hub/video-card';
 import VideoModal from '../components/dev-hub/video-modal';
 
 const MEDIA_WIDTH = '550';
@@ -146,12 +145,12 @@ export default ({ pageContext: { featuredArticles } }) => {
                     <MediaBlock
                         mediaComponent={
                             twitchVideo && (
-                                <VideoCard
-                                    cardImage={getTwitchThumbnail(
+                                <Card
+                                    image={getTwitchThumbnail(
                                         twitchVideo.thumbnailUrl
                                     )}
                                     maxWidth={MEDIA_WIDTH}
-                                    modalThumbnail={getTwitchThumbnail(
+                                    videoModalThumbnail={getTwitchThumbnail(
                                         twitchVideo.thumbnailUrl,
                                         1200
                                     )}
