@@ -19,8 +19,7 @@ import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
 import useTwitchApi from '../hooks/use-twitch-api';
-import { Modal } from '../components/dev-hub/modal';
-import VideoEmbed from '../components/dev-hub/video-embed';
+import TwitchFallbackCard from '../components/dev-hub/twitch-fallback-card';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
@@ -176,8 +175,13 @@ export default ({ pageContext: { featuredArticles } }) => {
                 </Hero>
                 <FeatureSection altBackground data-test="twitch">
                     <MediaBlock
+                        mediaWidth={MEDIA_WIDTH}
                         mediaComponent={
-                            twitchVideo && <Thumbnail video={twitchVideo} />
+                            twitchVideo ? (
+                                <Thumbnail video={twitchVideo} />
+                            ) : (
+                                <TwitchFallbackCard maxWidth={MEDIA_WIDTH} />
+                            )
                         }
                     >
                         <SectionContent>
