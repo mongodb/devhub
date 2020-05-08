@@ -36,14 +36,13 @@ jobs:
                   echo "GATSBY_PARSER_BRANCH=master" >> .env.production; \
                   echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
             - name: Build Gatsby
-              run: npm run build
+              run: npm run buildTest
             - name: Cypress run
               uses: cypress-io/github-action@v1
               with:
                   install: false
-                  start: npm run serve
-                  wait-on: 'http://localhost:9000/master/devhub/jordanstapinski/HEAD'
-                  config-file: cypress.json
+                  start: npm run serveTest
+                  wait-on: 'http://localhost:9000'
             - name: Generate artifacts on failure
               uses: actions/upload-artifact@v1
               if: failure()

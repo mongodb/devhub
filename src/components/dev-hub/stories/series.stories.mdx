@@ -6,6 +6,14 @@ import { colorMap } from '../theme';
 
 # Article Series
 
+An article series is an ordered list of articles where an article can have one of
+three "positions": `past`, `active`, or `upcoming`.
+
+* A `past` article is one that is before the `active` article in the series.
+* An `active` article is the one the reader is looking at.
+* An `upcoming` article is any article that follows after the `active` article in the 
+series.
+
 <Preview style={{ background: colorMap.devBlack }}>
     <Story name="article series">
         {() => {

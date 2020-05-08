@@ -7,6 +7,7 @@ import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
 import VideoModal from './video-modal';
+import CardBadge from './card-badge';
 
 const Image = styled('img')`
     border-radius: ${size.small};
@@ -91,6 +92,7 @@ const Card = ({
     maxDescriptionLines = 3,
     maxTitleLines = 2,
     onClick,
+    badge,
     to,
     tags,
     target,
@@ -131,6 +133,7 @@ const Card = ({
                                 thumbnail={videoModalThumbnail || image}
                             />
                         )}
+                        {badge && <CardBadge contentType={badge} />}
                     </ImageWrapper>
                 )}
                 {title && (
