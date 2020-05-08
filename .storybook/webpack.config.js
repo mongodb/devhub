@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = ({ config }) => {
     const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin');
     // Transpile Gatsby module because Gatsby includes un-transpiled ES6 code.
@@ -10,6 +12,7 @@ module.exports = ({ config }) => {
     config.module.rules[0].use[0].options.presets = [
         require.resolve('@babel/preset-react'),
         require.resolve('@babel/preset-env'),
+        require.resolve('@emotion/babel-preset-css-prop'),
     ];
 
     config.module.rules[0].use[0].options.plugins = [
@@ -19,8 +22,14 @@ module.exports = ({ config }) => {
         require.resolve('babel-plugin-remove-graphql-queries'),
     ];
 
-    // Prefer Gatsby ES6 entrypoint (module) over commonjs (main) entrypoint
-    config.resolve.mainFields = ['browser', 'module', 'main'];
+    config.resolve = {
+        // Alias preview for Image component loading
+        alias: {
+            previewSetup: path.resolve(__dirname, '../preview/noop.js'),
+        },
+        // Prefer Gatsby ES6 entrypoint (module) over commonjs (main) entrypoint
+        mainFields: ['browser', 'module', 'main'],
+    };
 
     config.module.rules.push({
         test: /\.(stories|story)\.mdx$/,

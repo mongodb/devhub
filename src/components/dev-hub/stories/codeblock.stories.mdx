@@ -1,0 +1,52 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import CodeBlock from '../codeblock';
+const codeSample = `
+function greeting(entity) {
+  return \`Hello, \${entity}!\`;
+}
+genericFunction(greeting('World'));
+genericFunction(greeting('World'));
+function greeting(entity) {
+    return \`Hello, \$(entity)!\`;
+}
+genericFunction(greeting('World'));
+`;
+const cSharpCodeSample = `
+using System;
+using System.Collection.Generic;
+namespace CSharpTutorials
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string message = "Hello World";
+            // collections can't be created inside a transaction so create it first await
+            database.CreateCollectionAsync("products");
+            Console.WriteLine(message);
+        }
+    }
+}
+`;
+
+<Meta title="CodeBlock" />
+
+# Code Block
+
+`CodeBlock`s can render code across programming languages such as JavaScript and C#.
+The `CodeBlock` is built off of the [LeafyGreen `Code` component](https://github.com/mongodb/leafygreen-ui/tree/master/packages/code).
+
+<Preview>
+    <Story name="code block javascript">
+        <CodeBlock nodeData={{ value: codeSample }} />
+    </Story>
+</Preview>
+
+The `CodeBlock` by default tries to guess syntax highlighting, but the `lang` field
+in `nodeData` can be used to specify a language to highlight (based on Leafy's Code `lang` prop).
+
+<Preview>
+    <Story name="code block c#">
+        <CodeBlock nodeData={{ value: cSharpCodeSample, lang: 'csp' }} />
+    </Story>
+</Preview>

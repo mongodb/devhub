@@ -1,4 +1,4 @@
 {
-    "baseUrl": "http://localhost:9000/master/devhub/jordanstapinski/HEAD",
+    "baseUrl": "http://localhost:9000",
     "viewportWidth": 1280
 }

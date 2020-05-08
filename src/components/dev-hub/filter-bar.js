@@ -4,15 +4,25 @@ import { H3 } from './text';
 import Select from './select';
 import { screenSize, size } from './theme';
 
+// Promote Atlas in filters by bringing to top, otherwise sort by count of items
+const raiseAtlasAndSortByCount = (getCount, a, b) => {
+    if (a.includes('Atlas')) return -1;
+    if (b.includes('Atlas')) return 1;
+    return getCount(b) - getCount(a);
+};
+
 // Zip array of objects into array of 2-element arrays to populate Select forms
 // Replace key with label text, if defined (e.g. nodejs => Node.js)
-const zipFilterObjects = (filterObject, findCount = x => x.count) => [
-    ['all', 'All'],
-    ...Object.keys(filterObject).map(p => [
-        p,
-        `${p} ${`(${findCount(filterObject[p])})`}`,
-    ]),
-];
+const zipFilterObjects = (filterObject, findCount = x => x.count) => {
+    const filterSortFunction = (a, b) =>
+        raiseAtlasAndSortByCount(x => findCount(filterObject[x]), a, b);
+    return [
+        ['all', 'All'],
+        ...Object.keys(filterObject)
+            .sort(filterSortFunction)
+            .map(p => [p, `${p} ${`(${findCount(filterObject[p])})`}`]),
+    ];
+};
 
 const ResponsiveFlexContainer = styled('div')`
     align-items: center;

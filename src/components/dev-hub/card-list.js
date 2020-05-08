@@ -53,7 +53,6 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
     const hasMore = videos.length
         ? videos.length > visibleCards
         : articles.length > visibleCards;
-
     return (
         <>
             <CardContainer>
@@ -70,6 +69,7 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
                                 description={getNestedText(
                                     article['meta-description']
                                 )}
+                                badge="article"
                             />
                         ))}
 
@@ -87,6 +87,7 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
                                         image={getThumbnailUrl(video)}
                                         title={video.title}
                                         description={video.description}
+                                        badge={video.mediaType}
                                     />
                                 }
                                 thumbnail={getThumbnailUrl(video)}
@@ -102,6 +103,7 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
                                 image={getThumbnailUrl(podcast)}
                                 title={podcast.title}
                                 description={podcast.description}
+                                badge={podcast.mediaType}
                             />
                         ))}
             </CardContainer>
