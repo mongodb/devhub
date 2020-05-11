@@ -41,69 +41,76 @@ const getThumbnailUrl = media => {
         : media.thumbnailUrl;
 };
 
-// TODO: Update this component to take one array of items and map to cards based
-// on the item type
+const sortCardsByDate = contentList =>
+    contentList.sort((a, b) => {
+        if (new Date(a.publishDate) > new Date(b.publishDate)) return -1;
+        if (new Date(a.publishDate) < new Date(b.publishDate)) return 1;
+        return 0;
+    });
+
+const showArticles = article => (
+    <ArticleCard
+        to={article['slug']}
+        key={article['_id']}
+        image={withPrefix(article['atf-image'])}
+        tags={getTagLinksFromMeta(article)}
+        title={getNestedText(article['title'])}
+        description={getNestedText(article['meta-description'])}
+    />
+);
+
+const showVideos = video => (
+    <VideoModal
+        key={video.videoId}
+        id={video.videoId}
+        name={video.mediaType}
+        trigger={
+            <VideoCard
+                key={video.title}
+                image={getThumbnailUrl(video)}
+                title={video.title}
+                description={video.description}
+            />
+        }
+        thumbnail={getThumbnailUrl(video)}
+    />
+);
+
+const showPodcasts = podcast => (
+    <ArticleCard
+        key={podcast.title}
+        image={getThumbnailUrl(podcast)}
+        title={podcast.title}
+        description={podcast.description}
+    />
+);
+
+const showAllContent = item => {
+    if (item.mediaType)
+        if (item.mediaType === 'youtube' || item.mediaType === 'twitch')
+            return showVideos(item);
+        else if (item.mediaType === 'podcast') return showPodcasts(item);
+
+    return showArticles(item);
+};
+
 export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
     videos = videos || [];
     articles = articles || [];
     podcasts = podcasts || [];
+
+    const fullContentList = sortCardsByDate(videos.concat(articles, podcasts));
     const [visibleCards, setVisibleCards] = useState(limit);
 
-    //TODO: modify once the tab component is ready to use single array of items
-    const hasMore = videos.length
-        ? videos.length > visibleCards
-        : articles.length > visibleCards;
+    const hasMore = fullContentList.length > visibleCards;
 
     return (
         <>
             <CardContainer>
-                {articles.length > 0 &&
-                    articles
+                {fullContentList.length > 0 &&
+                    fullContentList
                         .slice(0, visibleCards)
-                        .map(article => (
-                            <ArticleCard
-                                to={article['slug']}
-                                key={article['_id']}
-                                image={withPrefix(article['atf-image'])}
-                                tags={getTagLinksFromMeta(article)}
-                                title={getNestedText(article['title'])}
-                                description={getNestedText(
-                                    article['meta-description']
-                                )}
-                            />
-                        ))}
-
-                {videos.length > 0 &&
-                    videos
-                        .slice(0, visibleCards)
-                        .map(video => (
-                            <VideoModal
-                                key={video.videoId}
-                                id={video.videoId}
-                                name={video.mediaType}
-                                trigger={
-                                    <VideoCard
-                                        key={video.title}
-                                        image={getThumbnailUrl(video)}
-                                        title={video.title}
-                                        description={video.description}
-                                    />
-                                }
-                                thumbnail={getThumbnailUrl(video)}
-                            />
-                        ))}
-
-                {podcasts.length > 0 &&
-                    podcasts
-                        .slice(0, visibleCards)
-                        .map(podcast => (
-                            <ArticleCard
-                                key={podcast.title}
-                                image={getThumbnailUrl(podcast)}
-                                title={podcast.title}
-                                description={podcast.description}
-                            />
-                        ))}
+                        .map(item => showAllContent(item))}
             </CardContainer>
 
             {hasMore && (
