@@ -41,14 +41,13 @@ const getThumbnailUrl = media => {
 };
 
 const sortCardsByDate = contentList =>
-    contentList.sort((a, b) => {
-        return (
+    contentList.sort(
+        (a, b) =>
             new Date(b.publishDate || b.pubdate) -
             new Date(a.publishDate || a.pubdate)
-        );
-    });
+    );
 
-const showArticle = article => (
+const renderArticle = article => (
     <ArticleCard
         to={article['slug']}
         key={article['_id']}
@@ -60,7 +59,7 @@ const showArticle = article => (
     />
 );
 
-const showVideo = video => (
+const renderVideo = video => (
     <VideoCard
         key={video.title}
         image={getThumbnailUrl(video)}
@@ -72,7 +71,7 @@ const showVideo = video => (
     />
 );
 
-const showPodcast = podcast => (
+const renderPodcast = podcast => (
     <ArticleCard
         key={podcast.title}
         image={getThumbnailUrl(podcast)}
@@ -87,14 +86,14 @@ const renderContentTypeCard = item => {
         switch (item.mediaType) {
             case 'youtube':
             case 'twitch':
-                return showVideo(item);
+                return renderVideo(item);
             case 'podcast':
-                return showPodcast(item);
+                return renderPodcast(item);
             default:
                 return;
         }
 
-    return showArticle(item);
+    return renderArticle(item);
 };
 
 export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
@@ -112,7 +111,7 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
             <CardContainer>
                 {fullContentList
                     .slice(0, visibleCards)
-                    .map(item => renderContentTypeCard(item))}
+                    .map(renderContentTypeCard)}
             </CardContainer>
 
             {hasMore && (
