@@ -7,7 +7,6 @@ import { withPrefix } from 'gatsby';
 import { getNestedText } from '../../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 import getTwitchThumbnail from '../../utils/get-twitch-thumbnail';
-import VideoModal from './video-modal';
 
 const CardContainer = styled('div')`
     display: grid;
@@ -43,55 +42,59 @@ const getThumbnailUrl = media => {
 
 const sortCardsByDate = contentList =>
     contentList.sort((a, b) => {
-        if (new Date(a.publishDate) > new Date(b.publishDate)) return -1;
-        if (new Date(a.publishDate) < new Date(b.publishDate)) return 1;
-        return 0;
+        return (
+            new Date(b.publishDate || b.pubdate) -
+            new Date(a.publishDate || a.pubdate)
+        );
     });
 
-const showArticles = article => (
+const showArticle = article => (
     <ArticleCard
         to={article['slug']}
         key={article['_id']}
         image={withPrefix(article['atf-image'])}
         tags={getTagLinksFromMeta(article)}
         title={getNestedText(article['title'])}
+        badge="article"
         description={getNestedText(article['meta-description'])}
     />
 );
 
-const showVideos = video => (
-    <VideoModal
-        key={video.videoId}
-        id={video.videoId}
-        name={video.mediaType}
-        trigger={
-            <VideoCard
-                key={video.title}
-                image={getThumbnailUrl(video)}
-                title={video.title}
-                description={video.description}
-            />
-        }
-        thumbnail={getThumbnailUrl(video)}
+const showVideo = video => (
+    <VideoCard
+        key={video.title}
+        image={getThumbnailUrl(video)}
+        videoModalThumbnail={getThumbnailUrl(video)}
+        title={video.title}
+        badge={video.mediaType}
+        description={video.description}
+        video={video}
     />
 );
 
-const showPodcasts = podcast => (
+const showPodcast = podcast => (
     <ArticleCard
         key={podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
+        badge={podcast.mediaType}
         description={podcast.description}
     />
 );
 
-const showAllContent = item => {
+const renderContentTypeCard = item => {
     if (item.mediaType)
-        if (item.mediaType === 'youtube' || item.mediaType === 'twitch')
-            return showVideos(item);
-        else if (item.mediaType === 'podcast') return showPodcasts(item);
+        switch (item.mediaType) {
+            case 'youtube':
+            case 'twitch':
+                return showVideo(item);
+            case 'podcast':
+                return showPodcast(item);
+            default:
+                return;
+        }
 
-    return showArticles(item);
+    return showArticle(item);
 };
 
 export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
@@ -107,10 +110,9 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
     return (
         <>
             <CardContainer>
-                {fullContentList.length > 0 &&
-                    fullContentList
-                        .slice(0, visibleCards)
-                        .map(item => showAllContent(item))}
+                {fullContentList
+                    .slice(0, visibleCards)
+                    .map(item => renderContentTypeCard(item))}
             </CardContainer>
 
             {hasMore && (
