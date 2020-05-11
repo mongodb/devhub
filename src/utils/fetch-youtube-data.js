@@ -1,5 +1,5 @@
 import dlv from 'dlv';
-import { requestYoutubePlaylist } from './request-stitch';
+import { requestYoutubePlaylist } from './request-youtube-playlist';
 // Fetches data from youtube api
 
 const simplifyResponse = responseData => {
