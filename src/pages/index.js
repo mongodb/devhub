@@ -19,8 +19,7 @@ import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
 import useTwitchApi from '../hooks/use-twitch-api';
-import { Modal } from '../components/dev-hub/modal';
-import VideoEmbed from '../components/dev-hub/video-embed';
+import TwitchFallbackCard from '../components/dev-hub/twitch-fallback-card';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
@@ -94,37 +93,6 @@ const DescriptiveText = styled(P)`
     margin-bottom: ${size.medium};
 `;
 
-const ThumbnailCard = styled(Card)`
-    position: relative;
-`;
-
-const ThumbnailButton = styled(Button)`
-    left: 0;
-    right: 0;
-    top: 0;
-    /* Account for bottom margin and title of card */
-    bottom: 52px;
-    margin: auto;
-    position: absolute;
-`;
-
-const Thumbnail = ({ video }) => {
-    return (
-        <ThumbnailCard
-            maxWidth={MEDIA_WIDTH}
-            image={getTwitchThumbnail(video.thumbnailUrl)}
-            title={video.title}
-        >
-            <VideoModal
-                id={video.videoId}
-                name={video.mediaType}
-                trigger={<ThumbnailButton play />}
-                thumbnail={getTwitchThumbnail(video.thumbnailUrl, 1200)}
-            />
-        </ThumbnailCard>
-    );
-};
-
 export default ({ pageContext: { featuredArticles } }) => {
     const { stream, videos } = useTwitchApi();
     const { title } = useSiteMetadata();
@@ -176,8 +144,23 @@ export default ({ pageContext: { featuredArticles } }) => {
                 </Hero>
                 <FeatureSection altBackground data-test="twitch">
                     <MediaBlock
+                        mediaWidth={MEDIA_WIDTH}
                         mediaComponent={
-                            twitchVideo && <Thumbnail video={twitchVideo} />
+                            twitchVideo ? (
+                                <Card
+                                    image={getTwitchThumbnail(
+                                        twitchVideo.thumbnailUrl
+                                    )}
+                                    maxWidth={MEDIA_WIDTH}
+                                    videoModalThumbnail={getTwitchThumbnail(
+                                        twitchVideo.thumbnailUrl,
+                                        1200
+                                    )}
+                                    video={twitchVideo}
+                                />
+                            ) : (
+                                <TwitchFallbackCard maxWidth={MEDIA_WIDTH} />
+                            )
                         }
                     >
                         <SectionContent>

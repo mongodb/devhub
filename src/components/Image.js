@@ -95,6 +95,7 @@ export default class Image extends Component {
 
         return (
             <img
+                loading="lazy"
                 src={this.getImgData(process.env.PREVIEW_MODE, imgSrc)}
                 alt={altText}
                 css={ArticleImageStyle(captioned, customAlign, scale)}
