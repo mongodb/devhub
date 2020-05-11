@@ -6,11 +6,14 @@ const initializeApp = appId =>
         ? Stitch.getAppClient(appId)
         : Stitch.initializeAppClient(appId);
 
-const stitchClient = isBrowser() ? initializeApp('snooty-koueq') : {};
+const stitchClient = (appId = 'snooty-koueq') =>
+    isBrowser() ? initializeApp(appId) : {};
 
-export const authenticate = async () => {
+export const authenticate = async (appId = 'snooty-koueq') => {
     try {
-        await stitchClient.auth.loginWithCredential(new AnonymousCredential());
+        await stitchClient(appId).auth.loginWithCredential(
+            new AnonymousCredential()
+        );
     } catch (error) {
         console.error(error);
     }
@@ -31,6 +34,18 @@ export const authenticate = async () => {
 export const callStitchFunction = async (fnName, metadata, ...fnArgs) => {
     try {
         return stitchClient.callFunction(fnName, [metadata, ...fnArgs]);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const callStitchAuthenticationFunction = async (
+    fnName,
+    appId,
+    ...fnArgs
+) => {
+    try {
+        return stitchClient(appId).callFunction(fnName, fnArgs);
     } catch (error) {
         console.error(error);
     }

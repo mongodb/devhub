@@ -1,9 +1,5 @@
-import { buildQueryString } from '../utils/query-string';
 import dlv from 'dlv';
-
-const API_ENDPOINT = 'https://www.googleapis.com/youtube/v3/playlistItems';
-const YT_API_KEY = 'AIzaSyB2V7htFuJNO2RDrYFzGBzfYmyDVzfK6Yw';
-
+import { requestYoutubePlaylist } from './request-stitch';
 // Fetches data from youtube api
 
 const simplifyResponse = responseData => {
@@ -21,21 +17,11 @@ const simplifyResponse = responseData => {
     return youtubeJSON;
 };
 
-const fetchYoutubeData = async (PLAYLIST_ID, maxResults = 5) => {
-    const options = {
-        playlistId: PLAYLIST_ID,
-        key: YT_API_KEY,
-        part: 'snippet',
-        maxResults: maxResults,
-    };
-
+const fetchYoutubeData = async (playlistId, maxResults = 5) => {
     try {
-        const queryString = buildQueryString(options);
-        const request = API_ENDPOINT + queryString;
-        const response = await fetch(request);
+        const response = await requestYoutubePlaylist(playlistId, maxResults);
         if (response) {
-            const responseData = await response.json();
-            const videoList = responseData.items.map(simplifyResponse);
+            const videoList = response.items.map(simplifyResponse);
             return videoList;
         }
     } catch (e) {
