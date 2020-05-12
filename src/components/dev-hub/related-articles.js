@@ -43,6 +43,7 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
     const name = relatedArticle.name
         ? relatedArticle.name
         : relatedArticle.type;
+    console.log(relatedArticle);
     switch (name) {
         case 'doc':
             const target = relatedArticle.target;
@@ -58,13 +59,13 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
             return { image, target, title };
         case 'literal':
             return {
-                image: ARTICLE_PLACEHOLDER,
+                image: relatedArticle.image || ARTICLE_PLACEHOLDER,
                 target: null,
                 title: dlv(relatedArticle, ['children', 0, 'value'], ''),
             };
         case 'reference':
             return {
-                image: ARTICLE_PLACEHOLDER,
+                image: relatedArticle.image || ARTICLE_PLACEHOLDER,
                 target: relatedArticle.refuri,
                 title: dlv(relatedArticle, ['children', 0, 'value'], ''),
             };
