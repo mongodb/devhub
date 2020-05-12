@@ -86,10 +86,11 @@ export default class Image extends Component {
     };
 
     render() {
-        const { captioned, nodeData = {}, src } = this.props;
+        const { alt, className, captioned, nodeData = {}, src } = this.props;
         const imgSrc =
             src || getNestedValue(['argument', 0, 'value'], nodeData);
-        const altText = getNestedValue(['options', 'alt'], nodeData) || imgSrc;
+        const altText =
+            alt || getNestedValue(['options', 'alt'], nodeData) || imgSrc;
         const customAlign = getNestedValue(['options', 'align'], nodeData);
         const scale = getNestedValue(['options', 'scale'], nodeData);
 
@@ -100,6 +101,7 @@ export default class Image extends Component {
                 alt={altText}
                 css={ArticleImageStyle(captioned, customAlign, scale)}
                 onLoad={this.handleLoad}
+                className={className}
             />
         );
     }
