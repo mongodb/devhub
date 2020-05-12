@@ -5,7 +5,7 @@ const getRelatedPagesWithImages = (pageNodes, RESOLVED_REF_DOC_MAPPING) => {
     const relatedPageInfo = related.map(r => {
         // Handle `reference` and `ref_role` types
         const target = r.target || r.refuri || r.fileid;
-        const slug = target && target.slice(1, target.length);
+        const slug = target && target.slice(1);
         return {
             ...r,
             target,
