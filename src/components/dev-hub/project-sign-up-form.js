@@ -8,7 +8,7 @@ import Button from './button';
 import TextArea from './text-area';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import useSegmentData from '../../hooks/use-segment-data';
-import { authenticate, callStitchFunction } from '../../utils/stitch';
+import { callSnootyStitchFunction } from '../../utils/snooty-stitch';
 import SuccessIcon from './icons/success';
 
 const ModalContainer = styled('div')`
@@ -37,7 +37,7 @@ const ErrorMessage = styled(P)`
 `;
 const callStitch = async (metadata, object, segmentData, callback) => {
     try {
-        const res = await callStitchFunction(
+        const res = await callSnootyStitchFunction(
             'submitDevhubProject',
             metadata,
             object,
@@ -64,7 +64,6 @@ const Form = React.memo(({ setSuccess, success }) => {
             email,
             projectDescription,
         };
-        await authenticate();
         const callback = hasSuccess => {
             setSuccess(hasSuccess);
             setCanSubmit(!hasSuccess);
