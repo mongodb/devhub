@@ -43,7 +43,6 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
     const name = relatedArticle.name
         ? relatedArticle.name
         : relatedArticle.type;
-    console.log(relatedArticle);
     switch (name) {
         case 'doc':
             const target = relatedArticle.target;
