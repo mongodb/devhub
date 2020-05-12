@@ -8,7 +8,7 @@ import Button from './button';
 import TextArea from './text-area';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import useSegmentData from '../../hooks/use-segment-data';
-import { callSnootyStitchFunction } from '../../utils/snooty-stitch';
+import { submitDevhubProject } from '../../utils/snooty-stitch';
 import SuccessIcon from './icons/success';
 
 const ModalContainer = styled('div')`
@@ -37,12 +37,7 @@ const ErrorMessage = styled(P)`
 `;
 const callStitch = async (metadata, object, segmentData, callback) => {
     try {
-        const res = await callSnootyStitchFunction(
-            'submitDevhubProject',
-            metadata,
-            object,
-            segmentData
-        );
+        const res = await submitDevhubProject(metadata, object, segmentData);
         res && callback(true);
     } catch {
         callback(false);

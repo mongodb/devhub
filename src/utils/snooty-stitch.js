@@ -1,7 +1,7 @@
 import { SNOOTY_STITCH_ID } from '../build-constants';
 import { callStitchFunction } from './stitch-common';
 
-export const callSnootyStitchFunction = async (fnName, metadata, ...fnArgs) => {
+const callSnootyStitchFunction = async (fnName, metadata, ...fnArgs) => {
     try {
         return callStitchFunction(fnName, SNOOTY_STITCH_ID, [
             metadata,
@@ -11,3 +11,11 @@ export const callSnootyStitchFunction = async (fnName, metadata, ...fnArgs) => {
         console.error(error);
     }
 };
+
+export const submitDevhubProject = async (metadata, object, segmentData) =>
+    await callSnootyStitchFunction(
+        'submitDevhubProject',
+        metadata,
+        object,
+        segmentData
+    );
