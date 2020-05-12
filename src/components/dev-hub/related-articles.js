@@ -46,8 +46,10 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
         : relatedArticle.type;
     switch (name) {
         case 'doc':
-            const target = relatedArticle.target;
-            const slug = target && target.slice(1, target.length);
+            const slug =
+                relatedArticle.target && relatedArticle.target.slice(1);
+            // 'doc' is for internal articles, so links should be prefixed
+            const target = withPrefix(relatedArticle.target);
             const image = relatedArticle.image
                 ? withPrefix(relatedArticle.image)
                 : ARTICLE_PLACEHOLDER;
