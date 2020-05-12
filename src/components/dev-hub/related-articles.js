@@ -1,5 +1,6 @@
 import React from 'react';
 import dlv from 'dlv';
+import { withPrefix } from 'gatsby';
 import styled from '@emotion/styled';
 import ARTICLE_PLACEHOLDER from '../../images/1x/MDB-and-Node.js.png';
 import Card from './card';
@@ -47,7 +48,9 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
         case 'doc':
             const target = relatedArticle.target;
             const slug = target && target.slice(1, target.length);
-            const image = relatedArticle.image || ARTICLE_PLACEHOLDER;
+            const image = relatedArticle.image
+                ? withPrefix(relatedArticle.image)
+                : ARTICLE_PLACEHOLDER;
             const title = dlv(slugTitleMapping, [slug, 0, 'value'], '');
             if (title === '') {
                 console.error(
@@ -58,13 +61,17 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
             return { image, target, title };
         case 'literal':
             return {
-                image: relatedArticle.image || ARTICLE_PLACEHOLDER,
+                image: relatedArticle.image
+                    ? withPrefix(relatedArticle.image)
+                    : ARTICLE_PLACEHOLDER,
                 target: null,
                 title: dlv(relatedArticle, ['children', 0, 'value'], ''),
             };
         case 'reference':
             return {
-                image: relatedArticle.image || ARTICLE_PLACEHOLDER,
+                image: relatedArticle.image
+                    ? withPrefix(relatedArticle.image)
+                    : ARTICLE_PLACEHOLDER,
                 target: relatedArticle.refuri,
                 title: dlv(relatedArticle, ['children', 0, 'value'], ''),
             };
