@@ -45,7 +45,7 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
         : relatedArticle.type;
     switch (name) {
         case 'doc':
-            const target = relatedArticle.target;
+            const target = relatedArticle.fileid;
             const slug = target && target.slice(1, target.length);
             const image = relatedArticle.image || ARTICLE_PLACEHOLDER;
             const title = dlv(slugTitleMapping, [slug, 0, 'value'], '');
