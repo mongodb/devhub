@@ -39,7 +39,9 @@ describe('Home Page', () => {
         cy.get(TWITCH).within(() => {
             cy.get(CARDS).within(() => {
                 // Check the thumbnail exists
-                cy.get('img').should('have.prop', 'src').should('not.be.empty');
+                cy.get('img')
+                    .should('have.prop', 'src')
+                    .should('not.be.empty');
                 // Check the play button
                 cy.get('button').should('exist');
                 cy.get('button')

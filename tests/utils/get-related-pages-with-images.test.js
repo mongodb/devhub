@@ -2,12 +2,12 @@ import { getRelatedPagesWithImages } from '../../src/utils/setup/get-related-pag
 
 it('should get pages and images for posts related to an article', () => {
     const articleData = {
-        '/foo': {
+        foo: {
             query_fields: {
                 'atf-image': 'IMAGE_FILE',
             },
         },
-        '/bar': {
+        bar: {
             query_fields: {},
         },
     };
@@ -28,7 +28,7 @@ it('should get pages and images for posts related to an article', () => {
     expect(getRelatedPagesWithImages(blankArticle, articleData)).toEqual([]);
     expect(
         getRelatedPagesWithImages(articleWithRelatedImage, articleData)[0].image
-    ).toBe(articleData['/foo'].query_fields['atf-image']);
+    ).toBe(articleData.foo.query_fields['atf-image']);
     expect(
         getRelatedPagesWithImages(articleWithoutRelatedImage, articleData)[0]
             .image

@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
+import MongodbLiveBanner from './mongodb-live-banner';
 import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
 
 import '../../styles/font.css';
@@ -77,6 +78,7 @@ export default ({ children }) => (
             />
         </Helmet>
         <Global styles={globalStyles} />
+        <MongodbLiveBanner />
         <GlobalNav />
         <Main>{children}</Main>
         <GlobalFooter />
