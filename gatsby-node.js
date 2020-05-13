@@ -11,10 +11,7 @@ const { createArticleNode } = require('./src/utils/setup/create-article-node');
 const { createAssetNodes } = require('./src/utils/setup/create-asset-nodes');
 const { createTagPageType } = require('./src/utils/setup/create-tag-page-type');
 const { getMetadata } = require('./src/utils/get-metadata');
-const {
-    DOCUMENTS_COLLECTION,
-    METADATA_COLLECTION,
-} = require('./src/build-constants');
+const { METADATA_COLLECTION } = require('./src/build-constants');
 const { createArticlePage } = require('./src/utils/setup/create-article-page');
 
 // Consolidated metadata object used to identify build and env variables
@@ -41,38 +38,24 @@ let excludedLearnPageArticles;
 
 exports.onPreBootstrap = validateEnvVariables;
 
-exports.sourceNodes = async ({
-    actions: { createNode },
+exports.onCreateNode = async ({
+    actions: { createNode, deleteNode },
     createContentDigest,
+    node,
 }) => {
-    // wait to connect to stitch
-    stitchClient = await initStitch();
-
-    const query = constructDbFilter(PAGE_ID_PREFIX);
-    const documents = await stitchClient.callFunction('fetchDocuments', [
-        DB,
-        DOCUMENTS_COLLECTION,
-        query,
-    ]);
-    if (documents.length === 0) {
-        console.error('No documents matched your query.');
+    if (node.internal.type === 'Asset') {
+        assets.push(node.id);
     }
-
-    documents.forEach(doc => {
-        createAssetNodes(doc, createNode, createContentDigest);
+    if (node.internal.type === 'StitchArticle') {
+        deleteNode(node);
+        createAssetNodes(node, createNode, createContentDigest);
         createArticleNode(
-            doc,
+            node,
             PAGE_ID_PREFIX,
             createNode,
             createContentDigest,
             slugContentMapping
         );
-    });
-};
-
-exports.onCreateNode = async ({ node }) => {
-    if (node.internal.type === 'Asset') {
-        assets.push(node.id);
     }
 };
 
@@ -90,6 +73,7 @@ const filteredPageGroups = allSeries => {
 
 exports.createPages = async ({ actions, graphql }) => {
     const { createPage } = actions;
+    stitchClient = await initStitch();
     const [, metadata, result] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
         stitchClient.callFunction('fetchDocument', [

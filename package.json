@@ -43,6 +43,7 @@
     "gatsby-plugin-google-tagmanager": "^2.3.1",
     "gatsby-plugin-react-helmet": "^3.3.1",
     "gatsby-plugin-sitemap": "^2.4.2",
+    "gatsby-source-mongodb-stitch": "^0.1.2",
     "memoizerific": "^1.11.3",
     "mongodb-stitch-browser-sdk": "^4.8.0",
     "mongodb-stitch-server-sdk": "^4.8.0",

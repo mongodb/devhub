@@ -2,6 +2,10 @@ const { siteUrl } = require('./src/queries/site-url');
 const { generatePathPrefix } = require('./src/utils/generate-path-prefix');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { articleRssFeed } = require('./src/utils/setup/article-rss-feed');
+const {
+    stitchFetchDocuments,
+} = require('./src/utils/setup/stitch-fetch-documents');
+const { SNOOTY_STITCH_ID } = require('./src/build-constants');
 
 const runningEnv = process.env.NODE_ENV || 'production';
 
@@ -16,6 +20,13 @@ module.exports = {
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
+        {
+            resolve: 'gatsby-source-mongodb-stitch',
+            options: {
+                stitchId: SNOOTY_STITCH_ID,
+                functions: [stitchFetchDocuments(metadata)],
+            },
+        },
         {
             resolve: 'gatsby-plugin-sitemap',
             options: {
