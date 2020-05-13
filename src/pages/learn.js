@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
+import { P } from '../components/dev-hub/text';
 import Card from '../components/dev-hub/card';
 import CardList from '../components/dev-hub/card-list';
 import FilterBar from '../components/dev-hub/filter-bar';
@@ -12,6 +13,9 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
+import useAllVideos from '../hooks/use-all-videos';
+import usePodcasts from '../hooks/use-podcasts';
+import Tab from '../components/dev-hub/tab';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
@@ -65,12 +69,19 @@ const HeaderContent = styled('div')`
     margin-right: auto;
 `;
 
-const Article = styled('article')`
+const CardContainer = styled('div')`
     padding: ${size.medium};
 `;
 
 const StyledFilterBar = styled(FilterBar)`
-    padding-bottom: ${size.medium};
+    margin: 0 auto;
+    padding-bottom: ${size.large};
+    width: 95%;
+`;
+
+const TabBar = styled(Tab)`
+    margin: 0 auto;
+    width: 94%;
 `;
 
 const parseArticles = arr =>
@@ -200,6 +211,24 @@ export default ({
         setArticles(filteredArticles);
     }, [metadata, filterValue, pathname, filterActiveArticles]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
+
+    const {
+        videos,
+        error: errorVideos,
+        isLoading: isLoadingVideos,
+    } = useAllVideos();
+
+    const {
+        podcasts,
+        error: errorPodcasts,
+        isLoading: isLoadingPodcasts,
+    } = usePodcasts();
+
+    const [activeItem, setActiveItem] = useState('All');
+
+    const leftTabs = ['All'];
+    const rightTabs = ['Articles', 'Videos', 'Podcasts'];
+
     return (
         <Layout>
             <Helmet>
@@ -211,14 +240,37 @@ export default ({
                     <FeaturedArticles articles={featuredArticles} />
                 </HeaderContent>
             </Header>
-            <Article>
+
+            <TabBar
+                handleClick={setActiveItem}
+                leftTabs={leftTabs}
+                rightTabs={rightTabs}
+                activeItem={activeItem}
+            />
+
+            {(isLoadingVideos || isLoadingPodcasts) && <P>Loading...</P>}
+
+            <CardContainer>
                 <StyledFilterBar
                     filters={filters}
                     filterValue={filterValue}
                     setFilterValue={updateFilter}
                 />
-                <CardList articles={articles} />
-            </Article>
+                {activeItem === 'All' && (
+                    <CardList
+                        articles={articles}
+                        videos={videos}
+                        podcasts={podcasts}
+                    />
+                )}
+                {activeItem === 'Articles' && <CardList articles={articles} />}
+                {activeItem === 'Videos' && <CardList videos={videos} />}
+                {activeItem === 'Podcasts' && <CardList podcasts={podcasts} />}
+            </CardContainer>
+
+            {(errorVideos || errorPodcasts) && (
+                <P>Check back later for upcoming contents</P>
+            )}
         </Layout>
     );
 };

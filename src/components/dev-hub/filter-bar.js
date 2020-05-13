@@ -27,7 +27,7 @@ const zipFilterObjects = (filterObject, findCount = x => x.count) => {
 const ResponsiveFlexContainer = styled('div')`
     align-items: center;
     display: flex;
-    justify-content: space-between;
+    margin-left: auto;
     @media ${screenSize.upToLarge} {
         display: block;
     }
@@ -56,20 +56,8 @@ const SelectWrapper = styled('div')`
     }
 `;
 
-const HeadingText = styled(H3)`
-    @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.default};
-    }
-`;
-
 export default React.memo(
-    ({
-        heading = 'All Articles',
-        filters,
-        filterValue,
-        setFilterValue,
-        ...props
-    }) => {
+    ({ filters, filterValue, setFilterValue, ...props }) => {
         const initialLanguages = useMemo(
             () => zipFilterObjects(filters.languages),
             [filters.languages]
@@ -135,7 +123,6 @@ export default React.memo(
         };
         return (
             <FilterBar {...props}>
-                <HeadingText collapse>{heading}</HeadingText>
                 <ResponsiveFlexContainer>
                     <FilterLabel>Filter By</FilterLabel>
                     <SelectWrapper>
