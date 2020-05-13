@@ -50,11 +50,11 @@ const mapTabTextToButton = (textList, activeItem, handleClick) =>
     });
 
 export default ({
+    activeItem,
     className,
     handleClick,
     leftTabs,
     rightTabs,
-    activeItem,
 }) => (
     <Tab className={className}>
         <div>{mapTabTextToButton(leftTabs, activeItem, handleClick)}</div>

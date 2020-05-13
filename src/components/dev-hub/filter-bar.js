@@ -27,7 +27,6 @@ const zipFilterObjects = (filterObject, findCount = x => x.count) => {
 const ResponsiveFlexContainer = styled('div')`
     align-items: center;
     display: flex;
-    margin-left: auto;
     @media ${screenSize.upToLarge} {
         display: block;
     }
@@ -36,6 +35,7 @@ const ResponsiveFlexContainer = styled('div')`
 const FilterBar = styled('div')`
     align-items: center;
     display: flex;
+    justify-content: flex-end;
     h3 {
         flex: 2;
     }

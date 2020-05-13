@@ -69,19 +69,17 @@ const HeaderContent = styled('div')`
     margin-right: auto;
 `;
 
-const CardContainer = styled('div')`
+const Article = styled('article')`
     padding: ${size.medium};
 `;
 
 const StyledFilterBar = styled(FilterBar)`
-    margin: 0 auto;
+    margin: 0 34px;
     padding-bottom: ${size.large};
-    width: 95%;
 `;
 
 const TabBar = styled(Tab)`
-    margin: 0 auto;
-    width: 94%;
+    margin: 0 42px;
 `;
 
 const parseArticles = arr =>
@@ -212,17 +210,9 @@ export default ({
     }, [metadata, filterValue, pathname, filterActiveArticles]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
 
-    const {
-        videos,
-        error: errorVideos,
-        isLoading: isLoadingVideos,
-    } = useAllVideos();
+    const { videos } = useAllVideos();
 
-    const {
-        podcasts,
-        error: errorPodcasts,
-        isLoading: isLoadingPodcasts,
-    } = usePodcasts();
+    const { podcasts } = usePodcasts();
 
     const [activeItem, setActiveItem] = useState('All');
 
@@ -248,9 +238,7 @@ export default ({
                 activeItem={activeItem}
             />
 
-            {(isLoadingVideos || isLoadingPodcasts) && <P>Loading...</P>}
-
-            <CardContainer>
+            <Article>
                 <StyledFilterBar
                     filters={filters}
                     filterValue={filterValue}
@@ -266,11 +254,7 @@ export default ({
                 {activeItem === 'Articles' && <CardList articles={articles} />}
                 {activeItem === 'Videos' && <CardList videos={videos} />}
                 {activeItem === 'Podcasts' && <CardList podcasts={podcasts} />}
-            </CardContainer>
-
-            {(errorVideos || errorPodcasts) && (
-                <P>Check back later for upcoming contents</P>
-            )}
+            </Article>
         </Layout>
     );
 };
