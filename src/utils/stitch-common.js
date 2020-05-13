@@ -1,16 +1,18 @@
 import { AnonymousCredential, Stitch } from 'mongodb-stitch-browser-sdk';
-import { isBrowser } from '../utils/is-browser';
+import { isBrowser } from './is-browser';
 
 const initializeApp = appId =>
     Stitch.hasAppClient(appId)
         ? Stitch.getAppClient(appId)
         : Stitch.initializeAppClient(appId);
 
-const stitchClient = isBrowser() ? initializeApp('snooty-koueq') : {};
+const stitchClient = appId => (isBrowser() ? initializeApp(appId) : {});
 
-export const authenticate = async () => {
+export const authenticate = async appId => {
     try {
-        await stitchClient.auth.loginWithCredential(new AnonymousCredential());
+        await stitchClient(appId).auth.loginWithCredential(
+            new AnonymousCredential()
+        );
     } catch (error) {
         console.error(error);
     }
@@ -28,9 +30,10 @@ export const authenticate = async () => {
  * @param {<any>} fnArgs - indefinite number of arguments used in function call
  * @returns {array} array of MongoDB documents
  */
-export const callStitchFunction = async (fnName, metadata, ...fnArgs) => {
+export const callStitchFunction = async (fnName, appId, fnArgs) => {
     try {
-        return stitchClient.callFunction(fnName, [metadata, ...fnArgs]);
+        await authenticate(appId);
+        return stitchClient(appId).callFunction(fnName, fnArgs);
     } catch (error) {
         console.error(error);
     }
