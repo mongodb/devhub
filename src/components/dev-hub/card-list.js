@@ -36,7 +36,7 @@ const HasMoreButtonContainer = styled('div')`
 
 const getThumbnailUrl = media => {
     return media.mediaType === 'twitch'
-        ? getTwitchThumbnail(media.thumbnailUrl, 1000)
+        ? getTwitchThumbnail(media.thumbnailUrl)
         : media.thumbnailUrl;
 };
 
