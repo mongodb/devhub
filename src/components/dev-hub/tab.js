@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { colorMap, size, fontSize } from './theme';
+import { colorMap, size, fontSize, screenSize } from './theme';
 import { P } from './text';
 
 const TAB_WIDTH = '136px';
@@ -10,6 +10,9 @@ const Tab = styled('div')`
     border-bottom: 1px solid ${colorMap.greyDarkOne};
     display: flex;
     justify-content: space-between;
+    @media ${screenSize.upToLarge} {
+        display: block;
+    }
 `;
 
 const activeStyles = css`
@@ -33,6 +36,10 @@ const TabButton = styled('button')`
     transition: 0.3s;
     width: ${TAB_WIDTH};
     ${({ isActive }) => isActive && activeStyles}
+    @media ${screenSize.upToLarge} {
+        display: block;
+        margin:0 auto;
+    }
 `;
 
 const mapTabTextToButton = (textList, activeItem, handleClick) =>
