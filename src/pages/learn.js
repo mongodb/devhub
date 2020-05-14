@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
-import { P } from '../components/dev-hub/text';
 import Card from '../components/dev-hub/card';
 import CardList from '../components/dev-hub/card-list';
 import FilterBar from '../components/dev-hub/filter-bar';
@@ -74,12 +73,12 @@ const Article = styled('article')`
 `;
 
 const StyledFilterBar = styled(FilterBar)`
-    margin: 0 34px;
+    margin: 0 ${size.large};
     padding-bottom: ${size.large};
 `;
 
 const TabBar = styled(Tab)`
-    margin: 0 42px;
+    margin: 0 ${size.large};
 `;
 
 const parseArticles = arr =>
