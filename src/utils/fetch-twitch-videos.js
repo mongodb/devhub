@@ -1,5 +1,4 @@
-import { get } from './request';
-import { TWITCH_HEADERS, TWITCH_VIDEO_URL } from '../constants';
+import { requestMDBTwitchVideos } from './devhub-api-stitch';
 
 // Fetches videos from twitch api
 
@@ -16,16 +15,9 @@ const simplifyResponse = video => {
     return twitchJSON;
 };
 
-const fetchTwitchVideos = async (
-    videoLimit,
-    headers = TWITCH_HEADERS,
-    videoURL = TWITCH_VIDEO_URL
-) => {
+const fetchTwitchVideos = async videoLimit => {
     try {
-        if (videoLimit) {
-            videoURL = TWITCH_VIDEO_URL + '&first=' + videoLimit;
-        }
-        const videoResp = await get(videoURL, headers);
+        const videoResp = await requestMDBTwitchVideos(videoLimit);
         const videoList = videoResp.data.map(simplifyResponse);
         // return the whole array of videos, but ignore pagination for now
         return videoList;

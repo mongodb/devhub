@@ -9,6 +9,14 @@ const callDevhubAPIStitchFunction = async (fnName, ...fnArgs) => {
     }
 };
 
+export const requestMDBTwitchVideos = async videoLimit => {
+    const result = await callDevhubAPIStitchFunction(
+        'fetchMDBTwitchVideos',
+        videoLimit
+    );
+    return result;
+};
+
 export const requestYoutubePlaylist = async (playlistId, maxResults) => {
     const result = await callDevhubAPIStitchFunction('fetchYoutubeData', {
         playlistId,
