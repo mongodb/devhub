@@ -9,6 +9,11 @@ const callDevhubAPIStitchFunction = async (fnName, ...fnArgs) => {
     }
 };
 
+export const requestMDBTwitchStream = async () => {
+    const result = await callDevhubAPIStitchFunction('fetchMDBTwitchStream');
+    return result;
+};
+
 export const requestMDBTwitchVideos = async videoLimit => {
     const result = await callDevhubAPIStitchFunction(
         'fetchMDBTwitchVideos',
