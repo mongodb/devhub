@@ -73,11 +73,14 @@ const Form = React.memo(({ setSuccess, success }) => {
             </ErrorMessage>
             <StyledInput
                 value={name}
+                maxLength="50"
                 required
                 placeholder="Name"
+                pattern="^[A-Za-zÀ-ÿ ,.'-]+$"
                 onChange={e => setName(e.target.value)}
             />
             <StyledInput
+                type="email"
                 value={email}
                 required
                 placeholder="Email Address"
@@ -85,6 +88,7 @@ const Form = React.memo(({ setSuccess, success }) => {
             />
             <TextArea
                 value={projectDescription}
+                maxLength="250"
                 required
                 placeholder="Project Description"
                 onChange={e => setProjectDescription(e.target.value)}
