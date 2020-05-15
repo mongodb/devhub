@@ -78,6 +78,13 @@ const Form = React.memo(({ setSuccess, success }) => {
                 placeholder="Name"
                 pattern="^[A-Za-zÀ-ÿ ,.'-]+$"
                 onChange={e => setName(e.target.value)}
+                onInvalid={e =>
+                    setName(
+                        e.target.setCustomValidity(
+                            'Names should only contain letters. e.g. John Doe'
+                        )
+                    )
+                }
             />
             <StyledInput
                 type="email"
