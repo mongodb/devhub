@@ -25,7 +25,6 @@ const ArticleCard = styled(Card)`
 
 const VideoCard = styled(Card)`
     flex: 1 1 360px;
-    cursor: pointer;
 `;
 
 const HasMoreButtonContainer = styled('div')`
