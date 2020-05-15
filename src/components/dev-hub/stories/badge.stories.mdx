@@ -1,0 +1,53 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Badge from '../badge';
+import { colorMap } from '../theme';
+
+<Meta title="Badge" />
+
+# Badge
+
+Badges can be used to label contents. They are `position: absolute` by default and accept two parameters: `contentType` and `color`.
+* The `contentType` variable defines the text that goes inside the badge.
+* The optional `color` variable defines the color of the borders around the badge.
+
+<Preview>
+    <Story name="custom-badge">
+        <div style={{position:'relative', height: '50px'}}>
+            <Badge contentType={'badge'} color={colorMap.teal}/>
+        </div>
+    </Story>
+</Preview>
+
+`Articles`, `Podcasts`, `Youtube`, and `Twitch` contents have predetermined texts and border colors.
+
+<Preview>
+    <Story name="badge-youtube">
+        <div style={{position:'relative', height: '50px'}}>
+            <Badge contentType={'youtube'}/>
+        </div>
+    </Story>
+</Preview>
+
+<Preview>
+    <Story name="badge-twitch">
+        <div style={{position:'relative', height: '50px'}}>
+            <Badge contentType={'twitch'}/>
+        </div>
+    </Story>
+</Preview>
+
+<Preview>
+    <Story name="badge-podcast">
+        <div style={{position:'relative', height: '50px'}}>
+            <Badge contentType={'podcast'}/>
+        </div>
+    </Story>
+</Preview>
+
+<Preview>
+    <Story name="badge-articles">
+        <div style={{position:'relative', height: '50px'}}>
+            <Badge contentType={'article'}/>
+        </div>
+    </Story>
+</Preview>

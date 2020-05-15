@@ -1,0 +1,30 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Tab from '../tab';
+import { useState } from 'react'; 
+
+<Meta title="Tab" />
+
+# Tab
+
+The `Tab` bar can be used to separate and toggle between different content types. It requires two lists and a state hook to 
+define the names of the tabs and indicate which tab is currently active. 
+
+* The `leftTabs` list defines the tabs on the left-hand side. 
+* The `rightTabs` list defines the tabs on the right-hand side. 
+* The `activeItem` variable defines which tab is currently active.
+* The `setActiveItem` function updates the active tab based on clicks.
+
+<Preview>
+    <Story name="tab">
+        {() => { const [activeItem, setActiveItem] = useState('All');
+            return <Tab
+                        handleClick={setActiveItem}
+                        leftTabs={['All']}
+                        rightTabs={['Articles', 'Videos', 'Podcasts']}
+                        activeItem={activeItem}
+                    />
+        }}
+    </Story>
+</Preview>
+
+
