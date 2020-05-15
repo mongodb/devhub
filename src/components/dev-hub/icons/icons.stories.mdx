@@ -1,7 +1,11 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 import ArrowheadIcon from './arrowhead-icon';
+import AudioPauseIcon from './audio-pause-icon';
+import AudioPlayIcon from './audio-play-icon';
+import CloseIcon from './close-icon';
 import CopyIcon from './copy-icon';
 import EnvelopeIcon from './envelope-icon';
+import ExpandIcon from './expand-icon';
 import FacebookIcon from './facebook-icon';
 import FolderIcon from './folder';
 import GithubIcon from './github';
@@ -27,11 +31,29 @@ Here are all of the `icons` we use.
     <Story name="arrow-head">
         <ArrowheadIcon color={colorMap.greyDarkOne} />
     </Story>
+    <Story name="audio-pause">
+        <div>
+            <AudioPauseIcon />
+            <AudioPauseIcon color={colorMap.greyDarkOne} />
+        </div>
+    </Story>
+    <Story name="audio-play">
+        <div>
+            <AudioPlayIcon />
+            <AudioPlayIcon color={colorMap.greyDarkOne} />
+        </div>
+    </Story>
+    <Story name="close">
+        <CloseIcon color={colorMap.greyDarkOne} />
+    </Story>
     <Story name="copy">
         <CopyIcon color={colorMap.greyDarkOne} />
     </Story>
     <Story name="envelope">
         <EnvelopeIcon color={colorMap.greyDarkOne} />
+    </Story>
+    <Story name="expand">
+        <ExpandIcon color={colorMap.greyDarkOne} />
     </Story>
     <Story name="facebook">
         <FacebookIcon color={colorMap.greyDarkOne} />
