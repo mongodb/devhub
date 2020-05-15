@@ -10,9 +10,9 @@ const CardBadge = styled('div')`
     letter-spacing: 1px;
     margin: ${size.default};
     padding: 1px ${size.xsmall};
-    position: absolute;
+    position: ${({ relative }) => (relative ? 'relative' : 'absolute')};
     text-transform: uppercase;
-    ${({ color }) => color && `border: 1px solid ${color}`}
+    ${({ color }) => color && `border: 1px solid ${color}`};
 `;
 
 const determineColor = contentType => {
@@ -34,8 +34,8 @@ const badgeContent = contentType =>
         ? contentType + ' video'
         : contentType;
 
-export default ({ contentType, color = '' }) => (
-    <CardBadge color={color || determineColor(contentType)}>
+export default ({ contentType, color = '', ...props }) => (
+    <CardBadge color={color || determineColor(contentType)} {...props}>
         <P5 bold collapse>
             {badgeContent(contentType)}
         </P5>

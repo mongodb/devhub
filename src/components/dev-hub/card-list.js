@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Card from './card';
 import Button from './button';
+import PodcastCard from './podcast-card';
 import { screenSize, size } from './theme';
 import { withPrefix } from 'gatsby';
 import { getNestedText } from '../../utils/get-nested-text';
@@ -72,12 +73,13 @@ const renderVideo = video => (
 );
 
 const renderPodcast = podcast => (
-    <ArticleCard
+    <PodcastCard
         key={podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
         badge={podcast.mediaType}
         description={podcast.description}
+        podcast={podcast}
     />
 );
 

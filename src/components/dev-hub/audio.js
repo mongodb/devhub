@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import styled from '@emotion/styled';
 import Button from './button';
+import CardBadge from './card-badge';
 import { colorMap, layer } from './theme';
 
 const ReactPlayerContainer = styled('div')`
@@ -10,9 +11,17 @@ const ReactPlayerContainer = styled('div')`
     bottom: 0;
     left: 0;
     width: 100%;
+    height: 80px;
     z-index: ${layer.superFront};
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+    /* flex-direction: column; */
+    padding: 8px 100px;
+`;
+
+const StyledCardBadge = styled(CardBadge)`
+    position: relative;
+    height: fit-content;
 `;
 
 const StyledPlayButton = styled(Button)`
@@ -23,6 +32,19 @@ const StyledPlayButton = styled(Button)`
 const StyledReactPlayer = styled(ReactPlayer)`
     background-color: ${colorMap.greyDarkTwo};
 `;
+
+const StyledImage = styled('img')`
+    margin-right: 32px;
+`;
+
+const ContentContainer = styled('div')`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    justify-content: space-between;
+`;
+
 const TEST_PODCAST = {
     description: undefined,
     mediaType: 'podcast',
@@ -34,22 +56,49 @@ const TEST_PODCAST = {
         'https://traffic.libsyn.com/secure/mongodb/Updated-5-Ways-Mike_-_4_13_20-b.mp3?dest-id=18542',
 };
 
+const ProgressBar = styled('input')`
+    width: 100%;
+`;
+
+const ProgressSlider = ({ onChange, percent, seconds, total }) => {
+    return (
+        <div style={{ display: 'flex' }}>
+            {`${Math.floor(seconds / 60)}:${Math.floor(seconds % 60)}`}
+            <ProgressBar
+                min="0"
+                max={total}
+                value={seconds}
+                type="range"
+                percent={percent}
+                onInput={() => onChange(seconds)}
+            />
+            {`${Math.floor(total / 60)}:${Math.floor(total % 60)}`}
+        </div>
+    );
+};
+
 // Pass in entire podcast
 // Trigger?
-const Audio = ({ podcast = TEST_PODCAST, ...props }) => {
+const Audio = ({ onClose, isActive, podcast = TEST_PODCAST, ...props }) => {
     const [isPlaying, setIsPlaying] = useState(true);
-    const toggleIsPlaying = useCallback(() => setIsPlaying(!isPlaying), [
-        isPlaying,
-    ]);
+    const toggleIsPlaying = useCallback(
+        e => {
+            e.stopPropagation();
+            setIsPlaying(!isPlaying);
+        },
+        [isPlaying]
+    );
     const [progress, setProgress] = useState({});
-    const [isExpanded, setIsExpanded] = useState(false);
-    console.log(progress);
+    const [duration, setDuration] = useState(null);
     // Progress gives playedSeconds, and played (fraction of total)
     useEffect(() => {}, [progress.played, progress.playedSeconds]);
-    return (
+    useEffect(() => {
+        setIsPlaying(isActive);
+    }, [isActive]);
+    return isActive ? (
         <ReactPlayerContainer {...props}>
-            <div style={{ display: 'flex' }}>
-                <img
+            <ContentContainer>
+                <StyledImage
                     height="64"
                     width="64"
                     src={podcast.thumbnailUrl}
@@ -57,37 +106,27 @@ const Audio = ({ podcast = TEST_PODCAST, ...props }) => {
                 />
                 {podcast.title}
                 <StyledPlayButton play onClick={toggleIsPlaying} />
-                {progress && progress.playedSeconds}
                 <StyledReactPlayer
-                    width="100%"
-                    height="80px"
+                    width="0"
+                    height="0"
                     url={podcast.url}
+                    onDuration={setDuration}
                     onProgress={setProgress}
                     playing={isPlaying}
                 />
-                <Button
-                    onClick={() => {
-                        setIsExpanded(!isExpanded);
-                    }}
-                >
-                    open
+                <ProgressSlider
+                    onChange={console.log}
+                    percent={progress.played}
+                    seconds={progress.playedSeconds}
+                    total={duration}
+                />
+                <StyledCardBadge contentType="podcast" />
+                <Button aria-label="close" onClick={onClose}>
+                    &times;
                 </Button>
-                <Button
-                    onClick={() => {
-                        setIsExpanded(!isExpanded);
-                    }}
-                >
-                    close
-                </Button>
-            </div>
-            {isExpanded && (
-                <div>
-                    {podcast.description}
-                    WOO
-                </div>
-            )}
+            </ContentContainer>
         </ReactPlayerContainer>
-    );
+    ) : null;
 };
 
 export default Audio;
