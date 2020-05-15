@@ -10,7 +10,7 @@ const Tab = styled('div')`
     border-bottom: 1px solid ${colorMap.greyDarkOne};
     display: flex;
     justify-content: space-between;
-    @media ${screenSize.upToLarge} {
+    @media ${screenSize.upToMedium} {
         display: block;
     }
 `;
@@ -36,9 +36,9 @@ const TabButton = styled('button')`
     transition: 0.3s;
     width: ${TAB_WIDTH};
     ${({ isActive }) => isActive && activeStyles}
-    @media ${screenSize.upToLarge} {
+    @media ${screenSize.upToMedium} {
         display: block;
-        margin:0 auto;
+        margin: 0 auto;
     }
 `;
 
