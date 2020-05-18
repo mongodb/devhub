@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import fetchTwitchVideos from '../utils/fetch-twitch-videos';
 import fetchYoutubeData from '../utils/fetch-youtube-data';
 
-const YT_PLAYLIST = 'PLN3n1USn4xlmyw3ebYuZmGp60mcENitdM';
+const YT_PLAYLIST = 'PL4RCxklHWZ9sLmYcronGcCu6HOYCPEcAF';
 
 const useAllVideos = () => {
     const [videos, setVideos] = useState(null);
