@@ -7,7 +7,7 @@ import AudioPlayIcon from './icons/audio-play-icon';
 import CloseIcon from './icons/close-icon';
 import ExpandIcon from './icons/expand-icon';
 import Button from './button';
-import CardBadge from './card-badge';
+import Badge from './badge';
 import Slider from './slider';
 import { H2, P } from './text';
 import { colorMap, layer, screenSize, size } from './theme';
@@ -25,7 +25,7 @@ const ReactPlayerContainer = styled('div')`
     ${({ isExpanded }) => !isExpanded && `height: 80px`};
 `;
 
-const StyledCardBadge = styled(CardBadge)`
+const StyledBadge = styled(Badge)`
     height: fit-content;
     position: relative;
     ${({ isCompact }) => isCompact && 'display: none;'};
@@ -158,7 +158,7 @@ const Audio = ({ onClose, isActive, podcast, ...props }) => {
                             total={duration}
                             totalLabel={getTimeLabel(duration)}
                         />
-                        <StyledCardBadge
+                        <StyledBadge
                             contentType="podcast"
                             isCompact={isCompact}
                         />
