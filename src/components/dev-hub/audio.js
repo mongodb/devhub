@@ -1,34 +1,34 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import styled from '@emotion/styled';
+import useMedia from '../../hooks/use-media';
+import AudioPauseIcon from './icons/audio-pause-icon';
+import AudioPlayIcon from './icons/audio-play-icon';
+import CloseIcon from './icons/close-icon';
+import ExpandIcon from './icons/expand-icon';
 import Button from './button';
 import CardBadge from './card-badge';
 import Slider from './slider';
 import { H2, P } from './text';
-import { colorMap, layer, size } from './theme';
+import { colorMap, layer, screenSize, size } from './theme';
 
 const ReactPlayerContainer = styled('div')`
     background-color: ${colorMap.greyDarkThree};
-    position: fixed;
     bottom: 0;
-    left: 0;
-    width: 100%;
-    ${({ isExpanded }) => !isExpanded && `height: 80px`};
-    z-index: ${layer.superFront};
     display: flex;
-    justify-content: space-around;
     flex-direction: column;
-    padding: 8px 100px;
+    justify-content: space-around;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: ${layer.superFront};
+    ${({ isExpanded }) => !isExpanded && `height: 80px`};
 `;
 
 const StyledCardBadge = styled(CardBadge)`
-    position: relative;
     height: fit-content;
-`;
-
-const StyledPlayButton = styled(Button)`
-    height: 50px;
-    width: 50px;
+    position: relative;
+    ${({ isCompact }) => isCompact && 'display: none;'};
 `;
 
 const StyledReactPlayer = styled(ReactPlayer)`
@@ -36,7 +36,9 @@ const StyledReactPlayer = styled(ReactPlayer)`
 `;
 
 const StyledImage = styled('img')`
-    margin-right: 32px;
+    margin-right: ${size.large};
+    ${({ isExpanded }) => isExpanded && `margin-top: 8px`};
+    ${({ isCompact }) => isCompact && 'display: none;'};
 `;
 
 const ContentContainer = styled('div')`
@@ -46,16 +48,20 @@ const ContentContainer = styled('div')`
     ${({ isExpanded }) => isExpanded && `align-items: flex-start`};
 
     width: 100%;
-    max-width: 1400px;
+    max-width: ${size.maxWidth};
     justify-content: space-between;
 `;
 
+const PodcastTitle = styled(P)`
+    ${({ isCompact }) => isCompact && 'display: none;'};
+`;
+
 const StyledExpandedContainer = styled('div')`
+    align-self: center;
     background-color: ${colorMap.greyDarkThree};
     display: flex;
+    max-width: ${size.maxWidth};
     padding-top: ${size.large};
-    align-self: center;
-    max-width: 1400px;
     width: 100%;
 `;
 
@@ -67,8 +73,8 @@ const ExpandedContainer = ({ podcast }) => (
 );
 
 const PlayOptionsContainer = styled('div')`
-    display: flex;
     align-items: center;
+    display: flex;
     width: 100%;
 `;
 const DescriptionContainer = styled('div')`
@@ -112,19 +118,29 @@ const Audio = ({ onClose, isActive, podcast, ...props }) => {
     useEffect(() => {
         setIsPlaying(isActive);
     }, [isActive]);
+    const isCompact = useMedia(screenSize.upToLarge);
     return isActive ? (
         <ReactPlayerContainer isExpanded={isExpanded} {...props}>
             <ContentContainer isExpanded={isExpanded}>
                 <StyledImage
+                    isExpanded={isExpanded}
                     height="64"
                     width="64"
                     src={podcast.thumbnailUrl}
                     alt={podcast.title}
+                    isCompact={isCompact}
                 />
                 <DescriptionContainer>
                     <PlayOptionsContainer>
-                        {podcast.title}
-                        <StyledPlayButton play onClick={toggleIsPlaying} />
+                        <PodcastTitle isCompact={isCompact} collapse>
+                            {podcast.title}
+                        </PodcastTitle>
+                        <Button
+                            aria-label={isPlaying ? 'pause' : 'play'}
+                            onClick={toggleIsPlaying}
+                        >
+                            {isPlaying ? <AudioPauseIcon /> : <AudioPlayIcon />}
+                        </Button>
                         <StyledReactPlayer
                             ref={setPlayerRef}
                             width="0"
@@ -142,13 +158,18 @@ const Audio = ({ onClose, isActive, podcast, ...props }) => {
                             total={duration}
                             totalLabel={getTimeLabel(duration)}
                         />
-                        <StyledCardBadge contentType="podcast" />
+                        <StyledCardBadge
+                            contentType="podcast"
+                            isCompact={isCompact}
+                        />
                     </PlayOptionsContainer>
                     {isExpanded && <ExpandedContainer podcast={podcast} />}
                 </DescriptionContainer>
-                <Button onClick={toggleIsExpanded}>expand</Button>
+                <Button onClick={toggleIsExpanded}>
+                    <ExpandIcon down={isExpanded} />
+                </Button>
                 <Button aria-label="close" onClick={onClose}>
-                    &times;
+                    <CloseIcon height="36" />
                 </Button>
             </ContentContainer>
         </ReactPlayerContainer>
