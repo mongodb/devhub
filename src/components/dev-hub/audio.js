@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import useMedia from '../../hooks/use-media';
+import { getTimeLabel } from '../../utils/get-time-label';
 import AudioPauseIcon from './icons/audio-pause-icon';
 import AudioPlayIcon from './icons/audio-play-icon';
 import CloseIcon from './icons/close-icon';
@@ -12,93 +14,109 @@ import Slider from './slider';
 import { H2, P } from './text';
 import { colorMap, layer, screenSize, size } from './theme';
 
+const ROW_SIZE = 80;
+
 const ReactPlayerContainer = styled('div')`
+    align-content: center;
     background-color: ${colorMap.greyDarkThree};
     bottom: 0;
     display: flex;
-    align-content: center;
     justify-content: center;
     left: 0;
     position: fixed;
     width: 100%;
     z-index: ${layer.superFront};
-    ${({ isExpanded }) => !isExpanded && `height: 80px`};
 `;
 
-const StyledBadge = styled(Badge)`
-    height: fit-content;
-    position: relative;
-    ${({ isCompact }) => isCompact && 'display: none;'};
-`;
-
-const StyledReactPlayer = styled(ReactPlayer)`
-    background-color: ${colorMap.greyDarkThree};
-`;
-
-const StyledImage = styled('img')`
-    border-radius: ${size.xsmall};
-    ${({ isCompact }) => isCompact && 'display: none;'};
+const condensedMobilePlayerStyle = css`
+    grid-template-areas: 'play podcast-title close';
+    grid-template-rows: ${ROW_SIZE}px;
+    row-gap: 0;
 `;
 
 const ContentContainer = styled('div')`
-    display: grid;
     align-items: center;
+    display: grid;
+    column-gap: ${size.large};
     justify-items: center;
-    grid-template-columns: 64px 36px auto 76px 88px;
-    grid-template-rows: 80px auto;
-    column-gap: 32px;
     grid-template-areas:
-        'title play slider badge options'
+        'image play slider badge options'
         'details details details details details';
-    width: 100%;
-    padding: 0 ${size.xlarge};
+    grid-template-columns: ${size.xlarge} ${size.large} auto 76px 88px;
+    grid-template-rows: ${ROW_SIZE}px auto;
     max-width: ${size.maxWidth};
+    padding: 0 ${size.xlarge};
+    width: 100%;
     @media ${screenSize.upToLarge} {
-        align-items: center;
-        justify-items: center;
+        column-gap: ${size.xsmall};
         grid-template-areas:
-            'play title close'
+            'play podcast-title close'
             'slider slider slider'
             'details details details'
             '. expand .';
-        grid-template-columns: 36px auto 36px;
-        grid-template-rows: 80px auto auto 48px;
-        column-gap: 8px;
-        row-gap: 30px;
+        grid-template-columns: ${size.large} auto ${size.large};
+        grid-template-rows: ${ROW_SIZE}px auto auto 48px;
         padding: 0 ${size.default};
+        row-gap: ${size.large};
+        ${({ isExpanded }) => !isExpanded && condensedMobilePlayerStyle};
     }
 `;
 
-const PodcastTitle = styled(P)`
-    ${({ isCompact }) => !isCompact && 'display: none;'};
+// Create grid-area containers for elements
+const CloseButton = styled(Button)`
+    grid-area: close;
 `;
-
-const StyledExpandedContainer = styled('div')`
-    align-self: center;
-    grid-area: details;
-    background-color: ${colorMap.greyDarkThree};
-    display: grid;
-    grid-template-areas: 'title desc desc';
-    column-gap: 24px;
-    max-width: ${size.maxWidth};
-    padding: ${size.large};
-    width: 100%;
-    @media ${screenSize.upToLarge} {
-        grid-template-areas: 'desc';
-        padding: 0;
-    }
+const ExpandButton = styled(Button)`
+    grid-area: expand;
 `;
-
 const ExpandedTitle = styled(H2)`
-    grid-area: title;
+    grid-area: exp-title;
     @media ${screenSize.upToLarge} {
         display: none;
     }
 `;
-
 const ExpandedDescription = styled(P)`
     color: ${colorMap.greyLightTwo};
-    grid-area: desc;
+    grid-area: exp-desc;
+`;
+const PlayContainer = styled('div')`
+    grid-area: play;
+`;
+const PodcastTitleButton = styled(Button)`
+    font-family: akzidenz;
+    grid-area: podcast-title;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+`;
+const StyledBadge = styled(Badge)`
+    grid-area: badge;
+    height: fit-content;
+    position: relative;
+`;
+const SliderContainer = styled('div')`
+    grid-area: slider;
+    width: 100%;
+`;
+const StyledImage = styled('img')`
+    border-radius: ${size.xsmall};
+    grid-area: image;
+`;
+
+const StyledExpandedContainer = styled('div')`
+    align-self: center;
+    background-color: ${colorMap.greyDarkThree};
+    column-gap: ${size.mediumLarge};
+    display: grid;
+    grid-area: details;
+    grid-template-areas: 'exp-title exp-desc exp-desc';
+    max-width: ${size.maxWidth};
+    padding: ${size.large} 0;
+    width: 100%;
+    @media ${screenSize.upToLarge} {
+        grid-template-areas: 'exp-desc';
+        padding: 0;
+    }
 `;
 
 const ExpandedContainer = ({ podcast }) => (
@@ -110,58 +128,62 @@ const ExpandedContainer = ({ podcast }) => (
     </StyledExpandedContainer>
 );
 
-const TitleContainer = styled('div')`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-area: title;
-`;
-const PlayContainer = styled('div')`
-    grid-area: play;
-`;
-const SliderContainer = styled('div')`
-    grid-area: slider;
-    width: 100%;
-`;
-const BadgeContainer = styled('div')`
-    grid-area: badge;
-`;
-const ExpandContainer = styled('div')`
-    grid-area: expand;
-`;
-const CloseContainer = styled('div')`
-    grid-area: close;
-`;
-
 const DesktopOptionsContainer = styled('div')`
-    grid-area: options;
     display: flex;
+    grid-area: options;
     justify-content: space-between;
     width: 100%;
     a {
         padding-left: 0;
         padding-right: 0;
-        width: 36px;
+        width: ${size.large};
     }
 `;
 
-const getTimeLabel = secondsElapsed => {
-    const minutes = Math.floor(secondsElapsed / 60);
-    const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    const seconds = Math.floor(secondsElapsed % 60);
-    const displaySeconds = seconds < 10 ? `0${seconds}` : seconds;
-    return `${displayMinutes}:${displaySeconds}`;
+const AudioPlayButton = ({ isPlaying, toggleIsPlaying }) => (
+    <PlayContainer>
+        <Button
+            aria-label={isPlaying ? 'pause' : 'play'}
+            onClick={toggleIsPlaying}
+        >
+            {isPlaying ? <AudioPauseIcon /> : <AudioPlayIcon />}
+        </Button>
+    </PlayContainer>
+);
+
+const PodcastOptions = ({
+    isExpanded,
+    isMobile,
+    onClose,
+    toggleIsExpanded,
+}) => {
+    const OptionsContainer = isMobile
+        ? React.Fragment
+        : DesktopOptionsContainer;
+    return (
+        <OptionsContainer>
+            {(!isMobile || isExpanded) && (
+                <ExpandButton onClick={toggleIsExpanded}>
+                    <ExpandIcon width={size.large} down={isExpanded} />
+                </ExpandButton>
+            )}
+            <CloseButton aria-label="close" onClick={onClose}>
+                <CloseIcon width={size.large} />
+            </CloseButton>
+        </OptionsContainer>
+    );
 };
 
-// Pass in entire podcast
-// Trigger?
 const Audio = ({ onClose, isActive, podcast, ...props }) => {
     const [playerRef, setPlayerRef] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(true);
+    const [progress, setProgress] = useState({ playedSeconds: 0 });
+    const [duration, setDuration] = useState(null);
+    const isMobile = useMedia(screenSize.upToLarge);
     const toggleIsExpanded = useCallback(() => {
         setIsExpanded(!isExpanded);
     }, [isExpanded]);
-    const [isPlaying, setIsPlaying] = useState(true);
     const toggleIsPlaying = useCallback(
         e => {
             e.stopPropagation();
@@ -169,8 +191,6 @@ const Audio = ({ onClose, isActive, podcast, ...props }) => {
         },
         [isPlaying]
     );
-    const [progress, setProgress] = useState({ playedSeconds: 0 });
-    const [duration, setDuration] = useState(null);
     const onChange = useCallback(
         seconds => {
             playerRef.seekTo(seconds);
@@ -180,74 +200,57 @@ const Audio = ({ onClose, isActive, podcast, ...props }) => {
     useEffect(() => {
         setIsPlaying(isActive);
     }, [isActive]);
-    const isCompact = useMedia(screenSize.upToLarge);
-    const OptionsContainer = isCompact
-        ? React.Fragment
-        : DesktopOptionsContainer;
+
     return isActive ? (
-        <ReactPlayerContainer isExpanded={isExpanded} {...props}>
+        <ReactPlayerContainer {...props}>
             <ContentContainer isExpanded={isExpanded}>
-                <TitleContainer>
+                {!isMobile && (
                     <StyledImage
                         isExpanded={isExpanded}
-                        height="64"
-                        width="64"
+                        height={size.xlarge}
+                        width={size.xlarge}
                         src={podcast.thumbnailUrl}
                         alt={podcast.title}
-                        isCompact={isCompact}
                     />
-                    <PodcastTitle isCompact={isCompact} collapse>
-                        {podcast.title}
-                    </PodcastTitle>
-                </TitleContainer>
-                <PlayContainer>
-                    <Button
-                        aria-label={isPlaying ? 'pause' : 'play'}
-                        onClick={toggleIsPlaying}
-                    >
-                        {isPlaying ? <AudioPauseIcon /> : <AudioPlayIcon />}
-                    </Button>
-                </PlayContainer>
-                <SliderContainer>
-                    <StyledReactPlayer
-                        ref={setPlayerRef}
-                        width="0"
-                        height="0"
-                        url={podcast.url}
-                        onDuration={setDuration}
-                        onProgress={setProgress}
-                        playing={isPlaying}
-                    />
-                    <Slider
-                        current={progress.playedSeconds}
-                        currentLabel={getTimeLabel(progress.playedSeconds)}
-                        onChange={onChange}
-                        seconds={progress.playedSeconds}
-                        total={duration}
-                        totalLabel={getTimeLabel(duration)}
-                    />
-                </SliderContainer>
-                {!isCompact && (
-                    <BadgeContainer>
-                        <StyledBadge
-                            contentType="podcast"
-                            isCompact={isCompact}
-                        />
-                    </BadgeContainer>
                 )}
-                <OptionsContainer>
-                    <ExpandContainer>
-                        <Button onClick={toggleIsExpanded}>
-                            <ExpandIcon down={isExpanded} />
-                        </Button>
-                    </ExpandContainer>
-                    <CloseContainer>
-                        <Button aria-label="close" onClick={onClose}>
-                            <CloseIcon height="36" />
-                        </Button>
-                    </CloseContainer>
-                </OptionsContainer>
+                {isMobile && (
+                    <PodcastTitleButton onClick={toggleIsExpanded}>
+                        <P collapse>{podcast.title}</P>
+                    </PodcastTitleButton>
+                )}
+                <AudioPlayButton
+                    isPlaying={isPlaying}
+                    toggleIsPlaying={toggleIsPlaying}
+                />
+                {(!isMobile || isExpanded) && (
+                    <SliderContainer>
+                        <Slider
+                            current={progress.playedSeconds}
+                            currentLabel={getTimeLabel(progress.playedSeconds)}
+                            onChange={onChange}
+                            seconds={progress.playedSeconds}
+                            total={duration}
+                            totalLabel={getTimeLabel(duration)}
+                        />
+                    </SliderContainer>
+                )}
+                {!isMobile && <StyledBadge contentType="podcast" />}
+                <PodcastOptions
+                    isMobile={isMobile}
+                    isExpanded={isExpanded}
+                    onClose={onClose}
+                    toggleIsExpanded={toggleIsExpanded}
+                />
                 {isExpanded && <ExpandedContainer podcast={podcast} />}
+                <ReactPlayer
+                    ref={setPlayerRef}
+                    width="0"
+                    height="0"
+                    url={podcast.url}
+                    onDuration={setDuration}
+                    onProgress={setProgress}
+                    playing={isPlaying}
+                />
             </ContentContainer>
         </ReactPlayerContainer>
     ) : null;
