@@ -44,12 +44,12 @@ const ContentContainer = styled('div')`
     display: grid;
     align-items: center;
     justify-items: center;
-    grid-template-columns: 64px 36px auto 96px 36px 36px;
+    grid-template-columns: 64px 36px auto 76px 88px;
     grid-template-rows: 80px auto;
     column-gap: 32px;
     grid-template-areas:
-        'title play slider badge expand close'
-        'details details details details details details';
+        'title play slider badge options'
+        'details details details details details';
     width: 100%;
     padding: 0 ${size.xlarge};
     max-width: ${size.maxWidth};
@@ -61,10 +61,11 @@ const ContentContainer = styled('div')`
             'slider slider slider'
             'details details details'
             '. expand .';
-        grid-template-columns: 72px auto 44px;
-        grid-template-rows: 80px auto auto auto;
+        grid-template-columns: 36px auto 36px;
+        grid-template-rows: 80px auto auto 48px;
         column-gap: 8px;
-        padding: 0 ${size.large};
+        row-gap: 30px;
+        padding: 0 ${size.default};
     }
 `;
 
@@ -84,6 +85,7 @@ const StyledExpandedContainer = styled('div')`
     width: 100%;
     @media ${screenSize.upToLarge} {
         grid-template-areas: 'desc';
+        padding: 0;
     }
 `;
 
@@ -102,7 +104,9 @@ const ExpandedDescription = styled(P)`
 const ExpandedContainer = ({ podcast }) => (
     <StyledExpandedContainer>
         <ExpandedTitle>{podcast.title}</ExpandedTitle>
-        <ExpandedDescription>{podcast.description}</ExpandedDescription>
+        <ExpandedDescription collapse>
+            {podcast.description}
+        </ExpandedDescription>
     </StyledExpandedContainer>
 );
 
@@ -127,6 +131,18 @@ const ExpandContainer = styled('div')`
 `;
 const CloseContainer = styled('div')`
     grid-area: close;
+`;
+
+const DesktopOptionsContainer = styled('div')`
+    grid-area: options;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    a {
+        padding-left: 0;
+        padding-right: 0;
+        width: 36px;
+    }
 `;
 
 const getTimeLabel = secondsElapsed => {
@@ -165,6 +181,9 @@ const Audio = ({ onClose, isActive, podcast, ...props }) => {
         setIsPlaying(isActive);
     }, [isActive]);
     const isCompact = useMedia(screenSize.upToLarge);
+    const OptionsContainer = isCompact
+        ? React.Fragment
+        : DesktopOptionsContainer;
     return isActive ? (
         <ReactPlayerContainer isExpanded={isExpanded} {...props}>
             <ContentContainer isExpanded={isExpanded}>
@@ -216,16 +235,18 @@ const Audio = ({ onClose, isActive, podcast, ...props }) => {
                         />
                     </BadgeContainer>
                 )}
-                <ExpandContainer>
-                    <Button onClick={toggleIsExpanded}>
-                        <ExpandIcon down={isExpanded} />
-                    </Button>
-                </ExpandContainer>
-                <CloseContainer>
-                    <Button aria-label="close" onClick={onClose}>
-                        <CloseIcon height="36" />
-                    </Button>
-                </CloseContainer>
+                <OptionsContainer>
+                    <ExpandContainer>
+                        <Button onClick={toggleIsExpanded}>
+                            <ExpandIcon down={isExpanded} />
+                        </Button>
+                    </ExpandContainer>
+                    <CloseContainer>
+                        <Button aria-label="close" onClick={onClose}>
+                            <CloseIcon height="36" />
+                        </Button>
+                    </CloseContainer>
+                </OptionsContainer>
                 {isExpanded && <ExpandedContainer podcast={podcast} />}
             </ContentContainer>
         </ReactPlayerContainer>
