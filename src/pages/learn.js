@@ -238,11 +238,14 @@ export default ({
             />
 
             <Article>
-                <StyledFilterBar
-                    filters={filters}
-                    filterValue={filterValue}
-                    setFilterValue={updateFilter}
-                />
+                {(activeItem === 'All' || activeItem === 'Articles') && (
+                    <StyledFilterBar
+                        filters={filters}
+                        filterValue={filterValue}
+                        setFilterValue={updateFilter}
+                    />
+                )}
+
                 {activeItem === 'All' && (
                     <CardList
                         articles={articles}
