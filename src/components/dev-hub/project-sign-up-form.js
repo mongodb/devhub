@@ -73,20 +73,37 @@ const Form = React.memo(({ setSuccess, success }) => {
             </ErrorMessage>
             <StyledInput
                 value={name}
+                maxLength="50"
                 required
                 placeholder="Name"
+                pattern="^[A-Za-zÀ-ÿ ,.'-]+$"
                 onChange={e => setName(e.target.value)}
+                onInput={e => e.target.setCustomValidity('')}
+                onInvalid={e =>
+                    e.target.setCustomValidity(
+                        'Names should only contain letters. e.g. John Doe'
+                    )
+                }
             />
             <StyledInput
+                type="email"
                 value={email}
                 required
                 placeholder="Email Address"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                 onChange={e => setEmail(e.target.value)}
+                onInput={e => e.target.setCustomValidity('')}
+                onInvalid={e =>
+                    e.target.setCustomValidity(
+                        'Please enter a valid email address. e.g. example@email.com'
+                    )
+                }
             />
             <TextArea
                 value={projectDescription}
+                maxLength="250"
                 required
-                placeholder="Project Description"
+                placeholder="Project Description (250 characters)"
                 onChange={e => setProjectDescription(e.target.value)}
             />
             <SubmitContainer>
