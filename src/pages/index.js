@@ -24,7 +24,6 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
 import VideoModal from '../components/dev-hub/video-modal';
-import Audio from '../components/dev-hub/audio';
 
 const MEDIA_WIDTH = '550';
 
@@ -143,7 +142,6 @@ export default ({ pageContext: { featuredArticles } }) => {
                         </Button>
                     </div>
                 </Hero>
-                <Audio />
                 <FeatureSection altBackground data-test="twitch">
                     <MediaBlock
                         mediaWidth={MEDIA_WIDTH}

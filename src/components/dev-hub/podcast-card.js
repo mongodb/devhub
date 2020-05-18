@@ -4,7 +4,6 @@ import Card from './card';
 
 const PodcastCard = ({ podcast, ...props }) => {
     const [isActive, setIsActive] = useState(false);
-    console.log(isActive);
     const openAudio = useCallback(() => {
         setIsActive(true);
     }, []);

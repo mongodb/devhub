@@ -10,7 +10,7 @@ const Badge = styled('div')`
     letter-spacing: 1px;
     margin: ${size.default};
     padding: 1px ${size.xsmall};
-    position: ${({ relative }) => (relative ? 'relative' : 'absolute')};
+    position: absolute;
     text-transform: uppercase;
     ${({ color }) => color && `border: 1px solid ${color}`};
 `;

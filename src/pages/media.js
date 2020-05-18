@@ -19,8 +19,6 @@ export default () => {
     const leftTabs = ['All'];
     const rightTabs = ['Articles', 'Videos', 'Podcasts'];
 
-    console.log(podcasts);
-
     return (
         <Layout>
             <Tab
