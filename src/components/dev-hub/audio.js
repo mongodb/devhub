@@ -174,7 +174,8 @@ const PodcastOptions = ({
     );
 };
 
-const Audio = ({ onClose, isActive, podcast, ...props }) => {
+const Audio = ({ onClose, podcast, ...props }) => {
+    console.log(podcast);
     const [playerRef, setPlayerRef] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -198,10 +199,10 @@ const Audio = ({ onClose, isActive, podcast, ...props }) => {
         [playerRef]
     );
     useEffect(() => {
-        setIsPlaying(isActive);
-    }, [isActive]);
+        setIsPlaying(!!podcast);
+    }, [podcast]);
 
-    return isActive ? (
+    return podcast ? (
         <ReactPlayerContainer {...props}>
             <ContentContainer isExpanded={isExpanded}>
                 {!isMobile && (
