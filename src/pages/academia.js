@@ -9,7 +9,7 @@ import {
     size,
     lineHeight,
 } from '../components/dev-hub/theme';
-import { ArticleH5, H3, P } from '../components/dev-hub/text';
+import { H3, ArticleH2, ArticleH3 } from '../components/dev-hub/text';
 import styled from '@emotion/styled';
 import Button from '../components/dev-hub/button';
 import HeroBanner from '../components/dev-hub/hero-banner';
@@ -28,20 +28,14 @@ const HeaderContent = styled('div')`
     max-width: ${HEADER_CONTENT_MAX_WIDTH};
 `;
 
-const Heading = styled(ArticleH5)`
-    font-size: ${fontSize.xsmall};
+const Heading = styled(ArticleH2)`
+    font-size: ${fontSize.small};
+    font-family: 'Fira Mono';
+`;
+
+const Description = styled(ArticleH3)`
+    font-family: akzidenz;
     font-weight: normal;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-`;
-
-const StyledP = styled(P)`
-    line-height: ${lineHeight.default};
-`;
-
-const StyledH3 = styled(H3)`
-    font-size: 32px;
-    line-height: 40px;
 `;
 
 const StyledButton = styled(Button)`
@@ -65,15 +59,13 @@ export default () => {
                     <HeaderContent>
                         <Heading>MongoDB for Academia</Heading>
 
-                        <StyledH3>
-                            Educators are more important than ever
-                        </StyledH3>
+                        <H3>Educators are more important than ever</H3>
 
-                        <StyledP>
+                        <Description>
                             Gain access to teaching resources and materials
                             created by MongoDB, and inspire the developer of
                             tomorrow with the database for modern applications.
-                        </StyledP>
+                        </Description>
 
                         <StyledButton to="" primary hasArrow={false}>
                             Join MongoDB for Academia
