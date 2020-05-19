@@ -7,16 +7,14 @@ const SectionHeader = styled('div')`
     border-bottom: 1px solid ${colorMap.greyDarkOne};
     font-size: ${fontSize.small};
     letter-spacing: 2px;
-    text-transform: uppercase;
     @media ${screenSize.upToMedium} {
         display: block;
     }
+    text-transform: uppercase;
 `;
 
 export default ({ text }) => (
     <SectionHeader>
-        <div>
-            <P>{text}</P>
-        </div>
+        <P>{text}</P>
     </SectionHeader>
 );
