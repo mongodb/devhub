@@ -1,7 +1,9 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
 import Input from '../input';
 import Select from '../select';
 import TextArea from '../text-area';
+import Checkbox from '@leafygreen-ui/checkbox';
 
 <Meta title="Forms" />
 
@@ -65,5 +67,15 @@ or a narrow select
 <Preview>
     <Story name="textarea">
         <TextArea placeholder="Email Address" />
+    </Story>
+</Preview>
+
+### Checkbox
+
+We are using the [LeafyGreen Checkbox](https://github.com/mongodb/leafygreen-ui/tree/master/packages/checkbox) component for our forms
+
+<Preview>
+    <Story name="checkbox">
+        <Checkbox label="checkbox" onChange={action('checkbox ticked')} />
     </Story>
 </Preview>
