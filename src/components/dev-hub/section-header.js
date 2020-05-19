@@ -1,20 +1,19 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { colorMap, fontSize, screenSize } from './theme';
+import { colorMap, lineHeight } from './theme';
 import { P } from './text';
 
 const SectionHeader = styled('div')`
     border-bottom: 1px solid ${colorMap.greyDarkOne};
-    font-size: ${fontSize.small};
-    letter-spacing: 2px;
-    @media ${screenSize.upToMedium} {
-        display: block;
-    }
+    letter-spacing: 3px;
     text-transform: uppercase;
 `;
+const StyledP = styled(P)`
+    line-height: ${lineHeight.tiny};
+`;
 
-export default ({ text }) => (
+export default ({ children }) => (
     <SectionHeader>
-        <P>{text}</P>
+        <StyledP>{children}</StyledP>
     </SectionHeader>
 );
