@@ -140,7 +140,7 @@ const DesktopOptionsContainer = styled('div')`
     }
 `;
 
-const AudioPlayButton = ({ isPlaying, toggleIsPlaying }) => (
+const AudioPlayButton = React.memo(({ isPlaying, toggleIsPlaying }) => (
     <PlayContainer>
         <Button
             aria-label={isPlaying ? 'pause' : 'play'}
@@ -149,33 +149,29 @@ const AudioPlayButton = ({ isPlaying, toggleIsPlaying }) => (
             {isPlaying ? <AudioPauseIcon /> : <AudioPlayIcon />}
         </Button>
     </PlayContainer>
+));
+
+const PodcastOptions = React.memo(
+    ({ isExpanded, isMobile, onClose, toggleIsExpanded }) => {
+        const OptionsContainer = isMobile
+            ? React.Fragment
+            : DesktopOptionsContainer;
+        return (
+            <OptionsContainer>
+                {(!isMobile || isExpanded) && (
+                    <ExpandButton onClick={toggleIsExpanded}>
+                        <ExpandIcon width={size.large} down={isExpanded} />
+                    </ExpandButton>
+                )}
+                <CloseButton aria-label="close" onClick={onClose}>
+                    <CloseIcon width={size.large} />
+                </CloseButton>
+            </OptionsContainer>
+        );
+    }
 );
 
-const PodcastOptions = ({
-    isExpanded,
-    isMobile,
-    onClose,
-    toggleIsExpanded,
-}) => {
-    const OptionsContainer = isMobile
-        ? React.Fragment
-        : DesktopOptionsContainer;
-    return (
-        <OptionsContainer>
-            {(!isMobile || isExpanded) && (
-                <ExpandButton onClick={toggleIsExpanded}>
-                    <ExpandIcon width={size.large} down={isExpanded} />
-                </ExpandButton>
-            )}
-            <CloseButton aria-label="close" onClick={onClose}>
-                <CloseIcon width={size.large} />
-            </CloseButton>
-        </OptionsContainer>
-    );
-};
-
 const Audio = ({ onClose, podcast, ...props }) => {
-    console.log(podcast);
     const [playerRef, setPlayerRef] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -203,7 +199,7 @@ const Audio = ({ onClose, podcast, ...props }) => {
     }, [podcast]);
 
     return podcast ? (
-        <ReactPlayerContainer {...props}>
+        <ReactPlayerContainer tabIndex="0" {...props}>
             <ContentContainer isExpanded={isExpanded}>
                 {!isMobile && (
                     <StyledImage
