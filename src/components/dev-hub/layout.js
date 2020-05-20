@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
-import { fontSize, lineHeight, screenSize, size, theme } from './theme';
+import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
 import MongodbLiveBanner from './mongodb-live-banner';
 
 import '../../styles/font.css';
@@ -23,8 +23,8 @@ const globalStyles = css`
         box-sizing: inherit;
     }
     body {
-        background: ${theme.colorMap.pageBackground};
-        color: ${theme.colorMap.devWhite};
+        background: ${({ theme }) => theme.colorMap.pageBackground};
+        color: ${({ theme }) => theme.colorMap.devWhite};
         font-family: akzidenz, -apple-system, BlinkMacSystemFont, 'Segoe UI',
             Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
             'Segoe UI Symbol';
@@ -53,7 +53,7 @@ const Main = styled('main')`
 `;
 
 const GlobalWrapper = styled('div')`
-    background: ${theme.colorMap.pageBackground};
+    background: ${({ theme }) => theme.colorMap.pageBackground};
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -62,30 +62,30 @@ const GlobalWrapper = styled('div')`
 `;
 export const StorybookLayout = ({ children }) => {
     return (
-        <GlobalWrapper>
-            <ThemeProvider theme={theme}>
+        <ThemeProvider theme={darkTheme}>
+            <GlobalWrapper>
                 <Global styles={globalStyles} />
                 <main>{children}</main>
-            </ThemeProvider>
-        </GlobalWrapper>
+            </GlobalWrapper>
+        </ThemeProvider>
     );
 };
 
 export default ({ children }) => (
-    <GlobalWrapper>
-        <Helmet htmlAttributes={{ lang: 'en' }}>
-            <meta name="robots" content="index" />
-            <link
-                rel="shortcut icon"
-                href="https://www.mongodb.com/assets/images/global/favicon.ico"
-            />
-        </Helmet>
-        <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
+        <GlobalWrapper>
+            <Helmet htmlAttributes={{ lang: 'en' }}>
+                <meta name="robots" content="index" />
+                <link
+                    rel="shortcut icon"
+                    href="https://www.mongodb.com/assets/images/global/favicon.ico"
+                />
+            </Helmet>
             <Global styles={globalStyles} />
             <MongodbLiveBanner />
             <GlobalNav />
             <Main>{children}</Main>
             <GlobalFooter />
-        </ThemeProvider>
-    </GlobalWrapper>
+        </GlobalWrapper>
+    </ThemeProvider>
 );
