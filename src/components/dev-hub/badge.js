@@ -3,7 +3,7 @@ import { colorMap, size } from './theme';
 import { P5 } from './text';
 import styled from '@emotion/styled';
 
-const CardBadge = styled('div')`
+const Badge = styled('div')`
     bottom: 0;
     background-color: ${colorMap.greyDarkThree};
     font-family: akzidenz;
@@ -35,9 +35,9 @@ const badgeContent = contentType =>
         : contentType;
 
 export default ({ contentType, color = '' }) => (
-    <CardBadge color={color || determineColor(contentType)}>
+    <Badge color={color || determineColor(contentType)}>
         <P5 bold collapse>
             {badgeContent(contentType)}
         </P5>
-    </CardBadge>
+    </Badge>
 );
