@@ -10,11 +10,15 @@ import VideoModal from './video-modal';
 import Badge from './badge';
 
 const Image = styled('img')`
+    bottom: 0;
     border-radius: ${size.small};
     display: block;
-    height: 100%;
+    left: 0;
+    margin: auto;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    right: 0;
+    top: 0;
     width: 100%;
     ${props =>
         props.gradient &&
@@ -25,12 +29,14 @@ const Image = styled('img')`
 `;
 
 const ImageWrapper = styled('div')`
+    background-color: black;
     border-radius: ${size.small};
     margin-bottom: ${size.medium};
     overflow: hidden;
-    padding: 0;
-    width: 100%;
+    /* Create 1:1 aspect ratio using top padding */
+    padding: 100% 0 0;
     position: relative;
+    width: 100%;
 `;
 const hoverStyles = css`
     &:hover,
