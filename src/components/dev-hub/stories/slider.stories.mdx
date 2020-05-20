@@ -1,0 +1,19 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import Slider from '../slider';
+import { useState } from 'react';
+
+<Meta title="Slider" />
+
+# Slider
+
+The `Slider` allows for easy hooking into state to not only update the slider but also access `onChange` events. The `current` value can be updated programatically. There is also support for custom labels: `currentLabel` and `totalLabel`.
+
+<Preview>
+    <Story name="Slider">
+        {() => {
+            const [value, setValue] = useState(10);
+            return <Slider current={value} total={100} onChange={setValue} />;
+        }}
+    </Story>
+</Preview>
