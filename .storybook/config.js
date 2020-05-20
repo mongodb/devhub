@@ -1,7 +1,8 @@
-import { configure, addParameters } from '@storybook/react';
+import { configure, addDecorator, addParameters } from '@storybook/react';
 import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
 import theme from './theme';
+import ThemeDecorator from './theme-decorator';
 
 const WELCOME_PAGE_KIND = 'Welcome';
 
@@ -41,3 +42,4 @@ window.___navigate = pathname => {
 };
 
 configure(require.context('../src', true, /\.stories\.(js|mdx)$/), module);
+addDecorator(ThemeDecorator);
