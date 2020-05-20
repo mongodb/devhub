@@ -7,12 +7,12 @@ import {
     fontSize,
     screenSize,
     size,
-    lineHeight,
 } from '../components/dev-hub/theme';
 import { H3, ArticleH2, ArticleH3 } from '../components/dev-hub/text';
 import styled from '@emotion/styled';
 import Button from '../components/dev-hub/button';
 import HeroBanner from '../components/dev-hub/hero-banner';
+import AcademiaSignUpForm from '../components/dev-hub/academia-sign-up-form';
 
 const HEADER_CONTENT_MAX_WIDTH = '400px';
 
@@ -73,6 +73,8 @@ export default () => {
                     </HeaderContent>
                 </Header>
             </HeroBanner>
+
+            <AcademiaSignUpForm />
         </Layout>
     );
 };
