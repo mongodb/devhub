@@ -142,8 +142,9 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
 const FeaturedArticles = ({ articles }) => {
     if (articles.length < 3) {
         console.error(
-            `Expected three articles for featured section, got ${articles &&
-                articles.length}`
+            `Expected three articles for featured section, got ${
+                articles && articles.length
+            }`
         );
         return null;
     }
@@ -208,7 +209,13 @@ export default ({
         setArticles(filteredArticles);
     }, [metadata, filterValue, pathname, filterActiveArticles]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
-
+    // filterValue could be {} on a page load, or values can be "all" if toggled back
+    const hasNoFilter = useMemo(
+        () =>
+            (!filterValue.languages || filterValue.languages === 'all') &&
+            (!filterValue.products || filterValue.products === 'all'),
+        [filterValue]
+    );
     const { videos } = useAllVideos();
 
     const { podcasts } = usePodcasts();
@@ -249,8 +256,8 @@ export default ({
                 {activeItem === 'All' && (
                     <CardList
                         articles={articles}
-                        videos={videos}
-                        podcasts={podcasts}
+                        videos={hasNoFilter ? videos : []}
+                        podcasts={hasNoFilter ? podcasts : []}
                     />
                 )}
                 {activeItem === 'Articles' && <CardList articles={articles} />}
