@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { fontSize, lineHeight, screenSize, size, theme } from './theme';
+import MongodbLiveBanner from './mongodb-live-banner';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
@@ -81,6 +82,7 @@ export default ({ children }) => (
         </Helmet>
         <ThemeProvider theme={theme}>
             <Global styles={globalStyles} />
+            <MongodbLiveBanner />
             <GlobalNav />
             <Main>{children}</Main>
             <GlobalFooter />
