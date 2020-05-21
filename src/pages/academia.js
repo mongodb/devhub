@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Layout from '../components/dev-hub/layout';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
@@ -49,6 +49,9 @@ export default () => {
         { label: 'MongoDB for Academia', target: '/academia' },
     ];
 
+    const scrollToRef = ref =>
+        window.scrollTo({ behavior: 'smooth', top: ref.current.offsetTop });
+    const formRef = useRef();
     return (
         <Layout>
             <Helmet>
@@ -67,14 +70,19 @@ export default () => {
                             tomorrow with the database for modern applications.
                         </Description>
 
-                        <StyledButton to="" primary hasArrow={false}>
+                        <StyledButton
+                            onClick={() => scrollToRef(formRef)}
+                            primary
+                            hasArrow={false}
+                        >
                             Join MongoDB for Academia
                         </StyledButton>
                     </HeaderContent>
                 </Header>
             </HeroBanner>
-
-            <AcademiaSignUpForm />
+            <div ref={formRef}>
+                <AcademiaSignUpForm />
+            </div>
         </Layout>
     );
 };
