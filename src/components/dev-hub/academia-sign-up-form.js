@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { colorMap, size, screenSize } from './theme';
-import { P, ArticleH3, H3 } from './text';
+import { P, ArticleH3 } from './text';
 import Input from './input';
 import Button from './button';
 import Select from './select';
 import Checkbox from '@leafygreen-ui/checkbox';
 import SectionHeader from './section-header';
 import SuccessState from './success-state';
+
+const INPUT_BOX_WIDTH = '335px';
 
 const StyledButton = styled(Button)`
     display: flex;
@@ -30,30 +32,32 @@ const StyledSectionText = styled(ArticleH3)`
 
 const InstructorSection = styled('div')`
     display: grid;
-    grid-template-columns: repeat(auto-fill, 335px);
+    grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
     grid-row-gap: ${size.mediumLarge};
     justify-content: space-between;
     margin-bottom: ${size.xlarge};
     @media ${screenSize.upToMedium} {
-        display: block;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
+        grid-row-gap: ${size.mediumLarge};
+        justify-content: space-between;
+        margin-bottom: ${size.xlarge};
     }
 `;
 
 const InstitutionSection = styled('div')`
     display: grid;
-    grid-template-columns: repeat(auto-fill, 335px);
+    grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
     grid-row-gap: ${size.mediumLarge};
     justify-content: space-between;
     margin-bottom: ${size.xlarge};
     @media ${screenSize.upToMedium} {
-        display: block;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
+        grid-row-gap: ${size.mediumLarge};
+        justify-content: space-between;
+        margin-bottom: ${size.xlarge};
     }
-`;
-
-const StyledForm = styled('form')`
-    margin: 0 auto;
-    max-width: 720px;
-    width: 100%;
 `;
 
 const Form = React.memo(({ setSuccess, success }) => {
@@ -88,7 +92,7 @@ const Form = React.memo(({ setSuccess, success }) => {
     };
 
     return (
-        <StyledForm onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
             <ErrorMessage>
                 {success === false &&
                     'Your submission failed. Please try again.'}
@@ -185,7 +189,7 @@ const Form = React.memo(({ setSuccess, success }) => {
             >
                 Join MongoDB for Academia
             </StyledButton>
-        </StyledForm>
+        </Form>
     );
 });
 

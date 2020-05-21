@@ -15,6 +15,13 @@ import HeroBanner from '../components/dev-hub/hero-banner';
 import AcademiaSignUpForm from '../components/dev-hub/academia-sign-up-form';
 
 const HEADER_CONTENT_MAX_WIDTH = '400px';
+const CONTENT_MAX_WIDTH = '720px';
+
+const BodyContent = styled('div')`
+    margin: 0 auto;
+    max-width: ${CONTENT_MAX_WIDTH};
+    width: 100%;
+`;
 
 const Header = styled('header')`
     background: ${colorMap.devBlack};
@@ -80,9 +87,12 @@ export default () => {
                     </HeaderContent>
                 </Header>
             </HeroBanner>
-            <div ref={formRef}>
-                <AcademiaSignUpForm />
-            </div>
+
+            <BodyContent>
+                <div ref={formRef}>
+                    <AcademiaSignUpForm />
+                </div>
+            </BodyContent>
         </Layout>
     );
 };
