@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { ThemeProvider } from 'emotion-theming';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
+import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
 import MongodbLiveBanner from './mongodb-live-banner';
-import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
 
-const globalStyles = css`
+const globalStyles = theme => css`
     html {
         box-sizing: border-box;
         height: 100%;
@@ -22,8 +23,8 @@ const globalStyles = css`
         box-sizing: inherit;
     }
     body {
-        background: ${colorMap.pageBackground};
-        color: ${colorMap.devWhite};
+        background: ${theme.colorMap.pageBackground};
+        color: ${theme.colorMap.devWhite};
         font-family: akzidenz, -apple-system, BlinkMacSystemFont, 'Segoe UI',
             Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
             'Segoe UI Symbol';
@@ -52,7 +53,7 @@ const Main = styled('main')`
 `;
 
 const GlobalWrapper = styled('div')`
-    background: ${colorMap.pageBackground};
+    background: ${({ theme }) => theme.colorMap.pageBackground};
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -60,27 +61,35 @@ const GlobalWrapper = styled('div')`
     width: 100%;
 `;
 export const StorybookLayout = ({ children }) => {
+    const style = useMemo(() => globalStyles(darkTheme), []);
     return (
-        <GlobalWrapper>
-            <Global styles={globalStyles} />
-            <main>{children}</main>
-        </GlobalWrapper>
+        <ThemeProvider theme={darkTheme}>
+            <GlobalWrapper>
+                <Global styles={style} />
+                <main>{children}</main>
+            </GlobalWrapper>
+        </ThemeProvider>
     );
 };
 
-export default ({ children }) => (
-    <GlobalWrapper>
-        <Helmet htmlAttributes={{ lang: 'en' }}>
-            <meta name="robots" content="index" />
-            <link
-                rel="shortcut icon"
-                href="https://www.mongodb.com/assets/images/global/favicon.ico"
-            />
-        </Helmet>
-        <Global styles={globalStyles} />
-        <MongodbLiveBanner />
-        <GlobalNav />
-        <Main>{children}</Main>
-        <GlobalFooter />
-    </GlobalWrapper>
-);
+export default ({ children }) => {
+    const style = useMemo(() => globalStyles(darkTheme), []);
+    return (
+        <ThemeProvider theme={darkTheme}>
+            <GlobalWrapper>
+                <Helmet htmlAttributes={{ lang: 'en' }}>
+                    <meta name="robots" content="index" />
+                    <link
+                        rel="shortcut icon"
+                        href="https://www.mongodb.com/assets/images/global/favicon.ico"
+                    />
+                </Helmet>
+                <Global styles={style} />
+                <MongodbLiveBanner />
+                <GlobalNav />
+                <Main>{children}</Main>
+                <GlobalFooter />
+            </GlobalWrapper>
+        </ThemeProvider>
+    );
+};

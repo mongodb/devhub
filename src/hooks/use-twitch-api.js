@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
+import { requestMDBTwitchStream } from '../utils/devhub-api-stitch';
 import fetchTwitchVideos from '../utils/fetch-twitch-videos';
-import { get } from '../utils/request';
-import { TWITCH_HEADERS, TWITCH_STREAMS_URL } from '../constants';
 
 /**
  * @param {Object} config
@@ -21,10 +20,7 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
         try {
             // Get stream
             if (getStream) {
-                const streamResp = await get(
-                    TWITCH_STREAMS_URL,
-                    TWITCH_HEADERS
-                );
+                const streamResp = await requestMDBTwitchStream();
                 // since we're only interested in one channel just get the first
                 currentStream = streamResp.data[0];
                 if (currentStream) {

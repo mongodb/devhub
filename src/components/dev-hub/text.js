@@ -1,18 +1,6 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { colorMap, lineHeight, fontSize, screenSize, size } from './theme';
-
-const pre = css`
-    background-color: ${colorMap.devBlack};
-    border: 1px solid ${colorMap.bluebirdMedium};
-    border-left-width: 3px;
-    color: ${colorMap.devWhite};
-    font-family: 'Fira Mono', monospace;
-    margin: 0 0 ${size.default} 0;
-    padding: ${size.default};
-    white-space: pre-wrap;
-    word-wrap: break-word;
-`;
+import { lineHeight, fontSize, screenSize, size } from './theme';
 
 const bottomMargin = css`
     margin: 0 0 ${size.default} 0;
@@ -151,7 +139,7 @@ export const P5 = styled(PStyles)`
     line-height: ${lineHeight.micro};
 `;
 export const SubHeader = styled(PStyles)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     font-size: ${fontSize.large};
     line-height: ${lineHeight.medium};
     @media ${screenSize.upToMedium} {
@@ -160,5 +148,13 @@ export const SubHeader = styled(PStyles)`
     }
 `;
 export const Pre = styled('pre')`
-    ${pre};
+    background-color: ${({ theme }) => theme.colorMap.devBlack};
+    border: 1px solid ${({ theme }) => theme.colorMap.bluebirdMedium};
+    border-left-width: 3px;
+    color: ${({ theme }) => theme.colorMap.devWhite};
+    font-family: 'Fira Mono', monospace;
+    margin: 0 0 ${size.default} 0;
+    padding: ${size.default};
+    white-space: pre-wrap;
+    word-wrap: break-word;
 `;
