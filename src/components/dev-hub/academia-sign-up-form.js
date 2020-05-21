@@ -14,10 +14,6 @@ const StyledButton = styled(Button)`
     margin: ${size.large} auto;
 `;
 
-// const StyledInput = styled(Input)`
-//     flex: 0 0 335px;
-// `;
-
 const StyledSelect = styled(Select)`
     color: ${colorMap.greyLightTwo};
 `;
