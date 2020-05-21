@@ -92,7 +92,7 @@ const Form = React.memo(({ setSuccess, success }) => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <ErrorMessage>
                 {success === false &&
                     'Your submission failed. Please try again.'}
@@ -189,7 +189,7 @@ const Form = React.memo(({ setSuccess, success }) => {
             >
                 Join MongoDB for Academia
             </StyledButton>
-        </Form>
+        </form>
     );
 });
 
