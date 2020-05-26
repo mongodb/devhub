@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Layout from '../components/dev-hub/layout';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
@@ -7,14 +7,21 @@ import {
     fontSize,
     screenSize,
     size,
-    lineHeight,
 } from '../components/dev-hub/theme';
 import { H3, ArticleH2, ArticleH3 } from '../components/dev-hub/text';
 import styled from '@emotion/styled';
 import Button from '../components/dev-hub/button';
 import HeroBanner from '../components/dev-hub/hero-banner';
+import AcademiaSignUpForm from '../components/dev-hub/academia-sign-up-form';
 
 const HEADER_CONTENT_MAX_WIDTH = '400px';
+const CONTENT_MAX_WIDTH = '720px';
+
+const BodyContent = styled('div')`
+    margin: 0 auto;
+    max-width: ${CONTENT_MAX_WIDTH};
+    width: 100%;
+`;
 
 const Header = styled('header')`
     background: ${colorMap.devBlack};
@@ -49,6 +56,9 @@ export default () => {
         { label: 'MongoDB for Academia', target: '/academia' },
     ];
 
+    const scrollToRef = ref =>
+        window.scrollTo({ behavior: 'smooth', top: ref.current.offsetTop });
+    const formRef = useRef();
     return (
         <Layout>
             <Helmet>
@@ -67,12 +77,22 @@ export default () => {
                             tomorrow with the database for modern applications.
                         </Description>
 
-                        <StyledButton to="" primary hasArrow={false}>
+                        <StyledButton
+                            onClick={() => scrollToRef(formRef)}
+                            primary
+                            hasArrow={false}
+                        >
                             Join MongoDB for Academia
                         </StyledButton>
                     </HeaderContent>
                 </Header>
             </HeroBanner>
+
+            <BodyContent>
+                <div ref={formRef}>
+                    <AcademiaSignUpForm />
+                </div>
+            </BodyContent>
         </Layout>
     );
 };
