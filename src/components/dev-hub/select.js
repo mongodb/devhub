@@ -178,7 +178,6 @@ const FormSelect = ({
             role="listbox"
             showOptions={showOptions}
             tabIndex="0"
-            {...extraProps}
         >
             <SelectedOption
                 errors={errors}
