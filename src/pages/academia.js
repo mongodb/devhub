@@ -12,8 +12,10 @@ import { H3, ArticleH2, ArticleH3 } from '../components/dev-hub/text';
 import styled from '@emotion/styled';
 import Button from '../components/dev-hub/button';
 import HeroBanner from '../components/dev-hub/hero-banner';
+import SectionHeader from '../components/dev-hub/section-header';
 
 const HEADER_CONTENT_MAX_WIDTH = '400px';
+const CONTENT_MAX_WIDTH = '720px';
 
 const Header = styled('header')`
     background: ${colorMap.devBlack};
@@ -41,19 +43,37 @@ const StyledButton = styled(Button)`
     margin-top: ${size.large};
 `;
 
-const OfferingsSection = styled('div')`
-    // padding-left: 360px;
-    // display: flex;
-    // justify-content: center;
-    // flex-direction: column;
-    // margin: 0 auto;
+const BodyContent = styled('div')`
+    margin: 0 auto;
+    max-width: ${CONTENT_MAX_WIDTH};
+    width: 100%;
 `;
 
 const OfferingsContent = styled('div')`
     margin-bottom: ${size.xlarge};
     max-width: 324px;
-    width: 100%;
-    margin: 0 auto;
+`;
+
+const EligibilityContent = styled('div')`
+    margin-bottom: ${size.xlarge};
+`;
+
+const StyledSectionHeader = styled(SectionHeader)`
+    margin-bottom: ${size.mediumLarge};
+`;
+
+const StyledLink = styled('a')`
+    color: ${colorMap.darkGreen};
+    text-decoration: none;
+`;
+
+const StyledBullet = styled('ul')`
+    list-style-type: circle;
+    color: ${colorMap.darkGreen};
+`;
+
+const StyledSpan = styled('span')`
+    color: white;
 `;
 
 export default () => {
@@ -88,7 +108,7 @@ export default () => {
                 </Header>
             </HeroBanner>
 
-            <OfferingsSection>
+            <BodyContent>
                 <OfferingsContent>
                     <ArticleH2>Teach MongoDB with Confidence</ArticleH2>
                     <StyledArticleH3>
@@ -111,14 +131,51 @@ export default () => {
 
                 <OfferingsContent>
                     <ArticleH2>
-                        Connect with Educators Around the World{' '}
+                        Connect with Educators Around the World
                     </ArticleH2>
                     <StyledArticleH3>
                         Access our MongoDB for Academia community to
                         collaborate, share tips and get inspired.
                     </StyledArticleH3>
                 </OfferingsContent>
-            </OfferingsSection>
+
+                <EligibilityContent>
+                    <StyledSectionHeader>For Educators</StyledSectionHeader>
+                    <StyledArticleH3>
+                        If you’re a student, you can apply for the{' '}
+                        <StyledLink href="https://education.github.com/pack">
+                            GitHub Student Developer Pack
+                        </StyledLink>{' '}
+                        and get access to MongoDB Atlas, University on-demand
+                        content and certifications.
+                    </StyledArticleH3>
+                </EligibilityContent>
+
+                <EligibilityContent>
+                    <StyledSectionHeader>For Students</StyledSectionHeader>
+                    <StyledArticleH3>
+                        MongoDB for Academia is for educators who want to
+                        prepare students for careers that require in-demand
+                        database skills that power modern applications.
+                        <br />
+                        <br />
+                        You’re eligible for this program if you teach:
+                        <StyledBullet>
+                            <li>
+                                <StyledSpan>
+                                    Higher Education, College and University
+                                    programs
+                                </StyledSpan>
+                            </li>
+                            <li>
+                                <StyledSpan>
+                                    Bootcamps and Online Courses
+                                </StyledSpan>
+                            </li>
+                        </StyledBullet>
+                    </StyledArticleH3>
+                </EligibilityContent>
+            </BodyContent>
         </Layout>
     );
 };

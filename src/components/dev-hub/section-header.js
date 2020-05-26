@@ -7,8 +7,8 @@ const SectionHeader = styled('div')`
     border-bottom: 1px solid ${colorMap.greyDarkOne};
 `;
 
-export default ({ children }) => (
-    <SectionHeader>
+export default ({ children, ...prop }) => (
+    <SectionHeader {...prop}>
         <ArticleH2>{children}</ArticleH2>
     </SectionHeader>
 );
