@@ -18,6 +18,7 @@ import AcademiaSignUpForm from '../components/dev-hub/academia-sign-up-form';
 import HeroBannerImage from '../images/1x/Academia_Hero.svg';
 import TeachMongoDBImage from '../images/1x/TeachMongoDB.svg';
 import AcademiaLeafImage from '../images/1x/Academia_Leaf.svg';
+import useMedia from '../hooks/use-media';
 
 const HEADER_CONTENT_MAX_WIDTH = '400px';
 const BACKGROUND_MAX_WIDTH = '1400px';
@@ -130,6 +131,7 @@ export default () => {
     const scrollToRef = ref =>
         window.scrollTo({ behavior: 'smooth', top: ref.current.offsetTop });
     const formRef = useRef();
+    const isMobile = useMedia(screenSize.upToLarge);
     return (
         <Layout>
             <Helmet>
@@ -194,7 +196,9 @@ export default () => {
                         </BodyText>
                     </OfferingsContent>
                 </div>
-                <img src={TeachMongoDBImage} alt="" width="550px" />
+                {!isMobile && (
+                    <img src={TeachMongoDBImage} alt="" width="550px" />
+                )}
             </BodyContent>
 
             <EligibilitySection>
@@ -244,7 +248,7 @@ export default () => {
                         </EligibilityContent>
                     </div>
 
-                    <img src={AcademiaLeafImage} alt="" />
+                    {!isMobile && <img src={AcademiaLeafImage} alt="" />}
                 </BodyContent>
             </EligibilitySection>
 
