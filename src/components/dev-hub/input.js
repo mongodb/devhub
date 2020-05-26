@@ -89,7 +89,7 @@ const InputContainer = styled('div')`
 const FormInput = ({ narrow, value, ...props }) => {
     const isEmpty = !value;
     return (
-        <InputContainer isEmpty={isEmpty} narrow={narrow} {...props}>
+        <InputContainer isEmpty={isEmpty} narrow={narrow}>
             <Label
                 labelAbsoluteLeft={LABEL_ABSOLUTE_LEFT}
                 labelStartTop={LABEL_START_TOP}
