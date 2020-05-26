@@ -37,11 +37,7 @@ const InstructorSection = styled('div')`
     justify-content: space-between;
     margin-bottom: ${size.xlarge};
     @media ${screenSize.upToMedium} {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
-        grid-row-gap: ${size.mediumLarge};
-        justify-content: space-between;
-        margin-bottom: ${size.xlarge};
+        grid-template-columns: 100%;
     }
 `;
 
@@ -52,11 +48,7 @@ const InstitutionSection = styled('div')`
     justify-content: space-between;
     margin-bottom: ${size.xlarge};
     @media ${screenSize.upToMedium} {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
-        grid-row-gap: ${size.mediumLarge};
-        justify-content: space-between;
-        margin-bottom: ${size.xlarge};
+        grid-template-columns: 100%;
     }
 `;
 
