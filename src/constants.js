@@ -30,11 +30,4 @@ export const ADMONITIONS = [
     'warning',
 ];
 
-// Twitch API constants
-export const TWITCH_API_ENDPOINT = 'https://api.twitch.tv/helix/';
-export const TWITCH_CLIENT_ID = '041r2glmgub2pt357ss0la44j2sz95';
-export const TWITCH_MDB_CHANNEL_ID = '467752938';
-export const TWITCH_HEADERS = { 'Client-ID': TWITCH_CLIENT_ID };
-export const TWITCH_STREAMS_URL = `${TWITCH_API_ENDPOINT}streams?user_id=${TWITCH_MDB_CHANNEL_ID}`;
-
 export const STITCH_AUTH_APP_ID = 'devhubauthentication-lidpq';

@@ -152,6 +152,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                                         twitchVideo.thumbnailUrl
                                     )}
                                     maxWidth={MEDIA_WIDTH}
+                                    title={twitchVideo.title}
                                     videoModalThumbnail={getTwitchThumbnail(
                                         twitchVideo.thumbnailUrl,
                                         1200

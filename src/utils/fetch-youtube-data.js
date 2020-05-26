@@ -17,9 +17,9 @@ const simplifyResponse = responseData => {
     return youtubeJSON;
 };
 
-const fetchYoutubeData = async (playlistId, maxResults = 5) => {
+const fetchYoutubeData = async (maxResults = 5) => {
     try {
-        const response = await requestYoutubePlaylist(playlistId, maxResults);
+        const response = await requestYoutubePlaylist(maxResults);
         if (response) {
             const videoList = response.items.map(simplifyResponse);
             return videoList;
