@@ -8,6 +8,7 @@ import { screenSize } from './theme';
 const LiveImage = styled(Image)`
     border-radius: 0;
     margin-bottom: 0;
+    width: 100%;
 `;
 
 const MongodbLiveBanner = () => {
