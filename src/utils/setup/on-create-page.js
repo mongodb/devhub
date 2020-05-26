@@ -1,5 +1,6 @@
 const memoizerific = require('memoizerific');
 const { removeExcludedArticles } = require('./remove-excluded-articles');
+const { removePageIfStaged } = require('./remove-page-if-staged');
 const { getNestedValue } = require('../get-nested-value');
 const { getMetadata } = require('../get-metadata');
 
@@ -21,6 +22,8 @@ const DEFAULT_FEATURED_LEARN_SLUGS = [
     'how-to/golang-alexa-skills',
     'how-to/polymorphic-pattern',
 ];
+
+const STAGING_PAGES = ['/academia/', '/media/'];
 
 const requestStitch = async (functionName, ...args) =>
     stitchClient.callFunction(functionName, [metadata, ...args]);
@@ -171,6 +174,7 @@ const onCreatePage = async (
         default:
             break;
     }
+    removePageIfStaged(page, deletePage, STAGING_PAGES);
 };
 
 module.exports = { findArticlesFromSlugs, getLearnPageFilters, onCreatePage };
