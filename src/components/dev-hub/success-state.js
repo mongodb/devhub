@@ -11,8 +11,8 @@ const SuccessContainer = styled('div')`
     }
 `;
 
-const SuccessState = ({ children }) => (
-    <SuccessContainer>
+const SuccessState = ({ children, ...props }) => (
+    <SuccessContainer {...props}>
         <SuccessIcon />
         <H3>{children}</H3>
     </SuccessContainer>

@@ -105,7 +105,10 @@ export default () => {
                         Have a burning question you want to ask? Looking for a
                         community of like minded developers?
                     </P>
-                    <Button primary href="https://community.mongodb.com/">
+                    <Button
+                        primary
+                        href="https://developer.mongodb.com/community/forums"
+                    >
                         Join
                     </Button>
                 </HeroContent>

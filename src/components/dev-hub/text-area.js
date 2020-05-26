@@ -11,19 +11,19 @@ import {
 } from './theme';
 import Label from './input-label';
 
-const LABEL_ABSOLUTE_LEFT = 22;
-const LABEL_END_TOP = -14;
-const LABEL_START_TOP = 9;
+const LABEL_ABSOLUTE_LEFT = 18;
+const LABEL_END_TOP = -10;
+const LABEL_START_TOP = 0;
 
 const StyledTextArea = styled('textarea')`
     background-color: ${colorMap.greyDarkTwo};
     border: ${FORM_ELEMENT_BORDER} solid transparent;
     color: ${colorMap.devWhite};
     font-family: 'Fira Mono', monospace;
-    font-size: ${fontSize.default};
+    font-size: ${fontSize.small};
     height: 180px;
     outline: none;
-    padding: ${size.medium};
+    padding: ${size.default};
     position: relative;
     resize: none;
     width: 100%;

@@ -4,11 +4,18 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import ArrowheadIcon from './icons/arrowhead-icon';
 import { P } from './text';
-import { colorMap, gradientMap, layer, size } from './theme';
+import {
+    colorMap,
+    fontSize,
+    gradientMap,
+    lineHeight,
+    layer,
+    size,
+} from './theme';
 
 const BORDER_SIZE = 2;
 const OPTIONS_POSITION_OFFSET = 58;
-const OPTIONS_POSITION_OFFSET_NARROW = 48;
+const OPTIONS_POSITION_OFFSET_NARROW = 38;
 
 const activeSelectStyles = css`
     border: ${BORDER_SIZE}px solid;
@@ -20,9 +27,9 @@ const Option = styled('li')`
     background-color: ${colorMap.greyDarkOne};
     color: ${colorMap.greyLightTwo};
     display: block;
+    font-size: ${fontSize.small};
     overflow: hidden;
-    padding: ${({ narrow }) =>
-        narrow ? `${size.small} ${size.medium}` : size.medium};
+    padding: ${`6px ${size.default}`};
     text-overflow: ellipsis;
     white-space: nowrap;
     :focus,
@@ -35,7 +42,7 @@ const Option = styled('li')`
 const Options = styled('ul')`
     border: ${BORDER_SIZE}px solid;
     border-image: ${gradientMap.violentMagentaOrange} 1;
-    border-top: none;
+    border-width: 0 ${BORDER_SIZE}px ${BORDER_SIZE}px;
     /* account for border above */
     left: -${BORDER_SIZE}px;
     padding: 0;
@@ -65,9 +72,10 @@ const SelectedOption = styled('div')`
     background-color: ${colorMap.greyDarkTwo};
     color: ${colorMap.devWhite};
     display: flex;
+    font-size: ${fontSize.small};
+    line-height: ${lineHeight.small};
     justify-content: space-between;
-    padding: ${({ narrow }) =>
-        narrow ? `${size.small} ${size.medium}` : size.medium};
+    padding: ${({ narrow }) => (narrow ? `6px ${size.default}` : size.default)};
     position: relative;
 `;
 const FormSelect = ({
@@ -170,7 +178,6 @@ const FormSelect = ({
             role="listbox"
             showOptions={showOptions}
             tabIndex="0"
-            {...extraProps}
         >
             <SelectedOption
                 errors={errors}
