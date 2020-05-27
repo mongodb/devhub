@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import ComponentFactory from '../ComponentFactory';
-import { colorMap, gradientMap, size } from './theme';
+import { darkTheme, size } from './theme';
 import { createShadowElement } from './utils';
 
 const BLOCKQUOTE_OFFSET = 10;
 const BORDER_SIZE = 2;
 
 const StyledBlockquote = styled('blockquote')`
-    background: ${colorMap.greyDarkThree};
+    background: ${darkTheme.colorMap.greyDarkThree};
     border-radius: ${size.tiny};
-    color: ${colorMap.devWhite};
+    color: ${darkTheme.colorMap.devWhite};
     margin: 0;
     padding: ${size.medium};
     > :last-child {
@@ -20,14 +20,14 @@ const StyledBlockquote = styled('blockquote')`
 
 const BlockquoteContainer = styled('div')`
     border-radius: ${size.tiny};
-    background: ${gradientMap.magentaSalmonSherbet};
+    background: ${darkTheme.gradientMap.magentaSalmonSherbet};
     background-size: cover;
     margin-bottom: ${BLOCKQUOTE_OFFSET + size.stripUnit(size.default)}px;
     padding: ${BORDER_SIZE}px;
     position: relative;
     &:before {
         ${createShadowElement(
-            gradientMap.magentaSalmonSherbet,
+            darkTheme.gradientMap.magentaSalmonSherbet,
             size.tiny,
             BLOCKQUOTE_OFFSET,
             0
@@ -35,7 +35,7 @@ const BlockquoteContainer = styled('div')`
     }
     &:after {
         ${createShadowElement(
-            colorMap.greyDarkThree,
+            darkTheme.colorMap.greyDarkThree,
             size.tiny,
             BLOCKQUOTE_OFFSET,
             4

@@ -5,7 +5,7 @@ import ControlledTooltip from './controlled-tooltip';
 import ListIcon from './icons/list-icon';
 import { H5, P } from './text';
 import Link from './link';
-import { animationSpeed, colorMap, size } from './theme';
+import { animationSpeed, darkTheme, size } from './theme';
 import { formatText } from '../../utils/format-text';
 import HoverTooltip from './hover-tooltip';
 
@@ -14,32 +14,32 @@ const StyledListIcon = styled(ListIcon)`
         g {
             path,
             circle {
-                fill: ${colorMap.devWhite};
+                fill: ${darkTheme.colorMap.devWhite};
             }
         }
     }
 `;
 
 const activeStyles = css`
-    color: ${colorMap.devWhite};
+    color: ${darkTheme.colorMap.devWhite};
     font-weight: bold;
     &:hover,
     &:visited {
-        color: ${colorMap.devWhite};
+        color: ${darkTheme.colorMap.devWhite};
     }
 `;
 
 const defaultStyles = css`
     &:hover {
-        color: ${colorMap.devWhite};
+        color: ${darkTheme.colorMap.devWhite};
         transition: color ${animationSpeed.fast};
     }
 `;
 const StyledLink = styled(Link)`
     &:visited {
-        color: ${colorMap.greyLightTwo};
+        color: ${darkTheme.colorMap.greyLightTwo};
     }
-    color: ${colorMap.greyLightTwo};
+    color: ${darkTheme.colorMap.greyLightTwo};
     text-decoration: none;
     ${({ isactive }) => (isactive ? activeStyles : defaultStyles)}
     &:after {

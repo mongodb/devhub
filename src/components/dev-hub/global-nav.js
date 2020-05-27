@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Link from './link';
-import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
+import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
 import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
 import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
 import useMedia from '../../hooks/use-media';
@@ -10,7 +10,7 @@ import useMedia from '../../hooks/use-media';
 const LINK_VERTICAL_PADDING = '17px';
 
 const GlobalNav = styled('nav')`
-    background-color: ${colorMap.greyDarkThree};
+    background-color: ${darkTheme.colorMap.greyDarkThree};
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -24,7 +24,7 @@ const GlobalNav = styled('nav')`
 
 const NavContent = styled('div')`
     align-items: center;
-    color: ${colorMap.greyLightOne};
+    color: ${darkTheme.colorMap.greyLightOne};
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;

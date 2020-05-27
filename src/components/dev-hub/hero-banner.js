@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Breadcrumb from './breadcrumb';
 import {
-    colorMap,
+    darkTheme,
     fontSize,
     HERO_CONTENT_WIDTH,
     screenSize,
@@ -25,7 +25,7 @@ const Header = styled('header')`
 `;
 
 const HeroBannerContainer = styled('div')`
-    background-color: ${colorMap.devBlack};
+    background-color: ${darkTheme.colorMap.devBlack};
     ${({ background }) =>
         background && `background-image: url(${background});`};
     /* Send background to the right */

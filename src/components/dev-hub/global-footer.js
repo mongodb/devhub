@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
+import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
 import MongodbLogoIcon from './icons/mongodb-logo';
 import Link from './link';
 import FacebookIcon from './icons/facebook-icon';
@@ -35,11 +35,11 @@ const siteLinks = [
 ];
 const iconstyles = css`
     &:hover {
-        fill: ${colorMap.darkGreen};
+        fill: ${darkTheme.colorMap.darkGreen};
         g {
-            fill: ${colorMap.darkGreen};
+            fill: ${darkTheme.colorMap.darkGreen};
             path {
-                fill: ${colorMap.darkGreen};
+                fill: ${darkTheme.colorMap.darkGreen};
             }
         }
     }
@@ -47,7 +47,7 @@ const iconstyles = css`
 const iconProps = {
     height: 15,
     width: 15,
-    color: colorMap.greyLightTwo,
+    color: darkTheme.colorMap.greyLightTwo,
     css: iconstyles,
 };
 const iconLinks = [
@@ -77,11 +77,11 @@ const iconLinks = [
     },
 ];
 const GlobalFooter = styled('footer')`
-    background: ${colorMap.greyDarkThree};
+    background: ${darkTheme.colorMap.greyDarkThree};
     width: 100%;
 `;
 const FooterContent = styled('div')`
-    color: ${colorMap.greyLightTwo};
+    color: ${darkTheme.colorMap.greyLightTwo};
     display: grid;
     @media ${screenSize.mediumAndUp} {
         grid-gap: 0 ${size.xlarge};
@@ -116,11 +116,11 @@ const LogoContainer = styled('section')`
     grid-area: logo;
     justify-content: center;
     @media ${screenSize.mediumAndUp} {
-        border-right: 1px solid ${colorMap.greyLightTwo};
+        border-right: 1px solid ${darkTheme.colorMap.greyLightTwo};
         padding-right: ${size.xlarge};
     }
     @media ${screenSize.upToMedium} {
-        border-top: 1px solid ${colorMap.greyLightTwo};
+        border-top: 1px solid ${darkTheme.colorMap.greyLightTwo};
         justify-content: flex-start;
         padding: ${size.default} 0;
     }
@@ -152,7 +152,7 @@ const Copyright = styled(P)`
     grid-area: copyright;
     @media ${screenSize.upToMedium} {
         align-items: center;
-        border-top: 1px solid ${colorMap.greyLightTwo};
+        border-top: 1px solid ${darkTheme.colorMap.greyLightTwo};
         display: flex;
         font-size: ${fontSize.micro};
         justify-content: flex-end;
@@ -161,12 +161,12 @@ const Copyright = styled(P)`
     }
 `;
 const FooterLink = styled(Link)`
-    color: ${colorMap.greyLightTwo};
+    color: ${darkTheme.colorMap.greyLightTwo};
     &:visited {
-        color: ${colorMap.greyLightTwo};
+        color: ${darkTheme.colorMap.greyLightTwo};
     }
     &:hover {
-        color: ${colorMap.darkGreen};
+        color: ${darkTheme.colorMap.darkGreen};
     }
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};

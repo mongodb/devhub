@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { css } from '@emotion/core';
 import { buildQueryString } from '../../utils/query-string';
 import styled from '@emotion/styled';
-import { colorMap } from './theme';
+import { darkTheme } from './theme';
 
 const DEFAULT_CHART_AUTOREFRESH = 3600;
 const DEFAULT_CHART_HEIGHT = '570';
@@ -42,8 +42,8 @@ const buildChartUrl = options => {
 
 const StyledChart = styled('iframe')`
     background: ${({ theme }) =>
-        theme === 'light' ? colorMap.devWhite : 'transparent'};
-    border: 1px solid ${colorMap.devWhite};
+        theme === 'light' ? darkTheme.colorMap.devWhite : 'transparent'};
+    border: 1px solid ${darkTheme.colorMap.devWhite};
     ${({ customAlign }) => getAlignment(customAlign)};
     max-width: 100%;
 `;

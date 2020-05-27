@@ -3,9 +3,8 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import {
     animationSpeed,
-    colorMap,
+    darkTheme,
     fontSize,
-    gradientMap,
     lineHeight,
     screenSize,
     size,
@@ -23,12 +22,22 @@ const buttonHoverStyles = css`
     &:active,
     &:hover,
     &:focus {
-        color: ${colorMap.devWhite};
+        color: ${darkTheme.colorMap.devWhite};
         &:before {
-            ${createShadowElement(gradientMap.green, size.large, 10, 0)}
+            ${createShadowElement(
+                darkTheme.gradientMap.green,
+                size.large,
+                10,
+                0
+            )}
         }
         &:after {
-            ${createShadowElement(colorMap.greyDarkThree, size.large, 10, 4)}
+            ${createShadowElement(
+                darkTheme.colorMap.greyDarkThree,
+                size.large,
+                10,
+                4
+            )}
         }
     }
 `;
@@ -37,8 +46,8 @@ const secondaryHoverStyles = css`
     &:active,
     &:hover,
     &:focus {
-        color: ${colorMap.devWhite};
-        border: 2px solid ${colorMap.lightGreen};
+        color: ${darkTheme.colorMap.devWhite};
+        border: 2px solid ${darkTheme.colorMap.lightGreen};
     }
 `;
 
@@ -51,15 +60,15 @@ const buttonPadding = css`
 `;
 
 const primaryStyles = css`
-    background: ${gradientMap.green};
+    background: ${darkTheme.gradientMap.green};
     text-decoration: none;
     ${buttonHoverStyles}
     ${buttonPadding}
 `;
 
 const secondaryStyles = css`
-    background: ${colorMap.greyDarkThree};
-    border: 2px solid ${colorMap.greyDarkOne};
+    background: ${darkTheme.colorMap.greyDarkThree};
+    border: 2px solid ${darkTheme.colorMap.greyDarkOne};
     position: relative;
     text-decoration: none;
     ${buttonPadding}
@@ -70,22 +79,22 @@ const tertiaryStyles = css`
     &:active,
     &:hover,
     &:focus {
-        color: ${colorMap.lightGreen};
+        color: ${darkTheme.colorMap.lightGreen};
         transition: color ${animationSpeed.fast} ease-in;
     }
 `;
 const playStyles = css`
-    background-color: ${colorMap.devBlack};
-    border: 1px solid ${colorMap.devWhite};
+    background-color: ${darkTheme.colorMap.devBlack};
+    border: 1px solid ${darkTheme.colorMap.devWhite};
     border-radius: 50%;
-    color: ${colorMap.devWhite};
+    color: ${darkTheme.colorMap.devWhite};
     font-size: ${size.large};
     height: 80px;
     padding: ${size.default} ${size.default} ${size.default} ${size.medium};
     position: relative;
     width: 80px;
     &:before {
-        background: ${colorMap.greyLightThree};
+        background: ${darkTheme.colorMap.greyLightThree};
         border-radius: 50%;
         bottom: -${size.xsmall};
         content: '';
@@ -100,9 +109,9 @@ const playStyles = css`
         content: '\u25b6';
     }
     :hover {
-        background-color: ${colorMap.devWhite};
-        border-color: ${colorMap.devWhite};
-        color: ${colorMap.devBlack};
+        background-color: ${darkTheme.colorMap.devWhite};
+        border-color: ${darkTheme.colorMap.devWhite};
+        color: ${darkTheme.colorMap.devBlack};
         transition: color 0.4s;
         ::before {
             opacity: 0.6;
@@ -119,7 +128,7 @@ const playStyles = css`
 `;
 
 const PlayButtonWrapper = styled('div')`
-    background: ${colorMap.greyDarkTwo};
+    background: ${darkTheme.colorMap.greyDarkTwo};
     border-radius: 50%;
     bottom: -${size.default};
     content: '';
@@ -135,7 +144,7 @@ const StyledButton = styled('button')`
     border: none;
     border-radius: ${size.large};
     box-shadow: none;
-    color: ${({ color }) => (color ? color : colorMap.devWhite)};
+    color: ${({ color }) => (color ? color : darkTheme.colorMap.devWhite)};
     cursor: pointer;
     display: inline-block;
     font-family: 'Fira Mono', monospace;
@@ -156,7 +165,7 @@ const StyledButton = styled('button')`
         !primary && !secondary && !play && tertiaryStyles}
     &[disabled],
     &[disabled]:hover {
-        background: ${colorMap.greyLightThree};
+        background: ${darkTheme.colorMap.greyLightThree};
         cursor: not-allowed;
     }
 `;

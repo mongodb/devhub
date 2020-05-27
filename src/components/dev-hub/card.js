@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Button from './button';
-import { animationSpeed, colorMap, lineHeight, size, fontSize } from './theme';
+import { animationSpeed, darkTheme, lineHeight, size, fontSize } from './theme';
 import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
@@ -41,7 +41,7 @@ const ImageWrapper = styled('div')`
 const hoverStyles = css`
     &:hover,
     &:active {
-        background-color: ${colorMap.greyDarkTwo};
+        background-color: ${darkTheme.colorMap.greyDarkTwo};
         color: inherit;
         cursor: pointer;
         ${Image} {
@@ -71,7 +71,7 @@ const truncate = maxLines => css`
     overflow: hidden;
 `;
 const DescriptionText = styled(P)`
-    color: ${colorMap.greyLightTwo};
+    color: ${darkTheme.colorMap.greyLightTwo};
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
 `;

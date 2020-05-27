@@ -1,11 +1,11 @@
 import React from 'react';
-import { colorMap, size } from './theme';
+import { darkTheme, size } from './theme';
 import { P5 } from './text';
 import styled from '@emotion/styled';
 
 const Badge = styled('div')`
     bottom: 0;
-    background-color: ${colorMap.greyDarkThree};
+    background-color: ${darkTheme.colorMap.greyDarkThree};
     font-family: akzidenz;
     letter-spacing: 1px;
     margin: ${size.default};
@@ -19,11 +19,11 @@ const determineColor = contentType => {
     switch (contentType) {
         case 'youtube':
         case 'twitch':
-            return colorMap.salmon;
+            return darkTheme.colorMap.salmon;
         case 'podcast':
-            return colorMap.yellow;
+            return darkTheme.colorMap.yellow;
         case 'article':
-            return colorMap.teal;
+            return darkTheme.colorMap.teal;
         default:
             return null;
     }

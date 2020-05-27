@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Popover from 'react-tiny-popover';
-import { animationSpeed, colorMap, layer, size } from './theme';
+import { animationSpeed, darkTheme, layer, size } from './theme';
 
 const CONTENT_MAX_WIDTH = 250;
 const TOOLTIP_DISTANCE = 15;
@@ -17,14 +17,14 @@ const TOOLTIP_ALIGNMENT_MAP = {
 const gradient = css`
     border-image: linear-gradient(
             315deg,
-            ${colorMap.violet} 0%,
-            ${colorMap.magenta} 40%,
-            ${colorMap.orange} 100%
+            ${darkTheme.colorMap.violet} 0%,
+            ${darkTheme.colorMap.magenta} 40%,
+            ${darkTheme.colorMap.orange} 100%
         )
         1;
 `;
 const defaultBorder = css`
-    border-color: ${colorMap.greyLightTwo};
+    border-color: ${darkTheme.colorMap.greyLightTwo};
 `;
 const arrowBase = css`
     &:before,
@@ -84,20 +84,20 @@ const rightDefaultArrow = css`
         left: 100%;
     }
     &:before {
-        border-left-color: ${colorMap.greyLightTwo};
+        border-left-color: ${darkTheme.colorMap.greyLightTwo};
     }
     &:after {
-        border-left-color: ${colorMap.greyDarkOne};
+        border-left-color: ${darkTheme.colorMap.greyDarkOne};
     }
 `;
 
 const rightGradientArrow = css`
     ${rightDefaultArrow}
     &:before {
-        border-left-color: ${colorMap.magenta};
+        border-left-color: ${darkTheme.colorMap.magenta};
     }
     &:after {
-        border-left-color: ${colorMap.greyDarkOne};
+        border-left-color: ${darkTheme.colorMap.greyDarkOne};
     }
 `;
 
@@ -109,20 +109,20 @@ const leftDefaultArrow = css`
         right: 100%;
     }
     &:before {
-        border-right-color: ${colorMap.greyLightTwo};
+        border-right-color: ${darkTheme.colorMap.greyLightTwo};
     }
     &:after {
-        border-right-color: ${colorMap.greyDarkOne};
+        border-right-color: ${darkTheme.colorMap.greyDarkOne};
     }
 `;
 
 const leftGradientArrow = css`
     ${leftDefaultArrow}
     &:before {
-        border-right-color: ${colorMap.orange};
+        border-right-color: ${darkTheme.colorMap.orange};
     }
     &:after {
-        border-right-color: ${colorMap.greyDarkOne};
+        border-right-color: ${darkTheme.colorMap.greyDarkOne};
     }
 `;
 
@@ -130,11 +130,11 @@ const bottomDefaultArrow = css`
     ${arrowBase}
     ${verticalArrowBase}
     &:after {
-        border-top-color: ${colorMap.greyDarkOne};
+        border-top-color: ${darkTheme.colorMap.greyDarkOne};
         top: calc(100% + 11px);
     }
     &:before {
-        border-top-color: ${colorMap.greyLightTwo};
+        border-top-color: ${darkTheme.colorMap.greyLightTwo};
         top: calc(100% + 15px);
     }
 `;
@@ -142,10 +142,10 @@ const bottomDefaultArrow = css`
 const bottomGradientArrow = css`
     ${bottomDefaultArrow}
     &:after {
-        border-top-color: ${colorMap.greyDarkOne};
+        border-top-color: ${darkTheme.colorMap.greyDarkOne};
     }
     &:before {
-        border-top-color: ${colorMap.magenta};
+        border-top-color: ${darkTheme.colorMap.magenta};
     }
 `;
 
@@ -157,20 +157,20 @@ const topDefaultArrow = css`
         bottom: 100%;
     }
     &:after {
-        border-bottom-color: ${colorMap.greyDarkOne};
+        border-bottom-color: ${darkTheme.colorMap.greyDarkOne};
     }
     &:before {
-        border-bottom-color: ${colorMap.greyLightTwo};
+        border-bottom-color: ${darkTheme.colorMap.greyLightTwo};
     }
 `;
 
 const topGradientArrow = css`
     ${topDefaultArrow}
     &:after {
-        border-bottom-color: ${colorMap.greyDarkOne};
+        border-bottom-color: ${darkTheme.colorMap.greyDarkOne};
     }
     &:before {
-        border-bottom-color: ${colorMap.magenta};
+        border-bottom-color: ${darkTheme.colorMap.magenta};
     }
 `;
 
@@ -185,9 +185,9 @@ const getArrowStyles = (hasGradientBorder, position) => {
 };
 
 const Content = styled('div')`
-    background: ${colorMap.greyDarkOne};
+    background: ${darkTheme.colorMap.greyDarkOne};
     border: 2px solid;
-    color: ${colorMap.devWhite};
+    color: ${darkTheme.colorMap.devWhite};
     max-width: ${({ maxWidth }) =>
         maxWidth ? `${maxWidth}px` : `${CONTENT_MAX_WIDTH}px`};
     padding: ${size.medium} ${size.default};
