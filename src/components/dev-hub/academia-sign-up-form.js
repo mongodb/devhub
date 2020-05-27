@@ -85,7 +85,6 @@ const Form = React.memo(({ setSuccess, success }) => {
             agree_to_email: agreeToEmail,
         };
         const response = await submitAcademiaForm(data);
-        //TODO: communicate with the backend here
         if (response.success) {
             setSuccess(true);
         } else {
