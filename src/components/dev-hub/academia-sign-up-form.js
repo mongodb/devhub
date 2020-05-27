@@ -58,7 +58,7 @@ const InstitutionSection = styled('div')`
     }
 `;
 
-const Form = React.memo(({ setSuccess, success }) => {
+const Form = React.memo(({ setSuccess, success, ...props }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -85,12 +85,13 @@ const Form = React.memo(({ setSuccess, success }) => {
             agree_to_email: agreeToEmail,
         };
         const response = await submitAcademiaForm(data);
+
         setSuccess(response.success);
         setCanSubmit(!response.success);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} {...props}>
             <ErrorMessage>
                 {success === false &&
                     'Your submission failed. Please try again.'}
@@ -174,8 +175,8 @@ const Form = React.memo(({ setSuccess, success }) => {
             <Checkbox
                 onChange={e => setAgreeToEmail(e.target.value)}
                 required
-                label="I agree to receive emails from MongoDB around MongoDB for Academia. After submitting, a 
-                MongoDB representative will reach out within five business days."
+                label="I agree to receive emails from MongoDB, Inc. After submitting, 
+                a MongoDB representative will reach out within five business days."
                 variant="light"
             />
 
@@ -191,12 +192,12 @@ const Form = React.memo(({ setSuccess, success }) => {
     );
 });
 
-const AcademiaSignUpForm = () => {
+const AcademiaSignUpForm = ({ ...props }) => {
     const [success, setSuccess] = useState(null);
     if (success) {
         return <StyledSuccessState>Thank you for joining!</StyledSuccessState>;
     }
-    return <Form setSuccess={setSuccess} success={success} />;
+    return <Form setSuccess={setSuccess} success={success} {...props} />;
 };
 
 export default AcademiaSignUpForm;
