@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import ComponentFactory from '../ComponentFactory';
-import { colorMap, gradientMap, size } from './theme';
+import { colorMap, gradientMap, layer, size } from './theme';
 import { createShadowElement } from './utils';
 
 const BLOCKQUOTE_OFFSET = 10;
@@ -43,14 +43,25 @@ const BlockquoteContainer = styled('div')`
     }
 `;
 
+const BlockquoteStackingContext = styled('div')`
+    position: relative;
+    z-index: ${layer.front};
+`;
+
 const Blockquote = ({ nodeData: { children }, ...rest }) => (
-    <BlockquoteContainer>
-        <StyledBlockquote>
-            {children.map((element, index) => (
-                <ComponentFactory {...rest} nodeData={element} key={index} />
-            ))}
-        </StyledBlockquote>
-    </BlockquoteContainer>
+    <BlockquoteStackingContext>
+        <BlockquoteContainer>
+            <StyledBlockquote>
+                {children.map((element, index) => (
+                    <ComponentFactory
+                        {...rest}
+                        nodeData={element}
+                        key={index}
+                    />
+                ))}
+            </StyledBlockquote>
+        </BlockquoteContainer>
+    </BlockquoteStackingContext>
 );
 
 Blockquote.displayName = 'Blockquote';
