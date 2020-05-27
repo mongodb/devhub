@@ -1,32 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<BlockquoteContainer>
-  <StyledBlockquote>
-    <ComponentFactory
-      key="0"
-      nodeData={
-        Object {
-          "children": Array [
-            Object {
-              "position": Object {
-                "start": Object {
-                  "line": 27,
+<BlockquoteStackingContext>
+  <BlockquoteContainer>
+    <StyledBlockquote>
+      <ComponentFactory
+        key="0"
+        nodeData={
+          Object {
+            "children": Array [
+              Object {
+                "position": Object {
+                  "start": Object {
+                    "line": 27,
+                  },
                 },
+                "type": "text",
+                "value": "There are several ways to connect to your MongoDB instance.",
               },
-              "type": "text",
-              "value": "There are several ways to connect to your MongoDB instance.",
+            ],
+            "position": Object {
+              "start": Object {
+                "line": 27,
+              },
             },
-          ],
-          "position": Object {
-            "start": Object {
-              "line": 27,
-            },
-          },
-          "type": "paragraph",
+            "type": "paragraph",
+          }
         }
-      }
-    />
-  </StyledBlockquote>
-</BlockquoteContainer>
+      />
+    </StyledBlockquote>
+  </BlockquoteContainer>
+</BlockquoteStackingContext>
 `;
