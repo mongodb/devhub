@@ -304,7 +304,11 @@ const ControlledTooltip = ({
             }
             {...tooltipProps}
         >
-            <Trigger {...triggerProps}>{trigger}</Trigger>
+            {ref => (
+                <Trigger ref={ref} {...triggerProps}>
+                    {trigger}
+                </Trigger>
+            )}
         </Popover>
     );
 };
