@@ -85,12 +85,8 @@ const Form = React.memo(({ setSuccess, success }) => {
             agree_to_email: agreeToEmail,
         };
         const response = await submitAcademiaForm(data);
-        if (response.success) {
-            setSuccess(true);
-        } else {
-            setCanSubmit(true);
-            setSuccess(false);
-        }
+        setSuccess(response.success);
+        setCanSubmit(!response.success);
     };
 
     return (
