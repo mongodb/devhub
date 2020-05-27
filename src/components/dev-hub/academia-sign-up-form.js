@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { submitAcademiaForm } from '../../utils/devhub-api-stitch';
 import { colorMap, size, screenSize } from './theme';
 import { P, ArticleH3 } from './text';
 import Input from './input';
@@ -28,6 +29,11 @@ const StyledSectionText = styled(ArticleH3)`
     color: ${colorMap.greyLightTwo};
     font-family: akzidenz;
     font-weight: normal;
+`;
+
+const StyledSuccessState = styled(SuccessState)`
+    margin-bottom: ${size.xlarge};
+    margin-top: ${size.xlarge};
 `;
 
 const InstructorSection = styled('div')`
@@ -70,8 +76,7 @@ const Form = React.memo(({ setSuccess, success }) => {
     const handleSubmit = async e => {
         e.preventDefault();
         setCanSubmit(false);
-        setSuccess(true);
-        const obj = {
+        const data = {
             first_name: firstName,
             last_name: lastName,
             email,
@@ -79,8 +84,14 @@ const Form = React.memo(({ setSuccess, success }) => {
             institution_type: institutionType,
             agree_to_email: agreeToEmail,
         };
-
+        const response = await submitAcademiaForm(data);
         //TODO: communicate with the backend here
+        if (response.success) {
+            setSuccess(true);
+        } else {
+            setCanSubmit(true);
+            setSuccess(false);
+        }
     };
 
     return (
@@ -188,7 +199,7 @@ const Form = React.memo(({ setSuccess, success }) => {
 const AcademiaSignUpForm = () => {
     const [success, setSuccess] = useState(null);
     if (success) {
-        return <SuccessState>Thank you for joining!</SuccessState>;
+        return <StyledSuccessState>Thank you for joining!</StyledSuccessState>;
     }
     return <Form setSuccess={setSuccess} success={success} />;
 };

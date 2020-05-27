@@ -29,3 +29,11 @@ export const requestYoutubePlaylist = async maxResults => {
     );
     return result;
 };
+
+export const submitAcademiaForm = async academiaData => {
+    const result = await callDevhubAPIStitchFunction(
+        'submitAcademiaRegistration',
+        academiaData
+    );
+    return result;
+};
