@@ -100,10 +100,10 @@ export default () => {
                 showImageOnMobile={false}
             >
                 <HeroContent>
-                    <H2 bold>Find Your Place</H2>
+                    <H2 bold>Join the Community Forums</H2>
                     <P>
-                        Have a burning question you want to ask? Looking for a
-                        community of like minded developers?
+                        Collaborate with other MongoDB users. Solve problems.
+                        Build the future.
                     </P>
                     <Button
                         primary
