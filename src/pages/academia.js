@@ -20,28 +20,15 @@ import TeachMongoDBImage from '../images/1x/TeachMongoDB.svg';
 import AcademiaLeafImage from '../images/1x/Academia_Leaf.svg';
 import useMedia from '../hooks/use-media';
 
-const HEADER_CONTENT_MAX_WIDTH = '400px';
-const BACKGROUND_MAX_WIDTH = '1400px';
-
 const StyledHeroBanner = styled(HeroBanner)`
-    width: ${BACKGROUND_MAX_WIDTH};
     margin: 0 ${size.medium};
-    @media ${screenSize.upToMedium} {
-        width: 100%;
-        margin: 0;
-    }
 `;
 
 const Header = styled('header')`
-    background: ${colorMap.devBlack};
     padding-top: ${size.large};
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.large};
     }
-`;
-
-const HeaderContent = styled('div')`
-    max-width: ${HEADER_CONTENT_MAX_WIDTH};
 `;
 
 const Title = styled(ArticleH2)`
@@ -59,6 +46,9 @@ const BodyContent = styled('div')`
     margin: 0 auto;
     max-width: ${size.maxContentWidth};
     width: 100%;
+    @media ${screenSize.upToMedium} {
+        padding: 0 ${size.default};
+    }
 `;
 
 const BodyText = styled(P)`
@@ -80,7 +70,7 @@ const EligibilitySection = styled('div')`
     background-color: ${colorMap.devBlack};
     padding-bottom: ${size.xlarge};
     padding-top: ${size.medium};
-    width: ${BACKGROUND_MAX_WIDTH};
+    max-width: ${size.maxWidth};
     margin: 0 ${size.medium};
     @media ${screenSize.upToMedium} {
         width: 100%;
@@ -121,6 +111,10 @@ const StyledP = styled(P)`
     margin-top: ${size.articleContent};
 `;
 
+const StyledLeafImage = styled('img')`
+    margin-top: 400px;
+`;
+
 export default () => {
     const metadata = useSiteMetadata();
     const academiaBreadcrumbs = [
@@ -142,25 +136,22 @@ export default () => {
                 background={HeroBannerImage}
             >
                 <Header>
-                    <HeaderContent>
-                        <Title>MongoDB for Academia</Title>
+                    <Title>MongoDB for Academia</Title>
 
-                        <H3>Teach modern databases with MongoDB</H3>
+                    <H3>Teach modern databases with MongoDB</H3>
 
-                        <StyledP>
-                            Enrich your curriculum with MongoDB content and
-                            prepare the developers of tomorrow to build modern
-                            applications.
-                        </StyledP>
+                    <StyledP>
+                        Enrich your curriculum with MongoDB content and prepare
+                        the developers of tomorrow to build modern applications.
+                    </StyledP>
 
-                        <StyledButton
-                            onClick={() => scrollToRef(formRef)}
-                            primary
-                            hasArrow={false}
-                        >
-                            Join MongoDB for Academia
-                        </StyledButton>
-                    </HeaderContent>
+                    <StyledButton
+                        onClick={() => scrollToRef(formRef)}
+                        primary
+                        hasArrow={false}
+                    >
+                        Join MongoDB for Academia
+                    </StyledButton>
                 </Header>
             </StyledHeroBanner>
 
@@ -197,7 +188,7 @@ export default () => {
                     </OfferingsContent>
                 </div>
                 {!isMobile && (
-                    <img src={TeachMongoDBImage} alt="" width="550px" />
+                    <img src={TeachMongoDBImage} alt="" width="450px" />
                 )}
             </BodyContent>
 
@@ -207,20 +198,6 @@ export default () => {
                         <EligibilityContent>
                             <StyledSectionHeader>
                                 For Educators
-                            </StyledSectionHeader>
-                            <BodyText>
-                                If you’re a student, you can apply for the{' '}
-                                <StyledLink href="https://education.github.com/pack">
-                                    GitHub Student Developer Pack
-                                </StyledLink>{' '}
-                                and get access to MongoDB Atlas, University
-                                on-demand content and certifications.
-                            </BodyText>
-                        </EligibilityContent>
-
-                        <EligibilityContent>
-                            <StyledSectionHeader>
-                                For Students
                             </StyledSectionHeader>
                             <BodyText>
                                 MongoDB for Academia is for educators who want
@@ -246,9 +223,25 @@ export default () => {
                                 </StyledBullet>
                             </BodyText>
                         </EligibilityContent>
+
+                        <EligibilityContent>
+                            <StyledSectionHeader>
+                                For Students
+                            </StyledSectionHeader>
+                            <BodyText>
+                                If you’re a student, you can apply for the{' '}
+                                <StyledLink href="https://education.github.com/pack">
+                                    GitHub Student Developer Pack
+                                </StyledLink>{' '}
+                                and get access to MongoDB Atlas, University
+                                on-demand content and certifications.
+                            </BodyText>
+                        </EligibilityContent>
                     </div>
 
-                    {!isMobile && <img src={AcademiaLeafImage} alt="" />}
+                    {!isMobile && (
+                        <StyledLeafImage src={AcademiaLeafImage} alt="" />
+                    )}
                 </BodyContent>
             </EligibilitySection>
 

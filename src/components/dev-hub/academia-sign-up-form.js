@@ -85,7 +85,6 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
             agree_to_email: agreeToEmail,
         };
         const response = await submitAcademiaForm(data);
-        //TODO: communicate with the backend here
         if (response.success) {
             setSuccess(true);
         } else {
@@ -179,8 +178,8 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
             <Checkbox
                 onChange={e => setAgreeToEmail(e.target.value)}
                 required
-                label="I agree to receive emails from MongoDB around MongoDB for Academia. After submitting, a 
-                MongoDB representative will reach out within five business days."
+                label="I agree to receive emails from MongoDB, Inc. After submitting, 
+                a MongoDB representative will reach out within five business days."
                 variant="light"
             />
 
