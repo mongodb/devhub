@@ -40,6 +40,7 @@ module.exports = {
                 feeds: [articleRssFeed],
             },
         },
+        `gatsby-plugin-meta-redirect`, // this must be last
     ],
     siteMetadata: {
         ...metadata,
