@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import Modal from './modal';
 import styled from '@emotion/styled';
 import { colorMap, size } from './theme';
-import { H3, H5, P } from './text';
+import { H5, P } from './text';
 import Input from './input';
 import Button from './button';
 import TextArea from './text-area';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import useSegmentData from '../../hooks/use-segment-data';
 import { submitDevhubProject } from '../../utils/snooty-stitch';
-import SuccessIcon from './icons/success';
+import SuccessState from './success-state';
 
 const ModalContainer = styled('div')`
     padding: 0 ${size.default};
@@ -25,12 +25,6 @@ const Title = styled(H5)`
 `;
 const StyledInput = styled(Input)`
     margin-bottom: ${size.large};
-`;
-const SuccessContainer = styled('div')`
-    text-align: center;
-    svg {
-        margin-bottom: ${size.large};
-    }
 `;
 const ErrorMessage = styled(P)`
     color: ${colorMap.salmon};
@@ -115,17 +109,10 @@ const Form = React.memo(({ setSuccess, success }) => {
     );
 });
 
-const SuccessState = () => (
-    <SuccessContainer>
-        <SuccessIcon />
-        <H3>Thank you for sharing!</H3>
-    </SuccessContainer>
-);
-
 const ModalContent = () => {
     const [success, setSuccess] = useState(null);
     if (success) {
-        return <SuccessState />;
+        return <SuccessState>Thank you for sharing!</SuccessState>;
     }
     return (
         <>
