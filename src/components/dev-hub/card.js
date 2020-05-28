@@ -56,7 +56,7 @@ const Wrapper = styled('div')`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: ${({ maxWidth }) => `${maxWidth}px`};
+    max-width: ${({ maxwidth }) => `${maxwidth}px`};
     padding: ${size.medium};
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};
@@ -122,10 +122,9 @@ const Card = ({
             data-test="card"
             onClick={onClick}
             {...linkAttrs}
-            maxWidth={maxWidth}
-            isClickable={isClickable}
+            maxwidth={maxWidth}
+            isclickable={isClickable}
             className={className}
-            collapseImage={collapseImage}
         >
             <div>
                 {!collapseImage && (
