@@ -165,7 +165,7 @@ const topDefaultArrow = theme => css`
 `;
 
 const topGradientArrow = theme => css`
-    ${topDefaultArrow}
+    ${topDefaultArrow(theme)}
     &:after {
         border-bottom-color: ${theme.colorMap.greyDarkOne};
     }
@@ -202,8 +202,8 @@ const Content = styled('div')`
     position: relative;
     ${({ hasGradientBorder, theme }) =>
         hasGradientBorder ? gradient(theme) : defaultBorder(theme)}
-    ${({ hasGradientBorder, position }) =>
-        getArrowStyles(hasGradientBorder, position)}
+    ${({ hasGradientBorder, position, theme }) =>
+        getArrowStyles(hasGradientBorder, position, theme)}
 `;
 
 const Trigger = styled('span')`
