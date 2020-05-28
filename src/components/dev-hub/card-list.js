@@ -61,7 +61,7 @@ const renderArticle = article => (
 
 const renderVideo = video => (
     <VideoCard
-        key={video.title}
+        key={video.mediaType + video.title}
         image={getThumbnailUrl(video)}
         videoModalThumbnail={getThumbnailUrl(video)}
         title={video.title}
@@ -73,7 +73,7 @@ const renderVideo = video => (
 
 const renderPodcast = (podcast, openAudio) => (
     <Card
-        key={podcast.title}
+        key={podcast.mediaType + podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
         badge={podcast.mediaType}
@@ -137,9 +137,9 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
                     </Button>
                 </HasMoreButtonContainer>
             )}
-            {podcasts.length && (
+            {podcasts.length ? (
                 <Audio onClose={closeAudio} podcast={activePodcast} />
-            )}
+            ) : null}
         </>
     );
 });
