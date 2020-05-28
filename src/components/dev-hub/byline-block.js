@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Link from './link';
 import { P } from './text';
-import { colorMap, fontSize, screenSize, size } from './theme';
+import { fontSize, screenSize, size } from './theme';
 import { getTagPageUriComponent } from '../../utils/get-tag-page-uri-component';
 import AuthorImage from './author-image';
 
@@ -13,7 +13,7 @@ const AuthorImageContainer = styled('div')`
 const AuthorLink = styled(Link)`
     font-size: ${fontSize.tiny};
     :visited {
-        color: ${colorMap.greyLightThree};
+        color: ${({ theme }) => theme.colorMap.greyLightThree};
     }
     @media ${screenSize.upToLarge} {
         font-size: ${fontSize.xsmall};
@@ -29,7 +29,7 @@ const AuthorText = styled(P)`
 
 const ByLine = styled('div')`
     align-items: center;
-    color: ${colorMap.greyLightThree};
+    color: ${({ theme }) => theme.colorMap.greyLightThree};
     display: flex;
     font-size: ${fontSize.tiny};
     @media ${screenSize.upToLarge} {

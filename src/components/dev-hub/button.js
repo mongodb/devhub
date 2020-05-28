@@ -3,9 +3,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import {
     animationSpeed,
-    colorMap,
     fontSize,
-    gradientMap,
     lineHeight,
     screenSize,
     size,
@@ -13,7 +11,7 @@ import {
 import { createShadowElement } from './utils';
 import Link from './link';
 
-const buttonHoverStyles = css`
+const buttonHoverStyles = theme => css`
     &:before,
     &:after {
         content: '';
@@ -23,22 +21,27 @@ const buttonHoverStyles = css`
     &:active,
     &:hover,
     &:focus {
-        color: ${colorMap.devWhite};
+        color: ${theme.colorMap.devWhite};
         &:before {
-            ${createShadowElement(gradientMap.green, size.large, 10, 0)}
+            ${createShadowElement(theme.gradientMap.green, size.large, 10, 0)}
         }
         &:after {
-            ${createShadowElement(colorMap.greyDarkThree, size.large, 10, 4)}
+            ${createShadowElement(
+                theme.colorMap.greyDarkThree,
+                size.large,
+                10,
+                4
+            )}
         }
     }
 `;
 
-const secondaryHoverStyles = css`
+const secondaryHoverStyles = theme => css`
     &:active,
     &:hover,
     &:focus {
-        color: ${colorMap.devWhite};
-        border: 2px solid ${colorMap.lightGreen};
+        color: ${theme.colorMap.devWhite};
+        border: 2px solid ${theme.colorMap.lightGreen};
     }
 `;
 
@@ -50,42 +53,42 @@ const buttonPadding = css`
     }
 `;
 
-const primaryStyles = css`
-    background: ${gradientMap.green};
+const primaryStyles = theme => css`
+    background: ${theme.gradientMap.green};
     text-decoration: none;
-    ${buttonHoverStyles}
+    ${buttonHoverStyles(theme)}
     ${buttonPadding}
 `;
 
-const secondaryStyles = css`
-    background: ${colorMap.greyDarkThree};
-    border: 2px solid ${colorMap.greyDarkOne};
+const secondaryStyles = theme => css`
+    background: ${theme.colorMap.greyDarkThree};
+    border: 2px solid ${theme.colorMap.greyDarkOne};
     position: relative;
     text-decoration: none;
     ${buttonPadding}
-    ${secondaryHoverStyles}
+    ${secondaryHoverStyles(theme)}
 `;
 
-const tertiaryStyles = css`
+const tertiaryStyles = theme => css`
     &:active,
     &:hover,
     &:focus {
-        color: ${colorMap.lightGreen};
+        color: ${theme.colorMap.lightGreen};
         transition: color ${animationSpeed.fast} ease-in;
     }
 `;
-const playStyles = css`
-    background-color: ${colorMap.devBlack};
-    border: 1px solid ${colorMap.devWhite};
+const playStyles = theme => css`
+    background-color: ${theme.colorMap.devBlack};
+    border: 1px solid ${theme.colorMap.devWhite};
     border-radius: 50%;
-    color: ${colorMap.devWhite};
+    color: ${theme.colorMap.devWhite};
     font-size: ${size.large};
     height: 80px;
     padding: ${size.default} ${size.default} ${size.default} ${size.medium};
     position: relative;
     width: 80px;
     &:before {
-        background: ${colorMap.greyLightThree};
+        background: ${theme.colorMap.greyLightThree};
         border-radius: 50%;
         bottom: -${size.xsmall};
         content: '';
@@ -100,9 +103,9 @@ const playStyles = css`
         content: '\u25b6';
     }
     :hover {
-        background-color: ${colorMap.devWhite};
-        border-color: ${colorMap.devWhite};
-        color: ${colorMap.devBlack};
+        background-color: ${theme.colorMap.devWhite};
+        border-color: ${theme.colorMap.devWhite};
+        color: ${theme.colorMap.devBlack};
         transition: color 0.4s;
         ::before {
             opacity: 0.6;
@@ -119,7 +122,7 @@ const playStyles = css`
 `;
 
 const PlayButtonWrapper = styled('div')`
-    background: ${colorMap.greyDarkTwo};
+    background: ${({ theme }) => theme.colorMap.greyDarkTwo};
     border-radius: 50%;
     bottom: -${size.default};
     content: '';
@@ -135,7 +138,7 @@ const StyledButton = styled('button')`
     border: none;
     border-radius: ${size.large};
     box-shadow: none;
-    color: ${({ color }) => (color ? color : colorMap.devWhite)};
+    color: ${({ color, theme }) => (color ? color : theme.colorMap.devWhite)};
     cursor: pointer;
     display: inline-block;
     font-family: 'Fira Mono', monospace;
@@ -149,14 +152,14 @@ const StyledButton = styled('button')`
         font-size: ${fontSize.tiny};
     }
 
-    ${({ primary }) => primary && primaryStyles}
-    ${({ secondary }) => secondary && secondaryStyles}
-    ${({ play }) => play && playStyles}
-    ${({ play, primary, secondary }) =>
-        !primary && !secondary && !play && tertiaryStyles}
+    ${({ primary, theme }) => primary && primaryStyles(theme)}
+    ${({ secondary, theme }) => secondary && secondaryStyles(theme)}
+    ${({ play, theme }) => play && playStyles(theme)}
+    ${({ play, primary, secondary, theme }) =>
+        !primary && !secondary && !play && tertiaryStyles(theme)}
     &[disabled],
     &[disabled]:hover {
-        background: ${colorMap.greyLightThree};
+        background: ${({ theme }) => theme.colorMap.greyLightThree};
         cursor: not-allowed;
     }
 `;
