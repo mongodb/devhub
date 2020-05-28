@@ -7,23 +7,24 @@ import {
     FORM_ELEMENT_BORDER,
     gradientMap,
     layer,
+    lineHeight,
     size,
 } from './theme';
 import Label from './input-label';
 
-const LABEL_ABSOLUTE_LEFT = 22;
-const LABEL_END_TOP = -14;
-const LABEL_START_TOP = 9;
+const LABEL_ABSOLUTE_LEFT = 18;
+const LABEL_END_TOP = -10;
+const LABEL_START_TOP = 0;
 
 const StyledInput = styled('input')`
     background-color: ${colorMap.greyDarkTwo};
     border: ${FORM_ELEMENT_BORDER} solid transparent;
     color: ${colorMap.devWhite};
     font-family: 'Fira Mono', monospace;
-    font-size: ${fontSize.default};
+    font-size: ${fontSize.small};
+    line-height: ${lineHeight.small};
     outline: none;
-    padding: ${({ narrow }) =>
-        narrow ? `${size.small} ${size.medium}` : size.medium};
+    padding: ${({ narrow }) => (narrow ? `6px ${size.default}` : size.default)};
     position: relative;
     width: 100%;
     :focus {

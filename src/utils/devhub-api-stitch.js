@@ -22,10 +22,10 @@ export const requestMDBTwitchVideos = async videoLimit => {
     return result;
 };
 
-export const requestYoutubePlaylist = async (playlistId, maxResults) => {
-    const result = await callDevhubAPIStitchFunction('fetchYoutubeData', {
-        playlistId,
-        maxResults,
-    });
+export const requestYoutubePlaylist = async maxResults => {
+    const result = await callDevhubAPIStitchFunction(
+        'fetchYoutubeData',
+        maxResults
+    );
     return result;
 };
