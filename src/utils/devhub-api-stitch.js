@@ -1,5 +1,5 @@
-import { STITCH_AUTH_APP_ID } from '../constants';
-import { callStitchFunction } from './stitch-common';
+const { STITCH_AUTH_APP_ID } = require('../build-constants');
+const { callStitchFunction } = require('./stitch-common');
 
 const callDevhubAPIStitchFunction = async (fnName, ...fnArgs) => {
     try {
@@ -9,12 +9,12 @@ const callDevhubAPIStitchFunction = async (fnName, ...fnArgs) => {
     }
 };
 
-export const requestMDBTwitchStream = async () => {
+const requestMDBTwitchStream = async () => {
     const result = await callDevhubAPIStitchFunction('fetchMDBTwitchStream');
     return result;
 };
 
-export const requestMDBTwitchVideos = async videoLimit => {
+const requestMDBTwitchVideos = async videoLimit => {
     const result = await callDevhubAPIStitchFunction(
         'fetchMDBTwitchVideos',
         videoLimit
@@ -22,7 +22,7 @@ export const requestMDBTwitchVideos = async videoLimit => {
     return result;
 };
 
-export const requestYoutubePlaylist = async maxResults => {
+const requestYoutubePlaylist = async maxResults => {
     const result = await callDevhubAPIStitchFunction(
         'fetchYoutubeData',
         maxResults
@@ -30,10 +30,17 @@ export const requestYoutubePlaylist = async maxResults => {
     return result;
 };
 
-export const submitAcademiaForm = async academiaData => {
+const submitAcademiaForm = async academiaData => {
     const result = await callDevhubAPIStitchFunction(
         'submitAcademiaRegistration',
         academiaData
     );
     return result;
+};
+
+module.exports = {
+    requestMDBTwitchStream,
+    requestMDBTwitchVideos,
+    requestYoutubePlaylist,
+    submitAcademiaForm,
 };

@@ -1,4 +1,4 @@
-import { requestMDBTwitchVideos } from './devhub-api-stitch';
+const { requestMDBTwitchVideos } = require('./devhub-api-stitch');
 
 // Fetches videos from twitch api
 
@@ -28,4 +28,4 @@ const fetchTwitchVideos = async videoLimit => {
     return [];
 };
 
-export default fetchTwitchVideos;
+module.exports = fetchTwitchVideos;

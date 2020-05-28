@@ -1,5 +1,5 @@
-import parser from 'fast-xml-parser';
-import dlv from 'dlv';
+const parser = require('fast-xml-parser');
+const dlv = require('dlv');
 
 // Fetches and parses podcast info from https://mongodb.libsyn.com/rss
 
@@ -51,4 +51,4 @@ const fetchLybsinPodcasts = async () => {
     return [];
 };
 
-export default fetchLybsinPodcasts;
+module.exports = fetchLybsinPodcasts;

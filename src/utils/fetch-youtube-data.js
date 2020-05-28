@@ -1,5 +1,5 @@
-import dlv from 'dlv';
-import { requestYoutubePlaylist } from './devhub-api-stitch';
+const dlv = require('dlv');
+const { requestYoutubePlaylist } = require('./devhub-api-stitch');
 // Fetches data from youtube api
 
 const simplifyResponse = responseData => {
@@ -37,4 +37,4 @@ const fetchYoutubeData = async (maxResults = 5) => {
     return [];
 };
 
-export default fetchYoutubeData;
+module.exports = fetchYoutubeData;

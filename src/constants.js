@@ -29,5 +29,3 @@ export const ADMONITIONS = [
     'tip',
     'warning',
 ];
-
-export const STITCH_AUTH_APP_ID = 'devhubauthentication-lidpq';
