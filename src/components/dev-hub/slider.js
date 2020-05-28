@@ -56,7 +56,11 @@ const StyledInput = styled('input')`
 
 const SliderLabelText = styled(P3)`
     font-family: 'Fira Mono';
-    margin: 0 ${size.default};
+    margin: 0 ${size.default} 0 0;
+    :last-of-type {
+        margin-right: 0;
+        margin-left: ${size.default};
+    }
 `;
 
 const Slider = ({ current, currentLabel, onChange, total, totalLabel }) => {

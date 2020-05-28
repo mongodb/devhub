@@ -30,7 +30,7 @@ const siteLinks = [
     },
     {
         name: 'Community Forums',
-        url: 'https://community.mongodb.com/',
+        url: 'https://developer.mongodb.com/community/forums',
     },
 ];
 const iconstyles = css`

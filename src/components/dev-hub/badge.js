@@ -12,7 +12,7 @@ const Badge = styled('div')`
     padding: 1px ${size.xsmall};
     position: absolute;
     text-transform: uppercase;
-    ${({ color }) => color && `border: 1px solid ${color}`}
+    ${({ color }) => color && `border: 1px solid ${color}`};
 `;
 
 const determineColor = contentType => {
@@ -34,8 +34,8 @@ const badgeContent = contentType =>
         ? contentType + ' video'
         : contentType;
 
-export default ({ contentType, color = '' }) => (
-    <Badge color={color || determineColor(contentType)}>
+export default ({ contentType, color = '', ...props }) => (
+    <Badge color={color || determineColor(contentType)} {...props}>
         <P5 bold collapse>
             {badgeContent(contentType)}
         </P5>
