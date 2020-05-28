@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
+import Audio from './audio';
 import Card from './card';
 import Button from './button';
 import { screenSize, size } from './theme';
@@ -71,24 +72,25 @@ const renderVideo = video => (
     />
 );
 
-const renderPodcast = podcast => (
-    <ArticleCard
+const renderPodcast = (podcast, openAudio) => (
+    <Card
         key={podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
         badge={podcast.mediaType}
         description={podcast.description}
+        onClick={() => openAudio(podcast)}
     />
 );
 
-const renderContentTypeCard = item => {
+const renderContentTypeCard = (item, openAudio) => {
     if (item.mediaType)
         switch (item.mediaType) {
             case 'youtube':
             case 'twitch':
                 return renderVideo(item);
             case 'podcast':
-                return renderPodcast(item);
+                return renderPodcast(item, openAudio);
             default:
                 return;
         }
@@ -105,13 +107,24 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
     const [visibleCards, setVisibleCards] = useState(limit);
 
     const hasMore = fullContentList.length > visibleCards;
+    const [activePodcast, setActivePodcast] = useState(false);
+
+    const openAudio = useCallback(podcast => {
+        setActivePodcast(podcast);
+    }, []);
+    const closeAudio = useCallback(e => {
+        e.stopPropagation();
+        setActivePodcast(null);
+    }, []);
 
     return (
         <>
             <CardContainer>
                 {fullContentList
                     .slice(0, visibleCards)
-                    .map(renderContentTypeCard)}
+                    .map(contentType =>
+                        renderContentTypeCard(contentType, openAudio)
+                    )}
             </CardContainer>
 
             {hasMore && (
@@ -124,6 +137,9 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
                         Load more
                     </Button>
                 </HasMoreButtonContainer>
+            )}
+            {podcasts.length && (
+                <Audio onClose={closeAudio} podcast={activePodcast} />
             )}
         </>
     );
