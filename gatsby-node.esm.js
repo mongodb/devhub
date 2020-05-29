@@ -1,21 +1,19 @@
-const path = require('path');
-const { articles } = require('./src/queries/articles');
-const { constructDbFilter } = require('./src/utils/setup/construct-db-filter');
-const { initStitch } = require('./src/utils/setup/init-stich');
-const { saveAssetFiles } = require('./src/utils/setup/save-asset-files');
-const {
-    validateEnvVariables,
-} = require('./src/utils/setup/validate-env-variables');
-const { onCreatePage } = require('./src/utils/setup/on-create-page');
-const { createArticleNode } = require('./src/utils/setup/create-article-node');
-const { createAssetNodes } = require('./src/utils/setup/create-asset-nodes');
-const { createTagPageType } = require('./src/utils/setup/create-tag-page-type');
-const { getMetadata } = require('./src/utils/get-metadata');
-const {
+import path from 'path';
+import { articles } from './src/queries/articles';
+import { constructDbFilter } from './src/utils/setup/construct-db-filter';
+import { initStitch } from './src/utils/setup/init-stich';
+import { saveAssetFiles } from './src/utils/setup/save-asset-files';
+import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
+import { handleCreatePage } from './src/utils/setup/handle-create-page';
+import { createArticleNode } from './src/utils/setup/create-article-node';
+import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
+import { createTagPageType } from './src/utils/setup/create-tag-page-type';
+import { getMetadata } from './src/utils/get-metadata';
+import {
     DOCUMENTS_COLLECTION,
     METADATA_COLLECTION,
-} = require('./src/build-constants');
-const { createArticlePage } = require('./src/utils/setup/create-article-page');
+} from './src/build-constants';
+import { createArticlePage } from './src/utils/setup/create-article-page';
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
@@ -39,9 +37,9 @@ let learnFeaturedArticles;
 // Excluded articles from the learn page
 let excludedLearnPageArticles;
 
-exports.onPreBootstrap = validateEnvVariables;
+export const onPreBootstrap = validateEnvVariables;
 
-exports.sourceNodes = async ({
+export const sourceNodes = async ({
     actions: { createNode },
     createContentDigest,
 }) => {
@@ -70,7 +68,7 @@ exports.sourceNodes = async ({
     });
 };
 
-exports.onCreateNode = async ({ node }) => {
+export const onCreateNode = async ({ node }) => {
     if (node.internal.type === 'Asset') {
         assets.push(node.id);
     }
@@ -88,7 +86,7 @@ const filteredPageGroups = allSeries => {
     return allSeries;
 };
 
-exports.createPages = async ({ actions, graphql }) => {
+export const createPages = async ({ actions, graphql }) => {
     const { createPage, createRedirect } = actions;
     const [, metadata, result] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
@@ -136,7 +134,7 @@ exports.createPages = async ({ actions, graphql }) => {
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
-exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+export const onCreateWebpackConfig = ({ stage, loaders, actions }) => {
     if (stage === 'build-html') {
         actions.setWebpackConfig({
             module: {
@@ -163,8 +161,8 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
     });
 };
 
-exports.onCreatePage = async ({ page, actions }) =>
-    onCreatePage(
+export const onCreatePage = async ({ page, actions }) =>
+    handleCreatePage(
         page,
         actions,
         stitchClient,

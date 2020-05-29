@@ -1,8 +1,8 @@
-const memoizerific = require('memoizerific');
-const { removeExcludedArticles } = require('./remove-excluded-articles');
-const { removePageIfStaged } = require('./remove-page-if-staged');
-const { getNestedValue } = require('../get-nested-value');
-const { getMetadata } = require('../get-metadata');
+import memoizerific from 'memoizerific';
+import { removeExcludedArticles } from './remove-excluded-articles';
+import { removePageIfStaged } from './remove-page-if-staged';
+import { getNestedValue } from '../get-nested-value';
+import { getMetadata } from '../get-metadata';
 
 const metadata = getMetadata();
 let stitchClient;
@@ -41,7 +41,7 @@ const getAllArticles = memoizerific(1)(async () => {
     return filteredDocuments;
 });
 
-const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
+export const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     const result = [];
     // If maxSize is undefined, this will return a shallow copy of articleSlugs
     articleSlugs.slice(0, maxSize).forEach((featuredSlug, i) => {
@@ -59,7 +59,7 @@ const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     return result;
 };
 
-const getLearnPageFilters = allArticles => {
+export const getLearnPageFilters = allArticles => {
     const languages = {};
     const products = {};
 
@@ -122,7 +122,7 @@ const getLearnPageFilters = allArticles => {
     return { languages, products };
 };
 
-const onCreatePage = async (
+export const handleCreatePage = async (
     page,
     actions,
     inheritedStitchClient,
@@ -176,5 +176,3 @@ const onCreatePage = async (
     }
     removePageIfStaged(page, deletePage, STAGING_PAGES);
 };
-
-module.exports = { findArticlesFromSlugs, getLearnPageFilters, onCreatePage };

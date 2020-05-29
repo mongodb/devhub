@@ -1,7 +1,7 @@
-const { Stitch, AnonymousCredential } = require('mongodb-stitch-server-sdk');
-const { SNOOTY_STITCH_ID } = require('../../build-constants');
+import { Stitch, AnonymousCredential } from 'mongodb-stitch-server-sdk';
+import { SNOOTY_STITCH_ID } from '../../build-constants';
 
-const initStitch = async () => {
+export const initStitch = async () => {
     const stitchClient = Stitch.hasAppClient(SNOOTY_STITCH_ID)
         ? Stitch.getAppClient(SNOOTY_STITCH_ID)
         : Stitch.initializeAppClient(SNOOTY_STITCH_ID);
@@ -10,5 +10,3 @@ const initStitch = async () => {
         .catch(console.error);
     return stitchClient;
 };
-
-module.exports = { initStitch };
