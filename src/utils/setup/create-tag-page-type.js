@@ -1,8 +1,8 @@
-const dlv = require('dlv');
-const path = require('path');
-const { getTagPageUriComponent } = require('../get-tag-page-uri-component');
-const { SNOOTY_STITCH_ID } = require('../../build-constants');
-const { getMetadata } = require('../get-metadata');
+import dlv from 'dlv';
+import path from 'path';
+import { getTagPageUriComponent } from '../get-tag-page-uri-component';
+import { SNOOTY_STITCH_ID } from '../../build-constants';
+import { getMetadata } from '../get-metadata';
 
 const metadata = getMetadata();
 
@@ -28,7 +28,7 @@ const getAuthorIncludesPath = authorName => {
     }
 };
 
-const createTagPageType = async (
+export const createTagPageType = async (
     stitchType,
     createPage,
     pageMetadata,
@@ -99,5 +99,3 @@ const createTagPageType = async (
         }
     });
 };
-
-module.exports = { createTagPageType };
