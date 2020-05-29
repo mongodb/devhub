@@ -23,7 +23,7 @@ const DEFAULT_FEATURED_LEARN_SLUGS = [
     'how-to/polymorphic-pattern',
 ];
 
-const STAGING_PAGES = ['/academia/', '/media/'];
+const STAGING_PAGES = ['/academia/educators/', '/media/'];
 
 const requestStitch = async (functionName, ...args) =>
     stitchClient.callFunction(functionName, [metadata, ...args]);
