@@ -84,7 +84,6 @@ const Form = React.memo(({ setSuccess, success }) => {
                 value={email}
                 required
                 placeholder="Email Address"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                 onChange={e => setEmail(e.target.value)}
                 onInput={e => e.target.setCustomValidity('')}
                 onInvalid={e =>
