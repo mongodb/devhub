@@ -7,7 +7,7 @@ import MediaBlock from '../components/dev-hub/media-block';
 import Card from '../components/dev-hub/card';
 import CardList from '../components/dev-hub/card-list';
 import FilterBar from '../components/dev-hub/filter-bar';
-import { colorMap, screenSize, size } from '../components/dev-hub/theme';
+import { screenSize, size } from '../components/dev-hub/theme';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
@@ -33,7 +33,7 @@ const MainFeatureGrid = styled('div')`
 const PrimarySection = styled('div')`
     grid-area: primary;
     @media ${screenSize.mediumAndUp} {
-        border-right: 1px solid ${colorMap.greyDarkTwo};
+        border-right: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
         padding-right: ${size.medium};
     }
 `;
@@ -51,7 +51,7 @@ const LastArticle = styled(Card)`
 `;
 
 const Header = styled('header')`
-    background: ${colorMap.devBlack};
+    background: ${({ theme }) => theme.colorMap.devBlack};
     margin-bottom: ${size.xlarge};
     padding: ${size.xlarge} ${size.medium};
     @media ${screenSize.upToLarge} {

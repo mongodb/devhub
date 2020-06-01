@@ -1,7 +1,7 @@
-const fs = require('fs').promises;
-const path = require('path');
-const { ASSETS_COLLECTION } = require('../../build-constants');
-const { getMetadata } = require('../get-metadata');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { ASSETS_COLLECTION } from '../../build-constants';
+import { getMetadata } from '../get-metadata';
 
 const metadata = getMetadata();
 const DB = metadata.database;
@@ -18,7 +18,7 @@ const saveFile = async asset => {
 };
 
 // Write all assets to static directory
-const saveAssetFiles = async (assets, stitchClient) => {
+export const saveAssetFiles = async (assets, stitchClient) => {
     if (assets.length) {
         const promises = [];
         const assetQuery = { _id: { $in: assets } };
@@ -32,5 +32,3 @@ const saveAssetFiles = async (assets, stitchClient) => {
         await Promise.all(promises);
     }
 };
-
-module.exports = { saveAssetFiles };

@@ -7,8 +7,6 @@ import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
 import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
 import {
-    colorMap,
-    gradientMap,
     screenSize,
     size,
 } from '../components/dev-hub/theme';
@@ -32,7 +30,7 @@ const BackgroundImage = styled('div')`
     background-size: cover;
 `;
 const Hero = styled('header')`
-    color: ${colorMap.devWhite};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     padding: ${size.xlarge} ${size.large};
     @media ${screenSize.upToMedium} {
         padding: ${size.large} ${size.medium};
@@ -69,8 +67,8 @@ const StyledTopCard = styled(Card)`
 `;
 
 const FeatureSection = styled('section')`
-    ${({ altBackground }) =>
-        altBackground && `background-color: ${colorMap.devBlack};`};
+    ${({ altBackground, theme }) =>
+        altBackground && `background-color: ${theme.colorMap.devBlack};`};
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.medium};
         padding: 0;
@@ -89,7 +87,7 @@ const SectionContent = styled('div')`
     }
 `;
 const DescriptiveText = styled(P)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     margin-bottom: ${size.medium};
 `;
 
@@ -167,7 +165,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={gradientMap.tealVioletPurple}
+                                    gradient={({ theme }) => theme.gradientMap.tealVioletPurple}
                                 >
                                     Live Coding on Our Twitch Channel
                                 </GradientUnderline>
@@ -204,7 +202,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={gradientMap.greenTeal}
+                                    gradient={({ theme }) => theme.gradientMap.greenTeal}
                                 >
                                     Events
                                 </GradientUnderline>
@@ -234,7 +232,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={gradientMap.magentaSalmonSherbet}
+                                    gradient={({ theme }) => theme.gradientMap.magentaSalmonSherbet}
                                 >
                                     Show Your Stuff
                                 </GradientUnderline>

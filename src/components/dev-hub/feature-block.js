@@ -6,10 +6,10 @@ import Card from './card';
 import MediaBlock from './media-block';
 import { H2, P } from './text';
 import meetupsImage from '../../images/1x/Meetups.png';
-import { colorMap, size, screenSize } from '../dev-hub/theme';
+import { size, screenSize} from './theme';
 
 const ImageDescription = styled(P)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     margin-bottom: ${size.xlarge};
     @media ${screenSize.upToMedium} {
         margin-bottom: ${size.large};
@@ -17,8 +17,8 @@ const ImageDescription = styled(P)`
 `;
 
 const FeatureSection = styled('section')`
-    ${({ altBackground }) =>
-        altBackground && `background-color: ${colorMap.devBlack};`};
+    ${({ altBackground, theme }) =>
+        altBackground && `background-color: ${theme.colorMap.devBlack};`};
     padding-bottom: 80px;
     padding-top: 80px;
 `;

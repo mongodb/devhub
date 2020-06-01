@@ -1,6 +1,9 @@
-const dlv = require('dlv');
+import dlv from 'dlv';
 
-const getRelatedPagesWithImages = (pageNodes, RESOLVED_REF_DOC_MAPPING) => {
+export const getRelatedPagesWithImages = (
+    pageNodes,
+    RESOLVED_REF_DOC_MAPPING
+) => {
     const related = dlv(pageNodes, 'query_fields.related', []);
     const relatedPageInfo = related.map(r => {
         // Handle `reference` and `ref_role` types
@@ -18,5 +21,3 @@ const getRelatedPagesWithImages = (pageNodes, RESOLVED_REF_DOC_MAPPING) => {
     });
     return relatedPageInfo;
 };
-
-module.exports = { getRelatedPagesWithImages };

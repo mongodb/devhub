@@ -5,7 +5,8 @@ import LocationIcon from './icons/location-icon';
 import Link from './link';
 import { P, H4 } from './text';
 import { toDateString } from '../../utils/format-dates';
-import { gradientMap, size, colorMap, fontSize, animationSpeed } from './theme';
+import { size, fontSize, animationSpeed } from './theme';
+import { useTheme } from 'emotion-theming';
 
 const Day = styled('span')`
     display: block;
@@ -20,7 +21,7 @@ const Month = styled('span')`
 `;
 
 const CalendarDate = styled('div')`
-    background-color: ${colorMap.greyDarkThree};
+    background-color: ${({ theme }) => theme.greyDarkThree};
     border-radius: ${size.xsmall};
     display: flex;
     flex-direction: column;
@@ -30,7 +31,7 @@ const CalendarDate = styled('div')`
 `;
 
 const StyledDate = styled('div')`
-    background: ${gradientMap.greenTeal};
+    background: ${({ theme }) => theme.gradientMap.greenTeal};
     border-radius: ${size.xsmall};
     grid-area: image;
     height: ${size.xlarge};
@@ -44,7 +45,7 @@ const EventInfo = styled('div')`
 `;
 
 const Location = styled(P)`
-    color: ${colorMap.greyLightThree};
+    color: ${({ theme }) => theme.greyLightThree};
     font-size: ${fontSize.tiny};
     margin: 0;
 `;
@@ -77,13 +78,13 @@ const StyledEvent = styled(Link)`
 
     &:focus,
     &:hover {
-        color: ${colorMap.devWhite};
-        background: ${colorMap.greyDarkTwo};
+        color: ${({ theme }) => theme.devWhite};
+        background: ${({ theme }) => theme.greyDarkTwo};
         div[data-name='event-date'] {
-            background: ${gradientMap.greenTeal};
+            background: ${({ theme }) => theme.greenTeal};
         }
         p[data-name='event-location'] {
-            color: ${colorMap.devWhite};
+            color: ${({ theme }) => theme.devWhite};
         }
     }
 `;
@@ -102,18 +103,18 @@ const DateIcon = ({ date }) => {
 };
 
 const Event = ({ event, maxTitleLines = 2, ...props }) => {
-    const [locationColor, setLocationColor] = useState(colorMap.greyLightThree);
+    const theme = useTheme();
+    const [locationColor, setLocationColor] = useState(theme.colorMap.greyLightThree);
     const { title, url } = event;
     const { event_city: city, event_country: country, event_start: date } = dlv(
         event,
         'node_type_attributes'
     );
-
     return (
         <StyledEvent
             data-test="event"
-            onMouseEnter={() => setLocationColor(colorMap.greyLightOne)}
-            onMouseLeave={() => setLocationColor(colorMap.greyLightThree)}
+            onMouseEnter={() => setLocationColor(theme.colorMap.greyLightOne)}
+            onMouseLeave={() => setLocationColor(theme.colorMap.greyLightThree)}
             target="_blank"
             rel="noreferrer noopener"
             href={url}

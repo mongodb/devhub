@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
+import { fontSize, lineHeight, screenSize, size } from './theme';
 import MongodbLogoIcon from './icons/mongodb-logo';
 import Link from './link';
 import FacebookIcon from './icons/facebook-icon';
@@ -11,6 +11,7 @@ import Github from './icons/github';
 import Youtube from './icons/youtube';
 import Twitch from './icons/twitch';
 import { P } from './text';
+import { useTheme } from 'emotion-theming';
 
 // Logo size 150px + 64px padding right
 const LOGO_DESKTOP_COLUMN_SIZE = 214;
@@ -33,55 +34,64 @@ const siteLinks = [
         url: 'https://developer.mongodb.com/community/forums',
     },
 ];
-const iconstyles = css`
+
+const iconstyles = theme => css`
     &:hover {
-        fill: ${colorMap.darkGreen};
+        fill: ${theme.colorMap.darkGreen};
         g {
-            fill: ${colorMap.darkGreen};
+            fill: ${theme.colorMap.darkGreen};
             path {
-                fill: ${colorMap.darkGreen};
+                fill: ${theme.colorMap.darkGreen};
             }
         }
     }
 `;
-const iconProps = {
-    height: 15,
-    width: 15,
-    color: colorMap.greyLightTwo,
-    css: iconstyles,
+
+const iconProps = theme => {
+    return {
+        height: 15,
+        width: 15,
+        color: theme.colorMap.greyLightTwo,
+        css: iconstyles(theme),
+    };
 };
-const iconLinks = [
-    {
-        name: <Github {...iconProps} />,
-        url: 'https://github.com/mongodb',
-    },
-    {
-        name: <Twitch {...iconProps} />,
-        url: 'https://twitch.tv/mongodb/profile',
-    },
-    {
-        name: <Youtube {...iconProps} />,
-        url: 'https://www.youtube.com/user/mongodb',
-    },
-    {
-        name: <TwitterIcon {...iconProps} />,
-        url: 'https://twitter.com/MongoDB/',
-    },
-    {
-        name: <FacebookIcon {...iconProps} />,
-        url: 'https://www.facebook.com/MongoDB/',
-    },
-    {
-        name: <LinkedIn {...iconProps} />,
-        url: 'https://www.linkedin.com/company/mongodbinc/',
-    },
-];
+
+const iconLinks = theme => {
+    return([
+        {
+            name: <Github {...iconProps(theme)} />,
+            url: 'https://github.com/mongodb',
+        },
+        {
+            name: <Twitch {...iconProps(theme)} />,
+            url: 'https://twitch.tv/mongodb/profile',
+        },
+        {
+            name: <Youtube {...iconProps(theme)} />,
+            url: 'https://www.youtube.com/user/mongodb',
+        },
+        {
+            name: <TwitterIcon {...iconProps(theme)} />,
+            url: 'https://twitter.com/MongoDB/',
+        },
+        {
+            name: <FacebookIcon {...iconProps(theme)} />,
+            url: 'https://www.facebook.com/MongoDB/',
+        },
+        {
+            name: <LinkedIn {...iconProps(theme)} />,
+            url: 'https://www.linkedin.com/company/mongodbinc/',
+        },
+    ])
+};
+
+
 const GlobalFooter = styled('footer')`
-    background: ${colorMap.greyDarkThree};
+    background: ${({ theme }) => theme.colorMap.greyDarkThree};
     width: 100%;
 `;
 const FooterContent = styled('div')`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     display: grid;
     @media ${screenSize.mediumAndUp} {
         grid-gap: 0 ${size.xlarge};
@@ -116,11 +126,11 @@ const LogoContainer = styled('section')`
     grid-area: logo;
     justify-content: center;
     @media ${screenSize.mediumAndUp} {
-        border-right: 1px solid ${colorMap.greyLightTwo};
+        border-right: 1px solid ${({ theme }) => theme.colorMap.greyLightTwo};
         padding-right: ${size.xlarge};
     }
     @media ${screenSize.upToMedium} {
-        border-top: 1px solid ${colorMap.greyLightTwo};
+        border-top: 1px solid ${({ theme }) => theme.colorMap.greyLightTwo};
         justify-content: flex-start;
         padding: ${size.default} 0;
     }
@@ -152,7 +162,7 @@ const Copyright = styled(P)`
     grid-area: copyright;
     @media ${screenSize.upToMedium} {
         align-items: center;
-        border-top: 1px solid ${colorMap.greyLightTwo};
+        border-top: 1px solid ${({ theme }) => theme.colorMap.greyLightTwo};
         display: flex;
         font-size: ${fontSize.micro};
         justify-content: flex-end;
@@ -161,12 +171,12 @@ const Copyright = styled(P)`
     }
 `;
 const FooterLink = styled(Link)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     &:visited {
-        color: ${colorMap.greyLightTwo};
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
     }
     &:hover {
-        color: ${colorMap.darkGreen};
+        color: ${({ theme }) => theme.colorMap.darkGreen};
     }
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
@@ -196,12 +206,13 @@ const getLinksList = (link, isListType) => (
     </ListItem>
 );
 export default () => {
+    const theme = useTheme();
     return (
         <GlobalFooter>
             <FooterContent>
                 <LogoContainer>
                     <FooterLink
-                        css={iconstyles}
+                        css={iconstyles(theme)}
                         href="https://www.mongodb.com/"
                     >
                         <MongodbLogoIcon css={logoStyles} />
@@ -211,7 +222,7 @@ export default () => {
                     {siteLinks.map(list => getLinksList(list, true))}
                 </LinksList>
                 <IconList>
-                    {iconLinks.map(list => getLinksList(list, false))}
+                    {iconLinks(theme).map(list => getLinksList(list, false))}
                 </IconList>
                 <Copyright collapse>© MongoDB, Inc.</Copyright>
             </FooterContent>

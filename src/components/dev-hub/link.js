@@ -2,7 +2,8 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'gatsby';
-import { animationSpeed, colorMap, fontSize } from './theme';
+import { animationSpeed, fontSize } from './theme';
+
 
 // Takes an event handler, and wraps it to call preventDefault.
 // If the handler is falsey, it is returned unchanged.
@@ -30,15 +31,15 @@ const BUTTON_PROPS = {
     tabIndex: 0,
 };
 
-const tertiaryLinkStyling = css`
-    color: ${colorMap.greyLightThree};
+const tertiaryLinkStyling = theme => css`
+    color: ${theme.colorMap.greyLightThree};
     font-family: 'Fira Mono', monospace;
     font-size: ${fontSize.small};
     display: block;
     text-decoration: none;
     &:hover {
         cursor: pointer;
-        color: ${colorMap.magenta};
+        color: ${theme.colorMap.magenta};
         transition: color ${animationSpeed.fast} ease ${animationSpeed.fast};
     }
 
@@ -48,7 +49,7 @@ const tertiaryLinkStyling = css`
     }
 `;
 
-const linkStyling = css`
+const linkStyling = theme => css`
     color: #fff;
     font-size: inherit;
     text-decoration: underline;
@@ -56,14 +57,13 @@ const linkStyling = css`
         color: #fff;
     }
     &:hover {
-        color: ${colorMap.darkGreen};
+        color: ${theme.colorMap.darkGreen};
     }
 `;
 
-const StyledLink = styled('a')`
-    ${props => (props.tertiary ? tertiaryLinkStyling : linkStyling)}
-`;
-
+const StyledLink = styled('a')` 
+    ${({tertiary, theme}) => tertiary ? tertiaryLinkStyling(theme) : linkStyling(theme) }
+`
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children

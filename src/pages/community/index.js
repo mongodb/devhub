@@ -9,7 +9,6 @@ import Link from '../../components/dev-hub/link';
 import { EventsListPreview } from '../../components/dev-hub/event-list';
 import { H2, P } from '../../components/dev-hub/text';
 import {
-    colorMap,
     screenSize,
     fontSize,
     size,
@@ -62,7 +61,7 @@ const UpcomingEvents = styled('section')`
 const HeroContent = styled('div')`
     padding-top: ${size.large};
     p {
-        color: ${colorMap.greyLightTwo};
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
         margin-bottom: ${size.xlarge};
         @media ${screenSize.upToMedium} {
             margin-bottom: ${size.large};

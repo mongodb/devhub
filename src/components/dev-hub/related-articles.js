@@ -5,12 +5,12 @@ import styled from '@emotion/styled';
 import ARTICLE_PLACEHOLDER from '../../images/1x/MDB-and-Node.js.png';
 import Card from './card';
 import { H4 } from './text';
-import { colorMap, screenSize, size } from './theme';
+import { screenSize, size } from './theme';
 
 const MAX_CARD_WIDTH = 270;
 
 const RelatedContainer = styled('div')`
-    background-color: ${colorMap.devBlack};
+    background-color: ${({ theme }) => theme.colorMap.devBlack};
     padding: 30px ${size.medium};
     @media ${screenSize.mediumAndUp} {
         padding: 70px calc(${size.xxlarge} - ${size.medium});

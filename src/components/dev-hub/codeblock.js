@@ -51,6 +51,7 @@ const StyledCode = styled(Code)`
             1;
         border-width: 0 2px 0 0;
         border-right-style: solid;
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
         left: 0;
         padding: ${LEAFY_CODEBLOCK_PADDING}px;
         padding-top: ${size.large};

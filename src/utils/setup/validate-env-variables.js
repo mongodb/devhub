@@ -1,6 +1,6 @@
 // env variables for building site along with use in front-end
 // https://www.gatsbyjs.org/docs/environment-variables/#defining-environment-variables
-const validateEnvVariables = () => {
+export const validateEnvVariables = () => {
     // make sure necessary env vars exist
     if (
         !process.env.GATSBY_SITE ||
@@ -12,5 +12,3 @@ const validateEnvVariables = () => {
         );
     }
 };
-
-module.exports.validateEnvVariables = validateEnvVariables;
