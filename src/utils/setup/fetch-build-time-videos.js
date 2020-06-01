@@ -1,4 +1,4 @@
-import { initStitch } from './init-stich';
+import { initStitch } from './init-stitch';
 import { STITCH_AUTH_APP_ID } from '../../constants';
 import { simplifyTwitchResponse } from '../simplify-twitch-response';
 import { simplifyYoutubeResponse } from '../simplify-youtube-response';
