@@ -1,7 +1,7 @@
 import path from 'path';
 import { articles } from './src/queries/articles';
 import { constructDbFilter } from './src/utils/setup/construct-db-filter';
-import { initStitch } from './src/utils/setup/init-stich';
+import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
 import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
 import { handleCreatePage } from './src/utils/setup/handle-create-page';
