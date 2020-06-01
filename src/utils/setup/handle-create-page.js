@@ -3,7 +3,7 @@ import { removeExcludedArticles } from './remove-excluded-articles';
 import { removePageIfStaged } from './remove-page-if-staged';
 import { getNestedValue } from '../get-nested-value';
 import { getMetadata } from '../get-metadata';
-import { fetchBuildTimeVideos } from './fetch-build-time-videos';
+import { fetchBuildTimeMedia } from './fetch-build-time-media';
 
 const metadata = getMetadata();
 let stitchClient;
@@ -146,16 +146,17 @@ export const handleCreatePage = async (
                 learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS,
                 MAX_LEARN_PAGE_FEATURED_ARTICLES
             );
-            const allVideos = await fetchBuildTimeVideos();
+            const { podcasts, videos } = await fetchBuildTimeMedia();
             deletePage(page);
             createPage({
                 ...page,
                 context: {
                     ...page.context,
                     allArticles: learnPageArticles,
-                    allVideos,
                     featuredArticles: featuredLearnArticles,
                     filters,
+                    podcasts,
+                    videos,
                 },
             });
             break;
