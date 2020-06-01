@@ -1,6 +1,6 @@
-const { getNestedValue } = require('../get-nested-value');
+import { getNestedValue } from '../get-nested-value';
 
-const createAssetNodes = (doc, createNode, createContentDigest) => {
+export const createAssetNodes = (doc, createNode, createContentDigest) => {
     const pageNode = getNestedValue(['ast', 'children'], doc);
     if (pageNode) {
         // Cache static assets to save file i/o on repeated builds
@@ -19,5 +19,3 @@ const createAssetNodes = (doc, createNode, createContentDigest) => {
         });
     }
 };
-
-module.exports = { createAssetNodes };

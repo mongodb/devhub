@@ -2,7 +2,7 @@ import React from 'react';
 
 export default props => (
     <svg width="185px" viewBox="0 0 185 24" {...props}>
-        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(0.700000, 0.000000)">
                 <g>
                     <g>

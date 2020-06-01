@@ -1,4 +1,7 @@
-const removeExcludedArticles = (allArticles, excludedLearnPageArticles) => {
+export const removeExcludedArticles = (
+    allArticles,
+    excludedLearnPageArticles
+) => {
     if (excludedLearnPageArticles && excludedLearnPageArticles.length) {
         const filteredArticles = allArticles.filter(
             article =>
@@ -21,5 +24,3 @@ const removeExcludedArticles = (allArticles, excludedLearnPageArticles) => {
     }
     return allArticles;
 };
-
-module.exports = { removeExcludedArticles };
