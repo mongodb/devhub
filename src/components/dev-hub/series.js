@@ -3,13 +3,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from './link';
 import { H5, P3 } from './text';
-import {
-    fontSize,
-    layer,
-    lineHeight,
-    screenSize,
-    size,
-} from './theme';
+import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 
 const MAX_CONTENT_WIDTH = '410px';
 const PAST_LINK_COLOR = '#89989b';
@@ -102,7 +96,7 @@ const SeriesLink = styled(Link)`
     max-width: ${MAX_CONTENT_WIDTH};
     text-decoration: none;
     ${({ isActive }) => isActive && activeLinkStyles};
-    ${({ isPast }) => isPast && pastLinkStyles};
+    ${({ isPast, theme }) => isPast && pastLinkStyles(theme)};
 `;
 
 const BulletIcon = styled('div')`
