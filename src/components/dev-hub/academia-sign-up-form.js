@@ -171,15 +171,18 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
                     onChange={e => setInstitutionType(e)}
                 />
             </InstitutionSection>
-
             <Checkbox
                 onChange={e => setAgreeToEmail(e.target.value)}
                 required
-                label="I agree to receive emails from MongoDB, Inc. After submitting, 
-                a MongoDB representative will reach out within five business days."
+                label={
+                    <span style={{ fontSize: '16px' }}>
+                        I agree to receive emails from MongoDB, Inc. After
+                        submitting, a MongoDB representative will reach out
+                        within five business days.
+                    </span>
+                }
                 variant="light"
             />
-
             <StyledButton
                 disabled={!canSubmit}
                 type="submit"
