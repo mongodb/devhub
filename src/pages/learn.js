@@ -183,7 +183,13 @@ const FeaturedArticles = ({ articles }) => {
 
 export default ({
     location,
-    pageContext: { allArticles, featuredArticles, filters },
+    pageContext: {
+        allArticles,
+        allPodcasts,
+        allVideos,
+        featuredArticles,
+        filters,
+    },
 }) => {
     const metadata = useSiteMetadata();
     const initialArticles = useMemo(() => parseArticles(allArticles), [
@@ -216,9 +222,10 @@ export default ({
             (!filterValue.products || filterValue.products === 'all'),
         [filterValue]
     );
-    const { videos } = useAllVideos();
 
-    const { podcasts } = usePodcasts();
+    const { videos } = useAllVideos(allVideos);
+
+    const { podcasts } = usePodcasts(allPodcasts);
 
     const [activeItem, setActiveItem] = useState('All');
 
