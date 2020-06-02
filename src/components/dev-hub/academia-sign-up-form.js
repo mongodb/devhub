@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { submitAcademiaForm } from '../../utils/devhub-api-stitch';
-import { colorMap, size, screenSize } from './theme';
+import { colorMap, size, screenSize, fontSize } from './theme';
 import { P, ArticleH3 } from './text';
 import Input from './input';
 import Button from './button';
@@ -24,7 +24,7 @@ const StyledCheckbox = styled(Checkbox)`
         width: 20px;
     }
     > span {
-        font-size: 16px;
+        font-size: ${fontSize.small};
     }
 `;
 
