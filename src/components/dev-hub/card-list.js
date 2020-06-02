@@ -138,9 +138,9 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
                     </Button>
                 </HasMoreButtonContainer>
             )}
-            {podcasts.length && (
+            {podcasts.length ? (
                 <Audio onClose={closeAudio} podcast={activePodcast} />
-            )}
+            ) : null}
         </>
     );
 });
