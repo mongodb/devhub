@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import fetchTwitchVideos from '../utils/fetch-twitch-videos';
 import fetchYoutubeData from '../utils/fetch-youtube-data';
 
-const useAllVideos = () => {
-    const [videos, setVideos] = useState(null);
+const useAllVideos = allVideos => {
+    const [videos, setVideos] = useState(allVideos);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 

@@ -146,17 +146,17 @@ export const handleCreatePage = async (
                 learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS,
                 MAX_LEARN_PAGE_FEATURED_ARTICLES
             );
-            const { podcasts, videos } = await fetchBuildTimeMedia();
+            const { allPodcasts, allVideos } = await fetchBuildTimeMedia();
             deletePage(page);
             createPage({
                 ...page,
                 context: {
                     ...page.context,
                     allArticles: learnPageArticles,
+                    allPodcasts,
+                    allVideos,
                     featuredArticles: featuredLearnArticles,
                     filters,
-                    podcasts,
-                    videos,
                 },
             });
             break;
