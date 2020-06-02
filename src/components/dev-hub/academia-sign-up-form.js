@@ -23,6 +23,9 @@ const StyledCheckbox = styled(Checkbox)`
         height: 20px;
         width: 20px;
     }
+    > span {
+        font-size: 16px;
+    }
 `;
 
 const StyledSelect = styled(Select)`
