@@ -1,14 +1,12 @@
-const path = require('path');
-const {
-    getRelatedPagesWithImages,
-} = require('./get-related-pages-with-images');
-const { getNestedValue } = require('../get-nested-value');
-const { getPageSlug } = require('../get-page-slug');
-const { getSeriesArticles } = require('../get-series-articles');
-const { getTemplate } = require('../get-template');
-const { SNOOTY_STITCH_ID } = require('../../build-constants');
+import path from 'path';
+import { getRelatedPagesWithImages } from './get-related-pages-with-images';
+import { getNestedValue } from '../get-nested-value';
+import { getPageSlug } from '../get-page-slug';
+import { getSeriesArticles } from '../get-series-articles';
+import { getTemplate } from '../get-template';
+import { SNOOTY_STITCH_ID } from '../../build-constants';
 
-const createArticlePage = (
+export const createArticlePage = (
     page,
     slugContentMapping,
     allSeries,
@@ -42,5 +40,3 @@ const createArticlePage = (
         });
     }
 };
-
-module.exports = { createArticlePage };

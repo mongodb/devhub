@@ -1,8 +1,9 @@
-const memoizerific = require('memoizerific');
-const { removeExcludedArticles } = require('./remove-excluded-articles');
-const { removePageIfStaged } = require('./remove-page-if-staged');
-const { getNestedValue } = require('../get-nested-value');
-const { getMetadata } = require('../get-metadata');
+import memoizerific from 'memoizerific';
+import { removeExcludedArticles } from './remove-excluded-articles';
+import { removePageIfStaged } from './remove-page-if-staged';
+import { getNestedValue } from '../get-nested-value';
+import { getMetadata } from '../get-metadata';
+import { fetchBuildTimeMedia } from './fetch-build-time-media';
 
 const metadata = getMetadata();
 let stitchClient;
@@ -23,7 +24,7 @@ const DEFAULT_FEATURED_LEARN_SLUGS = [
     'how-to/polymorphic-pattern',
 ];
 
-const STAGING_PAGES = ['/academia/', '/media/'];
+const STAGING_PAGES = ['/academia/educators/', '/media/'];
 
 const requestStitch = async (functionName, ...args) =>
     stitchClient.callFunction(functionName, [metadata, ...args]);
@@ -41,7 +42,7 @@ const getAllArticles = memoizerific(1)(async () => {
     return filteredDocuments;
 });
 
-const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
+export const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     const result = [];
     // If maxSize is undefined, this will return a shallow copy of articleSlugs
     articleSlugs.slice(0, maxSize).forEach((featuredSlug, i) => {
@@ -59,7 +60,7 @@ const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     return result;
 };
 
-const getLearnPageFilters = allArticles => {
+export const getLearnPageFilters = allArticles => {
     const languages = {};
     const products = {};
 
@@ -122,7 +123,7 @@ const getLearnPageFilters = allArticles => {
     return { languages, products };
 };
 
-const onCreatePage = async (
+export const handleCreatePage = async (
     page,
     actions,
     inheritedStitchClient,
@@ -145,6 +146,7 @@ const onCreatePage = async (
                 learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS,
                 MAX_LEARN_PAGE_FEATURED_ARTICLES
             );
+            const { podcasts, videos } = await fetchBuildTimeMedia();
             deletePage(page);
             createPage({
                 ...page,
@@ -153,6 +155,8 @@ const onCreatePage = async (
                     allArticles: learnPageArticles,
                     featuredArticles: featuredLearnArticles,
                     filters,
+                    podcasts,
+                    videos,
                 },
             });
             break;
@@ -176,5 +180,3 @@ const onCreatePage = async (
     }
     removePageIfStaged(page, deletePage, STAGING_PAGES);
 };
-
-module.exports = { findArticlesFromSlugs, getLearnPageFilters, onCreatePage };

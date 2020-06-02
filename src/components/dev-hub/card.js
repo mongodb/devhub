@@ -56,13 +56,13 @@ const Wrapper = styled('div')`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: ${({ maxWidth }) => `${maxWidth}px`};
+    max-width: ${({ maxwidth }) => `${maxwidth}px`};
     padding: ${size.medium};
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};
     width: ${({ width = 'auto' }) => width};
     ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
-    ${({ isClickable }) => isClickable && hoverStyles}
+    ${({ isclickable }) => isclickable && hoverStyles};
 `;
 const truncate = maxLines => css`
     display: -webkit-box;
@@ -122,10 +122,9 @@ const Card = ({
             data-test="card"
             onClick={onClick}
             {...linkAttrs}
-            maxWidth={maxWidth}
-            isClickable={isClickable}
+            maxwidth={maxWidth}
+            isclickable={isClickable}
             className={className}
-            collapseImage={collapseImage}
         >
             <div>
                 {!collapseImage && (

@@ -134,8 +134,9 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
 const FeaturedArticles = ({ articles }) => {
     if (articles.length < 3) {
         console.error(
-            `Expected three articles for featured section, got ${articles &&
-                articles.length}`
+            `Expected three articles for featured section, got ${
+                articles && articles.length
+            }`
         );
         return null;
     }

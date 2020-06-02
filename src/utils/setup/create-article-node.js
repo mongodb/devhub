@@ -1,7 +1,7 @@
-const { getNestedText } = require('../get-nested-text');
-const { getNestedValue } = require('../get-nested-value');
+import { getNestedText } from '../get-nested-text';
+import { getNestedValue } from '../get-nested-value';
 
-const createArticleNode = (
+export const createArticleNode = (
     doc,
     PAGE_ID_PREFIX,
     createNode,
@@ -34,5 +34,3 @@ const createArticleNode = (
         });
     }
 };
-
-module.exports = { createArticleNode };

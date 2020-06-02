@@ -9,6 +9,11 @@ const callDevhubAPIStitchFunction = async (fnName, ...fnArgs) => {
     }
 };
 
+export const requestLybsinPodcasts = async () => {
+    const result = await callDevhubAPIStitchFunction('fetchLybsinPodcasts');
+    return result;
+};
+
 export const requestMDBTwitchStream = async () => {
     const result = await callDevhubAPIStitchFunction('fetchMDBTwitchStream');
     return result;
@@ -26,6 +31,14 @@ export const requestYoutubePlaylist = async maxResults => {
     const result = await callDevhubAPIStitchFunction(
         'fetchYoutubeData',
         maxResults
+    );
+    return result;
+};
+
+export const submitAcademiaForm = async academiaData => {
+    const result = await callDevhubAPIStitchFunction(
+        'submitAcademiaRegistration',
+        academiaData
     );
     return result;
 };

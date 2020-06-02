@@ -1,4 +1,4 @@
-const removePageIfStaged = (page, deletePage, stagingPages) => {
+export const removePageIfStaged = (page, deletePage, stagingPages) => {
     if (
         process.env.SNOOTY_ENV === 'production' &&
         stagingPages.includes(page.path)
@@ -6,5 +6,3 @@ const removePageIfStaged = (page, deletePage, stagingPages) => {
         deletePage(page);
     }
 };
-
-module.exports = { removePageIfStaged };
