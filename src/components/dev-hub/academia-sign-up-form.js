@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { submitAcademiaForm } from '../../utils/devhub-api-stitch';
 import { colorMap, size, screenSize } from './theme';
@@ -15,6 +15,14 @@ const INPUT_BOX_WIDTH = '335px';
 const StyledButton = styled(Button)`
     display: flex;
     margin: ${size.large} auto;
+`;
+
+const StyledCheckbox = styled(Checkbox)`
+    /* Leafygreen's Checkbox input is given height/width of 0, hiding invalid popup */
+    > input {
+        height: 20px;
+        width: 20px;
+    }
 `;
 
 const StyledSelect = styled(Select)`
@@ -90,6 +98,36 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
         setCanSubmit(!response.success);
     };
 
+    const onNameInvalid = (name, nameType) =>
+        name === ''
+            ? `${nameType} cannot be blank`
+            : `${nameType} should only contain letters. e.g. John`;
+
+    const onEmailInvalid = useCallback(
+        e => {
+            e.target.setCustomValidity(
+                email === ''
+                    ? 'Email cannot be blank'
+                    : 'Please enter a valid email address. e.g. example@email.com'
+            );
+        },
+        [email]
+    );
+
+    const onFirstNameInvalid = useCallback(
+        e => {
+            e.target.setCustomValidity(onNameInvalid(firstName, 'First name'));
+        },
+        [firstName]
+    );
+
+    const onLastNameInvalid = useCallback(
+        e => {
+            e.target.setCustomValidity(onNameInvalid(lastName, 'Last name'));
+        },
+        [lastName]
+    );
+
     return (
         <form onSubmit={handleSubmit} {...props}>
             <ErrorMessage>
@@ -111,11 +149,7 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
                     placeholder="First Name"
                     onChange={e => setFirstName(e.target.value)}
                     onInput={e => e.target.setCustomValidity('')}
-                    onInvalid={e =>
-                        e.target.setCustomValidity(
-                            'First names should only contain letters. e.g.John'
-                        )
-                    }
+                    onInvalid={onFirstNameInvalid}
                 />
                 <Input
                     narrow
@@ -126,26 +160,17 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
                     placeholder="Last Name"
                     onChange={e => setLastName(e.target.value)}
                     onInput={e => e.target.setCustomValidity('')}
-                    onInvalid={e =>
-                        e.target.setCustomValidity(
-                            'Last names should only contain letters. e.g.Doe'
-                        )
-                    }
+                    onInvalid={onLastNameInvalid}
                 />
                 <Input
                     narrow
                     type="email"
                     value={email}
                     required
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                     placeholder="Email Address"
                     onChange={e => setEmail(e.target.value)}
                     onInput={e => e.target.setCustomValidity('')}
-                    onInvalid={e =>
-                        e.target.setCustomValidity(
-                            'Please enter a valid email address. e.g. example@email.com'
-                        )
-                    }
+                    onInvalid={onEmailInvalid}
                 />
             </InstructorSection>
 
@@ -165,19 +190,19 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
                 <StyledSelect
                     narrow
                     value={institutionType}
-                    required
                     defaultText="Institution Type"
                     choices={institutionTypes}
                     onChange={e => setInstitutionType(e)}
                 />
             </InstitutionSection>
 
-            <Checkbox
+            <StyledCheckbox
                 onChange={e => setAgreeToEmail(e.target.value)}
                 required
                 label="I agree to receive emails from MongoDB, Inc. After submitting, 
                 a MongoDB representative will reach out within five business days."
                 variant="light"
+                title="Please submit"
             />
 
             <StyledButton

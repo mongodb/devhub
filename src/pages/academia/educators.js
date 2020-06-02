@@ -98,6 +98,7 @@ const StyledSpan = styled('span')`
 
 const SignUp = styled('div')`
     margin-top: ${size.xlarge};
+    margin-bottom: ${size.xxlarge};
 `;
 
 const StyledAcademiaSignUpForm = styled(AcademiaSignUpForm)`
@@ -112,7 +113,7 @@ const StyledP = styled(P)`
 `;
 
 const StyledLeafImage = styled('img')`
-    margin-top: 400px;
+    margin-top: 350px;
 `;
 
 export default () => {
@@ -197,6 +198,20 @@ export default () => {
                     <div>
                         <EligibilityContent>
                             <StyledSectionHeader>
+                                For Students
+                            </StyledSectionHeader>
+                            <BodyText>
+                                If you’re a student, you can apply for the{' '}
+                                <StyledLink href="https://education.github.com/pack">
+                                    GitHub Student Developer Pack
+                                </StyledLink>{' '}
+                                and get access to MongoDB Atlas, University
+                                on-demand content and certifications.
+                            </BodyText>
+                        </EligibilityContent>
+
+                        <EligibilityContent>
+                            <StyledSectionHeader>
                                 For Educators
                             </StyledSectionHeader>
                             <BodyText>
@@ -221,20 +236,6 @@ export default () => {
                                         </StyledSpan>
                                     </li>
                                 </StyledBullet>
-                            </BodyText>
-                        </EligibilityContent>
-
-                        <EligibilityContent>
-                            <StyledSectionHeader>
-                                For Students
-                            </StyledSectionHeader>
-                            <BodyText>
-                                If you’re a student, you can apply for the{' '}
-                                <StyledLink href="https://education.github.com/pack">
-                                    GitHub Student Developer Pack
-                                </StyledLink>{' '}
-                                and get access to MongoDB Atlas, University
-                                on-demand content and certifications.
                             </BodyText>
                         </EligibilityContent>
                     </div>
