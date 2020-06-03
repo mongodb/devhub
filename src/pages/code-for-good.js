@@ -21,23 +21,23 @@ import VesselRecord from '../images/code-for-good/vessel-record.png';
 const CAPTION_MAX_WIDTH = '345px';
 const BODY_TEXT_MAX_WIDTH = '320px';
 const HERO_TEXT_WIDTH = '425px';
+const DASHBOARD_IMAGE_WIDTH = 780;
+const VESSEL_IMAGE_WIDTH = 345;
+const LOGO_IMAGE_WIDTH = 350;
+const LOGO_IMAGE_HEIGHT = 450;
 
 const Header = styled('header')`
     display: flex;
     justify-content: space-between;
     padding-top: ${size.large};
     @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.large};
         display: block;
+        margin-bottom: ${size.large};
     }
 `;
 const HeaderText = styled('div')`
-    max-width: ${HERO_TEXT_WIDTH};
     margin-bottom: -${size.xlarge};
-`;
-
-const HeaderImage = styled('img')`
-    margin-top: -${size.xlarge};
+    max-width: ${HERO_TEXT_WIDTH};
 `;
 
 const HeaderLink = styled('a')`
@@ -45,6 +45,10 @@ const HeaderLink = styled('a')`
     margin-top: ${size.large};
     margin-left: ${size.mediumLarge};
     text-decoration: none;
+    @media ${screenSize.upToLarge} {
+        display: block;
+        margin-left: auto;
+    }
 `;
 
 const Title = styled(ArticleH2)`
@@ -74,6 +78,9 @@ const BodyText = styled(P)`
 const StyledButton = styled(Button)`
     margin-top: ${size.large};
     margin-bottom: ${size.xlarge};
+    @media ${screenSize.upToLarge} {
+        margin-bottom: ${size.small};
+    }
 `;
 
 const BodyContent = styled('div')`
@@ -110,8 +117,25 @@ const StyledDiv = styled('div')`
     }
 `;
 
-const StyledVesselImage = styled('div')`
+const StyledVesselImage = styled('img')`
+    flex: 0 0 ${VESSEL_IMAGE_WIDTH}px;
+    width: ${VESSEL_IMAGE_WIDTH}px;
+`;
+
+const VesselImageDiv = styled('div')`
     margin-top: ${size.xlarge};
+`;
+
+const StyledLogoImage = styled('img')`
+    margin-top: -${size.xlarge};
+    flex: 0 0 ${LOGO_IMAGE_WIDTH}px;
+    height: ${LOGO_IMAGE_HEIGHT}px;
+    width: ${LOGO_IMAGE_WIDTH}px;
+`;
+
+const StyledDashBoardImage = styled('img')`
+    flex: 0 0 ${DASHBOARD_IMAGE_WIDTH}px;
+    width: ${DASHBOARD_IMAGE_WIDTH}px;
 `;
 
 const VesselCaptionText = styled('div')`
@@ -178,12 +202,7 @@ export default () => {
                             <span> &rarr;</span>
                         </HeaderLink>
                     </div>
-                    <HeaderImage
-                        src={WildAidLogo}
-                        alt=""
-                        width="350x"
-                        height="450px"
-                    />
+                    <StyledLogoImage src={WildAidLogo} alt="" />
                 </Header>
             </StyledHeroBanner>
 
@@ -204,7 +223,7 @@ export default () => {
                     <StyledP>Blog posts coming soon</StyledP>
                 </FirstSection>
 
-                <img src={WildAidDashboard} alt="" width="780px" />
+                <StyledDashBoardImage src={WildAidDashboard} alt="" />
 
                 <DashboardCaptionText>
                     With MongoDB Charts, the O-FISH web app allows WildAid to
@@ -265,8 +284,8 @@ export default () => {
                         </SecondSection>
                     </div>
 
-                    <StyledVesselImage>
-                        <img
+                    <VesselImageDiv>
+                        <StyledVesselImage
                             src={VesselRecord}
                             alt=""
                             height="614px"
@@ -277,7 +296,7 @@ export default () => {
                             boarding reports through the mobile app even when
                             they are out at sea, offline.
                         </VesselCaptionText>
-                    </StyledVesselImage>
+                    </VesselImageDiv>
                 </StyledDiv>
             </BodyContent>
         </Layout>
