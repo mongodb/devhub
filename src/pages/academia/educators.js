@@ -15,7 +15,7 @@ import Button from '../../components/dev-hub/button';
 import HeroBanner from '../../components/dev-hub/hero-banner';
 import SectionHeader from '../../components/dev-hub/section-header';
 import AcademiaSignUpForm from '../../components/dev-hub/academia-sign-up-form';
-import HeroBannerImage from '../../images/1x/Academia_Hero.svg';
+import HeroBannerImage from '../../images/1x/Academia.svg';
 import TeachMongoDBImage from '../../images/1x/TeachMongoDB.svg';
 import AcademiaLeafImage from '../../images/1x/Academia_Leaf.svg';
 import useMedia from '../../hooks/use-media';
