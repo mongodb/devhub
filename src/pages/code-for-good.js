@@ -28,6 +28,7 @@ const Header = styled('header')`
     padding-top: ${size.large};
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.large};
+        display: block;
     }
 `;
 const HeaderText = styled('div')`
@@ -104,6 +105,9 @@ const SecondSection = styled('div')`
 const StyledDiv = styled('div')`
     display: flex;
     justify-content: space-between;
+    @media ${screenSize.upToMedium} {
+        flex-direction: column-reverse;
+    }
 `;
 
 const StyledVesselImage = styled('div')`
@@ -115,7 +119,11 @@ const VesselCaptionText = styled('div')`
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
     margin-top: ${size.medium};
+    margin-bottom: ${size.medium};
     max-width: ${CAPTION_MAX_WIDTH};
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.xlarge};
+    }
 `;
 
 const DashboardCaptionText = styled('div')`
@@ -142,6 +150,7 @@ export default () => {
                 breadcrumb={codeForGoodBreadcrumbs}
                 background={BackgroundWaves}
                 fullWidth={true}
+                showImageOnMobile={false}
             >
                 <Header>
                     <div>
@@ -156,7 +165,11 @@ export default () => {
                                 our oceans.
                             </StyledP>
                         </HeaderText>
-                        <StyledButton primary hasArrow={false}>
+                        <StyledButton
+                            primary
+                            hasArrow={false}
+                            href="https://o-fish.github.io"
+                        >
                             Build your own O-FISH app
                         </StyledButton>
 
