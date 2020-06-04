@@ -247,7 +247,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                             </DescriptiveText>
                             <div>
                                 <Button to="/academia/educators/" secondary>
-                                    Lean more
+                                    Learn more
                                 </Button>
                             </div>
                         </SectionContent>
