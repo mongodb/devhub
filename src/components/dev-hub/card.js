@@ -116,7 +116,7 @@ const Card = ({
               href,
               target,
           };
-    const isClickable = onClick || isLink;
+    const isClickable = onClick || isLink || video;
     return (
         <ContentWrapper
             data-test="card"

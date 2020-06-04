@@ -12,6 +12,9 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
+import useAllVideos from '../hooks/use-all-videos';
+import usePodcasts from '../hooks/use-podcasts';
+import Tab from '../components/dev-hub/tab';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
@@ -70,7 +73,12 @@ const Article = styled('article')`
 `;
 
 const StyledFilterBar = styled(FilterBar)`
-    padding-bottom: ${size.medium};
+    margin: 0 ${size.large};
+    padding-bottom: ${size.large};
+`;
+
+const TabBar = styled(Tab)`
+    margin: 0 ${size.large};
 `;
 
 const parseArticles = arr =>
@@ -175,7 +183,13 @@ const FeaturedArticles = ({ articles }) => {
 
 export default ({
     location,
-    pageContext: { allArticles, featuredArticles, filters },
+    pageContext: {
+        allArticles,
+        allPodcasts,
+        allVideos,
+        featuredArticles,
+        filters,
+    },
 }) => {
     const metadata = useSiteMetadata();
     const initialArticles = useMemo(() => parseArticles(allArticles), [
@@ -201,6 +215,23 @@ export default ({
         setArticles(filteredArticles);
     }, [metadata, filterValue, pathname, filterActiveArticles]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
+    // filterValue could be {} on a page load, or values can be "all" if toggled back
+    const hasNoFilter = useMemo(
+        () =>
+            (!filterValue.languages || filterValue.languages === 'all') &&
+            (!filterValue.products || filterValue.products === 'all'),
+        [filterValue]
+    );
+
+    const { videos } = useAllVideos(allVideos);
+
+    const { podcasts } = usePodcasts(allPodcasts);
+
+    const [activeItem, setActiveItem] = useState('All');
+
+    const leftTabs = ['All'];
+    const rightTabs = ['Articles', 'Videos', 'Podcasts'];
+
     return (
         <Layout>
             <Helmet>
@@ -212,13 +243,33 @@ export default ({
                     <FeaturedArticles articles={featuredArticles} />
                 </HeaderContent>
             </Header>
+
+            <TabBar
+                handleClick={setActiveItem}
+                leftTabs={leftTabs}
+                rightTabs={rightTabs}
+                activeItem={activeItem}
+            />
+
             <Article>
-                <StyledFilterBar
-                    filters={filters}
-                    filterValue={filterValue}
-                    setFilterValue={updateFilter}
-                />
-                <CardList articles={articles} />
+                {(activeItem === 'All' || activeItem === 'Articles') && (
+                    <StyledFilterBar
+                        filters={filters}
+                        filterValue={filterValue}
+                        setFilterValue={updateFilter}
+                    />
+                )}
+
+                {activeItem === 'All' && (
+                    <CardList
+                        articles={articles}
+                        videos={hasNoFilter ? videos : []}
+                        podcasts={hasNoFilter ? podcasts : []}
+                    />
+                )}
+                {activeItem === 'Articles' && <CardList articles={articles} />}
+                {activeItem === 'Videos' && <CardList videos={videos} />}
+                {activeItem === 'Podcasts' && <CardList podcasts={podcasts} />}
             </Article>
         </Layout>
     );

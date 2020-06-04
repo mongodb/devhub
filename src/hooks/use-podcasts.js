@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import fetchLybsinPodcasts from '../utils/fetch-lybsin-podcasts';
 
-const usePodcasts = () => {
-    const [podcasts, setPodcasts] = useState(null);
+const usePodcasts = allPodcasts => {
+    const [podcasts, setPodcasts] = useState(allPodcasts);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
