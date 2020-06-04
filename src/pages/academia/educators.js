@@ -15,10 +15,13 @@ import Button from '../../components/dev-hub/button';
 import HeroBanner from '../../components/dev-hub/hero-banner';
 import SectionHeader from '../../components/dev-hub/section-header';
 import AcademiaSignUpForm from '../../components/dev-hub/academia-sign-up-form';
-import HeroBannerImage from '../../images/1x/Academia_Hero.svg';
+import HeroBannerImage from '../../images/1x/Academia.svg';
 import TeachMongoDBImage from '../../images/1x/TeachMongoDB.svg';
 import AcademiaLeafImage from '../../images/1x/Academia_Leaf.svg';
 import useMedia from '../../hooks/use-media';
+
+const LEAF_IMAGE_WIDTH = 125;
+const TEACH_IMAGE_WIDTH = 450;
 
 const StyledHeroBanner = styled(HeroBanner)`
     margin: 0 ${size.medium};
@@ -113,7 +116,14 @@ const StyledP = styled(P)`
 `;
 
 const StyledLeafImage = styled('img')`
-    margin-top: 350px;
+    margin-top: 200px;
+    flex: 0 0 ${LEAF_IMAGE_WIDTH}px;
+    width: ${LEAF_IMAGE_WIDTH}px;
+`;
+
+const StyledTeachImage = styled('img')`
+    flex: 0 0 ${TEACH_IMAGE_WIDTH}px;
+    width: ${TEACH_IMAGE_WIDTH}px;
 `;
 
 export default () => {
@@ -189,7 +199,7 @@ export default () => {
                     </OfferingsContent>
                 </div>
                 {!isMobile && (
-                    <img src={TeachMongoDBImage} alt="" width="450px" />
+                    <StyledTeachImage src={TeachMongoDBImage} alt="" />
                 )}
             </BodyContent>
 
