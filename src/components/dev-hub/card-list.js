@@ -26,7 +26,6 @@ const ArticleCard = styled(Card)`
 
 const VideoCard = styled(Card)`
     flex: 1 1 360px;
-    cursor: pointer;
 `;
 
 const HasMoreButtonContainer = styled('div')`
@@ -62,7 +61,7 @@ const renderArticle = article => (
 
 const renderVideo = video => (
     <VideoCard
-        key={video.title}
+        key={video.mediaType + video.title}
         image={getThumbnailUrl(video)}
         videoModalThumbnail={getThumbnailUrl(video)}
         title={video.title}
@@ -74,7 +73,7 @@ const renderVideo = video => (
 
 const renderPodcast = (podcast, openAudio) => (
     <Card
-        key={podcast.title}
+        key={podcast.mediaType + podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
         badge={podcast.mediaType}

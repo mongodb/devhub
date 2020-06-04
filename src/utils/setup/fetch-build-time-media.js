@@ -14,10 +14,10 @@ export const fetchBuildTimeMedia = async () => {
         client.callFunction('fetchLybsinPodcasts', []),
     ]);
     return {
-        videos: [
+        allVideos: [
             youtubeVideos.items.map(simplifyYoutubeResponse),
             twitchVideos.data.map(simplifyTwitchResponse),
         ].flat(),
-        podcasts: parsePodcasts(lybsinPodcasts),
+        allPodcasts: parsePodcasts(lybsinPodcasts),
     };
 };

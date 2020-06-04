@@ -7,8 +7,7 @@ const fetchLybsinPodcasts = async () => {
     try {
         const response = await requestLybsinPodcasts();
         if (response) {
-            const podcastXML = await response.text();
-            const podcastList = parsePodcasts(podcastXML);
+            const podcastList = parsePodcasts(response);
             return podcastList;
         }
     } catch (e) {
