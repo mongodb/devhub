@@ -7,9 +7,8 @@ import {
     fontSize,
     screenSize,
     size,
-    lineHeight,
 } from '../components/dev-hub/theme';
-import { H3, ArticleH2, ArticleH4, P } from '../components/dev-hub/text';
+import { H3, ArticleH2, ArticleH4, P, P3 } from '../components/dev-hub/text';
 import styled from '@emotion/styled';
 import Button from '../components/dev-hub/button';
 import HeroBanner from '../components/dev-hub/hero-banner';
@@ -39,6 +38,9 @@ const Header = styled('header')`
 const HeaderText = styled('div')`
     margin-bottom: -${size.xlarge};
     max-width: ${HERO_TEXT_WIDTH};
+    @media ${screenSize.upToMedium} {
+        width: 100%;
+    }
 `;
 
 const HeaderLink = styled(Link)`
@@ -82,10 +84,11 @@ const BodyContent = styled('div')`
     width: 100%;
     @media ${screenSize.upToMedium} {
         padding: 0 ${size.default};
+        width: 100%;
     }
 `;
 
-const StyledParagraphLink = styled('a')`
+const StyledParagraphLink = styled(Link)`
     color: ${colorMap.darkGreen};
     text-decoration: none;
 `;
@@ -101,11 +104,17 @@ const UnderstandTextSection = styled('div')`
     margin-bottom: ${size.xlarge};
     margin-top: ${size.xlarge};
     max-width: ${BODY_TEXT_MAX_WIDTH};
+    @media ${screenSize.upToMedium} {
+        width: 100%;
+    }
 `;
 
 const VesselAppTextContainer = styled('div')`
     margin-bottom: ${size.xlarge};
     max-width: ${BODY_TEXT_MAX_WIDTH};
+    @media ${screenSize.upToMedium} {
+        width: 100%;
+    }
 `;
 
 const VesselAppContainer = styled('div')`
@@ -148,25 +157,28 @@ const StyledDashBoardImage = styled('img')`
     }
 `;
 
-const VesselCaptionText = styled('figcaption')`
-    font-size: ${fontSize.small};
-    line-height: ${lineHeight.small};
+const StyledVesselCaption = styled(P3)`
+    color: ${colorMap.greyLightTwo};
     margin-top: ${size.medium};
     max-width: ${CAPTION_MAX_WIDTH};
     @media ${screenSize.upToMedium} {
         margin-bottom: ${size.large};
+        width: 100%;
     }
 `;
 
-const DashboardCaptionText = styled('figcaption')`
-    font-size: ${fontSize.small};
-    line-height: ${lineHeight.small};
+const VesselCaption = StyledVesselCaption.withComponent('figcaption');
+
+const StyledDashboardCaption = styled(P3)`
+    color: ${colorMap.greyLightTwo};
     margin-bottom: ${size.xlarge};
     margin-top: ${size.medium};
     @media ${screenSize.upToMedium} {
         margin-bottom: ${size.small};
     }
 `;
+
+const DashboardCaption = StyledDashboardCaption.withComponent('figcaption');
 
 export default () => {
     const metadata = useSiteMetadata();
@@ -202,7 +214,7 @@ export default () => {
                         <StyledButton
                             primary
                             hasArrow={false}
-                            href="https://o-fish.github.io"
+                            to="https://o-fish.github.io"
                         >
                             Build your own O-FISH app
                         </StyledButton>
@@ -240,10 +252,10 @@ export default () => {
                     alt="A sample dashboard for the Wild Aid application"
                 />
 
-                <DashboardCaptionText>
+                <DashboardCaption>
                     With MongoDB Charts, the O-FISH web app allows WildAid to
                     gain insights about marine protection enforcement efforts.
-                </DashboardCaptionText>
+                </DashboardCaption>
 
                 <VesselAppContainer>
                     <div>
@@ -253,17 +265,17 @@ export default () => {
                             </ArticleH2>
                             <BodyText>
                                 All you need is a{' '}
-                                <StyledParagraphLink href="https://cloud.mongodb.com">
+                                <StyledParagraphLink to="https://cloud.mongodb.com">
                                     free Atlas account
                                 </StyledParagraphLink>{' '}
                                 and{' '}
-                                <StyledParagraphLink href="https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials">
-                                    MongoDB Community Edition{' '}
+                                <StyledParagraphLink to="https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials">
+                                    MongoDB Community Edition
                                 </StyledParagraphLink>{' '}
                                 to build your own O-FISH instance.
                             </BodyText>
 
-                            <StyledLink href="https://o-fish.github.io">
+                            <StyledLink to="https://o-fish.github.io">
                                 Start building now
                             </StyledLink>
                         </VesselAppTextContainer>
@@ -278,9 +290,7 @@ export default () => {
                                 anyone can contribute.
                             </BodyText>
 
-                            <StyledLink href="#">
-                                Contribute your code
-                            </StyledLink>
+                            <StyledLink to="#">Contribute your code</StyledLink>
                         </VesselAppTextContainer>
 
                         <VesselAppTextContainer>
@@ -293,7 +303,7 @@ export default () => {
                                 discuss how the O-FISH app works and how to make
                                 it better.
                             </BodyText>
-                            <StyledLink href="#">
+                            <StyledLink to="#">
                                 Discuss O-FISH with the community
                             </StyledLink>
                         </VesselAppTextContainer>
@@ -304,11 +314,11 @@ export default () => {
                             src={VesselRecord}
                             alt="Sample O-Fish application with vessel boarding information"
                         />
-                        <VesselCaptionText>
+                        <VesselCaption>
                             Realm Sync enables officers to see and submit
                             boarding reports through the mobile app even when
                             they are out at sea, offline.
-                        </VesselCaptionText>
+                        </VesselCaption>
                     </VesselImageDiv>
                 </VesselAppContainer>
             </BodyContent>
