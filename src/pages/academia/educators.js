@@ -199,7 +199,10 @@ export default () => {
                     </OfferingsContent>
                 </div>
                 {!isMobile && (
-                    <StyledTeachImage src={TeachMongoDBImage} alt="" />
+                    <StyledTeachImage
+                        src={TeachMongoDBImage}
+                        alt="Cartoon teacher pointing at codeblock. Cartoon person sitting on bench reading laptop."
+                    />
                 )}
             </BodyContent>
 
@@ -251,7 +254,10 @@ export default () => {
                     </div>
 
                     {!isMobile && (
-                        <StyledLeafImage src={AcademiaLeafImage} alt="" />
+                        <StyledLeafImage
+                            src={AcademiaLeafImage}
+                            alt="Two green sprouting leaves"
+                        />
                     )}
                 </BodyContent>
             </EligibilitySection>
