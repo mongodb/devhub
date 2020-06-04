@@ -9,7 +9,7 @@ import {
     size,
     lineHeight,
 } from '../components/dev-hub/theme';
-import { H3, ArticleH2, P } from '../components/dev-hub/text';
+import { H3, ArticleH2, ArticleH4, P } from '../components/dev-hub/text';
 import styled from '@emotion/styled';
 import Button from '../components/dev-hub/button';
 import HeroBanner from '../components/dev-hub/hero-banner';
@@ -49,30 +49,23 @@ const HeaderLink = styled(Link)`
     white-space: nowrap;
     @media ${screenSize.upToLarge} {
         display: block;
-        font-size: ${fontSize.xsmall};
         margin: 0;
     }
 `;
 
-const Title = styled(ArticleH2)`
-    font-size: ${fontSize.small};
-    font-family: 'Fira Mono';
-`;
-
 const StyledHeroBanner = styled(HeroBanner)`
     margin: 0 ${size.medium};
+    @media ${screenSize.upToLarge} {
+        margin: 0;
+    }
 `;
 
 const StyledP = styled(P)`
-    font-size: ${fontSize.default};
-    line-height: ${lineHeight.default};
     margin-top: ${size.articleContent};
     margin-bottom: ${size.xlarge};
 `;
 
 const BodyText = styled(P)`
-    font-size: ${fontSize.default};
-    line-height: ${lineHeight.default};
     margin-top: ${fontSize.default};
 `;
 
@@ -90,6 +83,11 @@ const BodyContent = styled('div')`
     @media ${screenSize.upToMedium} {
         padding: 0 ${size.default};
     }
+`;
+
+const StyledParagraphLink = styled('a')`
+    color: ${colorMap.darkGreen};
+    text-decoration: none;
 `;
 
 const StyledLink = styled(Link)`
@@ -122,7 +120,6 @@ const StyledVesselImage = styled('img')`
     flex: 0 0 ${VESSEL_IMAGE_WIDTH}px;
     width: ${VESSEL_IMAGE_WIDTH}px;
     @media ${screenSize.upToMedium} {
-        height: 100%;
         width: 100%;
     }
 `;
@@ -192,7 +189,7 @@ export default () => {
                 <Header>
                     <div>
                         <HeaderText>
-                            <Title>Code for Good</Title>
+                            <ArticleH4>Code for Good</ArticleH4>
 
                             <H3>Make a difference with MongoDB</H3>
 
@@ -256,13 +253,13 @@ export default () => {
                             </ArticleH2>
                             <BodyText>
                                 All you need is a{' '}
-                                <StyledLink href="https://cloud.mongodb.com">
+                                <StyledParagraphLink href="https://cloud.mongodb.com">
                                     free Atlas account
-                                </StyledLink>{' '}
+                                </StyledParagraphLink>{' '}
                                 and{' '}
-                                <StyledLink href="https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials">
+                                <StyledParagraphLink href="https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials">
                                     MongoDB Community Edition{' '}
-                                </StyledLink>{' '}
+                                </StyledParagraphLink>{' '}
                                 to build your own O-FISH instance.
                             </BodyText>
 
