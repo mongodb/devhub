@@ -25,6 +25,9 @@ const TEACH_IMAGE_WIDTH = 450;
 
 const StyledHeroBanner = styled(HeroBanner)`
     margin: 0 ${size.medium};
+    @media ${screenSize.upToLarge} {
+        margin: 0;
+    }
 `;
 
 const Header = styled('header')`
