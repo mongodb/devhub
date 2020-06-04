@@ -17,6 +17,7 @@ import BackgroundWaves from '../images/code-for-good/background-waves.png';
 import WildAidLogo from '../images/code-for-good/wild-aid-logo.png';
 import WildAidDashboard from '../images/code-for-good/wild-aid-dashboard.png';
 import VesselRecord from '../images/code-for-good/vessel-record.png';
+import Link from '../components/dev-hub/link';
 
 const CAPTION_MAX_WIDTH = '345px';
 const BODY_TEXT_MAX_WIDTH = '320px';
@@ -31,7 +32,7 @@ const Header = styled('header')`
     justify-content: space-between;
     padding-top: ${size.large};
     @media ${screenSize.upToLarge} {
-        display: block;
+        flex-direction: column-reverse;
         margin-bottom: ${size.large};
     }
 `;
@@ -40,14 +41,16 @@ const HeaderText = styled('div')`
     max-width: ${HERO_TEXT_WIDTH};
 `;
 
-const HeaderLink = styled('a')`
+const HeaderLink = styled(Link)`
     color: ${colorMap.darkGreen};
+    display: inline;
     margin-top: ${size.large};
     margin-left: ${size.mediumLarge};
-    text-decoration: none;
+    white-space: nowrap;
     @media ${screenSize.upToLarge} {
         display: block;
-        margin-left: auto;
+        font-size: ${fontSize.xsmall};
+        margin: 0;
     }
 `;
 
@@ -61,7 +64,6 @@ const StyledHeroBanner = styled(HeroBanner)`
 `;
 
 const StyledP = styled(P)`
-    font-family: akzidenz;
     font-size: ${fontSize.default};
     line-height: ${lineHeight.default};
     margin-top: ${size.articleContent};
@@ -69,7 +71,6 @@ const StyledP = styled(P)`
 `;
 
 const BodyText = styled(P)`
-    font-family: akzidenz;
     font-size: ${fontSize.default};
     line-height: ${lineHeight.default};
     margin-top: ${fontSize.default};
@@ -77,9 +78,8 @@ const BodyText = styled(P)`
 
 const StyledButton = styled(Button)`
     margin-top: ${size.large};
-    margin-bottom: ${size.xlarge};
     @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.small};
+        margin-bottom: ${size.medium};
     }
 `;
 
@@ -92,24 +92,25 @@ const BodyContent = styled('div')`
     }
 `;
 
-const StyledLink = styled('a')`
+const StyledLink = styled(Link)`
     color: ${colorMap.darkGreen};
+    font-weight: bold;
     margin-top: ${size.mediumLarge};
     text-decoration: none;
 `;
 
-const FirstSection = styled('div')`
+const UnderstandTextSection = styled('div')`
     margin-bottom: ${size.xlarge};
     margin-top: ${size.xlarge};
     max-width: ${BODY_TEXT_MAX_WIDTH};
 `;
 
-const SecondSection = styled('div')`
+const VesselAppTextContainer = styled('div')`
     margin-bottom: ${size.xlarge};
     max-width: ${BODY_TEXT_MAX_WIDTH};
 `;
 
-const StyledDiv = styled('div')`
+const VesselAppContainer = styled('div')`
     display: flex;
     justify-content: space-between;
     @media ${screenSize.upToMedium} {
@@ -120,6 +121,10 @@ const StyledDiv = styled('div')`
 const StyledVesselImage = styled('img')`
     flex: 0 0 ${VESSEL_IMAGE_WIDTH}px;
     width: ${VESSEL_IMAGE_WIDTH}px;
+    @media ${screenSize.upToMedium} {
+        height: 100%;
+        width: 100%;
+    }
 `;
 
 const VesselImageDiv = styled('div')`
@@ -131,31 +136,39 @@ const StyledLogoImage = styled('img')`
     flex: 0 0 ${LOGO_IMAGE_WIDTH}px;
     height: ${LOGO_IMAGE_HEIGHT}px;
     width: ${LOGO_IMAGE_WIDTH}px;
+    @media ${screenSize.upToMedium} {
+        flex-direction: column-reverse;
+        height: 100%;
+        width: 100%;
+    }
 `;
 
 const StyledDashBoardImage = styled('img')`
     flex: 0 0 ${DASHBOARD_IMAGE_WIDTH}px;
     width: ${DASHBOARD_IMAGE_WIDTH}px;
-`;
-
-const VesselCaptionText = styled('div')`
-    font-family: akzidenz;
-    font-size: ${fontSize.small};
-    line-height: ${lineHeight.small};
-    margin-top: ${size.medium};
-    margin-bottom: ${size.medium};
-    max-width: ${CAPTION_MAX_WIDTH};
     @media ${screenSize.upToMedium} {
-        margin-bottom: ${size.xlarge};
+        width: 100%;
     }
 `;
 
-const DashboardCaptionText = styled('div')`
-    font-family: akzidenz;
+const VesselCaptionText = styled('figcaption')`
+    font-size: ${fontSize.small};
+    line-height: ${lineHeight.small};
+    margin-top: ${size.medium};
+    max-width: ${CAPTION_MAX_WIDTH};
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.large};
+    }
+`;
+
+const DashboardCaptionText = styled('figcaption')`
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
     margin-bottom: ${size.xlarge};
     margin-top: ${size.medium};
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.small};
+    }
 `;
 
 export default () => {
@@ -197,17 +210,19 @@ export default () => {
                             Build your own O-FISH app
                         </StyledButton>
 
-                        <HeaderLink href="#">
+                        <HeaderLink href="#" tertiary>
                             Learn why we created O-FISH
-                            <span> &rarr;</span>
                         </HeaderLink>
                     </div>
-                    <StyledLogoImage src={WildAidLogo} alt="" />
+                    <StyledLogoImage
+                        src={WildAidLogo}
+                        alt="Logo for the WildAid Marine Program"
+                    />
                 </Header>
             </StyledHeroBanner>
 
             <BodyContent>
-                <FirstSection>
+                <UnderstandTextSection>
                     <ArticleH2>
                         Understand how to use MongoDB features in web and mobile
                         applications
@@ -221,18 +236,21 @@ export default () => {
                     </BodyText>
 
                     <StyledP>Blog posts coming soon</StyledP>
-                </FirstSection>
+                </UnderstandTextSection>
 
-                <StyledDashBoardImage src={WildAidDashboard} alt="" />
+                <StyledDashBoardImage
+                    src={WildAidDashboard}
+                    alt="A sample dashboard for the Wild Aid application"
+                />
 
                 <DashboardCaptionText>
                     With MongoDB Charts, the O-FISH web app allows WildAid to
                     gain insights about marine protection enforcement efforts.
                 </DashboardCaptionText>
 
-                <StyledDiv>
+                <VesselAppContainer>
                     <div>
-                        <SecondSection>
+                        <VesselAppTextContainer>
                             <ArticleH2>
                                 Build your own fully functional app for free
                             </ArticleH2>
@@ -251,9 +269,9 @@ export default () => {
                             <StyledLink href="https://o-fish.github.io">
                                 Start building now
                             </StyledLink>
-                        </SecondSection>
+                        </VesselAppTextContainer>
 
-                        <SecondSection>
+                        <VesselAppTextContainer>
                             <ArticleH2>
                                 Contribute code to help protect our oceans
                             </ArticleH2>
@@ -266,9 +284,9 @@ export default () => {
                             <StyledLink href="#">
                                 Contribute your code
                             </StyledLink>
-                        </SecondSection>
+                        </VesselAppTextContainer>
 
-                        <SecondSection>
+                        <VesselAppTextContainer>
                             <ArticleH2>
                                 Collaborate with MongoDB Developers around the
                                 world
@@ -281,15 +299,13 @@ export default () => {
                             <StyledLink href="#">
                                 Discuss O-FISH with the community
                             </StyledLink>
-                        </SecondSection>
+                        </VesselAppTextContainer>
                     </div>
 
                     <VesselImageDiv>
                         <StyledVesselImage
                             src={VesselRecord}
-                            alt=""
-                            height="614px"
-                            width="345px"
+                            alt="Sample O-Fish application with vessel boarding information"
                         />
                         <VesselCaptionText>
                             Realm Sync enables officers to see and submit
@@ -297,7 +313,7 @@ export default () => {
                             they are out at sea, offline.
                         </VesselCaptionText>
                     </VesselImageDiv>
-                </StyledDiv>
+                </VesselAppContainer>
             </BodyContent>
         </Layout>
     );
