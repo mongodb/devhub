@@ -31,8 +31,8 @@ const Header = styled('header')`
     justify-content: space-between;
     padding-top: ${size.large};
     @media ${screenSize.upToLarge} {
-        flex-direction: column-reverse;
         margin-bottom: ${size.large};
+        flex-direction: column-reverse;
     }
 `;
 const HeaderText = styled('div')`
@@ -182,9 +182,9 @@ const StyledDashboardCaption = styled(P3)`
 const DashboardCaption = StyledDashboardCaption.withComponent('figcaption');
 
 const HeaderActionsContainer = styled('div')`
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     padding-top: ${size.large};
 `;
 
