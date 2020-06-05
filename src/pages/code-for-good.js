@@ -43,6 +43,7 @@ const HeaderText = styled('div')`
     }
 `;
 
+// TODO: uncomment when header link is ready
 // const HeaderLink = styled(Link)`
 //     color: ${colorMap.darkGreen};
 //     display: inline;
@@ -228,6 +229,7 @@ export default () => {
                             Build your own O-FISH app
                         </StyledButton>
 
+                        {/* TODO: uncomment when learn link href is decided */}
                         {/* <HeaderLink href="#" tertiary>
                             Learn why we created O-FISH
                         </HeaderLink> */}
