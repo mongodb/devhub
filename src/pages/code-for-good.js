@@ -83,6 +83,7 @@ const BodyContent = styled('div')`
     max-width: ${size.maxContentWidth};
     width: 100%;
     @media ${screenSize.upToMedium} {
+        max-width: 100%;
         padding: 0 ${size.default};
         width: 100%;
     }
@@ -105,6 +106,7 @@ const UnderstandTextSection = styled('div')`
     margin-top: ${size.xlarge};
     max-width: ${BODY_TEXT_MAX_WIDTH};
     @media ${screenSize.upToMedium} {
+        max-width: 100%;
         width: 100%;
     }
 `;
@@ -113,6 +115,7 @@ const VesselAppTextContainer = styled('div')`
     margin-bottom: ${size.xlarge};
     max-width: ${BODY_TEXT_MAX_WIDTH};
     @media ${screenSize.upToMedium} {
+        max-width: 100%;
         width: 100%;
     }
 `;
@@ -214,7 +217,7 @@ export default () => {
                         <StyledButton
                             primary
                             hasArrow={false}
-                            to="https://o-fish.github.io"
+                            href="https://o-fish.github.io"
                         >
                             Build your own O-FISH app
                         </StyledButton>
@@ -265,17 +268,17 @@ export default () => {
                             </ArticleH2>
                             <BodyText>
                                 All you need is a{' '}
-                                <StyledParagraphLink to="https://cloud.mongodb.com">
+                                <StyledParagraphLink href="https://cloud.mongodb.com">
                                     free Atlas account
                                 </StyledParagraphLink>{' '}
                                 and{' '}
-                                <StyledParagraphLink to="https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials">
+                                <StyledParagraphLink href="https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials">
                                     MongoDB Community Edition
                                 </StyledParagraphLink>{' '}
                                 to build your own O-FISH instance.
                             </BodyText>
 
-                            <StyledLink to="https://o-fish.github.io">
+                            <StyledLink href="https://o-fish.github.io">
                                 Start building now
                             </StyledLink>
                         </VesselAppTextContainer>
