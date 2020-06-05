@@ -10,6 +10,7 @@ import { screenSize, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import buildImage from '../images/2x/Build@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
+import academiaImage from '../images/1x/Academia.svg';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
@@ -215,6 +216,38 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
                     </MediaBlock>
                 </FeatureSection>
                 <FeatureSection altBackground>
+                    <MediaBlock
+                        mediaComponent={
+                            <Card
+                                image={academiaImage}
+                                maxWidth={MEDIA_WIDTH}
+                            ></Card>
+                        }
+                    >
+                        <SectionContent>
+                            <H2>
+                                <GradientUnderline
+                                    gradient={
+                                        theme.gradientMap.magentaSalmonSherbet
+                                    }
+                                >
+                                    MongoDB for Academia
+                                </GradientUnderline>
+                            </H2>
+                            <DescriptiveText>
+                                MongoDB for Academia gives educators hands-on
+                                learning experiences to inspire, teach and learn
+                                with MongoDB.
+                            </DescriptiveText>
+                            <div>
+                                <Button to="/academia/educators/" secondary>
+                                    Learn more
+                                </Button>
+                            </div>
+                        </SectionContent>
+                    </MediaBlock>
+                </FeatureSection>
+                <FeatureSection>
                     <MediaBlock
                         mediaComponent={
                             <Card

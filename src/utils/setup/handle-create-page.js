@@ -3,6 +3,8 @@ import { removeExcludedArticles } from './remove-excluded-articles';
 import { removePageIfStaged } from './remove-page-if-staged';
 import { getNestedValue } from '../get-nested-value';
 import { getMetadata } from '../get-metadata';
+import { fetchBuildTimeMedia } from './fetch-build-time-media';
+import { getStagingPages } from './get-staging-pages';
 
 const metadata = getMetadata();
 let stitchClient;
@@ -23,7 +25,9 @@ const DEFAULT_FEATURED_LEARN_SLUGS = [
     'how-to/polymorphic-pattern',
 ];
 
-const STAGING_PAGES = ['/academia/educators/', '/media/'];
+const memoizedStagingPages = memoizerific(1)(
+    async () => await getStagingPages()
+);
 
 const requestStitch = async (functionName, ...args) =>
     stitchClient.callFunction(functionName, [metadata, ...args]);
@@ -132,6 +136,7 @@ export const handleCreatePage = async (
 ) => {
     const { createPage, deletePage } = actions;
     stitchClient = inheritedStitchClient;
+    const stagingPages = await memoizedStagingPages();
     switch (page.path) {
         case '/learn/':
             const allArticles = await getAllArticles();
@@ -145,12 +150,15 @@ export const handleCreatePage = async (
                 learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS,
                 MAX_LEARN_PAGE_FEATURED_ARTICLES
             );
+            const { allPodcasts, allVideos } = await fetchBuildTimeMedia();
             deletePage(page);
             createPage({
                 ...page,
                 context: {
                     ...page.context,
                     allArticles: learnPageArticles,
+                    allPodcasts,
+                    allVideos,
                     featuredArticles: featuredLearnArticles,
                     filters,
                 },
@@ -174,5 +182,5 @@ export const handleCreatePage = async (
         default:
             break;
     }
-    removePageIfStaged(page, deletePage, STAGING_PAGES);
+    removePageIfStaged(page, deletePage, stagingPages);
 };

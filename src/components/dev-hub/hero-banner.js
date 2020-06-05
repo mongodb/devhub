@@ -1,19 +1,15 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Breadcrumb from './breadcrumb';
-import {
-    fontSize,
-    HERO_CONTENT_WIDTH,
-    screenSize,
-    size,
-} from './theme';
+import { fontSize, HERO_CONTENT_WIDTH, screenSize, size } from './theme';
 import useMedia from '../../hooks/use-media';
 
 const HERO_BOTTOM_MARGIN = '30px';
 const BANNER_BOTTOM_PADDING = '50px';
 
 const ContentContainer = styled('div')`
-    max-width: ${HERO_CONTENT_WIDTH};
+    ${({ fullWidth }) =>
+        ` max-width: ${fullWidth ? '100%' : HERO_CONTENT_WIDTH}`};
 `;
 
 const Header = styled('header')`
@@ -71,6 +67,7 @@ const HeroBanner = ({
     // Setting below to false would allow for bleed effect on bg
     shouldContainBackground = true,
     showImageOnMobile = true,
+    fullWidth = false,
     ...props
 }) => {
     const isMobile = useMedia(screenSize.upToLarge);
@@ -80,7 +77,7 @@ const HeroBanner = ({
                 background={background}
                 shouldContainBackground={shouldContainBackground}
             >
-                <ContentContainer>
+                <ContentContainer fullWidth={fullWidth}>
                     {breadcrumb && (
                         <HeroBreadcrumb>{breadcrumb}</HeroBreadcrumb>
                     )}

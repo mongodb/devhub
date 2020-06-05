@@ -14,13 +14,19 @@ import Button from '../../components/dev-hub/button';
 import HeroBanner from '../../components/dev-hub/hero-banner';
 import SectionHeader from '../../components/dev-hub/section-header';
 import AcademiaSignUpForm from '../../components/dev-hub/academia-sign-up-form';
-import HeroBannerImage from '../../images/1x/Academia_Hero.svg';
+import HeroBannerImage from '../../images/1x/Academia.svg';
 import TeachMongoDBImage from '../../images/1x/TeachMongoDB.svg';
 import AcademiaLeafImage from '../../images/1x/Academia_Leaf.svg';
 import useMedia from '../../hooks/use-media';
 
+const LEAF_IMAGE_WIDTH = 125;
+const TEACH_IMAGE_WIDTH = 450;
+
 const StyledHeroBanner = styled(HeroBanner)`
     margin: 0 ${size.medium};
+    @media ${screenSize.upToLarge} {
+        margin: 0;
+    }
 `;
 
 const Header = styled('header')`
@@ -97,6 +103,7 @@ const StyledSpan = styled('span')`
 
 const SignUp = styled('div')`
     margin-top: ${size.xlarge};
+    margin-bottom: ${size.xxlarge};
 `;
 
 const StyledAcademiaSignUpForm = styled(AcademiaSignUpForm)`
@@ -111,7 +118,14 @@ const StyledP = styled(P)`
 `;
 
 const StyledLeafImage = styled('img')`
-    margin-top: 400px;
+    margin-top: 200px;
+    flex: 0 0 ${LEAF_IMAGE_WIDTH}px;
+    width: ${LEAF_IMAGE_WIDTH}px;
+`;
+
+const StyledTeachImage = styled('img')`
+    flex: 0 0 ${TEACH_IMAGE_WIDTH}px;
+    width: ${TEACH_IMAGE_WIDTH}px;
 `;
 
 export default () => {
@@ -187,13 +201,30 @@ export default () => {
                     </OfferingsContent>
                 </div>
                 {!isMobile && (
-                    <img src={TeachMongoDBImage} alt="" width="450px" />
+                    <StyledTeachImage
+                        src={TeachMongoDBImage}
+                        alt="Cartoon teacher pointing at codeblock. Cartoon person sitting on bench reading laptop."
+                    />
                 )}
             </BodyContent>
 
             <EligibilitySection>
                 <BodyContent>
                     <div>
+                        <EligibilityContent>
+                            <StyledSectionHeader>
+                                For Students
+                            </StyledSectionHeader>
+                            <BodyText>
+                                If you’re a student, you can apply for the{' '}
+                                <StyledLink href="https://education.github.com/pack">
+                                    GitHub Student Developer Pack
+                                </StyledLink>{' '}
+                                and get access to MongoDB Atlas, University
+                                on-demand content and certifications.
+                            </BodyText>
+                        </EligibilityContent>
+
                         <EligibilityContent>
                             <StyledSectionHeader>
                                 For Educators
@@ -222,24 +253,13 @@ export default () => {
                                 </StyledBullet>
                             </BodyText>
                         </EligibilityContent>
-
-                        <EligibilityContent>
-                            <StyledSectionHeader>
-                                For Students
-                            </StyledSectionHeader>
-                            <BodyText>
-                                If you’re a student, you can apply for the{' '}
-                                <StyledLink href="https://education.github.com/pack">
-                                    GitHub Student Developer Pack
-                                </StyledLink>{' '}
-                                and get access to MongoDB Atlas, University
-                                on-demand content and certifications.
-                            </BodyText>
-                        </EligibilityContent>
                     </div>
 
                     {!isMobile && (
-                        <StyledLeafImage src={AcademiaLeafImage} alt="" />
+                        <StyledLeafImage
+                            src={AcademiaLeafImage}
+                            alt="Two green sprouting leaves"
+                        />
                     )}
                 </BodyContent>
             </EligibilitySection>

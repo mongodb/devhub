@@ -82,7 +82,9 @@ export default () => {
                     )}
                 </HomeLink>
                 <NavLink to="/learn">Learn</NavLink>
-                <NavLink to="/community">Community</NavLink>
+                <NavLink href="https://developer.mongodb.com/community/forums/">
+                    Community
+                </NavLink>
             </NavContent>
         </GlobalNav>
     );
