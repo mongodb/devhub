@@ -43,17 +43,17 @@ const HeaderText = styled('div')`
     }
 `;
 
-const HeaderLink = styled(Link)`
-    color: ${colorMap.darkGreen};
-    display: inline;
-    margin-top: ${size.large};
-    margin-left: ${size.mediumLarge};
-    white-space: nowrap;
-    @media ${screenSize.upToLarge} {
-        display: block;
-        margin: 0;
-    }
-`;
+// const HeaderLink = styled(Link)`
+//     color: ${colorMap.darkGreen};
+//     display: inline;
+//     margin-top: ${size.large};
+//     margin-left: ${size.mediumLarge};
+//     white-space: nowrap;
+//     @media ${screenSize.upToLarge} {
+//         display: block;
+//         margin: 0;
+//     }
+// `;
 
 const StyledHeroBanner = styled(HeroBanner)`
     margin: 0 ${size.medium};
@@ -228,9 +228,9 @@ export default () => {
                             Build your own O-FISH app
                         </StyledButton>
 
-                        <HeaderLink href="#" tertiary>
+                        {/* <HeaderLink href="#" tertiary>
                             Learn why we created O-FISH
-                        </HeaderLink>
+                        </HeaderLink> */}
                     </div>
                     <StyledLogoImage
                         src={WildAidLogo}
