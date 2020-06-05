@@ -307,7 +307,9 @@ export default () => {
                                 anyone can contribute.
                             </BodyText>
 
-                            <StyledLink to="#">Contribute your code</StyledLink>
+                            <StyledLink href="https://o-fish.github.io/contribute/">
+                                Contribute your code
+                            </StyledLink>
                         </VesselAppTextContainer>
 
                         <VesselAppTextContainer>
@@ -320,7 +322,7 @@ export default () => {
                                 discuss how the O-FISH app works and how to make
                                 it better.
                             </BodyText>
-                            <StyledLink to="#">
+                            <StyledLink href="https://developer.mongodb.com/community/forums/">
                                 Discuss O-FISH with the community
                             </StyledLink>
                         </VesselAppTextContainer>
