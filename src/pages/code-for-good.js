@@ -230,7 +230,7 @@ export default () => {
                             <StyledButton
                                 primary
                                 hasArrow={false}
-                                href="https://o-fish.github.io"
+                                href="https://wildaid.github.io"
                             >
                                 Build your own O-FISH app
                             </StyledButton>
@@ -293,7 +293,7 @@ export default () => {
                                 to build your own O-FISH instance.
                             </BodyText>
 
-                            <StyledLink href="https://o-fish.github.io">
+                            <StyledLink href="https://wildaid.github.io">
                                 Start building now
                             </StyledLink>
                         </VesselAppTextContainer>
@@ -308,7 +308,7 @@ export default () => {
                                 anyone can contribute.
                             </BodyText>
 
-                            <StyledLink href="https://o-fish.github.io/contribute/">
+                            <StyledLink href="https://wildaid.github.io/contribute/">
                                 Contribute your code
                             </StyledLink>
                         </VesselAppTextContainer>
