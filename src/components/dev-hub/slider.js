@@ -6,9 +6,9 @@ import { P3 } from './text';
 
 const RANGE_BUFFER_SIZE = '6px';
 
-const inputThumbStyle = css`
+const inputThumbStyle = theme => css`
     -webkit-appearance: none;
-    background: ${({ theme }) => theme.colorMap.sherbet};
+    background: ${theme.colorMap.sherbet};
     background-size: 100%;
     border: none;
     border-radius: 50%;
@@ -20,7 +20,8 @@ const inputThumbStyle = css`
 
 const inputTrackStyle = (percentage, theme) => css`
     border-radius: ${RANGE_BUFFER_SIZE};
-    background: ${theme.gradientMap.magentaSalmonSherbet} ${theme.colorMap.greyDarkTwo};
+    background: ${theme.gradientMap.magentaSalmonSherbet}
+        ${theme.colorMap.greyDarkTwo};
     background-repeat: no-repeat;
     background-size: ${`${percentage}%`} 100%;
     height: 4px;
@@ -40,10 +41,10 @@ const StyledInput = styled('input')`
     width: 100%;
     /* Style the input "thumb" */
     ::-webkit-slider-thumb {
-        ${inputThumbStyle};
+        ${({ theme }) => inputThumbStyle(theme)};
     }
     ::-moz-range-thumb {
-        ${inputThumbStyle};
+        ${({ theme }) => inputThumbStyle(theme)};
     }
     /* Style the input "track" */
     ::-webkit-slider-runnable-track {

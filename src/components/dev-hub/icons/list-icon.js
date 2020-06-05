@@ -20,12 +20,12 @@ const ListIcon = ({ color, ...props }) => {
                     fill={iconColor}
                     d="M57.124,14.231H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,14.231,57.124,14.231z"
                 />
-                <circle fill={color} cx="4.029" cy="11.463" r="4.029" />
-                <circle fill={color} cx="4.029" cy="30.062" r="4.029" />
-                <circle fill={color} cx="4.029" cy="48.661" r="4.029" />
+                <circle fill={iconColor} cx="4.029" cy="11.463" r="4.029" />
+                <circle fill={iconColor} cx="4.029" cy="30.062" r="4.029" />
+                <circle fill={iconColor} cx="4.029" cy="48.661" r="4.029" />
             </g>
         </svg>
-    )
-}
+    );
+};
 
 export default ListIcon;

@@ -57,34 +57,34 @@ const iconProps = theme => {
 };
 
 const iconLinks = theme => {
-    return([
+    const prop = iconProps(theme);
+    return [
         {
-            name: <Github {...iconProps(theme)} />,
+            name: <Github {...prop} />,
             url: 'https://github.com/mongodb',
         },
         {
-            name: <Twitch {...iconProps(theme)} />,
+            name: <Twitch {...prop} />,
             url: 'https://twitch.tv/mongodb/profile',
         },
         {
-            name: <Youtube {...iconProps(theme)} />,
+            name: <Youtube {...prop} />,
             url: 'https://www.youtube.com/user/mongodb',
         },
         {
-            name: <TwitterIcon {...iconProps(theme)} />,
+            name: <TwitterIcon {...prop} />,
             url: 'https://twitter.com/MongoDB/',
         },
         {
-            name: <FacebookIcon {...iconProps(theme)} />,
+            name: <FacebookIcon {...prop} />,
             url: 'https://www.facebook.com/MongoDB/',
         },
         {
-            name: <LinkedIn {...iconProps(theme)} />,
+            name: <LinkedIn {...prop} />,
             url: 'https://www.linkedin.com/company/mongodbinc/',
         },
-    ])
+    ];
 };
-
 
 const GlobalFooter = styled('footer')`
     background: ${({ theme }) => theme.colorMap.greyDarkThree};

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 import LocationIcon from './icons/location-icon';
 import Link from './link';
 import { P, H4 } from './text';
@@ -21,7 +22,7 @@ const Month = styled('span')`
 `;
 
 const CalendarDate = styled('div')`
-    background-color: ${({ theme }) => theme.greyDarkThree};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     border-radius: ${size.xsmall};
     display: flex;
     flex-direction: column;
@@ -64,6 +65,20 @@ const Title = styled(H4)`
     overflow: hidden;
 `;
 
+const hoverStyles = theme => css`
+    &:focus,
+    &:hover {
+        color: ${theme.colorMap.devWhite};
+        background: ${theme.colorMap.greyDarkTwo};
+        div[data-name='event-date'] {
+            background: ${theme.colorMap.greenTeal};
+        }
+        p[data-name='event-location'] {
+            color: ${theme.colorMap.devWhite};
+        }
+    }
+`;
+
 const StyledEvent = styled(Link)`
     border-radius: ${size.xsmall};
     cursor: pointer;
@@ -75,18 +90,7 @@ const StyledEvent = styled(Link)`
     padding: ${size.medium};
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};
-
-    &:focus,
-    &:hover {
-        color: ${({ theme }) => theme.devWhite};
-        background: ${({ theme }) => theme.greyDarkTwo};
-        div[data-name='event-date'] {
-            background: ${({ theme }) => theme.greenTeal};
-        }
-        p[data-name='event-location'] {
-            color: ${({ theme }) => theme.devWhite};
-        }
-    }
+    ${({ theme }) => hoverStyles(theme)}
 `;
 
 const DateIcon = ({ date }) => {
@@ -104,7 +108,9 @@ const DateIcon = ({ date }) => {
 
 const Event = ({ event, maxTitleLines = 2, ...props }) => {
     const theme = useTheme();
-    const [locationColor, setLocationColor] = useState(theme.colorMap.greyLightThree);
+    const [locationColor, setLocationColor] = useState(
+        theme.colorMap.greyLightThree
+    );
     const { title, url } = event;
     const { event_city: city, event_country: country, event_start: date } = dlv(
         event,

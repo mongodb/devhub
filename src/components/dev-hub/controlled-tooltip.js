@@ -117,7 +117,7 @@ const leftDefaultArrow = theme => css`
 `;
 
 const leftGradientArrow = theme => css`
-    ${leftDefaultArrow}
+    ${leftDefaultArrow(theme)}
     &:before {
         border-right-color: ${theme.colorMap.orange};
     }
@@ -140,7 +140,7 @@ const bottomDefaultArrow = theme => css`
 `;
 
 const bottomGradientArrow = theme => css`
-    ${bottomDefaultArrow}
+    ${bottomDefaultArrow(theme)}
     &:after {
         border-top-color: ${theme.colorMap.greyDarkOne};
     }

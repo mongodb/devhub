@@ -1,7 +1,9 @@
 import React from 'react';
+import { useTheme } from 'emotion-theming';
 
-const EnvelopeIcon = ({ color, ...props }) =>{
-    const iconColor = color ? color : ({ theme }) => theme.colorMap.greyLightTwo;
+const EnvelopeIcon = ({ color, ...props }) => {
+    const theme = useTheme();
+    const iconColor = color ? color : theme.colorMap.greyLightTwo;
     return (
         <svg width="30" height="20" viewBox="0 0 125 100" {...props}>
             <path
@@ -17,7 +19,7 @@ const EnvelopeIcon = ({ color, ...props }) =>{
                 fill={iconColor}
             />
         </svg>
-    )
-}
+    );
+};
 
 export default EnvelopeIcon;

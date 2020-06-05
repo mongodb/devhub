@@ -6,10 +6,7 @@ import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
 import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
-import {
-    screenSize,
-    size,
-} from '../components/dev-hub/theme';
+import { screenSize, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import buildImage from '../images/2x/Build@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
@@ -22,6 +19,7 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
 import VideoModal from '../components/dev-hub/video-modal';
+import { useTheme } from 'emotion-theming';
 
 const MEDIA_WIDTH = '550';
 
@@ -91,17 +89,11 @@ const DescriptiveText = styled(P)`
     margin-bottom: ${size.medium};
 `;
 
-export default ({ pageContext: { featuredArticles } }) => {
-    const { stream, videos } = useTwitchApi();
-    const { title } = useSiteMetadata();
-    const twitchVideo = useMemo(() => {
-        if (stream) return stream;
-        if (videos && videos.length) return videos[0];
-        return null;
-    }, [stream, videos]);
-
+const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
+    const theme = useTheme();
+    console.log(theme);
     return (
-        <Layout>
+        <>
             <Helmet>
                 <title>{title}</title>
             </Helmet>
@@ -165,7 +157,9 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={({ theme }) => theme.gradientMap.tealVioletPurple}
+                                    gradient={theme =>
+                                        theme.gradientMap.tealVioletPurple
+                                    }
                                 >
                                     Live Coding on Our Twitch Channel
                                 </GradientUnderline>
@@ -202,7 +196,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={({ theme }) => theme.gradientMap.greenTeal}
+                                    gradient={theme.gradientMap.greenTeal}
                                 >
                                     Events
                                 </GradientUnderline>
@@ -232,7 +226,9 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={({ theme }) => theme.gradientMap.magentaSalmonSherbet}
+                                    gradient={
+                                        theme.gradientMap.magentaSalmonSherbet
+                                    }
                                 >
                                     Show Your Stuff
                                 </GradientUnderline>
@@ -251,6 +247,26 @@ export default ({ pageContext: { featuredArticles } }) => {
                     </MediaBlock>
                 </FeatureSection>
             </BackgroundImage>
+        </>
+    );
+};
+
+export default ({ pageContext: { featuredArticles } }) => {
+    const { stream, videos } = useTwitchApi();
+    const { title } = useSiteMetadata();
+    const twitchVideo = useMemo(() => {
+        if (stream) return stream;
+        if (videos && videos.length) return videos[0];
+        return null;
+    }, [stream, videos]);
+    return (
+        <Layout>
+            <IndexPageContent
+                stream={stream}
+                title={title}
+                twitchVideo={twitchVideo}
+                featuredArticles={featuredArticles}
+            />
         </Layout>
     );
 };

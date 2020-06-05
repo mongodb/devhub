@@ -9,19 +9,23 @@ const MAX_CONTENT_WIDTH = '410px';
 const PAST_LINK_COLOR = '#89989b';
 
 // Needed to allow more magenta to account for proper text coloring
-const BULLET_GRADIENT = `linear-gradient(
-    315deg,
-    ${({ theme }) => theme.colorMap.sherbet} 0%,
-    ${({ theme }) => theme.colorMap.salmon} 40%,
-    ${({ theme }) => theme.colorMap.magenta} 100%
-);`;
+const BULLET_GRADIENT = theme => css`
+    linear-gradient(
+        315deg,
+        ${theme.colorMap.sherbet} 0%,
+        ${theme.colorMap.salmon} 40%,
+        ${theme.colorMap.magenta} 100%
+    )
+`;
 
-const BORDER_GRADIENT = `linear-gradient(
-    0deg,
-    ${({ theme }) => theme.colorMap.sherbet} 0%,
-    ${({ theme }) => theme.colorMap.salmon} 49.99%,
-    ${({ theme }) => theme.colorMap.magenta} 100%
-);`;
+const BORDER_GRADIENT = theme => css`
+    linear-gradient(
+        0deg,
+        ${theme.colorMap.sherbet} 0%,
+        ${theme.colorMap.salmon} 49.99%,
+        ${theme.colorMap.magenta} 100%
+    )
+`;
 
 const activeLiStyles = css`
     font-size: ${fontSize.xsmall};
@@ -100,7 +104,7 @@ const SeriesLink = styled(Link)`
 `;
 
 const BulletIcon = styled('div')`
-    background: ${BULLET_GRADIENT};
+    background: ${({ theme }) => BULLET_GRADIENT(theme)};
     background-clip: text;
     display: inline-block;
     font-family: 'Fira Mono', monospace;
@@ -148,7 +152,7 @@ const SeriesList = styled('ul')`
                 ${({ theme }) => theme.colorMap.greyDarkThree} 50%,
                 ${({ theme }) => theme.colorMap.greyDarkThree} 100%
             ),
-            ${BORDER_GRADIENT};
+            ${({ theme }) => BORDER_GRADIENT(theme)};
         background-size: ${size.medium} 2px, cover;
         bottom: 0;
         content: '';

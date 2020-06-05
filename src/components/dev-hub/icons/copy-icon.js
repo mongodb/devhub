@@ -1,8 +1,10 @@
 import React from 'react';
+import { useTheme } from 'emotion-theming';
 
 const CopyIcon = ({ color, ...props }) => {
-    const iconColor = color ? color : ({ theme }) => theme.colorMap.greyLightTwo;
-    return(
+    const theme = useTheme();
+    const iconColor = color ? color : theme.colorMap.greyLightTwo;
+    return (
         <svg
             aria-label="Copy"
             height="12"
@@ -16,7 +18,7 @@ const CopyIcon = ({ color, ...props }) => {
                 fill={iconColor}
             />
         </svg>
-    )
-}
+    );
+};
 
 export default CopyIcon;
