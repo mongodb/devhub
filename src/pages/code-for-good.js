@@ -31,8 +31,8 @@ const Header = styled('header')`
     justify-content: space-between;
     padding-top: ${size.large};
     @media ${screenSize.upToLarge} {
-        flex-direction: column-reverse;
         margin-bottom: ${size.large};
+        flex-direction: column-reverse;
     }
 `;
 const HeaderText = styled('div')`
@@ -73,10 +73,7 @@ const BodyText = styled(P)`
 `;
 
 const StyledButton = styled(Button)`
-    margin-top: ${size.large};
-    @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.medium};
-    }
+    margin-top: ${size.small};
 `;
 
 const BodyContent = styled('div')`
@@ -190,6 +187,13 @@ const StyledDashboardCaption = styled(P3)`
 
 const DashboardCaption = StyledDashboardCaption.withComponent('figcaption');
 
+const HeaderActionsContainer = styled('div')`
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: ${size.large};
+`;
+
 export default () => {
     const metadata = useSiteMetadata();
     const codeForGoodBreadcrumbs = [
@@ -207,6 +211,7 @@ export default () => {
                 background={BackgroundWaves}
                 fullWidth={true}
                 showImageOnMobile={false}
+                shouldContainBackground={false}
             >
                 <Header>
                     <div>
@@ -221,18 +226,20 @@ export default () => {
                                 our oceans.
                             </StyledP>
                         </HeaderText>
-                        <StyledButton
-                            primary
-                            hasArrow={false}
-                            href="https://o-fish.github.io"
-                        >
-                            Build your own O-FISH app
-                        </StyledButton>
+                        <HeaderActionsContainer>
+                            <StyledButton
+                                primary
+                                hasArrow={false}
+                                href="https://o-fish.github.io"
+                            >
+                                Build your own O-FISH app
+                            </StyledButton>
 
-                        {/* TODO: uncomment when learn link href is decided */}
-                        {/* <HeaderLink href="#" tertiary>
+                            {/* TODO: uncomment when learn link href is decided */}
+                            {/* <HeaderLink href="#" tertiary>
                             Learn why we created O-FISH
                         </HeaderLink> */}
+                        </HeaderActionsContainer>
                     </div>
                     <StyledLogoImage
                         src={WildAidLogo}
@@ -301,7 +308,9 @@ export default () => {
                                 anyone can contribute.
                             </BodyText>
 
-                            <StyledLink to="#">Contribute your code</StyledLink>
+                            <StyledLink href="https://o-fish.github.io/contribute/">
+                                Contribute your code
+                            </StyledLink>
                         </VesselAppTextContainer>
 
                         <VesselAppTextContainer>
@@ -314,7 +323,7 @@ export default () => {
                                 discuss how the O-FISH app works and how to make
                                 it better.
                             </BodyText>
-                            <StyledLink to="#">
+                            <StyledLink href="https://developer.mongodb.com/community/forums/">
                                 Discuss O-FISH with the community
                             </StyledLink>
                         </VesselAppTextContainer>
