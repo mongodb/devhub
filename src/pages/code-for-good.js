@@ -92,6 +92,9 @@ const BodyContent = styled('div')`
 const StyledParagraphLink = styled(Link)`
     color: ${colorMap.darkGreen};
     text-decoration: none;
+    :visited {
+        color: ${colorMap.darkGreen};
+    }
 `;
 
 const StyledLink = styled(Link)`
@@ -99,6 +102,9 @@ const StyledLink = styled(Link)`
     font-weight: bold;
     margin-top: ${size.mediumLarge};
     text-decoration: none;
+    :visited {
+        color: ${colorMap.darkGreen};
+    }
 `;
 
 const UnderstandTextSection = styled('div')`
