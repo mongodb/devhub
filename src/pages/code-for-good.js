@@ -314,7 +314,7 @@ export default () => {
                                 discuss how the O-FISH app works and how to make
                                 it better.
                             </BodyText>
-                            <StyledLink href="https://www.mongodb.com/community/forums">
+                            <StyledLink href="https://developer.mongodb.com/community/forums/">
                                 Discuss O-FISH with the community
                             </StyledLink>
                         </VesselAppTextContainer>
