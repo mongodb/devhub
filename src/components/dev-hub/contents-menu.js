@@ -29,9 +29,9 @@ const activeStyles = css`
     }
 `;
 
-const defaultStyles = css`
+const defaultStyles = theme => css`
     &:hover {
-        color: ${({ theme }) => theme.colorMap.devWhite};
+        color: ${theme.colorMap.devWhite};
         transition: color ${animationSpeed.fast};
     }
 `;
@@ -41,7 +41,7 @@ const StyledLink = styled(Link)`
     }
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
     text-decoration: none;
-    ${({ isactive }) => (isactive ? activeStyles : defaultStyles)}
+    ${({ isactive, theme }) => (isactive ? activeStyles : defaultStyles(theme))}
     &:after {
         content: '';
     }

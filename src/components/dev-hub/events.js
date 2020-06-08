@@ -71,7 +71,7 @@ const hoverStyles = theme => css`
         color: ${theme.colorMap.devWhite};
         background: ${theme.colorMap.greyDarkTwo};
         div[data-name='event-date'] {
-            background: ${theme.colorMap.greenTeal};
+            background: ${theme.gradientMap.greenTeal};
         }
         p[data-name='event-location'] {
             color: ${theme.colorMap.devWhite};

@@ -57,30 +57,30 @@ const iconProps = theme => {
 };
 
 const iconLinks = theme => {
-    const prop = iconProps(theme);
+    const props = iconProps(theme);
     return [
         {
-            name: <Github {...prop} />,
+            name: <Github {...props} />,
             url: 'https://github.com/mongodb',
         },
         {
-            name: <Twitch {...prop} />,
+            name: <Twitch {...props} />,
             url: 'https://twitch.tv/mongodb/profile',
         },
         {
-            name: <Youtube {...prop} />,
+            name: <Youtube {...props} />,
             url: 'https://www.youtube.com/user/mongodb',
         },
         {
-            name: <TwitterIcon {...prop} />,
+            name: <TwitterIcon {...props} />,
             url: 'https://twitter.com/MongoDB/',
         },
         {
-            name: <FacebookIcon {...prop} />,
+            name: <FacebookIcon {...props} />,
             url: 'https://www.facebook.com/MongoDB/',
         },
         {
-            name: <LinkedIn {...prop} />,
+            name: <LinkedIn {...props} />,
             url: 'https://www.linkedin.com/company/mongodbinc/',
         },
     ];

@@ -1,5 +1,5 @@
 import React from 'react';
-import { size } from './theme';
+import { size, colorMap } from './theme';
 import { P5 } from './text';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
@@ -35,10 +35,10 @@ const badgeContent = contentType =>
         ? contentType + ' video'
         : contentType;
 
-export default ({ contentType, color = '' }) => {
+export default ({ contentType, color = '', ...props }) => {
     const theme = useTheme();
     return (
-        <Badge color={color || determineColor(contentType, theme)}>
+        <Badge color={color || determineColor(contentType, theme)} {...props}>
             <P5 bold collapse>
                 {badgeContent(contentType)}
             </P5>
