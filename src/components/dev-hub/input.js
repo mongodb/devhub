@@ -2,10 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import {
     animationSpeed,
-    colorMap,
     fontSize,
     FORM_ELEMENT_BORDER,
-    gradientMap,
     layer,
     lineHeight,
     size,
@@ -17,9 +15,9 @@ const LABEL_END_TOP = -10;
 const LABEL_START_TOP = 0;
 
 const StyledInput = styled('input')`
-    background-color: ${colorMap.greyDarkTwo};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
     border: ${FORM_ELEMENT_BORDER} solid transparent;
-    color: ${colorMap.devWhite};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     font-family: 'Fira Mono', monospace;
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
@@ -28,16 +26,16 @@ const StyledInput = styled('input')`
     position: relative;
     width: 100%;
     :focus {
-        border-image: ${gradientMap.magentaSalmonYellow} 1;
+        border-image: ${({ theme }) => theme.gradientMap.magentaSalmonYellow} 1;
         transition: border ${animationSpeed.fast} linear ${animationSpeed.fast};
     }
     /* Needed for IE 11 */
     ::-ms-input-placeholder {
-        color: ${colorMap.greyLightTwo};
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
         opacity: 1;
     }
     ::placeholder {
-        color: ${colorMap.greyLightTwo};
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
         opacity: 1;
     }
 `;

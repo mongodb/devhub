@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { gradientMap, size } from './theme';
+import { size } from './theme';
+import { useTheme } from 'emotion-theming';
 
 const fullSizeAbsolute = css`
     bottom: 0;
@@ -47,17 +48,19 @@ const ImageWrapper = styled('div')`
     width: 100%;
 `;
 
-const GradientImage = ({
-    bottomGradient = gradientMap.violetMagenta,
-    topGradient = gradientMap.violetMagentaReverse,
-    src,
-    ...props
-}) => (
-    <ImageWrapper {...props}>
-        <GradientOverlay gradient={topGradient} />
-        <Image src={src} />
-        <GradientBase gradient={bottomGradient} />
-    </ImageWrapper>
-);
+const GradientImage = ({ bottomGradient, topGradient, src, ...props }) => {
+    const theme = useTheme();
+    bottomGradient = bottomGradient
+        ? bottomGradient
+        : theme.gradientMap.violetMagenta;
+    topGradient = topGradient ? topGradient : theme.gradientMap.violetMagenta;
+    return (
+        <ImageWrapper {...props}>
+            <GradientOverlay gradient={topGradient} />
+            <Image src={src} />
+            <GradientBase gradient={bottomGradient} />
+        </ImageWrapper>
+    );
+};
 
 export default GradientImage;
