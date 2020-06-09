@@ -1,16 +1,16 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import Link from './link';
-import { colorMap, fontSize, lineHeight, screenSize, size } from './theme';
+import { fontSize, lineHeight, screenSize, size } from './theme';
 
 const MINIMUM_EXPANDABLE_SIZE = 3;
 const MAX_TAG_LIST_SIZE = 5;
 
 const TagLink = styled(Link)`
-    background-color: ${colorMap.greyDarkThree};
-    border: 1px solid ${colorMap.greyDarkThree};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    border: 1px solid ${({ theme }) => theme.colorMap.greyDarkThree};
     border-radius: ${size.medium};
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     display: inline-block;
     font-size: ${fontSize.micro};
     line-height: ${lineHeight.micro};
@@ -24,12 +24,12 @@ const TagLink = styled(Link)`
     &:active,
     &:focus,
     &:hover {
-        border: 1px solid ${colorMap.lightGreen};
+        border: 1px solid ${({ theme }) => theme.colorMap.lightGreen};
         cursor: pointer;
         transition: border 0.15s;
     }
     &:visited {
-        color: ${colorMap.greyLightTwo};
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
     }
 `;
 

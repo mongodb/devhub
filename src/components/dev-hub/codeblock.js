@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import Code from '@leafygreen-ui/code';
-import { colorMap, lineHeight, size } from './theme';
+import { lineHeight, size } from './theme';
 import CopyButton, { COPY_BUTTON_WIDTH } from './copy-button';
 
 const LEAFY_CODEBLOCK_PADDING = 12;
@@ -21,16 +21,16 @@ const CodeContainer = styled('div')`
 `;
 
 const CopyContainer = styled('div')`
-    background-color: ${colorMap.greyDarkThree};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     border-radius: 0 ${size.small} ${size.small} 0;
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     left: calc(100% - ${COPY_BUTTON_WIDTH}px - ${size.tiny});
     position: absolute;
     top: ${size.tiny};
 `;
 
 const StyledCode = styled(Code)`
-    border: 1px solid ${colorMap.greyDarkThree};
+    border: 1px solid ${({ theme }) => theme.colorMap.greyDarkThree};
     border-radius: ${size.small};
     line-height: ${lineHeight.xsmall};
     padding-right: ${size.xlarge};
@@ -41,17 +41,17 @@ const StyledCode = styled(Code)`
         }px)`};
     /* Line Numbers */
     > div {
-        background-color: ${colorMap.greyDarkTwo};
+        background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
         border-image: linear-gradient(
                 0deg,
-                ${colorMap.sherbet} 0%,
-                ${colorMap.salmon} 49.99%,
-                ${colorMap.magenta} 100%
+                ${({ theme }) => theme.colorMap.sherbet} 0%,
+                ${({ theme }) => theme.colorMap.salmon} 49.99%,
+                ${({ theme }) => theme.colorMap.magenta} 100%
             )
             1;
         border-width: 0 2px 0 0;
         border-right-style: solid;
-        color: ${colorMap.greyLightTwo};
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
         left: 0;
         padding: ${LEAFY_CODEBLOCK_PADDING}px;
         padding-top: ${size.large};

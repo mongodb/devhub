@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Popover from 'react-tiny-popover';
-import { animationSpeed, colorMap, layer, size } from './theme';
+import { animationSpeed, layer, size } from './theme';
 
 const CONTENT_MAX_WIDTH = 250;
 const TOOLTIP_DISTANCE = 15;
@@ -14,17 +14,17 @@ const TOOLTIP_ALIGNMENT_MAP = {
     top: 'center',
 };
 
-const gradient = css`
+const gradient = theme => css`
     border-image: linear-gradient(
             315deg,
-            ${colorMap.violet} 0%,
-            ${colorMap.magenta} 40%,
-            ${colorMap.orange} 100%
+            ${theme.colorMap.violet} 0%,
+            ${theme.colorMap.magenta} 40%,
+            ${theme.colorMap.orange} 100%
         )
         1;
 `;
-const defaultBorder = css`
-    border-color: ${colorMap.greyLightTwo};
+const defaultBorder = theme => css`
+    border-color: ${theme.colorMap.greyLightTwo};
 `;
 const arrowBase = css`
     &:before,
@@ -76,7 +76,7 @@ const horizontalArrowBase = css`
     }
 `;
 
-const rightDefaultArrow = css`
+const rightDefaultArrow = theme => css`
     ${arrowBase}
     ${horizontalArrowBase}
     &:before,
@@ -84,24 +84,24 @@ const rightDefaultArrow = css`
         left: 100%;
     }
     &:before {
-        border-left-color: ${colorMap.greyLightTwo};
+        border-left-color: ${theme.colorMap.greyLightTwo};
     }
     &:after {
-        border-left-color: ${colorMap.greyDarkOne};
+        border-left-color: ${theme.colorMap.greyDarkOne};
     }
 `;
 
-const rightGradientArrow = css`
-    ${rightDefaultArrow}
+const rightGradientArrow = theme => css`
+    ${rightDefaultArrow(theme)}
     &:before {
-        border-left-color: ${colorMap.magenta};
+        border-left-color: ${theme.colorMap.magenta};
     }
     &:after {
-        border-left-color: ${colorMap.greyDarkOne};
+        border-left-color: ${theme.colorMap.greyDarkOne};
     }
 `;
 
-const leftDefaultArrow = css`
+const leftDefaultArrow = theme => css`
     ${arrowBase}
     ${horizontalArrowBase}
     &:before,
@@ -109,47 +109,47 @@ const leftDefaultArrow = css`
         right: 100%;
     }
     &:before {
-        border-right-color: ${colorMap.greyLightTwo};
+        border-right-color: ${theme.colorMap.greyLightTwo};
     }
     &:after {
-        border-right-color: ${colorMap.greyDarkOne};
+        border-right-color: ${theme.colorMap.greyDarkOne};
     }
 `;
 
-const leftGradientArrow = css`
-    ${leftDefaultArrow}
+const leftGradientArrow = theme => css`
+    ${leftDefaultArrow(theme)}
     &:before {
-        border-right-color: ${colorMap.orange};
+        border-right-color: ${theme.colorMap.orange};
     }
     &:after {
-        border-right-color: ${colorMap.greyDarkOne};
+        border-right-color: ${theme.colorMap.greyDarkOne};
     }
 `;
 
-const bottomDefaultArrow = css`
+const bottomDefaultArrow = theme => css`
     ${arrowBase}
     ${verticalArrowBase}
     &:after {
-        border-top-color: ${colorMap.greyDarkOne};
+        border-top-color: ${theme.colorMap.greyDarkOne};
         top: calc(100% + 11px);
     }
     &:before {
-        border-top-color: ${colorMap.greyLightTwo};
+        border-top-color: ${theme.colorMap.greyLightTwo};
         top: calc(100% + 15px);
     }
 `;
 
-const bottomGradientArrow = css`
-    ${bottomDefaultArrow}
+const bottomGradientArrow = theme => css`
+    ${bottomDefaultArrow(theme)}
     &:after {
-        border-top-color: ${colorMap.greyDarkOne};
+        border-top-color: ${theme.colorMap.greyDarkOne};
     }
     &:before {
-        border-top-color: ${colorMap.magenta};
+        border-top-color: ${theme.colorMap.magenta};
     }
 `;
 
-const topDefaultArrow = css`
+const topDefaultArrow = theme => css`
     ${arrowBase}
     ${verticalArrowBase}
     &:before,
@@ -157,44 +157,53 @@ const topDefaultArrow = css`
         bottom: 100%;
     }
     &:after {
-        border-bottom-color: ${colorMap.greyDarkOne};
+        border-bottom-color: ${theme.colorMap.greyDarkOne};
     }
     &:before {
-        border-bottom-color: ${colorMap.greyLightTwo};
+        border-bottom-color: ${theme.colorMap.greyLightTwo};
     }
 `;
 
-const topGradientArrow = css`
-    ${topDefaultArrow}
+const topGradientArrow = theme => css`
+    ${topDefaultArrow(theme)}
     &:after {
-        border-bottom-color: ${colorMap.greyDarkOne};
+        border-bottom-color: ${theme.colorMap.greyDarkOne};
     }
     &:before {
-        border-bottom-color: ${colorMap.magenta};
+        border-bottom-color: ${theme.colorMap.magenta};
     }
 `;
 
-const getArrowStyles = (hasGradientBorder, position) => {
+const getArrowStyles = (hasGradientBorder, position, theme) => {
     const tooltipArrowMap = {
-        bottom: hasGradientBorder ? topGradientArrow : topDefaultArrow,
-        left: hasGradientBorder ? rightGradientArrow : rightDefaultArrow,
-        right: hasGradientBorder ? leftGradientArrow : leftDefaultArrow,
-        top: hasGradientBorder ? bottomGradientArrow : bottomDefaultArrow,
+        bottom: hasGradientBorder
+            ? topGradientArrow(theme)
+            : topDefaultArrow(theme),
+        left: hasGradientBorder
+            ? rightGradientArrow(theme)
+            : rightDefaultArrow(theme),
+        right: hasGradientBorder
+            ? leftGradientArrow(theme)
+            : leftDefaultArrow(theme),
+        top: hasGradientBorder
+            ? bottomGradientArrow(theme)
+            : bottomDefaultArrow(theme),
     };
     return tooltipArrowMap[position];
 };
 
 const Content = styled('div')`
-    background: ${colorMap.greyDarkOne};
+    background: ${({ theme }) => theme.colorMap.greyDarkOne};
     border: 2px solid;
-    color: ${colorMap.devWhite};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     max-width: ${({ maxWidth }) =>
         maxWidth ? `${maxWidth}px` : `${CONTENT_MAX_WIDTH}px`};
     padding: ${size.medium} ${size.default};
     position: relative;
-    ${({ hasGradientBorder }) => (hasGradientBorder ? gradient : defaultBorder)}
-    ${({ hasGradientBorder, position }) =>
-        getArrowStyles(hasGradientBorder, position)}
+    ${({ hasGradientBorder, theme }) =>
+        hasGradientBorder ? gradient(theme) : defaultBorder(theme)}
+    ${({ hasGradientBorder, position, theme }) =>
+        getArrowStyles(hasGradientBorder, position, theme)}
 `;
 
 const Trigger = styled('span')`

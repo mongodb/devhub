@@ -2,12 +2,12 @@ import React from 'react';
 import styled from '@emotion/styled';
 import BlogTagList from './blog-tag-list';
 import { H2, P } from './text';
-import { colorMap, screenSize, fontSize, size } from './theme';
+import { screenSize, fontSize, size } from './theme';
 import BylineBlock from './byline-block';
 import HeroBanner from './hero-banner';
 
 const PostMetaLine = styled('div')`
-    color: ${colorMap.greyLightThree};
+    color: ${({ theme }) => theme.colorMap.greyLightThree};
     display: flex;
     margin: ${size.medium} 0 40px;
     font-size: ${fontSize.tiny};
