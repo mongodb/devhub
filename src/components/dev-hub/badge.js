@@ -1,5 +1,5 @@
 import React from 'react';
-import { size, colorMap } from './theme';
+import { size } from './theme';
 import { P5 } from './text';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
