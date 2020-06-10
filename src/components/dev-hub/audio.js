@@ -12,13 +12,13 @@ import Button from './button';
 import Badge from './badge';
 import Slider from './slider';
 import { H2, P } from './text';
-import { colorMap, layer, screenSize, size } from './theme';
+import { layer, screenSize, size } from './theme';
 
 const ROW_SIZE = 80;
 
 const ReactPlayerContainer = styled('div')`
     align-content: center;
-    background-color: ${colorMap.greyDarkThree};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     bottom: 0;
     display: flex;
     justify-content: center;
@@ -76,7 +76,7 @@ const ExpandedTitle = styled(H2)`
     }
 `;
 const ExpandedDescription = styled(P)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     grid-area: exp-desc;
 `;
 const PlayContainer = styled('div')`
@@ -105,7 +105,7 @@ const StyledImage = styled('img')`
 
 const StyledExpandedContainer = styled('div')`
     align-self: center;
-    background-color: ${colorMap.greyDarkThree};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     column-gap: ${size.mediumLarge};
     display: grid;
     grid-area: details;

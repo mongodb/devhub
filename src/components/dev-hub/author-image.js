@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { withPrefix } from 'gatsby';
-import { gradientMap, screenSize, size } from './theme';
+import { screenSize, size } from './theme';
 import { createShadowElement } from './utils';
 import DEFAULT_AUTHOR_IMAGE from '../../images/2x/Default-Profile@2x.png';
 
@@ -28,9 +28,9 @@ const AuthorImageContainer = styled('div')`
     position: relative;
     width: ${({ width, gradientOffset }) => width + gradientOffset}px;
     &:before {
-        ${({ gradientOffset }) =>
+        ${({ gradientOffset, theme }) =>
             createShadowElement(
-                gradientMap.greenTealOffset,
+                theme.gradientMap.greenTealOffset,
                 size.large,
                 0,
                 -gradientOffset

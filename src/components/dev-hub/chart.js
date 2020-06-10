@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { css } from '@emotion/core';
 import { buildQueryString } from '../../utils/query-string';
 import styled from '@emotion/styled';
-import { colorMap } from './theme';
 
 const DEFAULT_CHART_AUTOREFRESH = 3600;
 const DEFAULT_CHART_HEIGHT = '570';
@@ -41,9 +40,9 @@ const buildChartUrl = options => {
 };
 
 const StyledChart = styled('iframe')`
-    background: ${({ theme }) =>
-        theme === 'light' ? colorMap.devWhite : 'transparent'};
-    border: 1px solid ${colorMap.devWhite};
+    background: ${({ pageTheme, theme }) =>
+        pageTheme === 'light' ? theme.colorMap.devWhite : 'transparent'};
+    border: 1px solid ${({ theme }) => theme.colorMap.devWhite};
     ${({ customAlign }) => getAlignment(customAlign)};
     max-width: 100%;
 `;
@@ -53,7 +52,7 @@ const Chart = ({ nodeData: { options } }) => {
     return (
         <StyledChart
             customAlign={options.align}
-            theme={options.theme}
+            pageTheme={options.theme}
             height={options.height || DEFAULT_CHART_HEIGHT}
             title={options.title}
             src={chartSrc}

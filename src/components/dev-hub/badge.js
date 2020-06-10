@@ -1,11 +1,12 @@
 import React from 'react';
-import { colorMap, size } from './theme';
+import { size } from './theme';
 import { P5 } from './text';
 import styled from '@emotion/styled';
+import { useTheme } from 'emotion-theming';
 
 const Badge = styled('div')`
     bottom: 0;
-    background-color: ${colorMap.greyDarkThree};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     font-family: akzidenz;
     letter-spacing: 1px;
     margin: ${size.default};
@@ -15,15 +16,15 @@ const Badge = styled('div')`
     ${({ color }) => color && `border: 1px solid ${color}`};
 `;
 
-const determineColor = contentType => {
+const determineColor = (contentType, theme) => {
     switch (contentType) {
         case 'youtube':
         case 'twitch':
-            return colorMap.salmon;
+            return theme.colorMap.salmon;
         case 'podcast':
-            return colorMap.yellow;
+            return theme.colorMap.yellow;
         case 'article':
-            return colorMap.teal;
+            return theme.colorMap.teal;
         default:
             return null;
     }
@@ -34,10 +35,13 @@ const badgeContent = contentType =>
         ? contentType + ' video'
         : contentType;
 
-export default ({ contentType, color = '', ...props }) => (
-    <Badge color={color || determineColor(contentType)} {...props}>
-        <P5 bold collapse>
-            {badgeContent(contentType)}
-        </P5>
-    </Badge>
-);
+export default ({ contentType, color = '', ...props }) => {
+    const theme = useTheme();
+    return (
+        <Badge color={color || determineColor(contentType, theme)} {...props}>
+            <P5 bold collapse>
+                {badgeContent(contentType)}
+            </P5>
+        </Badge>
+    );
+};
