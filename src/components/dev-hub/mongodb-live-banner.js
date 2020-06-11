@@ -19,8 +19,8 @@ const MongodbLiveBanner = () => {
                 alt="Click to watch keynotes and sessions from MongoDB.live, our virtual developer conference."
                 src={
                     isMobile
-                        ? '/public/images/dot-live-sm.png'
-                        : '/public/images/dot-live-lg.png'
+                        ? '/public/images/post-live-sm.png'
+                        : '/public/images/post-live-lg.png'
                 }
             />
         </Link>
