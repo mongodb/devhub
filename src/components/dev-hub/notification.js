@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import { P } from './text';
-import { animationSpeed, colorMap, fontSize, size } from './theme';
+import { animationSpeed, fontSize, size } from './theme';
 
 const blink = keyframes`
     50% {
@@ -11,7 +11,7 @@ const blink = keyframes`
 `;
 
 const CloseIcon = styled(P)`
-    color: ${colorMap.devWhite};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     margin-left: auto;
     /* padding: ${size.default}; */
 
@@ -26,10 +26,10 @@ const CloseIcon = styled(P)`
 `;
 
 const LiveNowBadgeContainer = styled('div')`
-    background-color: ${colorMap.greyDarkThree};
-    border: 1px solid ${colorMap.salmon};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    border: 1px solid ${({ theme }) => theme.colorMap.salmon};
     border-radius: ${size.medium};
-    color: ${colorMap.salmon};
+    color: ${({ theme }) => theme.colorMap.salmon};
     font-size: ${fontSize.micro};
     font-weight: bold;
     margin-right: ${size.small};
@@ -46,7 +46,7 @@ const LiveNowBadgeContainer = styled('div')`
 
 const NotificationLink = styled('a')`
     align-items: center;
-    color: ${colorMap.devWhite};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     display: flex;
     margin-left: auto;
     text-decoration: none;
@@ -54,7 +54,7 @@ const NotificationLink = styled('a')`
 
 const StyledNotification = styled('div')`
     align-items: center;
-    background-color: ${colorMap.greyDarkTwo};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
     display: flex;
     font-size: ${fontSize.tiny};
     justify-content: center;

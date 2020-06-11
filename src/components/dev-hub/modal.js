@@ -4,7 +4,8 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import AriaModal from 'react-aria-modal';
 import useMedia from '../../hooks/use-media';
-import { screenSize, size, colorMap } from './theme';
+import { screenSize, size } from './theme';
+import { useTheme } from 'emotion-theming';
 
 const transparentModalStyling = css`
     background-color: transparent;
@@ -23,8 +24,8 @@ const Heading = styled('header')`
 `;
 
 const ModalDialog = styled('div')`
-    background-color: ${colorMap.greyDarkThree};
-    border: 2px solid ${colorMap.greyDarkTwo};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    border: 2px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
     border-radius: ${size.xsmall};
     @media ${screenSize.upToMedium} {
         padding: ${size.small};
@@ -37,7 +38,7 @@ const ModalDialog = styled('div')`
 `;
 const CloseButtonWrapper = styled('div')`
     font-weight: bold;
-    color: ${colorMap.greyLightThree};
+    color: ${({ theme }) => theme.colorMap.greyLightThree};
     cursor: pointer;
     padding: ${size.tiny};
 `;
@@ -94,10 +95,13 @@ export const Modal = ({
      * we need to use a style object here because the react-aria-modal
      * library has its own styles that we need to override
      */
-    const underlayStyle = {
+    const underlayStyle =theme=> {
+        return({
+            backgroundColor: theme.colorMap.charcoal + 'CC',
+            ...backdropStyle,
+        
+        })
         // Add CC for 0.8 alpha value
-        backgroundColor: colorMap.charcoal + 'CC',
-        ...backdropStyle,
     };
     const underlayMobileStyle = { height: '100%', ...backdropStyle };
     const dialogStyle = {
@@ -118,6 +122,7 @@ export const Modal = ({
             deactivateModal();
         }
     };
+    const theme = useTheme();
     const ResponsiveModal = () =>
         isActive && (
             <AriaModal
@@ -127,7 +132,7 @@ export const Modal = ({
                 titleText={title || 'Popup Modal'}
                 onExit={deactivateModal}
                 getApplicationNode={getApplicationNode}
-                underlayStyle={isMobile ? underlayMobileStyle : underlayStyle}
+                underlayStyle={isMobile ? underlayMobileStyle : underlayStyle(theme)}
                 dialogStyle={isMobile ? dialogMobileStyle : dialogStyle}
                 verticallyCenter={verticallyCenter}
                 {...props}

@@ -5,9 +5,7 @@ import styled from '@emotion/styled';
 import ArrowheadIcon from './icons/arrowhead-icon';
 import { P } from './text';
 import {
-    colorMap,
     fontSize,
-    gradientMap,
     lineHeight,
     layer,
     size,
@@ -17,15 +15,15 @@ const BORDER_SIZE = 2;
 const OPTIONS_POSITION_OFFSET = 58;
 const OPTIONS_POSITION_OFFSET_NARROW = 38;
 
-const activeSelectStyles = css`
+const activeSelectStyles = theme => css`
     border: ${BORDER_SIZE}px solid;
-    border-image: ${gradientMap.violentMagentaOrange} 1;
+    border-image: ${theme.gradientMap.violentMagentaOrange} 1;
     outline: none;
 `;
 
 const Option = styled('li')`
-    background-color: ${colorMap.greyDarkOne};
-    color: ${colorMap.greyLightTwo};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkOne};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     display: block;
     font-size: ${fontSize.small};
     overflow: hidden;
@@ -34,14 +32,14 @@ const Option = styled('li')`
     white-space: nowrap;
     :focus,
     :hover {
-        background-color: ${colorMap.greyDarkOne};
-        color: ${colorMap.devWhite};
+        background-color:${({ theme }) => theme.colorMap.greyDarkOne};
+        color: ${({ theme }) => theme.colorMap.devWhite};
     }
 `;
 
 const Options = styled('ul')`
     border: ${BORDER_SIZE}px solid;
-    border-image: ${gradientMap.violentMagentaOrange} 1;
+    border-image: ${({ theme }) => theme.gradientMap.violentMagentaOrange} 1;
     border-width: 0 ${BORDER_SIZE}px ${BORDER_SIZE}px;
     /* account for border above */
     left: -${BORDER_SIZE}px;
@@ -57,20 +55,20 @@ const Options = styled('ul')`
 `;
 
 const StyledCustomSelect = styled('div')`
-    background-color: ${colorMap.greyDarkTwo};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
     /* Adding border without color to prevent jarring visual on expand */
     border: ${BORDER_SIZE}px solid transparent;
-    color: ${colorMap.devWhite};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     cursor: pointer;
     font-family: 'Fira Mono', monospace;
     position: relative;
-    ${({ showOptions }) => showOptions && activeSelectStyles};
+    ${({ showOptions, theme }) => showOptions && activeSelectStyles(theme)};
 `;
 
 const SelectedOption = styled('div')`
     align-items: center;
-    background-color: ${colorMap.greyDarkTwo};
-    color: ${colorMap.devWhite};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     display: flex;
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
