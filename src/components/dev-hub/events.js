@@ -46,7 +46,7 @@ const EventInfo = styled('div')`
 `;
 
 const Location = styled(P)`
-    color: ${({ theme }) => theme.greyLightThree};
+    color: ${({ theme }) => theme.colorMap.greyLightThree};
     font-size: ${fontSize.tiny};
     margin: 0;
 `;
