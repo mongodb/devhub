@@ -16,7 +16,7 @@ const MongodbLiveBanner = () => {
     return (
         <Link href="https://www.mongodb.com/resources/channel/mongodblive">
             <LiveImage
-                alt="MongoDB.live, free & fully virtual. June 9th - 10th. Register Now"
+                alt="Click to watch keynotes and sessions from MongoDB.live, our virtual developer conference."
                 src={
                     isMobile
                         ? '/public/images/dot-live-sm.png'
