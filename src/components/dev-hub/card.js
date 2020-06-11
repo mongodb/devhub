@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Button from './button';
-import { animationSpeed, colorMap, lineHeight, size, fontSize } from './theme';
+import { animationSpeed, lineHeight, size, fontSize } from './theme';
 import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
@@ -38,10 +38,10 @@ const ImageWrapper = styled('div')`
     position: relative;
     width: 100%;
 `;
-const hoverStyles = css`
+const hoverStyles = theme => css`
     &:hover,
     &:active {
-        background-color: ${colorMap.greyDarkTwo};
+        background-color: ${theme.colorMap.greyDarkTwo};
         color: inherit;
         cursor: pointer;
         ${Image} {
@@ -62,7 +62,7 @@ const Wrapper = styled('div')`
     transition: background-color ${animationSpeed.medium};
     width: ${({ width = 'auto' }) => width};
     ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
-    ${({ isclickable }) => isclickable && hoverStyles};
+    ${({ isclickable, theme }) => isclickable && hoverStyles(theme)}
 `;
 const truncate = maxLines => css`
     display: -webkit-box;
@@ -71,7 +71,7 @@ const truncate = maxLines => css`
     overflow: hidden;
 `;
 const DescriptionText = styled(P)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
 `;

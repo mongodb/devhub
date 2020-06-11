@@ -3,7 +3,7 @@ import copy from 'copy-to-clipboard';
 import styled from '@emotion/styled';
 import { getArticleShareLinks } from '../../utils/get-article-share-links';
 import BlogTagList from './blog-tag-list';
-import { colorMap, screenSize, size } from './theme';
+import { screenSize, size } from './theme';
 import Link from './link';
 import Tooltip from './tooltip';
 import LinkIcon from './icons/link-icon';
@@ -12,7 +12,7 @@ import FacebookIcon from './icons/facebook-icon';
 import TwitterIcon from './icons/twitter-icon';
 
 const ArticleShareArea = styled('div')`
-    border-top: 1px solid ${colorMap.greyDarkTwo};
+    border-top: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
     display: flex;
     justify-content: space-between;
     margin-bottom: ${size.large};

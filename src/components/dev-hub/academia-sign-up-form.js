@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { submitAcademiaForm } from '../../utils/devhub-api-stitch';
-import { colorMap, size, screenSize, fontSize } from './theme';
+import { fontSize, size, screenSize } from './theme';
 import { P, ArticleH3 } from './text';
 import Input from './input';
 import Button from './button';
@@ -29,15 +29,15 @@ const StyledCheckbox = styled(Checkbox)`
 `;
 
 const StyledSelect = styled(Select)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
 const ErrorMessage = styled(P)`
-    color: ${colorMap.salmon};
+    color: ${({ theme }) => theme.colorMap.salmon};
 `;
 
 const StyledSectionText = styled(ArticleH3)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     font-family: akzidenz;
     font-weight: normal;
 `;

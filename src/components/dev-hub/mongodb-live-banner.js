@@ -14,13 +14,13 @@ const LiveImage = styled(Image)`
 const MongodbLiveBanner = () => {
     const isMobile = useMedia(screenSize.upToMedium);
     return (
-        <Link href="https://www.mongodb.com/world?tck=devhubbannerdotlive">
+        <Link href="https://www.mongodb.com/resources/channel/mongodblive?tck=devhubbannerdotlive">
             <LiveImage
-                alt="MongoDB.live, free & fully virtual. June 9th - 10th. Register Now"
+                alt="Click to watch keynotes and sessions from MongoDB.live, our virtual developer conference."
                 src={
                     isMobile
-                        ? '/public/images/dot-live-sm.png'
-                        : '/public/images/dot-live-lg.png'
+                        ? '/public/images/post-live-sm.png'
+                        : '/public/images/post-live-lg.png'
                 }
             />
         </Link>
