@@ -95,14 +95,11 @@ export const Modal = ({
      * we need to use a style object here because the react-aria-modal
      * library has its own styles that we need to override
      */
-    const underlayStyle =theme=> {
-        return({
-            backgroundColor: theme.colorMap.charcoal + 'CC',
-            ...backdropStyle,
-        
-        })
+    const underlayStyle = theme => ({
+        backgroundColor: theme.colorMap.charcoal + 'CC',
+        ...backdropStyle,
         // Add CC for 0.8 alpha value
-    };
+    });
     const underlayMobileStyle = { height: '100%', ...backdropStyle };
     const dialogStyle = {
         padding: `10% ${size.large}`,
@@ -132,7 +129,9 @@ export const Modal = ({
                 titleText={title || 'Popup Modal'}
                 onExit={deactivateModal}
                 getApplicationNode={getApplicationNode}
-                underlayStyle={isMobile ? underlayMobileStyle : underlayStyle(theme)}
+                underlayStyle={
+                    isMobile ? underlayMobileStyle : underlayStyle(theme)
+                }
                 dialogStyle={isMobile ? dialogMobileStyle : dialogStyle}
                 verticallyCenter={verticallyCenter}
                 {...props}
