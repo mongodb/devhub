@@ -3,32 +3,29 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from './link';
 import { H5, P3 } from './text';
-import {
-    colorMap,
-    fontSize,
-    layer,
-    lineHeight,
-    screenSize,
-    size,
-} from './theme';
+import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 
 const MAX_CONTENT_WIDTH = '410px';
 const PAST_LINK_COLOR = '#89989b';
 
 // Needed to allow more magenta to account for proper text coloring
-const BULLET_GRADIENT = `linear-gradient(
-    315deg,
-    ${colorMap.sherbet} 0%,
-    ${colorMap.salmon} 40%,
-    ${colorMap.magenta} 100%
-);`;
+const BULLET_GRADIENT = theme => css`
+    linear-gradient(
+        315deg,
+        ${theme.colorMap.sherbet} 0%,
+        ${theme.colorMap.salmon} 40%,
+        ${theme.colorMap.magenta} 100%
+    )
+`;
 
-const BORDER_GRADIENT = `linear-gradient(
-    0deg,
-    ${colorMap.sherbet} 0%,
-    ${colorMap.salmon} 49.99%,
-    ${colorMap.magenta} 100%
-);`;
+const BORDER_GRADIENT = theme => css`
+    linear-gradient(
+        0deg,
+        ${theme.colorMap.sherbet} 0%,
+        ${theme.colorMap.salmon} 49.99%,
+        ${theme.colorMap.magenta} 100%
+    )
+`;
 
 const activeLiStyles = css`
     font-size: ${fontSize.xsmall};
@@ -43,13 +40,13 @@ const activeLiStyles = css`
 const activeLinkStyles = css`
     font-weight: bold;
 `;
-const pastLinkStyles = css`
+const pastLinkStyles = theme => css`
     color: ${PAST_LINK_COLOR};
     &:visited {
         color: ${PAST_LINK_COLOR};
     }
     &:hover {
-        color: ${colorMap.darkGreen};
+        color: ${theme.colorMap.darkGreen};
     }
 `;
 
@@ -62,7 +59,7 @@ const Breadcrumb = styled('li')`
         padding-bottom: 0;
         > div {
             &:before {
-                background: ${colorMap.greyDarkThree};
+                background: ${({ theme }) => theme.colorMap.greyDarkThree};
                 content: '';
                 top: ${size.small};
                 height: 100%;
@@ -75,12 +72,12 @@ const Breadcrumb = styled('li')`
 `;
 
 const DescriptiveText = styled(P3)`
-    color: ${colorMap.greyLightThree};
+    color: ${({ theme }) => theme.colorMap.greyLightThree};
 `;
 
 const SeriesBreadcrumbs = styled('div')`
     border-radius: 0 0 ${size.small} ${size.small};
-    background-color: ${colorMap.greyDarkThree};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     flex: 1;
     margin: 0;
     padding: ${size.large} 40px;
@@ -103,11 +100,11 @@ const SeriesLink = styled(Link)`
     max-width: ${MAX_CONTENT_WIDTH};
     text-decoration: none;
     ${({ isActive }) => isActive && activeLinkStyles};
-    ${({ isPast }) => isPast && pastLinkStyles};
+    ${({ isPast, theme }) => isPast && pastLinkStyles(theme)};
 `;
 
 const BulletIcon = styled('div')`
-    background: ${BULLET_GRADIENT};
+    background: ${({ theme }) => BULLET_GRADIENT(theme)};
     background-clip: text;
     display: inline-block;
     font-family: 'Fira Mono', monospace;
@@ -122,7 +119,7 @@ const BulletIcon = styled('div')`
     -webkit-text-fill-color: transparent;
     /* Create a bullet to match the bg to hide border passing through */
     &:after {
-        background: ${colorMap.greyDarkThree};
+        background: ${({ theme }) => theme.colorMap.greyDarkThree};
         background-clip: text;
         content: '\u25CF';
         left: 0;
@@ -152,10 +149,10 @@ const SeriesList = styled('ul')`
                 0deg,
                 transparent,
                 transparent 50%,
-                ${colorMap.greyDarkThree} 50%,
-                ${colorMap.greyDarkThree} 100%
+                ${({ theme }) => theme.colorMap.greyDarkThree} 50%,
+                ${({ theme }) => theme.colorMap.greyDarkThree} 100%
             ),
-            ${BORDER_GRADIENT};
+            ${({ theme }) => BORDER_GRADIENT(theme)};
         background-size: ${size.medium} 2px, cover;
         bottom: 0;
         content: '';
@@ -167,7 +164,7 @@ const SeriesList = styled('ul')`
 `;
 
 const SeriesNameContainer = styled('div')`
-    background-color: ${colorMap.greyDarkTwo};
+    background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
     border-radius: ${size.small} ${size.small} 0 0;
     flex: 1;
     padding: ${size.default} ${size.mediumLarge};

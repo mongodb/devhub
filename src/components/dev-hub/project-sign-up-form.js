@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './modal';
 import styled from '@emotion/styled';
-import { colorMap, size } from './theme';
+import { size } from './theme';
 import { H5, P } from './text';
 import Input from './input';
 import Button from './button';
@@ -27,7 +27,7 @@ const StyledInput = styled(Input)`
     margin-bottom: ${size.large};
 `;
 const ErrorMessage = styled(P)`
-    color: ${colorMap.salmon};
+    color: ${({ theme }) => theme.colorMap.salmon};
 `;
 const callStitch = async (metadata, object, segmentData, callback) => {
     try {

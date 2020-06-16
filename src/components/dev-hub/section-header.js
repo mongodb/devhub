@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { colorMap, size } from './theme';
+import { size } from './theme';
 import { ArticleH2 } from './text';
 
 const SectionHeader = styled('div')`
-    border-bottom: 1px solid ${colorMap.greyDarkOne};
+    border-bottom: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne};
     margin-bottom: ${size.large};
 `;
 
