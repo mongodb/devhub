@@ -2,12 +2,7 @@ import React from 'react';
 import Layout from '../components/dev-hub/layout';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-import {
-    colorMap,
-    fontSize,
-    screenSize,
-    size,
-} from '../components/dev-hub/theme';
+import { fontSize, screenSize, size } from '../components/dev-hub/theme';
 import { H3, ArticleH2, ArticleH4, P, P3 } from '../components/dev-hub/text';
 import styled from '@emotion/styled';
 import Button from '../components/dev-hub/button';
@@ -88,20 +83,20 @@ const BodyContent = styled('div')`
 `;
 
 const StyledParagraphLink = styled(Link)`
-    color: ${colorMap.darkGreen};
+    color: ${({ theme }) => theme.colorMap.darkGreen};
     text-decoration: none;
     :visited {
-        color: ${colorMap.darkGreen};
+        color: ${({ theme }) => theme.colorMap.darkGreen};
     }
 `;
 
 const StyledLink = styled(Link)`
-    color: ${colorMap.darkGreen};
+    color: ${({ theme }) => theme.colorMap.darkGreen};
     font-weight: bold;
     margin-top: ${size.mediumLarge};
     text-decoration: none;
     :visited {
-        color: ${colorMap.darkGreen};
+        color: ${({ theme }) => theme.colorMap.darkGreen};
     }
 `;
 
@@ -165,7 +160,7 @@ const StyledDashBoardImage = styled('img')`
 `;
 
 const StyledVesselCaption = styled(P3)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     margin-top: ${size.medium};
     max-width: ${CAPTION_MAX_WIDTH};
     @media ${screenSize.upToMedium} {
@@ -177,7 +172,7 @@ const StyledVesselCaption = styled(P3)`
 const VesselCaption = StyledVesselCaption.withComponent('figcaption');
 
 const StyledDashboardCaption = styled(P3)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     margin-bottom: ${size.xlarge};
     margin-top: ${size.medium};
     @media ${screenSize.upToMedium} {
@@ -287,8 +282,8 @@ export default () => {
                                     free Atlas account
                                 </StyledParagraphLink>{' '}
                                 and{' '}
-                                <StyledParagraphLink href="https://www.mongodb.com/try/download/database-tools">
-                                    MongoDB Database Tools
+                                <StyledParagraphLink href="https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials">
+                                    MongoDB Community Edition
                                 </StyledParagraphLink>{' '}
                                 to build your own O-FISH instance.
                             </BodyText>
