@@ -92,7 +92,6 @@ const DescriptiveText = styled(P)`
 
 const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
     const theme = useTheme();
-    console.log(theme);
     return (
         <>
             <Helmet>
