@@ -3,7 +3,6 @@ import Layout from '../../components/dev-hub/layout';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import {
-    colorMap,
     fontSize,
     screenSize,
     size,
@@ -73,7 +72,7 @@ const EligibilityContent = styled('div')`
 `;
 
 const EligibilitySection = styled('div')`
-    background-color: ${colorMap.devBlack};
+    background-color: ${({ theme }) => theme.colorMap.devBlack};
     padding-bottom: ${size.xlarge};
     padding-top: ${size.medium};
     max-width: ${size.maxWidth};
@@ -89,13 +88,13 @@ const StyledSectionHeader = styled(SectionHeader)`
 `;
 
 const StyledLink = styled('a')`
-    color: ${colorMap.darkGreen};
+    color: ${({ theme }) => theme.colorMap.darkGreen};
     text-decoration: none;
 `;
 
 const StyledBullet = styled('ul')`
     list-style-type: circle;
-    color: ${colorMap.darkGreen};
+    color: ${({ theme }) => theme.colorMap.darkGreen};
 `;
 
 const StyledSpan = styled('span')`
