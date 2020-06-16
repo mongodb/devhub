@@ -157,7 +157,7 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={theme =>
+                                    gradient={
                                         theme.gradientMap.tealVioletPurple
                                     }
                                 >
