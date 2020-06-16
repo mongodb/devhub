@@ -282,8 +282,8 @@ export default () => {
                                     free Atlas account
                                 </StyledParagraphLink>{' '}
                                 and{' '}
-                                <StyledParagraphLink href="https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials">
-                                    MongoDB Community Edition
+                                <StyledParagraphLink href="https://www.mongodb.com/try/download/database-tools">
+                                    MongoDB Database Tools
                                 </StyledParagraphLink>{' '}
                                 to build your own O-FISH instance.
                             </BodyText>
