@@ -8,16 +8,17 @@ import LinkIcon from './icons/link-icon';
 import FacebookIcon from './icons/facebook-icon';
 import TwitterIcon from './icons/twitter-icon';
 import Link from './link';
-import { colorMap, size } from './theme';
+import { size } from './theme';
 import LinkedIn from './icons/linkedin';
 import copy from 'copy-to-clipboard';
 import SuccessIcon from './icons/success';
 import HoverTooltip from './hover-tooltip';
+import { useTheme } from 'emotion-theming';
 
 const StyledShareIcon = styled(ShareIcon)`
     &:hover {
         path {
-            fill: ${colorMap.devWhite};
+            fill: ${({ theme }) => theme.colorMap.devWhite};
         }
     }
 `;
@@ -41,7 +42,8 @@ const hide = css`
     display: none;
 `;
 const SocialIcon = ({ type, href, ...props }) => {
-    const [color, setColor] = useState(colorMap.greyLightTwo);
+    const theme = useTheme();
+    const [color, setColor] = useState(theme.colorMap.greyLightTwo);
     const iconMap = {
         facebook: FacebookIcon,
         shareLink: LinkIcon,
@@ -53,8 +55,8 @@ const SocialIcon = ({ type, href, ...props }) => {
     const isClickable = href || props.onClick;
     return (
         <SocialLink
-            onMouseEnter={() => isClickable && setColor(colorMap.devWhite)}
-            onMouseLeave={() => isClickable && setColor(colorMap.greyLightTwo)}
+            onMouseEnter={() => isClickable && setColor(theme.colorMap.devWhite)}
+            onMouseLeave={() => isClickable && setColor(theme.colorMap.greyLightTwo)}
             href={href}
             target="_blank"
             isClickable={isClickable}

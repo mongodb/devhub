@@ -6,12 +6,7 @@ import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
 import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
-import {
-    colorMap,
-    gradientMap,
-    screenSize,
-    size,
-} from '../components/dev-hub/theme';
+import { screenSize, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import buildImage from '../images/2x/Build@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
@@ -25,6 +20,7 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
 import VideoModal from '../components/dev-hub/video-modal';
+import { useTheme } from 'emotion-theming';
 
 const MEDIA_WIDTH = '550';
 
@@ -33,7 +29,7 @@ const BackgroundImage = styled('div')`
     background-size: cover;
 `;
 const Hero = styled('header')`
-    color: ${colorMap.devWhite};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     padding: ${size.xlarge} ${size.large};
     @media ${screenSize.upToMedium} {
         padding: ${size.large} ${size.medium};
@@ -70,8 +66,8 @@ const StyledTopCard = styled(Card)`
 `;
 
 const FeatureSection = styled('section')`
-    ${({ altBackground }) =>
-        altBackground && `background-color: ${colorMap.devBlack};`};
+    ${({ altBackground, theme }) =>
+        altBackground && `background-color: ${theme.colorMap.devBlack};`};
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.medium};
         padding: 0;
@@ -90,21 +86,14 @@ const SectionContent = styled('div')`
     }
 `;
 const DescriptiveText = styled(P)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     margin-bottom: ${size.medium};
 `;
 
-export default ({ pageContext: { featuredArticles } }) => {
-    const { stream, videos } = useTwitchApi();
-    const { title } = useSiteMetadata();
-    const twitchVideo = useMemo(() => {
-        if (stream) return stream;
-        if (videos && videos.length) return videos[0];
-        return null;
-    }, [stream, videos]);
-
+const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
+    const theme = useTheme();
     return (
-        <Layout>
+        <>
             <Helmet>
                 <title>{title}</title>
             </Helmet>
@@ -168,7 +157,9 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={gradientMap.tealVioletPurple}
+                                    gradient={
+                                        theme.gradientMap.tealVioletPurple
+                                    }
                                 >
                                     Live Coding on Our Twitch Channel
                                 </GradientUnderline>
@@ -205,7 +196,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={gradientMap.greenTeal}
+                                    gradient={theme.gradientMap.greenTeal}
                                 >
                                     Events
                                 </GradientUnderline>
@@ -235,7 +226,9 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={gradientMap.magentaSalmonSherbet}
+                                    gradient={
+                                        theme.gradientMap.magentaSalmonSherbet
+                                    }
                                 >
                                     MongoDB for Academia
                                 </GradientUnderline>
@@ -265,7 +258,9 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={gradientMap.magentaSalmonSherbet}
+                                    gradient={
+                                        theme.gradientMap.magentaSalmonSherbet
+                                    }
                                 >
                                     Show Your Stuff
                                 </GradientUnderline>
@@ -284,6 +279,26 @@ export default ({ pageContext: { featuredArticles } }) => {
                     </MediaBlock>
                 </FeatureSection>
             </BackgroundImage>
+        </>
+    );
+};
+
+export default ({ pageContext: { featuredArticles } }) => {
+    const { stream, videos } = useTwitchApi();
+    const { title } = useSiteMetadata();
+    const twitchVideo = useMemo(() => {
+        if (stream) return stream;
+        if (videos && videos.length) return videos[0];
+        return null;
+    }, [stream, videos]);
+    return (
+        <Layout>
+            <IndexPageContent
+                stream={stream}
+                title={title}
+                twitchVideo={twitchVideo}
+                featuredArticles={featuredArticles}
+            />
         </Layout>
     );
 };

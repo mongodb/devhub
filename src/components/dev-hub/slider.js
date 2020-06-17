@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { colorMap, gradientMap, size } from './theme';
+import { size } from './theme';
 import { P3 } from './text';
 
 const RANGE_BUFFER_SIZE = '6px';
 
-const inputThumbStyle = css`
+const inputThumbStyle = theme => css`
     -webkit-appearance: none;
-    background: ${colorMap.sherbet};
+    background: ${theme.colorMap.sherbet};
     background-size: 100%;
     border: none;
     border-radius: 50%;
@@ -18,9 +18,10 @@ const inputThumbStyle = css`
     width: ${size.default};
 `;
 
-const inputTrackStyle = percentage => css`
+const inputTrackStyle = (percentage, theme) => css`
     border-radius: ${RANGE_BUFFER_SIZE};
-    background: ${gradientMap.magentaSalmonSherbet} ${colorMap.greyDarkTwo};
+    background: ${theme.gradientMap.magentaSalmonSherbet}
+        ${theme.colorMap.greyDarkTwo};
     background-repeat: no-repeat;
     background-size: ${`${percentage}%`} 100%;
     height: 4px;
@@ -40,17 +41,17 @@ const StyledInput = styled('input')`
     width: 100%;
     /* Style the input "thumb" */
     ::-webkit-slider-thumb {
-        ${inputThumbStyle};
+        ${({ theme }) => inputThumbStyle(theme)};
     }
     ::-moz-range-thumb {
-        ${inputThumbStyle};
+        ${({ theme }) => inputThumbStyle(theme)};
     }
     /* Style the input "track" */
     ::-webkit-slider-runnable-track {
-        ${({ percentage }) => inputTrackStyle(percentage)};
+        ${({ percentage, theme }) => inputTrackStyle(percentage, theme)};
     }
     ::-moz-range-track {
-        ${({ percentage }) => inputTrackStyle(percentage)};
+        ${({ percentage, theme }) => inputTrackStyle(percentage, theme)};
     }
 `;
 
