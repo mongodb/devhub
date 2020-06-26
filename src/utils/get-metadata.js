@@ -23,8 +23,7 @@ const getMetadata = () => ({
     commitHash: process.env.COMMIT_HASH || '',
     database: getDatabase(process.env.SNOOTY_ENV),
     parserBranch: process.env.GATSBY_PARSER_BRANCH,
-    parserUser:
-        process.env.GATSBY_PARSER_CI_USER || process.env.GATSBY_PARSER_USER,
+    parserUser: process.env.GATSBY_PARSER_USER,
     patchId: process.env.PATCH_ID || '',
     pathPrefix: process.env.PATH_PREFIX,
     project: process.env.GATSBY_SITE,
