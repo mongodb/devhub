@@ -1,29 +1,34 @@
 const { execSync } = require('child_process');
+const userInfo = require('os').userInfo;
 
-const getDatabase = () => {
-    if (process.env.SNOOTY_ENV === 'staging') {
-        return 'snooty_stage';
-    } else if (process.env.SNOOTY_ENV === 'production') {
-        return 'snooty_prod';
+const getDatabase = env => {
+    switch (env) {
+        case 'staging':
+            return 'snooty_stage';
+        case 'production':
+            return 'snooty_prod';
+        default:
+            return 'snooty_dev';
     }
-    return 'snooty_dev';
 };
 
-const getGitBranch = () => {
-    return execSync('git rev-parse --abbrev-ref HEAD')
-        .toString('utf8')
-        .replace(/[\n\r\s]+$/, '');
-};
+const gitBranch = execSync('git rev-parse --abbrev-ref HEAD')
+    .toString('utf8')
+    .replace(/[\n\r\s]+$/, '');
+
 /**
  * Get site metadata used to identify this build and query correct documents
  */
 const getMetadata = () => ({
     commitHash: process.env.COMMIT_HASH || '',
-    database: getDatabase(),
+    database: getDatabase(process.env.SNOOTY_ENV),
     parserBranch: process.env.GATSBY_PARSER_BRANCH,
+    parserUser: process.env.GATSBY_PARSER_USER,
+    patchId: process.env.PATCH_ID || '',
+    pathPrefix: process.env.PATH_PREFIX,
     project: process.env.GATSBY_SITE,
-    snootyBranch: getGitBranch(),
-    user: process.env.GATSBY_PARSER_USER,
+    snootyBranch: gitBranch,
+    user: userInfo().username,
 });
 
 module.exports.getMetadata = getMetadata;

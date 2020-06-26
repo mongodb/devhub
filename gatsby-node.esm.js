@@ -19,7 +19,7 @@ import { createArticlePage } from './src/utils/setup/create-article-page';
 const metadata = getMetadata();
 
 const DB = metadata.database;
-const PAGE_ID_PREFIX = `${metadata.project}/${metadata.user}/${metadata.parserBranch}`;
+const PAGE_ID_PREFIX = `${metadata.project}/${metadata.parserUser}/${metadata.parserBranch}`;
 
 // different types of references
 const assets = [];
