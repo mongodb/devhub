@@ -19,6 +19,8 @@ const getAuthorIncludesPath = authorName => {
         // Handle case where REF_DOC_MAP name isnt just lastname-firstname
         case 'Ken W. Alger':
             return 'includes/authors/alger-ken';
+        case 'MongoDB Inc.':
+            return 'includes/authors/mongodb';
         default:
             return `includes/authors/${authorName
                 .toLowerCase()
