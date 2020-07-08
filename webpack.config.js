@@ -10,6 +10,9 @@ const getCliVariables = (previewMode, page) => {
 
     return {
         'process.env.GATSBY_SITE': JSON.stringify(dotenv.parsed.GATSBY_SITE),
+        'process.env.GATSBY_PARSER_CI_USER': JSON.stringify(
+            dotenv.parsed.GATSBY_PARSER_TEST_USER
+        ),
         'process.env.GATSBY_PARSER_USER': JSON.stringify(
             dotenv.parsed.GATSBY_PARSER_USER
         ),

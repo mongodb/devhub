@@ -32,6 +32,7 @@ jobs:
               run: |
                   touch .env.production
                   echo "GATSBY_SITE=devhub" > .env.production; \
+                  echo "GATSBY_PARSER_CI_USER=jordanstapinski" >> .env.production; \
                   echo "GATSBY_PARSER_USER=jordanstapinski" >> .env.production; \
                   echo "GATSBY_PARSER_BRANCH=master" >> .env.production; \
                   echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
