@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Link from './link';
 import { P } from './text';
 import { fontSize, screenSize, size } from './theme';
+import { getAuthorPrefix } from '../../utils/get-author-prefix';
 import { getTagPageUriComponent } from '../../utils/get-tag-page-uri-component';
 import AuthorImage from './author-image';
 
@@ -56,7 +57,7 @@ const AuthorNames = ({ authors }) => (
     <div>
         {authors.map(({ name }, index) => {
             const authorLink = `/author/${getTagPageUriComponent(name)}`;
-            const prefix = index === 0 ? 'By ' : '\u00a0and ';
+            const prefix = getAuthorPrefix(index, authors.length);
             return (
                 <AuthorText collapse key={name}>
                     {prefix}
