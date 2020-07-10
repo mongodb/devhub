@@ -12,9 +12,20 @@ it('should correctly parse a line of authors based on the number of authors', ()
     const twoAuthorResult = getFullBylineString(twoAuthorArray);
     expect(twoAuthorResult).toBe('By First Author\u00a0and Second Author');
 
-    const threeAuthorArray = ['First Author', 'Second Author', 'Third Author'];
+    const threeAuthorArray = [...twoAuthorArray, 'Third Author'];
     const threeAuthorResult = getFullBylineString(threeAuthorArray);
     expect(threeAuthorResult).toBe(
         'By First Author, Second Author, and Third Author'
+    );
+
+    const sixAuthorArray = [
+        ...threeAuthorArray,
+        'Fourth Author',
+        'Fifth Author',
+        'Sixth Author',
+    ];
+    const sixAuthorResult = getFullBylineString(sixAuthorArray);
+    expect(sixAuthorResult).toBe(
+        'By First Author, Second Author, Third Author, Fourth Author, Fifth Author, and Sixth Author'
     );
 });
