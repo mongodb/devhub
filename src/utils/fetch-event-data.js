@@ -15,7 +15,7 @@ export const removePastEvents = events => {
 // convert these to absolute links
 const addUrlIfLocal = event => {
     const url = event.url;
-    if (url.match(/^http/)) {
+    if (url.match(/^(http|www)/)) {
         return event;
     }
     return { ...event, url: `${EVENTS_BASE_URL}${url}` };
