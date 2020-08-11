@@ -96,7 +96,10 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
         <>
             <Helmet>
                 <title>{title}</title>
-                <meta name="description" content="meta description TBD" />
+                <meta
+                    name="description"
+                    content="Code, content, tutorials, programs and community to enable developers of all skill levels on the MongoDB Data Platform which includes Atlas, Realm, Compass, Data Lake and more. Whether you're coding in Java, JavaScript, C#, Python, Node, Go or looking for how this fits with IOT, AI, ML - join or follow us here."
+                />
             </Helmet>
             <BackgroundImage>
                 {stream && (
