@@ -96,6 +96,7 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
         <>
             <Helmet>
                 <title>{title}</title>
+                <meta name="description" content="meta description TBD" />
             </Helmet>
             <BackgroundImage>
                 {stream && (

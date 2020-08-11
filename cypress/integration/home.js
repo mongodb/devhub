@@ -61,4 +61,10 @@ describe('Home Page', () => {
                 .should('contain', '/community/events');
         });
     });
+    it('should have an index meta description for SEO', () => {
+        cy.checkMetaContentProperty(
+            'name="description"',
+            'meta description TBD'
+        );
+    });
 });
