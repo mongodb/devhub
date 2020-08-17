@@ -31,12 +31,15 @@ const BlogShareLinks = styled('div')`
 `;
 
 const ArticleShareFooter = ({ tags, title, url }) => {
+    const urlWithoutTrailingSlash = url.match(/\/$/)
+        ? url.slice(0, url.length - 1)
+        : url;
     const onCopyLink = useCallback(() => {
-        copy(url);
-    }, [url]);
+        copy(urlWithoutTrailingSlash);
+    }, [urlWithoutTrailingSlash]);
     const { facebookUrl, linkedInUrl, twitterUrl } = getArticleShareLinks(
         title,
-        url
+        urlWithoutTrailingSlash
     );
     return (
         <ArticleShareArea>
