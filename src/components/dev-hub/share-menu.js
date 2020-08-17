@@ -55,8 +55,12 @@ const SocialIcon = ({ type, href, ...props }) => {
     const isClickable = href || props.onClick;
     return (
         <SocialLink
-            onMouseEnter={() => isClickable && setColor(theme.colorMap.devWhite)}
-            onMouseLeave={() => isClickable && setColor(theme.colorMap.greyLightTwo)}
+            onMouseEnter={() =>
+                isClickable && setColor(theme.colorMap.devWhite)
+            }
+            onMouseLeave={() =>
+                isClickable && setColor(theme.colorMap.greyLightTwo)
+            }
             href={href}
             target="_blank"
             isClickable={isClickable}
@@ -71,19 +75,22 @@ const SocialIcon = ({ type, href, ...props }) => {
  * @property {string} props.url
  */
 const ShareMenu = ({ title, url, ...props }) => {
+    const urlWithoutTrailingSlash = url.match(/\/$/)
+        ? url.slice(0, url.length - 1)
+        : url;
     const [showCopyMessage, setShowCopyMessage] = useState(false);
     const onCopyLink = useCallback(
         e => {
             e.preventDefault();
-            copy(url);
+            copy(urlWithoutTrailingSlash);
             setShowCopyMessage(true);
             setTimeout(() => setShowCopyMessage(false), 2000);
         },
-        [url]
+        [urlWithoutTrailingSlash]
     );
     const { facebookUrl, linkedInUrl, twitterUrl } = getArticleShareLinks(
         title,
-        url
+        urlWithoutTrailingSlash
     );
 
     return (
