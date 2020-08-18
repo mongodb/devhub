@@ -75,22 +75,21 @@ const SocialIcon = ({ type, href, ...props }) => {
  * @property {string} props.url
  */
 const ShareMenu = ({ title, url, ...props }) => {
-    const urlWithoutTrailingSlash = url.match(/\/$/)
-        ? url.slice(0, url.length - 1)
-        : url;
     const [showCopyMessage, setShowCopyMessage] = useState(false);
+    const {
+        articleUrl,
+        facebookUrl,
+        linkedInUrl,
+        twitterUrl,
+    } = getArticleShareLinks(title, url);
     const onCopyLink = useCallback(
         e => {
             e.preventDefault();
-            copy(urlWithoutTrailingSlash);
+            copy(articleUrl);
             setShowCopyMessage(true);
             setTimeout(() => setShowCopyMessage(false), 2000);
         },
-        [urlWithoutTrailingSlash]
-    );
-    const { facebookUrl, linkedInUrl, twitterUrl } = getArticleShareLinks(
-        title,
-        urlWithoutTrailingSlash
+        [articleUrl]
     );
 
     return (
