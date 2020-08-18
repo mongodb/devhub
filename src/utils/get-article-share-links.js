@@ -1,8 +1,16 @@
 export const getArticleShareLinks = (title, url) => {
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-    const twitterUrl = `https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(
+    const urlWithoutTrailingSlash = url.match(/\/$/)
+        ? url.slice(0, url.length - 1)
+        : url;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${urlWithoutTrailingSlash}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?url=${urlWithoutTrailingSlash}&text=${encodeURIComponent(
         title
     )}`;
-    const linkedInUrl = `https://www.linkedin.com/shareArticle?url=${url}`;
-    return { facebookUrl, linkedInUrl, twitterUrl };
+    const linkedInUrl = `https://www.linkedin.com/shareArticle?url=${urlWithoutTrailingSlash}`;
+    return {
+        articleUrl: urlWithoutTrailingSlash,
+        facebookUrl,
+        linkedInUrl,
+        twitterUrl,
+    };
 };

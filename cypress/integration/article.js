@@ -1,5 +1,5 @@
 const ARTICLE_WITH_SERIES_URL =
-    '/article/3-things-to-know-switch-from-sql-mongodb/';
+    '/article/3-things-to-know-switch-from-sql-mongodb';
 const PROD_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_SERIES_URL}`;
 
 const ARTICLE_TITLE = '3 Things to Know When You Switch from SQL to MongoDB';
