@@ -31,13 +31,15 @@ const BlogShareLinks = styled('div')`
 `;
 
 const ArticleShareFooter = ({ tags, title, url }) => {
+    const {
+        articleUrl,
+        facebookUrl,
+        linkedInUrl,
+        twitterUrl,
+    } = getArticleShareLinks(title, url);
     const onCopyLink = useCallback(() => {
-        copy(url);
-    }, [url]);
-    const { facebookUrl, linkedInUrl, twitterUrl } = getArticleShareLinks(
-        title,
-        url
-    );
+        copy(articleUrl);
+    }, [articleUrl]);
     return (
         <ArticleShareArea>
             <BlogTagList tags={tags} />
