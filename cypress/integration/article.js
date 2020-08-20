@@ -104,7 +104,7 @@ describe('Sample Article Page', () => {
         cy.title().should('eq', ARTICLE_TITLE).end();
 
         // Check og tags
-        cy.checkMetaContentProperty('property="og:type"', 'article');
+        cy.checkMetaContentProperty('property="og:type"', 'text');
         cy.checkMetaContentProperty('property="og:title"', ARTICLE_TITLE);
         cy.checkMetaContentProperty(
             'property="og:url"',
