@@ -30,6 +30,7 @@ import Literal from './Literal';
 import LiteralBlock from './LiteralBlock';
 import LiteralInclude from './LiteralInclude';
 import Meta from './Meta';
+import MetaDescription from './meta-description';
 import Paragraph from './Paragraph';
 import Reference from './Reference';
 import RefRole from './RefRole';
@@ -97,6 +98,7 @@ export default class ComponentFactory extends Component {
             literal_block: LiteralBlock,
             literalinclude: LiteralInclude,
             meta: Meta,
+            'meta-description': MetaDescription,
             only: Cond,
             paragraph: Paragraph,
             ref_role: RefRole,
