@@ -17,6 +17,8 @@ const SEO = ({
     articleTitle,
     canonicalUrl,
     image,
+    metaDescription,
+    ogDescription,
     ogTitle,
     ogUrl,
     type,
@@ -31,8 +33,21 @@ const SEO = ({
     const twitterImgSrc = twitter.image
         ? getImageSrc(twitter.image, siteUrl)
         : null;
+    const effectiveMetaDescription = metaDescription || ogDescription;
+    const effectiveOgDescription = ogDescription || metaDescription;
     return (
         <Helmet>
+            {/* meta description Tag */}
+            {effectiveMetaDescription && (
+                <meta name="description" content={effectiveMetaDescription} />
+            )}
+            {/* og:description Tag */}
+            {effectiveOgDescription && (
+                <meta
+                    property="og:description"
+                    content={effectiveOgDescription}
+                />
+            )}
             {/* Type Tag */}
             {type && <meta property="og:type" content={type} />}
 
