@@ -5,6 +5,7 @@ const PROD_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_SERIES_URL
 // Article with no og description or og type (test meta description fallback)
 const ARTICLE_WITH_MINIMAL_OG_URL =
     '/article/active-active-application-architectures';
+const PROD_MINIMAL_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_MINIMAL_OG_URL}`;
 const ARTICLE_WITHOUT_OG_META_DESCRIPTION =
     'This post will begin by describing the database capabilities required by modern multi-data center applications.';
 const DEFAULT_OG_TYPE = 'article';
@@ -150,6 +151,10 @@ describe('Sample Article Page', () => {
     });
     it('should automatically populate the type tag should it not be provided', () => {
         cy.visit(ARTICLE_WITH_MINIMAL_OG_URL).then(() => {
+            cy.checkMetaContentProperty(
+                'property="og:url"',
+                PROD_MINIMAL_ARTICLE_URL
+            );
             cy.checkMetaContentProperty('property="og:type"', DEFAULT_OG_TYPE);
             cy.checkMetaContentProperty(
                 'name="twitter:site"',
