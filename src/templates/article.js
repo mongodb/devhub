@@ -138,7 +138,7 @@ const Article = props => {
     }
     const tagList = getTagLinksFromMeta(meta);
     const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
-    const articleUrl = `${siteUrl}/${thisPage}/`;
+    const articleUrl = `${siteUrl}/${thisPage}`;
     const headingNodes = findSectionHeadings(
         getNestedValue(['ast', 'children'], __refDocMapping),
         'type',
@@ -170,7 +170,7 @@ const Article = props => {
                 ogTitle={og.title || articleTitle}
                 ogUrl={og.url || articleUrl}
                 twitterNode={twitterNode}
-                type={og.type || 'article'}
+                type={og.type}
             />
             <BlogPostTitleArea
                 articleImage={withPrefix(meta['atf-image'])}
