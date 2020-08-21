@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import { getNestedText } from '../../utils/get-nested-text';
 
+const DEFAULT_OG_TYPE = 'article';
 const DEFAULT_TWITTER_SITE = '@mongodb';
 const isExternalUrl = /^http(s)?:\/\//;
 
@@ -23,7 +24,7 @@ const SEO = ({
     ogTitle,
     ogUrl,
     twitterNode,
-    type = 'article',
+    type,
 }) => {
     const twitter = twitterNode ? twitterNode.options : {};
     const twitterDescription = twitterNode
@@ -36,6 +37,7 @@ const SEO = ({
         : null;
     const effectiveMetaDescription = metaDescription || ogDescription;
     const effectiveOgDescription = ogDescription || metaDescription;
+    const effectiveOgType = type || DEFAULT_OG_TYPE;
     const effectiveTwitterSite = twitter.site || DEFAULT_TWITTER_SITE;
     return (
         <Helmet>
@@ -51,7 +53,7 @@ const SEO = ({
                 />
             )}
             {/* Type Tag */}
-            <meta property="og:type" content={type} />
+            <meta property="og:type" content={effectiveOgType} />
 
             {/* og:image Tag */}
             {ogImgSrc && <meta property="og:image" content={ogImgSrc} />}
