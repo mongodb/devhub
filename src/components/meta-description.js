@@ -4,6 +4,6 @@ import { getNestedText } from '../utils/get-nested-text';
 
 export default ({ nodeData: { children } }) => (
     <Helmet>
-        <meta property="og:description" content={getNestedText(children)} />
+        <meta name="description" content={getNestedText(children)} />
     </Helmet>
 );

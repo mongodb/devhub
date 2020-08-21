@@ -19,6 +19,7 @@ import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
+import { getNestedText } from '../utils/get-nested-text';
 /**
  * Name map of directives we want to display in an article
  */
@@ -26,7 +27,6 @@ const contentNodesMap = {
     introduction: true,
     prerequisites: true,
     content: true,
-    'meta-description': true,
     summary: true,
 };
 
@@ -118,7 +118,14 @@ const Article = props => {
     const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
     const og = meta.og || {};
+    const ogDescription =
+        og.children && og.children.length ? getNestedText(og.children) : null;
     const twitterNode = childNodes.find(node => node.name === 'twitter');
+    const metaDescriptionNode = childNodes.find(
+        node => node.name === 'meta-description'
+    );
+    const metaDescription =
+        metaDescriptionNode && getNestedText(metaDescriptionNode.children);
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
@@ -158,6 +165,8 @@ const Article = props => {
                 articleTitle={articleTitle}
                 canonicalUrl={canonicalUrl}
                 image={og.image}
+                metaDescription={metaDescription}
+                ogDescription={ogDescription}
                 ogTitle={og.title || articleTitle}
                 ogUrl={og.url || articleUrl}
                 twitterNode={twitterNode}
