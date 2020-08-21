@@ -2,8 +2,8 @@ const ARTICLE_WITH_SERIES_URL =
     '/article/3-things-to-know-switch-from-sql-mongodb';
 const PROD_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_SERIES_URL}`;
 
-// Article with no og description (test meta description fallback)
-const ARTICLE_WITHOUT_OG_DESCRIPTION_URL =
+// Article with no og description or og type (test meta description fallback)
+const ARTICLE_WITH_MINIMAL_OG_URL =
     '/article/active-active-application-architectures';
 const ARTICLE_WITHOUT_OG_META_DESCRIPTION =
     'This post will begin by describing the database capabilities required by modern multi-data center applications.';
@@ -101,12 +101,11 @@ describe('Sample Article Page', () => {
         cy.title().should('eq', ARTICLE_TITLE).end();
 
         // Check og tags
-        cy.checkMetaContentProperty('property="og:type"', 'article');
+        cy.checkMetaContentProperty('property="og:type"', 'text');
         cy.checkMetaContentProperty('property="og:title"', ARTICLE_TITLE);
         cy.checkMetaContentProperty(
             'property="og:url"',
-            // This would match the PROD_ARTICLE_URL but it has http and not https
-            OG_URL
+            'http://developer-test.mongodb.com/article/3-things-to-know-switch-from-sql-mongodb'
         );
         // An og:description exists, so we should populate the tag with it
         cy.checkMetaContentProperty(
@@ -122,7 +121,10 @@ describe('Sample Article Page', () => {
             '@Lauren_Schaefer'
         );
         cy.checkMetaContentProperty('name="twitter:card"', 'summary');
-        cy.checkMetaContentProperty('name="twitter:site"', '@mongodb');
+        cy.checkMetaContentProperty(
+            'name="twitter:site"',
+            '@test-twitter-site'
+        );
         cy.checkMetaContentProperty('property="twitter:title"', ARTICLE_TITLE);
         cy.checkMetaContentProperty(
             'property="twitter:description"',
@@ -132,7 +134,7 @@ describe('Sample Article Page', () => {
     });
 
     it('should automatically populate the og description tag should it not be provided', () => {
-        cy.visit(ARTICLE_WITHOUT_OG_DESCRIPTION_URL).then(() => {
+        cy.visit(ARTICLE_WITH_MINIMAL_OG_URL).then(() => {
             cy.checkMetaContentProperty(
                 'name="description"',
                 ARTICLE_WITHOUT_OG_META_DESCRIPTION
