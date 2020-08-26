@@ -57,7 +57,14 @@ const SelectWrapper = styled('div')`
 `;
 
 export default React.memo(
-    ({ filters, filterValue, setFilterValue, ...props }) => {
+    ({
+        filters,
+        filterValue,
+        setFilterValue,
+        // TODO: Use below to add text input results
+        setTextFilterResults,
+        ...props
+    }) => {
         const initialLanguages = useMemo(
             () => zipFilterObjects(filters.languages),
             [filters.languages]
