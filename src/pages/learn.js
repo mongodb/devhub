@@ -6,6 +6,7 @@ import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
 import Card from '../components/dev-hub/card';
 import CardList from '../components/dev-hub/card-list';
+import EmptyTextFilterResults from '../components/dev-hub/empty-text-filter-results';
 import FilterBar from '../components/dev-hub/filter-bar';
 import { screenSize, size } from '../components/dev-hub/theme';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
@@ -196,6 +197,7 @@ export default ({
         allArticles,
     ]);
     const [articles, setArticles] = useState(initialArticles);
+    const [textFilterResults, setTextFilterResults] = useState(null);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
     const filterActiveArticles = useCallback(
@@ -232,6 +234,25 @@ export default ({
     const leftTabs = ['All'];
     const rightTabs = ['Articles', 'Videos', 'Podcasts'];
 
+    const ActiveCardList = () => {
+        switch (activeItem) {
+            case 'Articles':
+                return <CardList articles={articles} />;
+            case 'Videos':
+                return <CardList videos={videos} />;
+            case 'Podcasts':
+                return <CardList podcasts={podcasts} />;
+            default:
+                return (
+                    <CardList
+                        articles={articles}
+                        videos={hasNoFilter ? videos : []}
+                        podcasts={hasNoFilter ? podcasts : []}
+                    />
+                );
+        }
+    };
+
     return (
         <Layout>
             <Helmet>
@@ -257,19 +278,19 @@ export default ({
                         filters={filters}
                         filterValue={filterValue}
                         setFilterValue={updateFilter}
+                        setTextFilterResults={setTextFilterResults}
                     />
                 )}
 
-                {activeItem === 'All' && (
-                    <CardList
-                        articles={articles}
-                        videos={hasNoFilter ? videos : []}
-                        podcasts={hasNoFilter ? podcasts : []}
-                    />
+                {textFilterResults ? (
+                    textFilterResults.length ? (
+                        <CardList articles={textFilterResults} />
+                    ) : (
+                        <EmptyTextFilterResults />
+                    )
+                ) : (
+                    <ActiveCardList />
                 )}
-                {activeItem === 'Articles' && <CardList articles={articles} />}
-                {activeItem === 'Videos' && <CardList videos={videos} />}
-                {activeItem === 'Podcasts' && <CardList podcasts={podcasts} />}
             </Article>
         </Layout>
     );
