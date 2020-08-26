@@ -18,9 +18,12 @@ export const createArticleNode = (
     slugContentMapping[slug] = doc;
     if (isArticlePage) {
         const content = {
-            title: getNestedText(doc.query_fields['title']),
+            authors: doc.query_fields['author'],
             description: getNestedText(doc.query_fields['meta-description']),
             pubdate: doc.query_fields['pubdate'],
+            tags: doc.query_fields['tags'],
+            title: getNestedText(doc.query_fields['title']),
+            type: doc.query_fields['type'],
         };
         createNode({
             id: slug,

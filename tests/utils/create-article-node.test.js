@@ -2,18 +2,24 @@ import { createArticleNode } from '../../src/utils/setup/create-article-node';
 
 describe('Should properly postprocess an article node after it is fetched', () => {
     const pageIdPrefix = 'test-pages/test';
+    const articleAuthors = [{ name: 'Author One' }, { name: 'Author Two' }];
     const articleDescription = 'Article Description';
     const articlePubdate = '2030-01-01';
     const articleSlug = 'article/test-article';
+    const articleTags = ['first-tag', 'second-tag'];
     const articleTitle = 'Test Article';
+    const articleType = 'quickstart';
     const articleNode = {
         ast: {
             children: [],
         },
         query_fields: {
+            author: articleAuthors,
             'meta-description': [{ type: 'text', value: articleDescription }],
             pubdate: articlePubdate,
+            tags: articleTags,
             title: [{ type: 'text', value: articleTitle }],
+            type: articleType,
         },
         filename: `${articleSlug}.txt`,
         page_id: `${pageIdPrefix}/${articleSlug}`,
@@ -79,9 +85,12 @@ describe('Should properly postprocess an article node after it is fetched', () =
         expect(createdArticleNode.internal.contentDigest).not.toBeUndefined();
         expect(createContentDigest.mock.calls.length).toBe(1);
         const contentToDigest = {
-            title: articleTitle,
-            pubdate: articlePubdate,
+            authors: articleAuthors,
             description: articleDescription,
+            pubdate: articlePubdate,
+            tags: articleTags,
+            title: articleTitle,
+            type: articleType,
         };
         expect(createContentDigest.mock.calls[0][0]).toStrictEqual(
             contentToDigest
