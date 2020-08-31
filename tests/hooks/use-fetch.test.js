@@ -19,9 +19,12 @@ const mockFailApi = {
         return new Error('An error occured');
     },
 };
-window.fetch = jest.fn();
 
 describe('Use Fetch', () => {
+    beforeEach(() => {
+        window.fetch = jest.fn();
+    });
+
     test('should get data', async () => {
         window.fetch.mockReturnValue(mockSuccessApi);
         const { result, waitForNextUpdate } = renderHook(() =>
@@ -51,7 +54,6 @@ describe('Use Fetch', () => {
     });
 
     test('should debounce fetch if requested', async () => {
-        window.fetch = jest.fn();
         // Use fake timers for easier control over debounce
         jest.useFakeTimers();
         window.fetch.mockReturnValue(mockSuccessApi);
