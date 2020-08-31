@@ -49,4 +49,33 @@ describe('Use Fetch', () => {
         console.warn = warn;
         cleanup();
     });
+
+    test('should debounce fetch if requested', async () => {
+        window.fetch = jest.fn();
+        // Use fake timers for easier control over debounce
+        jest.useFakeTimers();
+        window.fetch.mockReturnValue(mockSuccessApi);
+        let url = '/url';
+        const { result, rerender, waitForNextUpdate } = renderHook(() =>
+            useFetch(url, x => x.json(), 1000)
+        );
+        expect(window.fetch).toHaveBeenCalledTimes(0);
+        let { data, error } = result.current;
+        expect(data).toEqual(null);
+        expect(error).toEqual(null);
+        // Update the hook 10 additional times before running timers,
+        // only one call should occur (last one)
+        for (let i = 0; i < 10; i++) {
+            url = `/url${i}`;
+            rerender();
+        }
+        await jest.runAllTimers();
+        await waitForNextUpdate();
+        expect(window.fetch).toHaveBeenCalledTimes(1);
+        expect(window.fetch).toHaveBeenCalledWith(url);
+        let { data: updatedData, error: updatedError } = result.current;
+        expect(updatedData).toEqual(sampleSuccess);
+        expect(updatedError).toEqual(null);
+        cleanup();
+    });
 });
