@@ -28,7 +28,7 @@ describe('Use Fetch', () => {
     test('should get data', async () => {
         window.fetch.mockReturnValue(mockSuccessApi);
         const { result, waitForNextUpdate } = renderHook(() =>
-            useFetch('/url', x => x.json())
+            useFetch('/url')
         );
         await waitForNextUpdate();
         const { data, error } = result.current;
@@ -42,7 +42,7 @@ describe('Use Fetch', () => {
         console.warn = jest.fn();
         window.fetch.mockReturnValue(mockFailApi);
         const { result, waitForNextUpdate } = renderHook(() =>
-            useFetch('/url', x => x.json())
+            useFetch('/url')
         );
         await waitForNextUpdate();
         const { data, error } = result.current;
@@ -59,7 +59,7 @@ describe('Use Fetch', () => {
         window.fetch.mockReturnValue(mockSuccessApi);
         let url = '/url';
         const { result, rerender, waitForNextUpdate } = renderHook(() =>
-            useFetch(url, x => x.json(), 1000)
+            useFetch(url, 1000)
         );
         expect(window.fetch).toHaveBeenCalledTimes(0);
         let { data, error } = result.current;
