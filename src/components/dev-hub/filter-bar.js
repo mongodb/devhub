@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { H3 } from './text';
 import Select from './select';
+import TextFilterInput from './text-filter-input';
 import { screenSize, size } from './theme';
 
 // Promote Atlas in filters by bringing to top, otherwise sort by count of items
@@ -35,7 +35,7 @@ const ResponsiveFlexContainer = styled('div')`
 const FilterBar = styled('div')`
     align-items: center;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     h3 {
         flex: 2;
     }
@@ -61,7 +61,6 @@ export default React.memo(
         filters,
         filterValue,
         setFilterValue,
-        // TODO: Use below to add text input results
         setTextFilterResults,
         ...props
     }) => {
@@ -75,6 +74,7 @@ export default React.memo(
         );
         const [languages, setLanguages] = useState(initialLanguages);
         const [products, setProducts] = useState(initialProducts);
+        const [textFilterValue, setTextFilterValue] = useState(null);
         const hasProductFilter = useMemo(
             () => filterValue.products && filterValue.products !== 'all',
             [filterValue.products]
@@ -128,8 +128,19 @@ export default React.memo(
                 setFilterValue({ ...filterValue, [type]: value });
             }
         };
+        const onTextFilterChange = useCallback(e => {
+            setTextFilterValue(e.target.value);
+            // TODO: Get text filter results and update
+            // const results = await getTextFilterResults(e.target.value)
+            // setTextFilterResults(results)
+        }, []);
         return (
             <FilterBar {...props}>
+                <TextFilterInput
+                    placeholder="Search Articles"
+                    onChange={onTextFilterChange}
+                    value={textFilterValue}
+                />
                 <ResponsiveFlexContainer>
                     <FilterLabel>Filter By</FilterLabel>
                     <SelectWrapper>
