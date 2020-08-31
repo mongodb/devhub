@@ -7,6 +7,12 @@ const getErrorMessage = (response, method) =>
         ? `${method} Error: ${response.status} - ${response.statusText}`
         : `${method} Error: Did not receive a response from the server`;
 
+/**
+ * Hook with option to debounce to fetch data (GET) and provide any postprocessing
+ * @param {*} url The url to fetch from
+ * @param {*} postprocessData Manipulations to data to be done after a fetch
+ * @param {*} debounceTime (Optional) if provided, will debounce the fetch based on this number of ms
+ */
 function useFetch(url, postprocessData, debounceTime) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
