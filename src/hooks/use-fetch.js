@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const isBadResponse = response => !response || (response && !response.ok);
 
@@ -11,18 +11,21 @@ function useFetch(url, postprocessData, debounceTime) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [fetchEvent, setFetchEvent] = useState(null);
-    const fetchData = useCallback(async () => {
+    const fetchData = async () => {
         const resp = await fetch(url);
         if (isBadResponse(resp)) {
-            console.log('ERROR FOUND');
-            throw new Error(getErrorMessage(resp, 'GET'));
+            const errorMessage = getErrorMessage(resp, 'GET');
+            console.warn(errorMessage);
+            setError(errorMessage);
+            setData(null);
+        } else {
+            const parsedData = await postprocessData(resp);
+            if (parsedData) {
+                setError(null);
+                setData(parsedData);
+            }
         }
-        const parsedData = await postprocessData(resp);
-        if (parsedData) {
-            setError(null);
-            setData(parsedData);
-        }
-    }, [postprocessData, url]);
+    };
     useEffect(() => {
         const getData = async () => {
             if (debounceTime) {
@@ -31,21 +34,14 @@ function useFetch(url, postprocessData, debounceTime) {
                 }
                 setFetchEvent(setTimeout(fetchData, debounceTime));
             } else {
-                try {
-                    fetchData();
-                } catch (e) {
-                    console.log('caught error');
-                    console.warn(e);
-                    setError(e);
-                    setData(null);
-                }
+                fetchData();
             }
         };
         getData();
         // Disabling exhaustive dep check, since we don't want to run this effect
         // every time fetchEvent is updated (which would cause an infinite loop)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [debounceTime, fetchData, url]);
+    }, [debounceTime, url]);
 
     return { data, error };
 }

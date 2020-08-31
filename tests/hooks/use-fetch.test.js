@@ -35,20 +35,18 @@ describe('Use Fetch', () => {
     });
 
     test('should return an error if any are thrown', async () => {
-        // const { warn } = console;
-        // console.warn = jest.fn();
-        // window.fetch.mockReturnValue(mockFailApi);
-        // const { result, waitForNextUpdate } = renderHook(() =>
-        //     useFetch('/url', x => x.json())
-        // );
-        // await waitForNextUpdate();
-        // await waitForNextUpdate();
-        // console.log(result.current);
-        // const { data, error } = result.current;
-        // expect(data).toEqual(null);
-        // expect(console.warn).toHaveBeenCalledTimes(1);
-        // expect(error).not.toBeNull();
-        // console.warn = warn;
-        // cleanup();
+        const { warn } = console;
+        console.warn = jest.fn();
+        window.fetch.mockReturnValue(mockFailApi);
+        const { result, waitForNextUpdate } = renderHook(() =>
+            useFetch('/url', x => x.json())
+        );
+        await waitForNextUpdate();
+        const { data, error } = result.current;
+        expect(data).toEqual(null);
+        expect(console.warn).toHaveBeenCalledTimes(1);
+        expect(error).not.toBeNull();
+        console.warn = warn;
+        cleanup();
     });
 });
