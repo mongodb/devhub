@@ -15,6 +15,7 @@ import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import useAllVideos from '../hooks/use-all-videos';
 import usePodcasts from '../hooks/use-podcasts';
+import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
@@ -197,7 +198,8 @@ export default ({
         allArticles,
     ]);
     const [articles, setArticles] = useState(initialArticles);
-    const [textFilterResults, setTextFilterResults] = useState(null);
+    const [textFilterQuery, setTextFilterQuery] = useState(null);
+    const { results: textFilterResults } = useTextFilter(textFilterQuery);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
     const filterActiveArticles = useCallback(
@@ -278,7 +280,7 @@ export default ({
                         filters={filters}
                         filterValue={filterValue}
                         setFilterValue={updateFilter}
-                        setTextFilterResults={setTextFilterResults}
+                        setTextFilterQuery={setTextFilterQuery}
                     />
                 )}
 

@@ -61,7 +61,7 @@ export default React.memo(
         filters,
         filterValue,
         setFilterValue,
-        setTextFilterResults,
+        setTextFilterQuery,
         ...props
     }) => {
         const initialLanguages = useMemo(
@@ -128,12 +128,13 @@ export default React.memo(
                 setFilterValue({ ...filterValue, [type]: value });
             }
         };
-        const onTextFilterChange = useCallback(e => {
-            setTextFilterValue(e.target.value);
-            // TODO: Get text filter results and update
-            // const results = await getTextFilterResults(e.target.value)
-            // setTextFilterResults(results)
-        }, []);
+        const onTextFilterChange = useCallback(
+            e => {
+                setTextFilterValue(e.target.value);
+                setTextFilterQuery(e.target.value);
+            },
+            [setTextFilterQuery]
+        );
         return (
             <FilterBar {...props}>
                 <TextFilterInput
