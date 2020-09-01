@@ -1,3 +1,4 @@
+// Mocks the stitch SDK for jest testing
 const stitchSdk = jest.requireActual('mongodb-stitch-browser-sdk');
 
 module.exports = {

@@ -13,7 +13,7 @@ function useTextFilter(query) {
     const [filterEvent, setFilterEvent] = useState(null);
     const [results, setResults] = useState(null);
 
-    // When the query changes, let's update the search URL (which will trigger a fetch)
+    // When the query changes, let's re-fetch from Stitch (debounce)
     useEffect(() => {
         const fetchTextFilterResults = async () => {
             if (filterEvent) {
