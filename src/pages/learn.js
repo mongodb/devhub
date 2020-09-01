@@ -285,7 +285,7 @@ export default ({
                     />
                 )}
 
-                {textFilterResults ? (
+                {textFilterQuery && textFilterResults ? (
                     textFilterResults.length ? (
                         <CardList articles={textFilterResults} />
                     ) : (
