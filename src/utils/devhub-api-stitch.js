@@ -27,6 +27,14 @@ export const requestMDBTwitchVideos = async videoLimit => {
     return result;
 };
 
+export const requestTextFilterResults = async query => {
+    const result = await callDevhubAPIStitchFunction(
+        'fetchTextFilterResults',
+        query
+    );
+    return result;
+};
+
 export const requestYoutubePlaylist = async maxResults => {
     const result = await callDevhubAPIStitchFunction(
         'fetchYoutubeData',

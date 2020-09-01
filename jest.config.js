@@ -36,5 +36,15 @@ module.exports = {
                 '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,
             },
         },
+        {
+            displayName: 'hooks',
+            globals: {
+                __PATH_PREFIX__: '',
+            },
+            testMatch: ['<rootDir>/tests/hooks/*.test.js'],
+            transform: {
+                '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,
+            },
+        },
     ],
 };
