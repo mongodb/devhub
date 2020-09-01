@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import CopyIcon from './icons/copy-icon';
-import { colorMap, fontSize, screenSize, size } from './theme';
+import { fontSize, screenSize, size } from './theme';
 import Button from './button';
 
 export const COPY_BUTTON_WIDTH = 120;
@@ -12,7 +12,7 @@ const StyledCopyButton = styled(Button)`
     border: none;
     border-radius: ${size.small};
     background-color: transparent;
-    color: ${colorMap.black};
+    color: ${({ theme }) => theme.colorMap.black};
     height: ${size.large};
     left: 0;
     padding: 0 ${size.default};

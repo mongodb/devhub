@@ -2,19 +2,23 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Button from './button';
-import { animationSpeed, colorMap, lineHeight, size, fontSize } from './theme';
+import { animationSpeed, lineHeight, size, fontSize } from './theme';
 import { H5, P } from './text';
 import Link from './link';
 import TagList from './blog-tag-list';
 import VideoModal from './video-modal';
-import CardBadge from './card-badge';
+import Badge from './badge';
 
 const Image = styled('img')`
+    bottom: 0;
     border-radius: ${size.small};
     display: block;
-    height: 100%;
+    left: 0;
+    margin: auto;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    right: 0;
+    top: 0;
     width: 100%;
     ${props =>
         props.gradient &&
@@ -25,17 +29,19 @@ const Image = styled('img')`
 `;
 
 const ImageWrapper = styled('div')`
+    background-color: black;
     border-radius: ${size.small};
     margin-bottom: ${size.medium};
     overflow: hidden;
-    padding: 0;
-    width: 100%;
+    /* Create 1:1 aspect ratio using top padding */
+    padding: 100% 0 0;
     position: relative;
+    width: 100%;
 `;
-const hoverStyles = css`
+const hoverStyles = theme => css`
     &:hover,
     &:active {
-        background-color: ${colorMap.greyDarkTwo};
+        background-color: ${theme.colorMap.greyDarkTwo};
         color: inherit;
         cursor: pointer;
         ${Image} {
@@ -50,13 +56,13 @@ const Wrapper = styled('div')`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: ${({ maxWidth }) => `${maxWidth}px`};
+    max-width: ${({ maxwidth }) => `${maxwidth}px`};
     padding: ${size.medium};
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};
     width: ${({ width = 'auto' }) => width};
     ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
-    ${({ isClickable }) => isClickable && hoverStyles}
+    ${({ isclickable, theme }) => isclickable && hoverStyles(theme)}
 `;
 const truncate = maxLines => css`
     display: -webkit-box;
@@ -65,7 +71,7 @@ const truncate = maxLines => css`
     overflow: hidden;
 `;
 const DescriptionText = styled(P)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
 `;
@@ -110,21 +116,20 @@ const Card = ({
               href,
               target,
           };
-    const isClickable = onClick || isLink;
+    const isClickable = onClick || isLink || video;
     return (
         <ContentWrapper
             data-test="card"
             onClick={onClick}
             {...linkAttrs}
-            maxWidth={maxWidth}
-            isClickable={isClickable}
+            maxwidth={maxWidth}
+            isclickable={isClickable}
             className={className}
-            collapseImage={collapseImage}
         >
             <div>
                 {!collapseImage && (
                     <ImageWrapper>
-                        {image && <Image src={image} alt="" />}
+                        {image && <Image loading="lazy" src={image} alt="" />}
                         {video && (
                             <VideoModal
                                 id={video.videoId}
@@ -133,7 +138,7 @@ const Card = ({
                                 thumbnail={videoModalThumbnail || image}
                             />
                         )}
-                        {badge && <CardBadge contentType={badge} />}
+                        {badge && <Badge contentType={badge} />}
                     </ImageWrapper>
                 )}
                 {title && (

@@ -4,10 +4,19 @@ const generatePathPrefix = ({
     commitHash,
     parserBranch,
     patchId,
+    pathPrefix,
     project,
     snootyBranch,
     user,
 }) => {
+    // If user specified a PATH_PREFIX environment variable, ensure it begins with a prefix and use
+    if (pathPrefix) {
+        if (pathPrefix.startsWith('/')) {
+            return pathPrefix;
+        }
+        return `/${pathPrefix}`;
+    }
+
     let prefix = '';
     if (commitHash) prefix += `${commitHash}`;
     if (patchId) prefix += `/${patchId}`;

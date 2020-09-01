@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
+import Audio from './audio';
 import Card from './card';
 import Button from './button';
 import { screenSize, size } from './theme';
@@ -7,7 +8,6 @@ import { withPrefix } from 'gatsby';
 import { getNestedText } from '../../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 import getTwitchThumbnail from '../../utils/get-twitch-thumbnail';
-import VideoModal from './video-modal';
 
 const CardContainer = styled('div')`
     display: grid;
@@ -26,7 +26,6 @@ const ArticleCard = styled(Card)`
 
 const VideoCard = styled(Card)`
     flex: 1 1 360px;
-    cursor: pointer;
 `;
 
 const HasMoreButtonContainer = styled('div')`
@@ -37,75 +36,94 @@ const HasMoreButtonContainer = styled('div')`
 
 const getThumbnailUrl = media => {
     return media.mediaType === 'twitch'
-        ? getTwitchThumbnail(media.thumbnailUrl, 1000)
+        ? getTwitchThumbnail(media.thumbnailUrl)
         : media.thumbnailUrl;
 };
 
-// TODO: Update this component to take one array of items and map to cards based
-// on the item type
+const sortCardsByDate = contentList =>
+    contentList.sort(
+        (a, b) =>
+            new Date(b.publishDate || b.pubdate) -
+            new Date(a.publishDate || a.pubdate)
+    );
+
+const renderArticle = article => (
+    <ArticleCard
+        to={article['slug']}
+        key={article['_id']}
+        image={withPrefix(article['atf-image'])}
+        tags={getTagLinksFromMeta(article)}
+        title={getNestedText(article['title'])}
+        badge="article"
+        description={getNestedText(article['meta-description'])}
+    />
+);
+
+const renderVideo = video => (
+    <VideoCard
+        key={video.mediaType + video.title}
+        image={getThumbnailUrl(video)}
+        videoModalThumbnail={getThumbnailUrl(video)}
+        title={video.title}
+        badge={video.mediaType}
+        description={video.description}
+        video={video}
+    />
+);
+
+const renderPodcast = (podcast, openAudio) => (
+    <Card
+        key={podcast.mediaType + podcast.title}
+        image={getThumbnailUrl(podcast)}
+        title={podcast.title}
+        badge={podcast.mediaType}
+        description={podcast.description}
+        onClick={() => openAudio(podcast)}
+    />
+);
+
+const renderContentTypeCard = (item, openAudio) => {
+    if (item.mediaType)
+        switch (item.mediaType) {
+            case 'youtube':
+            case 'twitch':
+                return renderVideo(item);
+            case 'podcast':
+                return renderPodcast(item, openAudio);
+            default:
+                return;
+        }
+
+    return renderArticle(item);
+};
+
 export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
     videos = videos || [];
     articles = articles || [];
     podcasts = podcasts || [];
+
+    const fullContentList = sortCardsByDate(videos.concat(articles, podcasts));
     const [visibleCards, setVisibleCards] = useState(limit);
 
-    //TODO: modify once the tab component is ready to use single array of items
-    const hasMore = videos.length
-        ? videos.length > visibleCards
-        : articles.length > visibleCards;
+    const hasMore = fullContentList.length > visibleCards;
+    const [activePodcast, setActivePodcast] = useState(false);
+
+    const openAudio = useCallback(podcast => {
+        setActivePodcast(podcast);
+    }, []);
+    const closeAudio = useCallback(e => {
+        e.stopPropagation();
+        setActivePodcast(null);
+    }, []);
+
     return (
         <>
             <CardContainer>
-                {articles.length > 0 &&
-                    articles
-                        .slice(0, visibleCards)
-                        .map(article => (
-                            <ArticleCard
-                                to={article['slug']}
-                                key={article['_id']}
-                                image={withPrefix(article['atf-image'])}
-                                tags={getTagLinksFromMeta(article)}
-                                title={getNestedText(article['title'])}
-                                description={getNestedText(
-                                    article['meta-description']
-                                )}
-                                badge="article"
-                            />
-                        ))}
-
-                {videos.length > 0 &&
-                    videos
-                        .slice(0, visibleCards)
-                        .map(video => (
-                            <VideoModal
-                                key={video.videoId}
-                                id={video.videoId}
-                                name={video.mediaType}
-                                trigger={
-                                    <VideoCard
-                                        key={video.title}
-                                        image={getThumbnailUrl(video)}
-                                        title={video.title}
-                                        description={video.description}
-                                        badge={video.mediaType}
-                                    />
-                                }
-                                thumbnail={getThumbnailUrl(video)}
-                            />
-                        ))}
-
-                {podcasts.length > 0 &&
-                    podcasts
-                        .slice(0, visibleCards)
-                        .map(podcast => (
-                            <ArticleCard
-                                key={podcast.title}
-                                image={getThumbnailUrl(podcast)}
-                                title={podcast.title}
-                                description={podcast.description}
-                                badge={podcast.mediaType}
-                            />
-                        ))}
+                {fullContentList
+                    .slice(0, visibleCards)
+                    .map(contentType =>
+                        renderContentTypeCard(contentType, openAudio)
+                    )}
             </CardContainer>
 
             {hasMore && (
@@ -119,6 +137,9 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
                     </Button>
                 </HasMoreButtonContainer>
             )}
+            {podcasts.length ? (
+                <Audio onClose={closeAudio} podcast={activePodcast} />
+            ) : null}
         </>
     );
 });

@@ -8,12 +8,7 @@ import Layout from '../../components/dev-hub/layout';
 import Link from '../../components/dev-hub/link';
 import { EventsListPreview } from '../../components/dev-hub/event-list';
 import { H2, P } from '../../components/dev-hub/text';
-import {
-    colorMap,
-    screenSize,
-    fontSize,
-    size,
-} from '../../components/dev-hub/theme';
+import { screenSize, fontSize, size } from '../../components/dev-hub/theme';
 import communityHeroBackground from '../../images/1x/Community-hero.png';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 
@@ -62,7 +57,7 @@ const UpcomingEvents = styled('section')`
 const HeroContent = styled('div')`
     padding-top: ${size.large};
     p {
-        color: ${colorMap.greyLightTwo};
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
         margin-bottom: ${size.xlarge};
         @media ${screenSize.upToMedium} {
             margin-bottom: ${size.large};
@@ -100,12 +95,15 @@ export default () => {
                 showImageOnMobile={false}
             >
                 <HeroContent>
-                    <H2 bold>Find Your Place</H2>
+                    <H2 bold>Join the Community Forums</H2>
                     <P>
-                        Have a burning question you want to ask? Looking for a
-                        community of like minded developers?
+                        Collaborate with other MongoDB users. Solve problems.
+                        Build the future.
                     </P>
-                    <Button primary href="https://community.mongodb.com/">
+                    <Button
+                        primary
+                        href="https://developer.mongodb.com/community/forums"
+                    >
                         Join
                     </Button>
                 </HeroContent>

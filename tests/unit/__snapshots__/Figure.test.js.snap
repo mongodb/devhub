@@ -7,7 +7,9 @@ exports[`renders correctly 1`] = `
 >
   <img
     alt="/images/firstcluster.png"
+    class=""
     css="You have tried to stringify object returned from \`css\` function. It isn't supposed to be used directly (e.g. as value of the \`className\` prop), but rather handed to emotion so it can handle it (e.g. as value of \`css\` prop)."
+    loading="lazy"
     src="/images/firstcluster.png"
   />
 </figure>
@@ -20,7 +22,9 @@ exports[`renders lightbox correctly when specified as an option 1`] = `
 >
   <img
     alt="/images/firstcluster.png"
+    class=""
     css="You have tried to stringify object returned from \`css\` function. It isn't supposed to be used directly (e.g. as value of the \`className\` prop), but rather handed to emotion so it can handle it (e.g. as value of \`css\` prop)."
+    loading="lazy"
     src="/images/firstcluster.png"
   />
 </figure>

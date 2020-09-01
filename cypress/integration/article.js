@@ -1,10 +1,20 @@
 const ARTICLE_WITH_SERIES_URL =
-    '/article/3-things-to-know-switch-from-sql-mongodb/';
+    '/article/3-things-to-know-switch-from-sql-mongodb';
 const PROD_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_SERIES_URL}`;
+
+// Article with no og description or og type (test meta description fallback)
+const ARTICLE_WITH_MINIMAL_OG_URL =
+    '/article/active-active-application-architectures';
+const PROD_MINIMAL_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_MINIMAL_OG_URL}`;
+const ARTICLE_WITHOUT_OG_META_DESCRIPTION =
+    'This post will begin by describing the database capabilities required by modern multi-data center applications.';
+const DEFAULT_OG_TYPE = 'article';
+const DEFAULT_TWITTER_SITE = '@mongodb';
 
 const ARTICLE_TITLE = '3 Things to Know When You Switch from SQL to MongoDB';
 const ARTICLE_DESCRIPTION =
     'Discover the 3 things you need to know when you switch from SQL to MongoDB';
+const OG_DESCRIPTION = 'og-description text';
 const SERIES_TITLE = 'SQL to MongoDB';
 
 // Images
@@ -22,6 +32,7 @@ const OG_URL =
 const TWITTER_SHARE_URL = `https://twitter.com/intent/tweet?url=${PROD_ARTICLE_URL}&text=3%20Things%20to%20Know%20When%20You%20Switch%20from%20SQL%20to%20MongoDB`;
 
 const SOCIAL_URLS = [LINKEDIN_SHARE_URL, TWITTER_SHARE_URL, FACEBOOK_SHARE_URL];
+const STATCOUNTER_URL = 'https://www.statcounter.com/counter/counter.js';
 
 describe('Sample Article Page', () => {
     it('should have a descriptive header', () => {
@@ -94,17 +105,18 @@ describe('Sample Article Page', () => {
         cy.title().should('eq', ARTICLE_TITLE).end();
 
         // Check og tags
-        cy.checkMetaContentProperty('property="og:type"', 'article');
+        cy.checkMetaContentProperty('property="og:type"', 'text');
         cy.checkMetaContentProperty('property="og:title"', ARTICLE_TITLE);
         cy.checkMetaContentProperty(
             'property="og:url"',
-            // This would match the PROD_ARTICLE_URL but it has http and not https
-            OG_URL
+            'http://developer-test.mongodb.com/article/3-things-to-know-switch-from-sql-mongodb'
         );
+        // An og:description exists, so we should populate the tag with it
         cy.checkMetaContentProperty(
             'property="og:description"',
-            ARTICLE_DESCRIPTION
+            OG_DESCRIPTION
         );
+        cy.checkMetaContentProperty('name="description"', ARTICLE_DESCRIPTION);
         cy.checkMetaContentProperty('property="og:image"', OG_IMAGE);
 
         // Check Twitter tags
@@ -113,12 +125,46 @@ describe('Sample Article Page', () => {
             '@Lauren_Schaefer'
         );
         cy.checkMetaContentProperty('name="twitter:card"', 'summary');
-        cy.checkMetaContentProperty('name="twitter:site"', '@mongodb');
+        cy.checkMetaContentProperty(
+            'name="twitter:site"',
+            '@test-twitter-site'
+        );
         cy.checkMetaContentProperty('property="twitter:title"', ARTICLE_TITLE);
         cy.checkMetaContentProperty(
             'property="twitter:description"',
             ARTICLE_DESCRIPTION
         );
         cy.checkMetaContentProperty('name="twitter:image"', TWITTER_IMAGE);
+    });
+
+    it('should contain the statcounter script tag', () => {
+        cy.checkScriptExists(`src="${STATCOUNTER_URL}"`);
+    });
+
+    it('should automatically populate the og description tag should it not be provided', () => {
+        cy.visit(ARTICLE_WITH_MINIMAL_OG_URL).then(() => {
+            cy.checkMetaContentProperty(
+                'name="description"',
+                ARTICLE_WITHOUT_OG_META_DESCRIPTION
+            );
+            // An og:description exists, so we should populate the tag with it
+            cy.checkMetaContentProperty(
+                'property="og:description"',
+                ARTICLE_WITHOUT_OG_META_DESCRIPTION
+            );
+        });
+    });
+    it('should automatically populate the type tag should it not be provided', () => {
+        cy.visit(ARTICLE_WITH_MINIMAL_OG_URL).then(() => {
+            cy.checkMetaContentProperty(
+                'property="og:url"',
+                PROD_MINIMAL_ARTICLE_URL
+            );
+            cy.checkMetaContentProperty('property="og:type"', DEFAULT_OG_TYPE);
+            cy.checkMetaContentProperty(
+                'name="twitter:site"',
+                DEFAULT_TWITTER_SITE
+            );
+        });
     });
 });

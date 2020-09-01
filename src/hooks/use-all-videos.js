@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 import fetchTwitchVideos from '../utils/fetch-twitch-videos';
 import fetchYoutubeData from '../utils/fetch-youtube-data';
 
-const YT_PLAYLIST = 'PLN3n1USn4xlmyw3ebYuZmGp60mcENitdM';
-
-const useAllVideos = () => {
-    const [videos, setVideos] = useState(null);
+const useAllVideos = allVideos => {
+    const [videos, setVideos] = useState(allVideos);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -13,7 +11,7 @@ const useAllVideos = () => {
         const getVideos = async () => {
             setIsLoading(true);
             try {
-                const youtubeVideos = fetchYoutubeData(YT_PLAYLIST);
+                const youtubeVideos = fetchYoutubeData();
                 const twitchVideos = fetchTwitchVideos();
 
                 const allVideos = await Promise.all([

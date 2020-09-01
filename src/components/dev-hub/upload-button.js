@@ -2,14 +2,14 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Folder from './icons/folder';
 import { P3 } from './text';
-import { colorMap, size } from './theme';
+import { size } from './theme';
 
 const Label = styled('label')`
     input[type='file'] {
         display: none;
     }
     cursor: pointer;
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 const UploadContainer = styled('div')`
     align-items: flex-end;

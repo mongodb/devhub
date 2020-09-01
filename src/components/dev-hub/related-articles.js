@@ -1,15 +1,16 @@
 import React from 'react';
 import dlv from 'dlv';
+import { withPrefix } from 'gatsby';
 import styled from '@emotion/styled';
 import ARTICLE_PLACEHOLDER from '../../images/1x/MDB-and-Node.js.png';
 import Card from './card';
 import { H4 } from './text';
-import { colorMap, screenSize, size } from './theme';
+import { screenSize, size } from './theme';
 
 const MAX_CARD_WIDTH = 270;
 
 const RelatedContainer = styled('div')`
-    background-color: ${colorMap.devBlack};
+    background-color: ${({ theme }) => theme.colorMap.devBlack};
     padding: 30px ${size.medium};
     @media ${screenSize.mediumAndUp} {
         padding: 70px calc(${size.xxlarge} - ${size.medium});
@@ -45,9 +46,13 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
         : relatedArticle.type;
     switch (name) {
         case 'doc':
-            const target = relatedArticle.target;
-            const slug = target && target.slice(1, target.length);
-            const image = relatedArticle.image || ARTICLE_PLACEHOLDER;
+            const slug =
+                relatedArticle.target && relatedArticle.target.slice(1);
+            // 'doc' is for internal articles, so links should be prefixed
+            const target = withPrefix(relatedArticle.target);
+            const image = relatedArticle.image
+                ? withPrefix(relatedArticle.image)
+                : ARTICLE_PLACEHOLDER;
             const title = dlv(slugTitleMapping, [slug, 0, 'value'], '');
             if (title === '') {
                 console.error(
@@ -58,13 +63,17 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
             return { image, target, title };
         case 'literal':
             return {
-                image: ARTICLE_PLACEHOLDER,
+                image: relatedArticle.image
+                    ? withPrefix(relatedArticle.image)
+                    : ARTICLE_PLACEHOLDER,
                 target: null,
                 title: dlv(relatedArticle, ['children', 0, 'value'], ''),
             };
         case 'reference':
             return {
-                image: ARTICLE_PLACEHOLDER,
+                image: relatedArticle.image
+                    ? withPrefix(relatedArticle.image)
+                    : ARTICLE_PLACEHOLDER,
                 target: relatedArticle.refuri,
                 title: dlv(relatedArticle, ['children', 0, 'value'], ''),
             };

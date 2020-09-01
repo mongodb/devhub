@@ -1,18 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`List renders correctly 1`] = `
-<ul
-  class="css-8yefd3-UnorderedList e1ex3t400"
+<ol
+  start="2"
+  type="a"
 >
   <li>
     <div>
-      create a free account on Atlas, MongoDB's managed database solution in the cloud
+      In , click 
+      <span
+        class="guilabel"
+      >
+        Charts
+      </span>
+       in the navigation bar.
     </div>
   </li>
   <li>
     <div>
-      create a free MongoDB
+      If this is the first time you are launching , click
+
+      <span
+        class="guilabel"
+      >
+        Activate MongoDB Charts
+      </span>
+      . This provisions a new
+ instance in the  project.
     </div>
   </li>
-</ul>
+</ol>
 `;

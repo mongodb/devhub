@@ -2,6 +2,7 @@ const { siteUrl } = require('./src/queries/site-url');
 const { generatePathPrefix } = require('./src/utils/generate-path-prefix');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { articleRssFeed } = require('./src/utils/setup/article-rss-feed');
+const { searchRssFeed } = require('./src/utils/setup/search-rss-feed');
 
 const runningEnv = process.env.NODE_ENV || 'production';
 
@@ -40,9 +41,10 @@ module.exports = {
             resolve: 'gatsby-plugin-feed',
             options: {
                 query: siteUrl,
-                feeds: [articleRssFeed],
+                feeds: [articleRssFeed, searchRssFeed],
             },
         },
+        'gatsby-plugin-meta-redirect', // this must be last
     ],
     siteMetadata: {
         ...metadata,

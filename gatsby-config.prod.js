@@ -1,6 +1,7 @@
 const { siteUrl } = require('./src/queries/site-url');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { articleRssFeed } = require('./src/utils/setup/article-rss-feed');
+const { searchRssFeed } = require('./src/utils/setup/search-rss-feed');
 
 require('dotenv').config({
     path: '.env.production',
@@ -37,9 +38,10 @@ module.exports = {
             resolve: 'gatsby-plugin-feed',
             options: {
                 query: siteUrl,
-                feeds: [articleRssFeed],
+                feeds: [articleRssFeed, searchRssFeed],
             },
         },
+        `gatsby-plugin-meta-redirect`, // this must be last
     ],
     siteMetadata: {
         ...metadata,

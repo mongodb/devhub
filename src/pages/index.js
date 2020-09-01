@@ -6,15 +6,11 @@ import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
 import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
-import {
-    colorMap,
-    gradientMap,
-    screenSize,
-    size,
-} from '../components/dev-hub/theme';
+import { screenSize, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import buildImage from '../images/2x/Build@2x.png';
 import meetupsImage from '../images/1x/Meetups.png';
+import academiaImage from '../images/1x/Academia.svg';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
@@ -24,6 +20,7 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
 import VideoModal from '../components/dev-hub/video-modal';
+import { useTheme } from 'emotion-theming';
 
 const MEDIA_WIDTH = '550';
 
@@ -32,7 +29,7 @@ const BackgroundImage = styled('div')`
     background-size: cover;
 `;
 const Hero = styled('header')`
-    color: ${colorMap.devWhite};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     padding: ${size.xlarge} ${size.large};
     @media ${screenSize.upToMedium} {
         padding: ${size.large} ${size.medium};
@@ -69,8 +66,8 @@ const StyledTopCard = styled(Card)`
 `;
 
 const FeatureSection = styled('section')`
-    ${({ altBackground }) =>
-        altBackground && `background-color: ${colorMap.devBlack};`};
+    ${({ altBackground, theme }) =>
+        altBackground && `background-color: ${theme.colorMap.devBlack};`};
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.medium};
         padding: 0;
@@ -89,23 +86,20 @@ const SectionContent = styled('div')`
     }
 `;
 const DescriptiveText = styled(P)`
-    color: ${colorMap.greyLightTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     margin-bottom: ${size.medium};
 `;
 
-export default ({ pageContext: { featuredArticles } }) => {
-    const { stream, videos } = useTwitchApi();
-    const { title } = useSiteMetadata();
-    const twitchVideo = useMemo(() => {
-        if (stream) return stream;
-        if (videos && videos.length) return videos[0];
-        return null;
-    }, [stream, videos]);
-
+const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
+    const theme = useTheme();
     return (
-        <Layout>
+        <>
             <Helmet>
                 <title>{title}</title>
+                <meta
+                    name="description"
+                    content="Code, content, tutorials, programs and community to enable developers of all skill levels on the MongoDB Data Platform which includes Atlas, Realm, Compass, Data Lake and more. Whether you're coding in Java, JavaScript, C#, Python, Node, Go or looking for how this fits with IOT, AI, ML - join or follow us here."
+                />
             </Helmet>
             <BackgroundImage>
                 {stream && (
@@ -152,6 +146,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                                         twitchVideo.thumbnailUrl
                                     )}
                                     maxWidth={MEDIA_WIDTH}
+                                    title={twitchVideo.title}
                                     videoModalThumbnail={getTwitchThumbnail(
                                         twitchVideo.thumbnailUrl,
                                         1200
@@ -166,7 +161,9 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={gradientMap.tealVioletPurple}
+                                    gradient={
+                                        theme.gradientMap.tealVioletPurple
+                                    }
                                 >
                                     Live Coding on Our Twitch Channel
                                 </GradientUnderline>
@@ -203,7 +200,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={gradientMap.greenTeal}
+                                    gradient={theme.gradientMap.greenTeal}
                                 >
                                     Events
                                 </GradientUnderline>
@@ -225,6 +222,38 @@ export default ({ pageContext: { featuredArticles } }) => {
                     <MediaBlock
                         mediaComponent={
                             <Card
+                                image={academiaImage}
+                                maxWidth={MEDIA_WIDTH}
+                            ></Card>
+                        }
+                    >
+                        <SectionContent>
+                            <H2>
+                                <GradientUnderline
+                                    gradient={
+                                        theme.gradientMap.magentaSalmonSherbet
+                                    }
+                                >
+                                    MongoDB for Academia
+                                </GradientUnderline>
+                            </H2>
+                            <DescriptiveText>
+                                MongoDB for Academia gives educators hands-on
+                                learning experiences to inspire, teach and learn
+                                with MongoDB.
+                            </DescriptiveText>
+                            <div>
+                                <Button to="/academia/educators/" secondary>
+                                    Learn more
+                                </Button>
+                            </div>
+                        </SectionContent>
+                    </MediaBlock>
+                </FeatureSection>
+                <FeatureSection>
+                    <MediaBlock
+                        mediaComponent={
+                            <Card
                                 image={buildImage}
                                 maxWidth={MEDIA_WIDTH}
                             ></Card>
@@ -233,7 +262,9 @@ export default ({ pageContext: { featuredArticles } }) => {
                         <SectionContent>
                             <H2>
                                 <GradientUnderline
-                                    gradient={gradientMap.magentaSalmonSherbet}
+                                    gradient={
+                                        theme.gradientMap.magentaSalmonSherbet
+                                    }
                                 >
                                     Show Your Stuff
                                 </GradientUnderline>
@@ -252,6 +283,26 @@ export default ({ pageContext: { featuredArticles } }) => {
                     </MediaBlock>
                 </FeatureSection>
             </BackgroundImage>
+        </>
+    );
+};
+
+export default ({ pageContext: { featuredArticles } }) => {
+    const { stream, videos } = useTwitchApi();
+    const { title } = useSiteMetadata();
+    const twitchVideo = useMemo(() => {
+        if (stream) return stream;
+        if (videos && videos.length) return videos[0];
+        return null;
+    }, [stream, videos]);
+    return (
+        <Layout>
+            <IndexPageContent
+                stream={stream}
+                title={title}
+                twitchVideo={twitchVideo}
+                featuredArticles={featuredArticles}
+            />
         </Layout>
     );
 };

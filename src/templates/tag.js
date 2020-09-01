@@ -12,19 +12,14 @@ import CardList from '../components/dev-hub/card-list';
 import HeroBanner from '../components/dev-hub/hero-banner';
 import Layout from '../components/dev-hub/layout';
 import { H2, H3, P, P3 } from '../components/dev-hub/text';
-import {
-    screenSize,
-    size,
-    colorMap,
-    fontSize,
-} from '../components/dev-hub/theme';
+import { screenSize, size, fontSize } from '../components/dev-hub/theme';
 
 const toTitleCase = css`
     text-transform: capitalize;
 `;
 
 const SubHead = styled(P3)`
-    color: ${colorMap.greyLightThree};
+    color: ${({ theme }) => theme.colorMap.greyLightThree};
     letter-spacing: 1px;
     line-height: 1;
     text-transform: uppercase;
@@ -32,7 +27,7 @@ const SubHead = styled(P3)`
 
 const AuthorName = styled('div')`
     ${P3} {
-        color: ${colorMap.greyLightThree};
+        color: ${({ theme }) => theme.colorMap.greyLightThree};
     }
 
     ${H2} {

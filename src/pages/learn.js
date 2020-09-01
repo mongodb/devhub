@@ -6,12 +6,16 @@ import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
 import Card from '../components/dev-hub/card';
 import CardList from '../components/dev-hub/card-list';
+import EmptyTextFilterResults from '../components/dev-hub/empty-text-filter-results';
 import FilterBar from '../components/dev-hub/filter-bar';
-import { colorMap, screenSize, size } from '../components/dev-hub/theme';
+import { screenSize, size } from '../components/dev-hub/theme';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
+import useAllVideos from '../hooks/use-all-videos';
+import usePodcasts from '../hooks/use-podcasts';
+import Tab from '../components/dev-hub/tab';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
@@ -33,7 +37,7 @@ const MainFeatureGrid = styled('div')`
 const PrimarySection = styled('div')`
     grid-area: primary;
     @media ${screenSize.mediumAndUp} {
-        border-right: 1px solid ${colorMap.greyDarkTwo};
+        border-right: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
         padding-right: ${size.medium};
     }
 `;
@@ -51,7 +55,7 @@ const LastArticle = styled(Card)`
 `;
 
 const Header = styled('header')`
-    background: ${colorMap.devBlack};
+    background: ${({ theme }) => theme.colorMap.devBlack};
     margin-bottom: ${size.xlarge};
     padding: ${size.xlarge} ${size.medium};
     @media ${screenSize.upToLarge} {
@@ -70,7 +74,12 @@ const Article = styled('article')`
 `;
 
 const StyledFilterBar = styled(FilterBar)`
-    padding-bottom: ${size.medium};
+    margin: 0 ${size.large};
+    padding-bottom: ${size.large};
+`;
+
+const TabBar = styled(Tab)`
+    margin: 0 ${size.large};
 `;
 
 const parseArticles = arr =>
@@ -134,8 +143,9 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
 const FeaturedArticles = ({ articles }) => {
     if (articles.length < 3) {
         console.error(
-            `Expected three articles for featured section, got ${articles &&
-                articles.length}`
+            `Expected three articles for featured section, got ${
+                articles && articles.length
+            }`
         );
         return null;
     }
@@ -174,13 +184,20 @@ const FeaturedArticles = ({ articles }) => {
 
 export default ({
     location,
-    pageContext: { allArticles, featuredArticles, filters },
+    pageContext: {
+        allArticles,
+        allPodcasts,
+        allVideos,
+        featuredArticles,
+        filters,
+    },
 }) => {
     const metadata = useSiteMetadata();
     const initialArticles = useMemo(() => parseArticles(allArticles), [
         allArticles,
     ]);
     const [articles, setArticles] = useState(initialArticles);
+    const [textFilterResults, setTextFilterResults] = useState(null);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
     const filterActiveArticles = useCallback(
@@ -200,6 +217,42 @@ export default ({
         setArticles(filteredArticles);
     }, [metadata, filterValue, pathname, filterActiveArticles]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
+    // filterValue could be {} on a page load, or values can be "all" if toggled back
+    const hasNoFilter = useMemo(
+        () =>
+            (!filterValue.languages || filterValue.languages === 'all') &&
+            (!filterValue.products || filterValue.products === 'all'),
+        [filterValue]
+    );
+
+    const { videos } = useAllVideos(allVideos);
+
+    const { podcasts } = usePodcasts(allPodcasts);
+
+    const [activeItem, setActiveItem] = useState('All');
+
+    const leftTabs = ['All'];
+    const rightTabs = ['Articles', 'Videos', 'Podcasts'];
+
+    const ActiveCardList = () => {
+        switch (activeItem) {
+            case 'Articles':
+                return <CardList articles={articles} />;
+            case 'Videos':
+                return <CardList videos={videos} />;
+            case 'Podcasts':
+                return <CardList podcasts={podcasts} />;
+            default:
+                return (
+                    <CardList
+                        articles={articles}
+                        videos={hasNoFilter ? videos : []}
+                        podcasts={hasNoFilter ? podcasts : []}
+                    />
+                );
+        }
+    };
+
     return (
         <Layout>
             <Helmet>
@@ -211,13 +264,33 @@ export default ({
                     <FeaturedArticles articles={featuredArticles} />
                 </HeaderContent>
             </Header>
+
+            <TabBar
+                handleClick={setActiveItem}
+                leftTabs={leftTabs}
+                rightTabs={rightTabs}
+                activeItem={activeItem}
+            />
+
             <Article>
-                <StyledFilterBar
-                    filters={filters}
-                    filterValue={filterValue}
-                    setFilterValue={updateFilter}
-                />
-                <CardList articles={articles} />
+                {(activeItem === 'All' || activeItem === 'Articles') && (
+                    <StyledFilterBar
+                        filters={filters}
+                        filterValue={filterValue}
+                        setFilterValue={updateFilter}
+                        setTextFilterResults={setTextFilterResults}
+                    />
+                )}
+
+                {textFilterResults ? (
+                    textFilterResults.length ? (
+                        <CardList articles={textFilterResults} />
+                    ) : (
+                        <EmptyTextFilterResults />
+                    )
+                ) : (
+                    <ActiveCardList />
+                )}
             </Article>
         </Layout>
     );

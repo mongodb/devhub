@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Modal from './modal';
 import styled from '@emotion/styled';
-import { colorMap, size } from './theme';
-import { H3, H5, P } from './text';
+import { size } from './theme';
+import { H5, P } from './text';
 import Input from './input';
 import Button from './button';
 import TextArea from './text-area';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import useSegmentData from '../../hooks/use-segment-data';
-import { authenticate, callStitchFunction } from '../../utils/stitch';
-import SuccessIcon from './icons/success';
+import { submitDevhubProject } from '../../utils/snooty-stitch';
+import SuccessState from './success-state';
 
 const ModalContainer = styled('div')`
     padding: 0 ${size.default};
@@ -26,23 +26,12 @@ const Title = styled(H5)`
 const StyledInput = styled(Input)`
     margin-bottom: ${size.large};
 `;
-const SuccessContainer = styled('div')`
-    text-align: center;
-    svg {
-        margin-bottom: ${size.large};
-    }
-`;
 const ErrorMessage = styled(P)`
-    color: ${colorMap.salmon};
+    color: ${({ theme }) => theme.colorMap.salmon};
 `;
 const callStitch = async (metadata, object, segmentData, callback) => {
     try {
-        const res = await callStitchFunction(
-            'submitDevhubProject',
-            metadata,
-            object,
-            segmentData
-        );
+        const res = await submitDevhubProject(metadata, object, segmentData);
         res && callback(true);
     } catch {
         callback(false);
@@ -64,7 +53,6 @@ const Form = React.memo(({ setSuccess, success }) => {
             email,
             projectDescription,
         };
-        await authenticate();
         const callback = hasSuccess => {
             setSuccess(hasSuccess);
             setCanSubmit(!hasSuccess);
@@ -79,20 +67,36 @@ const Form = React.memo(({ setSuccess, success }) => {
             </ErrorMessage>
             <StyledInput
                 value={name}
+                maxLength="50"
                 required
                 placeholder="Name"
+                pattern="^[A-Za-zÀ-ÿ ,.'-]+$"
                 onChange={e => setName(e.target.value)}
+                onInput={e => e.target.setCustomValidity('')}
+                onInvalid={e =>
+                    e.target.setCustomValidity(
+                        'Names should only contain letters. e.g. John Doe'
+                    )
+                }
             />
             <StyledInput
+                type="email"
                 value={email}
                 required
                 placeholder="Email Address"
                 onChange={e => setEmail(e.target.value)}
+                onInput={e => e.target.setCustomValidity('')}
+                onInvalid={e =>
+                    e.target.setCustomValidity(
+                        'Please enter a valid email address. e.g. example@email.com'
+                    )
+                }
             />
             <TextArea
                 value={projectDescription}
+                maxLength="250"
                 required
-                placeholder="Project Description"
+                placeholder="Project Description (250 characters)"
                 onChange={e => setProjectDescription(e.target.value)}
             />
             <SubmitContainer>
@@ -104,17 +108,10 @@ const Form = React.memo(({ setSuccess, success }) => {
     );
 });
 
-const SuccessState = () => (
-    <SuccessContainer>
-        <SuccessIcon />
-        <H3>Thank you for sharing!</H3>
-    </SuccessContainer>
-);
-
 const ModalContent = () => {
     const [success, setSuccess] = useState(null);
     if (success) {
-        return <SuccessState />;
+        return <SuccessState>Thank you for sharing!</SuccessState>;
     }
     return (
         <>
