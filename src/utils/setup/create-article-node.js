@@ -18,8 +18,11 @@ export const createArticleNode = (
     slugContentMapping[slug] = doc;
     if (isArticlePage) {
         const content = {
+            atfimage: doc.query_fields['atf-image'],
             authors: doc.query_fields['author'],
             description: getNestedText(doc.query_fields['meta-description']),
+            languages: doc.query_fields['languages'],
+            products: doc.query_fields['products'],
             pubdate: doc.query_fields['pubdate'],
             tags: doc.query_fields['tags'],
             title: getNestedText(doc.query_fields['title']),
