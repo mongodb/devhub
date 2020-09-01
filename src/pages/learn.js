@@ -281,6 +281,7 @@ export default ({
                         filterValue={filterValue}
                         setFilterValue={updateFilter}
                         setTextFilterQuery={setTextFilterQuery}
+                        textFilterQuery={textFilterQuery}
                     />
                 )}
 

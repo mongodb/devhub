@@ -2,25 +2,28 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Icon from '@leafygreen-ui/icon';
 import Input from './input';
-import { screenSize } from './theme';
+import { screenSize, size } from './theme';
+
+const MAGNIFYING_GLASS_PADDING = '48px';
+const MAX_WIDTH = '350px';
 
 const InputWithLeftPadding = styled(Input)`
-    padding-left: 48px;
+    padding-left: ${MAGNIFYING_GLASS_PADDING};
 `;
 
 const StyledIcon = styled(Icon)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
     position: absolute;
-    left: 16px;
+    left: ${size.default};
     top: 12px;
 `;
 
 const TextFilterInputContainer = styled('div')`
-    max-width: 350px;
+    max-width: ${MAX_WIDTH};
     position: relative;
     width: 100%;
     @media ${screenSize.upToMedium} {
-        margin-bottom: 16px;
+        margin-bottom: ${size.default};
         max-width: none;
     }
 `;

@@ -62,6 +62,7 @@ export default React.memo(
         filterValue,
         setFilterValue,
         setTextFilterQuery,
+        textFilterQuery,
         ...props
     }) => {
         const initialLanguages = useMemo(
@@ -74,7 +75,6 @@ export default React.memo(
         );
         const [languages, setLanguages] = useState(initialLanguages);
         const [products, setProducts] = useState(initialProducts);
-        const [textFilterValue, setTextFilterValue] = useState(null);
         const hasProductFilter = useMemo(
             () => filterValue.products && filterValue.products !== 'all',
             [filterValue.products]
@@ -130,7 +130,6 @@ export default React.memo(
         };
         const onTextFilterChange = useCallback(
             e => {
-                setTextFilterValue(e.target.value);
                 setTextFilterQuery(e.target.value);
             },
             [setTextFilterQuery]
@@ -140,7 +139,7 @@ export default React.memo(
                 <TextFilterInput
                     placeholder="Search Articles"
                     onChange={onTextFilterChange}
-                    value={textFilterValue}
+                    value={textFilterQuery}
                 />
                 <ResponsiveFlexContainer>
                     <FilterLabel>Filter By</FilterLabel>
