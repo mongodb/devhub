@@ -46,7 +46,12 @@ export const sourceNodes = async ({
     // wait to connect to stitch
     stitchClient = await initStitch();
 
-    const query = constructDbFilter(PAGE_ID_PREFIX);
+    const query = constructDbFilter(
+        PAGE_ID_PREFIX,
+        metadata.commitHash,
+        metadata.patchId
+    );
+
     const documents = await stitchClient.callFunction('fetchDocuments', [
         DB,
         DOCUMENTS_COLLECTION,
@@ -88,12 +93,16 @@ const filteredPageGroups = allSeries => {
 
 export const createPages = async ({ actions, graphql }) => {
     const { createPage, createRedirect } = actions;
-    const [, metadata, result] = await Promise.all([
+    const [, metadataDocument, result] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
         stitchClient.callFunction('fetchDocument', [
             DB,
             METADATA_COLLECTION,
-            constructDbFilter(PAGE_ID_PREFIX),
+            constructDbFilter(
+                PAGE_ID_PREFIX,
+                metadata.commitHash,
+                metadata.patchId
+            ),
         ]),
         graphql(articles),
     ]);
@@ -108,14 +117,14 @@ export const createPages = async ({ actions, graphql }) => {
         redirectInBrowser: true,
     });
 
-    const allSeries = filteredPageGroups(metadata.pageGroups);
+    const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
     result.data.allArticle.nodes.forEach(article => {
         createArticlePage(
             article.slug,
             slugContentMapping,
             allSeries,
-            metadata,
+            metadataDocument,
             createPage
         );
     });
@@ -125,7 +134,7 @@ export const createPages = async ({ actions, graphql }) => {
         createTagPageType(
             type,
             createPage,
-            metadata,
+            metadataDocument,
             slugContentMapping,
             stitchClient
         )
