@@ -1,5 +1,5 @@
 import useFetch from '../../src/hooks/use-fetch';
-import { cleanup, renderHook } from '@testing-library/react-hooks';
+import { act, cleanup, renderHook } from '@testing-library/react-hooks';
 
 const sampleSuccess = {
     someResult:
@@ -31,8 +31,8 @@ describe('Use Fetch', () => {
             useFetch('/url')
         );
         await waitForNextUpdate();
-        const { data, error } = result.current;
-        expect(data).toEqual(sampleSuccess);
+        const { error, response } = result.current;
+        expect(response.json()).toEqual(sampleSuccess);
         expect(error).toEqual(null);
         cleanup();
     });
@@ -45,8 +45,8 @@ describe('Use Fetch', () => {
             useFetch('/url')
         );
         await waitForNextUpdate();
-        const { data, error } = result.current;
-        expect(data).toEqual(null);
+        const { error, response } = result.current;
+        expect(response).toEqual(null);
         expect(console.warn).toHaveBeenCalledTimes(1);
         expect(error).not.toBeNull();
         console.warn = warn;
@@ -58,12 +58,10 @@ describe('Use Fetch', () => {
         jest.useFakeTimers();
         window.fetch.mockReturnValue(mockSuccessApi);
         let url = '/url';
-        const { result, rerender, waitForNextUpdate } = renderHook(() =>
-            useFetch(url, 1000)
-        );
+        const { result, rerender } = renderHook(() => useFetch(url, 1000));
         expect(window.fetch).toHaveBeenCalledTimes(0);
-        let { data, error } = result.current;
-        expect(data).toEqual(null);
+        let { error, response } = result.current;
+        expect(response).toEqual(null);
         expect(error).toEqual(null);
         // Update the hook 10 additional times before running timers,
         // only one call should occur (last one)
@@ -71,12 +69,13 @@ describe('Use Fetch', () => {
             url = `/url${i}`;
             rerender();
         }
-        await jest.runAllTimers();
-        await waitForNextUpdate();
+        await act(async () => {
+            await jest.runAllTimers();
+        });
         expect(window.fetch).toHaveBeenCalledTimes(1);
         expect(window.fetch).toHaveBeenCalledWith(url);
-        let { data: updatedData, error: updatedError } = result.current;
-        expect(updatedData).toEqual(sampleSuccess);
+        let { response: updatedResponse, error: updatedError } = result.current;
+        expect(updatedResponse.json()).toEqual(sampleSuccess);
         expect(updatedError).toEqual(null);
         cleanup();
     });

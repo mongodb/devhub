@@ -9,11 +9,12 @@ const getErrorMessage = (response, method) =>
 
 /**
  * Hook with option to debounce to fetch JSON data (GET requests)
+ * Returns an erorr message if one, and a Response if successful
  * @param {*} url The url to fetch from
  * @param {*} debounceTime (Optional) if provided, will debounce the fetch based on this number of ms
  */
 function useFetch(url, debounceTime) {
-    const [data, setData] = useState(null);
+    const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
     const [fetchEvent, setFetchEvent] = useState(null);
     const fetchData = async () => {
@@ -22,13 +23,10 @@ function useFetch(url, debounceTime) {
             const errorMessage = getErrorMessage(resp, 'GET');
             console.warn(errorMessage);
             setError(errorMessage);
-            setData(null);
+            setResponse(null);
         } else {
-            const jsonData = await resp.json();
-            if (jsonData) {
-                setError(null);
-                setData(jsonData);
-            }
+            setError(null);
+            setResponse(resp);
         }
     };
     useEffect(() => {
@@ -48,7 +46,7 @@ function useFetch(url, debounceTime) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debounceTime, url]);
 
-    return { data, error };
+    return { error, response };
 }
 
 export default useFetch;
