@@ -1,0 +1,148 @@
+[
+    {
+        "_id": {
+            "$oid": "5f4dda9c03c0274ede72fcbf"
+        },
+        "title": [
+            {
+                "type": "text",
+                "value": "Java - Change Streams"
+            }
+        ],
+        "description": "Learn how to use the Change Streams using the MongoDB Java Driver.",
+        "link": "https://developer.mongodb.com/quickstart/java-change-streams",
+        "type": "quickstart",
+        "author_names": ["Maxime Beugnet"],
+        "score": {
+            "$numberDouble": "3.4233973026275635"
+        },
+        "meta-description": [
+            {
+                "type": "text",
+                "value": "Learn how to use the Change Streams using the MongoDB Java Driver."
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "5f4dda9d03c0274ede72fcc7"
+        },
+        "title": [
+            {
+                "type": "text",
+                "value": "Java - Aggregation Pipeline"
+            }
+        ],
+        "description": "Learn how to use the Aggregation Pipeline using the MongoDB Java Driver.",
+        "link": "https://developer.mongodb.com/quickstart/java-aggregation-pipeline",
+        "type": "quickstart",
+        "author_names": ["Maxime Beugnet"],
+        "score": {
+            "$numberDouble": "3.4233973026275635"
+        },
+        "meta-description": [
+            {
+                "type": "text",
+                "value": "Learn how to use the Aggregation Pipeline using the MongoDB Java Driver."
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "5f4dda9d03c0274ede72fcc8"
+        },
+        "title": [
+            {
+                "type": "text",
+                "value": "Java - Mapping POJOs"
+            }
+        ],
+        "description": "Learn how to use the native mapping of POJOs using the MongoDB Java Driver.",
+        "link": "https://developer.mongodb.com/quickstart/java-mapping-pojos",
+        "type": "quickstart",
+        "author_names": ["Maxime Beugnet"],
+        "score": {
+            "$numberDouble": "3.3391005992889404"
+        },
+        "meta-description": [
+            {
+                "type": "text",
+                "value": "Learn how to use the native mapping of POJOs using the MongoDB Java Driver."
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "5f4dda9c03c0274ede72fcbe"
+        },
+        "title": [
+            {
+                "type": "text",
+                "value": "MongoDB & Java - CRUD Operations Tutorial"
+            }
+        ],
+        "description": "Learn how to use MongoDB with Java in this tutorial on CRUD operations with example code and walkthrough.",
+        "link": "https://developer.mongodb.com/quickstart/java-setup-crud-operations",
+        "type": "quickstart",
+        "author_names": ["Maxime Beugnet"],
+        "score": {
+            "$numberDouble": "2.9643123149871826"
+        },
+        "meta-description": [
+            {
+                "type": "text",
+                "value": "Learn how to use MongoDB with Java in this tutorial on CRUD operations with example code and walkthrough."
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "5f4dda9f03c0274ede72fce0"
+        },
+        "title": [
+            {
+                "type": "text",
+                "value": "Active-Active Application Architectures with MongoDB"
+            }
+        ],
+        "description": "This post will begin by describing the database capabilities required by modern multi-data center applications.",
+        "link": "https://developer.mongodb.com/article/active-active-application-architectures",
+        "type": "article",
+        "author_names": ["Jay Runkel"],
+        "tags": ["Technical"],
+        "score": {
+            "$numberDouble": "0.6058365106582642"
+        },
+        "meta-description": [
+            {
+                "type": "text",
+                "value": "This post will begin by describing the database capabilities required by modern multi-data center applications."
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "5f4dda9f03c0274ede72fce1"
+        },
+        "title": [
+            {
+                "type": "text",
+                "value": "CIDR Subnet Selection for MongoDB Atlas"
+            }
+        ],
+        "description": "VPC peering provides you with the ability to use the private IP range of your hosts and MongoDB Atlas cluster.",
+        "link": "https://developer.mongodb.com/how-to/cidr-subnet-selection-atlas",
+        "type": "how-to",
+        "author_names": ["Jay Gordon"],
+        "tags": ["Security", "Cloud"],
+        "score": {
+            "$numberDouble": "0.6058365106582642"
+        },
+        "meta-description": [
+            {
+                "type": "text",
+                "value": "VPC peering provides you with the ability to use the private IP range of your hosts and MongoDB Atlas cluster."
+            }
+        ]
+    }
+]

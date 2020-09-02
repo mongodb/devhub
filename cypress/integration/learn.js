@@ -1,5 +1,10 @@
+import { AnonymousCredential, Stitch } from 'mongodb-stitch-browser-sdk';
+
 describe('Learn Page', () => {
     it('should properly render the learn page', () => {
+        cy.stub(Stitch, 'initializeAppClient').returns({
+            callFunction: 'foo',
+        });
         cy.visit('/learn');
         // Make sure something renders on the page
         cy.contains('Make better, faster applications');
@@ -61,12 +66,17 @@ describe('Learn Page', () => {
         cy.checkFirstCardInCardList('How to work with Johns Hopkins');
     });
     it('should filter content using the text filter', () => {
+        // Check empty state
+        cy.mockTextFilterResponse();
+        cy.get('[data-test="filter-bar"]').within(() => {
+            cy.get('input').type('java');
+        });
+        cy.wait('@filterJavaArticles');
         // Stub stitch
         // type something
         // Check response article matches with appropriate fields
-        // Check empty state
     });
-    it('should play a podcast', () => {
+    xit('should play a podcast', () => {
         // Find podcast
         // Click
         // Check footer w/ times

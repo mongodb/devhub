@@ -70,6 +70,16 @@ Cypress.Commands.add('mockEventsApi', () => {
     cy.route('**/api/event?status=Live', '@liveEventData').as('getLiveEvents');
 });
 
+Cypress.Commands.add('mockTextFilterResponse', () => {
+    cy.fixture('javaTextFilterResponse.json').as('javaTextFilterResponse');
+    cy.server();
+    cy.route({
+        method: 'POST',
+        url: '**/api/client/v2.0/app/devhubauthentication-lidpq/functions/call',
+        response: '@javaTextFilterResponse',
+    }).as('filterJavaArticles');
+});
+
 Cypress.Commands.add('toggleLearnPageTab', tabName => {
     cy.get('[data-test="tabs"]').within(() => {
         cy.contains(tabName).click();
