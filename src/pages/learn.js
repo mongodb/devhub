@@ -233,6 +233,15 @@ export default ({
 
     const [activeItem, setActiveItem] = useState('All');
 
+    // If the user is on a tab not supporting the text filter, ignore the filter
+    const showTextFilterResults = useMemo(
+        () =>
+            (activeItem === 'All' || activeItem === 'Articles') &&
+            textFilterQuery &&
+            textFilterResults,
+        [activeItem, textFilterQuery, textFilterResults]
+    );
+
     const leftTabs = ['All'];
     const rightTabs = ['Articles', 'Videos', 'Podcasts'];
 
@@ -285,7 +294,7 @@ export default ({
                     />
                 )}
 
-                {textFilterQuery && textFilterResults ? (
+                {showTextFilterResults ? (
                     textFilterResults.length ? (
                         <CardList articles={textFilterResults} />
                     ) : (
