@@ -135,7 +135,7 @@ export default React.memo(
             [setTextFilterQuery]
         );
         return (
-            <FilterBar {...props}>
+            <FilterBar data-test="filter-bar" {...props}>
                 <TextFilterInput
                     placeholder="Search Articles"
                     onChange={onTextFilterChange}

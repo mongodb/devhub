@@ -106,6 +106,7 @@ const Card = ({
     video,
     videoModalThumbnail,
     maxWidth = 410 /* 360px + padding + hand wavey amount */,
+    ...props
 }) => {
     const isLink = !!(to || href);
     const ContentWrapper = isLink ? Wrapper.withComponent(Link) : Wrapper;
@@ -125,6 +126,7 @@ const Card = ({
             maxwidth={maxWidth}
             isclickable={isClickable}
             className={className}
+            {...props}
         >
             <div>
                 {!collapseImage && (

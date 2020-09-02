@@ -118,7 +118,7 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
 
     return (
         <>
-            <CardContainer>
+            <CardContainer data-test="card-list">
                 {fullContentList
                     .slice(0, visibleCards)
                     .map(contentType =>

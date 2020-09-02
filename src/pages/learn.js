@@ -129,6 +129,7 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
         );
         return (
             <Wrapper
+                data-test="secondary-featured-article"
                 collapseImage
                 to={slug}
                 title={title}

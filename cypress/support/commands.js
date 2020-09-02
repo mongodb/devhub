@@ -27,6 +27,17 @@ Cypress.Commands.add('checkArticleCard', card => {
     });
 });
 
+Cypress.Commands.add('checkFirstCardInCardList', contains => {
+    cy.get('[data-test="card-list"]').within(() => {
+        cy.get('[data-test="card"]')
+            .first()
+            .within(card => {
+                cy.checkArticleCard(card);
+                cy.contains(contains);
+            });
+    });
+});
+
 // Check featured article cards on learn page with no images
 Cypress.Commands.add('checkSecondaryFeaturedArticleCard', card => {
     cy.get(card).within(() => {
@@ -57,6 +68,12 @@ Cypress.Commands.add('mockEventsApi', () => {
         '@eventData'
     ).as('getEvents');
     cy.route('**/api/event?status=Live', '@liveEventData').as('getLiveEvents');
+});
+
+Cypress.Commands.add('toggleLearnPageTab', tabName => {
+    cy.get('[data-test="tabs"]').within(() => {
+        cy.contains(tabName).click();
+    });
 });
 
 // To stub requests with Cypress, we must remove fetch from the browser so
