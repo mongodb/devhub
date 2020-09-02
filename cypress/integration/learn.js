@@ -6,11 +6,22 @@ describe('Learn Page', () => {
     });
     it('should properly render some featured articles', () => {
         // Check main featured article
-        // Should include title, description, tags, image, link
+        cy.get('[data-test="featured-articles"]').within(c => {
+            cy.get('[data-test="primary-featured-article"]').within(c =>
+                cy.checkArticleCard(c)
+            );
+            // Should include title, description, tags, image, link
+            // cy.checkArticleCard(c);
+        });
         // Check secondary featured articles
-        // Should include title, description, tags, link
+        cy.get('SecondaryFeaturedArticle').each(c =>
+            cy.checkSecondaryFeaturedArticleCard(c)
+        );
     });
     it('should filter content based on the selected tab', () => {
+        cy.get('[data-test="tabs"]').within(() => {
+            cy.contains('Articles').click();
+        });
         // Check content in "All"
         // Check content in "Articles"
         // Check content in "Videos"

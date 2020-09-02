@@ -155,8 +155,8 @@ const FeaturedArticles = ({ articles }) => {
         articles[0]
     );
     return (
-        <MainFeatureGrid>
-            <PrimarySection>
+        <MainFeatureGrid data-test="featured-articles">
+            <PrimarySection data-test="primary-featured-article">
                 <MediaBlock
                     mediaComponent={<PrimaryImage src={image} alt="" />}
                     mediaWidth={360}

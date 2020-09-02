@@ -27,6 +27,18 @@ Cypress.Commands.add('checkArticleCard', card => {
     });
 });
 
+// Check featured article cards on learn page with no images
+Cypress.Commands.add('checkSecondaryFeaturedArticleCard', card => {
+    cy.get(card).within(() => {
+        // Title
+        cy.get('h5').should('not.be.empty');
+        // Description
+        cy.get('p').should('not.be.empty');
+        // Tags
+        cy.checkTagListProperties();
+    });
+});
+
 Cypress.Commands.add('checkMetaContentProperty', (query, value) => {
     cy.get(`head meta[${query}]`).should('have.prop', 'content', value);
 });

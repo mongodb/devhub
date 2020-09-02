@@ -63,7 +63,7 @@ export default ({
     leftTabs,
     rightTabs,
 }) => (
-    <Tab className={className}>
+    <Tab data-test="tabs" className={className}>
         <div>{mapTabTextToButton(leftTabs, activeItem, handleClick)}</div>
         <div>{mapTabTextToButton(rightTabs, activeItem, handleClick)}</div>
     </Tab>
