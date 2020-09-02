@@ -5,8 +5,11 @@ const searchArticleRSSData = `
               authors {
                 name
               }
+                atfimage
                 slug: id
                 description
+                languages
+                products
                 pubdate
                 tags
                 title
