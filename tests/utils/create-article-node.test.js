@@ -4,18 +4,24 @@ describe('Should properly postprocess an article node after it is fetched', () =
     const pageIdPrefix = 'test-pages/test';
     const articleAuthors = [{ name: 'Author One' }, { name: 'Author Two' }];
     const articleDescription = 'Article Description';
+    const articleLanguages = ['Python'];
+    const articleProducts = ['MongoDB'];
     const articlePubdate = '2030-01-01';
     const articleSlug = 'article/test-article';
     const articleTags = ['first-tag', 'second-tag'];
     const articleTitle = 'Test Article';
     const articleType = 'quickstart';
+    const atfimage = '/path/toimage';
     const articleNode = {
         ast: {
             children: [],
         },
         query_fields: {
+            'atf-image': atfimage,
             author: articleAuthors,
+            languages: articleLanguages,
             'meta-description': [{ type: 'text', value: articleDescription }],
+            products: articleProducts,
             pubdate: articlePubdate,
             tags: articleTags,
             title: [{ type: 'text', value: articleTitle }],
@@ -85,8 +91,11 @@ describe('Should properly postprocess an article node after it is fetched', () =
         expect(createdArticleNode.internal.contentDigest).not.toBeUndefined();
         expect(createContentDigest.mock.calls.length).toBe(1);
         const contentToDigest = {
+            atfimage,
             authors: articleAuthors,
             description: articleDescription,
+            languages: articleLanguages,
+            products: articleProducts,
             pubdate: articlePubdate,
             tags: articleTags,
             title: articleTitle,
