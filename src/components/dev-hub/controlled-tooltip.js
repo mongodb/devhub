@@ -4,10 +4,9 @@ import { css } from '@emotion/core';
 import Popover from 'react-tiny-popover';
 import { animationSpeed, layer, size } from './theme';
 
-const ContentMenuWrapper = styled('span')`
+const ControlledTooltipWrapper = styled('span')`
     /* Article sets these values */
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 0 !important;
 `;
 
 const CONTENT_MAX_WIDTH = 250;
@@ -306,7 +305,7 @@ const ControlledTooltip = ({
           };
 
     return (
-        <ContentMenuWrapper ref={ref}>
+        <ControlledTooltipWrapper ref={ref}>
             <Popover
                 contentLocation={contentLocation(TOOLTIP_DISTANCE)}
                 content={
@@ -329,7 +328,7 @@ const ControlledTooltip = ({
                     </Trigger>
                 )}
             </Popover>
-        </ContentMenuWrapper>
+        </ControlledTooltipWrapper>
     );
 };
 
