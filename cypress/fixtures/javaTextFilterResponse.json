@@ -1,21 +1,18 @@
 [
     {
-        "_id": {
-            "$oid": "5f4dda9c03c0274ede72fcbf"
-        },
-        "title": [
-            {
-                "type": "text",
-                "value": "Java - Change Streams"
-            }
-        ],
+        "_id": { "$oid": "5f4fd97cd2f4c8702c4748f1" },
+        "title": [{ "type": "text", "value": "Java - Change Streams" }],
         "description": "Learn how to use the Change Streams using the MongoDB Java Driver.",
         "link": "https://developer.mongodb.com/quickstart/java-change-streams",
+        "pubDate": "Thu, 27 Feb 2020 00:00:00 GMT",
+        "atf_image": "/images/atf-images/quickstart/java.png",
+        "slug": "quickstart/java-change-streams",
         "type": "quickstart",
         "author_names": ["Maxime Beugnet"],
-        "score": {
-            "$numberDouble": "3.4233973026275635"
-        },
+        "languages": ["Java"],
+        "products": ["MongoDB", "Atlas"],
+        "score": { "$numberDouble": "3.4448399543762207" },
+        "atf-image": "/images/atf-images/quickstart/java.png",
         "meta-description": [
             {
                 "type": "text",
@@ -24,22 +21,19 @@
         ]
     },
     {
-        "_id": {
-            "$oid": "5f4dda9d03c0274ede72fcc7"
-        },
-        "title": [
-            {
-                "type": "text",
-                "value": "Java - Aggregation Pipeline"
-            }
-        ],
+        "_id": { "$oid": "5f4fd97dd2f4c8702c4748f9" },
+        "title": [{ "type": "text", "value": "Java - Aggregation Pipeline" }],
         "description": "Learn how to use the Aggregation Pipeline using the MongoDB Java Driver.",
         "link": "https://developer.mongodb.com/quickstart/java-aggregation-pipeline",
+        "pubDate": "Tue, 07 Jan 2020 00:00:00 GMT",
+        "atf_image": "/images/atf-images/quickstart/java.png",
+        "slug": "quickstart/java-aggregation-pipeline",
         "type": "quickstart",
         "author_names": ["Maxime Beugnet"],
-        "score": {
-            "$numberDouble": "3.4233973026275635"
-        },
+        "languages": ["Java"],
+        "products": ["MongoDB", "Atlas"],
+        "score": { "$numberDouble": "3.4448399543762207" },
+        "atf-image": "/images/atf-images/quickstart/java.png",
         "meta-description": [
             {
                 "type": "text",
@@ -48,22 +42,19 @@
         ]
     },
     {
-        "_id": {
-            "$oid": "5f4dda9d03c0274ede72fcc8"
-        },
-        "title": [
-            {
-                "type": "text",
-                "value": "Java - Mapping POJOs"
-            }
-        ],
+        "_id": { "$oid": "5f4fd97dd2f4c8702c4748fa" },
+        "title": [{ "type": "text", "value": "Java - Mapping POJOs" }],
         "description": "Learn how to use the native mapping of POJOs using the MongoDB Java Driver.",
         "link": "https://developer.mongodb.com/quickstart/java-mapping-pojos",
+        "pubDate": "Tue, 07 Jan 2020 00:00:00 GMT",
+        "atf_image": "/images/atf-images/quickstart/java.png",
+        "slug": "quickstart/java-mapping-pojos",
         "type": "quickstart",
         "author_names": ["Maxime Beugnet"],
-        "score": {
-            "$numberDouble": "3.3391005992889404"
-        },
+        "languages": ["Java"],
+        "products": ["MongoDB", "Atlas"],
+        "score": { "$numberDouble": "3.3598456382751465" },
+        "atf-image": "/images/atf-images/quickstart/java.png",
         "meta-description": [
             {
                 "type": "text",
@@ -72,9 +63,7 @@
         ]
     },
     {
-        "_id": {
-            "$oid": "5f4dda9c03c0274ede72fcbe"
-        },
+        "_id": { "$oid": "5f4fd97cd2f4c8702c4748f0" },
         "title": [
             {
                 "type": "text",
@@ -83,11 +72,15 @@
         ],
         "description": "Learn how to use MongoDB with Java in this tutorial on CRUD operations with example code and walkthrough.",
         "link": "https://developer.mongodb.com/quickstart/java-setup-crud-operations",
+        "pubDate": "Sat, 29 Feb 2020 00:00:00 GMT",
+        "atf_image": "/images/atf-images/quickstart/java.png",
+        "slug": "quickstart/java-setup-crud-operations",
         "type": "quickstart",
         "author_names": ["Maxime Beugnet"],
-        "score": {
-            "$numberDouble": "2.9643123149871826"
-        },
+        "languages": ["Java"],
+        "products": ["MongoDB", "Atlas"],
+        "score": { "$numberDouble": "2.9830946922302246" },
+        "atf-image": "/images/atf-images/quickstart/java.png",
         "meta-description": [
             {
                 "type": "text",
@@ -96,9 +89,7 @@
         ]
     },
     {
-        "_id": {
-            "$oid": "5f4dda9f03c0274ede72fce0"
-        },
+        "_id": { "$oid": "5f4fd97fd2f4c8702c474912" },
         "title": [
             {
                 "type": "text",
@@ -107,12 +98,15 @@
         ],
         "description": "This post will begin by describing the database capabilities required by modern multi-data center applications.",
         "link": "https://developer.mongodb.com/article/active-active-application-architectures",
+        "pubDate": "Fri, 08 Dec 2017 00:00:00 GMT",
+        "atf_image": "/images/atf-images/generic/purple.png",
+        "slug": "article/active-active-application-architectures",
         "type": "article",
         "author_names": ["Jay Runkel"],
+        "products": ["MongoDB"],
         "tags": ["Technical"],
-        "score": {
-            "$numberDouble": "0.6058365106582642"
-        },
+        "score": { "$numberDouble": "0.6082870364189148" },
+        "atf-image": "/images/atf-images/generic/purple.png",
         "meta-description": [
             {
                 "type": "text",
@@ -121,9 +115,7 @@
         ]
     },
     {
-        "_id": {
-            "$oid": "5f4dda9f03c0274ede72fce1"
-        },
+        "_id": { "$oid": "5f4fd97fd2f4c8702c474913" },
         "title": [
             {
                 "type": "text",
@@ -132,12 +124,15 @@
         ],
         "description": "VPC peering provides you with the ability to use the private IP range of your hosts and MongoDB Atlas cluster.",
         "link": "https://developer.mongodb.com/how-to/cidr-subnet-selection-atlas",
+        "pubDate": "Thu, 12 Jan 2017 00:00:00 GMT",
+        "atf_image": "/images/atf-images/illustrations/security.png",
+        "slug": "how-to/cidr-subnet-selection-atlas",
         "type": "how-to",
         "author_names": ["Jay Gordon"],
+        "products": ["Atlas"],
         "tags": ["Security", "Cloud"],
-        "score": {
-            "$numberDouble": "0.6058365106582642"
-        },
+        "score": { "$numberDouble": "0.6082870364189148" },
+        "atf-image": "/images/atf-images/illustrations/security.png",
         "meta-description": [
             {
                 "type": "text",

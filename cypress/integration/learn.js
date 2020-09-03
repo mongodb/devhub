@@ -1,10 +1,5 @@
-import { AnonymousCredential, Stitch } from 'mongodb-stitch-browser-sdk';
-
 describe('Learn Page', () => {
     it('should properly render the learn page', () => {
-        cy.stub(Stitch, 'initializeAppClient').returns({
-            callFunction: 'foo',
-        });
         cy.visit('/learn');
         // Make sure something renders on the page
         cy.contains('Make better, faster applications');
@@ -72,10 +67,8 @@ describe('Learn Page', () => {
             cy.get('input').type('java');
         });
         cy.wait('@filterJavaArticles');
-        // Stub stitch
-        // type something
-        // Check response article matches with appropriate fields
     });
+    // TODO: Stub podcasts and videos
     xit('should play a podcast', () => {
         // Find podcast
         // Click
