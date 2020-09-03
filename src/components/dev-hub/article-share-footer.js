@@ -24,7 +24,7 @@ const ArticleShareArea = styled('div')`
 `;
 
 const BlogShareLinks = styled('div')`
-    span,
+    span:not(:last-child),
     a:not(:last-of-type) {
         margin-right: ${size.medium};
     }
