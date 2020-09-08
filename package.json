@@ -32,7 +32,7 @@
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
     "@leafygreen-ui/checkbox": "^4.1.1",
-    "@leafygreen-ui/code": "^4.0.3",
+    "@leafygreen-ui/code": "^3.5.0",
     "@testing-library/react-hooks": "^3.4.1",
     "copy-to-clipboard": "^3.3.1",
     "css-loader": "^4.3.0",
