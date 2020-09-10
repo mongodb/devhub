@@ -9,6 +9,16 @@ const callDevhubAPIStitchFunction = async (fnName, ...fnArgs) => {
     }
 };
 
+export const requestEvents = async () => {
+    const result = await callDevhubAPIStitchFunction('fetchEvents');
+    return result;
+};
+
+export const requestLiveEvents = async () => {
+    const result = await callDevhubAPIStitchFunction('fetchLiveEvents');
+    return result;
+};
+
 export const requestLybsinPodcasts = async () => {
     const result = await callDevhubAPIStitchFunction('fetchLybsinPodcasts');
     return result;
