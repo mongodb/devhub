@@ -4,12 +4,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import ArrowheadIcon from './icons/arrowhead-icon';
 import { P } from './text';
-import {
-    fontSize,
-    lineHeight,
-    layer,
-    size,
-} from './theme';
+import { fontSize, lineHeight, layer, size } from './theme';
 
 const BORDER_SIZE = 2;
 const OPTIONS_POSITION_OFFSET = 58;
@@ -32,7 +27,7 @@ const Option = styled('li')`
     white-space: nowrap;
     :focus,
     :hover {
-        background-color:${({ theme }) => theme.colorMap.greyDarkOne};
+        background-color: ${({ theme }) => theme.colorMap.greyDarkOne};
         color: ${({ theme }) => theme.colorMap.devWhite};
     }
 `;
@@ -170,6 +165,7 @@ const FormSelect = ({
     return (
         <StyledCustomSelect
             aria-expanded={showOptions}
+            aria-label={name}
             onBlur={closeOptionsOnBlur}
             onClick={selectOnClick}
             onKeyDown={showOptionsOnEnter}
