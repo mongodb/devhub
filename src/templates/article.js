@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import dlv from 'dlv';
 import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
@@ -20,6 +20,7 @@ import ContentsMenu from '../components/dev-hub/contents-menu';
 import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedText } from '../utils/get-nested-text';
+import { updateLinksForAttribution } from '../utils/update-links-for-attribution';
 /**
  * Name map of directives we want to display in an article
  */
@@ -158,6 +159,9 @@ const Article = props => {
         'ast.options.canonical-href',
         og.url || articleUrl
     );
+
+    // TODO: Only run at build time, get unique identifiers
+    useEffect(updateLinksForAttribution, []);
 
     return (
         <Layout>
