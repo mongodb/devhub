@@ -1,5 +1,6 @@
 import { getNestedText } from '../get-nested-text';
 import { getNestedValue } from '../get-nested-value';
+import { updateAttributionLinks } from './update-attribution-links';
 
 export const createArticleNode = (
     doc,
@@ -15,8 +16,11 @@ export const createArticleNode = (
         // Remove extraneous src/index.txt file in devhub-content repo
         filename !== 'index.txt';
     const slug = doc.page_id.replace(`${PAGE_ID_PREFIX}/`, '');
-    slugContentMapping[slug] = doc;
     if (isArticlePage) {
+        updateAttributionLinks(
+            doc,
+            doc.query_fields['author'][0].name.toLowerCase().split(' ').join('')
+        );
         const content = {
             atfimage: doc.query_fields['atf-image'],
             authors: doc.query_fields['author'],
@@ -39,4 +43,5 @@ export const createArticleNode = (
             ...content,
         });
     }
+    slugContentMapping[slug] = doc;
 };
