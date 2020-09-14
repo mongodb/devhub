@@ -8,7 +8,7 @@ export const updateAttributionLinks = (doc, atlasTckValue) => {
         if (node['type'] === 'reference') {
             if (node.refuri && node.refuri.includes(ATLAS_SIGNUP_LINK)) {
                 let oldSignupBaseUrl = ATLAS_SIGNUP_LINK;
-                let suffix = `?tck=devhub_${atlasTckValue}`;
+                let suffix = `tck=devhub_${atlasTckValue}`;
                 // If there are already query params, we want to be sure to
                 // preserve them, including the leading "?"
                 if (node.refuri.includes(`${ATLAS_SIGNUP_LINK}?`)) {
@@ -17,7 +17,7 @@ export const updateAttributionLinks = (doc, atlasTckValue) => {
                 }
                 node.refuri = node.refuri.replace(
                     oldSignupBaseUrl,
-                    ATLAS_SIGNUP_LINK + encodeURIComponent(suffix)
+                    ATLAS_SIGNUP_LINK + `?${encodeURIComponent(suffix)}`
                 );
             }
         }
