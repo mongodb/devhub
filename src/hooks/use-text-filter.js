@@ -15,20 +15,25 @@ function useTextFilter(query) {
 
     // When the query changes, let's re-fetch from Stitch (debounce)
     useEffect(() => {
-        const fetchTextFilterResults = async () => {
-            if (filterEvent) {
-                clearTimeout(filterEvent);
-            }
-            setFilterEvent(
-                setTimeout(async () => {
-                    const filterResults = await requestTextFilterResults(query);
-                    if (filterResults) {
-                        setResults(filterResults);
-                    }
-                }, DEBOUNCE_TIME)
-            );
-        };
-        fetchTextFilterResults();
+        if (query) {
+            const fetchTextFilterResults = async () => {
+                if (filterEvent) {
+                    clearTimeout(filterEvent);
+                }
+                setFilterEvent(
+                    setTimeout(async () => {
+                        const filterResults = await requestTextFilterResults(
+                            query
+                        );
+                        if (filterResults) {
+                            setResults(filterResults);
+                        }
+                    }, DEBOUNCE_TIME)
+                );
+            };
+            fetchTextFilterResults();
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query]);
 
