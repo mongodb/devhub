@@ -76,10 +76,11 @@ const StyledLink = styled('a')`
 const Link = ({ href, onClick, target, tertiary, to, ...rest }) => {
     if (to) {
         const AsInternalLink = StyledLink.withComponent(RouterLink);
+        const absoluteLink = to.startsWith('/') ? to : `/${to}`
         return (
             <AsInternalLink
                 onClick={onClick}
-                to={to}
+                to={absoluteLink}
                 tertiary={tertiary}
                 {...rest}
             />
