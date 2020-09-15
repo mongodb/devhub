@@ -32,7 +32,6 @@ const OG_URL =
 const TWITTER_SHARE_URL = `https://twitter.com/intent/tweet?url=${PROD_ARTICLE_URL}&text=3%20Things%20to%20Know%20When%20You%20Switch%20from%20SQL%20to%20MongoDB`;
 
 const SOCIAL_URLS = [LINKEDIN_SHARE_URL, TWITTER_SHARE_URL, FACEBOOK_SHARE_URL];
-const STATCOUNTER_URL = 'https://www.statcounter.com/counter/counter.js';
 
 describe('Sample Article Page', () => {
     it('should have a descriptive header', () => {
@@ -96,7 +95,12 @@ describe('Sample Article Page', () => {
             cy.get('a')
                 .first()
                 .should('have.prop', 'href')
-                .and('include', '/article/map-terms-concepts-sql-mongodb');
+                .and('include', '/article/map-terms-concepts-sql-mongodb')
+                // Want to make sure the link is not relative
+                .and(
+                    'not.include',
+                    'article/3-things-to-know-switch-from-sql-mongodb'
+                );
         });
     });
 
@@ -135,10 +139,6 @@ describe('Sample Article Page', () => {
             ARTICLE_DESCRIPTION
         );
         cy.checkMetaContentProperty('name="twitter:image"', TWITTER_IMAGE);
-    });
-
-    it('should contain the statcounter script tag', () => {
-        cy.checkScriptExists(`src="${STATCOUNTER_URL}"`);
     });
 
     it('should automatically populate the og description tag should it not be provided', () => {

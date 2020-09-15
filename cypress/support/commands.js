@@ -54,10 +54,6 @@ Cypress.Commands.add('checkMetaContentProperty', (query, value) => {
     cy.get(`head meta[${query}]`).should('have.prop', 'content', value);
 });
 
-Cypress.Commands.add('checkScriptExists', query => {
-    cy.get(`body script[${query}]`).should('exist');
-});
-
 // Mock data from events servers
 Cypress.Commands.add('mockEventsApi', () => {
     cy.fixture('liveEventData.json').as('liveEventData');

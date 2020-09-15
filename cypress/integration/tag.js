@@ -31,8 +31,10 @@ describe('Tag page', () => {
         cy.get('header').within(() => {
             cy.get('ul li a').last().contains(TITLE);
             cy.get('ul li a').last().click();
-            cy.url().should('include', TAG_PAGE_URL);
         });
+        // Wait for an element to render on the tag page before checking URL
+        cy.contains('Tagged In');
+        cy.url().should('include', TAG_PAGE_URL);
         cy.get('[data-test="card"]')
             .eq(1)
             .should('have.attr', 'href')

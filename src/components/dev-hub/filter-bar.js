@@ -145,6 +145,7 @@ export default React.memo(
                     <FilterLabel>Filter By</FilterLabel>
                     <SelectWrapper>
                         <Select
+                            enabled={!textFilterQuery}
                             narrow
                             name="product"
                             choices={products}
@@ -156,6 +157,7 @@ export default React.memo(
                     </SelectWrapper>
                     <SelectWrapper>
                         <Select
+                            enabled={!textFilterQuery}
                             narrow
                             name="language"
                             choices={languages}

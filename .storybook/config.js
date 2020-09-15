@@ -5,6 +5,7 @@ import theme from './theme';
 import ThemeDecorator from './theme-decorator';
 
 const WELCOME_PAGE_KIND = 'Welcome';
+addDecorator(ThemeDecorator);
 
 addParameters({
     options: {
@@ -42,4 +43,3 @@ window.___navigate = pathname => {
 };
 
 configure(require.context('../src', true, /\.stories\.(js|mdx)$/), module);
-addDecorator(ThemeDecorator);
