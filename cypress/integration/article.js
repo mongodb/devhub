@@ -95,7 +95,7 @@ describe('Sample Article Page', () => {
             cy.get('a')
                 .first()
                 .should('have.prop', 'href')
-                .and('include', '/article/map-terms-concepts-sql-mongodb');
+                .and('eq', '/article/map-terms-concepts-sql-mongodb');
         });
     });
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { withPrefix } from 'gatsby';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from './link';
@@ -202,7 +203,7 @@ const Series = ({ children, name }) => (
                             <SeriesLink
                                 isActive={isActive}
                                 isPast={isPast}
-                                to={slug}
+                                to={withPrefix(slug)}
                             >
                                 {title}
                             </SeriesLink>
