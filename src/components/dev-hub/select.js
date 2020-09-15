@@ -168,6 +168,7 @@ const FormSelect = ({
         <StyledCustomSelect
             aria-expanded={showOptions}
             enabled={enabled}
+            aria-label={name}
             onBlur={closeOptionsOnBlur}
             onClick={selectOnClick}
             onKeyDown={showOptionsOnEnter}
