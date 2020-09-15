@@ -203,7 +203,7 @@ const Series = ({ children, name }) => (
                             <SeriesLink
                                 isActive={isActive}
                                 isPast={isPast}
-                                to={withPrefix(slug)}
+                                to={slug}
                             >
                                 {title}
                             </SeriesLink>

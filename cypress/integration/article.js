@@ -95,7 +95,12 @@ describe('Sample Article Page', () => {
             cy.get('a')
                 .first()
                 .should('have.prop', 'href')
-                .and('eq', '/article/map-terms-concepts-sql-mongodb');
+                .and('include', '/article/map-terms-concepts-sql-mongodb')
+                // Want to make sure the link is not relative
+                .and(
+                    'not.include',
+                    'article/3-things-to-know-switch-from-sql-mongodb'
+                );
         });
     });
 
