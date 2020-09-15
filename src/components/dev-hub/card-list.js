@@ -97,7 +97,7 @@ const renderContentTypeCard = (item, openAudio) => {
     return renderArticle(item);
 };
 
-export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
+export default React.memo(({ videos, articles, podcasts, limit = 12 }) => {
     videos = videos || [];
     articles = articles || [];
     podcasts = podcasts || [];
