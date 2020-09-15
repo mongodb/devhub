@@ -15,6 +15,7 @@ import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import useAllVideos from '../hooks/use-all-videos';
 import usePodcasts from '../hooks/use-podcasts';
+import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
@@ -197,7 +198,8 @@ export default ({
         allArticles,
     ]);
     const [articles, setArticles] = useState(initialArticles);
-    const [textFilterResults, setTextFilterResults] = useState(null);
+    const [textFilterQuery, setTextFilterQuery] = useState(null);
+    const { results: textFilterResults } = useTextFilter(textFilterQuery);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
     const filterActiveArticles = useCallback(
@@ -230,6 +232,15 @@ export default ({
     const { podcasts } = usePodcasts(allPodcasts);
 
     const [activeItem, setActiveItem] = useState('All');
+
+    // If the user is on a tab not supporting the text filter, ignore the filter
+    const showTextFilterResults = useMemo(
+        () =>
+            (activeItem === 'All' || activeItem === 'Articles') &&
+            textFilterQuery &&
+            textFilterResults,
+        [activeItem, textFilterQuery, textFilterResults]
+    );
 
     const leftTabs = ['All'];
     const rightTabs = ['Articles', 'Videos', 'Podcasts'];
@@ -278,11 +289,12 @@ export default ({
                         filters={filters}
                         filterValue={filterValue}
                         setFilterValue={updateFilter}
-                        setTextFilterResults={setTextFilterResults}
+                        setTextFilterQuery={setTextFilterQuery}
+                        textFilterQuery={textFilterQuery}
                     />
                 )}
 
-                {textFilterResults ? (
+                {showTextFilterResults ? (
                     textFilterResults.length ? (
                         <CardList articles={textFilterResults} />
                     ) : (

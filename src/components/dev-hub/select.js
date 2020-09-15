@@ -54,8 +54,9 @@ const StyledCustomSelect = styled('div')`
     /* Adding border without color to prevent jarring visual on expand */
     border: ${BORDER_SIZE}px solid transparent;
     color: ${({ theme }) => theme.colorMap.devWhite};
-    cursor: pointer;
+    cursor: ${({ enabled }) => (enabled ? 'pointer' : 'not-allowed')};
     font-family: 'Fira Mono', monospace;
+    opacity: ${({ enabled }) => (enabled ? 1 : 0.3)};
     position: relative;
     ${({ showOptions, theme }) => showOptions && activeSelectStyles(theme)};
 `;
@@ -76,6 +77,7 @@ const FormSelect = ({
     name,
     choices = [],
     defaultText = '',
+    enabled = true,
     errors = [],
     narrow = false,
     onChange = null,
@@ -88,8 +90,8 @@ const FormSelect = ({
     const [selectText, setSelectText] = useState(defaultText);
     const [showOptions, setShowOptions] = useState(false);
     const selectOnClick = useCallback(() => {
-        setShowOptions(!showOptions);
-    }, [showOptions]);
+        if (enabled) setShowOptions(!showOptions);
+    }, [enabled, showOptions]);
     const selectOptions = typeof choices !== 'undefined' ? choices : children;
     const updateSelectedText = useCallback(
         text => {
@@ -165,13 +167,14 @@ const FormSelect = ({
     return (
         <StyledCustomSelect
             aria-expanded={showOptions}
+            enabled={enabled}
             aria-label={name}
             onBlur={closeOptionsOnBlur}
             onClick={selectOnClick}
             onKeyDown={showOptionsOnEnter}
             role="listbox"
             showOptions={showOptions}
-            tabIndex="0"
+            tabIndex={enabled ? '0' : null}
         >
             <SelectedOption
                 errors={errors}
