@@ -71,7 +71,7 @@ describe('creating an article page', () => {
             ast: {},
         };
         slugContentMapping[articleOneSlug].query_fields = {
-            related: [{ target: articleTwoSlug }],
+            related: [{ refuri: articleTwoSlug }],
         };
         createArticlePage(
             articleOneSlug,
