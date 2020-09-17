@@ -7,7 +7,8 @@ export const getRelatedPagesWithImages = (
     const related = dlv(pageNodes, 'query_fields.related', []);
     const relatedPageInfo = related.map(r => {
         // Handle `reference` and `ref_role` types
-        const target = r.target || r.refuri || r.fileid;
+        const getTargetFromFileid = dlv(r, 'fileid.0', null);
+        const target = r.refuri || getTargetFromFileid;
         const slug = target && target.slice(1);
         return {
             ...r,

@@ -16,12 +16,12 @@ it('should get pages and images for posts related to an article', () => {
     };
     const articleWithRelatedImage = {
         query_fields: {
-            related: [{ target: '/foo' }],
+            related: [{ refuri: '/foo' }],
         },
     };
     const articleWithoutRelatedImage = {
         query_fields: {
-            related: [{ target: '/bar' }],
+            related: [{ refuri: '/bar' }],
         },
     };
 
