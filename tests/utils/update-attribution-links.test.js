@@ -19,10 +19,10 @@ const TEXT_NODE_TO_NOT_CHANGE = {
 };
 const CONSISTENT_LINK = 'https://youtu.be/FFj04Apz_BE';
 const EXPECTED_NEW_ATTRIBUTION_LINK = `${ATLAS_SIGNUP_LINK}?${encodeURIComponent(
-    `tck=devhub_test`
+    `tck=devhub-test`
 )}`;
 const EXPECTED_NEW_LINK_WITH_PARAMS = `${ATLAS_SIGNUP_LINK}?${encodeURIComponent(
-    `tck=devhub_test&`
+    `tck=devhub-test&`
 )}foo=bar`;
 
 it('should update Atlas attribution links in an AST with a supplied tck', () => {

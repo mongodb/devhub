@@ -17,10 +17,15 @@ export const createArticleNode = (
         filename !== 'index.txt';
     const slug = doc.page_id.replace(`${PAGE_ID_PREFIX}/`, '');
     if (isArticlePage) {
-        updateAttributionLinks(
-            doc,
-            doc.query_fields['author'][0].name.toLowerCase().split(' ').join('')
-        );
+        const paths = slug.split('/');
+        if (paths.length) {
+            const filenameWithoutExtension = paths[paths.length - 1];
+            updateAttributionLinks(doc, filenameWithoutExtension);
+        } else {
+            console.error(
+                `Warning: Attribution Link Generation Failed for ${slug}`
+            );
+        }
         const content = {
             atfimage: doc.query_fields['atf-image'],
             authors: doc.query_fields['author'],
