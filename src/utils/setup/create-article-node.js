@@ -18,14 +18,8 @@ export const createArticleNode = (
     const slug = doc.page_id.replace(`${PAGE_ID_PREFIX}/`, '');
     if (isArticlePage) {
         const paths = slug.split('/');
-        if (paths.length) {
-            const filenameWithoutExtension = paths[paths.length - 1];
-            updateAttributionLinks(doc, filenameWithoutExtension);
-        } else {
-            console.error(
-                `Warning: Attribution Link Generation Failed for ${slug}`
-            );
-        }
+        const filenameWithoutExtension = paths[paths.length - 1];
+        updateAttributionLinks(doc, filenameWithoutExtension);
         const content = {
             atfimage: doc.query_fields['atf-image'],
             authors: doc.query_fields['author'],
