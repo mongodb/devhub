@@ -66,10 +66,14 @@ const BlogTagList = ({ tags = [] }) => {
                 ))}
             {!isExpanded && canExpand && (
                 <>
-                    {/* Since this can expand, we know value[0] and value[1] exist */}
-                    <BlogTag to={tags[0].to}>{tags[0].label}</BlogTag>
-                    <BlogTag to={tags[1].to}>{tags[1].label}</BlogTag>
-                    <BlogTag onClick={expandList}>...</BlogTag>
+                    {tags.slice(0, MINIMUM_EXPANDABLE_SIZE).map(t => (
+                        <BlogTag key={t.label} to={t.to}>
+                            {t.label}
+                        </BlogTag>
+                    ))}
+                    {tags.length !== MINIMUM_EXPANDABLE_SIZE ? (
+                        <BlogTag onClick={expandList}>...</BlogTag>
+                    ) : null}
                 </>
             )}
         </TagList>
