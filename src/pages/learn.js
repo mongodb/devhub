@@ -92,7 +92,7 @@ const parseArticles = arr =>
 const stripAllParam = filterValue => {
     const newFilter = {};
     Object.keys(filterValue).forEach(key => {
-        if (filterValue[key] !== 'all') {
+        if (filterValue[key] !== 'all' && key !== 'page') {
             newFilter[key] = filterValue[key];
         }
     });
