@@ -1,6 +1,10 @@
 const ARTICLE_WITH_SERIES_URL =
     '/article/3-things-to-know-switch-from-sql-mongodb';
 const PROD_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_SERIES_URL}`;
+const ARTICLE_WITH_ATTRIBUTION_LINK_URL =
+    '/article/build-newsletter-website-mongodb-data-platform/';
+const EXPECTED_ATTRIBUTION_LINK =
+    'https://www.mongodb.com/cloud/atlas/signup?tck%3Ddevhub-build-newsletter-website-mongodb-data-platform';
 
 // Article with no og description or og type (test meta description fallback)
 const ARTICLE_WITH_MINIMAL_OG_URL =
@@ -166,5 +170,9 @@ describe('Sample Article Page', () => {
                 DEFAULT_TWITTER_SITE
             );
         });
+    });
+    it('should verify Cloud attribution links add the tck param as expected', () => {
+        cy.visit(ARTICLE_WITH_ATTRIBUTION_LINK_URL);
+        cy.get(`a[href='${EXPECTED_ATTRIBUTION_LINK}']`).should('exist');
     });
 });
