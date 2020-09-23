@@ -1,10 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
+import { useLocation } from '@reach/router';
 import Audio from './audio';
 import Card from './card';
 import Button from './button';
 import { screenSize, size } from './theme';
 import { withPrefix } from 'gatsby';
+import { buildQueryString, parseQueryString } from '../../utils/query-string';
 import { getNestedText } from '../../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 import getTwitchThumbnail from '../../utils/get-twitch-thumbnail';
@@ -98,6 +100,29 @@ const renderContentTypeCard = (item, openAudio) => {
 };
 
 export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
+    const location = useLocation();
+    const { pathname, search } = location;
+    console.log(location);
+    // Get page if exists from search
+    // Build next link, preserving other links
+    const nextPageLink = useMemo(() => {
+        const { page, ...params } = parseQueryString(search);
+        if (page) {
+            return (
+                pathname +
+                buildQueryString({ page: parseInt(page) + 1, ...params })
+            );
+        }
+        return pathname + buildQueryString({ page: 2, ...params });
+    }, [pathname, search]);
+
+    useEffect(() => {
+        const { page } = parseQueryString(search);
+        if (page) {
+            setVisibleCards(page * limit);
+        }
+    }, [limit, search]);
+    // Prevent jump to top
     videos = videos || [];
     articles = articles || [];
     podcasts = podcasts || [];
@@ -128,11 +153,7 @@ export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
 
             {hasMore && (
                 <HasMoreButtonContainer>
-                    <Button
-                        secondary
-                        pagination
-                        onClick={() => setVisibleCards(visibleCards + limit)}
-                    >
+                    <Button secondary pagination to={nextPageLink}>
                         Load more
                     </Button>
                 </HasMoreButtonContainer>
