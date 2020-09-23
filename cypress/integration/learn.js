@@ -1,6 +1,6 @@
 describe('Learn Page', () => {
     it('should properly render the learn page', () => {
-        cy.visit('/learn');
+        cy.visitWithoutFetch('/learn');
         // Make sure something renders on the page
         cy.contains('Make better, faster applications');
     });
