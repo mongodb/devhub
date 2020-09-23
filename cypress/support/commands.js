@@ -1,3 +1,5 @@
+const EXPAND_TAG_TEXT = '...';
+
 Cypress.Commands.add('closeModal', () => {
     cy.get('[data-test="modal-close"]').click();
 });
@@ -7,11 +9,35 @@ Cypress.Commands.add('useBodyReference', () => {
     cy.get('body').as('body');
 });
 
-Cypress.Commands.add('checkTagListProperties', () => {
+Cypress.Commands.add('checkTagListProperties', shouldExpand => {
     cy.get('ul li a')
         .first()
         .should('have.attr', 'href')
         .should('match', /\/(tag|product|language)/);
+    if (shouldExpand) {
+        const length = cy.get('ul li a').length;
+        cy.get('ul li a')
+            .last()
+            .within($el => {
+                expect($el.text()).to.equal(EXPAND_TAG_TEXT);
+            });
+        cy.get('ul li a').last().should('not.have.attr', 'href');
+        cy.get('ul li a').last().click();
+        // Now more tags may have been rendered but regardless the last one should
+        // not be the ...
+        const updatedLength = cy.get('ul li a').length;
+        const numTagsChanged = length !== updatedLength;
+        let lastElementDoesNotExpand;
+        cy.get('ul li a')
+            .last()
+            .within($el => {
+                lastElementDoesNotExpand = $el.text() !== EXPAND_TAG_TEXT;
+            });
+        expect(lastElementDoesNotExpand);
+        // This may not always be true, but it is for the testing purposes
+        // of a single chosen article
+        expect(numTagsChanged);
+    }
 });
 
 // Basic sanity checks for an article card (image, title, tags, etc)

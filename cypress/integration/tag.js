@@ -40,6 +40,13 @@ describe('Tag page', () => {
             .should('have.attr', 'href')
             .and('include', TAG_ARTICLE_URL);
     });
+    it('should expand the blog tag list when requested', () => {
+        cy.get('[data-test="card"]')
+            .first()
+            .within(() => {
+                cy.checkTagListProperties(true);
+            });
+    });
     it('should not be indexed for SEO', () => {
         cy.checkMetaContentProperty('name="robots"', 'noindex');
     });
