@@ -99,21 +99,22 @@ const renderContentTypeCard = (item, openAudio) => {
     return renderArticle(item);
 };
 
-export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
+export default React.memo(({ videos, articles, podcasts, limit = 12 }) => {
     const location = useLocation();
     const { pathname, search } = location;
+    const localPage = pathname.replace(__PATH_PREFIX__, '');
     // Get page if exists from search
     // Build next link, preserving other links
     const nextPageLink = useMemo(() => {
         const { page, ...params } = parseQueryString(search);
         if (page) {
             return (
-                pathname +
+                localPage +
                 buildQueryString({ page: parseInt(page) + 1, ...params })
             );
         }
-        return pathname + buildQueryString({ page: 2, ...params });
-    }, [pathname, search]);
+        return localPage + buildQueryString({ page: 2, ...params });
+    }, [localPage, search]);
 
     useEffect(() => {
         const { page } = parseQueryString(search);
