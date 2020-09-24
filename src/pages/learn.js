@@ -202,19 +202,15 @@ export default ({
     const [textFilterQuery, setTextFilterQuery] = useState(null);
     const { results: textFilterResults } = useTextFilter(textFilterQuery);
     const { search = '', pathname = '' } = location;
-    console.log(search);
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
-    console.log(filterValue);
     const filterActiveArticles = useCallback(
         filter => filterArticles(filter, initialArticles),
         [initialArticles]
     );
     useEffect(() => {
         const filter = stripAllParam(filterValue);
-        console.log(filter);
         const searchParams = buildQueryString(filter);
         // if the search params are empty, push the pathname state in order to remove params
-        console.log(searchParams);
         window.history.replaceState(
             {},
             '',

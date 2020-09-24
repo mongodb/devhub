@@ -102,7 +102,6 @@ const renderContentTypeCard = (item, openAudio) => {
 export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
     const location = useLocation();
     const { pathname, search } = location;
-    console.log(location);
     // Get page if exists from search
     // Build next link, preserving other links
     const nextPageLink = useMemo(() => {
