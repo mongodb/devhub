@@ -130,6 +130,7 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
         );
         return (
             <Wrapper
+                data-test="secondary-featured-article"
                 collapseImage
                 to={slug}
                 title={title}
@@ -156,8 +157,8 @@ const FeaturedArticles = ({ articles }) => {
         articles[0]
     );
     return (
-        <MainFeatureGrid>
-            <PrimarySection>
+        <MainFeatureGrid data-test="featured-articles">
+            <PrimarySection data-test="primary-featured-article">
                 <MediaBlock
                     mediaComponent={<PrimaryImage src={image} alt="" />}
                     mediaWidth={360}

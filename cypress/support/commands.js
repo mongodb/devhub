@@ -53,6 +53,29 @@ Cypress.Commands.add('checkArticleCard', card => {
     });
 });
 
+Cypress.Commands.add('checkFirstCardInCardList', contains => {
+    cy.get('[data-test="card-list"]').within(() => {
+        cy.get('[data-test="card"]')
+            .first()
+            .within(card => {
+                cy.checkArticleCard(card);
+                cy.contains(contains);
+            });
+    });
+});
+
+// Check featured article cards on learn page with no images
+Cypress.Commands.add('checkSecondaryFeaturedArticleCard', card => {
+    cy.get(card).within(() => {
+        // Title
+        cy.get('h5').should('not.be.empty');
+        // Description
+        cy.get('p').should('not.be.empty');
+        // Tags
+        cy.checkTagListProperties();
+    });
+});
+
 Cypress.Commands.add('checkMetaContentProperty', (query, value) => {
     cy.get(`head meta[${query}]`).should('have.prop', 'content', value);
 });
@@ -67,6 +90,22 @@ Cypress.Commands.add('mockEventsApi', () => {
         '@eventData'
     ).as('getEvents');
     cy.route('**/api/event?status=Live', '@liveEventData').as('getLiveEvents');
+});
+
+Cypress.Commands.add('mockTextFilterResponse', () => {
+    cy.fixture('javaTextFilterResponse.json').as('javaTextFilterResponse');
+    cy.server();
+    cy.route({
+        method: 'POST',
+        url: '**/api/client/v2.0/app/devhubauthentication-lidpq/functions/call',
+        response: '@javaTextFilterResponse',
+    }).as('filterJavaArticles');
+});
+
+Cypress.Commands.add('toggleLearnPageTab', tabName => {
+    cy.get('[data-test="tabs"]').within(() => {
+        cy.contains(tabName).click();
+    });
 });
 
 // To stub requests with Cypress, we must remove fetch from the browser so
