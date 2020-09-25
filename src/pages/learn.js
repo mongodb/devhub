@@ -216,6 +216,8 @@ export default ({
         const filter = stripAllParam(filterValue);
         if (textFilterQuery) {
             filter['text'] = textFilterQuery;
+        } else {
+            delete filter['text'];
         }
         const searchParams = buildQueryString(filter);
         // if the search params are empty, push the pathname state in order to remove params
