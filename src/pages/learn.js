@@ -207,7 +207,16 @@ export default ({
         [initialArticles]
     );
     useEffect(() => {
+        if (filterValue['text']) {
+            setTextFilterQuery(filterValue['text']);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    useEffect(() => {
         const filter = stripAllParam(filterValue);
+        if (textFilterQuery) {
+            filter['text'] = textFilterQuery;
+        }
         const searchParams = buildQueryString(filter);
         // if the search params are empty, push the pathname state in order to remove params
         window.history.replaceState(
@@ -217,7 +226,13 @@ export default ({
         );
         const filteredArticles = filterActiveArticles(filter);
         setArticles(filteredArticles);
-    }, [metadata, filterValue, pathname, filterActiveArticles]);
+    }, [
+        metadata,
+        filterValue,
+        pathname,
+        filterActiveArticles,
+        textFilterQuery,
+    ]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
     // filterValue could be {} on a page load, or values can be "all" if toggled back
     const hasNoFilter = useMemo(
