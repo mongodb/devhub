@@ -210,15 +210,23 @@ export default ({
         filter => filterArticles(filter, initialArticles),
         [initialArticles]
     );
+    // Update the filter value for page so it behaves nicely with query params
+    const updatePageFilter = useCallback(
+        search => {
+            const { page } = parseQueryString(search);
+            if (page) {
+                filterValue['page'] = page;
+                setFilterValue({ ...filterValue });
+            } else {
+                delete filterValue['page'];
+                setFilterValue({ ...filterValue });
+            }
+        },
+        [filterValue]
+    );
     useEffect(() => {
-        const { page } = parseQueryString(search);
-        if (page) {
-            filterValue['page'] = page;
-            setFilterValue({ ...filterValue });
-        } else {
-            delete filterValue['page'];
-            setFilterValue({ ...filterValue });
-        }
+        updatePageFilter(search);
+        // Don't want to also run for filterValues updatePageFilter
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search]);
     useEffect(() => {
@@ -233,7 +241,6 @@ export default ({
         const filteredArticles = filterActiveArticles(filter);
         setArticles(filteredArticles);
     }, [metadata, filterValue, pathname, filterActiveArticles]);
-    const updateFilter = useCallback(filter => setFilterValue(filter), []);
     // filterValue could be {} on a page load, or values can be "all" if toggled back
     const hasNoFilter = useMemo(
         () =>
@@ -303,7 +310,7 @@ export default ({
                     <StyledFilterBar
                         filters={filters}
                         filterValue={filterValue}
-                        setFilterValue={updateFilter}
+                        setFilterValue={setFilterValue}
                         setTextFilterQuery={setTextFilterQuery}
                         textFilterQuery={textFilterQuery}
                     />
