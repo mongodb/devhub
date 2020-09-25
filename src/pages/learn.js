@@ -198,27 +198,28 @@ export default ({
         allArticles,
     ]);
     const [articles, setArticles] = useState(initialArticles);
-    const [textFilterQuery, setTextFilterQuery] = useState(null);
-    const { results: textFilterResults } = useTextFilter(textFilterQuery);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
+    const [textFilterQuery, setTextFilterQuery] = useState(filterValue['text']);
+    const { results: textFilterResults } = useTextFilter(textFilterQuery);
     const filterActiveArticles = useCallback(
         filter => filterArticles(filter, initialArticles),
         [initialArticles]
     );
-    useEffect(() => {
-        if (filterValue['text']) {
-            setTextFilterQuery(filterValue['text']);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const updateTextFilterQuery = useCallback(
+        query => {
+            setTextFilterQuery(query);
+            if (query) {
+                filterValue['text'] = query;
+            } else {
+                delete filterValue['text'];
+            }
+            setFilterValue({ ...filterValue });
+        },
+        [filterValue]
+    );
     useEffect(() => {
         const filter = stripAllParam(filterValue);
-        if (textFilterQuery) {
-            filter['text'] = textFilterQuery;
-        } else {
-            delete filter['text'];
-        }
         const searchParams = buildQueryString(filter);
         // if the search params are empty, push the pathname state in order to remove params
         window.history.replaceState(
@@ -306,7 +307,7 @@ export default ({
                         filters={filters}
                         filterValue={filterValue}
                         setFilterValue={updateFilter}
-                        setTextFilterQuery={setTextFilterQuery}
+                        setTextFilterQuery={updateTextFilterQuery}
                         textFilterQuery={textFilterQuery}
                     />
                 )}
