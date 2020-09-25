@@ -229,13 +229,7 @@ export default ({
         );
         const filteredArticles = filterActiveArticles(filter);
         setArticles(filteredArticles);
-    }, [
-        metadata,
-        filterValue,
-        pathname,
-        filterActiveArticles,
-        textFilterQuery,
-    ]);
+    }, [metadata, filterValue, pathname, filterActiveArticles]);
     const updateFilter = useCallback(filter => setFilterValue(filter), []);
     // filterValue could be {} on a page load, or values can be "all" if toggled back
     const hasNoFilter = useMemo(
