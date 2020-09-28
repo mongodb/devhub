@@ -199,13 +199,25 @@ export default ({
         allArticles,
     ]);
     const [articles, setArticles] = useState(initialArticles);
-    const [textFilterQuery, setTextFilterQuery] = useState(null);
-    const { results: textFilterResults } = useTextFilter(textFilterQuery);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
+    const [textFilterQuery, setTextFilterQuery] = useState(filterValue['text']);
+    const { results: textFilterResults } = useTextFilter(textFilterQuery);
     const filterActiveArticles = useCallback(
         filter => filterArticles(filter, initialArticles),
         [initialArticles]
+    );
+    const updateTextFilterQuery = useCallback(
+        query => {
+            setTextFilterQuery(query);
+            if (query) {
+                filterValue['text'] = query;
+            } else {
+                delete filterValue['text'];
+            }
+            setFilterValue({ ...filterValue });
+        },
+        [filterValue]
     );
     useEffect(() => {
         const filter = stripAllParam(filterValue);
@@ -290,7 +302,7 @@ export default ({
                         filters={filters}
                         filterValue={filterValue}
                         setFilterValue={updateFilter}
-                        setTextFilterQuery={setTextFilterQuery}
+                        setTextFilterQuery={updateTextFilterQuery}
                         textFilterQuery={textFilterQuery}
                     />
                 )}
