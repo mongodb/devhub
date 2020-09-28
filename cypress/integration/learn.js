@@ -93,6 +93,12 @@ describe('Learn Page', () => {
             cy.get('input').type('java');
         });
         cy.wait('@filterJavaArticles');
+        // Verify query params update as expected
+        cy.url().should('include', 'text=java');
+        cy.get('[data-test="filter-bar"]').within(() => {
+            cy.get('input').clear();
+        });
+        cy.url().should('not.include', 'text=java');
     });
     // TODO: Stub podcasts and videos
     xit('should play a podcast', () => {
