@@ -1,13 +1,17 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
+import { useLocation } from '@reach/router';
 import Audio from './audio';
 import Card from './card';
 import Button from './button';
 import { screenSize, size } from './theme';
 import { withPrefix } from 'gatsby';
+import { buildQueryString, parseQueryString } from '../../utils/query-string';
 import { getNestedText } from '../../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
 import getTwitchThumbnail from '../../utils/get-twitch-thumbnail';
+
+const CARD_LIST_LIMIT = 12;
 
 const CardContainer = styled('div')`
     display: grid;
@@ -97,49 +101,68 @@ const renderContentTypeCard = (item, openAudio) => {
     return renderArticle(item);
 };
 
-export default React.memo(({ videos, articles, podcasts, limit = 9 }) => {
-    videos = videos || [];
-    articles = articles || [];
-    podcasts = podcasts || [];
+export default React.memo(
+    ({ videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
+        const { pathname, search } = useLocation();
+        const localPage = pathname.replace(__PATH_PREFIX__, '');
+        // Get page if exists from search
+        // Build next link, preserving other links
+        const nextPageLink = useMemo(() => {
+            const { page, ...params } = parseQueryString(search);
+            const pageNumber = page ? parseInt(page) + 1 : 2;
+            return (
+                localPage + buildQueryString({ page: pageNumber, ...params })
+            );
+        }, [localPage, search]);
 
-    const fullContentList = sortCardsByDate(videos.concat(articles, podcasts));
-    const [visibleCards, setVisibleCards] = useState(limit);
+        useEffect(() => {
+            const { page } = parseQueryString(search);
+            if (page) {
+                setVisibleCards(page * limit);
+            }
+        }, [limit, search]);
+        // Prevent jump to top
+        videos = videos || [];
+        articles = articles || [];
+        podcasts = podcasts || [];
 
-    const hasMore = fullContentList.length > visibleCards;
-    const [activePodcast, setActivePodcast] = useState(false);
+        const fullContentList = sortCardsByDate(
+            videos.concat(articles, podcasts)
+        );
+        const [visibleCards, setVisibleCards] = useState(limit);
 
-    const openAudio = useCallback(podcast => {
-        setActivePodcast(podcast);
-    }, []);
-    const closeAudio = useCallback(e => {
-        e.stopPropagation();
-        setActivePodcast(null);
-    }, []);
+        const hasMore = fullContentList.length > visibleCards;
+        const [activePodcast, setActivePodcast] = useState(false);
 
-    return (
-        <>
-            <CardContainer data-test="card-list">
-                {fullContentList
-                    .slice(0, visibleCards)
-                    .map(contentType =>
-                        renderContentTypeCard(contentType, openAudio)
-                    )}
-            </CardContainer>
+        const openAudio = useCallback(podcast => {
+            setActivePodcast(podcast);
+        }, []);
+        const closeAudio = useCallback(e => {
+            e.stopPropagation();
+            setActivePodcast(null);
+        }, []);
 
-            {hasMore && (
-                <HasMoreButtonContainer>
-                    <Button
-                        secondary
-                        pagination
-                        onClick={() => setVisibleCards(visibleCards + limit)}
-                    >
-                        Load more
-                    </Button>
-                </HasMoreButtonContainer>
-            )}
-            {podcasts.length ? (
-                <Audio onClose={closeAudio} podcast={activePodcast} />
-            ) : null}
-        </>
-    );
-});
+        return (
+            <>
+                <CardContainer data-test="card-list">
+                    {fullContentList
+                        .slice(0, visibleCards)
+                        .map(contentType =>
+                            renderContentTypeCard(contentType, openAudio)
+                        )}
+                </CardContainer>
+
+                {hasMore && (
+                    <HasMoreButtonContainer>
+                        <Button secondary pagination to={nextPageLink}>
+                            Load more
+                        </Button>
+                    </HasMoreButtonContainer>
+                )}
+                {podcasts.length ? (
+                    <Audio onClose={closeAudio} podcast={activePodcast} />
+                ) : null}
+            </>
+        );
+    }
+);
