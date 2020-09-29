@@ -86,6 +86,7 @@ const FormSelect = ({
     value = '',
     ...extraProps
 }) => {
+    const [isEnabled, setIsEnabled] = useState(false);
     const [selectValue, setSelectValue] = useState(value);
     const [selectText, setSelectText] = useState(defaultText);
     const [showOptions, setShowOptions] = useState(false);
@@ -102,6 +103,10 @@ const FormSelect = ({
         },
         [styleSelectedText]
     );
+    // Styles for enabled were not properly being hydrated, so we assume false first and then re-render if true
+    useEffect(() => {
+        setIsEnabled(enabled);
+    }, [enabled]);
     /**
      * This useEffect should only be called once the component first renders with choices,
      * this should populate the select item with the default choice if there is one
@@ -167,14 +172,14 @@ const FormSelect = ({
     return (
         <StyledCustomSelect
             aria-expanded={showOptions}
-            enabled={enabled}
+            enabled={isEnabled}
             aria-label={name}
             onBlur={closeOptionsOnBlur}
             onClick={selectOnClick}
             onKeyDown={showOptionsOnEnter}
             role="listbox"
             showOptions={showOptions}
-            tabIndex={enabled ? '0' : null}
+            tabIndex={isEnabled ? '0' : null}
         >
             <SelectedOption
                 errors={errors}
