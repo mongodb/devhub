@@ -103,20 +103,16 @@ const renderContentTypeCard = (item, openAudio) => {
 
 export default React.memo(
     ({ videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
-        const location = useLocation();
-        const { pathname, search } = location;
+        const { pathname, search } = useLocation();
         const localPage = pathname.replace(__PATH_PREFIX__, '');
         // Get page if exists from search
         // Build next link, preserving other links
         const nextPageLink = useMemo(() => {
             const { page, ...params } = parseQueryString(search);
-            if (page) {
-                return (
-                    localPage +
-                    buildQueryString({ page: parseInt(page) + 1, ...params })
-                );
-            }
-            return localPage + buildQueryString({ page: 2, ...params });
+            const pageNumber = page ? parseInt(page) + 1 : 2;
+            return (
+                localPage + buildQueryString({ page: pageNumber, ...params })
+            );
         }, [localPage, search]);
 
         useEffect(() => {
