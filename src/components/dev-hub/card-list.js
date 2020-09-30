@@ -116,10 +116,8 @@ export default React.memo(
         }, [localPage, search]);
 
         useEffect(() => {
-            const { page } = parseQueryString(search);
-            if (page) {
-                setVisibleCards(page * limit);
-            }
+            const { page = 1 } = parseQueryString(search);
+            setVisibleCards(page * limit);
         }, [limit, search]);
         // Prevent jump to top
         videos = videos || [];
@@ -129,7 +127,8 @@ export default React.memo(
         const fullContentList = sortCardsByDate(
             videos.concat(articles, podcasts)
         );
-        const [visibleCards, setVisibleCards] = useState(limit);
+        const { page = 1 } = parseQueryString(search);
+        const [visibleCards, setVisibleCards] = useState(page * limit);
 
         const hasMore = fullContentList.length > visibleCards;
         const [activePodcast, setActivePodcast] = useState(false);
