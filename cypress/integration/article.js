@@ -35,6 +35,9 @@ const OG_URL =
     'http://developer.mongodb.com/article/3-things-to-know-switch-from-sql-mongodb';
 const TWITTER_SHARE_URL = `https://twitter.com/intent/tweet?url=${PROD_ARTICLE_URL}&text=3%20Things%20to%20Know%20When%20You%20Switch%20from%20SQL%20to%20MongoDB`;
 
+const UPDATED_ARTICLE_URL =
+    '/article/coronavirus-map-live-data-tracker-charts/';
+
 const SOCIAL_URLS = [LINKEDIN_SHARE_URL, TWITTER_SHARE_URL, FACEBOOK_SHARE_URL];
 
 describe('Sample Article Page', () => {
@@ -174,5 +177,9 @@ describe('Sample Article Page', () => {
     it('should verify Cloud attribution links add the tck param as expected', () => {
         cy.visit(ARTICLE_WITH_ATTRIBUTION_LINK_URL);
         cy.get(`a[href='${EXPECTED_ATTRIBUTION_LINK}']`).should('exist');
+    });
+    it('should include Updated dates where applicable', () => {
+        cy.visit(UPDATED_ARTICLE_URL);
+        cy.contains('Updated: Apr 21, 2020');
     });
 });
