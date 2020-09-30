@@ -105,11 +105,12 @@ export default React.memo(
     ({ videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
         const { pathname, search } = useLocation();
         const localPage = pathname.replace(__PATH_PREFIX__, '');
-        // Get page if exists from search
         // Build next link, preserving other links
         const nextPageLink = useMemo(() => {
-            const { page, ...params } = parseQueryString(search);
-            const pageNumber = page ? parseInt(page) + 1 : 2;
+            // Get page if exists from search
+            const { page = 1, ...params } = parseQueryString(search);
+            // Have to parseInt because string + number gives a string
+            const pageNumber = parseInt(page) + 1;
             return (
                 localPage + buildQueryString({ page: pageNumber, ...params })
             );
