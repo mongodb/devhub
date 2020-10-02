@@ -151,7 +151,7 @@ const Article = props => {
         dateFormatOptions
     );
     const formattedUpdatedDate = toDateString(
-        meta.updatedDate,
+        meta['updated-date'],
         dateFormatOptions
     );
     const canonicalUrl = dlv(

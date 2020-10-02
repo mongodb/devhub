@@ -105,21 +105,20 @@ export default React.memo(
     ({ videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
         const { pathname, search } = useLocation();
         const localPage = pathname.replace(__PATH_PREFIX__, '');
-        // Get page if exists from search
         // Build next link, preserving other links
         const nextPageLink = useMemo(() => {
-            const { page, ...params } = parseQueryString(search);
-            const pageNumber = page ? parseInt(page) + 1 : 2;
+            // Get page if exists from search
+            const { page = 1, ...params } = parseQueryString(search);
+            // Have to parseInt because string + number gives a string
+            const pageNumber = parseInt(page) + 1;
             return (
                 localPage + buildQueryString({ page: pageNumber, ...params })
             );
         }, [localPage, search]);
 
         useEffect(() => {
-            const { page } = parseQueryString(search);
-            if (page) {
-                setVisibleCards(page * limit);
-            }
+            const { page = 1 } = parseQueryString(search);
+            setVisibleCards(page * limit);
         }, [limit, search]);
         // Prevent jump to top
         videos = videos || [];
@@ -129,7 +128,8 @@ export default React.memo(
         const fullContentList = sortCardsByDate(
             videos.concat(articles, podcasts)
         );
-        const [visibleCards, setVisibleCards] = useState(limit);
+        const { page = 1 } = parseQueryString(search);
+        const [visibleCards, setVisibleCards] = useState(page * limit);
 
         const hasMore = fullContentList.length > visibleCards;
         const [activePodcast, setActivePodcast] = useState(false);
