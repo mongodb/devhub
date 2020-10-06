@@ -4,7 +4,9 @@ const getTemplate = template => {
         case 'devhub-article':
             return 'article';
         default:
-            return 'document';
+            throw new Error(
+                `The given article template was not devhub-article, it was ${template}. This means there was likely a parsing issue.`
+            );
     }
 };
 
