@@ -30,9 +30,7 @@ const OG_IMAGE =
 
 // Social Media Links
 const FACEBOOK_SHARE_URL = `https://www.facebook.com/sharer/sharer.php?u=${PROD_ARTICLE_URL}`;
-const LINKEDIN_SHARE_URL = `https://www.linkedin.com/shareArticle?url=${PROD_ARTICLE_URL}`;
-const OG_URL =
-    'http://developer.mongodb.com/article/3-things-to-know-switch-from-sql-mongodb';
+const LINKEDIN_SHARE_URL = `https://www.linkedin.com/shareArticle?url=${PROD_ARTICLE_URL}/`;
 const TWITTER_SHARE_URL = `https://twitter.com/intent/tweet?url=${PROD_ARTICLE_URL}&text=3%20Things%20to%20Know%20When%20You%20Switch%20from%20SQL%20to%20MongoDB`;
 
 const UPDATED_ARTICLE_URL =
