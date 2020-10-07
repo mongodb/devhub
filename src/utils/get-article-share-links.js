@@ -6,7 +6,8 @@ export const getArticleShareLinks = (title, url) => {
     const twitterUrl = `https://twitter.com/intent/tweet?url=${urlWithoutTrailingSlash}&text=${encodeURIComponent(
         title
     )}`;
-    const linkedInUrl = `https://www.linkedin.com/shareArticle?url=${urlWithoutTrailingSlash}`;
+    // LinkedIn throws redirects to the same exact URL without a trailing slash
+    const linkedInUrl = `https://www.linkedin.com/shareArticle?url=${urlWithoutTrailingSlash}/`;
     return {
         articleUrl: urlWithoutTrailingSlash,
         facebookUrl,
