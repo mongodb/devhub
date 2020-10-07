@@ -3,7 +3,7 @@ import { createArticlePage } from '../../src/utils/setup/create-article-page';
 describe('creating an article page', () => {
     const articleOneSlug = '/article1';
     const slugContentMapping = {
-        [articleOneSlug]: { ast: {} },
+        [articleOneSlug]: { ast: { options: { template: 'devhub-article' } } },
     };
     let createPage;
     beforeEach(() => {
