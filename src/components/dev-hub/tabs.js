@@ -55,27 +55,46 @@ const stringifyTab = tabName => {
 
 const getTabId = node => getNestedValue(['options', 'tabid'], node);
 
+// Name anonymous tabsets by alphabetizing their tabids and concatenating with a forward slash
+const generateAnonymousTabsetName = tabIds => [...tabIds].sort().join('/');
+
 const Tabs = ({ nodeData: { children, options = {} } }) => {
     const hidden = options.hidden;
     const { activeTabs, setActiveTab } = useContext(TabContext);
     const tabIds = children.map(child => getTabId(child));
+    const tabsetName = options.tabset || generateAnonymousTabsetName(tabIds);
     const [activeTab, setActiveTabIndex] = useState(0);
     const tabs = children;
 
     useEffect(() => {
         if (!activeTab || !tabIds.includes(activeTab)) {
             // Set first tab as active if no tab was previously selected
-            // setActiveTab({ name: tabsetName, value: getTabId(children[0]) });
+            setActiveTab({ name: tabsetName, value: getTabId(children[0]) });
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const onClick = useCallback(index => {}, []);
+    useEffect(() => {
+        const index = tabIds.indexOf(activeTabs[tabsetName]);
+        if (index !== -1) {
+            setActiveTabIndex(index);
+        }
+    }, [activeTabs, tabIds, tabsetName]);
+
+    const onClick = useCallback(
+        index => {
+            setActiveTab({
+                name: tabsetName,
+                value: getTabId(children[index]),
+            });
+        },
+        [children, setActiveTab, tabsetName]
+    );
 
     return (
         <>
             <StyledTabs
                 selected={activeTab}
-                setSelected={setActiveTabIndex}
+                setSelected={onClick}
                 darkMode
                 ishidden={hidden}
             >
