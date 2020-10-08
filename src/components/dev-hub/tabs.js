@@ -61,10 +61,11 @@ const Tabs = ({ nodeData: { children, options = {} } }) => {
     const tabIds = children.map(child => getTabId(child));
     const tabsetName = options.tabset || generateAnonymousTabsetName(tabIds);
     const [activeTab, setActiveTabIndex] = useState(0);
+    const previousTabsetChoice = activeTabs[tabsetName];
     const tabs = children;
 
     useEffect(() => {
-        if (!activeTab || !tabIds.includes(activeTab)) {
+        if (!previousTabsetChoice || !tabIds.includes(previousTabsetChoice)) {
             // Set first tab as active if no tab was previously selected
             setActiveTab({ name: tabsetName, value: getTabId(children[0]) });
         }
