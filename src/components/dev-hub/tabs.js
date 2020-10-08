@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { css } from '@emotion/core';
+import styled from '@emotion/styled';
+import { Tabs as LeafyTabs, Tab } from '@leafygreen-ui/tabs';
 import PropTypes from 'prop-types';
 import ComponentFactory from '../ComponentFactory';
-import { TabContext } from './tab-context';
 import { getNestedValue } from '../../utils/get-nested-value';
-import { Tabs as LeafyTabs, Tab } from '@leafygreen-ui/tabs';
+import { TabContext } from './tab-context';
+
+const hiddenTabStyling = css`
+    & > div:first-child {
+        display: none;
+    }
+`;
+
+const StyledTabs = styled(LeafyTabs)`
+    button:focus {
+        color: ${({ theme }) => theme.colorMap.darkGreen};
+        :after {
+            background-color: ${({ theme }) => theme.colorMap.darkGreen};
+        }
+    }
+    ${({ ishidden }) => ishidden && hiddenTabStyling};
+`;
 
 export const SLUG_TO_STRING = {
     shell: 'Mongo Shell',
@@ -35,53 +53,58 @@ const stringifyTab = tabName => {
     return SLUG_TO_STRING[tabName] || tabName;
 };
 
-const createFragment = (tab, index) => {
+const getTabId = node => getNestedValue(['options', 'tabid'], node);
+
+const Tabs = ({ nodeData: { children, options = {} } }) => {
+    const hidden = options.hidden;
+    const { activeTabs, setActiveTab } = useContext(TabContext);
+    const tabIds = children.map(child => getTabId(child));
+    const [activeTab, setActiveTabIndex] = useState(0);
+    const tabs = children;
+
+    useEffect(() => {
+        if (!activeTab || !tabIds.includes(activeTab)) {
+            // Set first tab as active if no tab was previously selected
+            // setActiveTab({ name: tabsetName, value: getTabId(children[0]) });
+        }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const onClick = useCallback(index => {}, []);
+
     return (
-        <React.Fragment key={index}>
-            {tab.children.map((tabChild, tabChildIndex) => (
-                <ComponentFactory nodeData={tabChild} key={tabChildIndex} />
-            ))}
-        </React.Fragment>
-    );
-};
+        <>
+            <StyledTabs
+                selected={activeTab}
+                setSelected={setActiveTabIndex}
+                darkMode
+                ishidden={hidden}
+            >
+                {tabs.map((tab, index) => {
+                    const tabId = getNestedValue(['options', 'tabid'], tab);
+                    const tabTitle =
+                        getNestedValue(['argument', 0, 'value'], tab) ||
+                        stringifyTab(tabId);
 
-const Tabs = ({ nodeData }) => {
-    const [activeTab, setActiveTab] = useState(0);
-
-    const isHidden = nodeData.options && nodeData.options.hidden;
-    const tabs = nodeData.children;
-
-    return (
-        <React.Fragment>
-            {isHidden || (
-                <LeafyTabs
-                    selected={activeTab}
-                    setSelected={setActiveTab}
-                    darkMode
-                >
-                    {tabs.map((tab, index) => {
-                        const tabId = getNestedValue(['options', 'tabid'], tab);
-                        const tabTitle =
-                            getNestedValue(['argument', 0, 'value'], tab) ||
-                            stringifyTab(tabId);
-
-                        // If there are no activeTabs, js would typically be disabled
-                        const tabContent = createFragment(tab, index);
-
-                        return (
-                            <Tab
-                                data-tabid={tabId}
-                                role="tab"
-                                key={index}
-                                name={tabTitle}
-                            >
-                                {tabContent}
-                            </Tab>
-                        );
-                    })}
-                </LeafyTabs>
-            )}
-        </React.Fragment>
+                    return (
+                        <Tab
+                            data-tabid={tabId}
+                            role="tab"
+                            key={index}
+                            name={tabTitle}
+                        >
+                            <React.Fragment key={index}>
+                                {tab.children.map((tabChild, tabChildIndex) => (
+                                    <ComponentFactory
+                                        nodeData={tabChild}
+                                        key={tabChildIndex}
+                                    />
+                                ))}
+                            </React.Fragment>
+                        </Tab>
+                    );
+                })}
+            </StyledTabs>
+        </>
     );
 };
 
@@ -108,5 +131,3 @@ Tabs.propTypes = {
         }),
     }).isRequired,
 };
-
-Tabs.contextType = TabContext;
