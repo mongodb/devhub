@@ -1,6 +1,6 @@
 import { isBrowser } from './is-browser';
 
-const isValidStorage = isBrowser;
+const isValidStorage = isBrowser();
 
 export const setLocalValue = (key, value) => {
     if (isValidStorage) {
