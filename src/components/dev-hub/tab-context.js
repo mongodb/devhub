@@ -8,9 +8,10 @@ const defaultContextValue = {
 
 const TabContext = React.createContext(defaultContextValue);
 
-const reducer = (prevState, { name, value }) => ({
-    ...prevState,
-    [name]: value,
+// Keeps track of the preferences for all tab sets
+const reducer = (tabSelectionPreferences, { tabset, value }) => ({
+    ...tabSelectionPreferences,
+    [tabset]: value,
 });
 
 const TabProvider = ({ children }) => {

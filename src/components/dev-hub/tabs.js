@@ -67,7 +67,7 @@ const Tabs = ({ nodeData: { children, options = {} } }) => {
     useEffect(() => {
         if (!previousTabsetChoice || !tabIds.includes(previousTabsetChoice)) {
             // Set first tab as active if no tab was previously selected
-            setActiveTab({ name: tabsetName, value: getTabId(children[0]) });
+            setActiveTab({ tabset: tabsetName, value: getTabId(children[0]) });
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -81,7 +81,7 @@ const Tabs = ({ nodeData: { children, options = {} } }) => {
     const onClick = useCallback(
         index => {
             setActiveTab({
-                name: tabsetName,
+                tabset: tabsetName,
                 value: getTabId(children[index]),
             });
         },
