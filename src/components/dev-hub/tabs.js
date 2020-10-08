@@ -2,28 +2,11 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Tabs as LeafyTabs, Tab } from '@leafygreen-ui/tabs';
-import PropTypes from 'prop-types';
 import ComponentFactory from '../ComponentFactory';
 import { getNestedValue } from '../../utils/get-nested-value';
 import { TabContext } from './tab-context';
 
-const hiddenTabStyling = css`
-    & > div:first-child {
-        display: none;
-    }
-`;
-
-const StyledTabs = styled(LeafyTabs)`
-    button:focus {
-        color: ${({ theme }) => theme.colorMap.darkGreen};
-        :after {
-            background-color: ${({ theme }) => theme.colorMap.darkGreen};
-        }
-    }
-    ${({ ishidden }) => ishidden && hiddenTabStyling};
-`;
-
-export const SLUG_TO_STRING = {
+const SLUG_TO_STRING = {
     shell: 'Mongo Shell',
     compass: 'Compass',
     python: 'Python',
@@ -49,9 +32,23 @@ export const SLUG_TO_STRING = {
     rhel: 'RHEL',
 };
 
-const stringifyTab = tabName => {
-    return SLUG_TO_STRING[tabName] || tabName;
-};
+const hiddenTabStyling = css`
+    & > div:first-child {
+        display: none;
+    }
+`;
+
+const StyledTabs = styled(LeafyTabs)`
+    button:focus {
+        color: ${({ theme }) => theme.colorMap.darkGreen};
+        :after {
+            background-color: ${({ theme }) => theme.colorMap.darkGreen};
+        }
+    }
+    ${({ ishidden }) => ishidden && hiddenTabStyling};
+`;
+
+const stringifyTab = tabName => SLUG_TO_STRING[tabName] || tabName;
 
 const getTabId = node => getNestedValue(['options', 'tabid'], node);
 
@@ -128,25 +125,3 @@ const Tabs = ({ nodeData: { children, options = {} } }) => {
 };
 
 export default Tabs;
-
-Tabs.propTypes = {
-    nodeData: PropTypes.shape({
-        children: PropTypes.arrayOf(
-            PropTypes.shape({
-                argument: PropTypes.arrayOf(
-                    PropTypes.shape({
-                        value: PropTypes.string,
-                    })
-                ).isRequired,
-                children: PropTypes.array,
-                name: PropTypes.oneOf(['tab']),
-                options: PropTypes.shape({
-                    tabid: PropTypes.string.isRequired,
-                }).isRequired,
-            })
-        ),
-        options: PropTypes.shape({
-            hidden: PropTypes.bool,
-        }),
-    }).isRequired,
-};

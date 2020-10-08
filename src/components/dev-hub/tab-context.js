@@ -8,12 +8,10 @@ const defaultContextValue = {
 
 const TabContext = React.createContext(defaultContextValue);
 
-const reducer = (prevState, { name, value }) => {
-    return {
-        ...prevState,
-        [name]: value,
-    };
-};
+const reducer = (prevState, { name, value }) => ({
+    ...prevState,
+    [name]: value,
+});
 
 const TabProvider = ({ children }) => {
     const [activeTabs, setActiveTab] = useReducer(
