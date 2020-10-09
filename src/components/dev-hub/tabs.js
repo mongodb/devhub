@@ -3,8 +3,21 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Tabs as LeafyTabs, Tab } from '@leafygreen-ui/tabs';
 import ComponentFactory from '../ComponentFactory';
+import Button from './button';
 import { getNestedValue } from '../../utils/get-nested-value';
 import { TabContext } from './tab-context';
+
+const StyledTabButton = styled(Button)`
+    border-radius: 0;
+    :active,
+    :hover,
+    :focus {
+        color: ${({ theme }) => theme.colorMap.darkGreen};
+        :after {
+            background-color: ${({ theme }) => theme.colorMap.darkGreen};
+        }
+    }
+`;
 
 const SLUG_TO_STRING = {
     shell: 'Mongo Shell',
@@ -39,13 +52,13 @@ const hiddenTabStyling = css`
 `;
 
 const StyledTabs = styled(LeafyTabs)`
-    button:focus {
+    ${({ ishidden }) => ishidden && hiddenTabStyling};
+    a[aria-selected='true'] {
         color: ${({ theme }) => theme.colorMap.darkGreen};
         :after {
             background-color: ${({ theme }) => theme.colorMap.darkGreen};
         }
     }
-    ${({ ishidden }) => ishidden && hiddenTabStyling};
 `;
 
 const stringifyTab = tabName => SLUG_TO_STRING[tabName] || tabName;
@@ -54,6 +67,8 @@ const getTabId = node => getNestedValue(['options', 'tabid'], node);
 
 // Name anonymous tabsets by alphabetizing their tabids and concatenating with a forward slash
 const generateAnonymousTabsetName = tabIds => [...tabIds].sort().join('/');
+
+const TabButton = ({ ...props }) => <StyledTabButton tertiary {...props} />;
 
 const Tabs = ({ nodeData: { children, options = {} } }) => {
     const hidden = options.hidden;
@@ -95,6 +110,7 @@ const Tabs = ({ nodeData: { children, options = {} } }) => {
                 setSelected={onClick}
                 darkMode
                 ishidden={hidden}
+                as={TabButton}
             >
                 {tabs.map((tab, index) => {
                     const tabId = getNestedValue(['options', 'tabid'], tab);
