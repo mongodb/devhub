@@ -53,7 +53,7 @@ const hiddenTabStyling = css`
 
 const StyledTabs = styled(LeafyTabs)`
     ${({ ishidden }) => ishidden && hiddenTabStyling};
-    a[aria-selected='true'] {
+    button[aria-selected='true'] {
         color: ${({ theme }) => theme.colorMap.darkGreen};
         :after {
             background-color: ${({ theme }) => theme.colorMap.darkGreen};
@@ -68,7 +68,9 @@ const getTabId = node => getNestedValue(['options', 'tabid'], node);
 // Name anonymous tabsets by alphabetizing their tabids and concatenating with a forward slash
 const generateAnonymousTabsetName = tabIds => [...tabIds].sort().join('/');
 
-const TabButton = ({ ...props }) => <StyledTabButton tertiary {...props} />;
+const TabButton = ({ ...props }) => (
+    <StyledTabButton renderAsButton {...props} />
+);
 
 const Tabs = ({ nodeData: { children, options = {} } }) => {
     const hidden = options.hidden;

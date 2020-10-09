@@ -154,9 +154,20 @@ const StyledButton = styled('button')`
 
     ${({ primary, theme }) => primary && primaryStyles(theme)}
     ${({ secondary, theme }) => secondary && secondaryStyles(theme)}
-    ${({ play, theme }) => play && playStyles(theme)}
-    ${({ play, primary, secondary, theme }) =>
-        !primary && !secondary && !play && tertiaryStyles(theme)}
+    ${({
+        play,
+        theme,
+    }) => play && playStyles(theme)}
+    ${({
+        play,
+        primary,
+        secondary,
+        theme,
+    }) =>
+        !primary &&
+        !secondary &&
+        !play &&
+        tertiaryStyles(theme)}
     &[disabled],
     &[disabled]:hover {
         background: ${({ theme }) => theme.colorMap.greyLightThree};
@@ -187,7 +198,12 @@ const getArrow = ({ pagination, primary, secondary }) => {
  */
 
 const Button = ({ children, href, play, to, hasArrow = true, ...props }) => {
-    const isButton = !!(props.primary || props.secondary || play);
+    const isButton = !!(
+        props.primary ||
+        props.secondary ||
+        props.renderAsButton ||
+        play
+    );
     const arrow = hasArrow ? getArrow(props) : null;
     if (href || to || !isButton) {
         // If the Button has a `to` or a `href` prop, then it renders as a `Link` element,
