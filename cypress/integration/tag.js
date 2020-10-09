@@ -18,7 +18,7 @@ describe('Tag page', () => {
         });
     });
     it('should contain several articles with basic information', () => {
-        cy.get('[data-test="card"]').should('have.length', 4);
+        cy.get('[data-test="card"]').should('have.length', 5);
         cy.get('[data-test="card"]')
             .first()
             .then(card => {
