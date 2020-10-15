@@ -183,7 +183,8 @@ describe('Sample Article Page', () => {
         cy.contains('Updated: Apr 21, 2020');
     });
     describe('Tabs Component', () => {
-        const getTabAtIndex = index => cy.get('[data-test="Tabs"]').eq(index);
+        const getTabsetAtIndex = index =>
+            cy.get('[data-test="Tabs"]').eq(index);
         const verifyIfTabIndexIsActive = (index, active = true) =>
             cy
                 .get('button')
@@ -196,7 +197,7 @@ describe('Sample Article Page', () => {
         it('should render standard tabs', () => {
             cy.visit(TAB_ARTICLE_URL);
             cy.get('[data-test="Tabs"]').should('have.length', 3);
-            getTabAtIndex(0).within(() => {
+            getTabsetAtIndex(0).within(() => {
                 // Check names of tabs
                 cy.contains('Bash');
                 cy.contains('C++11');
@@ -207,7 +208,7 @@ describe('Sample Article Page', () => {
             });
         });
         it('should render tabs with the hidden option', () => {
-            getTabAtIndex(1).within(() => {
+            getTabsetAtIndex(1).within(() => {
                 // With the hidden directive, tab UI should not show
                 // In this component we use display: none to hide since this is provided by LeafyGreen, so we should use not.visible since it would still appear on the DOM (and not.exist would fail)
                 cy.contains('Mongo Shell').should('not.visible');
@@ -219,7 +220,7 @@ describe('Sample Article Page', () => {
             });
         });
         it('should change content when a tab is toggled', () => {
-            getTabAtIndex(0).within(() => {
+            getTabsetAtIndex(0).within(() => {
                 // Make sure the first tab is selected and the second is not
                 verifyIfTabIndexIsActive(0);
                 verifyIfTabIndexIsActive(1, false);
@@ -232,12 +233,12 @@ describe('Sample Article Page', () => {
                 cy.contains('Some C++ code');
             });
             // Check the hidden tab and make sure content was still updated
-            getTabAtIndex(1).within(() => {
+            getTabsetAtIndex(1).within(() => {
                 cy.contains('The reader selected bash').should('not.exist');
                 cy.contains('The reader selected CPP');
             });
             // Check the bottom tab, it should be updated to match as well
-            getTabAtIndex(2).within(() => {
+            getTabsetAtIndex(2).within(() => {
                 verifyIfTabIndexIsActive(0, false);
                 verifyIfTabIndexIsActive(1);
                 cy.contains('mongoexport').should('not.exist');
