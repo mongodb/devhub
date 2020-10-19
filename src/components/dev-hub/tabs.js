@@ -108,11 +108,12 @@ const Tabs = ({ nodeData: { children, options = {} } }) => {
     return (
         <>
             <StyledTabs
+                as={TabButton}
+                darkMode
+                data-test="Tabs"
+                ishidden={hidden}
                 selected={activeTab}
                 setSelected={onClick}
-                darkMode
-                ishidden={hidden}
-                as={TabButton}
             >
                 {tabs.map((tab, index) => {
                     const tabId = getNestedValue(['options', 'tabid'], tab);
