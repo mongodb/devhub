@@ -191,9 +191,10 @@ const Audio = ({ onClose, podcast, ...props }) => {
     );
     const onChange = useCallback(
         seconds => {
+            setProgress({ ...progress, playedSeconds: seconds });
             playerRef.current.seekTo(seconds);
         },
-        [playerRef]
+        [playerRef, progress]
     );
     const onReady = useCallback(player => {
         playerRef.current = player;

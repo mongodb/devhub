@@ -36,6 +36,8 @@ const TWITTER_SHARE_URL = `https://twitter.com/intent/tweet?url=${PROD_ARTICLE_U
 const UPDATED_ARTICLE_URL =
     '/article/coronavirus-map-live-data-tracker-charts/';
 
+const TAB_ARTICLE_URL = '/article/sample-tabs-article/';
+
 const SOCIAL_URLS = [LINKEDIN_SHARE_URL, TWITTER_SHARE_URL, FACEBOOK_SHARE_URL];
 
 describe('Sample Article Page', () => {
@@ -179,5 +181,69 @@ describe('Sample Article Page', () => {
     it('should include Updated dates where applicable', () => {
         cy.visit(UPDATED_ARTICLE_URL);
         cy.contains('Updated: Apr 21, 2020');
+    });
+    describe('Tabs Component', () => {
+        const getTabsetAtIndex = index =>
+            cy.get('[data-test="Tabs"]').eq(index);
+        const verifyIfTabIndexIsActive = (index, active = true) =>
+            cy
+                .get('button')
+                .eq(index)
+                .should(
+                    'have.attr',
+                    'aria-selected',
+                    active ? 'true' : 'false'
+                );
+        it('should render standard tabs', () => {
+            cy.visit(TAB_ARTICLE_URL);
+            cy.get('[data-test="Tabs"]').should('have.length', 3);
+            getTabsetAtIndex(0).within(() => {
+                // Check names of tabs
+                cy.contains('Bash');
+                cy.contains('C++11');
+                cy.contains('PHP');
+                // Check content (should only be mongoexport commands)
+                cy.contains('mongoexport');
+                cy.contains('Some C++ code').should('not.exist');
+            });
+        });
+        it('should render tabs with the hidden option', () => {
+            getTabsetAtIndex(1).within(() => {
+                // With the hidden directive, tab UI should not show
+                // In this component we use display: none to hide since this is provided by LeafyGreen, so we should use not.visible since it would still appear on the DOM (and not.exist would fail)
+                cy.contains('Mongo Shell').should('not.visible');
+                cy.contains('C++11').should('not.visible');
+                cy.contains('PHP').should('not.visible');
+                // Content is updated automatically
+                cy.contains('The reader selected bash');
+                cy.contains('The reader selected CPP').should('not.exist');
+            });
+        });
+        it('should change content when a tab is toggled', () => {
+            getTabsetAtIndex(0).within(() => {
+                // Make sure the first tab is selected and the second is not
+                verifyIfTabIndexIsActive(0);
+                verifyIfTabIndexIsActive(1, false);
+                // Clicking this tab should update other tabs on the page with this preference
+                cy.contains('C++11').should('exist').click();
+                verifyIfTabIndexIsActive(0, false);
+                verifyIfTabIndexIsActive(1);
+                // Check content (should only be C++ now)
+                cy.contains('mongoexport').should('not.exist');
+                cy.contains('Some C++ code');
+            });
+            // Check the hidden tab and make sure content was still updated
+            getTabsetAtIndex(1).within(() => {
+                cy.contains('The reader selected bash').should('not.exist');
+                cy.contains('The reader selected CPP');
+            });
+            // Check the bottom tab, it should be updated to match as well
+            getTabsetAtIndex(2).within(() => {
+                verifyIfTabIndexIsActive(0, false);
+                verifyIfTabIndexIsActive(1);
+                cy.contains('mongoexport').should('not.exist');
+                cy.contains('Some C++ code');
+            });
+        });
     });
 });
