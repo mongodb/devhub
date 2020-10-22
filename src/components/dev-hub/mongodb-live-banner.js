@@ -20,7 +20,7 @@ const MongodbLiveBanner = () => {
     return (
         <Link href="https://www.mongodb.com/live?tck=dotlivefallbannerdev">
             <LiveImage
-                alt="Click to watch keynotes and sessions from MongoDB.live, our virtual developer conference."
+                alt="Learn, develop, and innovate from anywhere. Join us for our MongoDB .Live series."
                 src={
                     isMobile
                         ? '/public/images/dot-live-banner-mobile.png'
