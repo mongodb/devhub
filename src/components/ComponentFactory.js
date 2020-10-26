@@ -14,6 +14,7 @@ import DefinitionList from './DefinitionList';
 import DefinitionListItem from './DefinitionListItem';
 import Deprecated from './Deprecated';
 import Emphasis from './Emphasis';
+import Extract from './Extract';
 import Figure from './Figure';
 import Footnote from './Footnote';
 import FootnoteReference from './FootnoteReference';
@@ -85,6 +86,7 @@ export default class ComponentFactory extends Component {
             definitionListItem: DefinitionListItem,
             deprecated: Deprecated,
             emphasis: Emphasis,
+            extract: Extract,
             figure: Figure,
             footnote: Footnote,
             footnote_reference: FootnoteReference,
