@@ -15,6 +15,7 @@ import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import useAllVideos from '../hooks/use-all-videos';
 import usePodcasts from '../hooks/use-podcasts';
+import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
@@ -102,6 +103,9 @@ const filterArticles = (filter, initialArticles) => {
     const filterValues = Object.keys(filter);
     return initialArticles.reduce((acc, article) => {
         for (let i = 0; i < filterValues.length; i++) {
+            if (filterValues[i] === 'page') {
+                continue;
+            }
             const fv = filterValues[i];
             const filterValuesForArticle = article[fv];
             const filterValueRequired = filter[fv];
@@ -128,6 +132,7 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
         );
         return (
             <Wrapper
+                data-test="secondary-featured-article"
                 collapseImage
                 to={slug}
                 title={title}
@@ -154,8 +159,8 @@ const FeaturedArticles = ({ articles }) => {
         articles[0]
     );
     return (
-        <MainFeatureGrid>
-            <PrimarySection>
+        <MainFeatureGrid data-test="featured-articles">
+            <PrimarySection data-test="primary-featured-article">
                 <MediaBlock
                     mediaComponent={<PrimaryImage src={image} alt="" />}
                     mediaWidth={360}
@@ -197,12 +202,44 @@ export default ({
         allArticles,
     ]);
     const [articles, setArticles] = useState(initialArticles);
-    const [textFilterResults, setTextFilterResults] = useState(null);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
+    const [textFilterQuery, setTextFilterQuery] = useState(filterValue['text']);
+    const { results: textFilterResults } = useTextFilter(textFilterQuery);
     const filterActiveArticles = useCallback(
         filter => filterArticles(filter, initialArticles),
         [initialArticles]
+    );
+    // Update the filter value for page so it behaves nicely with query params
+    const updatePageFilter = useCallback(
+        search => {
+            const { page } = parseQueryString(search);
+            if (page) {
+                filterValue['page'] = page;
+                setFilterValue({ ...filterValue });
+            } else {
+                delete filterValue['page'];
+                setFilterValue({ ...filterValue });
+            }
+        },
+        [filterValue]
+    );
+    useEffect(() => {
+        updatePageFilter(search);
+        // Don't want to also run for filterValues updatePageFilter
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [search]);
+    const updateTextFilterQuery = useCallback(
+        query => {
+            setTextFilterQuery(query);
+            if (query) {
+                filterValue['text'] = query;
+            } else {
+                delete filterValue['text'];
+            }
+            setFilterValue({ ...filterValue });
+        },
+        [filterValue]
     );
     useEffect(() => {
         const filter = stripAllParam(filterValue);
@@ -216,7 +253,6 @@ export default ({
         const filteredArticles = filterActiveArticles(filter);
         setArticles(filteredArticles);
     }, [metadata, filterValue, pathname, filterActiveArticles]);
-    const updateFilter = useCallback(filter => setFilterValue(filter), []);
     // filterValue could be {} on a page load, or values can be "all" if toggled back
     const hasNoFilter = useMemo(
         () =>
@@ -230,6 +266,15 @@ export default ({
     const { podcasts } = usePodcasts(allPodcasts);
 
     const [activeItem, setActiveItem] = useState('All');
+
+    // If the user is on a tab not supporting the text filter, ignore the filter
+    const showTextFilterResults = useMemo(
+        () =>
+            (activeItem === 'All' || activeItem === 'Articles') &&
+            textFilterQuery &&
+            textFilterResults,
+        [activeItem, textFilterQuery, textFilterResults]
+    );
 
     const leftTabs = ['All'];
     const rightTabs = ['Articles', 'Videos', 'Podcasts'];
@@ -277,12 +322,13 @@ export default ({
                     <StyledFilterBar
                         filters={filters}
                         filterValue={filterValue}
-                        setFilterValue={updateFilter}
-                        setTextFilterResults={setTextFilterResults}
+                        setFilterValue={setFilterValue}
+                        setTextFilterQuery={updateTextFilterQuery}
+                        textFilterQuery={textFilterQuery}
                     />
                 )}
 
-                {textFilterResults ? (
+                {showTextFilterResults ? (
                     textFilterResults.length ? (
                         <CardList articles={textFilterResults} />
                     ) : (

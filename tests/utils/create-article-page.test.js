@@ -3,7 +3,7 @@ import { createArticlePage } from '../../src/utils/setup/create-article-page';
 describe('creating an article page', () => {
     const articleOneSlug = '/article1';
     const slugContentMapping = {
-        [articleOneSlug]: { ast: {} },
+        [articleOneSlug]: { ast: { options: { template: 'devhub-article' } } },
     };
     let createPage;
     beforeEach(() => {
@@ -71,7 +71,7 @@ describe('creating an article page', () => {
             ast: {},
         };
         slugContentMapping[articleOneSlug].query_fields = {
-            related: [{ target: articleTwoSlug }],
+            related: [{ refuri: articleTwoSlug }],
         };
         createArticlePage(
             articleOneSlug,

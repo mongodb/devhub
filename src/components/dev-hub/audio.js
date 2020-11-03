@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+import ReactPlayer from 'react-player/lazy';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import useMedia from '../../hooks/use-media';
@@ -172,7 +172,8 @@ const PodcastOptions = React.memo(
 );
 
 const Audio = ({ onClose, podcast, ...props }) => {
-    const [playerRef, setPlayerRef] = useState(null);
+    const playerRef = useRef(null);
+    const [isReady, setIsReady] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const [isPlaying, setIsPlaying] = useState(true);
     const [progress, setProgress] = useState({ playedSeconds: 0 });
@@ -190,13 +191,18 @@ const Audio = ({ onClose, podcast, ...props }) => {
     );
     const onChange = useCallback(
         seconds => {
-            playerRef.seekTo(seconds);
+            setProgress({ ...progress, playedSeconds: seconds });
+            playerRef.current.seekTo(seconds);
         },
-        [playerRef]
+        [playerRef, progress]
     );
+    const onReady = useCallback(player => {
+        playerRef.current = player;
+        setIsReady(true);
+    }, []);
     useEffect(() => {
-        setIsPlaying(!!podcast);
-    }, [podcast]);
+        setIsPlaying(isReady && !!podcast);
+    }, [isReady, podcast]);
 
     return podcast ? (
         <ReactPlayerContainer tabIndex="0" {...props}>
@@ -240,13 +246,13 @@ const Audio = ({ onClose, podcast, ...props }) => {
                 />
                 {isExpanded && <ExpandedContainer podcast={podcast} />}
                 <ReactPlayer
-                    ref={setPlayerRef}
                     width="0"
                     height="0"
                     url={podcast.url}
                     onDuration={setDuration}
                     onProgress={setProgress}
                     playing={isPlaying}
+                    onReady={onReady}
                 />
             </ContentContainer>
         </ReactPlayerContainer>

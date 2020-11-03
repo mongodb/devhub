@@ -4,12 +4,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import ArrowheadIcon from './icons/arrowhead-icon';
 import { P } from './text';
-import {
-    fontSize,
-    lineHeight,
-    layer,
-    size,
-} from './theme';
+import { fontSize, lineHeight, layer, size } from './theme';
 
 const BORDER_SIZE = 2;
 const OPTIONS_POSITION_OFFSET = 58;
@@ -32,7 +27,7 @@ const Option = styled('li')`
     white-space: nowrap;
     :focus,
     :hover {
-        background-color:${({ theme }) => theme.colorMap.greyDarkOne};
+        background-color: ${({ theme }) => theme.colorMap.greyDarkOne};
         color: ${({ theme }) => theme.colorMap.devWhite};
     }
 `;
@@ -59,8 +54,9 @@ const StyledCustomSelect = styled('div')`
     /* Adding border without color to prevent jarring visual on expand */
     border: ${BORDER_SIZE}px solid transparent;
     color: ${({ theme }) => theme.colorMap.devWhite};
-    cursor: pointer;
+    cursor: ${({ enabled }) => (enabled ? 'pointer' : 'not-allowed')};
     font-family: 'Fira Mono', monospace;
+    opacity: ${({ enabled }) => (enabled ? 1 : 0.3)};
     position: relative;
     ${({ showOptions, theme }) => showOptions && activeSelectStyles(theme)};
 `;
@@ -81,6 +77,7 @@ const FormSelect = ({
     name,
     choices = [],
     defaultText = '',
+    enabled = true,
     errors = [],
     narrow = false,
     onChange = null,
@@ -89,12 +86,13 @@ const FormSelect = ({
     value = '',
     ...extraProps
 }) => {
+    const [isEnabled, setIsEnabled] = useState(false);
     const [selectValue, setSelectValue] = useState(value);
     const [selectText, setSelectText] = useState(defaultText);
     const [showOptions, setShowOptions] = useState(false);
     const selectOnClick = useCallback(() => {
-        setShowOptions(!showOptions);
-    }, [showOptions]);
+        if (enabled) setShowOptions(!showOptions);
+    }, [enabled, showOptions]);
     const selectOptions = typeof choices !== 'undefined' ? choices : children;
     const updateSelectedText = useCallback(
         text => {
@@ -105,6 +103,10 @@ const FormSelect = ({
         },
         [styleSelectedText]
     );
+    // Styles for enabled were not properly being hydrated, so we assume false first and then re-render if true
+    useEffect(() => {
+        setIsEnabled(enabled);
+    }, [enabled]);
     /**
      * This useEffect should only be called once the component first renders with choices,
      * this should populate the select item with the default choice if there is one
@@ -170,12 +172,14 @@ const FormSelect = ({
     return (
         <StyledCustomSelect
             aria-expanded={showOptions}
+            enabled={isEnabled}
+            aria-label={name}
             onBlur={closeOptionsOnBlur}
             onClick={selectOnClick}
             onKeyDown={showOptionsOnEnter}
             role="listbox"
             showOptions={showOptions}
-            tabIndex="0"
+            tabIndex={isEnabled ? '0' : null}
         >
             <SelectedOption
                 errors={errors}

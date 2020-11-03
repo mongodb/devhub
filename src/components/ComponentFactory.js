@@ -40,6 +40,7 @@ import Strong from './Strong';
 import Subscript from './Subscript';
 import Superscript from './Superscript';
 import SubstitutionReference from './SubstitutionReference';
+import Tabs from './dev-hub/tabs';
 import Target from './Target';
 import Text from './Text';
 import TitleReference from './TitleReference';
@@ -109,6 +110,7 @@ export default class ComponentFactory extends Component {
             subscript: Subscript,
             substitution_reference: SubstitutionReference,
             superscript: Superscript,
+            tabs: Tabs,
             target: Target,
             text: Text,
             title_reference: TitleReference,

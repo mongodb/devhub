@@ -18,7 +18,7 @@ describe('Tag page', () => {
         });
     });
     it('should contain several articles with basic information', () => {
-        cy.get('[data-test="card"]').should('have.length', 4);
+        cy.get('[data-test="card"]').should('have.length', 5);
         cy.get('[data-test="card"]')
             .first()
             .then(card => {
@@ -31,12 +31,21 @@ describe('Tag page', () => {
         cy.get('header').within(() => {
             cy.get('ul li a').last().contains(TITLE);
             cy.get('ul li a').last().click();
-            cy.url().should('include', TAG_PAGE_URL);
         });
+        // Wait for an element to render on the tag page before checking URL
+        cy.contains('Tagged In');
+        cy.url().should('include', TAG_PAGE_URL);
         cy.get('[data-test="card"]')
             .eq(1)
             .should('have.attr', 'href')
             .and('include', TAG_ARTICLE_URL);
+    });
+    it('should expand the blog tag list when requested', () => {
+        cy.get('[data-test="card"]')
+            .first()
+            .within(() => {
+                cy.checkTagListProperties(true);
+            });
     });
     it('should not be indexed for SEO', () => {
         cy.checkMetaContentProperty('name="robots"', 'noindex');

@@ -1,6 +1,10 @@
 const ARTICLE_WITH_SERIES_URL =
     '/article/3-things-to-know-switch-from-sql-mongodb';
 const PROD_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_SERIES_URL}`;
+const ARTICLE_WITH_ATTRIBUTION_LINK_URL =
+    '/article/build-newsletter-website-mongodb-data-platform/';
+const EXPECTED_ATTRIBUTION_LINK =
+    'https://www.mongodb.com/cloud/atlas/signup?tck%3Ddevhub-build-newsletter-website-mongodb-data-platform';
 
 // Article with no og description or og type (test meta description fallback)
 const ARTICLE_WITH_MINIMAL_OG_URL =
@@ -26,13 +30,15 @@ const OG_IMAGE =
 
 // Social Media Links
 const FACEBOOK_SHARE_URL = `https://www.facebook.com/sharer/sharer.php?u=${PROD_ARTICLE_URL}`;
-const LINKEDIN_SHARE_URL = `https://www.linkedin.com/shareArticle?url=${PROD_ARTICLE_URL}`;
-const OG_URL =
-    'http://developer.mongodb.com/article/3-things-to-know-switch-from-sql-mongodb';
+const LINKEDIN_SHARE_URL = `https://www.linkedin.com/shareArticle?url=${PROD_ARTICLE_URL}/`;
 const TWITTER_SHARE_URL = `https://twitter.com/intent/tweet?url=${PROD_ARTICLE_URL}&text=3%20Things%20to%20Know%20When%20You%20Switch%20from%20SQL%20to%20MongoDB`;
 
+const UPDATED_ARTICLE_URL =
+    '/article/coronavirus-map-live-data-tracker-charts/';
+
+const TAB_ARTICLE_URL = '/article/sample-tabs-article/';
+
 const SOCIAL_URLS = [LINKEDIN_SHARE_URL, TWITTER_SHARE_URL, FACEBOOK_SHARE_URL];
-const STATCOUNTER_URL = 'https://www.statcounter.com/counter/counter.js';
 
 describe('Sample Article Page', () => {
     it('should have a descriptive header', () => {
@@ -96,7 +102,12 @@ describe('Sample Article Page', () => {
             cy.get('a')
                 .first()
                 .should('have.prop', 'href')
-                .and('include', '/article/map-terms-concepts-sql-mongodb');
+                .and('include', '/article/map-terms-concepts-sql-mongodb')
+                // Want to make sure the link is not relative
+                .and(
+                    'not.include',
+                    'article/3-things-to-know-switch-from-sql-mongodb'
+                );
         });
     });
 
@@ -137,10 +148,6 @@ describe('Sample Article Page', () => {
         cy.checkMetaContentProperty('name="twitter:image"', TWITTER_IMAGE);
     });
 
-    it('should contain the statcounter script tag', () => {
-        cy.checkScriptExists(`src="${STATCOUNTER_URL}"`);
-    });
-
     it('should automatically populate the og description tag should it not be provided', () => {
         cy.visit(ARTICLE_WITH_MINIMAL_OG_URL).then(() => {
             cy.checkMetaContentProperty(
@@ -165,6 +172,78 @@ describe('Sample Article Page', () => {
                 'name="twitter:site"',
                 DEFAULT_TWITTER_SITE
             );
+        });
+    });
+    it('should verify Cloud attribution links add the tck param as expected', () => {
+        cy.visit(ARTICLE_WITH_ATTRIBUTION_LINK_URL);
+        cy.get(`a[href='${EXPECTED_ATTRIBUTION_LINK}']`).should('exist');
+    });
+    it('should include Updated dates where applicable', () => {
+        cy.visit(UPDATED_ARTICLE_URL);
+        cy.contains('Updated: Apr 21, 2020');
+    });
+    describe('Tabs Component', () => {
+        const getTabsetAtIndex = index =>
+            cy.get('[data-test="Tabs"]').eq(index);
+        const verifyIfTabIndexIsActive = (index, active = true) =>
+            cy
+                .get('button')
+                .eq(index)
+                .should(
+                    'have.attr',
+                    'aria-selected',
+                    active ? 'true' : 'false'
+                );
+        it('should render standard tabs', () => {
+            cy.visit(TAB_ARTICLE_URL);
+            cy.get('[data-test="Tabs"]').should('have.length', 3);
+            getTabsetAtIndex(0).within(() => {
+                // Check names of tabs
+                cy.contains('Bash');
+                cy.contains('C++11');
+                cy.contains('PHP');
+                // Check content (should only be mongoexport commands)
+                cy.contains('mongoexport');
+                cy.contains('Some C++ code').should('not.exist');
+            });
+        });
+        it('should render tabs with the hidden option', () => {
+            getTabsetAtIndex(1).within(() => {
+                // With the hidden directive, tab UI should not show
+                // In this component we use display: none to hide since this is provided by LeafyGreen, so we should use not.visible since it would still appear on the DOM (and not.exist would fail)
+                cy.contains('Mongo Shell').should('not.visible');
+                cy.contains('C++11').should('not.visible');
+                cy.contains('PHP').should('not.visible');
+                // Content is updated automatically
+                cy.contains('The reader selected bash');
+                cy.contains('The reader selected CPP').should('not.exist');
+            });
+        });
+        it('should change content when a tab is toggled', () => {
+            getTabsetAtIndex(0).within(() => {
+                // Make sure the first tab is selected and the second is not
+                verifyIfTabIndexIsActive(0);
+                verifyIfTabIndexIsActive(1, false);
+                // Clicking this tab should update other tabs on the page with this preference
+                cy.contains('C++11').should('exist').click();
+                verifyIfTabIndexIsActive(0, false);
+                verifyIfTabIndexIsActive(1);
+                // Check content (should only be C++ now)
+                cy.contains('mongoexport').should('not.exist');
+                cy.contains('Some C++ code');
+            });
+            // Check the hidden tab and make sure content was still updated
+            getTabsetAtIndex(1).within(() => {
+                cy.contains('The reader selected bash').should('not.exist');
+                cy.contains('The reader selected CPP');
+            });
+            // Check the bottom tab, it should be updated to match as well
+            getTabsetAtIndex(2).within(() => {
+                verifyIfTabIndexIsActive(0, false);
+                verifyIfTabIndexIsActive(1);
+                cy.contains('mongoexport').should('not.exist');
+                cy.contains('Some C++ code');
+            });
         });
     });
 });

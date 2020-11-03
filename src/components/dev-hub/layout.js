@@ -2,10 +2,12 @@ import React, { useMemo } from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
+import { TabProvider } from './tab-context';
 import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
+import MongodbLiveBanner from './mongodb-live-banner';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
@@ -64,8 +66,10 @@ export const StorybookLayout = ({ children }) => {
     return (
         <ThemeProvider theme={darkTheme}>
             <GlobalWrapper>
-                <Global styles={style} />
-                <main>{children}</main>
+                <TabProvider>
+                    <Global styles={style} />
+                    <main>{children}</main>
+                </TabProvider>
             </GlobalWrapper>
         </ThemeProvider>
     );
@@ -84,8 +88,11 @@ export default ({ children }) => {
                     />
                 </Helmet>
                 <Global styles={style} />
+                <MongodbLiveBanner />
                 <GlobalNav />
-                <Main>{children}</Main>
+                <TabProvider>
+                    <Main>{children}</Main>
+                </TabProvider>
                 <GlobalFooter />
             </GlobalWrapper>
         </ThemeProvider>

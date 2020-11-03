@@ -1,5 +1,5 @@
 ![DevHub npm test](https://github.com/mongodb/devhub/workflows/DevHub%20npm%20test/badge.svg)
-![DevHub CI test](https://github.com/mongodb/devhub/workflows/DevHub%20ci%20test/badge.svg)
+![DevHub CI test](https://github.com/mongodb/devhub/workflows/DevHub%20CI%20test/badge.svg)
 
 # MongoDB Developer Hub Front-End
 
@@ -22,6 +22,7 @@ Snooty's `build` and `serve` stages use the `production` environment. Your `.env
 ```
 GATSBY_SITE=<SITE>
 GATSBY_PARSER_USER=<USER>
+GATSBY_PARSER_CI_USER=jordanstapinski
 GATSBY_PARSER_BRANCH=<BRANCH>
 GATSBY_SNOOTY_DEV=true
 ```
@@ -33,6 +34,7 @@ Snooty's `develop` stage uses the `development` environment. Your `.env.developm
 ```
 GATSBY_SITE=<SITE>
 GATSBY_PARSER_USER=<USER>
+GATSBY_PARSER_CI_USER=jordanstapinski
 GATSBY_PARSER_BRANCH=<BRANCH>
 GATSBY_SNOOTY_DEV=true
 ```
@@ -43,16 +45,27 @@ It should be set to `true` when working on snooty locally.
 
 ## Running locally
 
+To serve a "hot-reloadable" development build of the site at `localhost:8000`, run:
+
 ```shell
 npm run develop
 ```
 
-To build and serve the site, run the following commands:
+To build and serve a production build of the site, run the following commands:
 
 ```shell
 $ npm run build
 $ npm run serve
 ```
+
+To production build and serve without using Gatsby prefix-paths:
+
+```shell
+$ npm run buildTest
+$ npm run serveTest
+```
+
+This will then serve the site at `localhost:9000`
 
 ## Staging
 
@@ -62,24 +75,6 @@ Install [mut](https://github.com/mongodb/mut) and ensure that you have properly 
 make stage
 ```
 
-## Using mock test data
-
-Every time you run the application without the flag below, the data retrieved for the docs site is stored in `tests/unit/data/site/__testDataLatest.json`. There is also a reference data file in `tests/unit/data/site/__testData.json`. You can load either one of these into the Gatsby build with the flag:
-
-```shell
-USE_TEST_DATA=__testData.json
-```
-
-## Testing
-
-Tests can be run using:
-
-```shell
-npm test  # alias for npm run test
-```
-
-Note that this will run unit _and_ regression tests, which have a long runtime. It is more likely that you want to run only unit tests.
-
 ### Unit tests
 
 Unit tests are located in the `tests/unit/` directory. To run only unit tests, use:
@@ -88,22 +83,26 @@ Unit tests are located in the `tests/unit/` directory. To run only unit tests, u
 npm run test:unit
 ```
 
-### Regression tests
+### Integration tests
 
-Regression tests are located in the `tests/regression/` directory. Before running regression tests, start a local Gatsby build server:
-
-```shell
-$ npm run build
-$ npm run serve
-```
-
-To run regression tests:
+Integration tests are located in the `cypress` directory and are run on the Cypress framework. First, build a production build of the site without prefix-paths using the following command:
 
 ```shell
-npm run test:regression
+$ npm run buildTest
+$ npm run serveTest
 ```
 
-Regression tests have a long runtime, so Jest's [`describe.only`](https://jestjs.io/docs/en/api#describeonlyname-fn) and [`test.only`](https://jestjs.io/docs/en/api#testonlyname-fn-timeout) functions are quite handy to isolate your tests.
+and then load the Cypress UI using:
+
+```shell
+$ npm run test:e2e:start
+```
+
+or run headless with:
+
+```shell
+$ npm run test:e2e:headless
+```
 
 ### Running individual suites
 
@@ -120,16 +119,6 @@ For more information, see the [Jest CLI Options](https://jestjs.io/docs/en/cli) 
 
 We use [ESLint](https://eslint.org) and [Prettier](https://prettier.io) to help with linting and style.
 
-### Lint
-
-Our CI (via [GitHub Actions](https://github.com/features/actions)) is configured to test for lint errors. To run this test locally and attempt to automatically fix errors:
-
-```shell
-npm run lint:fix
-```
-
-These errors must be fixed for the CI build to pass.
-
 ### Style
 
 To format code using Prettier, run the following command:
@@ -139,3 +128,5 @@ npm run format:fix
 ```
 
 We have set up a precommit hook that will format staged files. Prettier also offers a variety of editor integrations to automatically format your code.
+
+Check out the [internal wiki](https://wiki.corp.mongodb.com/display/DE/Developer+Hub+Front-End) for more information.
