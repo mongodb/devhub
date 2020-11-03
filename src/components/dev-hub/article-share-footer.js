@@ -24,9 +24,13 @@ const ArticleShareArea = styled('div')`
 `;
 
 const BlogShareLinks = styled('div')`
-    span:not(:last-child),
+    span,
     a:not(:last-of-type) {
         margin-right: ${size.medium};
+    }
+    /* For the tooltip, there is a wrapper span to give a proper tab UX */
+    span > span:first-child {
+        margin-right: 0;
     }
 `;
 
