@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<Fragment>
+  <StyledTabs
+    as={[Function]}
+    darkMode={true}
+    data-test="Tabs"
+    selected={0}
+    setSelected={[Function]}
+  >
+    <Tab
+      data-tabid="shell"
+      key="0"
+      name="Mongo Shell"
+      role="tab"
+    >
+      <ComponentFactory
+        key="0"
+        nodeData={
+          Object {
+            "copyable": true,
+            "emphasize_lines": Array [],
+            "lang": "bash",
+            "linenos": false,
+            "position": Object {
+              "start": Object {
+                "line": 132,
+              },
+            },
+            "type": "code",
+            "value": "mongoexport --collection='statistics' --out='statistics.jsonl' --uri=\\"mongodb+srv://readonly:readonly@covid-19.hip2i.mongodb.net/covid19\\"
+mongoexport --collection='metadata' --out='metadata.jsonl' --uri=\\"mongodb+srv://readonly:readonly@covid-19.hip2i.mongodb.net/covid19\\"",
+          }
+        }
+      />
+    </Tab>
+    <Tab
+      data-tabid="cpp"
+      key="1"
+      name="C++11"
+      role="tab"
+    >
+      <ComponentFactory
+        key="0"
+        nodeData={
+          Object {
+            "copyable": true,
+            "emphasize_lines": Array [],
+            "lang": "cpp",
+            "linenos": false,
+            "position": Object {
+              "start": Object {
+                "line": 140,
+              },
+            },
+            "type": "code",
+            "value": "Some C++ code",
+          }
+        }
+      />
+    </Tab>
+    <Tab
+      data-tabid="php"
+      key="2"
+      name="PHP"
+      role="tab"
+    >
+      <ComponentFactory
+        key="0"
+        nodeData={
+          Object {
+            "copyable": true,
+            "emphasize_lines": Array [],
+            "lang": "php",
+            "linenos": false,
+            "position": Object {
+              "start": Object {
+                "line": 147,
+              },
+            },
+            "type": "code",
+            "value": "Some PHP code",
+          }
+        }
+      />
+    </Tab>
+  </StyledTabs>
+</Fragment>
+`;
