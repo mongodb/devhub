@@ -60,32 +60,18 @@ describe('Learn Page', () => {
         // Check content
         cy.checkFirstCardInCardList('How to work with Johns Hopkins');
     });
-    it('should have a "Load More" button', () => {
+    it('should have a list of item cards', () => {
         cy.get('[data-test="card-list"]').within(() => {
             cy.get('[data-test="card"]').should('have.length', 12);
         });
-        cy.contains('Load more').click();
     });
-    /*
-    These actions can be a bit flaky because this requires the page
-    render after "Load More" has been clicked, so we can re-query once
-    should a failure occur
-    */
-    it(
-        'should have updated fields after "Load More" is activated',
-        {
-            retries: {
-                runMode: 1,
-                openMode: 1,
-            },
-        },
-        () => {
-            cy.url().should('include', 'page=2');
-            cy.get('[data-test="card-list"]').within(() => {
-                cy.get('[data-test="card"]').should('have.length', 24);
-            });
-        }
-    );
+    it('should have updated fields after "Load More" is activated', () => {
+        cy.contains('Load more').should('exist').click();
+        cy.url().should('include', 'page=2');
+        cy.get('[data-test="card-list"]').within(() => {
+            cy.get('[data-test="card"]').should('have.length', 24);
+        });
+    });
     it('should filter content using the text filter', () => {
         // Check empty state
         cy.mockTextFilterResponse();
