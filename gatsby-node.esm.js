@@ -73,6 +73,19 @@ export const sourceNodes = async ({
     });
 };
 
+// Snooty Parser v0.7.0 introduced a fileid keyword that is passed as a string for the includes directive
+// Gatsby does not look at the directive name, it just checks the overall shape and so this causes Gatsby to think something is off when it is actually fine since we case on the directive
+// We can ignore the provided type warning on the context because the directives are distinct
+export const createSchemaCustomization = ({ actions }) => {
+    const { createTypes } = actions;
+    const typeDefs = `
+    type SitePage implements Node @dontInfer {
+        path: String
+    }
+    `;
+    createTypes(typeDefs);
+};
+
 export const onCreateNode = async ({ node }) => {
     if (node.internal.type === 'Asset') {
         assets.push(node.id);
