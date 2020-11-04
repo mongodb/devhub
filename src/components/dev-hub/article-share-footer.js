@@ -24,9 +24,9 @@ const ArticleShareArea = styled('div')`
 `;
 
 const BlogShareLinks = styled('div')`
-    span,
-    a:not(:last-of-type) {
-        margin-right: ${size.medium};
+    /* The initial footer element is a span, so this works given the initial element does not have any margin applied to give spacing */
+    a {
+        margin-left: ${size.medium};
     }
 `;
 

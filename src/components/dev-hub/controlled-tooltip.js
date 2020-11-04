@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Popover from 'react-tiny-popover';
 import { animationSpeed, layer, size } from './theme';
+
+const ControlledTooltipWrapper = styled('span')`
+    /* Article sets these values */
+    padding: 0 !important;
+`;
 
 const CONTENT_MAX_WIDTH = 250;
 const TOOLTIP_DISTANCE = 15;
@@ -275,9 +280,12 @@ const ControlledTooltip = ({
     isOpen,
     setIsOpen,
 }) => {
+    const ref = useRef(null);
+
     const tooltipProps = {
         align: TOOLTIP_ALIGNMENT_MAP[position],
         containerStyle: { overflow: 'visible', zIndex: layer.superFront },
+        contentDestination: ref.current,
         disableReposition: true,
         isOpen: isOpen,
         onClickOutside: () => setIsOpen(false),
@@ -297,28 +305,30 @@ const ControlledTooltip = ({
           };
 
     return (
-        <Popover
-            contentLocation={contentLocation(TOOLTIP_DISTANCE)}
-            content={
-                isOpen && (
-                    <Content
-                        hasGradientBorder={hasGradientBorder}
-                        position={position}
-                        maxWidth={maxWidth}
-                        css={contentStyle}
-                    >
-                        {children}
-                    </Content>
-                )
-            }
-            {...tooltipProps}
-        >
-            {ref => (
-                <Trigger ref={ref} {...triggerProps}>
-                    {trigger}
-                </Trigger>
-            )}
-        </Popover>
+        <ControlledTooltipWrapper ref={ref}>
+            <Popover
+                contentLocation={contentLocation(TOOLTIP_DISTANCE)}
+                content={
+                    isOpen && (
+                        <Content
+                            hasGradientBorder={hasGradientBorder}
+                            position={position}
+                            maxWidth={maxWidth}
+                            css={contentStyle}
+                        >
+                            {children}
+                        </Content>
+                    )
+                }
+                {...tooltipProps}
+            >
+                {ref => (
+                    <Trigger ref={ref} {...triggerProps}>
+                        {trigger}
+                    </Trigger>
+                )}
+            </Popover>
+        </ControlledTooltipWrapper>
     );
 };
 
