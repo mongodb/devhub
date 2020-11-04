@@ -5,6 +5,7 @@ exports[`renders correctly 1`] = `
   <StyledTabs
     as={[Function]}
     darkMode={true}
+    data-test="Tabs"
     selected={0}
     setSelected={[Function]}
   >
