@@ -1,0 +1,100 @@
+{
+  "type": "directive",
+  "position": {
+    "start": {
+      "line": 127
+    }
+  },
+  "children": [
+    {
+      "type": "directive",
+      "position": {
+        "start": {
+          "line": 129
+        }
+      },
+      "children": [
+        {
+          "type": "code",
+          "position": {
+            "start": {
+              "line": 132
+            }
+          },
+          "lang": "bash",
+          "copyable": true,
+          "emphasize_lines": [],
+          "value": "mongoexport --collection='statistics' --out='statistics.jsonl' --uri=\"mongodb+srv://readonly:readonly@covid-19.hip2i.mongodb.net/covid19\"\nmongoexport --collection='metadata' --out='metadata.jsonl' --uri=\"mongodb+srv://readonly:readonly@covid-19.hip2i.mongodb.net/covid19\"",
+          "linenos": false
+        }
+      ],
+      "domain": "",
+      "name": "tab",
+      "argument": [],
+      "options": {
+        "tabid": "shell"
+      }
+    },
+    {
+      "type": "directive",
+      "position": {
+        "start": {
+          "line": 137
+        }
+      },
+      "children": [
+        {
+          "type": "code",
+          "position": {
+            "start": {
+              "line": 140
+            }
+          },
+          "lang": "cpp",
+          "copyable": true,
+          "emphasize_lines": [],
+          "value": "Some C++ code",
+          "linenos": false
+        }
+      ],
+      "domain": "",
+      "name": "tab",
+      "argument": [],
+      "options": {
+        "tabid": "cpp"
+      }
+    },
+    {
+      "type": "directive",
+      "position": {
+        "start": {
+          "line": 144
+        }
+      },
+      "children": [
+        {
+          "type": "code",
+          "position": {
+            "start": {
+              "line": 147
+            }
+          },
+          "lang": "php",
+          "copyable": true,
+          "emphasize_lines": [],
+          "value": "Some PHP code",
+          "linenos": false
+        }
+      ],
+      "domain": "",
+      "name": "tab",
+      "argument": [],
+      "options": {
+        "tabid": "php"
+      }
+    }
+  ],
+  "domain": "",
+  "name": "tabs",
+  "argument": []
+}
