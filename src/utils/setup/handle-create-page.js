@@ -4,6 +4,7 @@ import { removePageIfStaged } from './remove-page-if-staged';
 import { getNestedValue } from '../get-nested-value';
 import { getMetadata } from '../get-metadata';
 import { fetchBuildTimeMedia } from './fetch-build-time-media';
+import { getItemTypeFromUrl } from './get-item-type-from-url';
 import { getStagingPages } from './get-staging-pages';
 
 const metadata = getMetadata();
@@ -27,6 +28,10 @@ const DEFAULT_FEATURED_LEARN_SLUGS = [
 
 const memoizedStagingPages = memoizerific(1)(
     async () => await getStagingPages()
+);
+
+const memoizedBuildTimeMedia = memoizerific(1)(
+    async () => await fetchBuildTimeMedia()
 );
 
 const requestStitch = async (functionName, ...args) =>
@@ -54,6 +59,7 @@ export const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
             x.query_fields.slug.match(targetSlug)
         );
         if (newArticle) {
+            newArticle['type'] = 'article';
             result.push(newArticle);
         } else {
             // This article was not found. pick an existing article and add it instead.
@@ -150,7 +156,7 @@ export const handleCreatePage = async (
                 learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS,
                 MAX_LEARN_PAGE_FEATURED_ARTICLES
             );
-            const { allPodcasts, allVideos } = await fetchBuildTimeMedia();
+            const { allPodcasts, allVideos } = await memoizedBuildTimeMedia();
             deletePage(page);
             createPage({
                 ...page,
@@ -165,17 +171,37 @@ export const handleCreatePage = async (
             });
             break;
         case '/':
-            const featuredHomeArticles = findArticlesFromSlugs(
-                await getAllArticles(),
-                homeFeaturedArticles || DEFAULT_FEATURED_HOME_SLUGS,
-                MAX_HOME_PAGE_FEATURED_ARTICLES
-            );
+            const featuredItems = [];
+            const articles = await getAllArticles();
+            homeFeaturedArticles.forEach(item => {
+                // Currently, only articles are supported here
+                // TODO: Support items of all content types
+                const itemType = getItemTypeFromUrl(item);
+                switch (itemType) {
+                    case 'article':
+                        const targetSlug = new RegExp(`^/?${item}$`);
+                        const newArticle = articles.find(x =>
+                            x.query_fields.slug.match(targetSlug)
+                        );
+                        if (newArticle) {
+                            newArticle['type'] = 'article';
+                            featuredItems.push(newArticle);
+                        } else {
+                            throw new Error(
+                                `Featured article not found: ${item}`
+                            );
+                        }
+                        break;
+                    default:
+                        throw new Error(`Featured article not found: ${item}`);
+                }
+            });
             deletePage(page);
             createPage({
                 ...page,
                 context: {
                     ...page.context,
-                    featuredArticles: featuredHomeArticles,
+                    featuredItems,
                 },
             });
             break;

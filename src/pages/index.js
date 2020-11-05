@@ -90,7 +90,24 @@ const DescriptiveText = styled(P)`
     margin-bottom: ${size.medium};
 `;
 
-const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
+// TODO: Generalize as new content types are supported
+const FeaturedHomePageItem = ({ item }) => {
+    const itemType = item.type;
+    if (itemType === 'article') {
+        const { image, slug, title } = getFeaturedCardFields(item);
+        return (
+            <StyledTopCard
+                maxTitleLines={3}
+                image={image}
+                to={slug}
+                title={title}
+                key={title}
+            />
+        );
+    }
+};
+
+const IndexPageContent = ({ stream, title, twitchVideo, featuredItems }) => {
     const theme = useTheme();
     return (
         <>
@@ -113,22 +130,9 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
                     </Heading>
                     <Sub>What will you create today?</Sub>
                     <CardGallery>
-                        {featuredArticles.map(article => {
-                            const {
-                                image,
-                                slug,
-                                title,
-                            } = getFeaturedCardFields(article);
-                            return (
-                                <StyledTopCard
-                                    maxTitleLines={3}
-                                    image={image}
-                                    to={slug}
-                                    title={title}
-                                    key={title}
-                                />
-                            );
-                        })}
+                        {featuredItems.map(item => (
+                            <FeaturedHomePageItem item={item} />
+                        ))}
                     </CardGallery>
                     <div>
                         <Button to="/learn" primary>
@@ -287,7 +291,7 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredArticles }) => {
     );
 };
 
-export default ({ pageContext: { featuredArticles } }) => {
+export default ({ pageContext: { featuredItems } }) => {
     const { stream, videos } = useTwitchApi();
     const { title } = useSiteMetadata();
     const twitchVideo = useMemo(() => {
@@ -301,7 +305,7 @@ export default ({ pageContext: { featuredArticles } }) => {
                 stream={stream}
                 title={title}
                 twitchVideo={twitchVideo}
-                featuredArticles={featuredArticles}
+                featuredItems={featuredItems}
             />
         </Layout>
     );
