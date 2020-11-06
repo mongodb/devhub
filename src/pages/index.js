@@ -92,8 +92,7 @@ const DescriptiveText = styled(P)`
 
 // TODO: Generalize as new content types are supported
 const FeaturedHomePageItem = ({ item }) => {
-    const itemType = item.type;
-    if (itemType === 'article') {
+    if (item.type === 'article') {
         const { image, slug, title } = getFeaturedCardFields(item);
         return (
             <StyledTopCard
