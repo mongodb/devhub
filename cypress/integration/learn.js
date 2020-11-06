@@ -28,7 +28,7 @@ describe('Learn Page', () => {
     it('should sort using the updated date where appropriate', () => {
         cy.toggleLearnPageTab('Articles');
         cy.get('[data-test="card-list"]').within(() => {
-            cy.get('[data-test="card"]').first().click();
+            cy.get('[data-test="card"]').first().should('exist').click();
         });
         cy.url().should('include', FIRST_ARTICLE_IN_ORDERING);
         // By targeting the hero banner we can be sure the navigation is done
@@ -39,7 +39,7 @@ describe('Learn Page', () => {
         cy.visitWithoutFetch('/learn');
         cy.toggleLearnPageTab('Articles');
         cy.get('[data-test="card-list"]').within(() => {
-            cy.get('[data-test="card"]').eq(1).click();
+            cy.get('[data-test="card"]').eq(1).should('exist').click();
         });
         cy.url().should('include', SECOND_ARTICLE_IN_ORDERING);
         cy.get('[data-test="hero-banner"]').within(() => {
@@ -50,6 +50,7 @@ describe('Learn Page', () => {
     });
     it('should filter content based on the selected tab', () => {
         cy.visitWithoutFetch('/learn');
+        cy.get('header');
         // TODO: Check content in "All" (Stub videos and podcasts)
         // Check content in "Articles"
         cy.toggleLearnPageTab('Articles');
