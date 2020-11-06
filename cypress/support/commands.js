@@ -104,8 +104,12 @@ Cypress.Commands.add('mockTextFilterResponse', () => {
 
 Cypress.Commands.add('toggleLearnPageTab', tabName => {
     cy.get('[data-test="tabs"]').within(() => {
-        cy.contains(tabName).click();
+        cy.contains(tabName).should('exist').click();
     });
+    cy.get(`[data-test="tab-${tabName}"]`).should(
+        'have.css',
+        'border-bottom-color'
+    );
 });
 
 // To stub requests with Cypress, we must remove fetch from the browser so
