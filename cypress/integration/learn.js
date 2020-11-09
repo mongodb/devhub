@@ -28,7 +28,10 @@ describe('Learn Page', () => {
     it('should sort using the updated date where appropriate', () => {
         cy.toggleLearnPageTab('Articles');
         cy.get('[data-test="card-list"]').within(() => {
-            cy.get('[data-test="card"]').first().should('exist').click();
+            cy.get('[data-test="card"]')
+                .first()
+                .should('contain', 'Working with MongoDB Transactions')
+                .click();
         });
         cy.url().should('include', FIRST_ARTICLE_IN_ORDERING);
         // By targeting the hero banner we can be sure the navigation is done
@@ -39,7 +42,10 @@ describe('Learn Page', () => {
         cy.visitWithoutFetch('/learn');
         cy.toggleLearnPageTab('Articles');
         cy.get('[data-test="card-list"]').within(() => {
-            cy.get('[data-test="card"]').eq(1).should('exist').click();
+            cy.get('[data-test="card"]')
+                .eq(1)
+                .should('contain', 'Build a Newsletter')
+                .click();
         });
         cy.url().should('include', SECOND_ARTICLE_IN_ORDERING);
         cy.get('[data-test="hero-banner"]').within(() => {
