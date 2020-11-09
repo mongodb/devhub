@@ -20,7 +20,7 @@ const saveFile = async (buffer, filepath) => {
 export const saveAssetFiles = async (assets, stitchClient) => {
     const numAssets = Object.keys(assets).length;
     if (numAssets) {
-        const assetQuery = { _id: { $in: Array.from(Object.keys(assets)) } };
+        const assetQuery = { _id: { $in: Object.keys(assets) } };
         const assetCollection = stitchClient
             .getServiceClient(RemoteMongoClient.factory, 'mongodb-atlas')
             .db(DB)
