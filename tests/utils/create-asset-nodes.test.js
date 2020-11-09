@@ -5,7 +5,11 @@ it('should properly construct nodes for static assets', () => {
         ast: {
             children: [],
         },
-        static_assets: ['asset_1', 'asset_2'],
+        // TODO: Update tests
+        static_assets: [
+            { checksum: 'asset_1', path: 'foo' },
+            { checksum: 'asset_2', path: 'bar' },
+        ],
     };
 
     const createNode = jest.fn();

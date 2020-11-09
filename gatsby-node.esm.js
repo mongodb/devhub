@@ -22,7 +22,7 @@ const DB = metadata.database;
 const PAGE_ID_PREFIX = `${metadata.project}/${metadata.parserUser}/${metadata.parserBranch}`;
 
 // different types of references
-const assets = [];
+const assets = {};
 
 // in-memory object with key/value = filename/document
 const slugContentMapping = {};
@@ -88,7 +88,7 @@ export const createSchemaCustomization = ({ actions }) => {
 
 export const onCreateNode = async ({ node }) => {
     if (node.internal.type === 'Asset') {
-        assets.push(node.id);
+        assets[node.id] = node.paths;
     }
 };
 
