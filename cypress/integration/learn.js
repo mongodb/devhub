@@ -40,23 +40,8 @@ describe('Learn Page', () => {
             cy.contains(`Published: ${FIRST_ARTICLE_PUBLISHED_DATE}`);
         });
         cy.visitWithoutFetch('/learn/');
-        cy.toggleLearnPageTab('Articles');
-        cy.get('[data-test="card-list"]').within(() => {
-            cy.get('[data-test="card"]')
-                .eq(1)
-                .should('contain', 'Build a Newsletter')
-                .click();
-        });
-        cy.url().should('include', SECOND_ARTICLE_IN_ORDERING);
-        cy.get('[data-test="hero-banner"]').within(() => {
-            // This article has no updated date, so it should fallback to the publish date for sorting, which should be before the above article
-            cy.contains('Updated: ').should('not.exist');
-            cy.contains(`Published: ${SECOND_ARTICLE_PUBLISHED_DATE}`);
-        });
     });
     it('should filter content based on the selected tab', () => {
-        cy.visitWithoutFetch('/learn/');
-        cy.get('header');
         // TODO: Check content in "All" (Stub videos and podcasts)
         // Check content in "Articles"
         cy.toggleLearnPageTab('Articles');

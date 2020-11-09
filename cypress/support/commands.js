@@ -106,11 +106,6 @@ Cypress.Commands.add('toggleLearnPageTab', tabName => {
     cy.get('[data-test="tabs"]').within(() => {
         cy.contains(tabName).should('exist').click();
     });
-    if (tabName === 'All' || tabName === 'Articles') {
-        cy.get('[data-test="filter-bar"]').should('exist');
-    } else {
-        cy.get('[data-test="filter-bar"]').should('not.exist');
-    }
 });
 
 // To stub requests with Cypress, we must remove fetch from the browser so
