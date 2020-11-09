@@ -7,7 +7,7 @@ const SECOND_ARTICLE_PUBLISHED_DATE = 'Apr 21, 2020';
 
 describe('Learn Page', () => {
     it('should properly render the learn page', () => {
-        cy.visitWithoutFetch('/learn');
+        cy.visitWithoutFetch('/learn/');
         // Make sure something renders on the page
         cy.contains('Make better, faster applications');
     });
@@ -39,7 +39,7 @@ describe('Learn Page', () => {
             cy.contains(`Updated: ${FIRST_ARTICLE_UPDATED_DATE}`);
             cy.contains(`Published: ${FIRST_ARTICLE_PUBLISHED_DATE}`);
         });
-        cy.visitWithoutFetch('/learn');
+        cy.visitWithoutFetch('/learn/');
         cy.toggleLearnPageTab('Articles');
         cy.get('[data-test="card-list"]').within(() => {
             cy.get('[data-test="card"]')
@@ -55,7 +55,7 @@ describe('Learn Page', () => {
         });
     });
     it('should filter content based on the selected tab', () => {
-        cy.visitWithoutFetch('/learn');
+        cy.visitWithoutFetch('/learn/');
         cy.get('header');
         // TODO: Check content in "All" (Stub videos and podcasts)
         // Check content in "Articles"
