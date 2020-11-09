@@ -106,6 +106,7 @@ Cypress.Commands.add('toggleLearnPageTab', tabName => {
     cy.get('[data-test="tabs"]').within(() => {
         cy.contains(tabName).should('exist').click();
     });
+    // Check that this tab is now active before moving on to check content
     cy.get(`[data-test="tab-${tabName}"]`).should(
         'have.css',
         'border-bottom-color'
