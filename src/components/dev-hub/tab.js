@@ -47,6 +47,7 @@ const mapTabTextToButton = (textList, activeItem, handleClick) =>
         const isActive = item === activeItem;
         return (
             <TabButton
+                data-test={`tab-${item}`}
                 key={item}
                 isActive={isActive}
                 onClick={() => handleClick(item)}
