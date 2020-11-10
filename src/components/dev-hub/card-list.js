@@ -44,11 +44,15 @@ const getThumbnailUrl = media => {
         : media.thumbnailUrl;
 };
 
+/* Different content types currently have different APIs for accessing dates.
+ * Articles support `pubdate` and `updated-date` while Podcasts and Videos have publishDate
+ * a TODO is to reconsile these APIs
+ */
 const sortCardsByDate = contentList =>
     contentList.sort(
         (a, b) =>
-            new Date(b.publishDate || b.pubdate) -
-            new Date(a.publishDate || a.pubdate)
+            new Date(b['updated-date'] || b.publishDate || b.pubdate) -
+            new Date(a['updated-date'] || a.publishDate || a.pubdate)
     );
 
 const renderArticle = article => (

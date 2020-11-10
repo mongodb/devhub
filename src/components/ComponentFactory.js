@@ -14,6 +14,7 @@ import DefinitionList from './DefinitionList';
 import DefinitionListItem from './DefinitionListItem';
 import Deprecated from './Deprecated';
 import Emphasis from './Emphasis';
+import Extract from './Extract';
 import Figure from './Figure';
 import Footnote from './Footnote';
 import FootnoteReference from './FootnoteReference';
@@ -34,8 +35,10 @@ import MetaDescription from './meta-description';
 import Paragraph from './Paragraph';
 import Reference from './Reference';
 import RefRole from './RefRole';
+import Root from './Root';
 import Section from './Section';
 import Step from './Step';
+import Steps from './Steps';
 import Strong from './Strong';
 import Subscript from './Subscript';
 import Superscript from './Superscript';
@@ -83,6 +86,7 @@ export default class ComponentFactory extends Component {
             definitionListItem: DefinitionListItem,
             deprecated: Deprecated,
             emphasis: Emphasis,
+            extract: Extract,
             figure: Figure,
             footnote: Footnote,
             footnote_reference: FootnoteReference,
@@ -104,8 +108,10 @@ export default class ComponentFactory extends Component {
             paragraph: Paragraph,
             ref_role: RefRole,
             reference: Reference,
+            root: Root,
             section: Section,
             step: Step,
+            steps: Steps,
             strong: Strong,
             subscript: Subscript,
             substitution_reference: SubstitutionReference,
