@@ -35,6 +35,11 @@ const memoizedStitchRequest = memoizerific(10)(requestStitch);
 
 const getAllArticles = memoizerific(1)(async () => {
     const documents = await memoizedStitchRequest('fetchDevhubMetadata', {});
+    // We don't need all of the article contents for preview
+    documents.forEach(doc => {
+        delete doc.ast;
+        delete doc.source;
+    });
     // Ignore bad data, including links to the home page as an "article"
     const filteredDocuments = documents.filter(d => {
         const route = getNestedValue(['query_fields', 'slug'], d);
