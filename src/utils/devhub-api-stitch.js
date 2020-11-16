@@ -58,6 +58,5 @@ export const submitDevhubProject = async (metadata, object, segmentData) => {
         object,
         segmentData
     );
-    console.log(result);
     return result;
 };
