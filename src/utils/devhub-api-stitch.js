@@ -50,3 +50,14 @@ export const submitAcademiaForm = async academiaData => {
     );
     return result;
 };
+
+export const submitDevhubProject = async (metadata, object, segmentData) => {
+    const result = await callDevhubAPIStitchFunction(
+        'submitCommunityProject',
+        metadata,
+        object,
+        segmentData
+    );
+    console.log(result);
+    return result;
+};
