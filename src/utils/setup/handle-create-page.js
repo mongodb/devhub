@@ -4,6 +4,7 @@ import { removePageIfStaged } from './remove-page-if-staged';
 import { getNestedValue } from '../get-nested-value';
 import { getMetadata } from '../get-metadata';
 import { fetchBuildTimeMedia } from './fetch-build-time-media';
+import { getItemTypeFromUrl } from './get-item-type-from-url';
 import { getStagingPages } from './get-staging-pages';
 
 const metadata = getMetadata();
@@ -12,21 +13,12 @@ let stitchClient;
 const MAX_LEARN_PAGE_FEATURED_ARTICLES = 3;
 const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
 
-const DEFAULT_FEATURED_HOME_SLUGS = [
-    'how-to/nextjs-building-modern-applications',
-    'how-to/python-starlette-stitch',
-    'how-to/graphql-support-atlas-stitch',
-    'quickstart/free-atlas-cluster',
-];
-
-const DEFAULT_FEATURED_LEARN_SLUGS = [
-    'quickstart/java-setup-crud-operations',
-    'how-to/golang-alexa-skills',
-    'how-to/polymorphic-pattern',
-];
-
 const memoizedStagingPages = memoizerific(1)(
     async () => await getStagingPages()
+);
+
+const memoizedBuildTimeMedia = memoizerific(1)(
+    async () => await fetchBuildTimeMedia()
 );
 
 const requestStitch = async (functionName, ...args) =>
@@ -45,16 +37,24 @@ const getAllArticles = memoizerific(1)(async () => {
     return filteredDocuments;
 });
 
+const findArticleWithSlug = (allArticles, slug) => {
+    const targetSlug = new RegExp(`^/?${slug}$`);
+    const targetArticle = allArticles.find(x =>
+        x.query_fields.slug.match(targetSlug)
+    );
+    if (targetArticle) {
+        targetArticle['type'] = 'article';
+        return targetArticle;
+    }
+};
+
 export const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     const result = [];
     // If maxSize is undefined, this will return a shallow copy of articleSlugs
     articleSlugs.slice(0, maxSize).forEach((featuredSlug, i) => {
-        const targetSlug = new RegExp(`^/?${featuredSlug}$`);
-        const newArticle = allArticles.find(x =>
-            x.query_fields.slug.match(targetSlug)
-        );
-        if (newArticle) {
-            result.push(newArticle);
+        const targetArticle = findArticleWithSlug(allArticles, featuredSlug);
+        if (targetArticle) {
+            result.push(targetArticle);
         } else {
             // This article was not found. pick an existing article and add it instead.
             result.push(allArticles[i]);
@@ -147,10 +147,10 @@ export const handleCreatePage = async (
             const filters = await getLearnPageFilters(learnPageArticles);
             const featuredLearnArticles = findArticlesFromSlugs(
                 learnPageArticles,
-                learnFeaturedArticles || DEFAULT_FEATURED_LEARN_SLUGS,
+                learnFeaturedArticles,
                 MAX_LEARN_PAGE_FEATURED_ARTICLES
             );
-            const { allPodcasts, allVideos } = await fetchBuildTimeMedia();
+            const { allPodcasts, allVideos } = await memoizedBuildTimeMedia();
             deletePage(page);
             createPage({
                 ...page,
@@ -165,17 +165,37 @@ export const handleCreatePage = async (
             });
             break;
         case '/':
-            const featuredHomeArticles = findArticlesFromSlugs(
-                await getAllArticles(),
-                homeFeaturedArticles || DEFAULT_FEATURED_HOME_SLUGS,
-                MAX_HOME_PAGE_FEATURED_ARTICLES
-            );
+            const featuredItems = [];
+            const articles = await getAllArticles();
+            homeFeaturedArticles
+                .slice(0, MAX_HOME_PAGE_FEATURED_ARTICLES)
+                .forEach(item => {
+                    // Currently, only articles are supported here
+                    // TODO: Support items of all content types
+                    const itemType = getItemTypeFromUrl(item);
+                    switch (itemType) {
+                        case 'article':
+                            const article = findArticleWithSlug(articles, item);
+                            if (article) {
+                                featuredItems.push(article);
+                            } else {
+                                throw new Error(
+                                    `Featured article not found: ${item}`
+                                );
+                            }
+                            break;
+                        default:
+                            throw new Error(
+                                `Featured article not found: ${item}`
+                            );
+                    }
+                });
             deletePage(page);
             createPage({
                 ...page,
                 context: {
                     ...page.context,
-                    featuredArticles: featuredHomeArticles,
+                    featuredItems,
                 },
             });
             break;
