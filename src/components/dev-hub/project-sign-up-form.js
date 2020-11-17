@@ -8,7 +8,7 @@ import Button from './button';
 import TextArea from './text-area';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import useSegmentData from '../../hooks/use-segment-data';
-import { submitDevhubProject } from '../../utils/snooty-stitch';
+import { submitDevhubProject } from '../../utils/devhub-api-stitch';
 import SuccessState from './success-state';
 
 const ModalContainer = styled('div')`
