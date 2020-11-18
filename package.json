@@ -44,7 +44,7 @@
     "emotion-theming": "^10.0.27",
     "esm": "^3.2.25",
     "fast-xml-parser": "^3.17.4",
-    "gatsby": "^2.26.0",
+    "gatsby": "^2.24.54",
     "gatsby-plugin-emotion": "^4.3.10",
     "gatsby-plugin-feed": "^2.5.11",
     "gatsby-plugin-google-tagmanager": "^2.3.11",
