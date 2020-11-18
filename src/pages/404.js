@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import { H1 } from '../components/dev-hub/text';
 import Logo from '../components/dev-hub/icons/mdb-leaf';
 import { size } from '../components/dev-hub/theme';
@@ -12,6 +13,9 @@ const Container = styled('div')`
 `;
 export default () => (
     <Layout>
+        <Helmet>
+            <title>404 | MongoDB Developer Hub</title>
+        </Helmet>
         <Container>
             <Logo height={70} />
             <H1>Page not found</H1>
