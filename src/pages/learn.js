@@ -103,7 +103,7 @@ const filterArticles = (filter, initialArticles) => {
     const filterValues = Object.keys(filter);
     return initialArticles.reduce((acc, article) => {
         for (let i = 0; i < filterValues.length; i++) {
-            if (filterValues[i] === 'page') {
+            if (filterValues[i] === 'page' || filterValues[i] === 'content') {
                 continue;
             }
             const fv = filterValues[i];
@@ -224,11 +224,27 @@ export default ({
         },
         [filterValue]
     );
+    const updateContentFilter = useCallback(
+        search => {
+            const { content } = parseQueryString(search);
+            if (content) {
+                filterValue['content'] = content;
+                setFilterValue({ ...filterValue });
+                setActiveItem(content);
+            } else {
+                delete filterValue['content'];
+                setFilterValue({ ...filterValue });
+                setActiveItem('All');
+            }
+        },
+        [filterValue]
+    );
     useEffect(() => {
         updatePageFilter(search);
+        updateContentFilter(search);
         // Don't want to also run for filterValues updatePageFilter
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [search]);
+    }, [location]);
     const updateTextFilterQuery = useCallback(
         query => {
             setTextFilterQuery(query);
@@ -244,15 +260,17 @@ export default ({
     useEffect(() => {
         const filter = stripAllParam(filterValue);
         const searchParams = buildQueryString(filter);
-        // if the search params are empty, push the pathname state in order to remove params
-        window.history.replaceState(
-            {},
-            '',
-            searchParams === '' ? pathname : searchParams
-        );
-        const filteredArticles = filterActiveArticles(filter);
-        setArticles(filteredArticles);
-    }, [metadata, filterValue, pathname, filterActiveArticles]);
+        if (window.location.search !== searchParams) {
+            // if the search params are empty, push the pathname state in order to remove params
+            window.history.replaceState(
+                {},
+                '',
+                searchParams === '' ? pathname : searchParams
+            );
+            const filteredArticles = filterActiveArticles(filter);
+            setArticles(filteredArticles);
+        }
+    }, [metadata, filterValue, pathname, filterActiveArticles, location]);
     // filterValue could be {} on a page load, or values can be "all" if toggled back
     const hasNoFilter = useMemo(
         () =>
@@ -265,7 +283,20 @@ export default ({
 
     const { podcasts } = usePodcasts(allPodcasts);
 
-    const [activeItem, setActiveItem] = useState('All');
+    const [activeItem, setActiveItem] = useState(filterValue.content || 'All');
+
+    const updateActiveFilter = useCallback(
+        newTab => {
+            setActiveItem(newTab);
+            if (newTab !== 'All') {
+                filterValue['content'] = newTab;
+            } else {
+                delete filterValue['content'];
+            }
+            setFilterValue({ ...filterValue });
+        },
+        [filterValue]
+    );
 
     // If the user is on a tab not supporting the text filter, ignore the filter
     const showTextFilterResults = useMemo(
@@ -311,7 +342,7 @@ export default ({
             </Header>
 
             <TabBar
-                handleClick={setActiveItem}
+                handleClick={updateActiveFilter}
                 leftTabs={leftTabs}
                 rightTabs={rightTabs}
                 activeItem={activeItem}
