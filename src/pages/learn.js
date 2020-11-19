@@ -13,6 +13,7 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
+import { LearnPageTabs } from '../utils/learn-page-tabs';
 import useAllVideos from '../hooks/use-all-videos';
 import usePodcasts from '../hooks/use-podcasts';
 import useTextFilter from '../hooks/use-text-filter';
@@ -212,40 +213,15 @@ export default ({
         [initialArticles]
     );
     // Update the filter value for page so it behaves nicely with query params
-    const updatePageFilter = useCallback(
-        search => {
-            const { page } = parseQueryString(search);
-            if (page) {
-                filterValue['page'] = page;
-                setFilterValue({ ...filterValue });
-            } else {
-                delete filterValue['page'];
-                setFilterValue({ ...filterValue });
-            }
-        },
-        [filterValue]
-    );
-    const updateContentFilter = useCallback(
-        search => {
-            const { content } = parseQueryString(search);
-            if (content) {
-                filterValue['content'] = content;
-                setFilterValue({ ...filterValue });
-                setActiveItem(content);
-            } else {
-                delete filterValue['content'];
-                setFilterValue({ ...filterValue });
-                setActiveItem('All');
-            }
-        },
-        [filterValue]
-    );
+    const updateAllPageFilters = useCallback(search => {
+        const newFilterValues = parseQueryString(search);
+        setFilterValue({ ...newFilterValues });
+    }, []);
     useEffect(() => {
-        updatePageFilter(search);
-        updateContentFilter(search);
+        updateAllPageFilters(location.search);
         // Don't want to also run for filterValues updatePageFilter
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location]);
+    }, [location.search]);
     const updateTextFilterQuery = useCallback(
         query => {
             setTextFilterQuery(query);
@@ -267,9 +243,11 @@ export default ({
                 replace: true,
             });
             const filteredArticles = filterActiveArticles(filter);
+            // const newFilterValues = parseQueryString(location.search);
+            // setFilterValue({ ...newFilterValues });
             setArticles(filteredArticles);
         }
-    }, [metadata, filterValue, pathname, filterActiveArticles, navigate]);
+    }, [filterValue, pathname, filterActiveArticles, navigate]);
     // filterValue could be {} on a page load, or values can be "all" if toggled back
     const hasNoFilter = useMemo(
         () =>
@@ -282,12 +260,9 @@ export default ({
 
     const { podcasts } = usePodcasts(allPodcasts);
 
-    const [activeItem, setActiveItem] = useState(filterValue.content || 'All');
-
     const updateActiveFilter = useCallback(
         newTab => {
-            setActiveItem(newTab);
-            if (newTab !== 'All') {
+            if (newTab !== LearnPageTabs.all) {
                 filterValue['content'] = newTab;
             } else {
                 delete filterValue['content'];
@@ -297,25 +272,35 @@ export default ({
         [filterValue]
     );
 
+    const activeContentTab = useMemo(
+        () => filterValue['content'] || LearnPageTabs.all,
+        [filterValue]
+    );
+
     // If the user is on a tab not supporting the text filter, ignore the filter
     const showTextFilterResults = useMemo(
         () =>
-            (activeItem === 'All' || activeItem === 'Articles') &&
+            (activeContentTab === LearnPageTabs.all ||
+                activeContentTab === LearnPageTabs.articles) &&
             textFilterQuery &&
             textFilterResults,
-        [activeItem, textFilterQuery, textFilterResults]
+        [activeContentTab, textFilterQuery, textFilterResults]
     );
 
-    const leftTabs = ['All'];
-    const rightTabs = ['Articles', 'Videos', 'Podcasts'];
+    const leftTabs = [LearnPageTabs.all];
+    const rightTabs = [
+        LearnPageTabs.articles,
+        LearnPageTabs.videos,
+        LearnPageTabs.podcasts,
+    ];
 
     const ActiveCardList = () => {
-        switch (activeItem) {
-            case 'Articles':
+        switch (activeContentTab) {
+            case LearnPageTabs.articles:
                 return <CardList articles={articles} />;
-            case 'Videos':
+            case LearnPageTabs.videos:
                 return <CardList videos={videos} />;
-            case 'Podcasts':
+            case LearnPageTabs.podcasts:
                 return <CardList podcasts={podcasts} />;
             default:
                 return (
@@ -344,11 +329,12 @@ export default ({
                 handleClick={updateActiveFilter}
                 leftTabs={leftTabs}
                 rightTabs={rightTabs}
-                activeItem={activeItem}
+                activeItem={activeContentTab}
             />
 
             <Article>
-                {(activeItem === 'All' || activeItem === 'Articles') && (
+                {(activeContentTab === LearnPageTabs.all ||
+                    activeContentTab === LearnPageTabs.articles) && (
                     <StyledFilterBar
                         filters={filters}
                         filterValue={filterValue}
