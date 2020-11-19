@@ -215,13 +215,14 @@ export default ({
     // Update the filter value for page so it behaves nicely with query params
     const updateAllPageFilters = useCallback(search => {
         const newFilterValues = parseQueryString(search);
-        setFilterValue({ ...newFilterValues });
+        setFilterValue(newFilterValues);
+        if (!newFilterValues.text) {
+            setTextFilterQuery(null);
+        }
     }, []);
     useEffect(() => {
         updateAllPageFilters(location.search);
-        // Don't want to also run for filterValues updatePageFilter
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location.search]);
+    }, [location.search, updateAllPageFilters]);
     const updateTextFilterQuery = useCallback(
         query => {
             setTextFilterQuery(query);
@@ -234,20 +235,26 @@ export default ({
         },
         [filterValue]
     );
+    const updateFilterQueryParams = useCallback(
+        filterValue => {
+            const filter = stripAllParam(filterValue);
+            const searchParams = buildQueryString(filter);
+            if (window.location.search !== searchParams) {
+                // if the search params are empty, push the pathname state in order to remove params
+                navigate(searchParams === '' ? pathname : searchParams, {
+                    replace: true,
+                });
+                const filteredArticles = filterActiveArticles(filter);
+                setArticles(filteredArticles);
+            }
+        },
+        // Exclude "navigate" since it constantly changes
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [filterActiveArticles, pathname]
+    );
     useEffect(() => {
-        const filter = stripAllParam(filterValue);
-        const searchParams = buildQueryString(filter);
-        if (window.location.search !== searchParams) {
-            // if the search params are empty, push the pathname state in order to remove params
-            navigate(searchParams === '' ? pathname : searchParams, {
-                replace: true,
-            });
-            const filteredArticles = filterActiveArticles(filter);
-            // const newFilterValues = parseQueryString(location.search);
-            // setFilterValue({ ...newFilterValues });
-            setArticles(filteredArticles);
-        }
-    }, [filterValue, pathname, filterActiveArticles, navigate]);
+        updateFilterQueryParams(filterValue);
+    }, [filterValue, updateFilterQueryParams]);
     // filterValue could be {} on a page load, or values can be "all" if toggled back
     const hasNoFilter = useMemo(
         () =>
