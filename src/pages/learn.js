@@ -189,6 +189,7 @@ const FeaturedArticles = ({ articles }) => {
 
 export default ({
     location,
+    navigate,
     pageContext: {
         allArticles,
         allPodcasts,
@@ -262,15 +263,13 @@ export default ({
         const searchParams = buildQueryString(filter);
         if (window.location.search !== searchParams) {
             // if the search params are empty, push the pathname state in order to remove params
-            window.history.replaceState(
-                {},
-                '',
-                searchParams === '' ? pathname : searchParams
-            );
+            navigate(searchParams === '' ? pathname : searchParams, {
+                replace: true,
+            });
             const filteredArticles = filterActiveArticles(filter);
             setArticles(filteredArticles);
         }
-    }, [metadata, filterValue, pathname, filterActiveArticles, location]);
+    }, [metadata, filterValue, pathname, filterActiveArticles, navigate]);
     // filterValue could be {} on a page load, or values can be "all" if toggled back
     const hasNoFilter = useMemo(
         () =>
