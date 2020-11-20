@@ -86,6 +86,8 @@ const InputContainer = styled('div')`
 
 const FormInput = ({ narrow, value, ...props }) => {
     const isEmpty = !value;
+    // Value can sometimes be null, this does not properly clear out the text field
+    const inputValue = isEmpty ? '' : value;
     return (
         <InputContainer isEmpty={isEmpty} narrow={narrow}>
             <Label
@@ -94,7 +96,7 @@ const FormInput = ({ narrow, value, ...props }) => {
             >
                 {props.placeholder}
             </Label>
-            <StyledInput value={value} narrow={narrow} {...props} />
+            <StyledInput value={inputValue} narrow={narrow} {...props} />
         </InputContainer>
     );
 };
