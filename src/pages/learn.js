@@ -221,8 +221,8 @@ export default ({
         }
     }, []);
     useEffect(() => {
-        updateAllPageFilters(location.search);
-    }, [location.search, updateAllPageFilters]);
+        updateAllPageFilters(search);
+    }, [search, updateAllPageFilters]);
     const updateTextFilterQuery = useCallback(
         query => {
             setTextFilterQuery(query);
