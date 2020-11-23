@@ -31,7 +31,7 @@ describe('Learn Page', () => {
             cy.get('[data-test="card"]')
                 .first()
                 .should('contain', 'Working with MongoDB Transactions')
-                .click();
+                .click({ force: true });
         });
         cy.url().should('include', FIRST_ARTICLE_IN_ORDERING);
         // By targeting the hero banner we can be sure the navigation is done
