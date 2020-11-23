@@ -239,13 +239,13 @@ export default ({
         filterValue => {
             const filter = stripAllParam(filterValue);
             const searchParams = buildQueryString(filter);
+            const filteredArticles = filterActiveArticles(filter);
+            setArticles(filteredArticles);
             if (window.location.search !== searchParams) {
                 // if the search params are empty, push the pathname state in order to remove params
                 navigate(searchParams === '' ? pathname : searchParams, {
                     replace: true,
                 });
-                const filteredArticles = filterActiveArticles(filter);
-                setArticles(filteredArticles);
             }
         },
         // Exclude "navigate" since it constantly changes
