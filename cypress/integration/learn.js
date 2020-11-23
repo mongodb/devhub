@@ -80,7 +80,7 @@ describe('Learn Page', () => {
         // Using trigger seems to work, but this should be looked into a bit more
         cy.contains('Atlas (26)').trigger('click');
         // The url should contain the filter value as a param
-        cy.url().should('include', '?products=Atlas');
+        cy.url().should('include', 'products=Atlas');
         // Check content
         cy.checkFirstCardInCardList('Coronavirus Map');
     });
