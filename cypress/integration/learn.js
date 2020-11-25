@@ -31,7 +31,7 @@ describe('Learn Page', () => {
             cy.get('[data-test="card"]')
                 .first()
                 .should('contain', 'Working with MongoDB Transactions')
-                .click();
+                .click({ force: true });
         });
         cy.url().should('include', FIRST_ARTICLE_IN_ORDERING);
         // By targeting the hero banner we can be sure the navigation is done
@@ -80,7 +80,7 @@ describe('Learn Page', () => {
         // Using trigger seems to work, but this should be looked into a bit more
         cy.contains('Atlas (26)').trigger('click');
         // The url should contain the filter value as a param
-        cy.url().should('include', '?products=Atlas');
+        cy.url().should('include', 'products=Atlas');
         // Check content
         cy.checkFirstCardInCardList('Coronavirus Map');
     });
