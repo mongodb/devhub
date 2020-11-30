@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
+import ClientOnly from '../ClientOnly';
 import { size, fontSize, screenSize } from './theme';
 import { P } from './text';
 
@@ -57,15 +58,13 @@ const mapTabTextToButton = (textList, activeItem, handleClick) =>
         );
     });
 
-export default ({
-    activeItem,
-    className,
-    handleClick,
-    leftTabs,
-    rightTabs,
-}) => (
-    <Tab data-test="tabs" className={className}>
-        <div>{mapTabTextToButton(leftTabs, activeItem, handleClick)}</div>
-        <div>{mapTabTextToButton(rightTabs, activeItem, handleClick)}</div>
-    </Tab>
+const Tabs = ({ activeItem, className, handleClick, leftTabs, rightTabs }) => (
+    <ClientOnly>
+        <Tab data-test="tabs" className={className}>
+            <div>{mapTabTextToButton(leftTabs, activeItem, handleClick)}</div>
+            <div>{mapTabTextToButton(rightTabs, activeItem, handleClick)}</div>
+        </Tab>
+    </ClientOnly>
 );
+
+export default Tabs;
