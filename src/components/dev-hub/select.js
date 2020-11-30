@@ -107,6 +107,12 @@ const FormSelect = ({
     useEffect(() => {
         setIsEnabled(enabled);
     }, [enabled]);
+    useEffect(() => {
+        if (!value) {
+            setSelectValue(value);
+            setSelectText(defaultText);
+        }
+    }, [defaultText, value]);
     /**
      * This useEffect should only be called once the component first renders with choices,
      * this should populate the select item with the default choice if there is one
