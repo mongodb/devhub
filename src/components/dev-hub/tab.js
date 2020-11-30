@@ -42,30 +42,35 @@ const TabButton = styled('button')`
     }
 `;
 
-const mapTabTextToButton = (textList, activeItem, handleClick) =>
-    textList.map(item => {
-        const isActive = item === activeItem;
-        return (
-            <TabButton
-                data-test={`tab-${item}`}
-                key={item}
-                isActive={isActive}
-                onClick={() => handleClick(item)}
-            >
-                <P collapse>{item}</P>
-            </TabButton>
-        );
-    });
-
-export default ({
-    activeItem,
-    className,
-    handleClick,
-    leftTabs,
-    rightTabs,
-}) => (
-    <Tab data-test="tabs" className={className}>
-        <div>{mapTabTextToButton(leftTabs, activeItem, handleClick)}</div>
-        <div>{mapTabTextToButton(rightTabs, activeItem, handleClick)}</div>
-    </Tab>
+const mapTabTextToButton = (textList, activeItem, handleClick) => (
+    <div>
+        {textList.map(item => {
+            const isActive = item === activeItem;
+            return (
+                <TabButton
+                    data-test={`tab-${item}`}
+                    key={item}
+                    isActive={isActive}
+                    onClick={() => handleClick(item)}
+                >
+                    <P collapse>{item}</P>
+                </TabButton>
+            );
+        })}
+    </div>
 );
+
+const Tabs = ({ activeItem, className, handleClick, leftTabs, rightTabs }) => {
+    const LeftTabs = () =>
+        mapTabTextToButton(leftTabs, activeItem, handleClick);
+    const RightTabs = () =>
+        mapTabTextToButton(rightTabs, activeItem, handleClick);
+    return (
+        <Tab data-test="tabs" className={className}>
+            <LeftTabs />
+            <RightTabs />
+        </Tab>
+    );
+};
+
+export default Tabs;

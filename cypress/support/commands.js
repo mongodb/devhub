@@ -104,7 +104,7 @@ Cypress.Commands.add('mockTextFilterResponse', () => {
 
 Cypress.Commands.add('toggleLearnPageTab', tabName => {
     cy.get('[data-test="tabs"]').within(() => {
-        cy.contains(tabName).should('exist').click();
+        cy.contains(tabName).should('exist').click({ force: true });
     });
 });
 
