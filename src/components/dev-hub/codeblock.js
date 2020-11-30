@@ -40,6 +40,9 @@ const StyledCode = styled(Code)`
     td:first-of-type {
         color: ${({ theme }) => theme.colorMap.greyLightTwo};
     }
+    table {
+        width: unset;
+    }
     /* Line number background */
     :before {
         background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
@@ -75,7 +78,7 @@ const CodeBlock = ({
         numLines,
     ]);
     // Leafy expects 'csp' as 'cs'
-    const language = lang === 'csp' ? 'cs' : lang || 'auto';
+    const language = lang === 'csp' ? 'cs' : lang || 'none';
     return (
         <CodeContainer>
             <StyledCode
