@@ -53,10 +53,7 @@ describe('Learn Page', () => {
                     cy.contains('Working with MongoDB Transactions');
                 });
         });
-        // TODO Check content in "Videos" (Stub videos and podcasts)
-        cy.toggleLearnPageTab('Videos');
-        // TODO Check content in "Podcasts" (Stub videos and podcasts)
-        cy.toggleLearnPageTab('Podcasts');
+        // TODO also check content in Podcasts and Videos
     });
 
     it('should only show the filter bar for "All" or "Articles"', () => {
