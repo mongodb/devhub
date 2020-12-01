@@ -5,7 +5,7 @@ import Code from '@leafygreen-ui/code';
 import { lineHeight, size } from './theme';
 import CopyButton, { COPY_BUTTON_WIDTH } from './copy-button';
 
-const LEAFY_LINENUMBER_PADDING = 24;
+const LEAFY_LINENUMBER_PADDING = size.stripUnit(size.mediumLarge);
 
 const CodeContainer = styled('div')`
     display: inline-block;
