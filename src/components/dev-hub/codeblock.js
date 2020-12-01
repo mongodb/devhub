@@ -29,6 +29,9 @@ const CopyContainer = styled('div')`
     z-index: 1;
 `;
 
+const lineNumberWidth = numdigits =>
+    LEAFY_LINENUMBER_PADDING + numdigits * size.stripUnit(size.xsmall);
+
 const StyledCode = styled(Code)`
     border: 1px solid ${({ theme }) => theme.colorMap.greyDarkThree};
     border-radius: ${size.small};
@@ -39,9 +42,14 @@ const StyledCode = styled(Code)`
     /* Line number text */
     td:first-of-type {
         color: ${({ theme }) => theme.colorMap.greyLightTwo};
+        ${({ numdigits }) =>
+            `width: ${
+                lineNumberWidth(numdigits) + size.stripUnit(size.default)
+            }px`}
     }
     table {
-        width: unset;
+        table-layout: fixed;
+        width: 100%;
     }
     /* Line number background */
     :before {
@@ -61,10 +69,7 @@ const StyledCode = styled(Code)`
         left: 0;
         position: absolute;
         top: 0;
-        ${({ numdigits }) =>
-            `width: calc(${LEAFY_LINENUMBER_PADDING}px + ${
-                numdigits * size.stripUnit(size.xsmall)
-            }px)`};
+        ${({ numdigits }) => `width: ${lineNumberWidth(numdigits)}px`};
         z-index: -1;
     }
 `;
