@@ -18,6 +18,14 @@ module.exports = {
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
         {
+            resolve: `gatsby-source-strapi`,
+            options: {
+                apiURL: process.env.STRAPI_URL,
+                contentTypes: ['projects', 'student-spotlight-entries'],
+                singleTypes: ['top-nav'],
+            },
+        },
+        {
             resolve: 'gatsby-plugin-sitemap',
             options: {
                 // Exclude paths we are using the noindex tag on
