@@ -20,6 +20,9 @@ export const projects = `
           }
           name
           slug
+          image {
+            url
+          }
         }
         published_at
         updatedAt

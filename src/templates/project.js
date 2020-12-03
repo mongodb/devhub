@@ -81,6 +81,7 @@ const Project = props => {
         languages,
         products,
         tags,
+        image,
         name,
         slug,
         students,
@@ -113,11 +114,10 @@ const Project = props => {
         'tag'
     );
     const tagsList = [...mappedTags, ...mappedLanguages, ...mappedProducts];
-    console.log(childNodes);
     return (
         <Layout>
             <BlogPostTitleArea
-                // articleImage={withPrefix(meta['atf-image'])}
+                articleImage={`${process.env.STRAPI_URL}${image.url}`}
                 authors={studentMap}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={formattedPublishedDate}
