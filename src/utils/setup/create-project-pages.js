@@ -1,26 +1,36 @@
 import path from 'path';
 import { projects } from '../../queries/projects';
-import remark from 'remark';
-import gfm from 'remark-gfm';
+import { parseMarkdownToAST } from './parse-markdown-to-ast';
 
-export const createProjectPages = async (createPage, graphql) => {
-    const projectList = await graphql(projects);
-    const data = projectList.data;
-    const info = data.allStrapiProjects.nodes[0].info;
-    const contents = info.contents;
-    const ast = remark().use(gfm).parse(contents);
+const createPageForProject = (project, createPage) => {
+    const {
+        info: { contents, name, slug, ...otherInfo },
+        updatedAt: updated_at,
+        ...rest
+    } = project;
+    const parsedContent = parseMarkdownToAST(contents);
+    const fullSlug = `/project/${slug}`;
     createPage({
-        path: '/project',
+        path: fullSlug,
         component: path.resolve(`./src/templates/project.js`),
         context: {
-            slug: '/project',
-            content: ast,
-            tags: {
-                products: info.products,
-                languages: info.languages,
-                tags: info.tags,
-            },
-            name: info.name,
+            slug: fullSlug,
+            content: parsedContent,
+            name,
+            updated_at,
+            ...otherInfo,
+            ...rest,
         },
     });
+};
+
+const getProjectListFromGraphql = async graphql => {
+    const projectResp = await graphql(projects);
+    const result = projectResp.data.allStrapiProjects.nodes;
+    return result;
+};
+
+export const createProjectPages = async (createPage, graphql) => {
+    const projectList = await getProjectListFromGraphql(graphql);
+    projectList.forEach(project => createPageForProject(project, createPage));
 };

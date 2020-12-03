@@ -7,19 +7,13 @@ import DocumentBody from '../components/DocumentBody';
 import ArticleShareFooter from '../components/dev-hub/article-share-footer';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
-import RelatedArticles from '../components/dev-hub/related-articles';
 import { screenSize, size } from '../components/dev-hub/theme';
 import SEO from '../components/dev-hub/SEO';
-import ArticleSeries from '../components/dev-hub/article-series';
-import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
-import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
-import { getNestedValue } from '../utils/get-nested-value';
-import { findSectionHeadings } from '../utils/find-section-headings';
-import { getNestedText } from '../utils/get-nested-text';
+import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 
 /**
  * search the ast for the few directives we need to display content
@@ -72,25 +66,64 @@ const Container = styled('div')`
     }
 `;
 
-const Article = props => {
-    const childNodes = getContent(
-        dlv(props.pageContext.content, 'children', [])
-    );
+const dateFormatOptions = {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+    timeZone: 'UTC',
+};
+
+const Project = props => {
+    const {
+        content,
+        updated_at,
+        published_at,
+        languages,
+        products,
+        tags,
+        name,
+        slug,
+        students,
+    } = props.pageContext;
+    const studentMap = students.map(s => s.bio);
+    const childNodes = getContent(dlv(content, 'children', []));
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Academia', target: '/academia' },
     ];
-    console.log(props, childNodes);
+    const { siteUrl } = useSiteMetadata();
+    const articleUrl = `${siteUrl}${props.pageContext.slug}`;
+
+    const formattedPublishedDate = toDateString(
+        published_at,
+        dateFormatOptions
+    );
+    const formattedUpdatedDate = toDateString(updated_at, dateFormatOptions);
+
+    const mappedLanguages = mapTagTypeToUrl(
+        languages.map(l => l.language),
+        'language'
+    );
+    const mappedProducts = mapTagTypeToUrl(
+        products.map(l => l.product),
+        'product'
+    );
+    const mappedTags = mapTagTypeToUrl(
+        tags.map(l => l.tag),
+        'tag'
+    );
+    const tagsList = [...mappedTags, ...mappedLanguages, ...mappedProducts];
+    console.log(childNodes);
     return (
         <Layout>
             <BlogPostTitleArea
                 // articleImage={withPrefix(meta['atf-image'])}
-                authors={[{ name: 'Jordan Stapinski' }]}
+                authors={studentMap}
                 breadcrumb={articleBreadcrumbs}
-                // originalDate={formattedPublishedDate}
-                // tags={tagList}
-                title={props.pageContext.name}
-                // updatedDate={formattedUpdatedDate}
+                originalDate={formattedPublishedDate}
+                tags={tagsList}
+                title={name}
+                updatedDate={formattedUpdatedDate}
             />
             <Container>
                 <Icons>
@@ -101,8 +134,8 @@ const Article = props => {
                         width={size.default}
                     />
                     <ShareMenu
-                        title={''}
-                        url={''}
+                        title={name}
+                        url={articleUrl}
                         height={size.default}
                         width={size.default}
                     />
@@ -110,8 +143,13 @@ const Article = props => {
                 <ArticleContent>
                     <DocumentBody
                         pageNodes={childNodes}
-                        slug={props.pageContext.slug}
+                        slug={slug}
                         {...props}
+                    />
+                    <ArticleShareFooter
+                        title={name}
+                        url={articleUrl}
+                        tags={tagsList}
                     />
                 </ArticleContent>
             </Container>
@@ -119,17 +157,4 @@ const Article = props => {
     );
 };
 
-Article.propTypes = {
-    pageContext: PropTypes.shape({
-        __refDocMapping: PropTypes.shape({
-            ast: PropTypes.shape({
-                children: PropTypes.array,
-            }).isRequired,
-        }).isRequired,
-        slugTitleMapping: PropTypes.shape({
-            [PropTypes.string]: PropTypes.string,
-        }),
-    }).isRequired,
-};
-
-export default Article;
+export default Project;

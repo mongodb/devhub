@@ -19,7 +19,10 @@ export const projects = `
             tag
           }
           name
+          slug
         }
+        published_at
+        updatedAt
       }
     }
   }
