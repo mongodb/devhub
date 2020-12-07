@@ -88,7 +88,7 @@ const Project = props => {
     } = props.pageContext;
     const studentMap = students.map(s => ({
         name: s.bio.name,
-        image: `${process.env.STRAPI_URL}${s.bio.image.url}`,
+        image: s.bio.image.url,
     }));
     const childNodes = getContent(dlv(content, 'children', []));
     const articleBreadcrumbs = [
@@ -120,7 +120,7 @@ const Project = props => {
     return (
         <Layout>
             <BlogPostTitleArea
-                articleImage={`${process.env.STRAPI_URL}${image.url}`}
+                articleImage={image.url}
                 authors={studentMap}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={formattedPublishedDate}

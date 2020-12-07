@@ -93,10 +93,7 @@ export default class Image extends Component {
             src ||
             getNestedValue(['argument', 0, 'value'], nodeData) ||
             (getNestedValue(['url'], nodeData)
-                ? `${process.env.STRAPI_URL}${getNestedValue(
-                      ['url'],
-                      nodeData
-                  )}`
+                ? getNestedValue(['url'], nodeData)
                 : null);
         const altText =
             alt || getNestedValue(['options', 'alt'], nodeData) || imgSrc;
