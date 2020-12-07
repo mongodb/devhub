@@ -5,8 +5,7 @@ import Code from '@leafygreen-ui/code';
 import { lineHeight, size } from './theme';
 import CopyButton, { COPY_BUTTON_WIDTH } from './copy-button';
 
-const LEAFY_CODEBLOCK_PADDING = 12;
-const LEAFY_LINENUMBER_PADDING = 42;
+const LEAFY_LINENUMBER_PADDING = size.stripUnit(size.mediumLarge);
 
 const CodeContainer = styled('div')`
     display: inline-block;
@@ -27,20 +26,33 @@ const CopyContainer = styled('div')`
     left: calc(100% - ${COPY_BUTTON_WIDTH}px - ${size.tiny});
     position: absolute;
     top: ${size.tiny};
+    z-index: 1;
 `;
+
+const lineNumberWidth = numdigits =>
+    LEAFY_LINENUMBER_PADDING + numdigits * size.stripUnit(size.xsmall);
 
 const StyledCode = styled(Code)`
     border: 1px solid ${({ theme }) => theme.colorMap.greyDarkThree};
     border-radius: ${size.small};
     line-height: ${lineHeight.xsmall};
-    padding-right: ${size.xlarge};
     padding-top: ${size.large};
-    ${({ numdigits }) =>
-        `padding-left: calc(${LEAFY_LINENUMBER_PADDING}px + ${
-            numdigits * size.stripUnit(size.xsmall)
-        }px)`};
-    /* Line Numbers */
-    > div {
+    position: relative;
+    z-index: 1;
+    /* Line number text */
+    td:first-of-type {
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
+        ${({ numdigits }) =>
+            `width: ${
+                lineNumberWidth(numdigits) + size.stripUnit(size.default)
+            }px`}
+    }
+    table {
+        table-layout: fixed;
+        width: 100%;
+    }
+    /* Line number background */
+    :before {
         background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
         border-image: linear-gradient(
                 0deg,
@@ -51,30 +63,36 @@ const StyledCode = styled(Code)`
             1;
         border-width: 0 2px 0 0;
         border-right-style: solid;
+        bottom: 0;
         color: ${({ theme }) => theme.colorMap.greyLightTwo};
+        content: '';
         left: 0;
-        padding: ${LEAFY_CODEBLOCK_PADDING}px;
-        padding-top: ${size.large};
-        text-align: right;
+        position: absolute;
+        top: 0;
+        ${({ numdigits }) => `width: ${lineNumberWidth(numdigits)}px`};
+        z-index: -1;
     }
 `;
 
-const CodeBlock = ({ nodeData: { lang = null, value } }) => {
+const CodeBlock = ({
+    nodeData: { emphasize_lines: emphasizeLines, lang = null, value },
+}) => {
     // We wish to up padding based on the number of lines based on the size of the max number length
     const numLines = useMemo(() => value.split(/\r|\n/).length, [value]);
     const numDigits = useMemo(() => Math.floor(Math.log10(numLines) + 1), [
         numLines,
     ]);
     // Leafy expects 'csp' as 'cs'
-    const language = lang === 'csp' ? 'cs' : lang || 'auto';
+    const language = lang === 'csp' ? 'cs' : lang || 'none';
     return (
         <CodeContainer>
             <StyledCode
                 copyable={false}
+                darkMode={true}
+                highlightLines={emphasizeLines}
                 language={language}
                 numdigits={numDigits}
                 showLineNumbers
-                variant="dark"
             >
                 {value}
             </StyledCode>
