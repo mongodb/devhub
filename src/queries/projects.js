@@ -5,6 +5,9 @@ export const projects = `
         students {
           bio {
             name
+            image {
+              url
+            }
           }
         }
         info {

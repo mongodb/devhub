@@ -86,7 +86,10 @@ const Project = props => {
         slug,
         students,
     } = props.pageContext;
-    const studentMap = students.map(s => s.bio);
+    const studentMap = students.map(s => ({
+        name: s.bio.name,
+        image: `${process.env.STRAPI_URL}${s.bio.image.url}`,
+    }));
     const childNodes = getContent(dlv(content, 'children', []));
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
