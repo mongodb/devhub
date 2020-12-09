@@ -74,6 +74,7 @@ const ContentsMenu = ({ title, headingNodes, ...props }) => {
         setIsOpen(false);
         setActiveItem(id);
     };
+    console.log(headingNodes);
     return (
         <ControlledTooltip
             hasGradientBorder

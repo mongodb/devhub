@@ -8,6 +8,9 @@ export const projects = `
             image {
               url
             }
+            linkedin_url
+            twitter_handle
+            youtube_url
           }
         }
         info {
@@ -27,6 +30,7 @@ export const projects = `
             url
           }
         }
+        project_link
         published_at
         updatedAt
       }

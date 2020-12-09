@@ -8,28 +8,15 @@ import ArticleShareFooter from '../components/dev-hub/article-share-footer';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
 import { screenSize, size } from '../components/dev-hub/theme';
+import Link from '../components/dev-hub/link';
 import SEO from '../components/dev-hub/SEO';
+import { findSectionHeadings } from '../utils/find-section-headings';
+
 import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
-
-/**
- * search the ast for the few directives we need to display content
- * TODO this ignores some important meta like Twitter for now
- * @param {array} nodes
- * @returns {array} array of childNodes with our main content
- */
-const getContent = nodes => {
-    const nodesWeActuallyWant = [];
-    for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
-        const childNode = nodes[nodeIndex];
-        nodesWeActuallyWant.push(childNode);
-    }
-
-    return nodesWeActuallyWant;
-};
 
 const ArticleContent = styled('article')`
     max-width: ${size.maxContentWidth};
@@ -80,12 +67,14 @@ const Project = props => {
         published_at,
         languages,
         products,
+        project_link,
         tags,
         image,
         name,
         slug,
         students,
     } = props.pageContext;
+    console.log(props.pageContext);
     const studentMap = students.map(s => ({
         name: s.bio.name,
         image: s.bio.image.url,
@@ -116,6 +105,13 @@ const Project = props => {
         tags.map(l => l.tag),
         'tag'
     );
+    const headingNodes = findSectionHeadings(
+        childNodes,
+        'type',
+        'heading',
+        1,
+        -1
+    );
     const tagsList = [...mappedTags, ...mappedLanguages, ...mappedProducts];
     return (
         <Layout>
@@ -132,7 +128,7 @@ const Project = props => {
                 <Icons>
                     <ContentsMenu
                         title="Contents"
-                        headingNodes={[]}
+                        headingNodes={headingNodes}
                         height={size.default}
                         width={size.default}
                     />
@@ -144,6 +140,7 @@ const Project = props => {
                     />
                 </Icons>
                 <ArticleContent>
+                    <Link href={project_link}>Project Link</Link>
                     <DocumentBody
                         pageNodes={childNodes}
                         slug={slug}

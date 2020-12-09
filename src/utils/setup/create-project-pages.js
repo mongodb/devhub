@@ -9,12 +9,11 @@ const createPageForProject = (project, createPage) => {
         ...rest
     } = project;
     const parsedContent = parseMarkdownToAST(contents);
-    const fullSlug = `/project/${slug}`;
     createPage({
-        path: fullSlug,
+        path: slug,
         component: path.resolve(`./src/templates/project.js`),
         context: {
-            slug: fullSlug,
+            slug: slug,
             content: parsedContent,
             name,
             updated_at,

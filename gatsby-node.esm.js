@@ -84,6 +84,12 @@ export const createSchemaCustomization = ({ actions }) => {
     type SitePage implements Node @dontInfer {
         path: String
     }
+    type Language {
+        language: String
+    }
+    type StrapiProjectsInfo implements Node {
+        languages: [Language]
+    }
     `;
     createTypes(typeDefs);
 };
