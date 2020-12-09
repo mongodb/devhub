@@ -96,6 +96,7 @@ export default class ComponentFactory extends Component {
             include: Include,
             line: Line,
             line_block: LineBlock,
+            link: Reference,
             list: List,
             listItem: ListItem,
             'list-table': ListTable,

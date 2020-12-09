@@ -86,9 +86,7 @@ export default class Image extends Component {
     };
 
     render() {
-        console.log(this.props);
         const { alt, className, captioned, nodeData = {}, src } = this.props;
-        console.log(nodeData);
         const imgSrc =
             src ||
             getNestedValue(['argument', 0, 'value'], nodeData) ||
