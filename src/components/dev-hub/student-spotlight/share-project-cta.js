@@ -4,8 +4,8 @@ import { H3 } from '../text';
 import Button from '../button';
 import { size } from '../theme';
 
-const MAX_WIDTH = '600px';
 const FORM_LINK = '/student-spotlight-form/';
+const MAX_WIDTH = '600px';
 
 const MaxWidthContainer = styled('div')`
     margin: 0 auto;
