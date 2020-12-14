@@ -43,6 +43,7 @@ const VideoEmbed = ({
     thumbnail,
     ...props
 }) => {
+    console.log(argument, provider);
     const videoId = argument[0].value;
     const value = getVideoUrl(provider, videoId);
     const isYoutube = provider === 'youtube';

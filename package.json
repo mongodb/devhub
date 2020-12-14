@@ -65,6 +65,7 @@
     "react-refresh": "^0.8.3",
     "react-tiny-popover": "^5.1.0",
     "remark": "^13.0.0",
+    "remark-directive": "^1.0.1",
     "remark-gfm": "^1.0.0",
     "remark-parse": "^9.0.0",
     "style-loader": "^1.2.1",

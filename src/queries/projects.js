@@ -9,7 +9,6 @@ export const projects = `
               url
             }
             linkedin_url
-            twitter_handle
             youtube_url
           }
         }

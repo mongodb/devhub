@@ -18,6 +18,22 @@ import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 
+/**
+ * search the ast for the few directives we need to display content
+ * TODO this ignores some important meta like Twitter for now
+ * @param {array} nodes
+ * @returns {array} array of childNodes with our main content
+ */
+const getContent = nodes => {
+    const nodesWeActuallyWant = [];
+    for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
+        const childNode = nodes[nodeIndex];
+        nodesWeActuallyWant.push(childNode);
+    }
+
+    return nodesWeActuallyWant;
+};
+
 const ArticleContent = styled('article')`
     max-width: ${size.maxContentWidth};
     padding-left: ${size.small};
@@ -80,6 +96,7 @@ const Project = props => {
         image: s.bio.image.url,
     }));
     const childNodes = getContent(dlv(content, 'children', []));
+    console.log(childNodes);
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Academia', target: '/academia' },

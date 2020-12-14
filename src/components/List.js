@@ -31,7 +31,7 @@ const UnorderedList = styled('ul')`
 `;
 
 const isOrdered = (enumtype, ordered) => {
-    const isOrderedSnooty = enumtype !== 'unordered';
+    const isOrderedSnooty = enumtype && enumtype !== 'unordered';
     const isOrderedStrapi = ordered;
     const result = isOrderedSnooty || isOrderedStrapi;
     return result;

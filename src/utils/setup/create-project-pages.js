@@ -2,13 +2,13 @@ import path from 'path';
 import { projects } from '../../queries/projects';
 import { parseMarkdownToAST } from './parse-markdown-to-ast';
 
-const createPageForProject = (project, createPage) => {
+const createPageForProject = async (project, createPage) => {
     const {
         info: { contents, name, slug, ...otherInfo },
         updatedAt: updated_at,
         ...rest
     } = project;
-    const parsedContent = parseMarkdownToAST(contents);
+    const parsedContent = await parseMarkdownToAST(contents);
     createPage({
         path: slug,
         component: path.resolve(`./src/templates/project.js`),
@@ -31,5 +31,7 @@ const getProjectListFromGraphql = async graphql => {
 
 export const createProjectPages = async (createPage, graphql) => {
     const projectList = await getProjectListFromGraphql(graphql);
-    projectList.forEach(project => createPageForProject(project, createPage));
+    projectList.forEach(
+        async project => await createPageForProject(project, createPage)
+    );
 };
