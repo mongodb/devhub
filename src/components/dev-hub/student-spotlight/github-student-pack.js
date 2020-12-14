@@ -33,8 +33,10 @@ const ImageContainer = styled('div')`
 const GithubBackpackImg = () => (
     <ImageContainer>
         <img
-            src={githubStudentPackPng}
             alt="Backpack with GitHub logo plus MongoDB leaf"
+            height="240"
+            src={githubStudentPackPng}
+            width="359"
         />
     </ImageContainer>
 );
