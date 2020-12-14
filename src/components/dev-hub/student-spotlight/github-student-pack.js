@@ -25,11 +25,18 @@ const StyledLink = styled(Link)`
     color: ${({ theme }) => theme.colorMap.devWhite};
 `;
 
+const ImageContainer = styled('div')`
+    display: flex;
+    justify-content: flex-end;
+`;
+
 const GithubBackpackImg = () => (
-    <img
-        src={githubStudentPackPng}
-        alt="Backpack with GitHub logo plus MongoDB leaf"
-    />
+    <ImageContainer>
+        <img
+            src={githubStudentPackPng}
+            alt="Backpack with GitHub logo plus MongoDB leaf"
+        />
+    </ImageContainer>
 );
 
 const GithubStudentContent = () => (
