@@ -6,7 +6,18 @@ import MediaBlock from '../media-block';
 import { H4, P } from '../text';
 import { screenSize } from '../theme';
 
-const SectionContent = styled('div')`
+const LightText = styled(P)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+
+// We want to push the image all the way to the right instead of center
+const ImageContainer = styled('div')`
+    display: flex;
+    justify-content: flex-end;
+`;
+
+// We want this content centered and, on mobile, the text centered as well
+const Centered = styled('div')`
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -17,17 +28,8 @@ const SectionContent = styled('div')`
     }
 `;
 
-const LightText = styled(P)`
-    color: ${({ theme }) => theme.colorMap.greyLightTwo};
-`;
-
 const StyledLink = styled(Link)`
     color: ${({ theme }) => theme.colorMap.devWhite};
-`;
-
-const ImageContainer = styled('div')`
-    display: flex;
-    justify-content: flex-end;
 `;
 
 const GithubBackpackImg = () => (
@@ -42,7 +44,7 @@ const GithubBackpackImg = () => (
 );
 
 const GithubStudentContent = () => (
-    <SectionContent>
+    <Centered>
         <H4>
             Get excusive student access to MongoDB Atlas, University on-demand
             content and certifications.
@@ -55,7 +57,7 @@ const GithubStudentContent = () => (
         <StyledLink tertiary href="https://www.mongodb.com/students">
             GitHub Student Developer Pack
         </StyledLink>
-    </SectionContent>
+    </Centered>
 );
 
 const GithubStudentPack = () => (
