@@ -2,8 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <figure
-  class="figure css-qwl3ci-Figure e1afvbh00"
-  style="width:700px"
+  class="css-73jyry-Figure e1afvbh00"
 >
   <img
     alt="/images/firstcluster.png"
@@ -17,8 +16,7 @@ exports[`renders correctly 1`] = `
 
 exports[`renders lightbox correctly when specified as an option 1`] = `
 <figure
-  class="figure css-qwl3ci-Figure e1afvbh00"
-  style="width:700px"
+  class="css-73jyry-Figure e1afvbh00"
 >
   <img
     alt="/images/firstcluster.png"

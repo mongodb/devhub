@@ -2,32 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withPrefix } from 'gatsby';
 import { css } from '@emotion/core';
+import { getImageAlignmentStyle } from '../utils/get-image-alignment-style';
 import { getNestedValue } from '../utils/get-nested-value';
 import { size } from './dev-hub/theme';
 
-const getAlignment = align => {
-    switch (align) {
-        case 'left':
-            return css`
-                float: left;
-            `;
-        case 'right':
-            return css`
-                float: right;
-            `;
-        case 'center':
-            return css`
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-            `;
-        default:
-            return null;
-    }
-};
-
 const ArticleImageStyle = (captioned, customAlign, scale) => css`
-    ${getAlignment(customAlign)}
+    ${getImageAlignmentStyle(customAlign)}
     border-radius: ${size.small};
     margin-bottom: ${captioned ? size.small : size.articleContent};
     vertical-align: bottom; /* prevent the default image spacing below image */
