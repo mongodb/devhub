@@ -12,14 +12,8 @@ const Figure = styled('figure')`
     ${({ alignStyle }) => alignStyle};
 `;
 
-const removeAlignOption = nodeData => delete nodeData['options']['align'];
-
 export default ({ nodeData, ...rest }) => {
     const customAlign = getNestedValue(['options', 'align'], nodeData);
-    if (customAlign) {
-        // Apply the alignment to the figure, no need to also apply to image
-        removeAlignOption(nodeData);
-    }
     const alignStyle = getImageAlignmentStyle(customAlign);
     const figWidth =
         getNestedValue(['options', 'figwidth'], nodeData) || 'auto';
