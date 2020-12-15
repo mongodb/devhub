@@ -5,46 +5,26 @@ import Link from './link';
 import { size } from './theme';
 
 const hoverBackground = theme => css`
-    :before {
-        content: '';
-        background-color: ${theme.colorMap.greyDarkThree};
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: ${size.small};
-        transition: opacity 0.15s linear;
-    }
+    background-color: ${theme.colorMap.greyDarkThree};
+    border-radius: ${size.small};
+    bottom: 0;
+    content: '';
+    left: 0;
+    position: absolute;
+    right: 0;
+    opacity: 0;
+    top: 0;
+    transition: opacity 0.15s linear;
 `;
 
 const HoverContent = styled('div')`
-    position: absolute;
-    top: 50%;
     left: 50%;
     opacity: 0;
+    position: absolute;
+    top: 50%;
     transform: translate(-50%, -50%);
-    visibility: hidden;
     transition: opacity 0.15s linear;
-`;
-const RoundedContainer = styled('div')`
-    border-radius: ${size.small};
-    text-align: center;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    ${({ theme }) => hoverBackground(theme)};
-    &:hover,
-    &:focus {
-        div {
-            opacity: 1;
-            visibility: visible;
-        }
-        :before {
-            opacity: 0.8;
-        }
-    }
+    visibility: hidden;
 `;
 
 const Image = styled('img')`
@@ -54,12 +34,35 @@ const Image = styled('img')`
     width: 100%;
 `;
 
+const RoundedContainer = styled('div')`
+    border-radius: ${size.small};
+    height: 100%;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    :before {
+        ${({ theme }) => hoverBackground(theme)};
+    }
+    &:hover,
+    &:focus {
+        color: unset;
+        ${HoverContent} {
+            opacity: 1;
+            visibility: visible;
+        }
+        /* Parent controls the background opacity */
+        :before {
+            opacity: 0.8;
+        }
+    }
+`;
+
 const HoverCard = ({ alt, children, image, to, ...props }) => {
     const ContentWrapper = to
         ? RoundedContainer.withComponent(Link)
         : RoundedContainer;
     return (
-        <ContentWrapper tabIndex="0" role="tooltip" {...props}>
+        <ContentWrapper role="tooltip" tabIndex="0" to={to} {...props}>
             <Image alt={alt} loading="lazy" src={image} />
             <HoverContent>{children}</HoverContent>
         </ContentWrapper>
