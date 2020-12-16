@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hover cards with a link render correctly 1`] = `
+<ContentWrapper
+  tabIndex="0"
+  to="/"
+>
+  <Image
+    alt="Image with first cluster"
+    loading="lazy"
+    src="/images/firstcluster.png"
+  />
+  <HoverContent>
+    <p>
+      Here is some content
+    </p>
+  </HoverContent>
+</ContentWrapper>
+`;
+
+exports[`hover cards without a link render correctly 1`] = `
+<RoundedContainer
+  tabIndex="0"
+>
+  <Image
+    alt="Image with first cluster"
+    loading="lazy"
+    src="/images/firstcluster.png"
+  />
+  <HoverContent>
+    <p>
+      Here is some content
+    </p>
+  </HoverContent>
+</RoundedContainer>
+`;
