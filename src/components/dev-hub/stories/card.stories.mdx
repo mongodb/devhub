@@ -5,6 +5,7 @@ import { H3, P3 } from '../text';
 import { colorMap } from '../theme';
 import mockCardImage from '../../../images/360-mock-img.png';
 import { mapTagTypeToUrl } from '../../../utils/map-tag-type-to-url';
+import Grid from '../grid';
 
 <Meta title="Cards" />
 
@@ -34,26 +35,15 @@ A card can have a link, image, title, and description.
     </Story>
     <Story name="hover card">
         <div>
-            <div
-                style={{
-                    display: 'grid',
-                    columnGap: '32px',
-                    gridTemplateColumns: '1fr 1fr 1fr',
-                    gridTemplateRows: '300px',
-                }}
-            >
-                <HoverCard
-                    to="/"
-                    image={mockCardImage}
-                    style={{ gridColumnEnd: 'span 2' }}
-                >
+            <Grid layout={[[2, 1]]}>
+                <HoverCard to="/" image={mockCardImage}>
                     <H3>An interesting article</H3>
                     <P3>With an even better caption</P3>
                 </HoverCard>
                 <HoverCard image={mockCardImage}>
                     An interesting article
                 </HoverCard>
-            </div>
+            </Grid>
         </div>
     </Story>
 </Preview>
