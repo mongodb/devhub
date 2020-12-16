@@ -36,8 +36,8 @@ const Image = styled('img')`
 
 const RoundedContainer = styled('div')`
     border-radius: ${size.small};
-    height: 100%;
     display: block;
+    height: 100%;
     position: relative;
     text-align: center;
     width: 100%;
