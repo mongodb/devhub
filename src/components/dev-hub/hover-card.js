@@ -62,7 +62,7 @@ const HoverCard = ({ alt, children, image, to, ...props }) => {
         ? RoundedContainer.withComponent(Link)
         : RoundedContainer;
     return (
-        <ContentWrapper role="tooltip" tabIndex="0" to={to} {...props}>
+        <ContentWrapper tabIndex="0" to={to} {...props}>
             <Image alt={alt} loading="lazy" src={image} />
             <HoverContent>{children}</HoverContent>
         </ContentWrapper>
