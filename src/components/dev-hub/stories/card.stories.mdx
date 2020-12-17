@@ -33,27 +33,17 @@ A card can have a link, image, title, and description.
         </div>
     </Story>
     <Story name="hover card">
-        <div>
-            <div
-                style={{
-                    display: 'grid',
-                    columnGap: '32px',
-                    gridTemplateColumns: '1fr 1fr 1fr',
-                    gridTemplateRows: '300px',
-                }}
-            >
-                <HoverCard
-                    to="/"
-                    image={mockCardImage}
-                    style={{ gridColumnEnd: 'span 2' }}
-                >
-                    <H3>An interesting article</H3>
-                    <P3>With an even better caption</P3>
-                </HoverCard>
-                <HoverCard image={mockCardImage}>
-                    An interesting article
-                </HoverCard>
-            </div>
+        <div
+            style={{
+                display: 'grid',
+                gridTemplateColumns: '50%',
+                gridTemplateRows: '300px',
+            }}
+        >
+            <HoverCard to="/" image={mockCardImage}>
+                <H3>An interesting article</H3>
+                <P3>With an even better caption</P3>
+            </HoverCard>
         </div>
     </Story>
 </Preview>
