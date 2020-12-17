@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import Layout from '../../components/dev-hub/layout';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
@@ -8,19 +8,15 @@ import {
     size,
     lineHeight,
 } from '../../components/dev-hub/theme';
-import { H3, ArticleH2, P } from '../../components/dev-hub/text';
+import { H2, H3, H4, H5, P } from '../../components/dev-hub/text';
 import styled from '@emotion/styled';
 import Button from '../../components/dev-hub/button';
 import HeroBanner from '../../components/dev-hub/hero-banner';
-import SectionHeader from '../../components/dev-hub/section-header';
 import AcademiaSignUpForm from '../../components/dev-hub/academia-sign-up-form';
+import Card from '../../components/dev-hub/card';
 import HeroBannerImage from '../../images/1x/Academia.svg';
-import TeachMongoDBImage from '../../images/1x/TeachMongoDB.svg';
-import AcademiaLeafImage from '../../images/1x/Academia_Leaf.svg';
-import useMedia from '../../hooks/use-media';
-
-const LEAF_IMAGE_WIDTH = 125;
-const TEACH_IMAGE_WIDTH = 450;
+import MediaBlock from '../../components/dev-hub/media-block';
+import Modal from '../../components/dev-hub/modal';
 
 const StyledHeroBanner = styled(HeroBanner)`
     margin: 0 ${size.medium};
@@ -36,24 +32,14 @@ const Header = styled('header')`
     }
 `;
 
-const Title = styled(ArticleH2)`
-    font-size: ${fontSize.small};
-    font-family: 'Fira Mono';
-`;
-
 const StyledButton = styled(Button)`
     margin-top: ${size.large};
 `;
 
 const BodyContent = styled('div')`
     display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
-    max-width: ${size.maxContentWidth};
-    width: 100%;
-    @media ${screenSize.upToMedium} {
-        padding: 0 ${size.default};
-    }
+    justify-content: center;
+    padding: 60px 120px;
 `;
 
 const BodyText = styled(P)`
@@ -61,49 +47,9 @@ const BodyText = styled(P)`
     font-size: ${fontSize.default};
     line-height: ${lineHeight.default};
 `;
-
-const OfferingsContent = styled('div')`
-    margin-bottom: ${size.xlarge};
-    margin-top: ${size.xlarge};
-`;
-
-const EligibilityContent = styled('div')`
-    margin-top: ${size.xlarge};
-`;
-
 const EligibilitySection = styled('div')`
     background-color: ${({ theme }) => theme.colorMap.devBlack};
-    padding-bottom: ${size.xlarge};
-    padding-top: ${size.medium};
-    max-width: ${size.maxWidth};
-    margin: 0 ${size.medium};
-    @media ${screenSize.upToMedium} {
-        width: 100%;
-        margin: 0;
-    }
-`;
-
-const StyledSectionHeader = styled(SectionHeader)`
-    margin-bottom: ${size.mediumLarge};
-`;
-
-const StyledLink = styled('a')`
-    color: ${({ theme }) => theme.colorMap.darkGreen};
-    text-decoration: none;
-`;
-
-const StyledBullet = styled('ul')`
-    list-style-type: circle;
-    color: ${({ theme }) => theme.colorMap.darkGreen};
-`;
-
-const StyledSpan = styled('span')`
-    color: white;
-`;
-
-const SignUp = styled('div')`
-    margin-top: ${size.xlarge};
-    margin-bottom: ${size.xxlarge};
+    padding: 60px 120px;
 `;
 
 const StyledAcademiaSignUpForm = styled(AcademiaSignUpForm)`
@@ -117,16 +63,67 @@ const StyledP = styled(P)`
     margin-top: ${size.articleContent};
 `;
 
-const StyledLeafImage = styled('img')`
-    margin-top: 200px;
-    flex: 0 0 ${LEAF_IMAGE_WIDTH}px;
-    width: ${LEAF_IMAGE_WIDTH}px;
+const StyledBullet = styled('ul')`
+    list-style-type: circle;
+    color: ${({ theme }) => theme.colorMap.darkGreen};
 `;
 
-const StyledTeachImage = styled('img')`
-    flex: 0 0 ${TEACH_IMAGE_WIDTH}px;
-    width: ${TEACH_IMAGE_WIDTH}px;
+const BulletText = styled(P)`
+    color: white;
+    margin-bottom: 0;
 `;
+
+const OrderedList = styled('ol')`
+    list-style: none;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-left: 0;
+    position: relative;
+
+    counter-reset: my-awesome-counter;
+
+    li {
+        counter-increment: my-awesome-counter;
+        margin: 12px 0 12px 40px;
+        position: relative;
+    }
+
+    li::before {
+        content: counter(my-awesome-counter);
+        color: white;
+        font-size: 12px;
+        position: absolute;
+        --size: 24px;
+        left: calc(-1 * var(--size) - 10px);
+        line-height: var(--size);
+        width: var(--size);
+        height: var(--size);
+        top: 0;
+        background: ${({ theme }) => theme.gradientMap.magentaSalmonSherbet};
+        border-radius: 50%;
+        text-align: center;
+    }
+`;
+
+const SignUpModal = () => (
+    <Modal
+        triggerComponent={
+            <StyledButton primary hasArrow={false}>
+                Join MongoDB for Academia
+            </StyledButton>
+        }
+        dialogContainerStyle={{ maxWidth: '600px' }}
+    >
+        <H5>Join MongoDB for Academia</H5>
+        <BodyText>
+            If you’re interested in receiving MongoDB course materials or if you
+            like us to review your current content, please let us know by
+            submitting the form and we’ll get back to you within five business
+            days.
+        </BodyText>
+        <StyledAcademiaSignUpForm />
+    </Modal>
+);
 
 export default () => {
     const metadata = useSiteMetadata();
@@ -134,147 +131,64 @@ export default () => {
         { label: 'Home', target: '/' },
         { label: 'MongoDB for Academia', target: '/academia' },
     ];
-
-    const scrollToRef = ref =>
-        window.scrollTo({ behavior: 'smooth', top: ref.current.offsetTop });
-    const formRef = useRef();
-    const isMobile = useMedia(screenSize.upToLarge);
     return (
         <Layout>
             <Helmet>
-                <title>Academia - {metadata.title}</title>
+                <title>Academia for Educators - {metadata.title}</title>
             </Helmet>
             <StyledHeroBanner
                 breadcrumb={academiaBreadcrumbs}
                 background={HeroBannerImage}
             >
                 <Header>
-                    <Title>MongoDB for Academia</Title>
-
-                    <H3>Teach modern databases with MongoDB</H3>
+                    <H2>MongoDB Academia for Educators</H2>
 
                     <StyledP>
-                        Enrich your curriculum with MongoDB content and prepare
-                        the developers of tomorrow to build modern applications.
+                        MongoDB for Academia is for educators who want to
+                        prepare students for careers that require in-demand
+                        database skills that power modern applications.
                     </StyledP>
-
-                    <StyledButton
-                        onClick={() => scrollToRef(formRef)}
-                        primary
-                        hasArrow={false}
-                    >
-                        Join MongoDB for Academia
-                    </StyledButton>
+                    <SignUpModal />
                 </Header>
             </StyledHeroBanner>
 
             <BodyContent>
-                <div>
-                    <OfferingsContent>
-                        <ArticleH2>Teach MongoDB with Confidence</ArticleH2>
-                        <BodyText>
-                            Gain access to MongoDB software and curriculum
-                            content sourced from MongoDB education experts that
-                            easily integrates in your classroom teaching. We can
-                            also consult you with planning a curriculum.
-                        </BodyText>
-                    </OfferingsContent>
-
-                    <OfferingsContent>
-                        <ArticleH2>MongoDB University On-Demand</ArticleH2>
-                        <BodyText>
-                            You and your students will receive special on-demand
-                            access to MongoDB University, with cohort tracking,
-                            usage analytics in addition to great content that
-                            you can incorporate into your curriculum.
-                        </BodyText>
-                    </OfferingsContent>
-
-                    <OfferingsContent>
-                        <ArticleH2>
-                            Connect with Educators Around the World
-                        </ArticleH2>
-                        <BodyText>
-                            Access our MongoDB for Academia community to
-                            collaborate, share tips and get inspired.
-                        </BodyText>
-                    </OfferingsContent>
-                </div>
-                {!isMobile && (
-                    <StyledTeachImage
-                        src={TeachMongoDBImage}
-                        alt="Cartoon teacher pointing at codeblock. Cartoon person sitting on bench reading laptop."
-                    />
-                )}
+                <H3>Teach MongoDB with confidence</H3>
+                {/* Images with bullets go here */}
             </BodyContent>
 
             <EligibilitySection>
-                <BodyContent>
-                    <div>
-                        <EligibilityContent>
-                            <StyledSectionHeader>
-                                For Students
-                            </StyledSectionHeader>
-                            <BodyText>
-                                If you’re a student, you can apply for the{' '}
-                                <StyledLink href="https://education.github.com/pack">
-                                    GitHub Student Developer Pack
-                                </StyledLink>{' '}
-                                and get access to MongoDB Atlas, University
-                                on-demand content and certifications.
-                            </BodyText>
-                        </EligibilityContent>
-
-                        <EligibilityContent>
-                            <StyledSectionHeader>
-                                For Educators
-                            </StyledSectionHeader>
-                            <BodyText>
-                                MongoDB for Academia is for educators who want
-                                to prepare students for careers that require
-                                in-demand database skills that power modern
-                                applications.
-                                <StyledP>
-                                    You’re eligible for this program if you
-                                    teach:
-                                </StyledP>
-                                <StyledBullet>
-                                    <li>
-                                        <StyledSpan>
-                                            Higher Education, College and
-                                            University programs
-                                        </StyledSpan>
-                                    </li>
-                                    <li>
-                                        <StyledSpan>
-                                            Bootcamps and Online Courses
-                                        </StyledSpan>
-                                    </li>
-                                </StyledBullet>
-                            </BodyText>
-                        </EligibilityContent>
-                    </div>
-
-                    {!isMobile && (
-                        <StyledLeafImage
-                            src={AcademiaLeafImage}
-                            alt="Two green sprouting leaves"
-                        />
-                    )}
-                </BodyContent>
+                <MediaBlock
+                    mediaComponent={
+                        <Card image={HeroBannerImage} maxWidth="400px" />
+                    }
+                    mediaWidth="400px"
+                    reverse
+                >
+                    <H4>How to join MongoDB for Academia</H4>
+                    <P>You're eligible for this program if you teach:</P>
+                    <StyledBullet>
+                        <li>
+                            <BulletText>
+                                Higher Education, College and University
+                                programs
+                            </BulletText>
+                        </li>
+                        <li>
+                            <BulletText>
+                                Bootcamps and Online Courses
+                            </BulletText>
+                        </li>
+                    </StyledBullet>
+                    <OrderedList>
+                        <li>Fill out a form with teaching details</li>
+                        <li>Our team will verify your details</li>
+                        <li>You'll get an email within 5 business days</li>
+                        <li>Bring your students on board</li>
+                    </OrderedList>
+                    <SignUpModal />
+                </MediaBlock>
             </EligibilitySection>
-
-            <BodyContent>
-                <SignUp ref={formRef}>
-                    <BodyText>
-                        If you’re interested in receiving MongoDB course
-                        materials or if you like us to review your current
-                        content, please let us know by submitting the form and
-                        we’ll get back to you within five business days.
-                    </BodyText>
-                    <StyledAcademiaSignUpForm />
-                </SignUp>
-            </BodyContent>
         </Layout>
     );
 };
