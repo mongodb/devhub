@@ -1,65 +1,46 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import { GridLayout } from '../../utils/grid-layout';
 import { size } from './theme';
 
 const GridContainer = styled('div')`
     display: grid;
-    grid-template-columns: repeat(
-        ${({ layoutCols }) => layoutCols},
-        ${({ colWidth }) => colWidth}
-    );
-    grid-template-rows: repeat(
-        ${({ layoutRows }) => layoutRows},
-        ${({ rowHeight }) => rowHeight}
-    );
+    grid-template-columns: repeat(${({ layoutCols }) => layoutCols}, 1fr);
+    grid-auto-rows: ${({ rowHeight }) => rowHeight};
     gap: ${size.default};
 `;
 
-const gridSpan = colSpan => css`
+const gridSpan = ({ rowSpan, colSpan }) => css`
+    grid-row-end: span ${rowSpan};
     grid-column-end: span ${colSpan};
 `;
 
-const getPosition = (i, layout) => {
-    let count = 0;
-    let index = -1;
-    while (i >= count) {
-        index++;
-        if (i < count + layout[index].length) {
-            return layout[index][i - count];
-        }
-        count += layout[index].length;
-    }
-};
-
-// Wrapper component which takes a [[layout]] and constructs a grid with it
-const Grid = ({
-    children,
-    layout,
-    colWidth = '1fr',
-    rowHeight = '1fr',
-    ...props
-}) => {
-    const layoutRows = layout.length;
-    const layoutCols = layout[0].reduce((a, b) => a + b, 0);
+/**
+ * "layout" is an object which describes the repetitive nature of the grid with
+ * two properties "rowSpan" and "colSpan" which both are arrays defining the
+ * shape of the grid. for example {rowSpan: [1], colSpan: [1]} with cols=12
+ * defines a 12-column grid where each item is 1 column and even in height.
+ *
+ * See grid.stories.mdx for another use.
+ */
+const Grid = ({ children, layout, numCols, rowHeight = '1fr', ...props }) => {
+    const gridLayout = useMemo(
+        () => new GridLayout(layout.rowSpan, layout.colSpan),
+        [layout]
+    );
     const gridElements = useMemo(
         () =>
             children.map((child, i) =>
                 React.cloneElement(child, {
-                    css: gridSpan(getPosition(i, layout)),
+                    css: gridSpan(gridLayout.position(i)),
                     key: i,
                 })
             ),
-        [children, layout]
+        [children, gridLayout]
     );
     return (
-        <GridContainer
-            colWidth={colWidth}
-            rowHeight={rowHeight}
-            layoutRows={layoutRows}
-            layoutCols={layoutCols}
-            {...props}
-        >
+        <GridContainer rowHeight={rowHeight} layoutCols={numCols} {...props}>
             {gridElements}
         </GridContainer>
     );

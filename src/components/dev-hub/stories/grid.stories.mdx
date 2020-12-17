@@ -16,11 +16,8 @@ Grids take a `layout` property (as well as several optional dimension properties
 <Preview>
     <Story name="grid">
         <Grid
-            layout={[
-                [2, 1],
-                [1, 1, 1],
-                [1, 2],
-            ]}
+            layout={{ rowSpan: [1], colSpan: [2, 1, 1, 1, 1, 1, 2] }}
+            numCols={3}
             rowHeight="300px"
         >
             <HoverCard image={mockCardImage}>An interesting article</HoverCard>
