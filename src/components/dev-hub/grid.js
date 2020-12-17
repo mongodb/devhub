@@ -22,7 +22,7 @@ const gridSpan = ({ rowSpan, colSpan }) => css`
  * shape of the grid. for example {rowSpan: [1], colSpan: [1]} with cols=12
  * defines a 12-column grid where each item is 1 column and even in height.
  *
- * See grid.stories.mdx for another use.
+ * See utils/grid-layout.js and grid.stories.mdx for more.
  */
 const Grid = ({ children, layout, numCols, rowHeight = '1fr', ...props }) => {
     const gridLayout = useMemo(
