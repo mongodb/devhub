@@ -38,8 +38,14 @@ const StyledButton = styled(Button)`
 
 const BodyContent = styled('div')`
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding: 60px 120px;
+    @media ${screenSize.upToLarge} {
+        padding: 16px 32px;
+        justify-content: center;
+        text-align: center;
+    }
 `;
 
 const BodyText = styled(P)`
@@ -50,6 +56,10 @@ const BodyText = styled(P)`
 const EligibilitySection = styled('div')`
     background-color: ${({ theme }) => theme.colorMap.devBlack};
     padding: 60px 120px;
+    @media ${screenSize.upToLarge} {
+        padding: 16px 32px;
+        justify-content: center;
+    }
 `;
 
 const StyledAcademiaSignUpForm = styled(AcademiaSignUpForm)`
@@ -105,6 +115,25 @@ const OrderedList = styled('ol')`
     }
 `;
 
+const Image = styled('img')`
+    width: 258px;
+`;
+
+const SubSection = styled('div')`
+    max-width: 300px;
+`;
+
+const SubSections = styled('div')`
+    display: flex;
+    justify-content: space-around;
+    margin-top: 89px;
+    width: 100%;
+    @media ${screenSize.upToLarge} {
+        justify-content: unset;
+        flex-direction: column;
+    }
+`;
+
 const SignUpModal = () => (
     <Modal
         triggerComponent={
@@ -154,7 +183,65 @@ export default () => {
 
             <BodyContent>
                 <H3>Teach MongoDB with confidence</H3>
-                {/* Images with bullets go here */}
+                <SubSections>
+                    <SubSection>
+                        <Image alt="" src={HeroBannerImage} />
+                        <H5>
+                            Curriculum Content Sourced from MongoDB Education
+                            Experts
+                        </H5>
+                        <StyledBullet>
+                            <li>
+                                <BulletText>
+                                    Access to MongoDB software and curriculum
+                                    content sourced from MongoDB education
+                                    experts
+                                </BulletText>
+                            </li>
+                            <li>
+                                <BulletText>
+                                    Consult with us for help planning your
+                                    curriculum
+                                </BulletText>
+                            </li>
+                        </StyledBullet>
+                    </SubSection>
+                    <SubSection>
+                        <Image alt="" src={HeroBannerImage} />
+                        <H5>Exclusive MongoDB University On-Demand Access</H5>
+                        <StyledBullet>
+                            <li>
+                                <BulletText>
+                                    Get on-demand access to MongoDB University,
+                                    for you and your students
+                                </BulletText>
+                            </li>
+                            <li>
+                                <BulletText>
+                                    Student cohort tracking and usage analytics
+                                    with MongoDB University
+                                </BulletText>
+                            </li>
+                        </StyledBullet>
+                    </SubSection>
+                    <SubSection>
+                        <Image alt="" src={HeroBannerImage} />
+                        <H5>Connect with Educators Around the World</H5>
+                        <StyledBullet>
+                            <li>
+                                <BulletText>
+                                    Access to our MongoDB for Academia community
+                                </BulletText>
+                            </li>
+                            <li>
+                                <BulletText>
+                                    Collaborate, share tips and get inspired
+                                    with other MongoDB for Academia educators
+                                </BulletText>
+                            </li>
+                        </StyledBullet>
+                    </SubSection>
+                </SubSections>
             </BodyContent>
 
             <EligibilitySection>
