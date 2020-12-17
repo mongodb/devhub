@@ -1,5 +1,7 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 import Card from '../card';
+import HoverCard from '../hover-card';
+import { H3, P3 } from '../text';
 import { colorMap } from '../theme';
 import mockCardImage from '../../../images/360-mock-img.png';
 import { mapTagTypeToUrl } from '../../../utils/map-tag-type-to-url';
@@ -12,7 +14,7 @@ A card can have a link, image, title, and description.
 
 <Preview>
     <Story name="default card">
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
             <Card
                 distinct
                 image={mockCardImage}
@@ -30,13 +32,37 @@ A card can have a link, image, title, and description.
             />
         </div>
     </Story>
+    <Story name="hover card">
+        <div>
+            <div
+                style={{
+                    display: 'grid',
+                    columnGap: '32px',
+                    gridTemplateColumns: '1fr 1fr 1fr',
+                    gridTemplateRows: '300px',
+                }}
+            >
+                <HoverCard
+                    to="/"
+                    image={mockCardImage}
+                    style={{ gridColumnEnd: 'span 2' }}
+                >
+                    <H3>An interesting article</H3>
+                    <P3>With an even better caption</P3>
+                </HoverCard>
+                <HoverCard image={mockCardImage}>
+                    An interesting article
+                </HoverCard>
+            </div>
+        </div>
+    </Story>
 </Preview>
 
 Cards can also have a list of tags associated with them (max 5 tags).
 
 <Preview>
     <Story name="tag-list card">
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
             <Card
                 distinct
                 image={mockCardImage}
@@ -64,7 +90,7 @@ the max number of lines a title can have using the `maxTitleLines` prop.
 
 <Preview>
     <Story name="no-image card">
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
             <Card
                 width="300px"
                 title="I'm a card with a really really really really really really really really really really long title"
