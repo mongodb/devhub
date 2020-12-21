@@ -1,17 +1,7 @@
+import { findArticleWithSlug } from './find-articles-from-slugs';
 import { getItemTypeFromUrl } from './get-item-type-from-url';
 
 const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
-
-const findArticleWithSlug = (allArticles, slug) => {
-    const targetSlug = new RegExp(`^/?${slug}$`);
-    const targetArticle = allArticles.find(x =>
-        x.query_fields.slug.match(targetSlug)
-    );
-    if (targetArticle) {
-        targetArticle['type'] = 'article';
-        return targetArticle;
-    }
-};
 
 export const handleCreateHomePage = async (
     page,
