@@ -138,7 +138,7 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
             </ErrorMessage>
 
             <SectionHeader>
-                <StyledSectionText>Instructor's Info</StyledSectionText>
+                <StyledSectionText>Instructor</StyledSectionText>
             </SectionHeader>
 
             <InstructorSection>
@@ -177,7 +177,7 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
             </InstructorSection>
 
             <SectionHeader>
-                <StyledSectionText>Institution's Info</StyledSectionText>
+                <StyledSectionText>Institution</StyledSectionText>
             </SectionHeader>
 
             <InstitutionSection>
