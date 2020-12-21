@@ -21,6 +21,8 @@ import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
 import VideoModal from '../components/dev-hub/video-modal';
 import { useTheme } from 'emotion-theming';
+import Grid from '../components/dev-hub/grid';
+import HoverCard from '../components/dev-hub/hover-card';
 
 const MEDIA_WIDTH = '550';
 
@@ -224,11 +226,26 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredItems }) => {
                 <FeatureSection altBackground>
                     <MediaBlock
                         mediaComponent={
-                            <Card
-                                image={academiaImage}
-                                maxWidth={MEDIA_WIDTH}
-                            ></Card>
+                            <Grid
+                                numCols={2}
+                                layout={{
+                                    rowSpan: [1],
+                                    colSpan: [2, 1, 1],
+                                }}
+                                rowHeight="300px"
+                            >
+                                <HoverCard image={academiaImage}>
+                                    An interesting article
+                                </HoverCard>
+                                <HoverCard image={academiaImage}>
+                                    An interesting article
+                                </HoverCard>
+                                <HoverCard image={academiaImage}>
+                                    An interesting article
+                                </HoverCard>
+                            </Grid>
                         }
+                        reverse
                     >
                         <SectionContent>
                             <H2>
@@ -241,12 +258,12 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredItems }) => {
                                 </GradientUnderline>
                             </H2>
                             <DescriptiveText>
-                                MongoDB for Academia gives educators hands-on
-                                learning experiences to inspire, teach and learn
-                                with MongoDB.
+                                MongoDB for Academia gives educators & students
+                                hands-on learning experiences to inspire, teach,
+                                and learn with MongoDB.
                             </DescriptiveText>
                             <div>
-                                <Button to="/academia/educators/" secondary>
+                                <Button to="/academia/" secondary>
                                     Learn more
                                 </Button>
                             </div>
