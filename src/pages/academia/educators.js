@@ -18,6 +18,7 @@ const ACADEMIA_BREADCRUMBS = [
     { label: 'Home', target: '/' },
     { label: 'MongoDB for Academia', target: '/academia' },
 ];
+const CUSTOM_BULLET_SIZE = '24px';
 const ELIGIBILITY_IMAGE_MAX_WIDTH = '400px';
 const MAX_FEATURED_BENEFIT_WIDTH = '300px';
 const MAX_SIGN_UP_WIDTH = '600px';
@@ -28,6 +29,38 @@ const centerContentOnMobile = css`
     @media ${screenSize.upToLarge} {
         justify-content: center;
         text-align: center;
+    }
+`;
+
+// Custom counter so we can apply custom styles after disabling list-style
+const customOrderedListCounter = css`
+    counter-reset: ordered-list-counter;
+
+    li {
+        counter-increment: ordered-list-counter;
+        :before {
+            content: counter(ordered-list-counter);
+        }
+    }
+`;
+
+const gradientBullet = theme => css`
+    background: ${theme.gradientMap.magentaSalmonSherbet};
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    height: ${CUSTOM_BULLET_SIZE};
+    left: calc(-1 * ${CUSTOM_BULLET_SIZE} - 16px);
+    line-height: ${CUSTOM_BULLET_SIZE};
+    position: absolute;
+    text-align: center;
+    /* line-height is 32px. (32px - 24px) / 2 gives a 4px veritcal offset to center */
+    top: 4px;
+    width: ${CUSTOM_BULLET_SIZE};
+`;
+const reducePaddingOnMobile = css`
+    @media ${screenSize.upToLarge} {
+        padding: 16px 20px;
     }
 `;
 
@@ -54,6 +87,7 @@ const BodyContent = styled('div')`
     flex-direction: column;
     padding: ${SECTION_VERTICAL_PADDING} ${SECTION_HORIZONTAL_PADDING};
     ${centerContentOnMobile};
+    ${reducePaddingOnMobile};
 `;
 
 const ButtonWithAdditionalTopMargin = styled(Button)`
@@ -66,29 +100,14 @@ const CustomGradientOrderedList = styled('ol')`
     margin-top: 0;
     padding-left: 0;
     position: relative;
-
-    counter-reset: my-awesome-counter;
+    ${customOrderedListCounter};
 
     li {
-        counter-increment: my-awesome-counter;
-        margin: 12px 0 12px 40px;
+        margin: ${CUSTOM_BULLET_SIZE} 0 ${CUSTOM_BULLET_SIZE} 36px;
         position: relative;
-    }
-
-    li::before {
-        content: counter(my-awesome-counter);
-        color: white;
-        font-size: 12px;
-        position: absolute;
-        --size: 24px;
-        left: calc(-1 * var(--size) - 10px);
-        line-height: var(--size);
-        width: var(--size);
-        height: var(--size);
-        top: 0;
-        background: ${({ theme }) => theme.gradientMap.magentaSalmonSherbet};
-        border-radius: 50%;
-        text-align: center;
+        :before {
+            ${({ theme }) => gradientBullet(theme)};
+        }
     }
 `;
 
@@ -96,6 +115,7 @@ const EligibilitySection = styled('div')`
     background-color: ${({ theme }) => theme.colorMap.devBlack};
     padding: ${SECTION_VERTICAL_PADDING} ${SECTION_HORIZONTAL_PADDING};
     ${centerContentOnMobile};
+    ${reducePaddingOnMobile};
 `;
 
 const FeaturedBenefitMaxWidthContainer = styled('div')`
@@ -103,8 +123,8 @@ const FeaturedBenefitMaxWidthContainer = styled('div')`
 `;
 
 const GreenBullet = styled('ul')`
-    list-style-type: circle;
     color: ${({ theme }) => theme.colorMap.darkGreen};
+    list-style-type: circle;
 `;
 
 const Header = styled('header')`
