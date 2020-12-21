@@ -1,4 +1,4 @@
-import { getLearnPageFilters } from '../../src/utils/setup/handle-create-page';
+import { getLearnPageFilters } from '../../src/utils/setup/handle-create-learn-page';
 
 it('should correctly create filters for the learn page based on article tags', () => {
     const allArticles = [

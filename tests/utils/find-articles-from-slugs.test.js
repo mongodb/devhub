@@ -1,4 +1,4 @@
-import { findArticlesFromSlugs } from '../../src/utils/setup/handle-create-page';
+import { findArticlesFromSlugs } from '../../src/utils/setup/handle-create-learn-page';
 
 it('should correctly find featured articles given a set of requested articles', () => {
     let requestedFeaturedSlugs = [
