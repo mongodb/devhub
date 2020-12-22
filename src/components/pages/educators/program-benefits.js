@@ -1,9 +1,10 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { screenSize } from '../../dev-hub/theme';
-import { H3, H5, P } from '../../dev-hub/text';
+import { H3, H5 } from '../../dev-hub/text';
 import HeroBannerImage from '../../../images/1x/Academia.svg';
-import styled from '@emotion/styled';
+import GreenBulletedList from './green-bulleted-list';
 
 const MAX_FEATURED_BENEFIT_WIDTH = '300px';
 const SECTION_HORIZONTAL_PADDING = '120px';
@@ -46,26 +47,6 @@ const BodyContent = styled('div')`
     ${centerContentOnMobile};
     ${reducePaddingOnMobile};
 `;
-
-const GreenBullet = styled('ul')`
-    color: ${({ theme }) => theme.colorMap.darkGreen};
-    list-style-type: circle;
-`;
-
-const WhiteBulletText = styled(P)`
-    color: white;
-    margin-bottom: 0;
-`;
-
-const GreenBulletedList = ({ children }) => (
-    <GreenBullet>
-        {children.map(content => (
-            <li key={content}>
-                <WhiteBulletText>{content}</WhiteBulletText>
-            </li>
-        ))}
-    </GreenBullet>
-);
 
 const FeaturedBenefit = ({ bullets, image, title }) => (
     <FeaturedBenefitMaxWidthContainer>

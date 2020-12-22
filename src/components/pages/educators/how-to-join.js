@@ -7,6 +7,7 @@ import { H4, P } from '../../dev-hub/text';
 import Card from '../../dev-hub/card';
 import MediaBlock from '../../dev-hub/media-block';
 import SignUpModal from './sign-up-modal';
+import GreenBulletedList from './green-bulleted-list';
 
 const CUSTOM_BULLET_SIZE = '24px';
 const ELIGIBILITY_IMAGE_MAX_WIDTH = '400px';
@@ -75,26 +76,6 @@ const EligibilitySection = styled('div')`
     ${centerContentOnMobile};
     ${reducePaddingOnMobile};
 `;
-
-const GreenBullet = styled('ul')`
-    color: ${({ theme }) => theme.colorMap.darkGreen};
-    list-style-type: circle;
-`;
-
-const WhiteBulletText = styled(P)`
-    color: white;
-    margin-bottom: 0;
-`;
-
-const GreenBulletedList = ({ children }) => (
-    <GreenBullet>
-        {children.map(content => (
-            <li key={content}>
-                <WhiteBulletText>{content}</WhiteBulletText>
-            </li>
-        ))}
-    </GreenBullet>
-);
 
 const HowToJoin = () => (
     <EligibilitySection>
