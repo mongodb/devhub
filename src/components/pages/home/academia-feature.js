@@ -1,4 +1,6 @@
 import React from 'react';
+import dlv from 'dlv';
+import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import HoverCard from '../../dev-hub/hover-card';
 import Grid from '../../dev-hub/grid';
@@ -10,6 +12,7 @@ import academiaImage from '../../../images/1x/Academia.svg';
 import GradientUnderline from '../../dev-hub/gradient-underline';
 import { useTheme } from 'emotion-theming';
 import FeatureSection from './feature-section';
+import { transformProjectStrapiData } from '../../../utils/transform-project-strapi-data';
 
 const DescriptiveText = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
@@ -24,7 +27,33 @@ const SectionContent = styled('div')`
     }
 `;
 
+const homeFeaturedProjects = graphql`
+    query HomeFeaturedProjects {
+        allStrapiProjects(limit: 3) {
+            nodes {
+                students {
+                    bio {
+                        image {
+                            url
+                        }
+                    }
+                }
+                info {
+                    name
+                    slug
+                    image {
+                        url
+                    }
+                }
+            }
+        }
+    }
+`;
+
 const AcademiaFeature = () => {
+    const data = useStaticQuery(homeFeaturedProjects);
+    const projects = dlv(data, ['allStrapiProjects', 'nodes'], []);
+    const mappedProjects = projects.map(transformProjectStrapiData);
     const theme = useTheme();
     return (
         <FeatureSection altBackground>
@@ -36,19 +65,16 @@ const AcademiaFeature = () => {
                             rowSpan: [1],
                             colSpan: [2, 1, 1],
                         }}
-                        rowHeight="300px"
+                        rowHeight="250px"
                     >
-                        <HoverCard image={academiaImage}>
-                            An interesting article
-                        </HoverCard>
-                        <HoverCard image={academiaImage}>
-                            An interesting article
-                        </HoverCard>
-                        <HoverCard image={academiaImage}>
-                            An interesting article
-                        </HoverCard>
+                        {mappedProjects.map(project => (
+                            <HoverCard image={project.image_url}>
+                                {project.name}
+                            </HoverCard>
+                        ))}
                     </Grid>
                 }
+                reverse
             >
                 <SectionContent>
                     <H2>
