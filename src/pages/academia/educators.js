@@ -6,13 +6,11 @@ import { screenSize, size, lineHeight } from '../../components/dev-hub/theme';
 import { H2, H3, H4, H5, P } from '../../components/dev-hub/text';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import Button from '../../components/dev-hub/button';
 import HeroBanner from '../../components/dev-hub/hero-banner';
-import AcademiaSignUpForm from '../../components/dev-hub/academia-sign-up-form';
 import Card from '../../components/dev-hub/card';
 import HeroBannerImage from '../../images/1x/Academia.svg';
 import MediaBlock from '../../components/dev-hub/media-block';
-import Modal from '../../components/dev-hub/modal';
+import { SignUpModal } from '../../components/pages/educators';
 
 const ACADEMIA_BREADCRUMBS = [
     { label: 'Home', target: '/' },
@@ -21,7 +19,6 @@ const ACADEMIA_BREADCRUMBS = [
 const CUSTOM_BULLET_SIZE = '24px';
 const ELIGIBILITY_IMAGE_MAX_WIDTH = '400px';
 const MAX_FEATURED_BENEFIT_WIDTH = '300px';
-const MAX_SIGN_UP_WIDTH = '600px';
 const SECTION_HORIZONTAL_PADDING = '120px';
 const SECTION_VERTICAL_PADDING = '60px';
 
@@ -90,10 +87,6 @@ const BodyContent = styled('div')`
     ${reducePaddingOnMobile};
 `;
 
-const ButtonWithAdditionalTopMargin = styled(Button)`
-    margin-top: ${size.large};
-`;
-
 const CustomGradientOrderedList = styled('ol')`
     list-style: none;
     margin-bottom: 0;
@@ -139,10 +132,6 @@ const ReducedMarginBanner = styled(HeroBanner)`
     @media ${screenSize.upToLarge} {
         margin: 0;
     }
-`;
-
-const StyledAcademiaSignUpForm = styled(AcademiaSignUpForm)`
-    margin-top: ${size.large};
 `;
 
 const WhiteBulletText = styled(P)`
@@ -229,26 +218,6 @@ const ProgramBenefits = () => (
             />
         </BenefitsLayout>
     </BodyContent>
-);
-
-const SignUpModal = () => (
-    <Modal
-        triggerComponent={
-            <ButtonWithAdditionalTopMargin primary hasArrow={false}>
-                Join MongoDB for Academia
-            </ButtonWithAdditionalTopMargin>
-        }
-        dialogContainerStyle={{ maxWidth: MAX_SIGN_UP_WIDTH }}
-    >
-        <H5>Join MongoDB for Academia</H5>
-        <P css={defaultLineHeight}>
-            If you’re interested in receiving MongoDB course materials or if you
-            like us to review your current content, please let us know by
-            submitting the form and we’ll get back to you within five business
-            days.
-        </P>
-        <StyledAcademiaSignUpForm />
-    </Modal>
 );
 
 const TopBanner = () => (
