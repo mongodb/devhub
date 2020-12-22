@@ -1,117 +1,34 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
-import Card from '../components/dev-hub/card';
-import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
-import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
-import { screenSize, size } from '../components/dev-hub/theme';
-import Button from '../components/dev-hub/button';
-import buildImage from '../images/2x/Build@2x.png';
-import meetupsImage from '../images/1x/Meetups.png';
-import academiaImage from '../images/1x/Academia.svg';
-import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
-import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
 import useTwitchApi from '../hooks/use-twitch-api';
-import TwitchFallbackCard from '../components/dev-hub/twitch-fallback-card';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
-import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
-import VideoModal from '../components/dev-hub/video-modal';
-import { useTheme } from 'emotion-theming';
-import Grid from '../components/dev-hub/grid';
-import HoverCard from '../components/dev-hub/hover-card';
-
-const MEDIA_WIDTH = '550';
+import {
+    AcademiaFeature,
+    CommunityFeature,
+    EventsFeature,
+    Hero,
+    TwitchFeature,
+} from '../components/pages/home';
 
 const BackgroundImage = styled('div')`
     background-image: url(${homepageBackground});
     background-size: cover;
 `;
-const Hero = styled('header')`
-    color: ${({ theme }) => theme.colorMap.devWhite};
-    padding: ${size.xlarge} ${size.large};
-    @media ${screenSize.upToMedium} {
-        padding: ${size.large} ${size.medium};
-    }
-    text-align: center;
-`;
-const Heading = styled(H1)`
-    max-width: 920px;
-    margin: ${size.default} auto;
-    word-wrap: break-word;
-`;
-const Sub = styled(SubHeader)`
-    margin: ${size.default} 0;
-`;
-const CardGallery = styled('section')`
-    display: flex;
-    justify-content: center;
-    margin: ${size.default} ${size.xlarge} ${size.large};
-    @media ${screenSize.upToLarge} {
-        flex-wrap: wrap;
-    }
-    @media ${screenSize.upToMedium} {
-        margin: ${size.default};
-    }
-`;
-const StyledTopCard = styled(Card)`
-    width: 100%;
-    @media ${screenSize.upToLarge} {
-        flex-basis: 50%;
-    }
-    @media ${screenSize.upToMedium} {
-        flex-basis: 100%;
-    }
-`;
 
-const FeatureSection = styled('section')`
-    ${({ altBackground, theme }) =>
-        altBackground && `background-color: ${theme.colorMap.devBlack};`};
-    @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.medium};
-        padding: 0;
-        padding-bottom: ${size.medium};
-    }
-    @media ${screenSize.largeAndUp} {
-        margin: 0 ${size.large} ${size.medium};
-        padding-top: ${size.medium};
-    }
-`;
-const SectionContent = styled('div')`
-    padding: 0 ${size.default};
-    @media ${screenSize.largeAndUp} {
-        margin-top: 15%;
-        padding: 8%;
-    }
-`;
-const DescriptiveText = styled(P)`
-    color: ${({ theme }) => theme.colorMap.greyLightTwo};
-    margin-bottom: ${size.medium};
-`;
-
-// TODO: Generalize as new content types are supported
-const FeaturedHomePageItem = ({ item }) => {
-    if (item.type === 'article') {
-        const { image, slug, title } = getFeaturedCardFields(item);
-        return (
-            <StyledTopCard
-                maxTitleLines={3}
-                image={image}
-                to={slug}
-                title={title}
-                key={title}
-            />
-        );
-    }
-};
-
-const IndexPageContent = ({ stream, title, twitchVideo, featuredItems }) => {
-    const theme = useTheme();
+const Index = ({ pageContext: { featuredItems } }) => {
+    const { stream, videos } = useTwitchApi();
+    const { title } = useSiteMetadata();
+    const twitchVideo = useMemo(() => {
+        if (stream) return stream;
+        if (videos && videos.length) return videos[0];
+        return null;
+    }, [stream, videos]);
     return (
-        <>
+        <Layout>
             <Helmet>
                 <title>{title}</title>
                 <meta
@@ -123,206 +40,14 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredItems }) => {
                 {stream && (
                     <Notification link={stream.url} title={stream.title} />
                 )}
-                <Hero>
-                    <Heading>
-                        {`ideas.find({"attributes":`}
-                        <br />
-                        {`["fast", "innovative", "original"]})`}
-                    </Heading>
-                    <Sub>What will you create today?</Sub>
-                    <CardGallery>
-                        {featuredItems.map(item => (
-                            <FeaturedHomePageItem item={item} />
-                        ))}
-                    </CardGallery>
-                    <div>
-                        <Button to="/learn" primary>
-                            Learn MongoDB
-                        </Button>
-                    </div>
-                </Hero>
-                <FeatureSection altBackground data-test="twitch">
-                    <MediaBlock
-                        mediaWidth={MEDIA_WIDTH}
-                        mediaComponent={
-                            twitchVideo ? (
-                                <Card
-                                    image={getTwitchThumbnail(
-                                        twitchVideo.thumbnailUrl
-                                    )}
-                                    maxWidth={MEDIA_WIDTH}
-                                    title={twitchVideo.title}
-                                    videoModalThumbnail={getTwitchThumbnail(
-                                        twitchVideo.thumbnailUrl,
-                                        1200
-                                    )}
-                                    video={twitchVideo}
-                                />
-                            ) : (
-                                <TwitchFallbackCard maxWidth={MEDIA_WIDTH} />
-                            )
-                        }
-                    >
-                        <SectionContent>
-                            <H2>
-                                <GradientUnderline
-                                    gradient={
-                                        theme.gradientMap.tealVioletPurple
-                                    }
-                                >
-                                    Live Coding on Our Twitch Channel
-                                </GradientUnderline>
-                            </H2>
-                            <DescriptiveText>
-                                Every Friday at noon EST come watch our
-                                developers make the MongoDB platform come alive.
-                            </DescriptiveText>
-                            {twitchVideo && (
-                                <VideoModal
-                                    id={twitchVideo.videoId}
-                                    name={twitchVideo.mediaType}
-                                    trigger={<Button secondary>Watch</Button>}
-                                    thumbnail={getTwitchThumbnail(
-                                        twitchVideo.thumbnailUrl,
-                                        1200
-                                    )}
-                                />
-                            )}
-                        </SectionContent>
-                    </MediaBlock>
-                </FeatureSection>
-                <FeatureSection data-test="events">
-                    <MediaBlock
-                        mediaComponent={
-                            <Card
-                                image={meetupsImage}
-                                maxWidth={MEDIA_WIDTH}
-                            ></Card>
-                        }
-                        mediaWidth={MEDIA_WIDTH}
-                        reverse
-                    >
-                        <SectionContent>
-                            <H2>
-                                <GradientUnderline
-                                    gradient={theme.gradientMap.greenTeal}
-                                >
-                                    Events
-                                </GradientUnderline>
-                            </H2>
-                            <DescriptiveText>
-                                Join us at our MongoDB .local and community
-                                events.
-                            </DescriptiveText>
-                            <DescriptiveText>
-                                Come to learn, stay to connect.
-                            </DescriptiveText>
-                            <Button to="/community/events" secondary>
-                                Join Us
-                            </Button>
-                        </SectionContent>
-                    </MediaBlock>
-                </FeatureSection>
-                <FeatureSection altBackground>
-                    <MediaBlock
-                        mediaComponent={
-                            <Grid
-                                numCols={2}
-                                layout={{
-                                    rowSpan: [1],
-                                    colSpan: [2, 1, 1],
-                                }}
-                                rowHeight="300px"
-                            >
-                                <HoverCard image={academiaImage}>
-                                    An interesting article
-                                </HoverCard>
-                                <HoverCard image={academiaImage}>
-                                    An interesting article
-                                </HoverCard>
-                                <HoverCard image={academiaImage}>
-                                    An interesting article
-                                </HoverCard>
-                            </Grid>
-                        }
-                        reverse
-                    >
-                        <SectionContent>
-                            <H2>
-                                <GradientUnderline
-                                    gradient={
-                                        theme.gradientMap.magentaSalmonSherbet
-                                    }
-                                >
-                                    MongoDB for Academia
-                                </GradientUnderline>
-                            </H2>
-                            <DescriptiveText>
-                                MongoDB for Academia gives educators & students
-                                hands-on learning experiences to inspire, teach,
-                                and learn with MongoDB.
-                            </DescriptiveText>
-                            <div>
-                                <Button to="/academia/" secondary>
-                                    Learn more
-                                </Button>
-                            </div>
-                        </SectionContent>
-                    </MediaBlock>
-                </FeatureSection>
-                <FeatureSection>
-                    <MediaBlock
-                        mediaComponent={
-                            <Card
-                                image={buildImage}
-                                maxWidth={MEDIA_WIDTH}
-                            ></Card>
-                        }
-                    >
-                        <SectionContent>
-                            <H2>
-                                <GradientUnderline
-                                    gradient={
-                                        theme.gradientMap.magentaSalmonSherbet
-                                    }
-                                >
-                                    Show Your Stuff
-                                </GradientUnderline>
-                            </H2>
-                            <DescriptiveText>
-                                Building something on MongoDB? Share your
-                                stories, demos, and wisdom with those still
-                                learning.
-                            </DescriptiveText>
-                            <ProjectSignUpForm
-                                triggerComponent={
-                                    <Button secondary>Share</Button>
-                                }
-                            />
-                        </SectionContent>
-                    </MediaBlock>
-                </FeatureSection>
+                <Hero featuredItems={featuredItems} />
+                <TwitchFeature twitchVideo={twitchVideo} />
+                <EventsFeature />
+                <AcademiaFeature />
+                <CommunityFeature />
             </BackgroundImage>
-        </>
-    );
-};
-
-export default ({ pageContext: { featuredItems } }) => {
-    const { stream, videos } = useTwitchApi();
-    const { title } = useSiteMetadata();
-    const twitchVideo = useMemo(() => {
-        if (stream) return stream;
-        if (videos && videos.length) return videos[0];
-        return null;
-    }, [stream, videos]);
-    return (
-        <Layout>
-            <IndexPageContent
-                stream={stream}
-                title={title}
-                twitchVideo={twitchVideo}
-                featuredItems={featuredItems}
-            />
         </Layout>
     );
 };
+
+export default Index;
