@@ -9,7 +9,6 @@ import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
 import { screenSize, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import buildImage from '../images/2x/Build@2x.png';
-import meetupsImage from '../images/1x/Meetups.png';
 import academiaImage from '../images/1x/Academia.svg';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
@@ -18,7 +17,7 @@ import useTwitchApi from '../hooks/use-twitch-api';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { useTheme } from 'emotion-theming';
-import { TwitchFeature } from '../components/pages/home';
+import { EventsFeature, TwitchFeature } from '../components/pages/home';
 
 const MEDIA_WIDTH = '550';
 
@@ -138,38 +137,7 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredItems }) => {
                     </div>
                 </Hero>
                 <TwitchFeature twitchVideo={twitchVideo} />
-                <FeatureSection data-test="events">
-                    <MediaBlock
-                        mediaComponent={
-                            <Card
-                                image={meetupsImage}
-                                maxWidth={MEDIA_WIDTH}
-                            ></Card>
-                        }
-                        mediaWidth={MEDIA_WIDTH}
-                        reverse
-                    >
-                        <SectionContent>
-                            <H2>
-                                <GradientUnderline
-                                    gradient={theme.gradientMap.greenTeal}
-                                >
-                                    Events
-                                </GradientUnderline>
-                            </H2>
-                            <DescriptiveText>
-                                Join us at our MongoDB .local and community
-                                events.
-                            </DescriptiveText>
-                            <DescriptiveText>
-                                Come to learn, stay to connect.
-                            </DescriptiveText>
-                            <Button to="/community/events" secondary>
-                                Join Us
-                            </Button>
-                        </SectionContent>
-                    </MediaBlock>
-                </FeatureSection>
+                <EventsFeature />
                 <FeatureSection altBackground>
                     <MediaBlock
                         mediaComponent={

@@ -1,3 +1,4 @@
+import EventsFeature from './events-feature';
 import TwitchFeature from './twitch-feature';
 
-export { TwitchFeature };
+export { EventsFeature, TwitchFeature };
