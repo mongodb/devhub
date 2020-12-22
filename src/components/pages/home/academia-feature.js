@@ -14,6 +14,9 @@ import { useTheme } from 'emotion-theming';
 import FeatureSection from './feature-section';
 import { transformProjectStrapiData } from '../../../utils/transform-project-strapi-data';
 
+import Card from '../../dev-hub/card';
+const MEDIA_WIDTH = '550';
+
 const DescriptiveText = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
     margin-bottom: ${size.medium};
@@ -25,6 +28,13 @@ const SectionContent = styled('div')`
         margin-top: 15%;
         padding: 8%;
     }
+`;
+
+const GridContainer = styled('div')`
+    max-width: 530px;
+    /* margin-left: 20px; */
+    padding: 20px;
+    float: right;
 `;
 
 const homeFeaturedProjects = graphql`
@@ -59,20 +69,22 @@ const AcademiaFeature = () => {
         <FeatureSection altBackground>
             <MediaBlock
                 mediaComponent={
-                    <Grid
-                        numCols={2}
-                        layout={{
-                            rowSpan: [1],
-                            colSpan: [2, 1, 1],
-                        }}
-                        rowHeight="250px"
-                    >
-                        {mappedProjects.map(project => (
-                            <HoverCard image={project.image_url}>
-                                {project.name}
-                            </HoverCard>
-                        ))}
-                    </Grid>
+                    <GridContainer>
+                        <Grid
+                            numCols={2}
+                            layout={{
+                                rowSpan: [1],
+                                colSpan: [2, 1, 1],
+                            }}
+                            rowHeight="250px"
+                        >
+                            {mappedProjects.map(project => (
+                                <HoverCard image={project.image_url}>
+                                    {project.name}
+                                </HoverCard>
+                            ))}
+                        </Grid>
+                    </GridContainer>
                 }
                 reverse
             >
