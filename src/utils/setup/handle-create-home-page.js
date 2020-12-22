@@ -3,13 +3,7 @@ import { getItemTypeFromUrl } from './get-item-type-from-url';
 
 const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
 
-export const handleCreateHomePage = async (
-    page,
-    actions,
-    homeFeaturedArticles,
-    allArticles
-) => {
-    const { createPage, deletePage } = actions;
+const getFeaturedItems = (homeFeaturedArticles, allArticles) => {
     const featuredItems = [];
     homeFeaturedArticles
         .slice(0, MAX_HOME_PAGE_FEATURED_ARTICLES)
@@ -30,6 +24,16 @@ export const handleCreateHomePage = async (
                     throw new Error(`Featured article not found: ${item}`);
             }
         });
+};
+
+export const handleCreateHomePage = async (
+    page,
+    actions,
+    homeFeaturedArticles,
+    allArticles
+) => {
+    const { createPage, deletePage } = actions;
+    const featuredItems = getFeaturedItems(homeFeaturedArticles, allArticles);
     deletePage(page);
     createPage({
         ...page,
