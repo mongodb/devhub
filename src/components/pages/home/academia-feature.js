@@ -1,9 +1,5 @@
 import React from 'react';
-import dlv from 'dlv';
-import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
-import HoverCard from '../../dev-hub/hover-card';
-import Grid from '../../dev-hub/grid';
 import MediaBlock from '../../dev-hub/media-block';
 import { H2, P } from '../../dev-hub/text';
 import { screenSize, size } from '../../dev-hub/theme';
@@ -11,7 +7,7 @@ import Button from '../../dev-hub/button';
 import GradientUnderline from '../../dev-hub/gradient-underline';
 import { useTheme } from 'emotion-theming';
 import FeatureSection from './feature-section';
-import { transformProjectStrapiData } from '../../../utils/transform-project-strapi-data';
+import ProjectCardGrid from './project-card-grid';
 
 const DescriptiveText = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
@@ -26,48 +22,13 @@ const SectionContent = styled('div')`
     }
 `;
 
-const GridContainer = styled('div')`
-    float: right;
-    max-width: 530px;
-    padding: 20px;
-`;
-
-const homeFeaturedProjects = graphql`
-    query HomeFeaturedProjects {
-        allStrapiProjects(limit: 3) {
-            nodes {
-                ...ProjectFragment
-            }
-        }
-    }
-`;
-
 const AcademiaFeature = () => {
-    const data = useStaticQuery(homeFeaturedProjects);
-    const projects = dlv(data, ['allStrapiProjects', 'nodes'], []);
-    const mappedProjects = projects.map(transformProjectStrapiData);
     const theme = useTheme();
     return (
         <FeatureSection altBackground>
             <MediaBlock
-                mediaComponent={
-                    <GridContainer>
-                        <Grid
-                            numCols={2}
-                            layout={{
-                                rowSpan: [1],
-                                colSpan: [2, 1, 1],
-                            }}
-                            rowHeight="250px"
-                        >
-                            {mappedProjects.map(project => (
-                                <HoverCard image={project.image_url}>
-                                    {project.name}
-                                </HoverCard>
-                            ))}
-                        </Grid>
-                    </GridContainer>
-                }
+                mediaWidth="550"
+                mediaComponent={<ProjectCardGrid />}
                 reverse
             >
                 <SectionContent>

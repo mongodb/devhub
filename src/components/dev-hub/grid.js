@@ -29,6 +29,7 @@ const Grid = ({ children, layout, numCols, rowHeight = '1fr', ...props }) => {
         () => new GridLayout(layout.rowSpan, layout.colSpan),
         [layout]
     );
+    console.log(children);
     const gridElements = useMemo(
         () =>
             children.map((child, i) =>
