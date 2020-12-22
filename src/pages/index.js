@@ -9,7 +9,6 @@ import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
 import { screenSize, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
 import buildImage from '../images/2x/Build@2x.png';
-import academiaImage from '../images/1x/Academia.svg';
 import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
@@ -17,7 +16,11 @@ import useTwitchApi from '../hooks/use-twitch-api';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { useTheme } from 'emotion-theming';
-import { EventsFeature, TwitchFeature } from '../components/pages/home';
+import {
+    AcademiaFeature,
+    EventsFeature,
+    TwitchFeature,
+} from '../components/pages/home';
 
 const MEDIA_WIDTH = '550';
 
@@ -138,38 +141,7 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredItems }) => {
                 </Hero>
                 <TwitchFeature twitchVideo={twitchVideo} />
                 <EventsFeature />
-                <FeatureSection altBackground>
-                    <MediaBlock
-                        mediaComponent={
-                            <Card
-                                image={academiaImage}
-                                maxWidth={MEDIA_WIDTH}
-                            ></Card>
-                        }
-                    >
-                        <SectionContent>
-                            <H2>
-                                <GradientUnderline
-                                    gradient={
-                                        theme.gradientMap.magentaSalmonSherbet
-                                    }
-                                >
-                                    MongoDB for Academia
-                                </GradientUnderline>
-                            </H2>
-                            <DescriptiveText>
-                                MongoDB for Academia gives educators hands-on
-                                learning experiences to inspire, teach and learn
-                                with MongoDB.
-                            </DescriptiveText>
-                            <div>
-                                <Button to="/academia/educators/" secondary>
-                                    Learn more
-                                </Button>
-                            </div>
-                        </SectionContent>
-                    </MediaBlock>
-                </FeatureSection>
+                <AcademiaFeature />
                 <FeatureSection>
                     <MediaBlock
                         mediaComponent={
