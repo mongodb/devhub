@@ -15,12 +15,10 @@ import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
 import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
 import useTwitchApi from '../hooks/use-twitch-api';
-import TwitchFallbackCard from '../components/dev-hub/twitch-fallback-card';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
-import getTwitchThumbnail from '../utils/get-twitch-thumbnail';
-import VideoModal from '../components/dev-hub/video-modal';
 import { useTheme } from 'emotion-theming';
+import { TwitchFeature } from '../components/pages/home';
 
 const MEDIA_WIDTH = '550';
 
@@ -139,56 +137,7 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredItems }) => {
                         </Button>
                     </div>
                 </Hero>
-                <FeatureSection altBackground data-test="twitch">
-                    <MediaBlock
-                        mediaWidth={MEDIA_WIDTH}
-                        mediaComponent={
-                            twitchVideo ? (
-                                <Card
-                                    image={getTwitchThumbnail(
-                                        twitchVideo.thumbnailUrl
-                                    )}
-                                    maxWidth={MEDIA_WIDTH}
-                                    title={twitchVideo.title}
-                                    videoModalThumbnail={getTwitchThumbnail(
-                                        twitchVideo.thumbnailUrl,
-                                        1200
-                                    )}
-                                    video={twitchVideo}
-                                />
-                            ) : (
-                                <TwitchFallbackCard maxWidth={MEDIA_WIDTH} />
-                            )
-                        }
-                    >
-                        <SectionContent>
-                            <H2>
-                                <GradientUnderline
-                                    gradient={
-                                        theme.gradientMap.tealVioletPurple
-                                    }
-                                >
-                                    Live Coding on Our Twitch Channel
-                                </GradientUnderline>
-                            </H2>
-                            <DescriptiveText>
-                                Every Friday at noon EST come watch our
-                                developers make the MongoDB platform come alive.
-                            </DescriptiveText>
-                            {twitchVideo && (
-                                <VideoModal
-                                    id={twitchVideo.videoId}
-                                    name={twitchVideo.mediaType}
-                                    trigger={<Button secondary>Watch</Button>}
-                                    thumbnail={getTwitchThumbnail(
-                                        twitchVideo.thumbnailUrl,
-                                        1200
-                                    )}
-                                />
-                            )}
-                        </SectionContent>
-                    </MediaBlock>
-                </FeatureSection>
+                <TwitchFeature twitchVideo={twitchVideo} />
                 <FeatureSection data-test="events">
                     <MediaBlock
                         mediaComponent={
