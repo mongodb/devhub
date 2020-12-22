@@ -2,27 +2,21 @@ import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import Card from '../components/dev-hub/card';
-import MediaBlock from '../components/dev-hub/media-block';
 import Layout from '../components/dev-hub/layout';
 import Notification from '../components/dev-hub/notification';
-import { H1, H2, P, SubHeader } from '../components/dev-hub/text';
+import { H1, SubHeader } from '../components/dev-hub/text';
 import { screenSize, size } from '../components/dev-hub/theme';
 import Button from '../components/dev-hub/button';
-import buildImage from '../images/2x/Build@2x.png';
-import GradientUnderline from '../components/dev-hub/gradient-underline';
 import homepageBackground from '../images/1x/homepage-background.png';
-import ProjectSignUpForm from '../components/dev-hub/project-sign-up-form';
 import useTwitchApi from '../hooks/use-twitch-api';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
-import { useTheme } from 'emotion-theming';
 import {
     AcademiaFeature,
+    CommunityFeature,
     EventsFeature,
     TwitchFeature,
 } from '../components/pages/home';
-
-const MEDIA_WIDTH = '550';
 
 const BackgroundImage = styled('div')`
     background-image: url(${homepageBackground});
@@ -65,31 +59,6 @@ const StyledTopCard = styled(Card)`
     }
 `;
 
-const FeatureSection = styled('section')`
-    ${({ altBackground, theme }) =>
-        altBackground && `background-color: ${theme.colorMap.devBlack};`};
-    @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.medium};
-        padding: 0;
-        padding-bottom: ${size.medium};
-    }
-    @media ${screenSize.largeAndUp} {
-        margin: 0 ${size.large} ${size.medium};
-        padding-top: ${size.medium};
-    }
-`;
-const SectionContent = styled('div')`
-    padding: 0 ${size.default};
-    @media ${screenSize.largeAndUp} {
-        margin-top: 15%;
-        padding: 8%;
-    }
-`;
-const DescriptiveText = styled(P)`
-    color: ${({ theme }) => theme.colorMap.greyLightTwo};
-    margin-bottom: ${size.medium};
-`;
-
 // TODO: Generalize as new content types are supported
 const FeaturedHomePageItem = ({ item }) => {
     if (item.type === 'article') {
@@ -106,10 +75,16 @@ const FeaturedHomePageItem = ({ item }) => {
     }
 };
 
-const IndexPageContent = ({ stream, title, twitchVideo, featuredItems }) => {
-    const theme = useTheme();
+export default ({ pageContext: { featuredItems } }) => {
+    const { stream, videos } = useTwitchApi();
+    const { title } = useSiteMetadata();
+    const twitchVideo = useMemo(() => {
+        if (stream) return stream;
+        if (videos && videos.length) return videos[0];
+        return null;
+    }, [stream, videos]);
     return (
-        <>
+        <Layout>
             <Helmet>
                 <title>{title}</title>
                 <meta
@@ -142,59 +117,8 @@ const IndexPageContent = ({ stream, title, twitchVideo, featuredItems }) => {
                 <TwitchFeature twitchVideo={twitchVideo} />
                 <EventsFeature />
                 <AcademiaFeature />
-                <FeatureSection>
-                    <MediaBlock
-                        mediaComponent={
-                            <Card
-                                image={buildImage}
-                                maxWidth={MEDIA_WIDTH}
-                            ></Card>
-                        }
-                    >
-                        <SectionContent>
-                            <H2>
-                                <GradientUnderline
-                                    gradient={
-                                        theme.gradientMap.magentaSalmonSherbet
-                                    }
-                                >
-                                    Show Your Stuff
-                                </GradientUnderline>
-                            </H2>
-                            <DescriptiveText>
-                                Building something on MongoDB? Share your
-                                stories, demos, and wisdom with those still
-                                learning.
-                            </DescriptiveText>
-                            <ProjectSignUpForm
-                                triggerComponent={
-                                    <Button secondary>Share</Button>
-                                }
-                            />
-                        </SectionContent>
-                    </MediaBlock>
-                </FeatureSection>
+                <CommunityFeature />
             </BackgroundImage>
-        </>
-    );
-};
-
-export default ({ pageContext: { featuredItems } }) => {
-    const { stream, videos } = useTwitchApi();
-    const { title } = useSiteMetadata();
-    const twitchVideo = useMemo(() => {
-        if (stream) return stream;
-        if (videos && videos.length) return videos[0];
-        return null;
-    }, [stream, videos]);
-    return (
-        <Layout>
-            <IndexPageContent
-                stream={stream}
-                title={title}
-                twitchVideo={twitchVideo}
-                featuredItems={featuredItems}
-            />
         </Layout>
     );
 };
