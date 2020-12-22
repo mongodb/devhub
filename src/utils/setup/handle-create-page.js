@@ -1,24 +1,16 @@
 import memoizerific from 'memoizerific';
-import { removeExcludedArticles } from './remove-excluded-articles';
 import { removePageIfStaged } from './remove-page-if-staged';
 import { getNestedValue } from '../get-nested-value';
 import { getMetadata } from '../get-metadata';
-import { fetchBuildTimeMedia } from './fetch-build-time-media';
-import { getItemTypeFromUrl } from './get-item-type-from-url';
+import { handleCreateHomePage } from './handle-create-home-page';
 import { getStagingPages } from './get-staging-pages';
+import { handleCreateLearnPage } from './handle-create-learn-page';
 
 const metadata = getMetadata();
 let stitchClient;
 
-const MAX_LEARN_PAGE_FEATURED_ARTICLES = 3;
-const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
-
 const memoizedStagingPages = memoizerific(1)(
     async () => await getStagingPages()
-);
-
-const memoizedBuildTimeMedia = memoizerific(1)(
-    async () => await fetchBuildTimeMedia()
 );
 
 const requestStitch = async (functionName, ...args) =>
@@ -37,95 +29,6 @@ const getAllArticles = memoizerific(1)(async () => {
     return filteredDocuments;
 });
 
-const findArticleWithSlug = (allArticles, slug) => {
-    const targetSlug = new RegExp(`^/?${slug}$`);
-    const targetArticle = allArticles.find(x =>
-        x.query_fields.slug.match(targetSlug)
-    );
-    if (targetArticle) {
-        targetArticle['type'] = 'article';
-        return targetArticle;
-    }
-};
-
-export const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
-    const result = [];
-    // If maxSize is undefined, this will return a shallow copy of articleSlugs
-    articleSlugs.slice(0, maxSize).forEach((featuredSlug, i) => {
-        const targetArticle = findArticleWithSlug(allArticles, featuredSlug);
-        if (targetArticle) {
-            result.push(targetArticle);
-        } else {
-            // This article was not found. pick an existing article and add it instead.
-            result.push(allArticles[i]);
-        }
-    });
-    return result;
-};
-
-export const getLearnPageFilters = allArticles => {
-    const languages = {};
-    const products = {};
-
-    allArticles.forEach(article => {
-        const languagesForArticle = article.query_fields.languages;
-        const productsForArticle = article.query_fields.products;
-        // Go through languages for this article and update filter info.
-        // Add a count of how many times this language appears and keep track
-        // of how many itmes we see a product with this language
-        if (languagesForArticle) {
-            languagesForArticle.forEach(language => {
-                const currentLanguage = languages[language];
-                if (currentLanguage) {
-                    currentLanguage.count++;
-                } else {
-                    // Update language reference directly in outer block object
-                    languages[language] = {
-                        count: 1,
-                        products: {},
-                    };
-                }
-                if (productsForArticle) {
-                    // If this article also has products, update those counts as well for this language
-                    const productsForLanguage = languages[language].products;
-                    productsForArticle.forEach(product => {
-                        productsForLanguage[product]
-                            ? productsForLanguage[product]++
-                            : (productsForLanguage[product] = 1);
-                    });
-                }
-            });
-        }
-        // Go through products for this article and update filter info.
-        // Add a count of how many times this product appears and keep track
-        // of how many itmes we see a language with this product
-        if (productsForArticle) {
-            productsForArticle.forEach(product => {
-                const currentProduct = products[product];
-                if (currentProduct) {
-                    currentProduct.count++;
-                } else {
-                    // Update product reference directly in outer block object
-                    products[product] = {
-                        count: 1,
-                        languages: {},
-                    };
-                }
-                if (languagesForArticle) {
-                    // If this article also has languages, update those counts as well for this products
-                    const languagesForProduct = products[product].languages;
-                    languagesForArticle.forEach(language => {
-                        languagesForProduct[language]
-                            ? languagesForProduct[language]++
-                            : (languagesForProduct[language] = 1);
-                    });
-                }
-            });
-        }
-    });
-    return { languages, products };
-};
-
 export const handleCreatePage = async (
     page,
     actions,
@@ -134,73 +37,30 @@ export const handleCreatePage = async (
     learnFeaturedArticles,
     excludedLearnPageArticles
 ) => {
-    const { createPage, deletePage } = actions;
     stitchClient = inheritedStitchClient;
-    const stagingPages = await memoizedStagingPages();
+    const allArticles = await getAllArticles();
     switch (page.path) {
         case '/learn/':
-            const allArticles = await getAllArticles();
-            const learnPageArticles = removeExcludedArticles(
-                allArticles,
-                excludedLearnPageArticles
-            );
-            const filters = await getLearnPageFilters(learnPageArticles);
-            const featuredLearnArticles = findArticlesFromSlugs(
-                learnPageArticles,
+            await handleCreateLearnPage(
+                page,
+                actions,
                 learnFeaturedArticles,
-                MAX_LEARN_PAGE_FEATURED_ARTICLES
+                excludedLearnPageArticles,
+                allArticles
             );
-            const { allPodcasts, allVideos } = await memoizedBuildTimeMedia();
-            deletePage(page);
-            createPage({
-                ...page,
-                context: {
-                    ...page.context,
-                    allArticles: learnPageArticles,
-                    allPodcasts,
-                    allVideos,
-                    featuredArticles: featuredLearnArticles,
-                    filters,
-                },
-            });
             break;
         case '/':
-            const featuredItems = [];
-            const articles = await getAllArticles();
-            homeFeaturedArticles
-                .slice(0, MAX_HOME_PAGE_FEATURED_ARTICLES)
-                .forEach(item => {
-                    // Currently, only articles are supported here
-                    // TODO: Support items of all content types
-                    const itemType = getItemTypeFromUrl(item);
-                    switch (itemType) {
-                        case 'article':
-                            const article = findArticleWithSlug(articles, item);
-                            if (article) {
-                                featuredItems.push(article);
-                            } else {
-                                throw new Error(
-                                    `Featured article not found: ${item}`
-                                );
-                            }
-                            break;
-                        default:
-                            throw new Error(
-                                `Featured article not found: ${item}`
-                            );
-                    }
-                });
-            deletePage(page);
-            createPage({
-                ...page,
-                context: {
-                    ...page.context,
-                    featuredItems,
-                },
-            });
+            await handleCreateHomePage(
+                page,
+                actions,
+                homeFeaturedArticles,
+                allArticles
+            );
             break;
         default:
+            const { deletePage } = actions;
+            const stagingPages = await memoizedStagingPages();
+            removePageIfStaged(page, deletePage, stagingPages);
             break;
     }
-    removePageIfStaged(page, deletePage, stagingPages);
 };
