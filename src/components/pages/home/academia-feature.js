@@ -8,14 +8,10 @@ import MediaBlock from '../../dev-hub/media-block';
 import { H2, P } from '../../dev-hub/text';
 import { screenSize, size } from '../../dev-hub/theme';
 import Button from '../../dev-hub/button';
-import academiaImage from '../../../images/1x/Academia.svg';
 import GradientUnderline from '../../dev-hub/gradient-underline';
 import { useTheme } from 'emotion-theming';
 import FeatureSection from './feature-section';
 import { transformProjectStrapiData } from '../../../utils/transform-project-strapi-data';
-
-import Card from '../../dev-hub/card';
-const MEDIA_WIDTH = '550';
 
 const DescriptiveText = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
@@ -31,30 +27,16 @@ const SectionContent = styled('div')`
 `;
 
 const GridContainer = styled('div')`
-    max-width: 530px;
-    /* margin-left: 20px; */
-    padding: 20px;
     float: right;
+    max-width: 530px;
+    padding: 20px;
 `;
 
 const homeFeaturedProjects = graphql`
     query HomeFeaturedProjects {
         allStrapiProjects(limit: 3) {
             nodes {
-                students {
-                    bio {
-                        image {
-                            url
-                        }
-                    }
-                }
-                info {
-                    name
-                    slug
-                    image {
-                        url
-                    }
-                }
+                ...ProjectFragment
             }
         }
     }
