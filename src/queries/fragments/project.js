@@ -12,6 +12,7 @@ export const projectFragment = graphql`
         }
         info {
             name
+            description
             slug
             image {
                 url

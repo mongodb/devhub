@@ -2,8 +2,8 @@ import React from 'react';
 import dlv from 'dlv';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
-import HoverCard from '../../dev-hub/hover-card';
 import Grid from '../../dev-hub/grid';
+import ProjectCard from '../../dev-hub/project-card';
 import { size } from '../../dev-hub/theme';
 import { transformProjectStrapiData } from '../../../utils/transform-project-strapi-data';
 
@@ -20,12 +20,6 @@ const homeFeaturedProjects = graphql`
         }
     }
 `;
-
-const ProjectCard = ({ project, ...props }) => (
-    <HoverCard to={project.slug} image={project.image_url} {...props}>
-        {project.name}
-    </HoverCard>
-);
 
 const ProjectCardGrid = () => {
     const data = useStaticQuery(homeFeaturedProjects);
