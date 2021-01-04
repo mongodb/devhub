@@ -124,7 +124,7 @@ describe('Sample Article Page', () => {
         );
         cy.get('link[rel="canonical"]').should(
             'have.prop',
-            'content',
+            'href',
             `${PROD_ARTICLE_URL}/`
         );
         // An og:description exists, so we should populate the tag with it
