@@ -81,7 +81,7 @@ Cypress.Commands.add('checkMetaContentProperty', (query, value) => {
 });
 
 Cypress.Commands.add('checkCanonicalUrlValue', value => {
-    cy.get(`link[rel="canonical"]`).should('have.prop', 'content', value);
+    cy.get(`link[rel="canonical"]`).should('have.prop', 'href', value);
 });
 
 // Mock data from events servers
