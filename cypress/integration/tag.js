@@ -1,5 +1,6 @@
 const TAG_ARTICLE_URL = '/article/3-things-to-know-switch-from-sql-mongodb';
 const TAG_PAGE_URL = '/tag/sql';
+const PROD_TAG_PAGE_URL = `https://developer.mongodb.com${TAG_PAGE_URL}`;
 const TITLE = 'SQL';
 
 describe('Tag page', () => {
@@ -49,5 +50,8 @@ describe('Tag page', () => {
     });
     it('should not be indexed for SEO', () => {
         cy.checkMetaContentProperty('name="robots"', 'noindex');
+    });
+    it('should have a proper canonical URL', () => {
+        cy.checkCanonicalUrlValue(`${PROD_TAG_PAGE_URL}/`);
     });
 });
