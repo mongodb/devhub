@@ -6,6 +6,7 @@ import Card from './card';
 import Button from './button';
 import { screenSize, size } from './theme';
 import { withPrefix } from 'gatsby';
+import { removePathPrefixFromUrl } from '../../utils/remove-path-prefix-from-url';
 import { buildQueryString, parseQueryString } from '../../utils/query-string';
 import { getNestedText } from '../../utils/get-nested-text';
 import { getTagLinksFromMeta } from '../../utils/get-tag-links-from-meta';
@@ -108,7 +109,7 @@ const renderContentTypeCard = (item, openAudio) => {
 export default React.memo(
     ({ videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
         const { pathname, search } = useLocation();
-        const localPage = pathname.replace(__PATH_PREFIX__, '');
+        const localPage = removePathPrefixFromUrl(pathname);
         // Build next link, preserving other links
         const nextPageLink = useMemo(() => {
             // Get page if exists from search

@@ -4,6 +4,7 @@ import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import { addTrailingSlashIfMissing } from '../../utils/add-trailing-slash-if-missing';
+import { removePathPrefixFromUrl } from '../../utils/remove-path-prefix-from-url';
 import { TabProvider } from './tab-context';
 import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
@@ -82,7 +83,12 @@ export default ({ children, includeCanonical = true }) => {
     const style = useMemo(() => globalStyles(darkTheme), []);
     const { siteUrl } = useSiteMetadata();
     const { pathname } = useLocation();
-    const canonicalUrl = addTrailingSlashIfMissing(`${siteUrl}${pathname}`);
+    const localPagePath = removePathPrefixFromUrl(
+        pathname.replace(__PATH_PREFIX__, '')
+    );
+    const canonicalUrl = addTrailingSlashIfMissing(
+        `${siteUrl}${localPagePath}`
+    );
     return (
         <ThemeProvider theme={darkTheme}>
             <GlobalWrapper>
