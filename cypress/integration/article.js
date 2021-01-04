@@ -122,7 +122,7 @@ describe('Sample Article Page', () => {
             'property="og:url"',
             'http://developer-test.mongodb.com/article/3-things-to-know-switch-from-sql-mongodb'
         );
-        cy.get('link[ref="canonical"]').should(
+        cy.get('link[rel="canonical"]').should(
             'have.prop',
             'content',
             `${PROD_ARTICLE_URL}/`
