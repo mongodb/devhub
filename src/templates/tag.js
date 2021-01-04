@@ -77,17 +77,19 @@ const Tag = props => {
             type,
         },
     } = props;
-    const metadata = useSiteMetadata();
+    const { siteUrl, title: siteTitle } = useSiteMetadata();
     const isAuthor = type === 'author';
     const articles = constructArticles(pages);
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
+    const canonicalUrl = `${siteUrl}${slug}/`;
     return (
         <Layout>
             <Helmet>
                 <title>
-                    {name} - {metadata.title}
+                    {name} - {siteTitle}
                 </title>
                 {!isAuthor && <meta name="robots" content="noindex" />}
+                <link rel="canonical" href={canonicalUrl} />
             </Helmet>
             <HeroBanner
                 breadcrumb={[
