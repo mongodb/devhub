@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
+import { useLocation } from '@reach/router';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import { addTrailingSlashIfMissing } from '../../utils/add-trailing-slash-if-missing';
 import { removePathPrefixFromUrl } from '../../utils/remove-path-prefix-from-url';
@@ -14,7 +15,6 @@ import MongodbLiveBanner from './mongodb-live-banner';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
-import { useLocation } from '@reach/router';
 
 const globalStyles = theme => css`
     html {
