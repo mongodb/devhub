@@ -17,6 +17,7 @@ import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
+import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
 import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedText } from '../utils/get-nested-text';
@@ -157,7 +158,7 @@ const Article = props => {
     const canonicalUrl = dlv(
         __refDocMapping,
         'ast.options.canonical-href',
-        og.url || articleUrl
+        addTrailingSlashIfMissing(articleUrl)
     );
 
     return (
