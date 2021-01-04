@@ -83,9 +83,7 @@ export default ({ children, includeCanonical = true }) => {
     const style = useMemo(() => globalStyles(darkTheme), []);
     const { siteUrl } = useSiteMetadata();
     const { pathname } = useLocation();
-    const localPagePath = removePathPrefixFromUrl(
-        pathname.replace(__PATH_PREFIX__, '')
-    );
+    const localPagePath = removePathPrefixFromUrl(pathname);
     const canonicalUrl = addTrailingSlashIfMissing(
         `${siteUrl}${localPagePath}`
     );
