@@ -1,18 +1,18 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
-import Layout from '../components/dev-hub/layout';
-import Notification from '../components/dev-hub/notification';
-import homepageBackground from '../images/1x/homepage-background.png';
-import useTwitchApi from '../hooks/use-twitch-api';
-import { useSiteMetadata } from '../hooks/use-site-metadata';
+import Layout from '~components/dev-hub/layout';
+import Notification from '~components/dev-hub/notification';
+import homepageBackground from '~images/1x/homepage-background.png';
+import useTwitchApi from '~hooks/use-twitch-api';
+import { useSiteMetadata } from '~hooks/use-site-metadata';
 import {
     AcademiaFeature,
     CommunityFeature,
     EventsFeature,
     Hero,
     TwitchFeature,
-} from '../components/pages/home';
+} from '~components/pages/home';
 
 const BackgroundImage = styled('div')`
     background-image: url(${homepageBackground});
