@@ -10,6 +10,7 @@ const centerContentAbsolutely = css`
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    width: 80%;
 `;
 
 const fillEntireSpaceAbsolutely = css`
@@ -66,7 +67,7 @@ const RoundedContainer = styled('div')`
         color: unset;
         ${showHoverContent};
         :before {
-            opacity: 0.8;
+            opacity: 0.9;
         }
     }
 `;

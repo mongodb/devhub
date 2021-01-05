@@ -1,16 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Card from '../../dev-hub/card';
 import MediaBlock from '../../dev-hub/media-block';
 import { H2, P } from '../../dev-hub/text';
 import { screenSize, size } from '../../dev-hub/theme';
 import Button from '../../dev-hub/button';
-import academiaImage from '../../../images/1x/Academia.svg';
 import GradientUnderline from '../../dev-hub/gradient-underline';
 import { useTheme } from 'emotion-theming';
 import FeatureSection from './feature-section';
-
-const MEDIA_WIDTH = '550';
+import ProjectCardGrid from './project-card-grid';
 
 const DescriptiveText = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
@@ -30,9 +27,9 @@ const AcademiaFeature = () => {
     return (
         <FeatureSection altBackground>
             <MediaBlock
-                mediaComponent={
-                    <Card image={academiaImage} maxWidth={MEDIA_WIDTH}></Card>
-                }
+                mediaWidth="550"
+                mediaComponent={<ProjectCardGrid />}
+                reverse
             >
                 <SectionContent>
                     <H2>
