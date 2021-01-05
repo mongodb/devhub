@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Button from '../../dev-hub/button';
-import HeroBanner from '../../dev-hub/hero-banner';
-import { H2, P } from '../../dev-hub/text';
+import Button from '~components/dev-hub/button';
+import HeroBanner from '~components/dev-hub/hero-banner';
+import { H2, P } from '~components/dev-hub/text';
 
 const BannerContentLayout = styled('div')`
     display: flex;
