@@ -23,6 +23,21 @@ module.exports = {
             },
         },
         {
+            resolve: `gatsby-plugin-alias-imports`,
+            options: {
+                alias: {
+                    '~src': 'src',
+                    '~components': 'src/components',
+                    '~hooks': 'src/hooks',
+                    '~images': 'src/images',
+                    '~pages': 'src/pages',
+                    '~utils': 'src/utils',
+                    '~tests': 'tests',
+                },
+                extensions: ['js'],
+            },
+        },
+        {
             resolve: 'gatsby-plugin-sitemap',
             options: {
                 // Exclude paths we are using the noindex tag on

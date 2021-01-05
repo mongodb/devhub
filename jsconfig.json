@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "allowSyntheticDefaultImports": false,
+        "baseUrl": "./",
+        "paths": {
+            "~src/*": ["src/*"],
+            "~components/*": ["src/components/*"],
+            "~hooks/*": ["./src/hooks/*"],
+            "~images/*": ["src/images/*"],
+            "~pages/*": ["src/pages/*"],
+            "~utils/*": ["src/utils/*"],
+            "~tests/*": ["tests/*"]
+        }
+    },
+    "exclude": ["node_modules"]
+}
