@@ -31,6 +31,18 @@ module.exports = {
     },
     settings: {
         'import/resolver': {
+            alias: {
+                map: [
+                    ['~src', './src'],
+                    ['~components', './src/components'],
+                    ['~hooks', './src/hooks'],
+                    ['~images', './src/images'],
+                    ['~pages', './src/pages'],
+                    ['~utils', './src/utils'],
+                    ['~tests', './tests'],
+                ],
+                extensions: ['.js'],
+            },
             node: {
                 moduleDirectory: ['node_modules', '.'],
             },
