@@ -7,8 +7,8 @@ import { screenSize, size } from './theme';
 
 const CardContainer = styled('div')`
     display: grid;
-    grid-template-columns: repeat(auto-fill, 350px);
     grid-row-gap: ${size.small};
+    grid-template-columns: repeat(auto-fill, 350px);
     justify-content: center;
     margin: 0 -${size.medium};
 
@@ -37,16 +37,16 @@ const Paginate = ({ children, limit, ...props }) => {
 
     useEffect(() => {
         const { page = 1 } = parseQueryString(search);
-        setVisibleCards(page * limit);
+        setVisibleLength(page * limit);
     }, [limit, search]);
 
     const { page = 1 } = parseQueryString(search);
-    const [visibleCards, setVisibleCards] = useState(page * limit);
+    const [visibleLength, setVisibleLength] = useState(page * limit);
 
-    const hasMore = children.length > visibleCards;
-    const visibleElements = useMemo(() => children.slice(0, visibleCards), [
+    const hasMore = children.length > visibleLength;
+    const visibleElements = useMemo(() => children.slice(0, visibleLength), [
         children,
-        visibleCards,
+        visibleLength,
     ]);
 
     return (
