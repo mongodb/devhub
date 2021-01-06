@@ -2,12 +2,12 @@ import React, { useMemo } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import { useStaticQuery, graphql } from 'gatsby';
-import { transformProjectStrapiData } from '~utils/transform-project-strapi-data';
-import ProjectCard from '~components/dev-hub/project-card';
 import Grid from '~components/dev-hub/grid';
 import Paginate from '~components/dev-hub/paginate';
+import ProjectCard from '~components/dev-hub/project-card';
 import { H3 } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
+import { transformProjectStrapiData } from '~utils/transform-project-strapi-data';
 
 const GRID_ROW_HEIGHT = '360px';
 const PAGINATION_LIMIT = 7;
