@@ -5,7 +5,7 @@ import { buildQueryString, parseQueryString } from '~utils/query-string';
 import Button from './button';
 import { screenSize, size } from './theme';
 
-const CardContainer = styled('div')`
+const ElementGrid = styled('div')`
     display: grid;
     grid-row-gap: ${size.small};
     grid-template-columns: repeat(auto-fill, 350px);
@@ -51,7 +51,7 @@ const Paginate = ({ children, limit, ...props }) => {
 
     return (
         <div {...props}>
-            <CardContainer>{visibleElements}</CardContainer>
+            <ElementGrid>{visibleElements}</ElementGrid>
             {hasMore && (
                 <HasMoreButtonContainer>
                     <Button secondary pagination to={nextPageLink}>
