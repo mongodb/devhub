@@ -10,12 +10,6 @@ import { H5, P } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
 import { transformProjectStrapiData } from '~utils/transform-project-strapi-data';
 
-const RelativePositionedBadge = styled(Badge)`
-    margin-left: 0;
-    position: relative;
-    width: fit-content;
-`;
-
 const DescriptionText = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
@@ -24,12 +18,16 @@ const FeaturedImage = styled('img')`
     border-radius: ${size.xsmall};
 `;
 
+const RelativePositionedBadge = styled(Badge)`
+    margin-left: 0;
+    position: relative;
+    width: fit-content;
+`;
+
 const galleryFeaturedProject = graphql`
     query GalleryFeaturedProject {
-        allStrapiStudentSpotlightFeatured {
-            nodes {
-                ...FeaturedGalleryProject
-            }
+        strapiStudentSpotlightFeatured {
+            ...FeaturedGalleryProject
         }
     }
 `;
@@ -38,12 +36,7 @@ const FeaturedProject = () => {
     const data = useStaticQuery(galleryFeaturedProject);
     const project = dlv(
         data,
-        [
-            'allStrapiStudentSpotlightFeatured',
-            'nodes',
-            0,
-            'FeaturedGalleryProject',
-        ],
+        ['strapiStudentSpotlightFeatured', 'FeaturedGalleryProject'],
         []
     );
     const {
