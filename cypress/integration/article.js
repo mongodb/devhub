@@ -122,11 +122,7 @@ describe('Sample Article Page', () => {
             'property="og:url"',
             'http://developer-test.mongodb.com/article/3-things-to-know-switch-from-sql-mongodb'
         );
-        cy.get('link[rel="canonical"]').should(
-            'have.prop',
-            'href',
-            `${PROD_ARTICLE_URL}/`
-        );
+        cy.checkCanonicalUrlValue(`${PROD_ARTICLE_URL}/`);
         // An og:description exists, so we should populate the tag with it
         cy.checkMetaContentProperty(
             'property="og:description"',

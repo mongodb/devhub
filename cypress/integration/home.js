@@ -1,5 +1,6 @@
 const CARDS = '[data-test="card"]';
 const FEATURED_ARTICLES = 'header';
+const PROD_SITE = 'https://developer.mongodb.com/';
 const TWITCH = '[data-test="twitch"]';
 
 describe('Home Page', () => {
@@ -61,10 +62,11 @@ describe('Home Page', () => {
                 .should('contain', '/community/events');
         });
     });
-    it('should have an index meta description for SEO', () => {
+    it('should have relevant SEO tags', () => {
         cy.checkMetaContentProperty(
             'name="description"',
             "Code, content, tutorials, programs and community to enable developers of all skill levels on the MongoDB Data Platform which includes Atlas, Realm, Compass, Data Lake and more. Whether you're coding in Java, JavaScript, C#, Python, Node, Go or looking for how this fits with IOT, AI, ML - join or follow us here."
         );
+        cy.checkCanonicalUrlValue(PROD_SITE);
     });
 });
