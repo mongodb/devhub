@@ -20,15 +20,20 @@ const ContentContainer = styled('div')`
     }
 `;
 
+const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
+    padding-top: ${size.xlarge};
+    padding-bottom: 88px;
+`;
+
 const Students = () => (
     <Layout>
         <GalleryHeroBanner />
         <ContentContainer>
             <FeaturedProject />
             <AllProjects />
-            <ShareProjectCTA />
-            <GithubStudentPack />
+            <TopPaddedShareProjectCTA />
         </ContentContainer>
+        <GithubStudentPack />
     </Layout>
 );
 
