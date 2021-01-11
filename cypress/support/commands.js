@@ -80,6 +80,10 @@ Cypress.Commands.add('checkMetaContentProperty', (query, value) => {
     cy.get(`head meta[${query}]`).should('have.prop', 'content', value);
 });
 
+Cypress.Commands.add('checkCanonicalUrlValue', value => {
+    cy.get(`link[rel="canonical"]`).should('have.prop', 'href', value);
+});
+
 // Mock data from events servers
 Cypress.Commands.add('mockEventsApi', () => {
     cy.fixture('liveEventData.json').as('liveEventData');
