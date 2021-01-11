@@ -18,6 +18,15 @@ export const featuredGalleryProject = graphql`
                 image {
                     url
                 }
+                languages {
+                    language
+                }
+                products {
+                    product
+                }
+                tags {
+                    tag
+                }
             }
         }
     }
@@ -39,6 +48,15 @@ export const projectFragment = graphql`
             slug
             image {
                 url
+            }
+            languages {
+                language
+            }
+            products {
+                product
+            }
+            tags {
+                tag
             }
         }
     }
