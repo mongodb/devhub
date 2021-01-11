@@ -48,7 +48,6 @@ const Grid = ({
             ),
         [children, gridLayout]
     );
-    console.log(children, gridElements);
     return (
         <GridContainer
             gridGap={gridGap}
