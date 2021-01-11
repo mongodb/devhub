@@ -28,24 +28,7 @@ const galleryFeaturedProject = graphql`
     query GalleryFeaturedProject {
         allStrapiStudentSpotlightFeatured {
             nodes {
-                FeaturedGalleryProject {
-                    students {
-                        bio {
-                            name
-                            image {
-                                url
-                            }
-                        }
-                    }
-                    info {
-                        name
-                        description
-                        slug
-                        image {
-                            url
-                        }
-                    }
-                }
+                ...FeaturedGalleryProject
             }
         }
     }
