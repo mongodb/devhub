@@ -54,7 +54,7 @@ const BlogTag = ({ children, ...props }) => {
     );
 };
 
-const BlogTagList = ({ navigates = true, tags = [] }) => {
+const BlogTagList = ({ className, navigates = true, tags = [] }) => {
     const canExpand = tags.length >= MINIMUM_EXPANDABLE_SIZE;
     // By default any list of blog tags under the minimum expandable size is already expanded
     const [isExpanded, setIsExpanded] = useState(!canExpand);
@@ -72,7 +72,7 @@ const BlogTagList = ({ navigates = true, tags = [] }) => {
     };
 
     return (
-        <TagList>
+        <TagList className={className}>
             {isExpanded &&
                 tags.slice(0, MAX_TAG_LIST_SIZE).map(mapTagToComponent)}
             {!isExpanded && canExpand && (
