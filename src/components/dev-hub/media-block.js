@@ -10,7 +10,7 @@ const ContentWrapper = styled('span')`
 
 const columnWidth = (mediaWidth, reverse) => {
     if (mediaWidth) {
-        return reverse ? `auto ${mediaWidth}px` : `${mediaWidth}px auto`;
+        return reverse ? `auto ${mediaWidth}` : `${mediaWidth} auto`;
     }
     return '1fr 1fr';
 };
