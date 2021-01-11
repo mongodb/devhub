@@ -10,7 +10,7 @@ import GradientUnderline from '../../dev-hub/gradient-underline';
 import { useTheme } from 'emotion-theming';
 import FeatureSection from './feature-section';
 
-const MEDIA_WIDTH = '550';
+const MEDIA_WIDTH = '550px';
 
 const DescriptiveText = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};

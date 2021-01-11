@@ -25,6 +25,8 @@ const determineColor = (contentType, theme) => {
             return theme.colorMap.yellow;
         case 'article':
             return theme.colorMap.teal;
+        case 'featured':
+            return theme.colorMap.magenta;
         default:
             return null;
     }

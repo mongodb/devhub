@@ -22,7 +22,7 @@ module.exports = {
             options: {
                 apiURL: process.env.STRAPI_URL,
                 contentTypes: ['projects'],
-                singleTypes: [],
+                singleTypes: ['student-spotlight-featured'],
             },
         },
         {

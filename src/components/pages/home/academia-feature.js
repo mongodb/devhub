@@ -27,7 +27,7 @@ const AcademiaFeature = () => {
     return (
         <FeatureSection altBackground>
             <MediaBlock
-                mediaWidth="550"
+                mediaWidth="550px"
                 mediaComponent={<ProjectCardGrid />}
                 reverse
             >
