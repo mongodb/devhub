@@ -4,12 +4,19 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import Link from '~components/dev-hub/link';
 import AuthorImage from '~components/dev-hub/author-image';
+import Badge from '~components/dev-hub/badge';
 import MediaBlock from '~components/dev-hub/media-block';
 import { H5, P } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
 import { transformProjectStrapiData } from '~utils/transform-project-strapi-data';
 
 const AUTHOR_IMAGE_HEIGHT = 30;
+
+const RelativePositionedBadge = styled(Badge)`
+    margin-left: 0;
+    position: relative;
+    width: fit-content;
+`;
 
 const AuthorImageContainer = styled('div')`
     display: flex;
@@ -96,6 +103,7 @@ const FeaturedProject = () => {
             mediaComponent={<FeaturedImage src={image_url} />}
             mediaWidth="66%"
         >
+            <RelativePositionedBadge contentType="featured" />
             <H5>{name}</H5>
             <DescriptionText>{description}</DescriptionText>
             <AuthorImages students={students} />
