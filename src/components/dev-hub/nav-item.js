@@ -15,7 +15,10 @@ const NavLink = styled(Link)`
     line-height: ${lineHeight.small};
     padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
     text-decoration: none;
+    &:active,
     &:hover,
+    &:focus,
+    &:focus-within,
     &[aria-current='page'] {
         /* greyDarkTwo at 40% opacity on greyDarkThree */
         background-color: #2c3d47;
@@ -44,7 +47,10 @@ const NavItemSublist = styled('ul')`
     > li {
         background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
         margin-bottom: 1px;
+        &:active,
         &:hover,
+        &:focus,
+        &:focus-within,
         &[aria-current='page'] {
             background-color: #2c3d47;
         }
