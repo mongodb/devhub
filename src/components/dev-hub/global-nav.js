@@ -11,6 +11,7 @@ import useMedia from '~hooks/use-media';
 
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
+const SUBITEM_MAX_WIDTH = '364px';
 
 const GlobalNav = styled('nav')`
     background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
@@ -77,16 +78,23 @@ const NavListHeader = styled(NavLink)`
 `;
 const NavItemList = styled('div')``;
 const NavItemSublist = styled('ul')`
-    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     display: ${({ isExpanded }) => (isExpanded ? 'block' : 'none')};
     list-style: none;
-    margin-top: 2px;
+    margin-top: 0px;
+    padding-top: 1px;
+    border-top: 1px solid transparent;
+    max-width: ${SUBITEM_MAX_WIDTH};
     padding-left: 0;
     position: absolute;
     z-index: ${layer.front};
     > li {
+        background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
         margin: 0;
         padding: ${size.medium} ${size.large};
+        &:hover,
+        &[aria-current='page'] {
+            background-color: #2c3d47;
+        }
         :not(:last-of-type) {
             box-shadow: 0px 1px 0px #3d4f58;
         }
@@ -96,10 +104,6 @@ const SubItemLink = styled(NavLink)`
     height: 100%;
     width: 100%;
     padding: 0;
-    &:hover,
-    &[aria-current='page'] {
-        background-color: #2c3d47;
-    }
 `;
 const SubItemDescriptionText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
