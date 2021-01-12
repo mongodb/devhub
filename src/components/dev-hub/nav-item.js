@@ -75,8 +75,8 @@ const NavItemSubItem = ({ subitem }) => (
 );
 
 const NavItem = ({ item }) => {
-    const [isExpanded, setIsExpanded] = useState(true);
-    const closeMenu = useCallback(() => setIsExpanded(true), [setIsExpanded]);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const closeMenu = useCallback(() => setIsExpanded(false), [setIsExpanded]);
     const expandMenu = useCallback(() => setIsExpanded(true), [setIsExpanded]);
     const hasSubMenu = !!item.subitems.length;
     const closeOptionsOnBlur = useCallback(
