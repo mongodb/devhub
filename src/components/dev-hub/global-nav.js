@@ -5,6 +5,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
 import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
 import Link from '../Link';
+import { P, P3 } from './text';
 import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
 
@@ -76,7 +77,7 @@ const NavListHeader = styled(NavLink)`
 `;
 const NavItemList = styled('div')``;
 const NavItemSublist = styled('ul')`
-    background-color: red;
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     display: ${({ isExpanded }) => (isExpanded ? 'block' : 'none')};
     list-style: none;
     margin-top: 2px;
@@ -85,8 +86,23 @@ const NavItemSublist = styled('ul')`
     z-index: ${layer.front};
     > li {
         margin: 0;
-        padding: 0;
+        padding: ${size.medium} ${size.large};
+        :not(:last-of-type) {
+            box-shadow: 0px 1px 0px #3d4f58;
+        }
     }
+`;
+const SubItemLink = styled(NavLink)`
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    &:hover,
+    &[aria-current='page'] {
+        background-color: #2c3d47;
+    }
+`;
+const SubItemDescriptionText = styled(P3)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
 const topNavItems = graphql`
@@ -100,7 +116,14 @@ const topNavItems = graphql`
 `;
 
 const NavItemSubItem = ({ subitem }) => (
-    <NavLink to={subitem.url}>{subitem.name}</NavLink>
+    <SubItemLink to={subitem.url}>
+        <div>
+            <P>{subitem.name}</P>
+            <SubItemDescriptionText collapse>
+                {subitem.description}
+            </SubItemDescriptionText>
+        </div>
+    </SubItemLink>
 );
 
 const NavItem = ({ item }) => {
@@ -119,7 +142,7 @@ const NavItem = ({ item }) => {
                 <NavListHeaderDiv>{item.name}</NavListHeaderDiv>
                 <NavItemSublist isExpanded={isExpanded} tabIndex="0">
                     {item.subitems.map(subitem => (
-                        <li tabIndex="0">
+                        <li>
                             <NavItemSubItem tabIndex="0" subitem={subitem} />
                         </li>
                     ))}
