@@ -52,6 +52,7 @@
     "gatsby-plugin-meta-redirect": "^1.1.1",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-sitemap": "^2.4.12",
+    "gatsby-source-strapi": "0.0.12",
     "memoizerific": "^1.11.3",
     "mongodb-stitch-browser-sdk": "^4.8.0",
     "mongodb-stitch-server-sdk": "^4.8.0",
