@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
 import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
-import Link from './link';
+import Link from '../Link';
 import { fontSize, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
 
@@ -83,7 +83,12 @@ const topNavItems = graphql`
 
 // TODO: Update with new behavior
 const NavItem = ({ item }) => {
-    return <NavLink>{item.name}</NavLink>;
+    const hasSubMenu = !!item.subitems.length;
+    if (hasSubMenu) {
+        const NavListHeader = NavLink.withComponent('div');
+        return <NavListHeader>{item.name}</NavListHeader>;
+    }
+    return <NavLink to={item.url}>{item.name}</NavLink>;
 };
 
 export default () => {
