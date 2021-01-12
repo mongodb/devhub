@@ -59,6 +59,7 @@ const NavListSubItem = styled('li')`
     ${hoverEffect};
     ${subItemBoxShadow};
 `;
+
 const NavItemSublist = styled('ul')`
     display: ${({ isExpanded }) => (isExpanded ? 'block' : 'none')};
     list-style: none;
@@ -69,20 +70,43 @@ const NavItemSublist = styled('ul')`
     z-index: ${layer.front};
     ${showGreenDivider};
 `;
+
+const NavItemMenu = styled('div')`
+    &:active,
+    &:hover,
+    &:focus,
+    &:focus-within {
+        color: #0ad05b;
+    }
+    ${({ isExpanded }) => isExpanded && `color: #0ad05b`};
+`;
+
 const SubItemContents = styled('div')`
     padding: ${size.medium} ${size.large};
 `;
-const SubItemLink = styled(NavLink)`
-    padding: 0;
-`;
+
 const SubItemDescriptionText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+
+const SubItemLink = styled(NavLink)`
+    padding: 0;
+    &:hover {
+        color: white;
+        ${SubItemDescriptionText} {
+            color: #f9fbfa;
+        }
+    }
+`;
+
+const SubItemText = styled(P)`
+    margin-bottom: 4px;
 `;
 
 const NavItemSubItem = ({ subitem }) => (
     <SubItemLink to={subitem.url}>
         <SubItemContents>
-            <P>{subitem.name}</P>
+            <SubItemText>{subitem.name}</SubItemText>
             <SubItemDescriptionText collapse>
                 {subitem.description}
             </SubItemDescriptionText>
@@ -97,13 +121,11 @@ const NavItem = ({ item }) => {
     const hasSubMenu = !!item.subitems.length;
     const closeOptionsOnBlur = useCallback(
         e => {
-            // Check the event to see if the next element would be a list element
-            // otherwise, close the options
-            const isTabbingThroughOptions =
-                e.relatedTarget &&
-                (e.relatedTarget.tagName === 'UL' ||
-                    (e.relatedTarget.tagName === 'A' &&
-                        e.relatedTarget.className.includes('SubItemLink')));
+            // Check the event to see if the next element is a child here
+            // Tabbing is a bit off due to display: none
+            const isTabbingThroughOptions = e.currentTarget.contains(
+                e.relatedTarget
+            );
             if (!isTabbingThroughOptions) {
                 closeMenu();
             }
@@ -113,11 +135,12 @@ const NavItem = ({ item }) => {
     if (hasSubMenu) {
         const NavListHeaderDiv = NavListHeader.withComponent('div');
         return (
-            <div
+            <NavItemMenu
                 onBlur={closeOptionsOnBlur}
                 onMouseLeave={closeMenu}
                 onMouseEnter={expandMenu}
                 onFocus={expandMenu}
+                isExpanded={isExpanded}
                 tabIndex="0"
             >
                 <NavListHeaderDiv>{item.name}</NavListHeaderDiv>
@@ -128,7 +151,7 @@ const NavItem = ({ item }) => {
                         </NavListSubItem>
                     ))}
                 </NavItemSublist>
-            </div>
+            </NavItemMenu>
         );
     }
     return <NavLink to={item.url}>{item.name}</NavLink>;
