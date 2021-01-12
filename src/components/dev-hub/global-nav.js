@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
 import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
 import Link from '../Link';
-import { fontSize, lineHeight, screenSize, size } from './theme';
+import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
 
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
@@ -71,6 +71,24 @@ const HomeLink = styled(NavLink)`
     }
 `;
 
+const NavListHeader = styled(NavLink)`
+    position: relative;
+`;
+const NavItemList = styled('div')``;
+const NavItemSublist = styled('ul')`
+    background-color: red;
+    display: ${({ isExpanded }) => (isExpanded ? 'block' : 'none')};
+    list-style: none;
+    margin-top: 2px;
+    padding-left: 0;
+    position: absolute;
+    z-index: ${layer.front};
+    > li {
+        margin: 0;
+        padding: 0;
+    }
+`;
+
 const topNavItems = graphql`
     query TopNavItems {
         strapiTopNav {
@@ -81,12 +99,33 @@ const topNavItems = graphql`
     }
 `;
 
-// TODO: Update with new behavior
+const NavItemSubItem = ({ subitem }) => (
+    <NavLink to={subitem.url}>{subitem.name}</NavLink>
+);
+
 const NavItem = ({ item }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
     const hasSubMenu = !!item.subitems.length;
     if (hasSubMenu) {
-        const NavListHeader = NavLink.withComponent('div');
-        return <NavListHeader>{item.name}</NavListHeader>;
+        const NavListHeaderDiv = NavListHeader.withComponent('div');
+        return (
+            <NavItemList
+                onBlur={() => setIsExpanded(false)}
+                onMouseLeave={() => setIsExpanded(false)}
+                onMouseEnter={() => setIsExpanded(true)}
+                onFocus={() => setIsExpanded(true)}
+                tabIndex="0"
+            >
+                <NavListHeaderDiv>{item.name}</NavListHeaderDiv>
+                <NavItemSublist isExpanded={isExpanded} tabIndex="0">
+                    {item.subitems.map(subitem => (
+                        <li tabIndex="0">
+                            <NavItemSubItem tabIndex="0" subitem={subitem} />
+                        </li>
+                    ))}
+                </NavItemSublist>
+            </NavItemList>
+        );
     }
     return <NavLink to={item.url}>{item.name}</NavLink>;
 };
