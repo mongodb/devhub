@@ -1,7 +1,7 @@
 import { graphql } from 'gatsby';
 
 export const topNavItem = graphql`
-    fragment itemFragment on TopNavItem {
+    fragment topNavItem on StrapiTopNavItems {
         name
         url
         subitems {
