@@ -13,10 +13,10 @@ const hoverEffect = css`
     &:active,
     &:hover,
     &:focus,
-    &:focus-within,
-    &[aria-current='page'] {
+    &:focus-within {
         /* greyDarkTwo at 40% opacity on greyDarkThree */
         background-color: #2c3d47;
+        color: #0ad05b;
     }
 `;
 
@@ -42,6 +42,9 @@ const subItemBoxShadow = css`
     :not(:last-of-type) {
         box-shadow: 0px 1px 0px #3d4f58;
     }
+    :last-of-type {
+        border-radius: 0 0 6px 6px;
+    }
 `;
 
 const NavLink = styled(Link)`
@@ -52,6 +55,7 @@ const NavLink = styled(Link)`
 
 const NavListHeader = styled(NavLink)`
     position: relative;
+    ${({ isExpanded }) => isExpanded && `background-color: #2c3d47`}
 `;
 
 const NavListSubItem = styled('li')`
@@ -72,6 +76,7 @@ const NavItemSublist = styled('ul')`
 `;
 
 const NavItemMenu = styled('div')`
+    cursor: pointer;
     &:active,
     &:hover,
     &:focus,
@@ -143,7 +148,9 @@ const NavItem = ({ item }) => {
                 isExpanded={isExpanded}
                 tabIndex="0"
             >
-                <NavListHeaderDiv>{item.name}</NavListHeaderDiv>
+                <NavListHeaderDiv isExpanded={isExpanded}>
+                    {item.name}
+                </NavListHeaderDiv>
                 <NavItemSublist isExpanded={isExpanded}>
                     {item.subitems.map(subitem => (
                         <NavListSubItem key={subitem.name}>
