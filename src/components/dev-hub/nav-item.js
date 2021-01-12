@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from '../Link';
 import { P, P3 } from './text';
@@ -8,13 +9,7 @@ import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 const LINK_VERTICAL_PADDING = '17px';
 const SUBITEM_MAX_WIDTH = '364px';
 
-const NavLink = styled(Link)`
-    font-size: ${fontSize.small};
-    font-weight: 300;
-    letter-spacing: 1px;
-    line-height: ${lineHeight.small};
-    padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
-    text-decoration: none;
+const hoverEffect = css`
     &:active,
     &:hover,
     &:focus,
@@ -23,6 +18,18 @@ const NavLink = styled(Link)`
         /* greyDarkTwo at 40% opacity on greyDarkThree */
         background-color: #2c3d47;
     }
+`;
+
+const showGreenDivider = css`
+    padding-top: 1px;
+    border-top: 1px solid transparent;
+`;
+
+const linkTextStyles = css`
+    font-size: ${fontSize.small};
+    letter-spacing: 1px;
+    line-height: ${lineHeight.small};
+    text-decoration: none;
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.tiny};
         line-height: ${lineHeight.xlarge};
@@ -30,39 +37,42 @@ const NavLink = styled(Link)`
     }
 `;
 
+const subItemBoxShadow = css`
+    margin-bottom: 1px;
+    :not(:last-of-type) {
+        box-shadow: 0px 1px 0px #3d4f58;
+    }
+`;
+
+const NavLink = styled(Link)`
+    padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
+    ${hoverEffect};
+    ${linkTextStyles};
+`;
+
 const NavListHeader = styled(NavLink)`
     position: relative;
 `;
-const NavItemList = styled('div')``;
+
+const NavListSubItem = styled('li')`
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    ${hoverEffect};
+    ${subItemBoxShadow};
+`;
 const NavItemSublist = styled('ul')`
     display: ${({ isExpanded }) => (isExpanded ? 'block' : 'none')};
     list-style: none;
     margin-top: 0px;
-    padding-top: 1px;
-    border-top: 1px solid transparent;
     max-width: ${SUBITEM_MAX_WIDTH};
     padding-left: 0;
     position: absolute;
     z-index: ${layer.front};
-    > li {
-        background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
-        margin-bottom: 1px;
-        &:active,
-        &:hover,
-        &:focus,
-        &:focus-within,
-        &[aria-current='page'] {
-            background-color: #2c3d47;
-        }
-        :not(:last-of-type) {
-            box-shadow: 0px 1px 0px #3d4f58;
-        }
-    }
+    ${showGreenDivider};
+`;
+const SubItemContents = styled('div')`
+    padding: ${size.medium} ${size.large};
 `;
 const SubItemLink = styled(NavLink)`
-    > div {
-        padding: ${size.medium} ${size.large};
-    }
     padding: 0;
 `;
 const SubItemDescriptionText = styled(P3)`
@@ -71,12 +81,12 @@ const SubItemDescriptionText = styled(P3)`
 
 const NavItemSubItem = ({ subitem }) => (
     <SubItemLink to={subitem.url}>
-        <div>
+        <SubItemContents>
             <P>{subitem.name}</P>
             <SubItemDescriptionText collapse>
                 {subitem.description}
             </SubItemDescriptionText>
-        </div>
+        </SubItemContents>
     </SubItemLink>
 );
 
@@ -103,7 +113,7 @@ const NavItem = ({ item }) => {
     if (hasSubMenu) {
         const NavListHeaderDiv = NavListHeader.withComponent('div');
         return (
-            <NavItemList
+            <div
                 onBlur={closeOptionsOnBlur}
                 onMouseLeave={closeMenu}
                 onMouseEnter={expandMenu}
@@ -113,12 +123,12 @@ const NavItem = ({ item }) => {
                 <NavListHeaderDiv>{item.name}</NavListHeaderDiv>
                 <NavItemSublist isExpanded={isExpanded}>
                     {item.subitems.map(subitem => (
-                        <li>
+                        <NavListSubItem key={subitem.name}>
                             <NavItemSubItem tabIndex="0" subitem={subitem} />
-                        </li>
+                        </NavListSubItem>
                     ))}
                 </NavItemSublist>
-            </NavItemList>
+            </div>
         );
     }
     return <NavLink to={item.url}>{item.name}</NavLink>;
