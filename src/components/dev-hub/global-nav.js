@@ -4,9 +4,10 @@ import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
 import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
-import Link from './link';
+import Link from '../Link';
 import { fontSize, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
+import NavItem from './nav-item';
 
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
@@ -80,11 +81,6 @@ const topNavItems = graphql`
         }
     }
 `;
-
-// TODO: Update with new behavior
-const NavItem = ({ item }) => {
-    return <NavLink>{item.name}</NavLink>;
-};
 
 export default () => {
     const data = useStaticQuery(topNavItems);
