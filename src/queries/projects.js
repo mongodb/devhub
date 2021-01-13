@@ -6,6 +6,8 @@ export const projects = `
   }
 `;
 
+// Currently, fragments are not supported in gatsby-node
+// https://github.com/gatsbyjs/gatsby/discussions/12155
 export const buildTimeProjects = `
 query Projects {
     allStrapiProjects {
