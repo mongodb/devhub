@@ -9,6 +9,7 @@ import { findSectionHeadings } from '../utils/find-section-headings';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
+import ProjectTitleArea from '~components/dev-hub/project-title-area';
 
 /**
  * search the ast for the few directives we need to display content
@@ -77,6 +78,7 @@ const Project = props => {
     return (
         <Layout>
             <Container>
+                <ProjectTitleArea />
                 <Icons>
                     <ContentsMenu
                         title="Contents"
