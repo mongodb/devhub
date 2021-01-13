@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy';
 import Button from './button';
 import { size } from './theme';
 import PLACEHOLDER_IMAGE from '../../images/mock-video-placeholder.png';
