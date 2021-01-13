@@ -17,8 +17,8 @@ const HeaderWithIncreasedMargin = styled(H3)`
     margin-bottom: ${size.medium};
 `;
 
-const ShareProjectCTA = () => (
-    <MaxWidthContainer>
+const ShareProjectCTA = ({ ...props }) => (
+    <MaxWidthContainer {...props}>
         <HeaderWithIncreasedMargin>
             Have an interesting MongoDB project to share? Let us know!
         </HeaderWithIncreasedMargin>

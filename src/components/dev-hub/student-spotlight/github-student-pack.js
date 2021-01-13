@@ -4,7 +4,12 @@ import githubStudentPackPng from '../../../images/github-backpack-mongo.png';
 import Link from '../link';
 import MediaBlock from '../media-block';
 import { H4, P } from '../text';
-import { screenSize } from '../theme';
+import { screenSize, size } from '../theme';
+
+const StyledMediaBlock = styled(MediaBlock)`
+    background-color: ${({ theme }) => theme.colorMap.devBlack};
+    padding: ${size.xlarge} ${size.xxlarge};
+`;
 
 const LightText = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
@@ -61,9 +66,9 @@ const GithubStudentContent = () => (
 );
 
 const GithubStudentPack = () => (
-    <MediaBlock reverse mediaComponent={<GithubBackpackImg />}>
+    <StyledMediaBlock reverse mediaComponent={<GithubBackpackImg />}>
         <GithubStudentContent />
-    </MediaBlock>
+    </StyledMediaBlock>
 );
 
 export default GithubStudentPack;

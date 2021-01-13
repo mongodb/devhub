@@ -44,6 +44,7 @@ const AllProjects = () => {
         [projects]
     );
     const gridProps = {
+        gridGap: '48px',
         rowHeight: GRID_ROW_HEIGHT,
         numCols: 3,
         layout: gridLayout,
