@@ -77,8 +77,8 @@ const Project = props => {
     );
     return (
         <Layout>
+            <ProjectTitleArea title={name} />
             <Container>
-                <ProjectTitleArea />
                 <Icons>
                     <ContentsMenu
                         title="Contents"
