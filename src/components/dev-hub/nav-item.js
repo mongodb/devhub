@@ -39,33 +39,40 @@ const linkTextStyles = css`
     }
 `;
 
-const subItemBoxShadow = css`
+const subItemBoxShadow = theme => css`
     margin-bottom: 1px;
     :not(:last-of-type) {
-        box-shadow: 0px 1px 0px ${({ theme }) => theme.colorMap.greyDarkTwo};
+        box-shadow: 0px 1px 0px ${theme.colorMap.greyDarkTwo};
     }
     :last-of-type {
         border-radius: 0 0 6px 6px;
     }
 `;
 
-const NavLink = styled(Link)`
+/**
+ * Nav main items (a link or the top of a sublist)
+ */
+
+const navTopItemStyling = css`
     padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
     ${hoverEffect};
     ${linkTextStyles};
 `;
 
-const NavListHeader = styled(NavLink)`
+const NavLink = styled(Link)`
+    ${navTopItemStyling};
+`;
+
+const NavListHeader = styled('div')`
+    ${navTopItemStyling};
     position: relative;
     ${({ isExpanded }) =>
         isExpanded && `background-color: ${HOVER_STATE_BACKGROUND_COLOR}`}
 `;
 
-const NavListSubItem = styled('li')`
-    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
-    ${hoverEffect};
-    ${subItemBoxShadow};
-`;
+/**
+ * Expandable sub-list containers
+ */
 
 const NavItemSublist = styled('ul')`
     display: ${({ isExpanded }) => (isExpanded ? 'block' : 'none')};
@@ -89,6 +96,16 @@ const NavItemMenu = styled('div')`
     ${({ isExpanded }) => isExpanded && `color: ${HOVER_STATE_GREEN_COLOR}`};
 `;
 
+/**
+ * Nav menu sub-item
+ */
+
+const NavListSubItem = styled('li')`
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    ${hoverEffect};
+    ${({ theme }) => subItemBoxShadow(theme)};
+`;
+
 const SubItemContents = styled('div')`
     padding: ${size.medium} ${size.large};
 `;
@@ -97,7 +114,8 @@ const SubItemDescriptionText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
-const SubItemLink = styled(NavLink)`
+const SubItemLink = styled(Link)`
+    ${navTopItemStyling};
     padding: 0;
     &:hover {
         color: ${({ theme }) => theme.colorMap.devWhite};
@@ -141,7 +159,6 @@ const NavItem = ({ item }) => {
         [closeMenu]
     );
     if (hasSubMenu) {
-        const NavListHeaderDiv = NavListHeader.withComponent('div');
         return (
             <NavItemMenu
                 onBlur={closeOptionsOnBlur}
@@ -151,9 +168,9 @@ const NavItem = ({ item }) => {
                 isExpanded={isExpanded}
                 tabIndex="0"
             >
-                <NavListHeaderDiv isExpanded={isExpanded}>
+                <NavListHeader isExpanded={isExpanded}>
                     {item.name}
-                </NavListHeaderDiv>
+                </NavListHeader>
                 <NavItemSublist isExpanded={isExpanded}>
                     {item.subitems.map(subitem => (
                         <NavListSubItem key={subitem.name}>
