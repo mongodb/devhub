@@ -7,6 +7,7 @@ import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
 import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
+import { createProjectPages } from './src/utils/setup/create-project-pages';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getMetadata } from './src/utils/get-metadata';
 import {
@@ -119,6 +120,8 @@ export const createPages = async ({ actions, graphql }) => {
         ]),
         graphql(articles),
     ]);
+
+    await createProjectPages(createPage, graphql);
 
     if (result.error) {
         throw new Error(`Page build error: ${result.error}`);

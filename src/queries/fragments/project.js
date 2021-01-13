@@ -14,6 +14,7 @@ export const featuredGalleryProject = graphql`
             info {
                 name
                 description
+                contents
                 slug
                 image {
                     url
