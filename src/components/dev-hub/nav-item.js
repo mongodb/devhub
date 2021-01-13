@@ -7,6 +7,9 @@ import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
+/* greyDarkTwo at 40% opacity on greyDarkThree */
+const HOVER_STATE_BACKGROUND_COLOR = '#2c3d47';
+const HOVER_STATE_GREEN_COLOR = '#0ad05b';
 const SUBITEM_MAX_WIDTH = '364px';
 
 const hoverEffect = css`
@@ -14,9 +17,8 @@ const hoverEffect = css`
     &:hover,
     &:focus,
     &:focus-within {
-        /* greyDarkTwo at 40% opacity on greyDarkThree */
-        background-color: #2c3d47;
-        color: #0ad05b;
+        background-color: ${HOVER_STATE_BACKGROUND_COLOR};
+        color: ${HOVER_STATE_GREEN_COLOR};
     }
 `;
 
@@ -40,7 +42,7 @@ const linkTextStyles = css`
 const subItemBoxShadow = css`
     margin-bottom: 1px;
     :not(:last-of-type) {
-        box-shadow: 0px 1px 0px #3d4f58;
+        box-shadow: 0px 1px 0px ${({ theme }) => theme.colorMap.greyDarkTwo};
     }
     :last-of-type {
         border-radius: 0 0 6px 6px;
@@ -55,7 +57,8 @@ const NavLink = styled(Link)`
 
 const NavListHeader = styled(NavLink)`
     position: relative;
-    ${({ isExpanded }) => isExpanded && `background-color: #2c3d47`}
+    ${({ isExpanded }) =>
+        isExpanded && `background-color: ${HOVER_STATE_BACKGROUND_COLOR}`}
 `;
 
 const NavListSubItem = styled('li')`
@@ -81,9 +84,9 @@ const NavItemMenu = styled('div')`
     &:hover,
     &:focus,
     &:focus-within {
-        color: #0ad05b;
+        color: ${HOVER_STATE_GREEN_COLOR};
     }
-    ${({ isExpanded }) => isExpanded && `color: #0ad05b`};
+    ${({ isExpanded }) => isExpanded && `color: ${HOVER_STATE_GREEN_COLOR}`};
 `;
 
 const SubItemContents = styled('div')`
@@ -97,9 +100,9 @@ const SubItemDescriptionText = styled(P3)`
 const SubItemLink = styled(NavLink)`
     padding: 0;
     &:hover {
-        color: white;
+        color: ${({ theme }) => theme.colorMap.devWhite};
         ${SubItemDescriptionText} {
-            color: #f9fbfa;
+            color: ${({ theme }) => theme.colorMap.devWhite};
         }
     }
 `;
