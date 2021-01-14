@@ -5,8 +5,8 @@ export const featuredGalleryProject = graphql`
         FeaturedGalleryProject {
             name
             students {
+                name
                 bio {
-                    name
                     image {
                         url
                     }
@@ -37,8 +37,8 @@ export const featuredHomePageProjects = graphql`
         FeaturedHomePageProjects {
             name
             students {
+                name
                 bio {
-                    name
                     image {
                         url
                     }
@@ -68,8 +68,8 @@ export const projectFragment = graphql`
     fragment ProjectFragment on StrapiProjects {
         name
         students {
+            name
             bio {
-                name
                 image {
                     url
                 }
