@@ -10,7 +10,7 @@ import Checkbox from '@leafygreen-ui/checkbox';
 import SectionHeader from './section-header';
 import SuccessState from './success-state';
 
-const INPUT_BOX_WIDTH = '335px';
+const INPUT_BOX_WIDTH = '100%';
 
 const StyledButton = styled(Button)`
     display: flex;
@@ -49,9 +49,8 @@ const StyledSuccessState = styled(SuccessState)`
 
 const InstructorSection = styled('div')`
     display: grid;
-    grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
+    grid-template-columns: ${INPUT_BOX_WIDTH};
     grid-row-gap: ${size.mediumLarge};
-    justify-content: space-between;
     margin-bottom: ${size.xlarge};
     @media ${screenSize.upToMedium} {
         grid-template-columns: 100%;
@@ -60,7 +59,7 @@ const InstructorSection = styled('div')`
 
 const InstitutionSection = styled('div')`
     display: grid;
-    grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
+    grid-template-columns: ${INPUT_BOX_WIDTH};
     grid-row-gap: ${size.mediumLarge};
     justify-content: space-between;
     margin-bottom: ${size.xlarge};
@@ -139,7 +138,7 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
             </ErrorMessage>
 
             <SectionHeader>
-                <StyledSectionText>Instructor's Info</StyledSectionText>
+                <StyledSectionText>Instructor</StyledSectionText>
             </SectionHeader>
 
             <InstructorSection>
@@ -178,7 +177,7 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
             </InstructorSection>
 
             <SectionHeader>
-                <StyledSectionText>Institution's Info</StyledSectionText>
+                <StyledSectionText>Institution</StyledSectionText>
             </SectionHeader>
 
             <InstitutionSection>
