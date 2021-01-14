@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 export const featuredGalleryProject = graphql`
     fragment FeaturedGalleryProject on StrapiStudentSpotlightFeatured {
         FeaturedGalleryProject {
+            name
             students {
                 bio {
                     name
@@ -12,7 +13,6 @@ export const featuredGalleryProject = graphql`
                 }
             }
             info {
-                name
                 description
                 slug
                 image {
@@ -35,6 +35,7 @@ export const featuredGalleryProject = graphql`
 export const featuredHomePageProjects = graphql`
     fragment FeaturedHomePageProjects on StrapiStudentSpotlightFeatured {
         FeaturedHomePageProjects {
+            name
             students {
                 bio {
                     name
@@ -44,7 +45,6 @@ export const featuredHomePageProjects = graphql`
                 }
             }
             info {
-                name
                 description
                 slug
                 image {
@@ -66,6 +66,7 @@ export const featuredHomePageProjects = graphql`
 
 export const projectFragment = graphql`
     fragment ProjectFragment on StrapiProjects {
+        name
         students {
             bio {
                 name
@@ -75,7 +76,6 @@ export const projectFragment = graphql`
             }
         }
         info {
-            name
             description
             slug
             image {
