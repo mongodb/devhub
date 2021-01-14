@@ -18,13 +18,14 @@ const LiveImage = styled(Image)`
 const MongodbLiveBanner = () => {
     const isMobile = useMedia(screenSize.upToMedium);
     return (
-        <Link href="https://www.mongodb.com/live?tck=dotlivefallbannerdev">
+        // TODO: Update URL below for CFP with tck
+        <Link href="https://www.mongodb.com/live/call-for-proposals">
             <LiveImage
-                alt="Learn, develop, and innovate from anywhere. Join us for our MongoDB .Live series."
+                alt="Share your story at MongoDB.live 2021. Submit your talk."
                 src={
                     isMobile
-                        ? '/public/images/dot-live-banner-mobile.png'
-                        : '/public/images/dot-live-banner-desktop.png'
+                        ? '/public/images/dot-live-cfp-banner-mobile.png'
+                        : '/public/images/dot-live-cfp-banner-desktop.png'
                 }
             />
         </Link>
