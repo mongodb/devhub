@@ -106,7 +106,7 @@ const filteredPageGroups = allSeries => {
 };
 
 export const createPages = async ({ actions, graphql }) => {
-    const { createPage, createRedirect } = actions;
+    const { createPage } = actions;
     const [, metadataDocument, result] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
         stitchClient.callFunction('fetchDocument', [
@@ -126,12 +126,6 @@ export const createPages = async ({ actions, graphql }) => {
     if (result.error) {
         throw new Error(`Page build error: ${result.error}`);
     }
-
-    createRedirect({
-        fromPath: '/academia/',
-        toPath: '/academia/educators',
-        redirectInBrowser: true,
-    });
 
     const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 

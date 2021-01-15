@@ -64,6 +64,38 @@ export const featuredHomePageProjects = graphql`
     }
 `;
 
+export const featuredEntryPageProjects = graphql`
+    fragment FeaturedEntryPageProjects on StrapiStudentSpotlightFeatured {
+        FeaturedEntryPageProjects {
+            name
+            students {
+                name
+                bio {
+                    image {
+                        url
+                    }
+                }
+            }
+            info {
+                description
+                slug
+                image {
+                    url
+                }
+                languages {
+                    language
+                }
+                products {
+                    product
+                }
+                tags {
+                    tag
+                }
+            }
+        }
+    }
+`;
+
 export const projectFragment = graphql`
     fragment ProjectFragment on StrapiProjects {
         name
