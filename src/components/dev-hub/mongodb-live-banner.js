@@ -19,7 +19,10 @@ const MongodbLiveBanner = () => {
     const isMobile = useMedia(screenSize.upToMedium);
     return (
         // TODO: Update URL below for CFP with tck
-        <Link href="https://www.mongodb.com/live/call-for-proposals">
+        <Link
+            target="_blank"
+            href="https://www.mongodb.com/live/call-for-proposals"
+        >
             <LiveImage
                 alt="Share your story at MongoDB.live 2021. Submit your talk."
                 src={
