@@ -19,7 +19,7 @@ const CenterButtonContainer = styled('div')`
 
 const FullWidthBackground = styled('div')`
     background-color: ${({ theme }) => theme.colorMap.devBlack};
-    margin: 0 20px;
+    margin: 0 ${size.medium};
     padding-bottom: ${size.xlarge};
 `;
 
