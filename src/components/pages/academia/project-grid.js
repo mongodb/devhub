@@ -24,7 +24,7 @@ const FullWidthBackground = styled('div')`
 `;
 
 const GridContainer = styled('div')`
-    padding: ${SECTION_VERTICAL_PADDING} ${SECTION_HORIZONTAL_PADDING}; ;
+    padding: ${SECTION_VERTICAL_PADDING} ${SECTION_HORIZONTAL_PADDING};
 `;
 
 const entryFeaturedProjects = graphql`
