@@ -2,8 +2,9 @@ import React, { useCallback, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from '../Link';
-import { P, P3 } from './text';
+import { P, P2 } from './text';
 import { fontSize, layer, lineHeight, screenSize, size } from './theme';
+import ArrowheadIcon from './icons/arrowhead-icon';
 
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
@@ -61,13 +62,20 @@ const navTopItemStyling = css`
 
 const NavLink = styled(Link)`
     ${navTopItemStyling};
+    @media ${screenSize.upToLarge} {
+        padding: 0;
+    } ;
 `;
 
 const NavListHeader = styled('div')`
     ${navTopItemStyling};
     position: relative;
     ${({ isExpanded }) =>
-        isExpanded && `background-color: ${HOVER_STATE_BACKGROUND_COLOR}`}
+        isExpanded && `background-color: ${HOVER_STATE_BACKGROUND_COLOR}`};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
 `;
 
 /**
@@ -101,6 +109,10 @@ const NavItemMenu = styled('div')`
     ${({ isExpanded }) => isExpanded && `color: ${HOVER_STATE_GREEN_COLOR}`};
 `;
 
+const HeaderElements = styled('div')`
+    position: relative;
+`;
+
 /**
  * Nav menu sub-item
  */
@@ -121,7 +133,7 @@ const SubItemContents = styled('div')`
     }
 `;
 
-const SubItemDescriptionText = styled(P3)`
+const SubItemDescriptionText = styled(P2)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
@@ -179,6 +191,7 @@ export const MobileNavItem = ({ item }) => {
             >
                 <NavListHeader isExpanded={isExpanded}>
                     {item.name}
+                    <ArrowheadIcon down={!isExpanded} />
                 </NavListHeader>
                 <NavItemSublist isExpanded={isExpanded}>
                     {item.subitems.map(subitem => (
@@ -190,7 +203,11 @@ export const MobileNavItem = ({ item }) => {
             </NavItemMenu>
         );
     }
-    return <NavLink to={item.url}>{item.name}</NavLink>;
+    return (
+        <NavListHeader>
+            <NavLink to={item.url}>{item.name}</NavLink>
+        </NavListHeader>
+    );
 };
 
 const NavItem = ({ item }) => {
