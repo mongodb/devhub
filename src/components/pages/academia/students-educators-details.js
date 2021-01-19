@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import GreenBulletedList from '../educators/green-bulleted-list';
 //TODO: Replace image with Visual Design asset once available
 import HeroBannerImage from '~images/1x/Academia.svg';
-import { H5 } from '~components/dev-hub/text';
+import Card from '~components/dev-hub/card';
+import { H5, P } from '~components/dev-hub/text';
 
 const BenefitCardLayout = styled('div')`
     display: flex;
@@ -17,24 +18,44 @@ const BenefitCardLayout = styled('div')`
 const BenefitCardsLayout = styled('div')`
     display: flex;
     padding: 56px 0;
-    margin: 0 20px;
+    margin: 0 auto;
     max-width: 1200px;
-    justify-content: center;
+    justify-content: space-between;
 `;
 
-const BenefitTypeCard = ({ bullets, image, isStudents = true }) => (
-    <BenefitCardLayout>
-        <img width="110px" height="92px" alt="" src={image} />
-        <div>
-            <H5>For {isStudents ? 'Students' : 'Educators'}</H5>
-            <GreenBulletedList children={bullets} />
-        </div>
-    </BenefitCardLayout>
+const CTAText = styled(P)`
+    background: ${({ theme }) => theme.gradientMap.greenTealOffset};
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    &:after {
+        /* 2192 is "RIGHTWARDS ARROW" */
+        content: ' \u2192';
+    }
+`;
+
+const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => (
+    <Card maxWidth="50%" href={href} to={to} collapseImage>
+        <BenefitCardLayout>
+            <img width="110px" height="92px" alt="" src={image} />
+            <div>
+                <H5>For {isStudents ? 'Students' : 'Educators'}</H5>
+                <GreenBulletedList children={bullets} />
+                <CTAText bold>
+                    {isStudents
+                        ? 'Get Student Benefits'
+                        : 'Start teaching MongoDB'}
+                </CTAText>
+            </div>
+        </BenefitCardLayout>
+    </Card>
 );
 
 const StudentsEducatorsDetails = () => (
     <BenefitCardsLayout>
         <BenefitTypeCard
+            href="https://www.mongodb.com/students"
             image={HeroBannerImage}
             bullets={[
                 'Join our GitHub Student Developer Pack offer',
@@ -45,6 +66,7 @@ const StudentsEducatorsDetails = () => (
         <BenefitTypeCard
             isStudents={false}
             image={HeroBannerImage}
+            to="/academia/educators/"
             bullets={[
                 'Access MongoDB course material & content support',
                 'On-demand access to MongoDB University, cohort tracking and usage analytics',
