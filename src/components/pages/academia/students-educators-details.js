@@ -10,7 +10,15 @@ import { size } from '~components/dev-hub/theme';
 const IMAGE_HEIGHT = '98px';
 const IMAGE_WIDTH = '130px';
 
-const BenefitCardLayout = styled('div')`
+const BenefitsLayout = styled('div')`
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    margin: 0 auto;
+    max-width: ${({ maxwidth }) => maxwidth};
+    padding: ${size.xlarge} 0;
+`;
+
+const SingleBenefitLayout = styled('div')`
     column-gap: ${size.medium};
     display: grid;
     grid-template-columns: ${IMAGE_WIDTH} auto;
@@ -18,17 +26,13 @@ const BenefitCardLayout = styled('div')`
     height: 100%;
 `;
 
+const CardRightSideContent = styled('div')`
+    grid-row: span 2;
+`;
+
 const NoMaxWidthCard = styled(Card)`
     /* TODO: Update Card component to take any max width setting then use as prop */
     max-width: none;
-`;
-
-const BenefitCardsLayout = styled('div')`
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    margin: 0 auto;
-    max-width: ${({ maxwidth }) => maxwidth};
-    padding: ${size.xlarge} 0;
 `;
 
 const GradientText = styled(P)`
@@ -43,10 +47,6 @@ const GradientText = styled(P)`
     }
 `;
 
-const CardRightSideContent = styled('div')`
-    grid-row: span 2;
-`;
-
 const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
     const forAudienceText = isStudents ? 'For Students' : 'For Educators';
     const ctaText = isStudents
@@ -54,7 +54,7 @@ const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
         : 'Start teaching MongoDB';
     return (
         <NoMaxWidthCard href={href} to={to} collapseImage>
-            <BenefitCardLayout>
+            <SingleBenefitLayout>
                 <img
                     height={IMAGE_HEIGHT}
                     width={IMAGE_WIDTH}
@@ -66,13 +66,13 @@ const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
                     <GreenBulletedList children={bullets} />
                     <GradientText bold>{ctaText}</GradientText>
                 </CardRightSideContent>
-            </BenefitCardLayout>
+            </SingleBenefitLayout>
         </NoMaxWidthCard>
     );
 };
 
 const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
-    <BenefitCardsLayout maxwidth={maxWidth}>
+    <BenefitsLayout maxwidth={maxWidth}>
         <BenefitTypeCard
             href="https://www.mongodb.com/students"
             image={HeroBannerImage}
@@ -92,7 +92,7 @@ const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
                 'Access our MongoDB for Academia community to collaborate, share tips and get inspired',
             ]}
         />
-    </BenefitCardsLayout>
+    </BenefitsLayout>
 );
 
 export default StudentsEducatorsDetails;
