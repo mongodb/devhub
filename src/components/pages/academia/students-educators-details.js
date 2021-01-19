@@ -8,17 +8,25 @@ import { H5 } from '~components/dev-hub/text';
 const BenefitCardLayout = styled('div')`
     display: flex;
     flex: 1;
+    max-width: 588px;
+    > img {
+        margin-right: 20px;
+    }
 `;
 
 const BenefitCardsLayout = styled('div')`
     display: flex;
+    padding: 56px 0;
+    margin: 0 20px;
+    max-width: 1200px;
+    justify-content: center;
 `;
 
-const BenefitTypeCard = ({ bullets, image }) => (
+const BenefitTypeCard = ({ bullets, image, isStudents = true }) => (
     <BenefitCardLayout>
         <img width="110px" height="92px" alt="" src={image} />
         <div>
-            <H5>For Students</H5>
+            <H5>For {isStudents ? 'Students' : 'Educators'}</H5>
             <GreenBulletedList children={bullets} />
         </div>
     </BenefitCardLayout>
@@ -35,6 +43,7 @@ const StudentsEducatorsDetails = () => (
             ]}
         />
         <BenefitTypeCard
+            isStudents={false}
             image={HeroBannerImage}
             bullets={[
                 'Access MongoDB course material & content support',
