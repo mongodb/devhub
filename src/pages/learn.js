@@ -333,6 +333,8 @@ export default ({
             </Header>
 
             <TabBar
+                // ID used specifically for anchor links
+                id="skip-featured"
                 handleClick={updateActiveFilter}
                 leftTabs={leftTabs}
                 rightTabs={rightTabs}

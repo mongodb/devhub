@@ -60,13 +60,13 @@ const mapTabTextToButton = (textList, activeItem, handleClick) => (
     </div>
 );
 
-const Tabs = ({ activeItem, className, handleClick, leftTabs, rightTabs }) => {
+const Tabs = ({ activeItem, handleClick, leftTabs, rightTabs, ...props }) => {
     const LeftTabs = () =>
         mapTabTextToButton(leftTabs, activeItem, handleClick);
     const RightTabs = () =>
         mapTabTextToButton(rightTabs, activeItem, handleClick);
     return (
-        <Tab data-test="tabs" className={className}>
+        <Tab data-test="tabs" {...props}>
             <LeftTabs />
             <RightTabs />
         </Tab>
