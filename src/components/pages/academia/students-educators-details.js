@@ -11,25 +11,24 @@ const IMAGE_HEIGHT = '98px';
 const IMAGE_WIDTH = '130px';
 
 const BenefitCardLayout = styled('div')`
-    column-gap: 20px;
+    column-gap: ${size.medium};
     display: grid;
     grid-template-columns: ${IMAGE_WIDTH} auto;
     grid-template-rows: ${IMAGE_HEIGHT} auto;
-    flex: 1;
     height: 100%;
 `;
 
-const StyledCard = styled(Card)`
-    flex: 1;
+const NoMaxWidthCard = styled(Card)`
+    /* TODO: Update Card component to take any max width setting then use as prop */
     max-width: none;
 `;
 
 const BenefitCardsLayout = styled('div')`
-    display: flex;
-    padding: ${size.xlarge} 0;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
     margin: 0 auto;
-    max-width: 1200px;
-    justify-content: space-between;
+    max-width: ${({ maxwidth }) => maxwidth};
+    padding: ${size.xlarge} 0;
 `;
 
 const GradientText = styled(P)`
@@ -54,7 +53,7 @@ const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
         ? 'Get Student Benefits'
         : 'Start teaching MongoDB';
     return (
-        <StyledCard href={href} to={to} collapseImage>
+        <NoMaxWidthCard href={href} to={to} collapseImage>
             <BenefitCardLayout>
                 <img
                     height={IMAGE_HEIGHT}
@@ -68,12 +67,12 @@ const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
                     <GradientText bold>{ctaText}</GradientText>
                 </CardRightSideContent>
             </BenefitCardLayout>
-        </StyledCard>
+        </NoMaxWidthCard>
     );
 };
 
-const StudentsEducatorsDetails = () => (
-    <BenefitCardsLayout>
+const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
+    <BenefitCardsLayout maxwidth={maxWidth}>
         <BenefitTypeCard
             href="https://www.mongodb.com/students"
             image={HeroBannerImage}
