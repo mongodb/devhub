@@ -76,6 +76,9 @@ const NavListHeader = styled('div')`
     justify-content: space-between;
     align-items: center;
     padding-right: 20px;
+    @media ${screenSize.upToLarge} {
+        box-shadow: 0px 1px 0px ${({ theme }) => theme.colorMap.greyDarkTwo};
+    }
 `;
 
 /**
@@ -107,10 +110,6 @@ const NavItemMenu = styled('div')`
     }
     position: relative;
     ${({ isExpanded }) => isExpanded && `color: ${HOVER_STATE_GREEN_COLOR}`};
-`;
-
-const HeaderElements = styled('div')`
-    position: relative;
 `;
 
 /**
@@ -174,6 +173,7 @@ export const MobileNavMenu = styled('div')`
     width: 100%;
     background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     z-index: 10;
+    min-height: 100vh;
 `;
 
 export const MobileNavItem = ({ item }) => {

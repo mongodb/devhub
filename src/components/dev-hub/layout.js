@@ -61,6 +61,7 @@ const GlobalWrapper = styled('div')`
     min-height: 100vh;
     width: 100%;
 `;
+
 export const StorybookLayout = ({ children }) => {
     const style = useMemo(() => globalStyles(darkTheme), []);
     return (
