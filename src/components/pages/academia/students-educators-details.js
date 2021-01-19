@@ -5,25 +5,34 @@ import GreenBulletedList from '../educators/green-bulleted-list';
 import HeroBannerImage from '~images/1x/Academia.svg';
 import Card from '~components/dev-hub/card';
 import { H5, P } from '~components/dev-hub/text';
+import { size } from '~components/dev-hub/theme';
+
+const IMAGE_HEIGHT = '98px';
+const IMAGE_WIDTH = '130px';
 
 const BenefitCardLayout = styled('div')`
-    display: flex;
+    column-gap: 20px;
+    display: grid;
+    grid-template-columns: ${IMAGE_WIDTH} auto;
+    grid-template-rows: ${IMAGE_HEIGHT} auto;
     flex: 1;
-    max-width: 588px;
-    > img {
-        margin-right: 20px;
-    }
+    height: 100%;
+`;
+
+const StyledCard = styled(Card)`
+    flex: 1;
+    max-width: none;
 `;
 
 const BenefitCardsLayout = styled('div')`
     display: flex;
-    padding: 56px 0;
+    padding: ${size.xlarge} 0;
     margin: 0 auto;
     max-width: 1200px;
     justify-content: space-between;
 `;
 
-const CTAText = styled(P)`
+const GradientText = styled(P)`
     background: ${({ theme }) => theme.gradientMap.greenTealOffset};
     background-clip: text;
     -webkit-background-clip: text;
@@ -35,22 +44,33 @@ const CTAText = styled(P)`
     }
 `;
 
-const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => (
-    <Card maxWidth="50%" href={href} to={to} collapseImage>
-        <BenefitCardLayout>
-            <img width="110px" height="92px" alt="" src={image} />
-            <div>
-                <H5>For {isStudents ? 'Students' : 'Educators'}</H5>
-                <GreenBulletedList children={bullets} />
-                <CTAText bold>
-                    {isStudents
-                        ? 'Get Student Benefits'
-                        : 'Start teaching MongoDB'}
-                </CTAText>
-            </div>
-        </BenefitCardLayout>
-    </Card>
-);
+const CardRightSideContent = styled('div')`
+    grid-row: span 2;
+`;
+
+const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
+    const forAudienceText = isStudents ? 'For Students' : 'For Educators';
+    const ctaText = isStudents
+        ? 'Get Student Benefits'
+        : 'Start teaching MongoDB';
+    return (
+        <StyledCard href={href} to={to} collapseImage>
+            <BenefitCardLayout>
+                <img
+                    height={IMAGE_HEIGHT}
+                    width={IMAGE_WIDTH}
+                    alt=""
+                    src={image}
+                />
+                <CardRightSideContent>
+                    <H5>{forAudienceText}</H5>
+                    <GreenBulletedList children={bullets} />
+                    <GradientText bold>{ctaText}</GradientText>
+                </CardRightSideContent>
+            </BenefitCardLayout>
+        </StyledCard>
+    );
+};
 
 const StudentsEducatorsDetails = () => (
     <BenefitCardsLayout>
