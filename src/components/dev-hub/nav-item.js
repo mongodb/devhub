@@ -83,6 +83,10 @@ const NavItemSublist = styled('ul')`
     position: absolute;
     z-index: ${layer.front};
     ${showGreenDivider};
+    @media ${screenSize.upToLarge} {
+        position: relative;
+        max-width: none;
+    }
 `;
 
 const NavItemMenu = styled('div')`
@@ -93,6 +97,7 @@ const NavItemMenu = styled('div')`
     &:focus-within {
         color: ${HOVER_STATE_GREEN_COLOR};
     }
+    position: relative;
     ${({ isExpanded }) => isExpanded && `color: ${HOVER_STATE_GREEN_COLOR}`};
 `;
 
@@ -104,10 +109,16 @@ const NavListSubItem = styled('li')`
     background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     ${hoverEffect};
     ${({ theme }) => subItemBoxShadow(theme)};
+    @media ${screenSize.upToLarge} {
+        padding: 12px 32px;
+    } ;
 `;
 
 const SubItemContents = styled('div')`
     padding: ${size.medium} ${size.large};
+    @media ${screenSize.upToLarge} {
+        padding: 0;
+    }
 `;
 
 const SubItemDescriptionText = styled(P3)`
@@ -122,6 +133,10 @@ const SubItemLink = styled(Link)`
         ${SubItemDescriptionText} {
             color: ${({ theme }) => theme.colorMap.devWhite};
         }
+    }
+    @media ${screenSize.upToLarge} {
+        line-height: unset;
+        padding: 0;
     }
 `;
 
@@ -139,6 +154,44 @@ const NavItemSubItem = ({ subitem }) => (
         </SubItemContents>
     </SubItemLink>
 );
+
+export const MobileNavMenu = styled('div')`
+    position: absolute;
+    /* Add 2px for green border to show */
+    top: calc(100% + 2px);
+    width: 100%;
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    z-index: 10;
+`;
+
+export const MobileNavItem = ({ item }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleMenu = useCallback(() => setIsExpanded(!isExpanded), [
+        isExpanded,
+    ]);
+    const hasSubMenu = !!item.subitems.length;
+    if (hasSubMenu) {
+        return (
+            <NavItemMenu
+                onClick={toggleMenu}
+                isExpanded={isExpanded}
+                tabIndex="0"
+            >
+                <NavListHeader isExpanded={isExpanded}>
+                    {item.name}
+                </NavListHeader>
+                <NavItemSublist isExpanded={isExpanded}>
+                    {item.subitems.map(subitem => (
+                        <NavListSubItem key={subitem.name}>
+                            <NavItemSubItem tabIndex="0" subitem={subitem} />
+                        </NavListSubItem>
+                    ))}
+                </NavItemSublist>
+            </NavItemMenu>
+        );
+    }
+    return <NavLink to={item.url}>{item.name}</NavLink>;
+};
 
 const NavItem = ({ item }) => {
     const [isExpanded, setIsExpanded] = useState(false);

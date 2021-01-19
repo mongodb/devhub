@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import dlv from 'dlv';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
@@ -7,7 +8,7 @@ import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
 import Link from '../Link';
 import { fontSize, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
-import NavItem from './nav-item';
+import NavItem, { MobileNavItem, MobileNavMenu } from './nav-item';
 
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
@@ -32,7 +33,12 @@ const NavContent = styled('div')`
     flex-wrap: wrap;
     margin: 0 auto;
     max-width: ${size.maxWidth};
+    position: relative;
     width: 100%;
+    @media ${screenSize.upToLarge} {
+        justify-content: space-between;
+        padding-right: 20px;
+    }
 `;
 
 const NavLink = styled(Link)`
@@ -82,10 +88,90 @@ const topNavItems = graphql`
     }
 `;
 
+const expanded = css`
+    span:nth-of-type(1) {
+        left: 50%;
+        top: 6px;
+        width: 0%;
+    }
+    span:nth-of-type(2) {
+        transform: rotate(45deg);
+    }
+    span:nth-of-type(3) {
+        transform: rotate(-45deg);
+    }
+    span:nth-of-type(4) {
+        left: 50%;
+        top: 6px;
+        width: 0%;
+    }
+`;
+
+/** Used the third example from https://codepen.io/designcouch/pen/Atyop */
+const HamburgerToggle = styled('div')`
+    cursor: pointer;
+    height: 10px;
+    transform: rotate(0deg);
+    transition: 300ms ease-in-out;
+    width: 20px;
+    ${({ isOpen }) => isOpen && expanded};
+    span {
+        background: ${({ theme }) => theme.colorMap.devWhite};
+        display: block;
+        height: 2px;
+        left: 0;
+        opacity: 1;
+        position: absolute;
+        transform: rotate(0deg);
+        transition: 150ms ease-in-out;
+        width: 100%;
+        :nth-of-type(1) {
+            top: 0px;
+        }
+        :nth-of-type(2),
+        :nth-of-type(3) {
+            top: 5px;
+        }
+        :nth-of-type(4) {
+            top: 10px;
+        }
+    }
+`;
+
+export const AnimatedHamburger = props => (
+    <HamburgerToggle {...props}>
+        <span />
+        <span />
+        <span />
+        <span />
+    </HamburgerToggle>
+);
+
+const MenuToggle = ({ isOpen, toggleIsOpen }) => (
+    <AnimatedHamburger isOpen={isOpen} onClick={toggleIsOpen} />
+);
+
+const MobileItems = ({ items }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+    return (
+        <>
+            <MenuToggle isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
+            {isOpen && (
+                <MobileNavMenu>
+                    {items.map(item => (
+                        <MobileNavItem key={item.name} item={item} />
+                    ))}
+                </MobileNavMenu>
+            )}
+        </>
+    );
+};
+
 export default () => {
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
-    const isMobile = useMedia(screenSize.upToMedium);
+    const isMobile = useMedia(screenSize.upToLarge);
     return (
         <GlobalNav>
             <NavContent>
@@ -96,9 +182,11 @@ export default () => {
                         <DevLeafDesktop />
                     )}
                 </HomeLink>
-                {items.map(item => (
-                    <NavItem item={item} />
-                ))}
+                {isMobile ? (
+                    <MobileItems items={items} />
+                ) : (
+                    items.map(item => <NavItem item={item} />)
+                )}
             </NavContent>
         </GlobalNav>
     );
