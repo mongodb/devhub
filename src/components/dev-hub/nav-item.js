@@ -42,8 +42,10 @@ const linkTextStyles = css`
 
 const subItemBoxShadow = theme => css`
     margin-bottom: 1px;
-    :not(:last-of-type) {
-        box-shadow: 0px 1px 0px ${theme.colorMap.greyDarkTwo};
+    @media ${screenSize.largeAndUp} {
+        :not(:last-of-type) {
+            box-shadow: 0px 1px 0px ${theme.colorMap.greyDarkTwo};
+        }
     }
     :last-of-type {
         border-radius: 0 0 6px 6px;
