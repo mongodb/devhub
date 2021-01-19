@@ -1,4 +1,5 @@
-import TopBanner from './top-banner';
 import ProjectGrid from './project-grid';
+import StudentsEducatorsDetails from './students-educators-details';
+import TopBanner from './top-banner';
 
-export { ProjectGrid, TopBanner };
+export { ProjectGrid, StudentsEducatorsDetails, TopBanner };
