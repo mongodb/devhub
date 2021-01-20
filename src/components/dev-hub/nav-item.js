@@ -231,7 +231,11 @@ const NavItem = ({ item }) => {
             </NavItemMenu>
         );
     }
-    return <NavLink to={item.url}>{item.name}</NavLink>;
+    return (
+        <NavListHeader>
+            <NavLink to={item.url}>{item.name}</NavLink>
+        </NavListHeader>
+    );
 };
 
 export default NavItem;
