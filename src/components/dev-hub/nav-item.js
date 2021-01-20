@@ -96,6 +96,7 @@ const NavItemSublist = styled('ul')`
     ${showGreenDivider};
     @media ${MOBILE_NAV_BREAK} {
         max-width: none;
+        margin-bottom: 0;
         position: relative;
         width: 100%;
     }
