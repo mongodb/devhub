@@ -73,6 +73,7 @@ const NavLink = styled(Link)`
         background-color: #2c3d47;
     }
 `;
+
 const HomeLink = styled(NavLink)`
     align-items: center;
     display: flex;
@@ -82,7 +83,10 @@ const HomeLink = styled(NavLink)`
     &[aria-current='page'] {
         background-color: unset;
     }
-    @media ${screenSize.upToMedium} {
+    svg {
+        margin-top: -1px;
+    }
+    @media ${MOBILE_NAV_BREAK} {
         padding: ${size.default};
         svg {
             /* align svg with other nav links */
