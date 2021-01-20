@@ -11,6 +11,7 @@ const LINK_VERTICAL_PADDING = '17px';
 /* greyDarkTwo at 40% opacity on greyDarkThree */
 const HOVER_STATE_BACKGROUND_COLOR = '#2c3d47';
 const HOVER_STATE_GREEN_COLOR = '#0ad05b';
+const MOBILE_NAV_BREAK = screenSize.upToLarge;
 const SUBITEM_MAX_WIDTH = '364px';
 
 const hoverEffect = css`
@@ -33,11 +34,6 @@ const linkTextStyles = css`
     letter-spacing: 1px;
     line-height: ${lineHeight.small};
     text-decoration: none;
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.tiny};
-        line-height: ${lineHeight.xlarge};
-        padding: ${size.small} ${size.default};
-    }
 `;
 
 const subItemBoxShadow = theme => css`
@@ -55,7 +51,6 @@ const subItemBoxShadow = theme => css`
  */
 
 const navTopItemStyling = css`
-    padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
     ${hoverEffect};
     ${linkTextStyles};
 `;
@@ -66,9 +61,15 @@ const NavLink = styled(Link)`
 
 const NavListHeader = styled('div')`
     ${navTopItemStyling};
+    display: flex;
     position: relative;
+    justify-content: space-between;
     ${({ isExpanded }) =>
-        isExpanded && `background-color: ${HOVER_STATE_BACKGROUND_COLOR}`}
+        isExpanded && `background-color: ${HOVER_STATE_BACKGROUND_COLOR}`};
+    padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
+    @media ${MOBILE_NAV_BREAK} {
+        padding: ${size.mediumLarge} ${size.default};
+    }
 `;
 
 /**
@@ -117,7 +118,6 @@ const SubItemDescriptionText = styled(P3)`
 
 const SubItemLink = styled(Link)`
     ${navTopItemStyling};
-    padding: 0;
     &:hover {
         color: ${({ theme }) => theme.colorMap.devWhite};
         ${SubItemDescriptionText} {
