@@ -88,7 +88,6 @@ const NavItemSublist = styled('ul')`
 
 const NavItemMenu = styled('div')`
     cursor: pointer;
-    position: relative;
     &:active,
     &:hover,
     &:focus,
