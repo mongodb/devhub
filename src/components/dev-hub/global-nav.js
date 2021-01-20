@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -11,6 +11,8 @@ import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
 
 const GREEN_BORDER_SIZE = '2px';
+// Account for bottom bar on mobile browsers
+const MOBILE_MENU_ADDITIONAL_PADDING = '256px';
 const MOBILE_NAV_BREAK = screenSize.upToLarge;
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
@@ -35,6 +37,12 @@ const MobileNavMenu = styled('div')`
     top: calc(100% + ${GREEN_BORDER_SIZE});
     width: 100%;
     z-index: ${layer.front};
+    @media ${MOBILE_NAV_BREAK} {
+        /* 100% would not work since the nav itself does not have 100% height */
+        height: 100vh;
+        padding-bottom: ${MOBILE_MENU_ADDITIONAL_PADDING};
+        overflow: scroll;
+    }
 `;
 
 const NavContent = styled('div')`
@@ -97,6 +105,17 @@ const topNavItems = graphql`
 const MobileItems = ({ items }) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+    useEffect(() => {
+        // This effect prevents scrolling outside the opened nav
+        // We restore normal scrolling when the nav is closed
+        if (document) {
+            if (isOpen) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+    }, [isOpen]);
     return (
         <>
             <MenuToggle isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
