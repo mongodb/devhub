@@ -129,6 +129,10 @@ const SubItemContents = styled('div')`
 
 const SubItemDescriptionText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    @media ${MOBILE_NAV_BREAK} {
+        font-size: ${fontSize.tiny};
+        line-height: ${lineHeight.tiny};
+    }
 `;
 
 const SubItemLink = styled(Link)`
