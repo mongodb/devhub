@@ -5,11 +5,12 @@ import { graphql, useStaticQuery } from 'gatsby';
 import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
 import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
 import Link from '../Link';
-import { fontSize, lineHeight, screenSize, size } from './theme';
+import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
 import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
 
+const GREEN_BORDER_SIZE = '2px';
 const MOBILE_NAV_BREAK = screenSize.upToLarge;
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
@@ -22,9 +23,18 @@ const GlobalNav = styled('nav')`
     &:after {
         background: radial-gradient(circle, #3ebb8c 0%, #76d3b1 100%);
         content: ' ';
-        height: 2px;
+        height: ${GREEN_BORDER_SIZE};
         width: 100%;
     }
+`;
+
+const MobileNavMenu = styled('div')`
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    position: absolute;
+    /* Add 2px for green border to show */
+    top: calc(100% + ${GREEN_BORDER_SIZE});
+    width: 100%;
+    z-index: ${layer.front};
 `;
 
 const NavContent = styled('div')`
@@ -38,7 +48,7 @@ const NavContent = styled('div')`
     width: 100%;
     @media ${MOBILE_NAV_BREAK} {
         justify-content: space-between;
-        padding-right: 20px;
+        padding-right: ${size.medium};
     }
 `;
 
@@ -82,16 +92,6 @@ const topNavItems = graphql`
             }
         }
     }
-`;
-
-const MobileNavMenu = styled('div')`
-    position: absolute;
-    /* Add 2px for green border to show */
-    top: calc(100% + 2px);
-    width: 100%;
-    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
-    z-index: 10;
-    min-height: 100vh;
 `;
 
 const MobileItems = ({ items }) => {
