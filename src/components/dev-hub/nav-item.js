@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from '../Link';
+import ArrowheadIcon from './icons/arrowhead-icon';
 import { P, P3 } from './text';
 import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 
@@ -87,6 +88,7 @@ const NavItemSublist = styled('ul')`
 
 const NavItemMenu = styled('div')`
     cursor: pointer;
+    position: relative;
     &:active,
     &:hover,
     &:focus,
@@ -128,6 +130,40 @@ const SubItemLink = styled(Link)`
 const SubItemText = styled(P)`
     margin-bottom: 4px;
 `;
+
+export const MobileNavItem = ({ item }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleMenu = useCallback(() => setIsExpanded(!isExpanded), [
+        isExpanded,
+    ]);
+    const hasSubMenu = !!item.subitems.length;
+    if (hasSubMenu) {
+        return (
+            <NavItemMenu
+                onClick={toggleMenu}
+                isExpanded={isExpanded}
+                tabIndex="0"
+            >
+                <NavListHeader isExpanded={isExpanded}>
+                    {item.name}
+                    <ArrowheadIcon down={!isExpanded} />
+                </NavListHeader>
+                <NavItemSublist isExpanded={isExpanded}>
+                    {item.subitems.map(subitem => (
+                        <NavListSubItem key={subitem.name}>
+                            <NavItemSubItem tabIndex="0" subitem={subitem} />
+                        </NavListSubItem>
+                    ))}
+                </NavItemSublist>
+            </NavItemMenu>
+        );
+    }
+    return (
+        <NavListHeader>
+            <NavLink to={item.url}>{item.name}</NavLink>
+        </NavListHeader>
+    );
+};
 
 const NavItemSubItem = ({ subitem }) => (
     <SubItemLink to={subitem.url}>

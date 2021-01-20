@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -7,8 +7,10 @@ import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
 import Link from '../Link';
 import { fontSize, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
-import NavItem from './nav-item';
+import NavItem, { MobileNavItem } from './nav-item';
+import MenuToggle from './menu-toggle';
 
+const MOBILE_NAV_BREAK = screenSize.upToLarge;
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
 
@@ -32,7 +34,12 @@ const NavContent = styled('div')`
     flex-wrap: wrap;
     margin: 0 auto;
     max-width: ${size.maxWidth};
+    position: relative;
     width: 100%;
+    @media ${MOBILE_NAV_BREAK} {
+        justify-content: space-between;
+        padding-right: 20px;
+    }
 `;
 
 const NavLink = styled(Link)`
@@ -46,11 +53,6 @@ const NavLink = styled(Link)`
     &[aria-current='page'] {
         /* greyDarkTwo at 40% opacity on greyDarkThree */
         background-color: #2c3d47;
-    }
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.tiny};
-        line-height: ${lineHeight.xlarge};
-        padding: ${size.small} ${size.default};
     }
 `;
 const HomeLink = styled(NavLink)`
@@ -82,10 +84,37 @@ const topNavItems = graphql`
     }
 `;
 
+const MobileNavMenu = styled('div')`
+    position: absolute;
+    /* Add 2px for green border to show */
+    top: calc(100% + 2px);
+    width: 100%;
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    z-index: 10;
+    min-height: 100vh;
+`;
+
+const MobileItems = ({ items }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+    return (
+        <>
+            <MenuToggle isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
+            {isOpen && (
+                <MobileNavMenu>
+                    {items.map(item => (
+                        <MobileNavItem key={item.name} item={item} />
+                    ))}
+                </MobileNavMenu>
+            )}
+        </>
+    );
+};
+
 export default () => {
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
-    const isMobile = useMedia(screenSize.upToMedium);
+    const isMobile = useMedia(MOBILE_NAV_BREAK);
     return (
         <GlobalNav>
             <NavContent>
@@ -96,9 +125,11 @@ export default () => {
                         <DevLeafDesktop />
                     )}
                 </HomeLink>
-                {items.map(item => (
-                    <NavItem item={item} />
-                ))}
+                {isMobile ? (
+                    <MobileItems items={items} />
+                ) : (
+                    items.map(item => <NavItem item={item} />)
+                )}
             </NavContent>
         </GlobalNav>
     );

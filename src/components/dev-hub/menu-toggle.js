@@ -61,6 +61,8 @@ const AnimatedHamburger = props => (
     </HamburgerToggle>
 );
 
-export const MenuToggle = ({ isOpen, toggleIsOpen }) => (
+const MenuToggle = ({ isOpen, toggleIsOpen }) => (
     <AnimatedHamburger isOpen={isOpen} onClick={toggleIsOpen} />
 );
+
+export default MenuToggle;
