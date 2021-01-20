@@ -44,6 +44,14 @@ const subItemBoxShadow = theme => css`
     :last-of-type {
         border-radius: 0 0 6px 6px;
     }
+    @media ${MOBILE_NAV_BREAK} {
+        :not(:last-of-type) {
+            box-shadow: none;
+        }
+        :last-of-type {
+            border-radius: 0;
+        }
+    }
 `;
 
 /**
@@ -69,6 +77,7 @@ const NavListHeader = styled('div')`
     padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
     @media ${MOBILE_NAV_BREAK} {
         padding: ${size.mediumLarge} ${size.default};
+        box-shadow: 0px 1px 0px ${({ theme }) => theme.colorMap.greyDarkTwo};
     }
 `;
 
