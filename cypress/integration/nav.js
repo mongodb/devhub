@@ -2,6 +2,9 @@ const INITIAL_DROPDOWN_DESCRIPTION = 'Take free courses and become certified!';
 const INITIAL_DROPDOWN_HREF = 'https://university.mongodb.com';
 const INITIAL_DROPDOWN_TITLE = 'MongoDB University';
 
+const DIRECT_LINK_NAME = 'Documentation';
+const DIRECT_LINK_HREF = 'https://docs.mongodb.com/';
+
 describe('Nav', () => {
     it('should properly render the nav', () => {
         cy.visit('/');
@@ -9,7 +12,7 @@ describe('Nav', () => {
             // Check it has the two types of elements we will test
             // One dropdown and one direct link
             cy.contains('Learn');
-            cy.contains('Documentation');
+            cy.contains(DIRECT_LINK_NAME);
         });
     });
     it('should render dropdown menus', () => {
@@ -29,6 +32,12 @@ describe('Nav', () => {
                 });
         });
     });
-    it('should render top-level links', () => {});
+    it('should render top-level links', () => {
+        cy.get('nav').within(() => {
+            cy.contains(DIRECT_LINK_NAME)
+                .should('have.attr', 'href')
+                .and('equal', DIRECT_LINK_HREF);
+        });
+    });
     it('should be mobile responsive', () => {});
 });
