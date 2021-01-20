@@ -79,12 +79,17 @@ const NavListHeader = styled('div')`
 const NavItemSublist = styled('ul')`
     display: ${({ isExpanded }) => (isExpanded ? 'block' : 'none')};
     list-style: none;
-    margin-top: 0px;
+    margin-top: 0;
     max-width: ${SUBITEM_MAX_WIDTH};
     padding-left: 0;
     position: absolute;
     z-index: ${layer.front};
     ${showGreenDivider};
+    @media ${MOBILE_NAV_BREAK} {
+        max-width: none;
+        position: relative;
+        width: 100%;
+    }
 `;
 
 const NavItemMenu = styled('div')`
