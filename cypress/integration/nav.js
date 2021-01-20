@@ -39,5 +39,14 @@ describe('Nav', () => {
                 .and('equal', DIRECT_LINK_HREF);
         });
     });
-    it('should be mobile responsive', () => {});
+    it('should be mobile responsive', () => {
+        cy.viewport('iphone-5');
+        cy.get('nav').within(() => {
+            // Check it has the two types of elements we will test
+            // One dropdown and one direct link
+            cy.contains('Learn').should('not.be.visible');
+            cy.contains(DIRECT_LINK_NAME).should('not.be.visible');
+        });
+        cy.get('[data-test="mobile-nav-toggle"]').click();
+    });
 });

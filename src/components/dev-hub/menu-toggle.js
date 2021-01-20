@@ -62,7 +62,11 @@ const AnimatedHamburger = props => (
 );
 
 const MenuToggle = ({ isOpen, toggleIsOpen }) => (
-    <AnimatedHamburger isOpen={isOpen} onClick={toggleIsOpen} />
+    <AnimatedHamburger
+        data-test="mobile-nav-toggle"
+        isOpen={isOpen}
+        onClick={toggleIsOpen}
+    />
 );
 
 export default MenuToggle;
