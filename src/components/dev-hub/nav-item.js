@@ -149,7 +149,7 @@ const SubItemText = styled(P)`
     margin-bottom: 4px;
 `;
 
-export const MobileNavItem = ({ item }) => {
+export const MobileNavItem = ({ item, onLinkClick }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const toggleMenu = useCallback(() => setIsExpanded(!isExpanded), [
         isExpanded,
@@ -169,7 +169,11 @@ export const MobileNavItem = ({ item }) => {
                 <NavItemSublist isExpanded={isExpanded}>
                     {item.subitems.map(subitem => (
                         <NavListSubItem key={subitem.name}>
-                            <NavItemSubItem tabIndex="0" subitem={subitem} />
+                            <NavItemSubItem
+                                onLinkClick={onLinkClick}
+                                tabIndex="0"
+                                subitem={subitem}
+                            />
                         </NavListSubItem>
                     ))}
                 </NavItemSublist>
@@ -183,8 +187,8 @@ export const MobileNavItem = ({ item }) => {
     );
 };
 
-const NavItemSubItem = ({ subitem }) => (
-    <SubItemLink to={subitem.url}>
+const NavItemSubItem = ({ subitem, onLinkClick }) => (
+    <SubItemLink onClick={onLinkClick} to={subitem.url}>
         <SubItemContents>
             <SubItemText>{subitem.name}</SubItemText>
             <SubItemDescriptionText collapse>

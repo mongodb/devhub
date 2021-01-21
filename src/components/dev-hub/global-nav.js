@@ -108,6 +108,7 @@ const topNavItems = graphql`
 
 const MobileItems = ({ items }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const closeMenu = useCallback(() => setIsOpen(false), []);
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
     useEffect(() => {
         // This effect prevents scrolling outside the opened nav
@@ -126,7 +127,11 @@ const MobileItems = ({ items }) => {
             {isOpen && (
                 <MobileNavMenu>
                     {items.map(item => (
-                        <MobileNavItem key={item.name} item={item} />
+                        <MobileNavItem
+                            onLinkClick={closeMenu}
+                            key={item.name}
+                            item={item}
+                        />
                     ))}
                 </MobileNavMenu>
             )}
