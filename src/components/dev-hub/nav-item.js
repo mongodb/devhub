@@ -63,10 +63,6 @@ const navTopItemStyling = css`
     ${linkTextStyles};
 `;
 
-const NavLink = styled(Link)`
-    ${navTopItemStyling};
-`;
-
 const NavListHeader = styled('div')`
     ${navTopItemStyling};
     display: flex;
@@ -80,6 +76,8 @@ const NavListHeader = styled('div')`
         box-shadow: 0px 1px 0px ${({ theme }) => theme.colorMap.greyDarkTwo};
     }
 `;
+
+const NavLink = NavListHeader.withComponent(Link);
 
 /**
  * Expandable sub-list containers
@@ -180,11 +178,7 @@ export const MobileNavItem = ({ item, onLinkClick }) => {
             </NavItemMenu>
         );
     }
-    return (
-        <NavListHeader>
-            <NavLink to={item.url}>{item.name}</NavLink>
-        </NavListHeader>
-    );
+    return <NavLink to={item.url}>{item.name}</NavLink>;
 };
 
 const NavItemSubItem = ({ subitem, onLinkClick }) => (
@@ -239,11 +233,7 @@ const NavItem = ({ item }) => {
             </NavItemMenu>
         );
     }
-    return (
-        <NavListHeader>
-            <NavLink to={item.url}>{item.name}</NavLink>
-        </NavListHeader>
-    );
+    return <NavLink to={item.url}>{item.name}</NavLink>;
 };
 
 export default NavItem;
