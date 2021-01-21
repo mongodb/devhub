@@ -49,8 +49,7 @@ describe('Nav', () => {
     it('should be mobile responsive', () => {
         cy.viewport('iphone-5');
         cy.get('nav').within(() => {
-            // Check it has the two types of elements we will test
-            // One dropdown and one direct link
+            // Nav items should not be visible until the menu is opened
             cy.contains('Learn').should('not.be.visible');
             cy.contains(DIRECT_LINK_NAME).should('not.be.visible');
         });
@@ -60,6 +59,7 @@ describe('Nav', () => {
             // One dropdown and one direct link
             cy.contains(DIRECT_LINK_NAME).should('be.visible');
             checkFirstDropdown();
+            // Close dropdown on mobile and be sure it closes properly
             cy.contains('Learn').click();
             cy.contains(INITIAL_DROPDOWN_TITLE).should('not.be.visible');
             cy.contains(INITIAL_DROPDOWN_DESCRIPTION).should('not.be.visible');
