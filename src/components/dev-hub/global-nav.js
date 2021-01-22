@@ -82,7 +82,7 @@ const HomeLink = styled(NavLink)`
     &[aria-current='page'] {
         background-color: unset;
     }
-    /* The SVG is slightly un-centered. This will move up 2px without impacting
+    /* The SVG is slightly un-centered. This will move up 1px without impacting
     overall size */
     svg {
         transform: translate(0, -1px);
