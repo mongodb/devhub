@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
-import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
-import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
+import LeafLogo from './icons/mdb-dev-logo-leaf';
 import Link from '../Link';
 import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
@@ -84,19 +83,10 @@ const HomeLink = styled(NavLink)`
         background-color: unset;
     }
     svg {
-        margin-top: -1px;
+        margin-top: -2px;
     }
     @media ${screenSize.upToXlarge} {
-        padding: ${LINK_VERTICAL_PADDING} ${size.medium}
-            ${LINK_VERTICAL_PADDING} ${size.medium};
-    }
-    @media ${MOBILE_NAV_BREAK} {
-        padding: ${size.default};
-        svg {
-            /* align svg with other nav links */
-            margin-top: -4px;
-            width: 100px;
-        }
+        padding: ${LINK_VERTICAL_PADDING} ${size.medium};
     }
 `;
 
@@ -151,11 +141,7 @@ export default () => {
         <GlobalNav>
             <NavContent>
                 <HomeLink aria-label="Home" to="/">
-                    {isMobile ? (
-                        <DevLeafMobile width={size.xxlarge} />
-                    ) : (
-                        <DevLeafDesktop />
-                    )}
+                    <LeafLogo />
                 </HomeLink>
                 {isMobile ? (
                     <MobileItems items={items} />
