@@ -82,8 +82,10 @@ const HomeLink = styled(NavLink)`
     &[aria-current='page'] {
         background-color: unset;
     }
+    /* The SVG is slightly un-centered. This will move up 2px without impacting
+    overall size */
     svg {
-        margin-top: -2px;
+        transform: translate(0, -1px);
     }
     @media ${screenSize.upToXlarge} {
         padding: ${LINK_VERTICAL_PADDING} ${size.medium};
