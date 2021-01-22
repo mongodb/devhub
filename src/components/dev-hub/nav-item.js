@@ -75,11 +75,11 @@ const NavListHeader = styled('div')`
     ${({ isExpanded }) =>
         isExpanded && `background-color: ${HOVER_STATE_BACKGROUND_COLOR}`};
     padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
-    @media ${screenSize.upToSmallDesktop} {
-        padding: ${LINK_VERTICAL_PADDING} ${size.mediumLarge};
-    }
     @media ${screenSize.upToXlarge} {
         padding: ${LINK_VERTICAL_PADDING} 40px;
+    }
+    @media ${screenSize.upToSmallDesktop} {
+        padding: ${LINK_VERTICAL_PADDING} ${size.mediumLarge};
     }
     @media ${MOBILE_NAV_BREAK} {
         padding: ${size.mediumLarge} ${size.default};
