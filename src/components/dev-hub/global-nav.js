@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
-import DevLeafDesktop from './icons/mdb-dev-logo-leaf';
+import LeafLogo from './icons/mdb-dev-logo-leaf';
 import Link from '../Link';
 import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
@@ -141,7 +141,7 @@ export default () => {
         <GlobalNav>
             <NavContent>
                 <HomeLink aria-label="Home" to="/">
-                    <DevLeafDesktop />
+                    <LeafLogo />
                 </HomeLink>
                 {isMobile ? (
                     <MobileItems items={items} />
