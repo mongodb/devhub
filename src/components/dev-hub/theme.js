@@ -170,14 +170,15 @@ const borderGradients = {
  * @type {Object.<string, string>}
  */
 const screenSize = {
-    upToXSmall: 'only screen and (max-width: 374px)',
-    xSmallAndUp: 'not all and (max-width: 374px)',
     upToSmall: 'only screen and (max-width: 420px)',
     smallAndUp: 'not all and (max-width: 420px)',
     upToMedium: 'only screen and (max-width: 767px)',
     mediumAndUp: 'not all and (max-width: 767px)',
     upToLarge: 'only screen and (max-width: 1023px)',
     largeAndUp: 'not all and (max-width: 1023px)',
+    upToSmallDesktop: 'only screen and (max-width: 1200px)',
+    smallDesktopAndUp: 'not all and (max-width: 1200px)',
+    upToXlarge: `only screen and (max-width: ${size.maxWidth})`,
     xlargeAndUp: `not all and (max-width: ${size.maxWidth})`,
 };
 

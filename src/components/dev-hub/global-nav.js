@@ -86,6 +86,10 @@ const HomeLink = styled(NavLink)`
     svg {
         margin-top: -1px;
     }
+    @media ${screenSize.upToXlarge} {
+        padding: ${LINK_VERTICAL_PADDING} ${size.medium}
+            ${LINK_VERTICAL_PADDING} ${size.medium};
+    }
     @media ${MOBILE_NAV_BREAK} {
         padding: ${size.default};
         svg {

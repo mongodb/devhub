@@ -12,7 +12,7 @@ const LINK_VERTICAL_PADDING = '17px';
 const HOVER_STATE_BACKGROUND_COLOR = '#2c3d47';
 const HOVER_STATE_GREEN_COLOR = '#0ad05b';
 const MOBILE_NAV_BREAK = screenSize.upToLarge;
-const SUBITEM_MAX_WIDTH = '364px';
+const SUBITEM_MAX_WIDTH = '350px';
 
 const hoverEffect = css`
     &:active,
@@ -71,6 +71,12 @@ const NavListHeader = styled('div')`
     ${({ isExpanded }) =>
         isExpanded && `background-color: ${HOVER_STATE_BACKGROUND_COLOR}`};
     padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
+    @media ${screenSize.upToXlarge} {
+        padding: ${LINK_VERTICAL_PADDING} 40px;
+    }
+    @media ${screenSize.upToSmallDesktop} {
+        padding: ${LINK_VERTICAL_PADDING} ${size.mediumLarge};
+    }
     @media ${MOBILE_NAV_BREAK} {
         padding: ${size.mediumLarge} ${size.default};
         box-shadow: 0px 1px 0px ${({ theme }) => theme.colorMap.greyDarkTwo};
