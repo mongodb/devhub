@@ -12,7 +12,7 @@ const Container = styled('div')`
     text-align: center;
 `;
 export default () => (
-    <Layout>
+    <Layout includeCanonical={false}>
         <Helmet>
             <title>404 | MongoDB Developer Hub</title>
         </Helmet>

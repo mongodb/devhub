@@ -13,17 +13,19 @@ const GridContainer = styled('div')`
 
 const homeFeaturedProjects = graphql`
     query HomeFeaturedProjects {
-        allStrapiProjects(limit: 3) {
-            nodes {
-                ...ProjectFragment
-            }
+        strapiStudentSpotlightFeatured {
+            ...FeaturedHomePageProjects
         }
     }
 `;
 
 const ProjectCardGrid = () => {
     const data = useStaticQuery(homeFeaturedProjects);
-    const projects = dlv(data, ['allStrapiProjects', 'nodes'], []);
+    const projects = dlv(
+        data,
+        ['strapiStudentSpotlightFeatured', 'FeaturedHomePageProjects'],
+        []
+    );
     const mappedProjects = projects.map(transformProjectStrapiData);
     return (
         <GridContainer>

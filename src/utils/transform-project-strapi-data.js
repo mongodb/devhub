@@ -1,5 +1,6 @@
 export const transformProjectStrapiData = project => {
     const result = {
+        name: project.name,
         image_url: project.info.image.url,
         ...project.info,
     };

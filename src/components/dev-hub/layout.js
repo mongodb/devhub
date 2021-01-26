@@ -2,6 +2,10 @@ import React, { useMemo } from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
+import { useLocation } from '@reach/router';
+import { useSiteMetadata } from '../../hooks/use-site-metadata';
+import { addTrailingSlashIfMissing } from '../../utils/add-trailing-slash-if-missing';
+import { removePathPrefixFromUrl } from '../../utils/remove-path-prefix-from-url';
 import { TabProvider } from './tab-context';
 import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
@@ -75,8 +79,14 @@ export const StorybookLayout = ({ children }) => {
     );
 };
 
-export default ({ children }) => {
+export default ({ children, includeCanonical = true }) => {
     const style = useMemo(() => globalStyles(darkTheme), []);
+    const { siteUrl } = useSiteMetadata();
+    const { pathname } = useLocation();
+    const localPagePath = removePathPrefixFromUrl(pathname);
+    const canonicalUrl = addTrailingSlashIfMissing(
+        `${siteUrl}${localPagePath}`
+    );
     return (
         <ThemeProvider theme={darkTheme}>
             <GlobalWrapper>
@@ -86,6 +96,9 @@ export default ({ children }) => {
                         rel="shortcut icon"
                         href="https://www.mongodb.com/assets/images/global/favicon.ico"
                     />
+                    {includeCanonical && (
+                        <link rel="canonical" href={canonicalUrl} />
+                    )}
                 </Helmet>
                 <Global styles={style} />
                 <MongodbLiveBanner />

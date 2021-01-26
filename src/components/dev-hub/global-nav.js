@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import dlv from 'dlv';
 import styled from '@emotion/styled';
-import Link from './link';
-import { fontSize, lineHeight, screenSize, size } from './theme';
-import DevLeafMobile from './icons/mdb-dev-leaf-mobile';
-import DevLeafDesktop from './icons/mdb-dev-leaf-desktop';
-import useMedia from '../../hooks/use-media';
+import { graphql, useStaticQuery } from 'gatsby';
+import LeafLogo from './icons/mdb-dev-logo-leaf';
+import Link from '../Link';
+import { fontSize, layer, lineHeight, screenSize, size } from './theme';
+import useMedia from '~hooks/use-media';
+import NavItem, { MobileNavItem } from './nav-item';
+import MenuToggle from './menu-toggle';
 
+const GREEN_BORDER_SIZE = '2px';
+// Account for bottom bar on mobile browsers
+const MOBILE_MENU_ADDITIONAL_PADDING = '256px';
+const MOBILE_NAV_BREAK = screenSize.upToLarge;
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
 
@@ -17,19 +24,39 @@ const GlobalNav = styled('nav')`
     &:after {
         background: radial-gradient(circle, #3ebb8c 0%, #76d3b1 100%);
         content: ' ';
-        height: 2px;
+        height: ${GREEN_BORDER_SIZE};
         width: 100%;
+    }
+`;
+
+const MobileNavMenu = styled('div')`
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    position: absolute;
+    /* Add 2px for green border to show */
+    top: calc(100% + ${GREEN_BORDER_SIZE});
+    width: 100%;
+    z-index: ${layer.front};
+    @media ${MOBILE_NAV_BREAK} {
+        /* 100% would not work since the nav itself does not have 100% height */
+        height: 100vh;
+        padding-bottom: ${MOBILE_MENU_ADDITIONAL_PADDING};
+        overflow: scroll;
     }
 `;
 
 const NavContent = styled('div')`
     align-items: center;
-    color: ${({ theme }) => theme.colorMap.greyLightOne};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
     max-width: ${size.maxWidth};
+    position: relative;
     width: 100%;
+    @media ${MOBILE_NAV_BREAK} {
+        justify-content: space-between;
+        padding-right: ${size.medium};
+    }
 `;
 
 const NavLink = styled(Link)`
@@ -44,12 +71,8 @@ const NavLink = styled(Link)`
         /* greyDarkTwo at 40% opacity on greyDarkThree */
         background-color: #2c3d47;
     }
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.tiny};
-        line-height: ${lineHeight.xlarge};
-        padding: ${size.small} ${size.default};
-    }
 `;
+
 const HomeLink = styled(NavLink)`
     align-items: center;
     display: flex;
@@ -59,32 +82,74 @@ const HomeLink = styled(NavLink)`
     &[aria-current='page'] {
         background-color: unset;
     }
-    @media ${screenSize.upToMedium} {
-        padding: ${size.default};
-        svg {
-            /* align svg with other nav links */
-            margin-top: -4px;
-            width: 100px;
+    /* The SVG is slightly un-centered. This will move up 1px without impacting
+    overall size */
+    svg {
+        transform: translate(0, -1px);
+    }
+    @media ${screenSize.upToXlarge} {
+        padding: ${LINK_VERTICAL_PADDING} ${size.medium};
+    }
+`;
+
+const topNavItems = graphql`
+    query TopNavItems {
+        strapiTopNav {
+            items {
+                ...topNavItem
+            }
         }
     }
 `;
 
+const MobileItems = ({ items }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const closeMenu = useCallback(() => setIsOpen(false), []);
+    const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+    useEffect(() => {
+        // This effect prevents scrolling outside the opened nav
+        // We restore normal scrolling when the nav is closed
+        if (document) {
+            if (isOpen) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+    }, [isOpen]);
+    return (
+        <>
+            <MenuToggle isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
+            {isOpen && (
+                <MobileNavMenu>
+                    {items.map(item => (
+                        <MobileNavItem
+                            onLinkClick={closeMenu}
+                            key={item.name}
+                            item={item}
+                        />
+                    ))}
+                </MobileNavMenu>
+            )}
+        </>
+    );
+};
+
 export default () => {
-    const isMobile = useMedia(screenSize.upToMedium);
+    const data = useStaticQuery(topNavItems);
+    const items = dlv(data, ['strapiTopNav', 'items'], []);
+    const isMobile = useMedia(MOBILE_NAV_BREAK);
     return (
         <GlobalNav>
             <NavContent>
                 <HomeLink aria-label="Home" to="/">
-                    {isMobile ? (
-                        <DevLeafMobile width={size.xxlarge} />
-                    ) : (
-                        <DevLeafDesktop />
-                    )}
+                    <LeafLogo />
                 </HomeLink>
-                <NavLink to="/learn">Learn</NavLink>
-                <NavLink href="https://developer.mongodb.com/community/forums/">
-                    Community
-                </NavLink>
+                {isMobile ? (
+                    <MobileItems items={items} />
+                ) : (
+                    items.map(item => <NavItem item={item} />)
+                )}
             </NavContent>
         </GlobalNav>
     );

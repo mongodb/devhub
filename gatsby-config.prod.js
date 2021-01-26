@@ -19,7 +19,7 @@ module.exports = {
             options: {
                 apiURL: process.env.STRAPI_URL,
                 contentTypes: ['projects'],
-                singleTypes: ['student-spotlight-featured'],
+                singleTypes: ['student-spotlight-featured', 'top-nav'],
             },
         },
         {
