@@ -65,6 +65,7 @@ const navTopItemStyling = css`
 
 const NavListHeader = styled('div')`
     ${navTopItemStyling};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     display: flex;
     position: relative;
     justify-content: space-between;
@@ -139,18 +140,19 @@ const SubItemDescriptionText = styled(P3)`
     }
 `;
 
+const SubItemText = styled(P)`
+    color: ${({ theme }) => theme.colorMap.devWhite};
+    margin-bottom: 4px;
+`;
+
 const SubItemLink = styled(Link)`
     ${navTopItemStyling};
     &:hover {
         color: ${({ theme }) => theme.colorMap.devWhite};
-        ${SubItemDescriptionText} {
+        ${SubItemText}, ${SubItemDescriptionText} {
             color: ${({ theme }) => theme.colorMap.devWhite};
         }
     }
-`;
-
-const SubItemText = styled(P)`
-    margin-bottom: 4px;
 `;
 
 export const MobileNavItem = ({ item, onLinkClick }) => {

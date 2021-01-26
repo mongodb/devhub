@@ -46,7 +46,7 @@ const MobileNavMenu = styled('div')`
 
 const NavContent = styled('div')`
     align-items: center;
-    color: ${({ theme }) => theme.colorMap.greyLightOne};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
