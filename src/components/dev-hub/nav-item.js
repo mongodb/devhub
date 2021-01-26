@@ -82,9 +82,6 @@ const NavListHeader = styled('div')`
         padding: ${size.mediumLarge} ${size.default};
         box-shadow: 0px 1px 0px ${({ theme }) => theme.colorMap.greyDarkTwo};
     }
-    &:visited {
-        color: ${({ theme }) => theme.colorMap.devWhite};
-    }
 `;
 
 const NavLink = NavListHeader.withComponent(Link);
@@ -144,6 +141,7 @@ const SubItemDescriptionText = styled(P3)`
 `;
 
 const SubItemText = styled(P)`
+    color: ${({ theme }) => theme.colorMap.devWhite};
     margin-bottom: 4px;
 `;
 
@@ -151,7 +149,7 @@ const SubItemLink = styled(Link)`
     ${navTopItemStyling};
     &:hover {
         color: ${({ theme }) => theme.colorMap.devWhite};
-        ${SubItemText} ${SubItemDescriptionText} {
+        ${SubItemText}, ${SubItemDescriptionText} {
             color: ${({ theme }) => theme.colorMap.devWhite};
         }
     }
