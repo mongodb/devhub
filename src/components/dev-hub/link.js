@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { Link as RouterLink } from 'gatsby';
 import { animationSpeed, fontSize } from './theme';
 
-
 // Takes an event handler, and wraps it to call preventDefault.
 // If the handler is falsey, it is returned unchanged.
 export const wrapPreventDefault = (handler, href) => {
@@ -50,20 +49,21 @@ const tertiaryLinkStyling = theme => css`
 `;
 
 const linkStyling = theme => css`
-    color: #fff;
+    color: ${theme.colorMap.devWhite};
     font-size: inherit;
     text-decoration: underline;
     &:visited {
-        color: #fff;
+        color: ${theme.colorMap.devWhite};
     }
     &:hover {
         color: ${theme.colorMap.darkGreen};
     }
 `;
 
-const StyledLink = styled('a')` 
-    ${({tertiary, theme}) => tertiary ? tertiaryLinkStyling(theme) : linkStyling(theme) }
-`
+const StyledLink = styled('a')`
+    ${({ tertiary, theme }) =>
+        tertiary ? tertiaryLinkStyling(theme) : linkStyling(theme)}
+`;
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children
@@ -76,7 +76,7 @@ const StyledLink = styled('a')`
 const Link = ({ href, onClick, target, tertiary, to, ...rest }) => {
     if (to) {
         const AsInternalLink = StyledLink.withComponent(RouterLink);
-        const absoluteLink = to.startsWith('/') ? to : `/${to}`
+        const absoluteLink = to.startsWith('/') ? to : `/${to}`;
         return (
             <AsInternalLink
                 onClick={onClick}

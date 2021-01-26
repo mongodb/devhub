@@ -162,7 +162,7 @@ const Article = props => {
     );
 
     return (
-        <Layout>
+        <Layout includeCanonical={false}>
             <SEO
                 articleTitle={articleTitle}
                 canonicalUrl={canonicalUrl}

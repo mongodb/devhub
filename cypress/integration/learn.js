@@ -1,15 +1,16 @@
-const SECOND_ARTICLE_IN_ORDERING =
-    '/article/build-newsletter-website-mongodb-data-platform';
+const CANONICAL_URL = 'https://developer.mongodb.com/learn/';
 const FIRST_ARTICLE_IN_ORDERING = '/how-to/transactions-c-dotnet';
 const FIRST_ARTICLE_UPDATED_DATE = 'Oct 03, 2020';
 const FIRST_ARTICLE_PUBLISHED_DATE = 'Oct 17, 2018';
-const SECOND_ARTICLE_PUBLISHED_DATE = 'Apr 21, 2020';
 
 describe('Learn Page', () => {
     it('should properly render the learn page', () => {
         cy.visitWithoutFetch('/learn/');
         // Make sure something renders on the page
         cy.contains('Make better, faster applications');
+    });
+    it('should have a proper canonical url', () => {
+        cy.checkCanonicalUrlValue(CANONICAL_URL);
     });
     it('should properly render some featured articles', () => {
         // Check main featured article
