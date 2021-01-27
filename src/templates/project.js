@@ -2,7 +2,7 @@ import React from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import DocumentBody from '~components/DocumentBody';
-import { Authors } from '~components/pages/project';
+import { Students } from '~components/pages/project';
 import ArticleShareFooter from '~components/dev-hub/article-share-footer';
 import Layout from '~components/dev-hub/layout';
 import { screenSize, size } from '~components/dev-hub/theme';
@@ -58,7 +58,7 @@ const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
 `;
 
 const Project = props => {
-    const { content, image, name, slug } = props.pageContext;
+    const { content, image, name, slug, students } = props.pageContext;
     const childNodes = getContent(dlv(content, 'children', []));
     const { siteUrl } = useSiteMetadata();
     const articleUrl = `${siteUrl}${props.pageContext.slug}`;
@@ -82,7 +82,7 @@ const Project = props => {
                     />
                 </ArticleContent>
                 <InfoSidebar>
-                    <Authors />
+                    <Students students={students} />
                 </InfoSidebar>
             </Container>
             <TopPaddedShareProjectCTA />

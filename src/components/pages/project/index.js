@@ -1,3 +1,3 @@
-import Authors from './authors';
+import Students from './students';
 
-export { Authors };
+export { Students };
