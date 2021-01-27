@@ -4,6 +4,7 @@ import { useTheme } from 'emotion-theming';
 import ArrowheadIcon from '~components/dev-hub/icons/arrowhead-icon';
 import GithubIcon from '~components/dev-hub/icons/github';
 import LinkedinIcon from '~components/dev-hub/icons/linkedin';
+import YoutubeIcon from '~components/dev-hub/icons/youtube';
 import AuthorImage from '~components/dev-hub/author-image';
 import { P3 } from '~components/dev-hub/text';
 import Link from '~components/Link';
@@ -13,11 +14,13 @@ const StudentToggle = styled('div')`
     grid-template-columns: 32px 1fr 16px;
     grid-template-rows: 56px;
     column-gap: 16px;
+    cursor: pointer;
     align-items: center;
     width: 100%;
 `;
 const InvisibleLink = styled(Link)`
     text-decoration: none;
+    margin-bottom: 10px;
 `;
 const StudentLi = styled('li')`
     border-bottom: 1px solid ${({ theme }) => theme.colorMap.greyDarkThree};
@@ -40,13 +43,27 @@ const LinkContainer = styled('div')`
     grid-template-columns: 16px 1fr;
     column-gap: 8px;
     align-items: center;
+    padding-bottom: 10px;
 `;
 const LinkText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `;
 const StudentInfo = styled('div')`
-    padding-bottom: 16px;
+    padding-bottom: 6px;
 `;
+
+const SocialMediaEntry = ({ Icon, url }) =>
+    url ? (
+        <InvisibleLink to={url}>
+            <LinkContainer>
+                {Icon}
+                <LinkText collapse>{url}</LinkText>
+            </LinkContainer>
+        </InvisibleLink>
+    ) : null;
 
 const Student = ({ student }) => {
     const theme = useTheme();
@@ -69,31 +86,34 @@ const Student = ({ student }) => {
             </StudentToggle>
             {isOpen && (
                 <StudentInfo>
-                    <StudentBio>{student.bio || 'test'}</StudentBio>
-                    {student.github_url && (
-                        <InvisibleLink to={student.github_url}>
-                            <LinkContainer>
-                                <GithubIcon />
-                                <LinkText>{student.github_url}</LinkText>
-                            </LinkContainer>
-                        </InvisibleLink>
-                    )}
-                    {student.linkedin_url && (
-                        <InvisibleLink>
-                            <LinkContainer>
-                                <LinkedinIcon
-                                    color={theme.colorMap.darkGreen}
-                                    width="16"
-                                />
-                                <LinkText collapse>
-                                    {student.linkedin_url}
-                                </LinkText>
-                            </LinkContainer>
-                        </InvisibleLink>
-                    )}
-                    {student.youtube_url && (
-                        <InvisibleLink>{student.youtube_url}</InvisibleLink>
-                    )}
+                    <StudentBio>{student.bio}</StudentBio>
+                    <SocialMediaEntry
+                        Icon={
+                            <GithubIcon
+                                color={theme.colorMap.darkGreen}
+                                width="16"
+                            />
+                        }
+                        url={student.github_url}
+                    />
+                    <SocialMediaEntry
+                        Icon={
+                            <LinkedinIcon
+                                color={theme.colorMap.darkGreen}
+                                width="16"
+                            />
+                        }
+                        url={student.linkedin_url}
+                    />
+                    <SocialMediaEntry
+                        Icon={
+                            <YoutubeIcon
+                                color={theme.colorMap.darkGreen}
+                                width="16"
+                            />
+                        }
+                        url={student.youtube_url}
+                    />
                 </StudentInfo>
             )}
         </StudentLi>
