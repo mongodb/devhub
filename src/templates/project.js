@@ -9,6 +9,7 @@ import { findSectionHeadings } from '~utils/find-section-headings';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import ShareMenu from '~components/dev-hub/share-menu';
 import ContentsMenu from '~components/dev-hub/contents-menu';
+import ProjectTitleArea from '~components/dev-hub/project-title-area';
 import {
     GithubStudentPack,
     ShareProjectCTA,
@@ -71,7 +72,7 @@ const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
 `;
 
 const Project = props => {
-    const { content, name, slug } = props.pageContext;
+    const { content, image, name, slug } = props.pageContext;
     const childNodes = getContent(dlv(content, 'children', []));
     const { siteUrl } = useSiteMetadata();
     const articleUrl = `${siteUrl}${props.pageContext.slug}`;
@@ -85,6 +86,10 @@ const Project = props => {
     );
     return (
         <Layout>
+            <ProjectTitleArea
+                images={[{ src: image.url, caption: name }]}
+                title={name}
+            />
             <Container>
                 <Icons>
                     <ContentsMenu
