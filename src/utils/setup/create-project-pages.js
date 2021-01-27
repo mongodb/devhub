@@ -1,13 +1,17 @@
 import path from 'path';
+import { transformProjectStrapiData } from '../transform-project-strapi-data';
 import { buildTimeProjects } from '../../queries/projects';
 import { parseMarkdownToAST } from './parse-markdown-to-ast';
 
 const createPageForProject = async (project, createPage) => {
+    const updatedProject = transformProjectStrapiData(project);
     const {
-        info: { contents, name, slug, ...otherInfo },
+        contents,
+        slug,
+        name,
         updatedAt: updated_at,
         ...rest
-    } = project;
+    } = updatedProject;
     const parsedContent = await parseMarkdownToAST(contents);
     createPage({
         path: slug,
@@ -17,7 +21,6 @@ const createPageForProject = async (project, createPage) => {
             content: parsedContent,
             name,
             updated_at,
-            ...otherInfo,
             ...rest,
         },
     });
