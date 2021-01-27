@@ -1,3 +1,15 @@
+const COLUMN_WIDTH = 78;
+const GUTTER_WIDTH = 24;
+
+const grid = {
+    columnWidth: COLUMN_WIDTH,
+    gutterWidth: GUTTER_WIDTH,
+    sideMargin: 120,
+    numCols: 12,
+    getWidthFromColSpan(colSpan) {
+        return `${colSpan * COLUMN_WIDTH + (colSpan - 1) * GUTTER_WIDTH}px`;
+    },
+};
 /**
  * @type {Object.<string, string>}
  * @property {string} fontsize returns px value
@@ -223,6 +235,7 @@ export {
     fontSize,
     FORM_ELEMENT_BORDER,
     gradientMap,
+    grid,
     HERO_CONTENT_WIDTH,
     layer,
     lineHeight,
