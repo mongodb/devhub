@@ -15,7 +15,6 @@ const StudentToggle = styled(Button)`
     grid-template-columns: 32px 1fr 16px;
     grid-template-rows: 56px;
     column-gap: 16px;
-    cursor: pointer;
     align-items: center;
     width: 100%;
     padding: 0;
