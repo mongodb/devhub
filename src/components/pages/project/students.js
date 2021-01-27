@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
 import Button from '~components/dev-hub/button';
@@ -90,6 +90,7 @@ const SocialMediaEntries = ({ student }) => (
 const Student = ({ student }) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+    const arrowDirection = useMemo(() => (isOpen ? 'up' : 'right'), [isOpen]);
     return (
         <StudentLi>
             <StudentToggle onClick={toggleIsOpen}>
@@ -102,7 +103,7 @@ const Student = ({ student }) => {
                     key={student.name}
                 />
                 <StudentName collapse>{student.name}</StudentName>
-                <ArrowheadIcon size={ICON_SIZE} />
+                <ArrowheadIcon direction={arrowDirection} size={ICON_SIZE} />
             </StudentToggle>
             {isOpen && (
                 <div>
