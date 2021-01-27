@@ -1,14 +1,18 @@
 import React from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
-import DocumentBody from '../components/DocumentBody';
-import ArticleShareFooter from '../components/dev-hub/article-share-footer';
-import Layout from '../components/dev-hub/layout';
-import { screenSize, size } from '../components/dev-hub/theme';
-import { findSectionHeadings } from '../utils/find-section-headings';
-import { useSiteMetadata } from '../hooks/use-site-metadata';
-import ShareMenu from '../components/dev-hub/share-menu';
-import ContentsMenu from '../components/dev-hub/contents-menu';
+import DocumentBody from '~components/DocumentBody';
+import ArticleShareFooter from '~components/dev-hub/article-share-footer';
+import Layout from '~components/dev-hub/layout';
+import { screenSize, size } from '~components/dev-hub/theme';
+import { findSectionHeadings } from '~utils/find-section-headings';
+import { useSiteMetadata } from '~hooks/use-site-metadata';
+import ShareMenu from '~components/dev-hub/share-menu';
+import ContentsMenu from '~components/dev-hub/contents-menu';
+import {
+    GithubStudentPack,
+    ShareProjectCTA,
+} from '~components/dev-hub/student-spotlight';
 
 /**
  * search the ast for the few directives we need to display content
@@ -61,6 +65,11 @@ const Container = styled('div')`
     }
 `;
 
+const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
+    padding-top: ${size.xlarge};
+    padding-bottom: 88px;
+`;
+
 const Project = props => {
     const { content, name, slug } = props.pageContext;
     const childNodes = getContent(dlv(content, 'children', []));
@@ -104,6 +113,8 @@ const Project = props => {
                     />
                 </ArticleContent>
             </Container>
+            <TopPaddedShareProjectCTA />
+            <GithubStudentPack />
         </Layout>
     );
 };
