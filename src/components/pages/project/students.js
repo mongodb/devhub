@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
+import Button from '~components/dev-hub/button';
 import ArrowheadIcon from '~components/dev-hub/icons/arrowhead-icon';
 import GithubIcon from '~components/dev-hub/icons/github';
 import LinkedinIcon from '~components/dev-hub/icons/linkedin';
@@ -9,7 +10,7 @@ import AuthorImage from '~components/dev-hub/author-image';
 import { P3 } from '~components/dev-hub/text';
 import Link from '~components/Link';
 
-const StudentToggle = styled('div')`
+const StudentToggle = styled(Button)`
     display: grid;
     grid-template-columns: 32px 1fr 16px;
     grid-template-rows: 56px;
@@ -17,6 +18,10 @@ const StudentToggle = styled('div')`
     cursor: pointer;
     align-items: center;
     width: 100%;
+    padding: 0;
+    text-decoration: none;
+    font-family: inherit;
+    text-align: left;
 `;
 const InvisibleLink = styled(Link)`
     text-decoration: none;
@@ -71,7 +76,6 @@ const Student = ({ student }) => {
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
     return (
         <StudentLi>
-            {/* Button? */}
             <StudentToggle onClick={toggleIsOpen}>
                 <AuthorImage
                     gradientOffset={4}
