@@ -1,8 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
+import { useTheme } from 'emotion-theming';
 import ArrowheadIcon from '~components/dev-hub/icons/arrowhead-icon';
+import GithubIcon from '~components/dev-hub/icons/github';
+import LinkedinIcon from '~components/dev-hub/icons/linkedin';
 import AuthorImage from '~components/dev-hub/author-image';
-import { P } from '~components/dev-hub/text';
+import { P3 } from '~components/dev-hub/text';
 import Link from '~components/Link';
 
 const StudentToggle = styled('div')`
@@ -13,8 +16,9 @@ const StudentToggle = styled('div')`
     align-items: center;
     width: 100%;
 `;
-const GithubLink = styled(Link)``;
-const LinkedinLink = styled(Link)``;
+const InvisibleLink = styled(Link)`
+    text-decoration: none;
+`;
 const StudentLi = styled('li')`
     border-bottom: 1px solid ${({ theme }) => theme.colorMap.greyDarkThree};
     display: flex;
@@ -25,11 +29,27 @@ const StudentsList = styled('ul')`
     list-style: none;
     padding-left: 0;
 `;
-const StudentName = styled(P)``;
-const StudentBio = styled(P)``;
-const YoutubeLink = styled(Link)``;
+const StudentName = styled(P3)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+const StudentBio = styled(P3)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+const LinkContainer = styled('div')`
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    column-gap: 8px;
+    align-items: center;
+`;
+const LinkText = styled(P3)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+const StudentInfo = styled('div')`
+    padding-bottom: 16px;
+`;
 
 const Student = ({ student }) => {
+    const theme = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
     return (
@@ -45,21 +65,36 @@ const Student = ({ student }) => {
                     key={student.name}
                 />
                 <StudentName collapse>{student.name}</StudentName>
-                <ArrowheadIcon />
+                <ArrowheadIcon size="16" />
             </StudentToggle>
             {isOpen && (
-                <div>
+                <StudentInfo>
                     <StudentBio>{student.bio || 'test'}</StudentBio>
                     {student.github_url && (
-                        <GithubLink>{student.github_url}</GithubLink>
+                        <InvisibleLink to={student.github_url}>
+                            <LinkContainer>
+                                <GithubIcon />
+                                <LinkText>{student.github_url}</LinkText>
+                            </LinkContainer>
+                        </InvisibleLink>
                     )}
                     {student.linkedin_url && (
-                        <LinkedinLink>{student.linkedin_url}</LinkedinLink>
+                        <InvisibleLink>
+                            <LinkContainer>
+                                <LinkedinIcon
+                                    color={theme.colorMap.darkGreen}
+                                    width="16"
+                                />
+                                <LinkText collapse>
+                                    {student.linkedin_url}
+                                </LinkText>
+                            </LinkContainer>
+                        </InvisibleLink>
                     )}
                     {student.youtube_url && (
-                        <YoutubeLink>{student.youtube_url}</YoutubeLink>
+                        <InvisibleLink>{student.youtube_url}</InvisibleLink>
                     )}
-                </div>
+                </StudentInfo>
             )}
         </StudentLi>
     );
