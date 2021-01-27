@@ -48,7 +48,7 @@ const Container = styled('div')`
     }
 `;
 
-const AuthorsInGrid = styled(Authors)`
+const InfoSidebar = styled('div')`
     grid-column: 8 / 11;
 `;
 
@@ -81,7 +81,9 @@ const Project = props => {
                         tags={[]}
                     />
                 </ArticleContent>
-                <AuthorsInGrid />
+                <InfoSidebar>
+                    <Authors />
+                </InfoSidebar>
             </Container>
             <TopPaddedShareProjectCTA />
             <GithubStudentPack />
