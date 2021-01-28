@@ -1,25 +1,17 @@
 import React from 'react';
 import dlv from 'dlv';
-import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import DocumentBody from '~components/DocumentBody';
 import { Students } from '~components/pages/project';
 import ArticleShareFooter from '~components/dev-hub/article-share-footer';
 import Layout from '~components/dev-hub/layout';
-import { screenSize, size } from '~components/dev-hub/theme';
+import { grid, screenSize, size } from '~components/dev-hub/theme';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import ProjectTitleArea from '~components/dev-hub/project-title-area';
 import {
     GithubStudentPack,
     ShareProjectCTA,
 } from '~components/dev-hub/student-spotlight';
-
-const grid = css`
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    column-gap: 24px;
-    margin: 0 ${size.xxlarge};
-`;
 
 /**
  * search the ast for the few directives we need to display content
