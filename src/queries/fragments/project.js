@@ -99,6 +99,8 @@ export const featuredEntryPageProjects = graphql`
 export const projectFragment = graphql`
     fragment ProjectFragment on StrapiProjects {
         name
+        github_url
+        project_link
         students {
             name
             bio {

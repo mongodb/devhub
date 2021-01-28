@@ -7,7 +7,7 @@ import GithubIcon from '~components/dev-hub/icons/github';
 import LinkedinIcon from '~components/dev-hub/icons/linkedin';
 import YoutubeIcon from '~components/dev-hub/icons/youtube';
 import AuthorImage from '~components/dev-hub/author-image';
-import { P3 } from '~components/dev-hub/text';
+import { P3, H5 } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
 import Link from '~components/Link';
 
@@ -45,6 +45,7 @@ const StudentLi = styled('li')`
 `;
 const StudentsList = styled('ul')`
     list-style: none;
+    margin: 0;
     padding-left: 0;
 `;
 const StudentName = styled(P3)`
@@ -116,11 +117,14 @@ const Student = ({ student }) => {
 };
 
 const Students = ({ students, ...props }) => (
-    <StudentsList {...props}>
-        {students.map(student => (
-            <Student key={student.name} student={student} />
-        ))}
-    </StudentsList>
+    <div>
+        <H5>Created By</H5>
+        <StudentsList {...props}>
+            {students.map(student => (
+                <Student key={student.name} student={student} />
+            ))}
+        </StudentsList>
+    </div>
 );
 
 export default Students;

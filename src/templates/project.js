@@ -2,7 +2,7 @@ import React from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import DocumentBody from '~components/DocumentBody';
-import { AdditionalProjects, Students } from '~components/pages/project';
+import { AdditionalProjects, SidebarContent } from '~components/pages/project';
 import ArticleShareFooter from '~components/dev-hub/article-share-footer';
 import Layout from '~components/dev-hub/layout';
 import { grid, screenSize, size } from '~components/dev-hub/theme';
@@ -52,7 +52,16 @@ const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
 `;
 
 const Project = props => {
-    const { content, image, name, slug, students } = props.pageContext;
+    const {
+        content,
+        github_url,
+        image,
+        name,
+        project_link,
+        slug,
+        students,
+        tags,
+    } = props.pageContext;
     const childNodes = getContent(dlv(content, 'children', []));
     const { siteUrl } = useSiteMetadata();
     const articleUrl = `${siteUrl}${props.pageContext.slug}`;
@@ -76,7 +85,12 @@ const Project = props => {
                     />
                 </ArticleContent>
                 <InfoSidebar>
-                    <Students students={students} />
+                    <SidebarContent
+                        github_url={github_url}
+                        project_link={project_link}
+                        students={students}
+                        tags={tags}
+                    />
                 </InfoSidebar>
             </Container>
             <AdditionalProjects excludedProjectName={name} />
