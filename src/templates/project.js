@@ -8,6 +8,7 @@ import Layout from '~components/dev-hub/layout';
 import { grid, screenSize, size } from '~components/dev-hub/theme';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import ProjectTitleArea from '~components/dev-hub/project-title-area';
+import SEO from '~components/dev-hub/SEO';
 import {
     GithubStudentPack,
     ShareProjectCTA,
@@ -67,6 +68,7 @@ const Project = props => {
     const articleUrl = `${siteUrl}${props.pageContext.slug}`;
     return (
         <Layout>
+            <SEO articleTitle={name} />
             <ProjectTitleArea
                 images={[{ src: image.url, caption: name }]}
                 title={name}
