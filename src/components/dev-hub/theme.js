@@ -1,3 +1,5 @@
+import { css } from '@emotion/core';
+
 /**
  * @type {Object.<string, string>}
  * @property {string} fontsize returns px value
@@ -52,6 +54,19 @@ const size = {
         return parseInt(unit, 10);
     },
 };
+const gridLayout = {
+    columnGap: '24px',
+    numCols: 12,
+    sideMargin: size.xxlarge,
+};
+
+const grid = css`
+    display: grid;
+    grid-template-columns: repeat(${gridLayout.numCols}, 1fr);
+    column-gap: ${gridLayout.columnGap};
+    margin: 0 ${gridLayout.sideMargin};
+`;
+
 const colorMap = {
     darkGreen: '#13AA52',
     devBlack: '#0C1C27',
@@ -223,6 +238,7 @@ export {
     fontSize,
     FORM_ELEMENT_BORDER,
     gradientMap,
+    grid,
     HERO_CONTENT_WIDTH,
     layer,
     lineHeight,

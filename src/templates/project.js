@@ -2,13 +2,11 @@ import React from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import DocumentBody from '~components/DocumentBody';
+import { Students } from '~components/pages/project';
 import ArticleShareFooter from '~components/dev-hub/article-share-footer';
 import Layout from '~components/dev-hub/layout';
-import { screenSize, size } from '~components/dev-hub/theme';
-import { findSectionHeadings } from '~utils/find-section-headings';
+import { grid, screenSize, size } from '~components/dev-hub/theme';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
-import ShareMenu from '~components/dev-hub/share-menu';
-import ContentsMenu from '~components/dev-hub/contents-menu';
 import ProjectTitleArea from '~components/dev-hub/project-title-area';
 import {
     GithubStudentPack,
@@ -32,38 +30,20 @@ const getContent = nodes => {
 };
 
 const ArticleContent = styled('article')`
-    max-width: ${size.maxContentWidth};
+    grid-column: 2 / 8;
     padding-left: ${size.small};
     padding-right: ${size.small};
     @media ${screenSize.upToLarge} {
         margin: 0 auto;
     }
 `;
-const Icons = styled('div')`
-    margin: ${size.tiny} ${size.default};
-    span {
-        padding: 0 ${size.tiny};
-    }
-    @media ${screenSize.largeAndUp} {
-        display: flex;
-        flex-direction: column;
-        span:not(:first-of-type) {
-            margin-top: ${size.small};
-        }
-    }
-    @media ${screenSize.upToLarge} {
-        margin: 0 ${size.small};
-        span:not(:first-of-type) {
-            margin-left: ${size.small};
-        }
-    }
-`;
 const Container = styled('div')`
-    margin: 0 auto;
-    @media ${screenSize.largeAndUp} {
-        display: flex;
-        justify-content: center;
-    }
+    ${grid};
+    justify-content: center;
+`;
+
+const InfoSidebar = styled('div')`
+    grid-column: 9 / 12;
 `;
 
 const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
@@ -72,18 +52,10 @@ const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
 `;
 
 const Project = props => {
-    const { content, image, name, slug } = props.pageContext;
+    const { content, image, name, slug, students } = props.pageContext;
     const childNodes = getContent(dlv(content, 'children', []));
     const { siteUrl } = useSiteMetadata();
     const articleUrl = `${siteUrl}${props.pageContext.slug}`;
-
-    const headingNodes = findSectionHeadings(
-        childNodes,
-        'type',
-        'heading',
-        1,
-        -1
-    );
     return (
         <Layout>
             <ProjectTitleArea
@@ -91,20 +63,6 @@ const Project = props => {
                 title={name}
             />
             <Container>
-                <Icons>
-                    <ContentsMenu
-                        title="Contents"
-                        headingNodes={headingNodes}
-                        height={size.default}
-                        width={size.default}
-                    />
-                    <ShareMenu
-                        title={name}
-                        url={articleUrl}
-                        height={size.default}
-                        width={size.default}
-                    />
-                </Icons>
                 <ArticleContent>
                     <DocumentBody
                         pageNodes={childNodes}
@@ -117,7 +75,11 @@ const Project = props => {
                         tags={[]}
                     />
                 </ArticleContent>
+                <InfoSidebar>
+                    <Students students={students} />
+                </InfoSidebar>
             </Container>
+
             <TopPaddedShareProjectCTA />
             <GithubStudentPack />
         </Layout>
