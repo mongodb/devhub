@@ -1,5 +1,6 @@
 import React from 'react';
 import dlv from 'dlv';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import DocumentBody from '~components/DocumentBody';
 import { Students } from '~components/pages/project';
@@ -12,6 +13,13 @@ import {
     GithubStudentPack,
     ShareProjectCTA,
 } from '~components/dev-hub/student-spotlight';
+
+const grid = css`
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 24px;
+    margin: 0 ${size.xxlarge};
+`;
 
 /**
  * search the ast for the few directives we need to display content
@@ -30,7 +38,7 @@ const getContent = nodes => {
 };
 
 const ArticleContent = styled('article')`
-    grid-column: span 6;
+    grid-column: 2 / 8;
     padding-left: ${size.small};
     padding-right: ${size.small};
     @media ${screenSize.upToLarge} {
@@ -38,18 +46,12 @@ const ArticleContent = styled('article')`
     }
 `;
 const Container = styled('div')`
-    max-width: 996px;
-    margin: 0 auto;
-    @media ${screenSize.largeAndUp} {
-        display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        column-gap: 24px;
-        justify-content: center;
-    }
+    ${grid};
+    justify-content: center;
 `;
 
 const InfoSidebar = styled('div')`
-    grid-column: 8 / 11;
+    grid-column: 9 / 12;
 `;
 
 const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
@@ -85,6 +87,7 @@ const Project = props => {
                     <Students students={students} />
                 </InfoSidebar>
             </Container>
+
             <TopPaddedShareProjectCTA />
             <GithubStudentPack />
         </Layout>
