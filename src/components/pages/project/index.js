@@ -1,5 +1,4 @@
 import AdditionalProjects from './additional-projects';
-import Students from './students';
-import ToolsUsed from './tools-used';
+import SidebarContent from './sidebar-content';
 
-export { AdditionalProjects, Students, ToolsUsed };
+export { AdditionalProjects, SidebarContent };

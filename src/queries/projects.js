@@ -33,12 +33,13 @@ query Projects {
           tags {
             tag
           }
-          name
           slug
           image {
             url
           }
         }
+        name
+        github_url
         project_link
         published_at
         updatedAt
