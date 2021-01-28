@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Link from '~components/Link';
+import { size } from '~components/dev-hub/theme';
 import Students from './students';
 import ToolsUsed from './tools-used';
 
@@ -10,7 +11,7 @@ const BottomBorder = styled('div')`
 `;
 
 const LinksContainer = styled('div')`
-    padding-bottom: 32px;
+    padding-bottom: ${size.large};
 `;
 
 const ProjectLink = styled(Link)`
@@ -18,24 +19,23 @@ const ProjectLink = styled(Link)`
 `;
 
 const ToolsUsedWithPadding = styled(ToolsUsed)`
-    padding-bottom: 32px;
+    padding-bottom: ${size.large};
 `;
+
+const LinkIfExists = ({ label, to }) =>
+    to ? (
+        <ProjectLink tertiary to={to}>
+            {label}
+        </ProjectLink>
+    ) : null;
 
 const Links = ({ github_url, project_link }) => {
     const hasExternalLinks = !!(github_url || project_link);
     if (hasExternalLinks) {
         return (
             <LinksContainer>
-                {github_url && (
-                    <ProjectLink tertiary to={github_url}>
-                        View on GitHub
-                    </ProjectLink>
-                )}
-                {project_link && (
-                    <ProjectLink tertiary to={project_link}>
-                        Live Demo
-                    </ProjectLink>
-                )}
+                <LinkIfExists to={github_url} label="View on GitHub" />
+                <LinkIfExists to={project_link} label="Live Demo" />
             </LinksContainer>
         );
     }
