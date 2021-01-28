@@ -1,3 +1,4 @@
+import AdditionalProjects from './additional-projects';
 import Students from './students';
 
-export { Students };
+export { AdditionalProjects, Students };
