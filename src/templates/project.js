@@ -2,7 +2,7 @@ import React from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import DocumentBody from '~components/DocumentBody';
-import { Students } from '~components/pages/project';
+import { AdditionalProjects, Students } from '~components/pages/project';
 import ArticleShareFooter from '~components/dev-hub/article-share-footer';
 import Layout from '~components/dev-hub/layout';
 import { grid, screenSize, size } from '~components/dev-hub/theme';
@@ -79,7 +79,7 @@ const Project = props => {
                     <Students students={students} />
                 </InfoSidebar>
             </Container>
-
+            <AdditionalProjects />
             <TopPaddedShareProjectCTA />
             <GithubStudentPack />
         </Layout>
