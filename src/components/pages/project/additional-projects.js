@@ -56,7 +56,7 @@ const TitleWithBottomPadding = styled(H4)`
     ${fullLength};
 `;
 
-const AdditionalProjects = ({ excludedProjectName, ...props }) => {
+const AdditionalProjects = ({ excludedProjectName }) => {
     const data = useStaticQuery(allProjects);
     const projects = dlv(data, ['allStrapiProjects', 'nodes'], []);
     const mappedProjects = useMemo(
@@ -70,7 +70,7 @@ const AdditionalProjects = ({ excludedProjectName, ...props }) => {
         [projects, excludedProjectName]
     );
     return (
-        <AdditionalProjectsContainer {...props}>
+        <AdditionalProjectsContainer>
             <GridContainer>
                 <TitleWithBottomPadding collapse>
                     Explore more Student Spotlights

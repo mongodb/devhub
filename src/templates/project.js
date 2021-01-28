@@ -79,10 +79,7 @@ const Project = props => {
                     <Students students={students} />
                 </InfoSidebar>
             </Container>
-            <AdditionalProjects
-                excludedProjectName={name}
-                style={{ gridColumn: 'span 12' }}
-            />
+            <AdditionalProjects excludedProjectName={name} />
             <TopPaddedShareProjectCTA />
             <GithubStudentPack />
         </Layout>
