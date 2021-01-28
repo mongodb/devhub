@@ -78,11 +78,11 @@ const Project = props => {
                 <InfoSidebar>
                     <Students students={students} />
                 </InfoSidebar>
-                <AdditionalProjects
-                    excludedProjectName={name}
-                    style={{ gridColumn: 'span 12' }}
-                />
             </Container>
+            <AdditionalProjects
+                excludedProjectName={name}
+                style={{ gridColumn: 'span 12' }}
+            />
             <TopPaddedShareProjectCTA />
             <GithubStudentPack />
         </Layout>
