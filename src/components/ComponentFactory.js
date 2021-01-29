@@ -166,7 +166,6 @@ export default class ComponentFactory extends Component {
             console.warn(`${name} (${type}) not yet implemented)`);
             return null;
         }
-
         return <ComponentType {...this.props} />;
     }
 
