@@ -30,8 +30,15 @@ const UnorderedList = styled('ul')`
     }
 `;
 
-const List = ({ nodeData: { children, enumtype, startat }, ...rest }) => {
-    const ListTag = enumtype === 'unordered' ? UnorderedList : 'ol';
+const List = ({
+    nodeData: { children, enumtype, ordered, startat },
+    ...rest
+}) => {
+    const isUnorderedInSnooty = enumtype === 'unordered';
+    // Specifically check === false since Snooty articles would be null
+    const isUnorderedInStrapi = ordered === false;
+    const isUnordered = isUnorderedInSnooty || isUnorderedInStrapi;
+    const ListTag = isUnordered ? UnorderedList : 'ol';
     const attributes = {};
     if (enumtype in enumtypeMap) {
         attributes.type = enumtypeMap[enumtype];
