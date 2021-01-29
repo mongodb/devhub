@@ -63,6 +63,7 @@ const Project = props => {
         students,
         tags,
     } = props.pageContext;
+    console.log(content);
     const childNodes = getContent(dlv(content, 'children', []));
     const { siteUrl } = useSiteMetadata();
     const articleUrl = `${siteUrl}${props.pageContext.slug}`;
