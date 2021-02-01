@@ -15,6 +15,7 @@ query Projects {
         students {
           bio {
             name
+            bio
             image {
               url
             }
