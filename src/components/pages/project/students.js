@@ -53,6 +53,7 @@ const StudentName = styled(P3)`
 `;
 const StudentBio = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    padding-top: 16px;
 `;
 const LinkContainer = styled('div')`
     align-items: center;
