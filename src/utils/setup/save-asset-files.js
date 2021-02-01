@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { RemoteMongoClient } from 'mongodb-stitch-server-sdk';
+import { RemoteMongoClient } from 'mongodb-stitch-server-services-mongodb-remote';
 import { ASSETS_COLLECTION } from '../../build-constants';
 import { getMetadata } from '../get-metadata';
 

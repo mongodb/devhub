@@ -1,18 +1,15 @@
-import { AnonymousCredential, Stitch } from 'mongodb-stitch-browser-sdk';
+import { App, Credentials } from 'realm-web';
 import { isBrowser } from './is-browser';
 
-const initializeApp = appId =>
-    Stitch.hasAppClient(appId)
-        ? Stitch.getAppClient(appId)
-        : Stitch.initializeAppClient(appId);
-
-const stitchClient = appId => (isBrowser() ? initializeApp(appId) : {});
-
 export const authenticate = async appId => {
+    if (!isBrowser()) {
+        return {};
+    }
+    const app = new App({ id: appId });
+    const credentials = Credentials.anonymous();
     try {
-        await stitchClient(appId).auth.loginWithCredential(
-            new AnonymousCredential()
-        );
+        const user = await app.logIn(credentials);
+        return user;
     } catch (error) {
         console.error(error);
     }
@@ -32,8 +29,10 @@ export const authenticate = async appId => {
  */
 export const callStitchFunction = async (fnName, appId, fnArgs) => {
     try {
-        await authenticate(appId);
-        return stitchClient(appId).callFunction(fnName, fnArgs);
+        const appUser = await authenticate(appId);
+        console.log(appUser, fnName);
+        const result = await appUser.functions[fnName](...fnArgs);
+        return result;
     } catch (error) {
         console.error(error);
     }

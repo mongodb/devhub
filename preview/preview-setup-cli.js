@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const { Stitch, AnonymousCredential } = require('mongodb-stitch-browser-sdk');
+const { Stitch, AnonymousCredential } = require('mongodb-stitch-browser-core');
 const {
     validateEnvVariables,
 } = require('../src/utils/setup/validate-env-variables');

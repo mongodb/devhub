@@ -51,8 +51,7 @@ export const NODE_RESULTS = [
     },
 ];
 
-export const mockTextFilterFetch = (_, args) => {
-    const query = args[0];
+export const mockTextFilterFetch = query => {
     switch (query) {
         case 'java':
             return JAVA_RESULTS;

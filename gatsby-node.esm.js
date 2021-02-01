@@ -162,7 +162,7 @@ export const onCreateWebpackConfig = ({ stage, loaders, actions }) => {
             module: {
                 rules: [
                     {
-                        test: /mongodb-stitch-browser-sdk/,
+                        test: /mongodb-stitch-browser-core/,
                         use: loaders.null(),
                     },
                 ],

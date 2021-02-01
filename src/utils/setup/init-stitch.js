@@ -1,4 +1,4 @@
-import { Stitch, AnonymousCredential } from 'mongodb-stitch-server-sdk';
+import { Stitch, AnonymousCredential } from 'mongodb-stitch-server-core';
 import { SNOOTY_STITCH_ID } from '../../build-constants';
 
 export const initStitch = async (id = SNOOTY_STITCH_ID) => {
