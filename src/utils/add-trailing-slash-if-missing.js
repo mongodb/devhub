@@ -10,12 +10,12 @@ export const addTrailingSlashIfMissing = url => {
 export const addTrailingSlashBeforeParams = path => {
     if (path.includes('?')) {
         // Query params
-        const pieces = path.split('?');
-        return addTrailingSlashIfMissing(pieces[0]) + `?${pieces[1]}`;
+        const [slug, suffix] = path.split('?');
+        return addTrailingSlashIfMissing(slug) + `?${suffix}`;
     } else if (path.includes('#')) {
         // Anchor without query params
-        const pieces = path.split('#');
-        return addTrailingSlashIfMissing(pieces[0]) + `#${pieces[1]}`;
+        const [slug, suffix] = path.split('#');
+        return addTrailingSlashIfMissing(slug) + `#${suffix}`;
     }
     return addTrailingSlashIfMissing(path);
 };
