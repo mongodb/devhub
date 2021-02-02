@@ -44,9 +44,10 @@ export const handleCreatePage = async (
 ) => {
     stitchClient = inheritedStitchClient;
     const allArticles = await getAllArticles();
-    const { fallbackTwitchVideo, ...allMedia } = await memoizedBuildTimeMedia();
+
     switch (page.path) {
         case '/learn/':
+            const allMedia = await memoizedBuildTimeMedia();
             await handleCreateLearnPage(
                 page,
                 actions,
@@ -57,6 +58,7 @@ export const handleCreatePage = async (
             );
             break;
         case '/':
+            const { fallbackTwitchVideo } = await memoizedBuildTimeMedia();
             await handleCreateHomePage(
                 page,
                 actions,

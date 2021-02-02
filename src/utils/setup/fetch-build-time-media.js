@@ -13,13 +13,13 @@ export const fetchBuildTimeMedia = async () => {
         client.callFunction('fetchMDBTwitchVideos', [MAX_RESULTS]),
         client.callFunction('fetchLybsinPodcasts', []),
     ]);
-    console.log(twitchVideos);
+    const allTwitchVideos = twitchVideos.data.map(simplifyTwitchResponse);
     return {
         allVideos: [
             youtubeVideos.items.map(simplifyYoutubeResponse),
-            twitchVideos.data.map(simplifyTwitchResponse),
+            allTwitchVideos,
         ].flat(),
         allPodcasts: parsePodcasts(lybsinPodcasts),
-        fallbackTwitchVideo: twitchVideos.data.map(simplifyTwitchResponse)[0],
+        fallbackTwitchVideo: allTwitchVideos[0],
     };
 };
