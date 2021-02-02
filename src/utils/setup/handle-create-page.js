@@ -1,4 +1,5 @@
 import memoizerific from 'memoizerific';
+import { fetchBuildTimeMedia } from './fetch-build-time-media';
 import { removePageIfStaged } from './remove-page-if-staged';
 import { getNestedValue } from '../get-nested-value';
 import { getMetadata } from '../get-metadata';
@@ -29,6 +30,10 @@ const getAllArticles = memoizerific(1)(async () => {
     return filteredDocuments;
 });
 
+const memoizedBuildTimeMedia = memoizerific(1)(
+    async () => await fetchBuildTimeMedia()
+);
+
 export const handleCreatePage = async (
     page,
     actions,
@@ -39,22 +44,27 @@ export const handleCreatePage = async (
 ) => {
     stitchClient = inheritedStitchClient;
     const allArticles = await getAllArticles();
+
     switch (page.path) {
         case '/learn/':
+            const allMedia = await memoizedBuildTimeMedia();
             await handleCreateLearnPage(
                 page,
                 actions,
                 learnFeaturedArticles,
                 excludedLearnPageArticles,
-                allArticles
+                allArticles,
+                allMedia
             );
             break;
         case '/':
+            const { fallbackTwitchVideo } = await memoizedBuildTimeMedia();
             await handleCreateHomePage(
                 page,
                 actions,
                 homeFeaturedArticles,
-                allArticles
+                allArticles,
+                fallbackTwitchVideo
             );
             break;
         default:
