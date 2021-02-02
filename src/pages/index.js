@@ -19,14 +19,15 @@ const BackgroundImage = styled('div')`
     background-size: cover;
 `;
 
-const Index = ({ pageContext: { featuredItems } }) => {
+const Index = ({ pageContext: { featuredItems, fallbackTwitchVideo } }) => {
     const { stream, videos } = useTwitchApi();
     const { title } = useSiteMetadata();
     const twitchVideo = useMemo(() => {
         if (stream) return stream;
         if (videos && videos.length) return videos[0];
-        return null;
-    }, [stream, videos]);
+        console.log(fallbackTwitchVideo);
+        return fallbackTwitchVideo;
+    }, [stream, videos, fallbackTwitchVideo]);
     return (
         <Layout>
             <Helmet>
