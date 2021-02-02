@@ -48,6 +48,7 @@
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-emotion": "^4.3.10",
     "gatsby-plugin-feed": "^2.5.11",
+    "gatsby-plugin-force-trailing-slashes": "^1.0.5",
     "gatsby-plugin-google-tagmanager": "^2.3.11",
     "gatsby-plugin-meta-redirect": "^1.1.1",
     "gatsby-plugin-react-helmet": "^3.3.10",

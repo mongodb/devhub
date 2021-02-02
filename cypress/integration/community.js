@@ -1,7 +1,7 @@
 describe('Community Page', () => {
     it('should have some events', () => {
         cy.mockEventsApi();
-        cy.visitWithoutFetch('/community');
+        cy.visitWithoutFetch('/community/');
         cy.wait(['@getEvents', '@getLiveEvents']);
         cy.get('[data-test="event"]').should('have.length', 2);
     });

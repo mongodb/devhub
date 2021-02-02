@@ -10,7 +10,7 @@ describe('Home Page', () => {
         cy.get(FEATURED_ARTICLES).within(() => {
             cy.contains('Learn MongoDB')
                 .should('have.prop', 'href')
-                .should('include', '/learn');
+                .should('include', '/learn/');
         });
     });
     it('should properly render some featured articles', () => {
@@ -59,7 +59,7 @@ describe('Home Page', () => {
         cy.get('[data-test="events"]').within(() => {
             cy.get('a')
                 .should('have.prop', 'href')
-                .should('contain', '/community/events');
+                .should('contain', '/community/events/');
         });
     });
     it('should have relevant SEO tags', () => {
