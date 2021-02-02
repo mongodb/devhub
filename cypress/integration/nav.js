@@ -50,14 +50,14 @@ describe('Nav', () => {
         cy.viewport('iphone-5');
         cy.get('nav').within(() => {
             // Nav items should not be visible until the menu is opened
-            cy.contains('Learn').should('not.be.visible');
-            cy.contains(DIRECT_LINK_NAME).should('not.be.visible');
+            cy.contains('Learn').should('not.exist');
+            cy.contains(DIRECT_LINK_NAME).should('not.exist');
         });
         cy.get('[data-test="mobile-nav-toggle"]').click();
         cy.get('nav').within(() => {
             // Check it has the two types of elements we will test
             // One dropdown and one direct link
-            cy.contains(DIRECT_LINK_NAME).should('be.visible');
+            cy.contains(DIRECT_LINK_NAME).should('exist');
             checkFirstDropdown();
             // Close dropdown on mobile and be sure it closes properly
             cy.contains('Learn').click();
