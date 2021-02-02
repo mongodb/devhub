@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const { Stitch, AnonymousCredential } = require('mongodb-stitch-browser-core');
+const { App, Credentials } = require('realm-web');
 const {
     validateEnvVariables,
 } = require('../src/utils/setup/validate-env-variables');
@@ -24,21 +24,20 @@ const GUIDES_METADATA = {};
 const RESOLVED_REF_DOC_MAPPING = {};
 
 // stich client connection
-let stitchClient;
+let appUser;
 
 const setupStitch = () => {
-    return new Promise(resolve => {
-        stitchClient = Stitch.hasAppClient(SNOOTY_STITCH_ID)
-            ? Stitch.getAppClient(SNOOTY_STITCH_ID)
-            : Stitch.initializeAppClient(SNOOTY_STITCH_ID);
-        stitchClient.auth
-            .loginWithCredential(new AnonymousCredential())
-            .then(() => {
-                console.log('logged into stitch');
-                resolve();
-            })
-            .catch(console.error);
-    });
+    if (!isBrowser()) {
+        return {};
+    }
+    const app = new App({ id: SNOOTY_STITCH_ID });
+    const credentials = Credentials.anonymous();
+    try {
+        const user = await app.logIn(credentials);
+        return user;
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 // For each include node found in a page, set its 'children' property to be the array of include contents
@@ -71,16 +70,12 @@ const sourceNodes = async () => {
     }
 
     // wait to connect to stitch
-    await setupStitch();
+    appUser = await setupStitch();
 
     // start from index document
     const idPrefix = `${process.env.GATSBY_SITE}/${process.env.GATSBY_PARSER_USER}/${process.env.GATSBY_PARSER_BRANCH}`;
     const query = { _id: { $regex: new RegExp(`${idPrefix}/*`) } };
-    const documents = await stitchClient.callFunction('fetchDocuments', [
-        DB,
-        DOCUMENTS_COLLECTION,
-        query,
-    ]);
+    const documents = await appUser.functions.fetchDocuments(DB, DOCUMENTS_COLLECTION, query);
     documents.forEach(doc => {
         const { _id, ...rest } = doc;
         RESOLVED_REF_DOC_MAPPING[_id.replace(`${idPrefix}/`, '')] = rest;
@@ -131,11 +126,7 @@ export const getPageData = async () => {
 // Use checksum from a Figure component to return base64 data of image
 export const getBase64Uri = async checksum => {
     const query = { _id: { $eq: checksum } };
-    const [assetData] = await stitchClient.callFunction('fetchDocuments', [
-        DB,
-        ASSETS_COLLECTION,
-        query,
-    ]);
+    const [assetData] = await appUser.functions.fetchDocuments(DB, ASSETS_COLLECTION, query)
 
     const base64 = assetData.data.buffer.toString('base64');
     const fileFormat = assetData.filename.split('.')[-1];

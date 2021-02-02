@@ -30,7 +30,6 @@ export const authenticate = async appId => {
 export const callStitchFunction = async (fnName, appId, fnArgs) => {
     try {
         const appUser = await authenticate(appId);
-        console.log(appUser, fnName);
         const result = await appUser.functions[fnName](...fnArgs);
         return result;
     } catch (error) {
