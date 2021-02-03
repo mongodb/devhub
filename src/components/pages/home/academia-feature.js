@@ -44,7 +44,7 @@ const AcademiaFeature = () => {
                         experiences to inspire, teach and learn with MongoDB.
                     </DescriptiveText>
                     <div>
-                        <Button to="/academia/educators/" secondary>
+                        <Button to="/academia/" secondary>
                             Learn more
                         </Button>
                     </div>
