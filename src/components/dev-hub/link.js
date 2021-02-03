@@ -2,6 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'gatsby';
+import { addTrailingSlashBeforeParams } from '../../utils/add-trailing-slash-if-missing';
 import { animationSpeed, fontSize } from './theme';
 
 // Takes an event handler, and wraps it to call preventDefault.
@@ -64,6 +65,7 @@ const StyledLink = styled('a')`
     ${({ tertiary, theme }) =>
         tertiary ? tertiaryLinkStyling(theme) : linkStyling(theme)}
 `;
+
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children
@@ -77,10 +79,13 @@ const Link = ({ href, onClick, target, tertiary, to, ...rest }) => {
     if (to) {
         const AsInternalLink = StyledLink.withComponent(RouterLink);
         const absoluteLink = to.startsWith('/') ? to : `/${to}`;
+        const linkWithTrailingSlash = addTrailingSlashBeforeParams(
+            absoluteLink
+        );
         return (
             <AsInternalLink
                 onClick={onClick}
-                to={absoluteLink}
+                to={linkWithTrailingSlash}
                 tertiary={tertiary}
                 {...rest}
             />

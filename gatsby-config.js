@@ -17,6 +17,13 @@ module.exports = {
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
+        'gatsby-plugin-force-trailing-slashes',
+        {
+            resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
+            options: {
+                disable: true,
+            },
+        },
         {
             resolve: `gatsby-source-strapi`,
             options: {

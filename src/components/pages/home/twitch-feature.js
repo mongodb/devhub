@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import MediaBlock from '../../dev-hub/media-block';
-import TwitchFallbackCard from '../../dev-hub/twitch-fallback-card';
 import getTwitchThumbnail from '../../../utils/get-twitch-thumbnail';
 import VideoModal from '../../dev-hub/video-modal';
 import Card from '../../dev-hub/card';
@@ -34,20 +33,16 @@ const TwitchFeature = ({ twitchVideo }) => {
             <MediaBlock
                 mediaWidth={MEDIA_WIDTH}
                 mediaComponent={
-                    twitchVideo ? (
-                        <Card
-                            image={getTwitchThumbnail(twitchVideo.thumbnailUrl)}
-                            maxWidth={MEDIA_WIDTH}
-                            title={twitchVideo.title}
-                            videoModalThumbnail={getTwitchThumbnail(
-                                twitchVideo.thumbnailUrl,
-                                1200
-                            )}
-                            video={twitchVideo}
-                        />
-                    ) : (
-                        <TwitchFallbackCard maxWidth={MEDIA_WIDTH} />
-                    )
+                    <Card
+                        image={getTwitchThumbnail(twitchVideo.thumbnailUrl)}
+                        maxWidth={MEDIA_WIDTH}
+                        title={twitchVideo.title}
+                        videoModalThumbnail={getTwitchThumbnail(
+                            twitchVideo.thumbnailUrl,
+                            1200
+                        )}
+                        video={twitchVideo}
+                    />
                 }
             >
                 <SectionContent>

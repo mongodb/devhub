@@ -7,7 +7,8 @@ export const handleCreateHomePage = async (
     page,
     actions,
     homeFeaturedArticles,
-    allArticles
+    allArticles,
+    fallbackTwitchVideo
 ) => {
     const { createPage, deletePage } = actions;
     const featuredItems = [];
@@ -36,6 +37,7 @@ export const handleCreateHomePage = async (
         context: {
             ...page.context,
             featuredItems,
+            fallbackTwitchVideo,
         },
     });
 };

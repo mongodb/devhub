@@ -1,5 +1,5 @@
 const AUTHOR_NAME = 'Maxime Beugnet';
-const AUTHOR_URL = '/author/maxime-beugnet';
+const AUTHOR_URL = '/author/maxime-beugnet/';
 
 describe('Author Page', () => {
     it('should show an image for the author', () => {
