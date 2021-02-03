@@ -41,7 +41,7 @@ const TopBanner = () => (
         breadcrumb={STUDENT_SPOTLIGHT_BREADCRUMBS}
     >
         <Header>
-            <H2>Share Something You're Proud Of</H2>
+            <H2>Share Something You're Proud&nbsp;Of</H2>
 
             <ShareText>
                 At MongoDB, we believe that everyone should have the opportunity
