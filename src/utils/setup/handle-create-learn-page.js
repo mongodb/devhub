@@ -1,21 +1,16 @@
-import memoizerific from 'memoizerific';
-import { fetchBuildTimeMedia } from './fetch-build-time-media';
 import { findArticlesFromSlugs } from './find-articles-from-slugs';
 import { getLearnPageFilters } from './get-learn-page-filters';
 import { removeExcludedArticles } from './remove-excluded-articles';
 
 const MAX_LEARN_PAGE_FEATURED_ARTICLES = 3;
 
-const memoizedBuildTimeMedia = memoizerific(1)(
-    async () => await fetchBuildTimeMedia()
-);
-
 export const handleCreateLearnPage = async (
     page,
     actions,
     learnFeaturedArticles,
     excludedLearnPageArticles,
-    allArticles
+    allArticles,
+    allMedia
 ) => {
     const { createPage, deletePage } = actions;
     const learnPageArticles = removeExcludedArticles(
@@ -28,7 +23,7 @@ export const handleCreateLearnPage = async (
         learnFeaturedArticles,
         MAX_LEARN_PAGE_FEATURED_ARTICLES
     );
-    const { allPodcasts, allVideos } = await memoizedBuildTimeMedia();
+    const { allPodcasts, allVideos } = allMedia;
     deletePage(page);
     createPage({
         ...page,
