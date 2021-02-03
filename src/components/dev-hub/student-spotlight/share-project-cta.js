@@ -4,7 +4,7 @@ import { H3 } from '../text';
 import Button from '../button';
 import { size } from '../theme';
 
-const FORM_LINK = '/student-spotlight-form/';
+const FORM_LINK = '/academia/students/submit/';
 const MAX_WIDTH = '600px';
 
 const MaxWidthContainer = styled('div')`
