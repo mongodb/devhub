@@ -39,7 +39,6 @@ export const handleCreatePage = async (
     actions,
     inheritedStitchClient,
     homeFeaturedArticles,
-    learnFeaturedArticles,
     excludedLearnPageArticles
 ) => {
     stitchClient = inheritedStitchClient;
@@ -51,7 +50,6 @@ export const handleCreatePage = async (
             await handleCreateLearnPage(
                 page,
                 actions,
-                learnFeaturedArticles,
                 excludedLearnPageArticles,
                 allArticles,
                 allMedia

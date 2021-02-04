@@ -30,9 +30,8 @@ const slugContentMapping = {};
 // stich client connection
 let stitchClient;
 
-// Featured articles for home/learn pages
+// Featured articles for home page
 let homeFeaturedArticles;
-let learnFeaturedArticles;
 
 // Excluded articles from the learn page
 let excludedLearnPageArticles;
@@ -95,7 +94,6 @@ export const onCreateNode = async ({ node }) => {
 const filteredPageGroups = allSeries => {
     // featured articles are in pageGroups but not series, so we remove them
     homeFeaturedArticles = allSeries.home;
-    learnFeaturedArticles = allSeries.learn;
     // also remove a group of excluded articles
     excludedLearnPageArticles = allSeries.learnPageExclude;
     delete allSeries.home;
@@ -189,6 +187,5 @@ export const onCreatePage = async ({ page, actions }) =>
         actions,
         stitchClient,
         homeFeaturedArticles,
-        learnFeaturedArticles,
         excludedLearnPageArticles
     );
