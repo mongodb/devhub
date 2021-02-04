@@ -2,74 +2,17 @@ import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import Layout from '../components/dev-hub/layout';
-import { H2 } from '../components/dev-hub/text';
-import MediaBlock from '../components/dev-hub/media-block';
-import Card from '../components/dev-hub/card';
 import CardList from '../components/dev-hub/card-list';
 import EmptyTextFilterResults from '../components/dev-hub/empty-text-filter-results';
 import FilterBar from '../components/dev-hub/filter-bar';
-import { screenSize, size } from '../components/dev-hub/theme';
+import { size } from '../components/dev-hub/theme';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
-import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
-import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { LearnPageTabs } from '../utils/learn-page-tabs';
 import useAllVideos from '../hooks/use-all-videos';
 import usePodcasts from '../hooks/use-podcasts';
 import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
-
-const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
-const FEATURED_ARTICLE_CARD_WIDTH = '410px';
-
-const MainFeatureGrid = styled('div')`
-    @media ${screenSize.mediumAndUp} {
-        display: grid;
-        grid-template-areas:
-            'primary secondary'
-            'primary tertiary';
-        grid-gap: ${size.medium};
-        margin-top: ${size.large};
-    }
-    @media ${screenSize.largeAndUp} {
-        grid-template-columns: auto ${FEATURED_ARTICLE_CARD_WIDTH};
-    }
-`;
-
-const PrimarySection = styled('div')`
-    grid-area: primary;
-    @media ${screenSize.mediumAndUp} {
-        border-right: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
-        padding-right: ${size.medium};
-    }
-`;
-
-const PrimaryImage = styled('img')`
-    border-radius: ${size.small};
-`;
-
-const SecondArticle = styled(Card)`
-    grid-area: secondary;
-`;
-
-const LastArticle = styled(Card)`
-    grid-area: tertiary;
-`;
-
-const Header = styled('header')`
-    background: ${({ theme }) => theme.colorMap.devBlack};
-    margin-bottom: ${size.xlarge};
-    padding: ${size.xlarge} ${size.medium};
-    @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.large};
-    }
-`;
-
-const HeaderContent = styled('div')`
-    max-width: ${FEATURED_ARTICLE_MAX_WIDTH};
-    margin-left: auto;
-    margin-right: auto;
-`;
 
 const Article = styled('article')`
     padding: ${size.medium};
@@ -81,6 +24,7 @@ const StyledFilterBar = styled(FilterBar)`
 `;
 
 const TabBar = styled(Tab)`
+    padding-top: ${size.large};
     margin: 0 ${size.large};
 `;
 
@@ -126,78 +70,10 @@ const filterArticles = (filter, initialArticles) => {
     }, []);
 };
 
-const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
-    try {
-        const { description, slug, tags, title } = getFeaturedCardFields(
-            article
-        );
-        return (
-            <Wrapper
-                data-test="secondary-featured-article"
-                collapseImage
-                to={slug}
-                title={title}
-                description={description}
-                tags={getTagLinksFromMeta(tags)}
-            />
-        );
-    } catch {
-        return null;
-    }
-};
-
-const FeaturedArticles = ({ articles }) => {
-    if (articles.length < 3) {
-        console.error(
-            `Expected three articles for featured section, got ${
-                articles && articles.length
-            }`
-        );
-        return null;
-    }
-
-    const { description, image, slug, tags, title } = getFeaturedCardFields(
-        articles[0]
-    );
-    return (
-        <MainFeatureGrid data-test="featured-articles">
-            <PrimarySection data-test="primary-featured-article">
-                <MediaBlock
-                    mediaComponent={<PrimaryImage src={image} alt="" />}
-                    mediaWidth={360}
-                >
-                    <Card
-                        collapseImage
-                        maxDescriptionLines={4}
-                        to={slug}
-                        title={title}
-                        description={description}
-                        tags={getTagLinksFromMeta(tags)}
-                    />
-                </MediaBlock>
-            </PrimarySection>
-            <SecondaryFeaturedArticle
-                article={articles[1]}
-                Wrapper={SecondArticle}
-            />
-            <SecondaryFeaturedArticle
-                article={articles[2]}
-                Wrapper={LastArticle}
-            />
-        </MainFeatureGrid>
-    );
-};
-
 export default ({
     location,
     navigate,
-    pageContext: {
-        allArticles,
-        allPodcasts,
-        allVideos,
-        featuredArticles,
-        filters,
-    },
+    pageContext: { allArticles, allPodcasts, allVideos, filters },
 }) => {
     const metadata = useSiteMetadata();
     const initialArticles = useMemo(() => parseArticles(allArticles), [
@@ -325,12 +201,6 @@ export default ({
             <Helmet>
                 <title>Learn - {metadata.title}</title>
             </Helmet>
-            <Header>
-                <HeaderContent>
-                    <H2>Make better, faster applications</H2>
-                    <FeaturedArticles articles={featuredArticles} />
-                </HeaderContent>
-            </Header>
 
             <TabBar
                 // ID used specifically for anchor links
