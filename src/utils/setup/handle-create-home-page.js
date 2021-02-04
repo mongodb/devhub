@@ -1,4 +1,4 @@
-import { findArticleWithSlug } from './find-articles-from-slugs';
+import { findArticleWithSlug } from './find-article-with-slug';
 import { getItemTypeFromUrl } from './get-item-type-from-url';
 
 const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
