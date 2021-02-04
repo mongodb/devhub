@@ -4,27 +4,11 @@ const FIRST_ARTICLE_UPDATED_DATE = 'Oct 03, 2020';
 const FIRST_ARTICLE_PUBLISHED_DATE = 'Oct 17, 2018';
 
 describe('Learn Page', () => {
-    it('should properly render the learn page', () => {
+    it('should properly render the learn page at /learn/', () => {
         cy.visitWithoutFetch('/learn/');
-        // Make sure something renders on the page
-        cy.contains('Make better, faster applications');
     });
     it('should have a proper canonical url', () => {
         cy.checkCanonicalUrlValue(CANONICAL_URL);
-    });
-    it('should properly render some featured articles', () => {
-        // Check main featured article
-        cy.get('[data-test="primary-featured-article"]')
-            .should('have.length', 1)
-            .within(card => {
-                cy.checkArticleCard(card);
-            });
-        cy.get('[data-test="secondary-featured-article"]')
-            .should('have.length', 2)
-            .each(
-                // Should only include title, description, tags, link
-                cy.checkSecondaryFeaturedArticleCard
-            );
     });
     it('should sort using the updated date where appropriate', () => {
         cy.toggleLearnPageTab('Articles');
