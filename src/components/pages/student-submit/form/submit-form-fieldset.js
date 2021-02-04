@@ -2,6 +2,9 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Button from '~components/dev-hub/button';
 import { H5 } from '~components/dev-hub/text';
+import { size } from '~components/dev-hub/theme';
+
+const FIELDSET_MAX_WIDTH = '792px';
 
 const Centered = styled('div')`
     display: flex;
@@ -17,11 +20,11 @@ const H5ChangesOnClose = styled(H5)`
 const Legend = H5ChangesOnClose.withComponent('legend');
 
 const Fieldset = styled('fieldset')`
-    background: #0c1c27;
-    border: 1px solid #21313c;
-    border-radius: 8px;
-    padding: 32px 48px;
-    max-width: 792px;
+    background: ${({ theme }) => theme.colorMap.devBlack};
+    border: 1px solid ${({ theme }) => theme.colorMap.greyDarkThree};
+    border-radius: ${size.xsmall};
+    padding: ${size.large} 48px;
+    max-width: ${FIELDSET_MAX_WIDTH};
     margin: 0 auto;
     :not(:last-of-type) {
         margin-bottom: 24px;
