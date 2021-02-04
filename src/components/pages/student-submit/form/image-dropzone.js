@@ -48,12 +48,15 @@ const ThumbnailsContainer = styled('aside')`
 
 const ThumbnailWrapper = styled('div')`
     border-radius: 10px;
-    margin: 0 8px 8px 0;
+    margin: 0 24px 8px 0;
     width: 96px;
     height: 64px;
     padding: 4px;
     display: inline-flex;
     border: 1px dashed #9fa1a2;
+    :last-of-type {
+        margin-right: 0;
+    }
 `;
 
 const ThumbnailContent = styled('div')`
@@ -70,10 +73,9 @@ const Image = styled('img')`
 
 const Thumbnail = ({ file }) => {
     const isFile = !!file;
-    const key = isFile && file.name;
     const preview = isFile && file.preview;
     return (
-        <ThumbnailWrapper key={key}>
+        <ThumbnailWrapper>
             <ThumbnailContent>
                 {preview ? <Image src={preview} /> : null}
             </ThumbnailContent>
@@ -82,23 +84,25 @@ const Thumbnail = ({ file }) => {
 };
 
 // Adopted from https://react-dropzone.js.org/#section-previews
-const ImageDropzone = () => {
-    const [files, setFiles] = useState([null]);
+const ImageDropzone = ({ maxFiles = 6 }) => {
+    const [files, setFiles] = useState([null, null, null, null, null, null]);
     const { getRootProps, getInputProps } = useDropzone({
         accept: 'image/*',
         onDrop: acceptedFiles => {
-            setFiles(
-                acceptedFiles.map(file =>
+            const newFiles = [
+                ...acceptedFiles.map(file =>
                     Object.assign(file, {
                         preview: URL.createObjectURL(file),
                     })
-                )
-            );
+                ),
+                ...files,
+            ].slice(0, maxFiles);
+            setFiles(newFiles);
         },
     });
 
-    const thumbs = files.map(file => (
-        <Thumbnail file={file} key={file && file.name} />
+    const thumbs = files.map((file, index) => (
+        <Thumbnail file={file} key={file ? file.name : index} />
     ));
 
     useEffect(
@@ -110,7 +114,7 @@ const ImageDropzone = () => {
     );
 
     return (
-        <section className="container">
+        <section>
             <Dropzone {...getRootProps()}>
                 <input {...getInputProps()} />
                 <GreyH5>Drag and drop images (6 max)</GreyH5>
