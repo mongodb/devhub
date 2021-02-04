@@ -203,8 +203,6 @@ export default ({
             </Helmet>
 
             <TabBar
-                // ID used specifically for anchor links
-                id="main"
                 handleClick={updateActiveFilter}
                 leftTabs={leftTabs}
                 rightTabs={rightTabs}
