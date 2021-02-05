@@ -19,6 +19,9 @@ const TOTAL_AUTHOR_IMAGE_SIZE = `${
 }px`;
 const ICON_SIZE = size.stripUnit(size.default);
 
+const StudentName = styled(P3)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
 const StudentToggle = styled(Button)`
     align-items: center;
     column-gap: ${size.default};
@@ -30,6 +33,11 @@ const StudentToggle = styled(Button)`
     text-align: left;
     text-decoration: none;
     width: 100%;
+    &:hover {
+        ${StudentName} {
+            color: ${({ theme }) => theme.colorMap.greyLightOne};
+        }
+    }
 `;
 const InvisibleLink = styled(Link)`
     margin-bottom: 10px;
@@ -48,9 +56,7 @@ const StudentsList = styled('ul')`
     margin: 0;
     padding-left: 0;
 `;
-const StudentName = styled(P3)`
-    color: ${({ theme }) => theme.colorMap.greyLightTwo};
-`;
+
 const StudentBio = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
     padding-top: 16px;
@@ -90,12 +96,18 @@ const SocialMediaEntries = ({ student }) => (
 );
 
 const Student = ({ student }) => {
+    const theme = useTheme();
     const [isOpen, setIsOpen] = useState(false);
+    const [isHover, setIsHover] = useState(false);
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
     const arrowDirection = useMemo(() => (isOpen ? 'up' : 'right'), [isOpen]);
     return (
         <StudentLi>
-            <StudentToggle onClick={toggleIsOpen}>
+            <StudentToggle
+                onClick={toggleIsOpen}
+                onMouseEnter={() => setIsHover(true)}
+                onMouseLeave={() => setIsHover(false)}
+            >
                 <AuthorImage
                     gradientOffset={AUTHOR_IMAGE_GRADIENT_WIDTH}
                     hideOnMobile={false}
@@ -105,7 +117,11 @@ const Student = ({ student }) => {
                     key={student.name}
                 />
                 <StudentName collapse>{student.name}</StudentName>
-                <ArrowheadIcon direction={arrowDirection} size={ICON_SIZE} />
+                <ArrowheadIcon
+                    color={isHover && theme.colorMap.greyLightOne}
+                    direction={arrowDirection}
+                    size={ICON_SIZE}
+                />
             </StudentToggle>
             {isOpen && (
                 <div>
