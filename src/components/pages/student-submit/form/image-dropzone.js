@@ -7,8 +7,8 @@ import CloseIcon from '~components/dev-hub/icons/close-icon';
 import { H5, P, P3 } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
 
-const greyText = css`
-    color: #b8c4c2;
+const greyText = theme => css`
+    color: ${theme.colorMap.greyLightTwo};
 `;
 
 const Underline = styled('span')`
@@ -16,15 +16,15 @@ const Underline = styled('span')`
 `;
 
 const GreyH5 = styled(H5)`
-    ${greyText};
+    ${({ theme }) => greyText(theme)};
 `;
 
 const GreyP = styled(P)`
-    ${greyText};
+    ${({ theme }) => greyText(theme)};
 `;
 
 const GreyP3 = styled(P3)`
-    ${greyText};
+    ${({ theme }) => greyText(theme)};
 `;
 
 const RemoveButton = styled(Button)`
@@ -48,19 +48,13 @@ const Dropzone = styled('div')`
     text-align: center;
 `;
 
-const ThumbnailsContainer = styled('aside')`
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: ${size.default};
-`;
-
 const ThumbnailWrapper = styled('div')`
     border-radius: 10px;
-    margin: 0 24px 8px 0;
     width: 96px;
-    height: 64px;
+    height: ${size.xlarge};
     padding: 4px;
-    display: inline-flex;
+    margin: 0 ${size.mediumLarge} ${size.xsmall} 0;
+    grid-row-start: 2;
     border: 1px dashed ${({ theme }) => theme.colorMap.greyLightThree};
     :last-of-type {
         margin-right: 0;
@@ -78,6 +72,20 @@ const Image = styled('img')`
     display: block;
     height: 100%;
     width: auto;
+`;
+
+const ThumbnailGrid = styled('div')`
+    display: grid;
+    grid-template-rows: ${size.medium} ${size.xlarge};
+    grid-template-columns: repeat(6, 96px);
+    text-align: center;
+    row-gap: 4px;
+    column-gap: ${size.mediumLarge};
+    margin-top: ${size.mediumLarge};
+`;
+
+const ImageLabelText = styled(P3)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
 const Thumbnail = ({ file, removeImage }) => {
@@ -126,6 +134,7 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
                 newFiles[index] = null;
                 setFiles(newFiles);
             }}
+            label={index === 0 ? 'Main Image' : null}
         />
     ));
 
@@ -149,7 +158,10 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
                     (1600 x 1200 or larger recommended, up to 10MB each)
                 </GreyP3>
             </Dropzone>
-            <ThumbnailsContainer>{thumbs}</ThumbnailsContainer>
+            <ThumbnailGrid>
+                <ImageLabelText collapse>Main Image</ImageLabelText>
+                {thumbs}
+            </ThumbnailGrid>
         </section>
     );
 };
