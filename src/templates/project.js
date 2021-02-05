@@ -65,13 +65,14 @@ const Project = props => {
     } = props.pageContext;
     const childNodes = getContent(dlv(content, 'children', []));
     const { siteUrl } = useSiteMetadata();
-    const articleUrl = `${siteUrl}${props.pageContext.slug}`;
+    const projectUrl = `${siteUrl}${props.pageContext.slug}`;
     return (
         <Layout>
             <SEO articleTitle={name} />
             <ProjectTitleArea
                 images={[{ src: image.url, caption: name }]}
                 title={name}
+                url={projectUrl}
             />
             <Container>
                 <ArticleContent>
@@ -82,7 +83,7 @@ const Project = props => {
                     />
                     <ArticleShareFooter
                         title={name}
-                        url={articleUrl}
+                        url={projectUrl}
                         tags={[]}
                     />
                 </ArticleContent>

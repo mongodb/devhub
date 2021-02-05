@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import ShareMenu from './share-menu';
 import HeroBanner from './hero-banner';
 import ImageGallery from './image-gallery';
+import Link from './link';
 import { H2 } from './text';
 import { size } from './theme';
 
@@ -15,12 +17,26 @@ const IncreasedMarginH2 = styled(H2)`
     margin-bottom: ${size.medium};
 `;
 
-const ProjectTitleArea = ({ images, title }) => {
+const TopRow = styled('div')`
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+`;
+
+const ProjectTitleArea = ({ images, title, url }) => {
     const BlogTitle = IncreasedMarginH2.withComponent('h1');
 
     return (
         <HeroBanner breadcrumb={STUDENT_SPOTLIGHT_BREADCRUMBS} fullWidth>
-            <BlogTitle>{title}</BlogTitle>
+            <TopRow>
+                <BlogTitle>{title}</BlogTitle>
+                <ShareMenu
+                    position="left"
+                    title={title}
+                    Trigger={<Link>Share</Link>}
+                    url={url}
+                />
+            </TopRow>
             <ImageGallery images={images} />
         </HeroBanner>
     );
