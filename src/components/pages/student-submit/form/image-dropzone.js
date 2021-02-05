@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useDropzone } from 'react-dropzone';
+import Button from '~components/dev-hub/button';
+import CloseIcon from '~components/dev-hub/icons/close-icon';
 import { H5, P, P3 } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
 
@@ -25,19 +27,25 @@ const GreyP3 = styled(P3)`
     ${greyText};
 `;
 
-const Dropzone = styled('div')`
-    background: #21313c;
-    /* B&W/Grey 5 */
+const RemoveButton = styled(Button)`
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    color: black;
+`;
 
-    border: 1px dashed #9fa1a2;
+const Dropzone = styled('div')`
+    align-items: center;
+    background: ${({ theme }) => theme.colorMap.greyDarkThree};
+    border: 1px dashed ${({ theme }) => theme.colorMap.greyLightThree};
     border-radius: 10px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 232px;
     justify-content: center;
     text-align: center;
-    height: 232px;
 `;
 
 const ThumbnailsContainer = styled('aside')`
@@ -53,7 +61,7 @@ const ThumbnailWrapper = styled('div')`
     height: 64px;
     padding: 4px;
     display: inline-flex;
-    border: 1px dashed #9fa1a2;
+    border: 1px dashed ${({ theme }) => theme.colorMap.greyLightThree};
     :last-of-type {
         margin-right: 0;
     }
@@ -63,6 +71,7 @@ const ThumbnailContent = styled('div')`
     display: flex;
     min-width: 0;
     overflow: hidden;
+    position: relative;
 `;
 
 const Image = styled('img')`
@@ -71,13 +80,20 @@ const Image = styled('img')`
     width: auto;
 `;
 
-const Thumbnail = ({ file }) => {
+const Thumbnail = ({ file, removeImage }) => {
     const isFile = !!file;
     const preview = isFile && file.preview;
     return (
         <ThumbnailWrapper>
             <ThumbnailContent>
-                {preview ? <Image src={preview} /> : null}
+                {preview ? (
+                    <div>
+                        <Image src={preview} />
+                        <RemoveButton onClick={removeImage}>
+                            <CloseIcon height="10" width="10" />
+                        </RemoveButton>
+                    </div>
+                ) : null}
             </ThumbnailContent>
         </ThumbnailWrapper>
     );
@@ -102,7 +118,15 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
     });
 
     const thumbs = files.map((file, index) => (
-        <Thumbnail file={file} key={file ? file.name : index} />
+        <Thumbnail
+            file={file}
+            key={file ? file.name : index}
+            removeImage={() => {
+                const newFiles = [...files];
+                newFiles[index] = null;
+                setFiles(newFiles);
+            }}
+        />
     ));
 
     useEffect(
