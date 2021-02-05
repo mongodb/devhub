@@ -23,7 +23,7 @@ const TopRow = styled('div')`
     justify-content: space-between;
 `;
 
-const ProjectTitleArea = ({ images, title, url }) => {
+const ProjectTitleArea = ({ description, images, title, url }) => {
     const BlogTitle = IncreasedMarginH2.withComponent('h1');
 
     return (
@@ -37,7 +37,7 @@ const ProjectTitleArea = ({ images, title, url }) => {
                     url={url}
                 />
             </TopRow>
-            <ImageGallery images={images} />
+            <ImageGallery description={description} images={images} />
         </HeroBanner>
     );
 };

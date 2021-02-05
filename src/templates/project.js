@@ -55,6 +55,7 @@ const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
 const Project = props => {
     const {
         content,
+        description,
         github_url,
         image,
         name,
@@ -70,6 +71,7 @@ const Project = props => {
         <Layout>
             <SEO articleTitle={name} />
             <ProjectTitleArea
+                description={description}
                 images={[{ src: image.url, caption: name }]}
                 title={name}
                 url={projectUrl}
