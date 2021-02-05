@@ -54,6 +54,7 @@ const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
 
 const Project = props => {
     const {
+        additional_images = [],
         content,
         github_url,
         image,
@@ -70,7 +71,11 @@ const Project = props => {
         <Layout>
             <SEO articleTitle={name} />
             <ProjectTitleArea
-                images={[{ src: image.url, caption: name }]}
+                // TODO: Clean up src/url difference between Strapi and Snooty
+                images={[
+                    { src: image.url },
+                    ...additional_images.map(i => ({ src: i.url })),
+                ]}
                 title={name}
             />
             <Container>
