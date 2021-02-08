@@ -1,16 +1,14 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import HeroBannerImage from '../../../images/1x/Academia.svg';
+import EducatorsJoin from '~images/student-spotlight/educators-join.svg';
 import { screenSize } from '../../dev-hub/theme';
 import { H4, P } from '../../dev-hub/text';
-import Card from '../../dev-hub/card';
 import MediaBlock from '../../dev-hub/media-block';
 import SignUpModal from './sign-up-modal';
 import GreenBulletedList from './green-bulleted-list';
 
 const CUSTOM_BULLET_SIZE = '24px';
-const ELIGIBILITY_IMAGE_MAX_WIDTH = '400px';
 const SECTION_HORIZONTAL_PADDING = '120px';
 const SECTION_VERTICAL_PADDING = '60px';
 
@@ -81,12 +79,11 @@ const HowToJoin = () => (
     <EligibilitySection>
         <MediaBlock
             mediaComponent={
-                <Card
-                    image={HeroBannerImage}
-                    maxWidth={ELIGIBILITY_IMAGE_MAX_WIDTH}
+                <img
+                    src={EducatorsJoin}
+                    alt="person with book and browser window looking over six other people"
                 />
             }
-            mediaWidth={ELIGIBILITY_IMAGE_MAX_WIDTH}
             reverse
         >
             <H4>How to join MongoDB for Academia</H4>

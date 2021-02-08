@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { screenSize, size, lineHeight } from '../../dev-hub/theme';
 import { H2, P } from '../../dev-hub/text';
 import HeroBanner from '../../dev-hub/hero-banner';
-import HeroBannerImage from '../../../images/1x/Academia.svg';
+import EducatorsHeader from '~images/student-spotlight/educators-header.svg';
 import SignUpModal from './sign-up-modal';
 
 const ACADEMIA_BREADCRUMBS = [
@@ -34,7 +34,7 @@ const ReducedMarginBanner = styled(HeroBanner)`
 const TopBanner = () => (
     <ReducedMarginBanner
         breadcrumb={ACADEMIA_BREADCRUMBS}
-        background={HeroBannerImage}
+        background={EducatorsHeader}
     >
         <Header>
             <H2>MongoDB Academia for Educators</H2>

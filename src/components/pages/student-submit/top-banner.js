@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { screenSize, size, lineHeight } from '../../dev-hub/theme';
 import { H2, P } from '../../dev-hub/text';
 import HeroBanner from '../../dev-hub/hero-banner';
-import HeroBannerImage from '../../../images/1x/Academia.svg';
+import FormHeader from '~images/student-spotlight/form-header.svg';
 
 const STUDENT_SPOTLIGHT_BREADCRUMBS = [
     { label: 'Home', target: '/' },
@@ -37,7 +37,7 @@ const ShareText = styled(P)`
 
 const TopBanner = () => (
     <ReducedMarginBanner
-        background={HeroBannerImage}
+        background={FormHeader}
         breadcrumb={STUDENT_SPOTLIGHT_BREADCRUMBS}
     >
         <Header>

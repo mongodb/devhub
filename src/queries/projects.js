@@ -23,6 +23,10 @@ query Projects {
             youtube_url
           }
         }
+        additional_images {
+          alternativeText
+          url
+        }
         info {
           contents
           description

@@ -3,7 +3,9 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { screenSize } from '../../dev-hub/theme';
 import { H3, H5 } from '../../dev-hub/text';
-import HeroBannerImage from '../../../images/1x/Academia.svg';
+import ThumbnailConnect from '~images/student-spotlight/thumbnail-connect.svg';
+import ThumbnailCurriculum from '~images/student-spotlight/thumbnail-curriculum.svg';
+import ThumbnailUniversity from '~images/student-spotlight/thumbnail-university.svg';
 import GreenBulletedList from './green-bulleted-list';
 
 const MAX_FEATURED_BENEFIT_WIDTH = '300px';
@@ -65,7 +67,7 @@ const ProgramBenefits = () => (
                     'Access to MongoDB software and curriculum content sourced from MongoDB education experts',
                     'Consult with us for help planning your curriculum',
                 ]}
-                image={HeroBannerImage}
+                image={ThumbnailCurriculum}
                 title="Curriculum Content Sourced from MongoDB Education Experts"
             />
             <FeaturedBenefit
@@ -73,7 +75,7 @@ const ProgramBenefits = () => (
                     'Get on-demand access to MongoDB University, for you and your students',
                     'Student cohort tracking and usage analytics with MongoDB University',
                 ]}
-                image={HeroBannerImage}
+                image={ThumbnailUniversity}
                 title="Exclusive MongoDB University On-Demand Access"
             />
             <FeaturedBenefit
@@ -81,7 +83,7 @@ const ProgramBenefits = () => (
                     'Access to our MongoDB for Academia community',
                     'Collaborate, share tips and get inspired with other MongoDB for Academia educators',
                 ]}
-                image={HeroBannerImage}
+                image={ThumbnailConnect}
                 title="Connect with Educators Around the World"
             />
         </BenefitsLayout>

@@ -4,12 +4,7 @@ import styled from '@emotion/styled';
 import { screenSize, size, lineHeight } from '../../dev-hub/theme';
 import { H2, P } from '../../dev-hub/text';
 import HeroBanner from '../../dev-hub/hero-banner';
-import HeroBannerImage from '../../../images/1x/Academia.svg';
-
-const ACADEMIA_BREADCRUMBS = [
-    { label: 'Home', target: '/' },
-    { label: 'MongoDB for Academia', target: '/academia' },
-];
+import AcademiaHeader from '~images/student-spotlight/academia-header.svg';
 
 /* TODO: Update text styles to give this line height to all P on desktop */
 const defaultLineHeight = css`
@@ -31,7 +26,7 @@ const ReducedMarginBanner = styled(HeroBanner)`
 `;
 
 const TopBanner = () => (
-    <ReducedMarginBanner background={HeroBannerImage}>
+    <ReducedMarginBanner background={AcademiaHeader}>
         <Header>
             <H2>MongoDB for Academia</H2>
 
