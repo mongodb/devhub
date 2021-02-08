@@ -7,20 +7,20 @@ import Button from '~components/dev-hub/button';
 export const THUMBNAIL_WIDTH = '96px';
 
 const RemoveButton = styled(Button)`
-    position: absolute;
-    top: 0;
-    right: 0;
     padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
 `;
 
 const ThumbnailWrapper = styled('div')`
-    border-radius: 10px;
-    width: ${THUMBNAIL_WIDTH};
-    height: ${size.xlarge};
-    padding: 4px;
-    margin: 0 ${size.mediumLarge} ${size.xsmall} 0;
-    grid-row-start: 2;
     border: 1px dashed ${({ theme }) => theme.colorMap.greyLightThree};
+    border-radius: 10px;
+    grid-row-start: 2;
+    height: ${size.xlarge};
+    margin: 0 ${size.mediumLarge} ${size.xsmall} 0;
+    padding: 4px;
+    width: ${THUMBNAIL_WIDTH};
     :last-of-type {
         margin-right: 0;
     }

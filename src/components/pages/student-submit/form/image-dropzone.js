@@ -42,13 +42,13 @@ const Dropzone = styled('div')`
 `;
 
 const ThumbnailGrid = styled('div')`
-    display: grid;
-    grid-template-rows: ${size.medium} ${size.xlarge};
-    grid-template-columns: repeat(6, ${THUMBNAIL_WIDTH});
-    text-align: center;
-    row-gap: 4px;
     column-gap: ${size.mediumLarge};
+    display: grid;
+    grid-template-columns: repeat(6, ${THUMBNAIL_WIDTH});
+    grid-template-rows: ${size.medium} ${size.xlarge};
     margin-top: ${size.mediumLarge};
+    row-gap: 4px;
+    text-align: center;
 `;
 
 const ImageLabelText = styled(P3)`
