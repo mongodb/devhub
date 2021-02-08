@@ -44,14 +44,14 @@ const ThumbnailContainer = styled('div')`
  *
  * @param {[object]} images: A list of img src values/captions
  */
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ description, images }) => {
     const [currentImage, setCurrentImage] = useState(images[0]);
     const updateCurrentImage = img => setCurrentImage(img);
     return (
         <div>
             <CurrentImage src={currentImage.src} />
             <GalleryItemsContainer>
-                <P>{currentImage.caption}</P>
+                <P>{description}</P>
                 <ThumbnailContainer>
                     {images.map(img => (
                         <ThumbnailWrapper

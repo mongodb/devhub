@@ -29,6 +29,7 @@ query Projects {
         }
         info {
           contents
+          description
           languages {
             language
           }

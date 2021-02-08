@@ -56,6 +56,7 @@ const Project = props => {
     const {
         additional_images = [],
         content,
+        description,
         github_url,
         image,
         name,
@@ -66,17 +67,19 @@ const Project = props => {
     } = props.pageContext;
     const childNodes = getContent(dlv(content, 'children', []));
     const { siteUrl } = useSiteMetadata();
-    const articleUrl = `${siteUrl}${props.pageContext.slug}`;
+    const projectUrl = `${siteUrl}${props.pageContext.slug}`;
     return (
         <Layout>
             <SEO articleTitle={name} />
             <ProjectTitleArea
+                description={description}
                 // TODO: Clean up src/url difference between Strapi and Snooty
                 images={[
                     { src: image.url },
                     ...additional_images.map(i => ({ src: i.url })),
                 ]}
                 title={name}
+                url={projectUrl}
             />
             <Container>
                 <ArticleContent>
@@ -87,7 +90,7 @@ const Project = props => {
                     />
                     <ArticleShareFooter
                         title={name}
-                        url={articleUrl}
+                        url={projectUrl}
                         tags={[]}
                     />
                 </ArticleContent>
