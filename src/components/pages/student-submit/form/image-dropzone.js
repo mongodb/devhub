@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import Icon from '@leafygreen-ui/icon';
 import { useDropzone } from 'react-dropzone';
 import Button from '~components/dev-hub/button';
-import CloseIcon from '~components/dev-hub/icons/close-icon';
 import { H5, P, P3 } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
 
@@ -63,6 +63,7 @@ const ThumbnailWrapper = styled('div')`
 
 const ThumbnailContent = styled('div')`
     display: flex;
+    height: 100%;
     min-width: 0;
     overflow: hidden;
     position: relative;
@@ -98,7 +99,11 @@ const Thumbnail = ({ file, removeImage }) => {
                     <div>
                         <Image src={preview} />
                         <RemoveButton onClick={removeImage}>
-                            <CloseIcon height="10" width="10" />
+                            <Icon
+                                glyph="XWithCircle"
+                                size="small"
+                                fill="#D8D8D8"
+                            />
                         </RemoveButton>
                     </div>
                 ) : null}
