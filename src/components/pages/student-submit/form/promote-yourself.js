@@ -1,4 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
+import { useTheme } from 'emotion-theming';
 import AuthorImage from '~components/dev-hub/author-image';
 import Input from '~components/dev-hub/input';
 import TextArea from '~components/dev-hub/text-area';
@@ -9,6 +10,8 @@ import Button from '~components/dev-hub/button';
 import Folder from '~components/dev-hub/icons/folder';
 import { P3 } from '~components/dev-hub/text';
 
+const FOLDER_SIZE = '21px';
+const IMAGE_PREVIEW_SIZE = 36;
 const INPUT_BOX_WIDTH = '336px';
 
 const ButtonText = styled(P3)`
@@ -54,6 +57,7 @@ const PromoteYourself = ({ ...props }) => {
             setActivePicture(e.target.files[0]);
         }
     }, []);
+    const theme = useTheme();
     const activePhotoText = !!activePicture
         ? 'Change photo'
         : 'Attach photo (to be displayed with your bio)';
@@ -79,12 +83,16 @@ const PromoteYourself = ({ ...props }) => {
                     {activePicture ? (
                         <AuthorImage
                             isInternalReference={false}
-                            height={21}
-                            width={21}
+                            height={IMAGE_PREVIEW_SIZE}
+                            width={IMAGE_PREVIEW_SIZE}
                             image={URL.createObjectURL(activePicture)}
                         />
                     ) : (
-                        <Folder color="#21313C" height="21" width="21" />
+                        <Folder
+                            color={theme.colorMap.greyDarkThree}
+                            height={FOLDER_SIZE}
+                            width={FOLDER_SIZE}
+                        />
                     )}
                 </ButtonImage>
                 <ButtonText collapse>{activePhotoText}</ButtonText>
