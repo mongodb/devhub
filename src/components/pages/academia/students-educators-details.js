@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import GreenBulletedList from '../educators/green-bulleted-list';
-//TODO: Replace image with Visual Design asset once available
-import HeroBannerImage from '~images/1x/Academia.svg';
+import AcademiaEducators from '~images/student-spotlight/academia-educators.svg';
+import AcademiaStudents from '~images/student-spotlight/academia-students.svg';
 import Card from '~components/dev-hub/card';
 import { H5, P } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
@@ -75,7 +75,7 @@ const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
     <BenefitsLayout maxwidth={maxWidth}>
         <BenefitTypeCard
             href="https://www.mongodb.com/students"
-            image={HeroBannerImage}
+            image={AcademiaStudents}
             bullets={[
                 'Join our GitHub Student Developer Pack offer',
                 'MongoDB Atlas: create a free Tier, or use $200 in Credits',
@@ -84,7 +84,7 @@ const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
         />
         <BenefitTypeCard
             isStudents={false}
-            image={HeroBannerImage}
+            image={AcademiaEducators}
             to="/academia/educators/"
             bullets={[
                 'Access MongoDB course material & content support',
