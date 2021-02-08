@@ -4,7 +4,7 @@ import Button from '~components/dev-hub/button';
 import { H5 } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
 
-const FIELDSET_MAX_WIDTH = '792px';
+const FIELDSET_MAX_WIDTH = '794px';
 
 const Centered = styled('div')`
     display: flex;
