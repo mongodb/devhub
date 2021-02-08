@@ -82,7 +82,6 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
                 newFiles[index] = null;
                 setFiles(newFiles);
             }}
-            label={index === 0 ? 'Main Image' : null}
         />
     ));
 
