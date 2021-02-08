@@ -36,6 +36,10 @@ const GalleryItemsContainer = styled('div')`
     justify-content: space-between;
 `;
 
+const ThumbnailContainer = styled('div')`
+    display: flex;
+`;
+
 /**
  *
  * @param {[object]} images: A list of img src values/captions
@@ -48,7 +52,7 @@ const ImageGallery = ({ images }) => {
             <CurrentImage src={currentImage.src} />
             <GalleryItemsContainer>
                 <P>{currentImage.caption}</P>
-                <div>
+                <ThumbnailContainer>
                     {images.map(img => (
                         <ThumbnailWrapper
                             key={img.src}
@@ -60,7 +64,7 @@ const ImageGallery = ({ images }) => {
                             />
                         </ThumbnailWrapper>
                     ))}
-                </div>
+                </ThumbnailContainer>
             </GalleryItemsContainer>
         </div>
     );

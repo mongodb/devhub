@@ -4,9 +4,12 @@ import styled from '@emotion/styled';
 import { useDropzone } from 'react-dropzone';
 import { H5, P, P3 } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
+import DropzoneThumbnail, { THUMBNAIL_WIDTH } from './dropzone-thumbnail';
 
-const greyText = css`
-    color: #b8c4c2;
+const DROPZONE_HEIGHT = '232px';
+
+const greyText = theme => css`
+    color: ${theme.colorMap.greyLightTwo};
 `;
 
 const Underline = styled('span')`
@@ -14,74 +17,43 @@ const Underline = styled('span')`
 `;
 
 const GreyH5 = styled(H5)`
-    ${greyText};
+    ${({ theme }) => greyText(theme)};
 `;
 
 const GreyP = styled(P)`
-    ${greyText};
+    ${({ theme }) => greyText(theme)};
 `;
 
 const GreyP3 = styled(P3)`
-    ${greyText};
+    ${({ theme }) => greyText(theme)};
 `;
 
 const Dropzone = styled('div')`
-    background: #21313c;
-    /* B&W/Grey 5 */
-
-    border: 1px dashed #9fa1a2;
+    align-items: center;
+    background: ${({ theme }) => theme.colorMap.greyDarkThree};
+    border: 1px dashed ${({ theme }) => theme.colorMap.greyLightThree};
     border-radius: 10px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: ${DROPZONE_HEIGHT};
     justify-content: center;
     text-align: center;
-    height: 232px;
 `;
 
-const ThumbnailsContainer = styled('aside')`
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: ${size.default};
+const ThumbnailGrid = styled('div')`
+    column-gap: ${size.mediumLarge};
+    display: grid;
+    grid-template-columns: repeat(6, ${THUMBNAIL_WIDTH});
+    grid-template-rows: ${size.medium} ${size.xlarge};
+    margin-top: ${size.mediumLarge};
+    row-gap: 4px;
+    text-align: center;
 `;
 
-const ThumbnailWrapper = styled('div')`
-    border-radius: 10px;
-    margin: 0 24px 8px 0;
-    width: 96px;
-    height: 64px;
-    padding: 4px;
-    display: inline-flex;
-    border: 1px dashed #9fa1a2;
-    :last-of-type {
-        margin-right: 0;
-    }
+const ImageLabelText = styled(P3)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
-
-const ThumbnailContent = styled('div')`
-    display: flex;
-    min-width: 0;
-    overflow: hidden;
-`;
-
-const Image = styled('img')`
-    display: block;
-    height: 100%;
-    width: auto;
-`;
-
-const Thumbnail = ({ file }) => {
-    const isFile = !!file;
-    const preview = isFile && file.preview;
-    return (
-        <ThumbnailWrapper>
-            <ThumbnailContent>
-                {preview ? <Image src={preview} /> : null}
-            </ThumbnailContent>
-        </ThumbnailWrapper>
-    );
-};
 
 // Adopted from https://react-dropzone.js.org/#section-previews
 const ImageDropzone = ({ maxFiles = 6 }) => {
@@ -102,7 +74,15 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
     });
 
     const thumbs = files.map((file, index) => (
-        <Thumbnail file={file} key={file ? file.name : index} />
+        <DropzoneThumbnail
+            file={file}
+            key={file ? file.name : index}
+            removeImage={() => {
+                const newFiles = [...files];
+                newFiles[index] = null;
+                setFiles(newFiles);
+            }}
+        />
     ));
 
     useEffect(
@@ -125,7 +105,10 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
                     (1600 x 1200 or larger recommended, up to 10MB each)
                 </GreyP3>
             </Dropzone>
-            <ThumbnailsContainer>{thumbs}</ThumbnailsContainer>
+            <ThumbnailGrid>
+                <ImageLabelText collapse>Main Image</ImageLabelText>
+                {thumbs}
+            </ThumbnailGrid>
         </section>
     );
 };
