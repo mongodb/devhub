@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import ShareMenu from './share-menu';
 import HeroBanner from './hero-banner';
 import ImageGallery from './image-gallery';
 import Link from './link';
+import ShareMenu from './share-menu';
 import { H2 } from './text';
 import { size } from './theme';
 
