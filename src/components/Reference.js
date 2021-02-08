@@ -1,23 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from './Link';
-import { getNestedValue } from '../utils/get-nested-value';
-
-const makeLinkInternalIfApplicable = link => {
-    if (!link) {
-        return link;
-    }
-    const linkIncludesDevHub = link.includes('https://developer.mongodb.com');
-    const linkGoesToForums = link.includes(
-        'https://developer.mongodb.com/community/forums'
-    );
-    if (linkIncludesDevHub && !linkGoesToForums) {
-        // Forums is technically "external" from an app standpoint, so we leave
-        // that one alone
-        return link.replace('https://developer.mongodb.com', '');
-    }
-    return link;
-};
+import { getNestedValue } from '~utils/get-nested-value';
+import { makeLinkInternalIfApplicable } from '~utils/make-link-internal-if-applicable';
 
 const Reference = ({ nodeData }) => {
     const link = makeLinkInternalIfApplicable(nodeData.refuri);
