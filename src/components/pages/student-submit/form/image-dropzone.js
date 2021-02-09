@@ -38,6 +38,7 @@ const Dropzone = styled('div')`
     flex-direction: column;
     height: ${DROPZONE_HEIGHT};
     justify-content: center;
+    position: relative;
     text-align: center;
 `;
 
@@ -53,6 +54,16 @@ const ThumbnailGrid = styled('div')`
 
 const ImageLabelText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+
+const FullInput = styled('input')`
+    position: absolute;
+    content: '';
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
 `;
 
 // Adopted from https://react-dropzone.js.org/#section-previews
@@ -96,7 +107,11 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
     return (
         <section>
             <Dropzone {...getRootProps()}>
-                <input required {...getInputProps()} />
+                <FullInput
+                    required
+                    {...getInputProps()}
+                    style={{ display: 'block' }}
+                />
                 <GreyH5>Drag and drop images (6 max)</GreyH5>
                 <GreyP collapse>
                     or <Underline>browse</Underline> to choose a file
