@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
@@ -239,12 +240,13 @@ export default ({
             const filter = stripAllParam(filterValue);
             const searchParams = buildQueryString(filter);
             const filteredArticles = filterActiveArticles(filter);
-            console.log(searchParams);
             setArticles(filteredArticles);
             if (window.location.search !== searchParams) {
                 // if the search params are empty, push the pathname state in order to remove params
                 navigate(
-                    searchParams === '' ? pathname : `/learn/${searchParams}`,
+                    searchParams === ''
+                        ? pathname
+                        : withPrefix(`/learn/${searchParams}`),
                     {
                         replace: true,
                     }
