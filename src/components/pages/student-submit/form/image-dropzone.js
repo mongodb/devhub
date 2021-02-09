@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useDropzone } from 'react-dropzone';
 import { H5, P, P3 } from '~components/dev-hub/text';
-import { size } from '~components/dev-hub/theme';
+import { layer, size } from '~components/dev-hub/theme';
 import DropzoneThumbnail, { THUMBNAIL_WIDTH } from './dropzone-thumbnail';
 
 const DROPZONE_HEIGHT = '232px';
@@ -38,6 +38,7 @@ const Dropzone = styled('div')`
     flex-direction: column;
     height: ${DROPZONE_HEIGHT};
     justify-content: center;
+    position: relative;
     text-align: center;
 `;
 
@@ -53,6 +54,16 @@ const ThumbnailGrid = styled('div')`
 
 const ImageLabelText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+
+const FullInput = styled('input')`
+    position: absolute;
+    content: '';
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: ${layer.superBack};
 `;
 
 // Adopted from https://react-dropzone.js.org/#section-previews
@@ -96,7 +107,13 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
     return (
         <section>
             <Dropzone {...getRootProps()}>
-                <input {...getInputProps()} />
+                <FullInput
+                    required
+                    {...getInputProps()}
+                    // getInputProps() puts on a display: none
+                    // We want to display for the validation message
+                    style={{ display: 'block' }}
+                />
                 <GreyH5>Drag and drop images (6 max)</GreyH5>
                 <GreyP collapse>
                     or <Underline>browse</Underline> to choose a file
