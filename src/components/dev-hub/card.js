@@ -64,6 +64,12 @@ const Wrapper = styled('div')`
     ${({ highlight }) => highlight && `background: rgba(255, 255, 255, 0.3);`};
     ${({ isclickable, theme }) => isclickable && hoverStyles(theme)}
 `;
+const truncate = maxLines => css`
+    display: -webkit-box;
+    -webkit-line-clamp: ${maxLines}; /* supported cross browser */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+`;
 const DescriptionText = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
     font-size: ${fontSize.small};
@@ -89,6 +95,8 @@ const Card = ({
     description,
     href,
     image,
+    maxDescriptionLines = 4,
+    maxTitleLines = 4,
     onClick,
     badge,
     to,
@@ -136,10 +144,17 @@ const Card = ({
                     </ImageWrapper>
                 )}
                 {title && (
-                    <CardTitle collapse={!description}>{title}</CardTitle>
+                    <CardTitle
+                        css={truncate(maxTitleLines)}
+                        collapse={!description}
+                    >
+                        {title}
+                    </CardTitle>
                 )}
                 {description && (
-                    <DescriptionText>{description}</DescriptionText>
+                    <DescriptionText css={truncate(maxDescriptionLines)}>
+                        {description}
+                    </DescriptionText>
                 )}
             </div>
             {children}
