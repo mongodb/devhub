@@ -168,7 +168,6 @@ const FeaturedArticles = ({ articles }) => {
                 >
                     <Card
                         collapseImage
-                        maxDescriptionLines={4}
                         to={slug}
                         title={title}
                         description={description}
