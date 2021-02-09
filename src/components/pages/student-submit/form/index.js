@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
 import { size } from '~components/dev-hub/theme';
+import { useStudentSpotlightReducer } from '~hooks/use-student-spotlight-reducer';
 import ProjectInfo from './project-info';
 import PromoteYourself from './promote-yourself';
 import ShareDetails from './share-details';
@@ -10,12 +11,16 @@ const FormWithMargin = styled('form')`
 `;
 
 const Form = () => {
+    const [state, dispatch] = useStudentSpotlightReducer();
     const fieldsetOneRef = useRef();
     const fieldsetTwoRef = useRef();
     const fieldsetThreeRef = useRef();
 
     const scrollToRef = ref =>
         window.scrollTo({ behavior: 'smooth', top: ref.current.offsetTop });
+
+    const onChange = e =>
+        dispatch({ field: e.target.name, value: e.target.value });
 
     const onFormPartCompletion = useCallback((e, initialRef, nextRef) => {
         e.preventDefault();
@@ -53,16 +58,22 @@ const Form = () => {
                 isOpen={true}
                 newRef={fieldsetOneRef}
                 onComplete={onFirstPartComplete}
+                onChange={onChange}
+                state={state}
             />
             <ShareDetails
                 isOpen={true}
                 newRef={fieldsetTwoRef}
                 onComplete={onSecondPartComplete}
+                onChange={onChange}
+                state={state}
             />
             <PromoteYourself
                 isOpen={true}
                 newRef={fieldsetThreeRef}
                 onComplete={onFinalPartComplete}
+                onChange={onChange}
+                state={state}
             />
         </FormWithMargin>
     );

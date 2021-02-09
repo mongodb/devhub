@@ -19,22 +19,57 @@ const LinksSection = styled('div')`
     }
 `;
 
-const ProjectInfo = ({ ...props }) => (
+const FormInput = ({ required = true, ...props }) => (
+    <Input narrow required={required} {...props} />
+);
+
+const ProjectInfo = ({ state, onChange, ...props }) => (
     <SubmitFormFieldset buttonText="Next" legendText="Project Info" {...props}>
-        <Input narrow required placeholder="Project Name" />
-        <Input narrow required placeholder="Short description of project" />
-        <Input
-            narrow
-            required
+        <FormInput
+            name="project_name"
+            onChange={onChange}
+            placeholder="Project Name"
+            value={state.project_name}
+        />
+        <FormInput
+            name="short_description"
+            onChange={onChange}
+            placeholder="Short description of project"
+            value={state.short_description}
+        />
+        <FormInput
+            name="tools_used"
+            onChange={onChange}
             placeholder="Tools used (separate each tool with a comma)"
+            value={state.tools_used}
         />
         <LinksSection>
-            <Input narrow required placeholder="GitHub Link" />
-            <Input narrow placeholder="Other project link" />
+            <FormInput
+                name="github_link"
+                onChange={onChange}
+                placeholder="GitHub Link"
+                type="url"
+                value={state.github_link}
+            />
+            <FormInput
+                required={false}
+                name="project_link"
+                onChange={onChange}
+                placeholder="Other Project Link"
+                type="url"
+                value={state.project_link}
+            />
         </LinksSection>
         <H5>Show off with images and video</H5>
         <ImageDropzone />
-        <Input narrow placeholder="YouTube Video Demo Link" />
+        <FormInput
+            required={false}
+            name="youtube_link"
+            onChange={onChange}
+            placeholder="YouTube Video Demo Link"
+            type="url"
+            value={state.youtube_link}
+        />
     </SubmitFormFieldset>
 );
 

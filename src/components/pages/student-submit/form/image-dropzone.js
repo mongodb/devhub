@@ -96,7 +96,7 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
     return (
         <section>
             <Dropzone {...getRootProps()}>
-                <input {...getInputProps()} />
+                <input required {...getInputProps()} />
                 <GreyH5>Drag and drop images (6 max)</GreyH5>
                 <GreyP collapse>
                     or <Underline>browse</Underline> to choose a file
