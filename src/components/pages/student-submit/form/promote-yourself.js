@@ -5,7 +5,7 @@ import Input from '~components/dev-hub/input';
 import TextArea from '~components/dev-hub/text-area';
 import SubmitFormFieldset from './submit-form-fieldset';
 import styled from '@emotion/styled';
-import { screenSize, size } from '~components/dev-hub/theme';
+import { layer, screenSize, size } from '~components/dev-hub/theme';
 import Button from '~components/dev-hub/button';
 import Folder from '~components/dev-hub/icons/folder';
 import { P3 } from '~components/dev-hub/text';
@@ -32,12 +32,12 @@ const ButtonImage = styled('div')`
 `;
 
 const HiddenInput = styled('input')`
-    position: absolute;
     height: 100%;
     left: 0;
+    position: absolute;
     top: 0;
     width: 100%;
-    z-index: -1;
+    z-index: ${layer.superBack};
 `;
 
 const HiddenInputContainer = styled('div')`
