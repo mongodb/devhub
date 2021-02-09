@@ -35,6 +35,32 @@ const Index = ({ pageContext: { fallbackTwitchVideo, featuredItems } }) => {
                     name="description"
                     content="Code, content, tutorials, programs and community to enable developers of all skill levels on the MongoDB Data Platform which includes Atlas, Realm, Compass, Data Lake and more. Whether you're coding in Java, JavaScript, C#, Python, Node, Go or looking for how this fits with IOT, AI, ML - join or follow us here."
                 />
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'Organization',
+                        name: 'MongoDB Developer Hub',
+                        logo:
+                            'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
+                        url: 'https://developer.mongodb.com',
+                        telephone: '+1-844-666-4632',
+                        sameAs: [
+                            'https://www.facebook.com/MongoDB/',
+                            'https://www.instagram.com/mongodb/',
+                            'https://www.linkedin.com/company/mongodbinc/',
+                            'https://www.youtube.com/user/mongodb',
+                            'https://twitter.com/MongoDB',
+                            'https://en.wikipedia.org/wiki/MongoDB',
+                        ],
+                        contactPoint: [
+                            {
+                                '@type': 'ContactPoint',
+                                telephone: '+1-646-201-9247',
+                                contactType: 'technical support',
+                            },
+                        ],
+                    })}
+                </script>
             </Helmet>
             <BackgroundImage>
                 {stream && (
