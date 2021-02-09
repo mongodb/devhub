@@ -24,9 +24,15 @@ const Form = () => {
 
     const onFormPartCompletion = useCallback((e, initialRef, nextRef) => {
         e.preventDefault();
-        // Below checks entire form, should just check fieldset ideally
-        const fieldsetForm = initialRef.current.form;
-        const isValid = fieldsetForm.checkValidity();
+        const currentFieldset = initialRef.current;
+        const fieldsetElements = Array.from(currentFieldset.elements);
+        // Last entry of fieldset is the button to move on to the next fieldset
+        // We do not need to consider it when checking validity
+        fieldsetElements.pop();
+        const isValid = fieldsetElements.reduce(
+            (p, c) => p && c.checkValidity(),
+            true
+        );
         if (isValid) {
             if (nextRef) {
                 scrollToRef(nextRef);
@@ -35,7 +41,8 @@ const Form = () => {
                 return;
             }
         } else {
-            fieldsetForm.reportValidity();
+            // Browser method to show validity messages
+            currentFieldset.form.reportValidity();
         }
     }, []);
 
