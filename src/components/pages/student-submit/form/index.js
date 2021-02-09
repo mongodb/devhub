@@ -26,7 +26,6 @@ const Form = () => {
         e.preventDefault();
         const currentFieldset = initialRef.current;
         const fieldsetElements = Array.from(currentFieldset.elements);
-        console.log(fieldsetElements);
         // Last entry of fieldset is the button to move on to the next fieldset
         // We do not need to consider it when checking validity
         fieldsetElements.pop();

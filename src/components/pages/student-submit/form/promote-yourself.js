@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTheme } from 'emotion-theming';
 import AuthorImage from '~components/dev-hub/author-image';
 import Input from '~components/dev-hub/input';
@@ -24,6 +24,7 @@ const ButtonWithImage = styled(Button)`
     padding: 0;
     text-decoration: none;
     color: ${({ theme }) => theme.colorMap.devWhite};
+    position: relative;
 `;
 
 const ButtonImage = styled('div')`
@@ -31,7 +32,16 @@ const ButtonImage = styled('div')`
 `;
 
 const HiddenInput = styled('input')`
-    display: none;
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+`;
+
+const HiddenInputContainer = styled('div')`
+    position: relative;
 `;
 
 const LinksSection = styled('div')`
@@ -51,6 +61,7 @@ const FormInput = ({ required = true, ...props }) => (
 
 const PromoteYourself = ({ onChange, state, ...props }) => {
     const [activePicture, setActivePicture] = useState(null);
+    const hasActivePicture = !!activePicture;
     const pictureInputRef = useRef();
     const openFileSelector = useCallback(
         () => pictureInputRef.current.click(),
@@ -61,8 +72,12 @@ const PromoteYourself = ({ onChange, state, ...props }) => {
             setActivePicture(e.target.files[0]);
         }
     }, []);
+    const authorImage = useMemo(
+        () => hasActivePicture && URL.createObjectURL(activePicture),
+        [activePicture, hasActivePicture]
+    );
     const theme = useTheme();
-    const activePhotoText = !!activePicture
+    const activePhotoText = hasActivePicture
         ? 'Change photo'
         : 'Attach photo (to be displayed with your bio)';
     return (
@@ -98,32 +113,36 @@ const PromoteYourself = ({ onChange, state, ...props }) => {
                 value={state.short_bio}
                 placeholder="Short Bio"
             />
-            <ButtonWithImage onClick={openFileSelector}>
-                <ButtonImage>
-                    {activePicture ? (
-                        <AuthorImage
-                            isInternalReference={false}
-                            height={IMAGE_PREVIEW_SIZE}
-                            width={IMAGE_PREVIEW_SIZE}
-                            image={URL.createObjectURL(activePicture)}
-                        />
-                    ) : (
-                        <Folder
-                            color={theme.colorMap.greyDarkThree}
-                            height={FOLDER_SIZE}
-                            width={FOLDER_SIZE}
-                        />
-                    )}
-                </ButtonImage>
-                <ButtonText collapse>{activePhotoText}</ButtonText>
-            </ButtonWithImage>
-            <HiddenInput
-                ref={pictureInputRef}
-                type="file"
-                name="picture"
-                accept="image/*"
-                onChange={onPictureChange}
-            />
+            <HiddenInputContainer>
+                <ButtonWithImage onClick={openFileSelector}>
+                    <ButtonImage>
+                        {activePicture ? (
+                            <AuthorImage
+                                isInternalReference={false}
+                                height={IMAGE_PREVIEW_SIZE}
+                                width={IMAGE_PREVIEW_SIZE}
+                                image={authorImage}
+                            />
+                        ) : (
+                            <Folder
+                                color={theme.colorMap.greyDarkThree}
+                                height={FOLDER_SIZE}
+                                width={FOLDER_SIZE}
+                            />
+                        )}
+                    </ButtonImage>
+                    <ButtonText collapse>{activePhotoText}</ButtonText>
+                </ButtonWithImage>
+                <HiddenInput
+                    ref={pictureInputRef}
+                    type="file"
+                    tabIndex="-1"
+                    required
+                    name="picture"
+                    accept="image/*"
+                    onChange={onPictureChange}
+                />
+            </HiddenInputContainer>
             <FormInput
                 name="school_name"
                 onChange={onChange}
