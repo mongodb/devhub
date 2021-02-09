@@ -45,7 +45,11 @@ const LinksSection = styled('div')`
     }
 `;
 
-const PromoteYourself = ({ ...props }) => {
+const FormInput = ({ required = true, ...props }) => (
+    <Input narrow required={required} {...props} />
+);
+
+const PromoteYourself = ({ onChange, state, ...props }) => {
     const [activePicture, setActivePicture] = useState(null);
     const pictureInputRef = useRef();
     const openFileSelector = useCallback(
@@ -68,16 +72,32 @@ const PromoteYourself = ({ ...props }) => {
             {...props}
         >
             <LinksSection>
-                <Input required narrow placeholder="First Name" />
-                <Input required narrow placeholder="Last Name" />
-                <Input
-                    required
-                    narrow
+                <FormInput
+                    name="first_name"
+                    onChange={onChange}
+                    value={state.first_name}
+                    placeholder="First Name"
+                />
+                <FormInput
+                    name="last_name"
+                    onChange={onChange}
+                    value={state.last_name}
+                    placeholder="Last Name"
+                />
+                <FormInput
+                    name="email"
+                    onChange={onChange}
+                    value={state.email}
                     type="email"
                     placeholder="Email Address"
                 />
             </LinksSection>
-            <TextArea placeholder="Short Bio" />
+            <TextArea
+                name="short_bio"
+                onChange={onChange}
+                value={state.short_bio}
+                placeholder="Short Bio"
+            />
             <ButtonWithImage onClick={openFileSelector}>
                 <ButtonImage>
                     {activePicture ? (
@@ -104,11 +124,40 @@ const PromoteYourself = ({ ...props }) => {
                 accept="image/*"
                 onChange={onPictureChange}
             />
-            <Input required narrow placeholder="School Name" />
-            <Input narrow placeholder="GitHub Page" />
-            <Input narrow placeholder="Twitter" />
-            <Input narrow placeholder="LinkedIn" />
-            <Input narrow placeholder="Personal Website" />
+            <FormInput
+                name="school_name"
+                onChange={onChange}
+                value={state.school_name}
+                placeholder="School Name"
+            />
+            <FormInput
+                name="github_page"
+                onChange={onChange}
+                value={state.github_page}
+                required={false}
+                placeholder="GitHub Page"
+            />
+            <FormInput
+                name="twitter"
+                onChange={onChange}
+                value={state.twitter}
+                required={false}
+                placeholder="Twitter"
+            />
+            <FormInput
+                name="linkedin"
+                onChange={onChange}
+                value={state.linkedin}
+                required={false}
+                placeholder="LinkedIn"
+            />
+            <FormInput
+                name="personal_website"
+                onChange={onChange}
+                value={state.personal_website}
+                required={false}
+                placeholder="Personal Website"
+            />
         </SubmitFormFieldset>
     );
 };
