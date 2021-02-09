@@ -108,6 +108,7 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
                                 key={`${title}-${i}`}
                                 image={image}
                                 href={target}
+                                maxTitleLines={2}
                                 title={title}
                                 maxWidth={MAX_CARD_WIDTH}
                             />

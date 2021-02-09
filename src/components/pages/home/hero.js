@@ -48,7 +48,13 @@ const FeaturedHomePageItem = ({ item }) => {
     if (item.type === 'article') {
         const { image, slug, title } = getFeaturedCardFields(item);
         return (
-            <StyledTopCard image={image} to={slug} title={title} key={title} />
+            <StyledTopCard
+                maxTitleLines={3}
+                image={image}
+                to={slug}
+                title={title}
+                key={title}
+            />
         );
     }
 };
