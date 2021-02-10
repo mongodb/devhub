@@ -78,12 +78,7 @@ const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
             ),
             ...files,
         ].slice(0, maxFiles);
-        onChange({
-            target: {
-                name: 'project_images',
-                value: newFiles.filter(f => !!f),
-            },
-        });
+        onChange(newFiles.filter(f => !!f));
         setFiles(newFiles);
     };
     const { getRootProps, getInputProps, inputRef } = useDropzone({
@@ -97,12 +92,7 @@ const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
             newFiles[i] = null;
             const actualImages = newFiles.filter(f => !!f);
             const hasNoImages = !actualImages.length;
-            onChange({
-                target: {
-                    name: 'project_images',
-                    value: actualImages,
-                },
-            });
+            onChange(actualImages);
             if (hasNoImages) {
                 inputRef.current.value = '';
             }
