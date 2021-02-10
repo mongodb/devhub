@@ -1,10 +1,14 @@
 import { useReducer } from 'react';
-import { studentSpotlightReducer } from '~utils/student-spotlight-reducer';
-
-const initialState = {};
+import {
+    initialStudentSpotlightState,
+    studentSpotlightReducer,
+} from '~utils/student-spotlight-reducer';
 
 export const useStudentSpotlightReducer = () => {
-    const [state, dispatch] = useReducer(studentSpotlightReducer, initialState);
+    const [state, dispatch] = useReducer(
+        studentSpotlightReducer,
+        initialStudentSpotlightState()
+    );
 
     return [state, dispatch];
 };

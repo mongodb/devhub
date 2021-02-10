@@ -1,182 +1,87 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { useTheme } from 'emotion-theming';
-import AuthorImage from '~components/dev-hub/author-image';
-import Input from '~components/dev-hub/input';
-import TextArea from '~components/dev-hub/text-area';
-import SubmitFormFieldset from './submit-form-fieldset';
+import React, { useCallback, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { layer, screenSize, size } from '~components/dev-hub/theme';
-import Button from '~components/dev-hub/button';
-import Folder from '~components/dev-hub/icons/folder';
-import { P3 } from '~components/dev-hub/text';
+import SubmitFormFieldset from './submit-form-fieldset';
+import CondensedStudentEntry from './condensed-student-entry';
+import NewStudentFieldset from './new-student-fieldset';
 
-const FOLDER_SIZE = '21px';
-const IMAGE_PREVIEW_SIZE = 36;
-const INPUT_BOX_WIDTH = '336px';
-
-const ButtonText = styled(P3)`
-    text-decoration: none;
-`;
-
-const ButtonWithImage = styled(Button)`
-    display: flex;
-    align-items: center;
-    padding: 0;
-    text-decoration: none;
-    color: ${({ theme }) => theme.colorMap.devWhite};
-    position: relative;
-`;
-
-const ButtonImage = styled('div')`
-    padding-right: 12px;
-`;
-
-const HiddenInput = styled('input')`
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: ${layer.superBack};
-`;
-
-const HiddenInputContainer = styled('div')`
-    position: relative;
-`;
-
-const LinksSection = styled('div')`
-    display: grid;
-    clear: both;
-    grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
-    grid-row-gap: ${size.mediumLarge};
-    justify-content: space-between;
-    @media ${screenSize.upToMedium} {
-        grid-template-columns: 100%;
-    }
-`;
-
-const FormInput = ({ required = true, ...props }) => (
-    <Input narrow required={required} {...props} />
-);
-
-const PromoteYourself = ({ onChange, state, ...props }) => {
+const SingleStudentFieldset = ({
+    addNewStudent,
+    onChange,
+    onRemove,
+    state,
+}) => {
+    const [isExpanded, setIsExpanded] = useState(true);
     const [activePicture, setActivePicture] = useState(null);
     const hasActivePicture = !!activePicture;
-    const pictureInputRef = useRef();
-    const openFileSelector = useCallback(
-        () => pictureInputRef.current.click(),
-        [pictureInputRef]
-    );
-    const onPictureChange = useCallback(e => {
-        if (e.target.files) {
-            setActivePicture(e.target.files[0]);
-        }
-    }, []);
+
     const authorImage = useMemo(
         () => hasActivePicture && URL.createObjectURL(activePicture),
         [activePicture, hasActivePicture]
     );
-    const theme = useTheme();
-    const activePhotoText = hasActivePicture
-        ? 'Change photo'
-        : 'Attach photo (to be displayed with your bio)';
+    const onAddTeamMember = useCallback(() => {
+        setIsExpanded(false);
+        addNewStudent();
+    }, [addNewStudent]);
+    const onEdit = useCallback(() => {
+        setIsExpanded(true);
+    }, []);
+
+    return isExpanded ? (
+        <NewStudentFieldset
+            authorImage={authorImage}
+            setActivePicture={setActivePicture}
+            onAddTeamMember={onAddTeamMember}
+            onChange={onChange}
+            state={state}
+        />
+    ) : (
+        <CondensedStudentEntry
+            authorImage={authorImage}
+            state={state}
+            onEdit={onEdit}
+            onRemove={onRemove}
+        />
+    );
+};
+
+const PromoteYourself = ({ dispatch, onStudentChange, state, ...props }) => {
+    /* 
+        We need to track the number of students to provide a unique key since
+        we allow for students to be added or removed
+    */
+    const [numStudents, setNumStudents] = useState(1);
+    const updateStudents = useCallback(
+        value => dispatch({ field: 'students', value }),
+        [dispatch]
+    );
+    const addNewStudent = useCallback(() => {
+        // Whenever we add a student, increment the total to ensure a unique key
+        setNumStudents(numStudents + 1);
+        updateStudents([...state.students, { key: numStudents }]);
+    }, [numStudents, state.students, updateStudents]);
+    const removeStudent = useCallback(
+        i => () => {
+            const newStudents = [...state.students];
+            newStudents.splice(i, 1);
+            updateStudents(newStudents);
+        },
+        [state.students, updateStudents]
+    );
     return (
         <SubmitFormFieldset
             buttonText="Submit"
             legendText="Share Details"
             {...props}
         >
-            <LinksSection>
-                <FormInput
-                    name="first_name"
-                    onChange={onChange}
-                    value={state.first_name}
-                    placeholder="First Name"
+            {state.students.map((s, i) => (
+                <SingleStudentFieldset
+                    addNewStudent={addNewStudent}
+                    key={s.key}
+                    onChange={onStudentChange(i)}
+                    onRemove={removeStudent(i)}
+                    state={s}
                 />
-                <FormInput
-                    name="last_name"
-                    onChange={onChange}
-                    value={state.last_name}
-                    placeholder="Last Name"
-                />
-                <FormInput
-                    name="email"
-                    onChange={onChange}
-                    value={state.email}
-                    type="email"
-                    placeholder="Email Address"
-                />
-            </LinksSection>
-            <TextArea
-                name="short_bio"
-                onChange={onChange}
-                value={state.short_bio}
-                placeholder="Short Bio"
-            />
-            <HiddenInputContainer>
-                <ButtonWithImage onClick={openFileSelector}>
-                    <ButtonImage>
-                        {activePicture ? (
-                            <AuthorImage
-                                isInternalReference={false}
-                                height={IMAGE_PREVIEW_SIZE}
-                                width={IMAGE_PREVIEW_SIZE}
-                                image={authorImage}
-                            />
-                        ) : (
-                            <Folder
-                                color={theme.colorMap.greyDarkThree}
-                                height={FOLDER_SIZE}
-                                width={FOLDER_SIZE}
-                            />
-                        )}
-                    </ButtonImage>
-                    <ButtonText collapse>{activePhotoText}</ButtonText>
-                </ButtonWithImage>
-                <HiddenInput
-                    ref={pictureInputRef}
-                    type="file"
-                    tabIndex="-1"
-                    required
-                    name="picture"
-                    accept="image/*"
-                    onChange={onPictureChange}
-                />
-            </HiddenInputContainer>
-            <FormInput
-                name="school_name"
-                onChange={onChange}
-                value={state.school_name}
-                placeholder="School Name"
-            />
-            <FormInput
-                name="github_page"
-                onChange={onChange}
-                value={state.github_page}
-                required={false}
-                placeholder="GitHub Page"
-            />
-            <FormInput
-                name="twitter"
-                onChange={onChange}
-                value={state.twitter}
-                required={false}
-                placeholder="Twitter"
-            />
-            <FormInput
-                name="linkedin"
-                onChange={onChange}
-                value={state.linkedin}
-                required={false}
-                placeholder="LinkedIn"
-            />
-            <FormInput
-                name="personal_website"
-                onChange={onChange}
-                value={state.personal_website}
-                required={false}
-                placeholder="Personal Website"
-            />
+            ))}
         </SubmitFormFieldset>
     );
 };
