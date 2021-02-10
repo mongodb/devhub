@@ -19,8 +19,10 @@ const Form = () => {
     const scrollToRef = ref =>
         window.scrollTo({ behavior: 'smooth', top: ref.current.offsetTop });
 
-    const onChange = e =>
-        dispatch({ field: e.target.name, value: e.target.value });
+    const onChange = useCallback(
+        e => dispatch({ field: e.target.name, value: e.target.value }),
+        [dispatch]
+    );
 
     const onStudentChange = i => e =>
         dispatch({ field: e.target.name, student: i, value: e.target.value });
