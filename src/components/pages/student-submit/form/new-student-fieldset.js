@@ -11,7 +11,6 @@ import Input from '~components/dev-hub/input';
 
 const FOLDER_SIZE = '21px';
 const IMAGE_PREVIEW_SIZE = 36;
-
 const INPUT_BOX_WIDTH = '336px';
 
 const ButtonText = styled(P3)`
@@ -19,12 +18,12 @@ const ButtonText = styled(P3)`
 `;
 
 const ButtonWithImage = styled(Button)`
-    display: flex;
     align-items: center;
-    padding: 0;
-    text-decoration: none;
     color: ${({ theme }) => theme.colorMap.devWhite};
+    display: flex;
+    padding: 0;
     position: relative;
+    text-decoration: none;
 `;
 
 const ButtonImage = styled('div')`
@@ -46,7 +45,6 @@ const HiddenInputContainer = styled('div')`
 
 const LinksSection = styled('div')`
     display: grid;
-    clear: both;
     grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
     grid-row-gap: ${size.mediumLarge};
     justify-content: space-between;

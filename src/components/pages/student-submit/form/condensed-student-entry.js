@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import AuthorImage from '~components/dev-hub/author-image';
 import { size } from '~components/dev-hub/theme';
@@ -6,14 +7,16 @@ import Button from '~components/dev-hub/button';
 import { P3 } from '~components/dev-hub/text';
 
 const IMAGE_PREVIEW_SIZE = 36;
+const EDIT_BUTTON_SIZE = size.mediumLarge;
+const REMOVE_BUTTON_SIZE = '49px';
 
 const CondensedContainer = styled('div')`
     border-bottom: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne};
     clear: both;
     align-items: center;
     display: grid;
-    grid-template-columns: 36px auto 24px 49px;
-    column-gap: 16px;
+    grid-template-columns: ${`${IMAGE_PREVIEW_SIZE}px`} auto ${EDIT_BUTTON_SIZE} ${REMOVE_BUTTON_SIZE};
+    column-gap: ${size.default};
     padding-bottom: ${size.mediumLarge};
 `;
 
@@ -21,18 +24,20 @@ const PreviewText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
-const EditButton = styled(Button)`
-    color: ${({ theme }) => theme.colorMap.devWhite};
+const modifyButtonStyling = css`
     font-family: akzidenz;
     padding: 0;
     text-decoration: none;
 `;
 
+const EditButton = styled(Button)`
+    color: ${({ theme }) => theme.colorMap.devWhite};
+    ${modifyButtonStyling};
+`;
+
 const RemoveButton = styled(Button)`
     color: ${({ theme }) => theme.colorMap.salmon};
-    font-family: akzidenz;
-    padding: 0;
-    text-decoration: none;
+    ${modifyButtonStyling};
 `;
 
 const CondensedStudentEntry = ({ authorImage, state, onRemove }) => (
