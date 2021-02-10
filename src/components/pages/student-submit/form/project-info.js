@@ -61,7 +61,7 @@ const ProjectInfo = ({ state, onChange, ...props }) => (
             />
         </LinksSection>
         <H5>Show off with images and video</H5>
-        <ImageDropzone />
+        <ImageDropzone onChange={onChange} />
         <FormInput
             required={false}
             name="youtube_link"

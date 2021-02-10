@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useDropzone } from 'react-dropzone';
@@ -67,9 +67,9 @@ const FullInput = styled('input')`
 `;
 
 // Adopted from https://react-dropzone.js.org/#section-previews
-const ImageDropzone = ({ maxFiles = 6 }) => {
+const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
     const [files, setFiles] = useState([null, null, null, null, null, null]);
-    const { getRootProps, getInputProps } = useDropzone({
+    const { getRootProps, getInputProps, inputRef } = useDropzone({
         accept: 'image/*',
         onDrop: acceptedFiles => {
             const newFiles = [
@@ -80,6 +80,12 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
                 ),
                 ...files,
             ].slice(0, maxFiles);
+            onChange({
+                target: {
+                    name: 'project_images',
+                    value: newFiles.filter(f => !!f),
+                },
+            });
             setFiles(newFiles);
         },
     });
@@ -91,6 +97,17 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
             removeImage={() => {
                 const newFiles = [...files];
                 newFiles[index] = null;
+                const actualImages = newFiles.filter(f => !!f);
+                const hasNoImages = !actualImages.length;
+                onChange({
+                    target: {
+                        name: 'project_images',
+                        value: actualImages,
+                    },
+                });
+                if (hasNoImages) {
+                    inputRef.current.value = '';
+                }
                 setFiles(newFiles);
             }}
         />
