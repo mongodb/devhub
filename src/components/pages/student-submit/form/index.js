@@ -22,6 +22,9 @@ const Form = () => {
     const onChange = e =>
         dispatch({ field: e.target.name, value: e.target.value });
 
+    const onStudentChange = i => e =>
+        dispatch({ field: e.target.name, student: i, value: e.target.value });
+
     const onFormPartCompletion = useCallback((e, initialRef, nextRef) => {
         e.preventDefault();
         const currentFieldset = initialRef.current;
@@ -78,8 +81,9 @@ const Form = () => {
             <PromoteYourself
                 isOpen={true}
                 newRef={fieldsetThreeRef}
+                dispatch={dispatch}
                 onComplete={onFinalPartComplete}
-                onChange={onChange}
+                onStudentChange={onStudentChange}
                 state={state}
             />
         </FormWithMargin>

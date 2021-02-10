@@ -9,6 +9,7 @@ import { layer, screenSize, size } from '~components/dev-hub/theme';
 import Button from '~components/dev-hub/button';
 import Folder from '~components/dev-hub/icons/folder';
 import { P3 } from '~components/dev-hub/text';
+import CondensedStudentEntry from './condensed-student-entry';
 
 const FOLDER_SIZE = '21px';
 const IMAGE_PREVIEW_SIZE = 36;
@@ -59,7 +60,20 @@ const FormInput = ({ required = true, ...props }) => (
     <Input narrow required={required} {...props} />
 );
 
-const PromoteYourself = ({ onChange, state, ...props }) => {
+const SingleStudentFieldset = ({
+    addNewStudent,
+    onChange,
+    onRemove,
+    state,
+}) => {
+    const [isExpanded, setIsExpanded] = useState(true);
+    const addAnotherTeamMemberIfValid = useCallback(() => {
+        // Validate
+        // Condense
+        setIsExpanded(false);
+        // Add another fieldset
+        addNewStudent();
+    }, [addNewStudent]);
     const [activePicture, setActivePicture] = useState(null);
     const hasActivePicture = !!activePicture;
     const pictureInputRef = useRef();
@@ -80,12 +94,8 @@ const PromoteYourself = ({ onChange, state, ...props }) => {
     const activePhotoText = hasActivePicture
         ? 'Change photo'
         : 'Attach photo (to be displayed with your bio)';
-    return (
-        <SubmitFormFieldset
-            buttonText="Submit"
-            legendText="Share Details"
-            {...props}
-        >
+    return isExpanded ? (
+        <>
             <LinksSection>
                 <FormInput
                     name="first_name"
@@ -177,6 +187,55 @@ const PromoteYourself = ({ onChange, state, ...props }) => {
                 required={false}
                 placeholder="Personal Website"
             />
+            <Button onClick={addAnotherTeamMemberIfValid}>
+                + Add another team member
+            </Button>
+        </>
+    ) : (
+        <CondensedStudentEntry
+            authorImage={authorImage}
+            state={state}
+            onRemove={onRemove}
+        />
+    );
+};
+
+const PromoteYourself = ({ dispatch, onStudentChange, state, ...props }) => {
+    const [numStudents, setNumStudents] = useState(1);
+    const addNewStudent = useCallback(() => {
+        setNumStudents(numStudents + 1);
+        dispatch({
+            field: 'students',
+            value: [...state.students, { key: numStudents }],
+        });
+    }, [dispatch, numStudents, state.students]);
+    const removeStudent = useCallback(
+        i => () => {
+            const newStudents = [...state.students];
+            newStudents.splice(i, 1);
+            dispatch({
+                field: 'students',
+                value: newStudents,
+            });
+        },
+        [dispatch, state.students]
+    );
+    return (
+        <SubmitFormFieldset
+            buttonText="Submit"
+            legendText="Share Details"
+            {...props}
+        >
+            {state.students.map((s, i) => (
+                <SingleStudentFieldset
+                    addNewStudent={addNewStudent}
+                    // TODO: Ensure proper uniqueness
+                    key={s.key}
+                    onChange={onStudentChange(i)}
+                    onRemove={removeStudent(i)}
+                    state={s}
+                />
+            ))}
         </SubmitFormFieldset>
     );
 };
