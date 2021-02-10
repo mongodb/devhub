@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useDropzone } from 'react-dropzone';
@@ -69,47 +69,53 @@ const FullInput = styled('input')`
 // Adopted from https://react-dropzone.js.org/#section-previews
 const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
     const [files, setFiles] = useState([null, null, null, null, null, null]);
+    const onDrop = acceptedFiles => {
+        const newFiles = [
+            ...acceptedFiles.map(file =>
+                Object.assign(file, {
+                    preview: URL.createObjectURL(file),
+                })
+            ),
+            ...files,
+        ].slice(0, maxFiles);
+        onChange({
+            target: {
+                name: 'project_images',
+                value: newFiles.filter(f => !!f),
+            },
+        });
+        setFiles(newFiles);
+    };
     const { getRootProps, getInputProps, inputRef } = useDropzone({
         accept: 'image/*',
-        onDrop: acceptedFiles => {
-            const newFiles = [
-                ...acceptedFiles.map(file =>
-                    Object.assign(file, {
-                        preview: URL.createObjectURL(file),
-                    })
-                ),
-                ...files,
-            ].slice(0, maxFiles);
+        onDrop: onDrop,
+    });
+
+    const removeImage = useCallback(
+        i => () => {
+            const newFiles = [...files];
+            newFiles[i] = null;
+            const actualImages = newFiles.filter(f => !!f);
+            const hasNoImages = !actualImages.length;
             onChange({
                 target: {
                     name: 'project_images',
-                    value: newFiles.filter(f => !!f),
+                    value: actualImages,
                 },
             });
+            if (hasNoImages) {
+                inputRef.current.value = '';
+            }
             setFiles(newFiles);
         },
-    });
+        [files, inputRef, onChange]
+    );
 
     const thumbs = files.map((file, index) => (
         <DropzoneThumbnail
             file={file}
             key={file ? file.name : index}
-            removeImage={() => {
-                const newFiles = [...files];
-                newFiles[index] = null;
-                const actualImages = newFiles.filter(f => !!f);
-                const hasNoImages = !actualImages.length;
-                onChange({
-                    target: {
-                        name: 'project_images',
-                        value: actualImages,
-                    },
-                });
-                if (hasNoImages) {
-                    inputRef.current.value = '';
-                }
-                setFiles(newFiles);
-            }}
+            removeImage={removeImage(index)}
         />
     ));
 
