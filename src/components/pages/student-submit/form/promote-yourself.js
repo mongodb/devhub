@@ -22,6 +22,9 @@ const SingleStudentFieldset = ({
         setIsExpanded(false);
         addNewStudent();
     }, [addNewStudent]);
+    const onEdit = useCallback(() => {
+        setIsExpanded(true);
+    }, []);
 
     return isExpanded ? (
         <NewStudentFieldset
@@ -35,6 +38,7 @@ const SingleStudentFieldset = ({
         <CondensedStudentEntry
             authorImage={authorImage}
             state={state}
+            onEdit={onEdit}
             onRemove={onRemove}
         />
     );

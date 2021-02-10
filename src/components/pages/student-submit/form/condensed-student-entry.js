@@ -40,7 +40,7 @@ const RemoveButton = styled(Button)`
     ${modifyButtonStyling};
 `;
 
-const CondensedStudentEntry = ({ authorImage, state, onRemove }) => (
+const CondensedStudentEntry = ({ authorImage, onEdit, onRemove, state }) => (
     <CondensedContainer>
         <AuthorImage
             isInternalReference={false}
@@ -54,7 +54,7 @@ const CondensedStudentEntry = ({ authorImage, state, onRemove }) => (
             </PreviewText>
             <PreviewText collapse>{state.school_name}</PreviewText>
         </div>
-        <EditButton>
+        <EditButton onClick={onEdit}>
             <P3 collapse>Edit</P3>
         </EditButton>
         <RemoveButton onClick={onRemove}>
