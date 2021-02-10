@@ -41,24 +41,27 @@ const SingleStudentFieldset = ({
 };
 
 const PromoteYourself = ({ dispatch, onStudentChange, state, ...props }) => {
+    /* 
+        We need to track the number of students to provide a unique key since
+        we allow for students to be added or removed
+    */
     const [numStudents, setNumStudents] = useState(1);
+    const updateStudents = useCallback(
+        value => dispatch({ field: 'students', value }),
+        [dispatch]
+    );
     const addNewStudent = useCallback(() => {
+        // Whenever we add a student, increment the total to ensure a unique key
         setNumStudents(numStudents + 1);
-        dispatch({
-            field: 'students',
-            value: [...state.students, { key: numStudents }],
-        });
-    }, [dispatch, numStudents, state.students]);
+        updateStudents([...state.students, { key: numStudents }]);
+    }, [numStudents, state.students, updateStudents]);
     const removeStudent = useCallback(
         i => () => {
             const newStudents = [...state.students];
             newStudents.splice(i, 1);
-            dispatch({
-                field: 'students',
-                value: newStudents,
-            });
+            updateStudents(newStudents);
         },
-        [dispatch, state.students]
+        [state.students, updateStudents]
     );
     return (
         <SubmitFormFieldset
