@@ -11,12 +11,12 @@ const EDIT_BUTTON_SIZE = size.mediumLarge;
 const REMOVE_BUTTON_SIZE = '49px';
 
 const CondensedContainer = styled('div')`
+    align-items: center;
     border-bottom: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne};
     clear: both;
-    align-items: center;
+    column-gap: ${size.default};
     display: grid;
     grid-template-columns: ${`${IMAGE_PREVIEW_SIZE}px`} auto ${EDIT_BUTTON_SIZE} ${REMOVE_BUTTON_SIZE};
-    column-gap: ${size.default};
     padding-bottom: ${size.mediumLarge};
 `;
 
