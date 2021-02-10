@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useDropzone } from 'react-dropzone';
@@ -66,35 +66,63 @@ const FullInput = styled('input')`
     z-index: ${layer.superBack};
 `;
 
+const addAcceptedFilesToArray = (files, acceptedFiles, maxFiles) => {
+    let newFiles = [
+        ...acceptedFiles.map(file => ({
+            ...file,
+            preview: URL.createObjectURL(file),
+        })),
+        ...files,
+    ];
+    if (newFiles.length > maxFiles) {
+        newFiles = newFiles.slice(0, maxFiles);
+    }
+    return newFiles;
+};
+
+const removeFileFromArray = (files, index) => {
+    const newFiles = [...files];
+    newFiles[index] = null;
+    return newFiles;
+};
+
+const removeFileValueFromInput = input => (input.value = '');
+
 // Adopted from https://react-dropzone.js.org/#section-previews
-const ImageDropzone = ({ maxFiles = 6 }) => {
-    const [files, setFiles] = useState([null, null, null, null, null, null]);
-    const { getRootProps, getInputProps } = useDropzone({
+const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
+    const [files, setFiles] = useState(new Array(maxFiles).fill(null));
+    const filesWithoutNulls = useMemo(() => files.filter(f => !!f), [files]);
+
+    const onDrop = acceptedFiles => {
+        const newFiles = addAcceptedFilesToArray(
+            files,
+            acceptedFiles,
+            maxFiles
+        );
+        setFiles(newFiles);
+    };
+
+    const { getRootProps, getInputProps, inputRef } = useDropzone({
         accept: 'image/*',
-        onDrop: acceptedFiles => {
-            const newFiles = [
-                ...acceptedFiles.map(file =>
-                    Object.assign(file, {
-                        preview: URL.createObjectURL(file),
-                    })
-                ),
-                ...files,
-            ].slice(0, maxFiles);
-            setFiles(newFiles);
-        },
+        onDrop: onDrop,
     });
 
-    const thumbs = files.map((file, index) => (
-        <DropzoneThumbnail
-            file={file}
-            key={file ? file.name : index}
-            removeImage={() => {
-                const newFiles = [...files];
-                newFiles[index] = null;
-                setFiles(newFiles);
-            }}
-        />
-    ));
+    const removeImage = useCallback(
+        i => () => {
+            const newFiles = removeFileFromArray(files, i);
+            const hasNoImages = newFiles.every(file => !file);
+            if (hasNoImages) {
+                // Clear any value in the image field since at least one is required
+                removeFileValueFromInput(inputRef.current);
+            }
+            setFiles(newFiles);
+        },
+        [files, inputRef]
+    );
+
+    useEffect(() => {
+        onChange(filesWithoutNulls);
+    }, [filesWithoutNulls, onChange]);
 
     useEffect(
         () => () => {
@@ -103,6 +131,14 @@ const ImageDropzone = ({ maxFiles = 6 }) => {
         },
         [files]
     );
+
+    const thumbs = files.map((file, index) => (
+        <DropzoneThumbnail
+            file={file}
+            key={file ? file.name : index}
+            removeImage={removeImage(index)}
+        />
+    ));
 
     return (
         <section>
