@@ -1,13 +1,13 @@
 import React, { useCallback, useRef } from 'react';
+import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
 import AuthorImage from '~components/dev-hub/author-image';
-import TextArea from '~components/dev-hub/text-area';
-import Folder from '~components/dev-hub/icons/folder';
-import styled from '@emotion/styled';
-import { layer, screenSize, size } from '~components/dev-hub/theme';
 import Button from '~components/dev-hub/button';
-import { P3 } from '~components/dev-hub/text';
+import Folder from '~components/dev-hub/icons/folder';
 import Input from '~components/dev-hub/input';
+import { P3 } from '~components/dev-hub/text';
+import TextArea from '~components/dev-hub/text-area';
+import { layer, screenSize, size } from '~components/dev-hub/theme';
 
 const FOLDER_SIZE = '21px';
 const IMAGE_PREVIEW_SIZE = 36;

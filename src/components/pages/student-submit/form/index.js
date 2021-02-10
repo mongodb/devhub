@@ -79,9 +79,9 @@ const Form = () => {
                 state={state}
             />
             <PromoteYourself
+                dispatch={dispatch}
                 isOpen={true}
                 newRef={fieldsetThreeRef}
-                dispatch={dispatch}
                 onComplete={onFinalPartComplete}
                 onStudentChange={onStudentChange}
                 state={state}
