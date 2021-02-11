@@ -42,10 +42,10 @@ const ProjectInfo = ({ state, onChange, ...props }) => {
             {...props}
         >
             <FormInput
-                name="project_name"
+                name="name"
                 onChange={onChange}
                 placeholder="Project Name"
-                value={state.project_name}
+                value={state.name}
             />
             <FormInput
                 name="short_description"
@@ -61,11 +61,11 @@ const ProjectInfo = ({ state, onChange, ...props }) => {
             />
             <LinksSection>
                 <FormInput
-                    name="github_link"
+                    name="github_url"
                     onChange={onChange}
                     placeholder="GitHub Link"
                     type="url"
-                    value={state.github_link}
+                    value={state.github_url}
                 />
                 <FormInput
                     required={false}

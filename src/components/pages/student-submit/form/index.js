@@ -2,6 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
 import { size } from '~components/dev-hub/theme';
 import { useStudentSpotlightReducer } from '~hooks/use-student-spotlight-reducer';
+import { submitStudentSpotlightProject } from '~utils/devhub-api-stitch';
 import ProjectInfo from './project-info';
 import PromoteYourself from './promote-yourself';
 import ShareDetails from './share-details';
@@ -27,29 +28,33 @@ const Form = () => {
     const onStudentChange = i => e =>
         dispatch({ field: e.target.name, student: i, value: e.target.value });
 
-    const onFormPartCompletion = useCallback((e, initialRef, nextRef) => {
-        e.preventDefault();
-        const currentFieldset = initialRef.current;
-        const fieldsetElements = Array.from(currentFieldset.elements);
-        // Last entry of fieldset is the button to move on to the next fieldset
-        // We do not need to consider it when checking validity
-        fieldsetElements.pop();
-        const isValid = fieldsetElements.reduce(
-            (p, c) => p && c.checkValidity(),
-            true
-        );
-        if (isValid) {
-            if (nextRef) {
-                scrollToRef(nextRef);
+    const onFormPartCompletion = useCallback(
+        (e, initialRef, nextRef) => {
+            e.preventDefault();
+            const currentFieldset = initialRef.current;
+            const fieldsetElements = Array.from(currentFieldset.elements);
+            // Last entry of fieldset is the button to move on to the next fieldset
+            // We do not need to consider it when checking validity
+            fieldsetElements.pop();
+            const isValid = fieldsetElements.reduce(
+                (p, c) => p && c.checkValidity(),
+                true
+            );
+            if (isValid) {
+                if (nextRef) {
+                    scrollToRef(nextRef);
+                } else {
+                    submitStudentSpotlightProject(state);
+                    // TODO: this is the last part, submit form
+                    return;
+                }
             } else {
-                // TODO: this is the last part, submit form
-                return;
+                // Browser method to show validity messages
+                currentFieldset.form.reportValidity();
             }
-        } else {
-            // Browser method to show validity messages
-            currentFieldset.form.reportValidity();
-        }
-    }, []);
+        },
+        [state]
+    );
 
     const onFirstPartComplete = useCallback(
         e => onFormPartCompletion(e, fieldsetOneRef, fieldsetTwoRef),

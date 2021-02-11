@@ -68,10 +68,11 @@ const FullInput = styled('input')`
 
 const addAcceptedFilesToArray = (files, acceptedFiles, maxFiles) => {
     let newFiles = [
-        ...acceptedFiles.map(file => ({
-            ...file,
-            preview: URL.createObjectURL(file),
-        })),
+        ...acceptedFiles.map(file =>
+            Object.assign(file, {
+                preview: URL.createObjectURL(file),
+            })
+        ),
         ...files,
     ];
     if (newFiles.length > maxFiles) {

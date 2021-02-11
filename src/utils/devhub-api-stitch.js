@@ -60,3 +60,11 @@ export const submitDevhubProject = async (metadata, object, segmentData) => {
     );
     return result;
 };
+
+export const submitStudentSpotlightProject = async projectData => {
+    const result = await callDevhubAPIStitchFunction(
+        'submitStudentSpotlightProject',
+        projectData
+    );
+    return result;
+};
