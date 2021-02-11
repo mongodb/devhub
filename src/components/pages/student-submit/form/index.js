@@ -29,7 +29,7 @@ const Form = () => {
         dispatch({ field: e.target.name, student: i, value: e.target.value });
 
     const onFormPartCompletion = useCallback(
-        (e, initialRef, nextRef) => {
+        async (e, initialRef, nextRef) => {
             e.preventDefault();
             const currentFieldset = initialRef.current;
             const fieldsetElements = Array.from(currentFieldset.elements);
@@ -44,7 +44,21 @@ const Form = () => {
                 if (nextRef) {
                     scrollToRef(nextRef);
                 } else {
-                    submitStudentSpotlightProject(state);
+                    const newState = { ...state };
+
+                    var form_data = new FormData();
+
+                    form_data.append('files', newState.project_images[0]);
+                    // result.append('data', JSON.stringify(newState));
+                    const r = await fetch('http://18.144.177.6:1337/upload', {
+                        'Content-Type': 'multipart/form-data',
+                        method: 'post',
+                        body: form_data,
+                    });
+                    const resp = await r.json();
+                    const { _id } = resp[0];
+                    newState.project_images[0] = _id;
+                    submitStudentSpotlightProject(newState);
                     // TODO: this is the last part, submit form
                     return;
                 }
