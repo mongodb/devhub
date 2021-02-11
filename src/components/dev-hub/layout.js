@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
-import MongodbLiveBanner from './mongodb-live-banner';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
@@ -101,7 +100,6 @@ export default ({ children, includeCanonical = true }) => {
                     )}
                 </Helmet>
                 <Global styles={style} />
-                <MongodbLiveBanner />
                 <GlobalNav />
                 <TabProvider>
                     <Main>{children}</Main>
