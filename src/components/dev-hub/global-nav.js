@@ -9,7 +9,6 @@ import useMedia from '~hooks/use-media';
 import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
 
-const DESKTOP_NAV_BREAK = screenSize.largeAndUp;
 const GREEN_BORDER_SIZE = '2px';
 // Account for bottom bar on mobile browsers
 const MOBILE_MENU_ADDITIONAL_PADDING = '256px';
@@ -139,18 +138,17 @@ const MobileItems = ({ items }) => {
 const GlobalNav = () => {
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
-    // Default to desktop first to reduce CLS
-    const isDesktop = useMedia(DESKTOP_NAV_BREAK);
+    const isMobile = useMedia(MOBILE_NAV_BREAK);
     return (
         <Nav>
             <NavContent>
                 <HomeLink aria-label="Home" to="/">
                     <LeafLogo />
                 </HomeLink>
-                {isDesktop ? (
-                    items.map(item => <NavItem key={item.name} item={item} />)
-                ) : (
+                {isMobile ? (
                     <MobileItems items={items} />
+                ) : (
+                    items.map(item => <NavItem key={item.name} item={item} />)
                 )}
             </NavContent>
         </Nav>
