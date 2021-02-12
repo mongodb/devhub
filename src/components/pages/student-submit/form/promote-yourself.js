@@ -5,9 +5,9 @@ import CondensedStudentEntry from './condensed-student-entry';
 import NewStudentFieldset from './new-student-fieldset';
 
 const SingleStudentFieldset = ({
-    onEdit,
     isExpanded,
     onChange,
+    onEdit,
     onRemove,
     state,
 }) => {
@@ -34,6 +34,12 @@ const SingleStudentFieldset = ({
             onRemove={onRemove}
         />
     );
+};
+
+const isEmpty = student => {
+    const keys = Object.keys(student);
+    const searchKeys = keys.filter(k => !['key', 'isExpanded'].includes(k));
+    return searchKeys.reduce((p, c) => p && !student[c], true);
 };
 
 const PromoteYourself = ({
@@ -72,7 +78,7 @@ const PromoteYourself = ({
             // if last student is empty, remove
             const lastStudent = state.students[state.students.length - 1];
             const newStudents = [...state.students];
-            if (Object.keys(lastStudent).length === 2) {
+            if (isEmpty(lastStudent)) {
                 newStudents.splice(-1);
             }
             const result = newStudents.map((s, idx) => ({
@@ -96,8 +102,7 @@ const PromoteYourself = ({
     const onStudentFormComplete = useCallback(
         e => {
             const lastStudent = state.students[state.students.length - 1];
-            // Also need to check nulls
-            if (Object.keys(lastStudent).length === 2) {
+            if (isEmpty(lastStudent)) {
                 const newStudents = [...state.students];
                 newStudents.splice(-1);
                 updateStudents(newStudents);
