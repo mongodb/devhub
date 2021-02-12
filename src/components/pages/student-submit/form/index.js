@@ -29,27 +29,24 @@ const Form = () => {
         dispatch({ field: e.target.name, student: i, value: e.target.value });
 
     const onFormPartCompletion = useCallback(
-        (e, i, initialRef, nextRef) => {
+        (e, i, ref, isFinalPart = false) => {
             e.preventDefault();
-            const currentFieldset = initialRef.current;
+            const currentFieldset = ref.current;
             const fieldsetElements = Array.from(currentFieldset.elements);
-            // Last entry of fieldset is the button to move on to the next fieldset
-            // We do not need to consider it when checking validity
-            fieldsetElements.pop();
             const isValid = fieldsetElements.reduce(
                 (p, c) => p && c.checkValidity(),
                 true
             );
             if (isValid) {
-                if (nextRef) {
+                if (isFinalPart) {
+                    // TODO: this is the last part, submit form
+                    return;
+                } else {
                     const newOpen = [...fieldsetsOpen];
                     newOpen[i] = false;
                     newOpen[i + 1] = true;
                     setFieldsetsOpen(newOpen);
-                    scrollToRef(nextRef);
-                } else {
-                    // TODO: this is the last part, submit form
-                    return;
+                    scrollToRef(ref);
                 }
             } else {
                 // Browser method to show validity messages
@@ -60,15 +57,15 @@ const Form = () => {
     );
 
     const onFirstPartComplete = useCallback(
-        e => onFormPartCompletion(e, 0, fieldsetOneRef, fieldsetTwoRef),
-        [fieldsetOneRef, fieldsetTwoRef, onFormPartCompletion]
+        e => onFormPartCompletion(e, 0, fieldsetOneRef),
+        [fieldsetOneRef, onFormPartCompletion]
     );
     const onSecondPartComplete = useCallback(
-        e => onFormPartCompletion(e, 1, fieldsetTwoRef, fieldsetThreeRef),
-        [fieldsetThreeRef, fieldsetTwoRef, onFormPartCompletion]
+        e => onFormPartCompletion(e, 1, fieldsetTwoRef),
+        [fieldsetTwoRef, onFormPartCompletion]
     );
     const onFinalPartComplete = useCallback(
-        e => onFormPartCompletion(e, 2, fieldsetThreeRef),
+        e => onFormPartCompletion(e, 2, fieldsetThreeRef, true),
         [fieldsetThreeRef, onFormPartCompletion]
     );
 
