@@ -160,7 +160,7 @@ const Form = () => {
                     }}
                 >
                     <SuccessState>
-                        <H3>Thank you for joining!</H3>
+                        <H3>Thank you for sharing!</H3>
                         <P2>
                             We’re looking forward to reading about your project.
                             We will review your submission and will send you an
