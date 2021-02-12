@@ -1,49 +1,24 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { STUDENT_DEFAULT_KEYS } from '~utils/student-spotlight-reducer';
+import styled from '@emotion/styled';
 import Button from '~components/dev-hub/button';
+import SingleStudentFieldset from './single-student-fieldset';
 import SubmitFormFieldset from './submit-form-fieldset';
-import CondensedStudentEntry from './condensed-student-entry';
-import NewStudentFieldset from './new-student-fieldset';
 
-const SingleStudentFieldset = ({
-    isExpanded,
-    onChange,
-    onEdit,
-    onRemove,
-    state,
-}) => {
-    const [activePicture, setActivePicture] = useState(null);
-    const hasActivePicture = !!activePicture;
-
-    const authorImage = useMemo(
-        () => hasActivePicture && URL.createObjectURL(activePicture),
-        [activePicture, hasActivePicture]
-    );
-
-    return isExpanded ? (
-        <NewStudentFieldset
-            authorImage={authorImage}
-            setActivePicture={setActivePicture}
-            onChange={onChange}
-            state={state}
-        />
-    ) : (
-        <CondensedStudentEntry
-            authorImage={authorImage}
-            state={state}
-            onEdit={onEdit}
-            onRemove={onRemove}
-        />
-    );
-};
+const RightAligned = styled('div')`
+    display: flex;
+    justify-content: flex-end;
+`;
 
 const isEmpty = student => {
     const keys = Object.keys(student);
-    const searchKeys = keys.filter(k => !['key', 'isExpanded'].includes(k));
+    const searchKeys = keys.filter(k => !STUDENT_DEFAULT_KEYS.includes(k));
     return searchKeys.reduce((p, c) => p && !student[c], true);
 };
 
 const PromoteYourself = ({
     dispatch,
+    newRef,
     onComplete,
     onStudentChange,
     state,
@@ -58,8 +33,17 @@ const PromoteYourself = ({
         value => dispatch({ field: 'students', value }),
         [dispatch]
     );
+    const removeLastStudentIfEmpty = useCallback(() => {
+        const lastStudent = state.students[state.students.length - 1];
+        const newStudents = [...state.students];
+        if (isEmpty(lastStudent)) {
+            newStudents.splice(-1);
+        }
+        return newStudents;
+    }, [state.students]);
     const addNewStudent = useCallback(() => {
-        if (props.newRef.current.form.checkValidity()) {
+        const form = newRef.current.form;
+        if (form.checkValidity()) {
             // Whenever we add a student, increment the total to ensure a unique key
             setNumStudents(numStudents + 1);
             const newStudents = state.students.map(s => ({
@@ -70,25 +54,20 @@ const PromoteYourself = ({
             newStudents.push({ key: numStudents, isExpanded: true });
             updateStudents(newStudents);
         } else {
-            props.newRef.current.form.reportValidity();
+            form.reportValidity();
         }
-    }, [props.newRef, numStudents, state, updateStudents]);
+    }, [newRef, numStudents, state.students, updateStudents]);
     const editStudent = useCallback(
         i => () => {
-            // if last student is empty, remove
-            const lastStudent = state.students[state.students.length - 1];
-            const newStudents = [...state.students];
-            if (isEmpty(lastStudent)) {
-                newStudents.splice(-1);
-            }
+            const newStudents = removeLastStudentIfEmpty();
+            // Close all entries except this one
             const result = newStudents.map((s, idx) => ({
                 ...s,
                 isExpanded: i === idx,
             }));
             updateStudents(result);
-            // else validate then open at i
         },
-        [state.students, updateStudents]
+        [removeLastStudentIfEmpty, updateStudents]
     );
     const removeStudent = useCallback(
         i => () => {
@@ -101,26 +80,22 @@ const PromoteYourself = ({
 
     const onStudentFormComplete = useCallback(
         e => {
-            const lastStudent = state.students[state.students.length - 1];
-            if (isEmpty(lastStudent)) {
-                const newStudents = [...state.students];
-                newStudents.splice(-1);
-                updateStudents(newStudents);
-            }
+            const newStudents = removeLastStudentIfEmpty();
+            updateStudents(newStudents);
             onComplete(e);
         },
-        [onComplete, state.students, updateStudents]
+        [onComplete, removeLastStudentIfEmpty, updateStudents]
     );
     return (
         <SubmitFormFieldset
             buttonText="Submit"
             legendText="Promote Yourself"
+            newRef={newRef}
             onComplete={onStudentFormComplete}
             {...props}
         >
             {state.students.map((s, i) => (
                 <SingleStudentFieldset
-                    addNewStudent={addNewStudent}
                     onEdit={editStudent(i)}
                     isExpanded={s.isExpanded}
                     key={s.key}
@@ -129,7 +104,11 @@ const PromoteYourself = ({
                     state={s}
                 />
             ))}
-            <Button onClick={addNewStudent}>+ Add another team member</Button>
+            <RightAligned>
+                <Button onClick={addNewStudent}>
+                    + Add another team member
+                </Button>
+            </RightAligned>
         </SubmitFormFieldset>
     );
 };

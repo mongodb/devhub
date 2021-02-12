@@ -2,6 +2,10 @@ export const initialStudentSpotlightState = () => ({
     students: [{ key: 0, isExpanded: true }],
 });
 
+export const STUDENT_DEFAULT_KEYS = Object.keys(
+    initialStudentSpotlightState()['students'][0]
+);
+
 const isUpdatingStudents = studentIndex => Number.isInteger(studentIndex);
 
 export const studentSpotlightReducer = (state, { field, student, value }) => {
