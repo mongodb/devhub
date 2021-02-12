@@ -59,7 +59,6 @@ const FormInput = ({ required = true, ...props }) => (
 
 const NewStudentFieldset = ({
     authorImage,
-    onAddTeamMember,
     onChange,
     setActivePicture,
     state,
@@ -82,10 +81,6 @@ const NewStudentFieldset = ({
         },
         [setActivePicture]
     );
-    const addAnotherTeamMemberIfValid = useCallback(() => {
-        // Validate
-        onAddTeamMember();
-    }, [onAddTeamMember]);
     return (
         <>
             <LinksSection>
@@ -179,9 +174,6 @@ const NewStudentFieldset = ({
                 required={false}
                 placeholder="Personal Website"
             />
-            <Button onClick={addAnotherTeamMemberIfValid}>
-                + Add another team member
-            </Button>
         </>
     );
 };
