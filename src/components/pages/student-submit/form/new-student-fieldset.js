@@ -76,10 +76,17 @@ const NewStudentFieldset = ({
     const onPictureChange = useCallback(
         e => {
             if (e.target.files) {
+                onChange({
+                    target: { name: 'image', value: e.target.files[0] },
+                });
                 setActivePicture(e.target.files[0]);
+            } else {
+                onChange({
+                    target: { name: 'image', value: null },
+                });
             }
         },
-        [setActivePicture]
+        [onChange, setActivePicture]
     );
     return (
         <>
@@ -105,9 +112,9 @@ const NewStudentFieldset = ({
                 />
             </LinksSection>
             <TextArea
-                name="short_bio"
+                name="bio"
                 onChange={onChange}
-                value={state.short_bio}
+                value={state.bio}
                 placeholder="Short Bio"
             />
             <HiddenInputContainer>
@@ -135,7 +142,7 @@ const NewStudentFieldset = ({
                     type="file"
                     tabIndex="-1"
                     required
-                    name="picture"
+                    name="image"
                     accept="image/*"
                     onChange={onPictureChange}
                 />
@@ -147,23 +154,23 @@ const NewStudentFieldset = ({
                 placeholder="School Name"
             />
             <FormInput
-                name="github_page"
+                name="github_url"
                 onChange={onChange}
-                value={state.github_page}
+                value={state.github_url}
                 required={false}
                 placeholder="GitHub Page"
             />
             <FormInput
-                name="twitter"
+                name="twitter_handle"
                 onChange={onChange}
-                value={state.twitter}
+                value={state.twitter_handle}
                 required={false}
                 placeholder="Twitter"
             />
             <FormInput
-                name="linkedin"
+                name="linkedin_url"
                 onChange={onChange}
-                value={state.linkedin}
+                value={state.linkedin_url}
                 required={false}
                 placeholder="LinkedIn"
             />
