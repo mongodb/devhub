@@ -1,16 +1,16 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import styled from '@emotion/styled';
+import Button from '~components/dev-hub/button';
 import SubmitFormFieldset from './submit-form-fieldset';
 import CondensedStudentEntry from './condensed-student-entry';
 import NewStudentFieldset from './new-student-fieldset';
 
 const SingleStudentFieldset = ({
-    addNewStudent,
+    onEdit,
+    isExpanded,
     onChange,
     onRemove,
     state,
 }) => {
-    const [isExpanded, setIsExpanded] = useState(true);
     const [activePicture, setActivePicture] = useState(null);
     const hasActivePicture = !!activePicture;
 
@@ -18,19 +18,11 @@ const SingleStudentFieldset = ({
         () => hasActivePicture && URL.createObjectURL(activePicture),
         [activePicture, hasActivePicture]
     );
-    const onAddTeamMember = useCallback(() => {
-        setIsExpanded(false);
-        addNewStudent();
-    }, [addNewStudent]);
-    const onEdit = useCallback(() => {
-        setIsExpanded(true);
-    }, []);
 
     return isExpanded ? (
         <NewStudentFieldset
             authorImage={authorImage}
             setActivePicture={setActivePicture}
-            onAddTeamMember={onAddTeamMember}
             onChange={onChange}
             state={state}
         />
@@ -44,7 +36,13 @@ const SingleStudentFieldset = ({
     );
 };
 
-const PromoteYourself = ({ dispatch, onStudentChange, state, ...props }) => {
+const PromoteYourself = ({
+    dispatch,
+    onComplete,
+    onStudentChange,
+    state,
+    ...props
+}) => {
     /* 
         We need to track the number of students to provide a unique key since
         we allow for students to be added or removed
@@ -55,10 +53,37 @@ const PromoteYourself = ({ dispatch, onStudentChange, state, ...props }) => {
         [dispatch]
     );
     const addNewStudent = useCallback(() => {
-        // Whenever we add a student, increment the total to ensure a unique key
-        setNumStudents(numStudents + 1);
-        updateStudents([...state.students, { key: numStudents }]);
-    }, [numStudents, state.students, updateStudents]);
+        if (props.newRef.current.form.checkValidity()) {
+            // Whenever we add a student, increment the total to ensure a unique key
+            setNumStudents(numStudents + 1);
+            const newStudents = state.students.map(s => ({
+                ...s,
+                isExpanded: false,
+            }));
+
+            newStudents.push({ key: numStudents, isExpanded: true });
+            updateStudents(newStudents);
+        } else {
+            props.newRef.current.form.reportValidity();
+        }
+    }, [props.newRef, numStudents, state, updateStudents]);
+    const editStudent = useCallback(
+        i => () => {
+            // if last student is empty, remove
+            const lastStudent = state.students[state.students.length - 1];
+            const newStudents = [...state.students];
+            if (Object.keys(lastStudent).length === 2) {
+                newStudents.splice(-1);
+            }
+            const result = newStudents.map((s, idx) => ({
+                ...s,
+                isExpanded: i === idx ? true : false,
+            }));
+            updateStudents(result);
+            // else validate then open at i
+        },
+        [state.students, updateStudents]
+    );
     const removeStudent = useCallback(
         i => () => {
             const newStudents = [...state.students];
@@ -67,21 +92,39 @@ const PromoteYourself = ({ dispatch, onStudentChange, state, ...props }) => {
         },
         [state.students, updateStudents]
     );
+
+    const onStudentFormComplete = useCallback(
+        e => {
+            const lastStudent = state.students[state.students.length - 1];
+            // Also need to check nulls
+            if (Object.keys(lastStudent).length === 2) {
+                const newStudents = [...state.students];
+                newStudents.splice(-1);
+                updateStudents(newStudents);
+            }
+            onComplete(e);
+        },
+        [onComplete, state.students, updateStudents]
+    );
     return (
         <SubmitFormFieldset
             buttonText="Submit"
-            legendText="Share Details"
+            legendText="Promote Yourself"
+            onComplete={onStudentFormComplete}
             {...props}
         >
             {state.students.map((s, i) => (
                 <SingleStudentFieldset
                     addNewStudent={addNewStudent}
+                    onEdit={editStudent(i)}
+                    isExpanded={s.isExpanded}
                     key={s.key}
                     onChange={onStudentChange(i)}
                     onRemove={removeStudent(i)}
                     state={s}
                 />
             ))}
+            <Button onClick={addNewStudent}>+ Add another team member</Button>
         </SubmitFormFieldset>
     );
 };
