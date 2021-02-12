@@ -34,6 +34,10 @@ const PromoteYourself = ({
         [dispatch]
     );
     const removeLastStudentIfEmpty = useCallback(() => {
+        // Don't allow an empty submission
+        if (state.students.length === 1) {
+            return [...state.students];
+        }
         const lastStudent = state.students[state.students.length - 1];
         const newStudents = [...state.students];
         if (isEmpty(lastStudent)) {

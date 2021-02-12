@@ -25,8 +25,15 @@ const Form = () => {
         [dispatch]
     );
 
-    const onStudentChange = i => e =>
-        dispatch({ field: e.target.name, student: i, value: e.target.value });
+    const onStudentChange = useCallback(
+        i => e =>
+            dispatch({
+                field: e.target.name,
+                student: i,
+                value: e.target.value,
+            }),
+        [dispatch]
+    );
 
     const onFormPartCompletion = useCallback(
         (e, i, ref, isFinalPart = false) => {
