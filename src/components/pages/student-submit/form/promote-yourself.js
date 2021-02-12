@@ -83,7 +83,7 @@ const PromoteYourself = ({
             }
             const result = newStudents.map((s, idx) => ({
                 ...s,
-                isExpanded: i === idx ? true : false,
+                isExpanded: i === idx,
             }));
             updateStudents(result);
             // else validate then open at i
