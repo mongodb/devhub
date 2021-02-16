@@ -3,10 +3,18 @@ import styled from '@emotion/styled';
 import Button from '~components/dev-hub/button';
 import HeroBanner from '~components/dev-hub/hero-banner';
 import { H2, P } from '~components/dev-hub/text';
+import { screenSize, size } from '~components/dev-hub/theme';
 
 const BannerContentLayout = styled('div')`
     display: flex;
     justify-content: space-between;
+    @media ${screenSize.upToMedium} {
+        display: block;
+    }
+`;
+
+const MobileMarginBottom = styled('div')`
+    margin-bottom: ${size.medium};
 `;
 
 const ShowOffButton = styled(Button)`
@@ -19,12 +27,16 @@ const GalleryHeroBanner = () => {
         { label: 'MongoDB for Academia', target: '/academia' },
     ];
     return (
-        <HeroBanner fullWidth breadcrumb={academiaBreadcrumbs}>
+        <HeroBanner
+            showImageOnMobile={false}
+            fullWidth
+            breadcrumb={academiaBreadcrumbs}
+        >
             <BannerContentLayout>
-                <div>
+                <MobileMarginBottom>
                     <H2>Student Spotlights</H2>
-                    <P>Projects created by students, for students</P>
-                </div>
+                    <P collapse>Projects created by students, for students</P>
+                </MobileMarginBottom>
                 <ShowOffButton primary to="/academia/students/submit">
                     Show off your project
                 </ShowOffButton>

@@ -3,12 +3,15 @@ import styled from '@emotion/styled';
 import githubStudentPackPng from '../../../images/github-backpack-mongo.png';
 import Link from '../link';
 import MediaBlock from '../media-block';
-import { H4, P } from '../text';
+import { H4, P, P2 } from '../text';
 import { screenSize, size } from '../theme';
 
 const StyledMediaBlock = styled(MediaBlock)`
     background-color: ${({ theme }) => theme.colorMap.devBlack};
     padding: ${size.xlarge} ${size.xxlarge};
+    @media ${screenSize.upToMedium} {
+        padding: ${size.large} ${size.default} 48px;
+    }
 `;
 
 const LightText = styled(P)`
@@ -33,9 +36,11 @@ const Centered = styled('div')`
     }
 `;
 
-const StyledLink = styled(Link)`
+const WhiteLink = styled(Link)`
     color: ${({ theme }) => theme.colorMap.devWhite};
 `;
+
+const StyledLink = P2.withComponent(WhiteLink);
 
 const GithubBackpackImg = () => (
     <ImageContainer>
