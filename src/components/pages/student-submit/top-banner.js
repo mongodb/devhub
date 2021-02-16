@@ -45,12 +45,10 @@ const TopBanner = () => (
 
             <ShareText>
                 At MongoDB, we believe that everyone should have the opportunity
-                to learn- and we want to learn more about how our education
-                communities around the world are contributing to and using
-                MongoDB. This Student Spotlights page highlights amazing
-                projects that students are building and creating using MongoDB.
-                Your stories and your work are the best way to share, and spread
-                the word!
+                to learn - and we want to explore how students worldwide are
+                utilizing MongoDB. With Student Spotlights, we're showcasing
+                projects that students are building with MongoDB. Share your
+                MongoDB project, inspire others and spread the word!
             </ShareText>
         </Header>
     </ReducedMarginBanner>
