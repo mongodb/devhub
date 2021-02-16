@@ -23,7 +23,7 @@ const ShareProjectCTA = ({ ...props }) => (
             Have an interesting MongoDB project to share? Let us know!
         </HeaderWithIncreasedMargin>
         <Button primary to={FORM_LINK}>
-            Show off your work
+            Show off your project
         </Button>
     </MaxWidthContainer>
 );
