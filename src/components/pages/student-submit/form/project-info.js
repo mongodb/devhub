@@ -61,6 +61,7 @@ const ProjectInfo = ({ state, onChange, ...props }) => {
             />
             <LinksSection>
                 <FormInput
+                    required={false}
                     name="github_url"
                     onChange={onChange}
                     placeholder="GitHub Link"
