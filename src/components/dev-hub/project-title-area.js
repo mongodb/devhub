@@ -13,6 +13,12 @@ const STUDENT_SPOTLIGHT_BREADCRUMBS = [
     { label: 'Student Spotlights', target: '/academia/students' },
 ];
 
+const IncreasedMarginHeroBanner = styled(HeroBanner)`
+    @media ${screenSize.upToLarge} {
+        margin-bottom: 30px;
+    }
+`;
+
 const IncreasedMarginH2 = styled(H2)`
     margin-bottom: ${size.medium};
     @media ${screenSize.upToMedium} {
@@ -34,7 +40,7 @@ const ProjectTitleArea = ({ description, images, title, url }) => {
     const BlogTitle = IncreasedMarginH2.withComponent('h1');
 
     return (
-        <HeroBanner
+        <IncreasedMarginHeroBanner
             showImageOnMobile={false}
             breadcrumb={STUDENT_SPOTLIGHT_BREADCRUMBS}
             fullWidth
@@ -49,7 +55,7 @@ const ProjectTitleArea = ({ description, images, title, url }) => {
                 />
             </TopRow>
             <ImageGallery description={description} images={images} />
-        </HeroBanner>
+        </IncreasedMarginHeroBanner>
     );
 };
 

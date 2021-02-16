@@ -35,9 +35,24 @@ const ArticleContent = styled('article')`
     padding-left: ${size.small};
     padding-right: ${size.small};
     @media ${screenSize.upToLarge} {
+        grid-column: 1 / 6;
         margin: 0 auto;
     }
+    @media ${screenSize.upToMedium} {
+        grid-column: 1 / 5;
+    }
 `;
+
+const ArticleShareFooterFull = styled(ArticleShareFooter)`
+    grid-column: 2 / 12;
+    @media ${screenSize.upToLarge} {
+        grid-column: 1 / 9;
+    }
+    @media ${screenSize.upToMedium} {
+        grid-column: 1 / 5;
+    }
+`;
+
 const Container = styled('div')`
     ${grid};
     justify-content: center;
@@ -45,6 +60,12 @@ const Container = styled('div')`
 
 const InfoSidebar = styled('div')`
     grid-column: 9 / 12;
+    @media ${screenSize.upToLarge} {
+        grid-column: 7 / 9;
+    }
+    @media ${screenSize.upToMedium} {
+        grid-column: 1 / 5;
+    }
 `;
 
 const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
@@ -88,11 +109,6 @@ const Project = props => {
                         slug={slug}
                         {...props}
                     />
-                    <ArticleShareFooter
-                        title={name}
-                        url={projectUrl}
-                        tags={[]}
-                    />
                 </ArticleContent>
                 <InfoSidebar>
                     <SidebarContent
@@ -102,6 +118,11 @@ const Project = props => {
                         tags={tags}
                     />
                 </InfoSidebar>
+                <ArticleShareFooterFull
+                    title={name}
+                    url={projectUrl}
+                    tags={[]}
+                />
             </Container>
             <AdditionalProjects excludedProjectName={name} />
             <TopPaddedShareProjectCTA />
