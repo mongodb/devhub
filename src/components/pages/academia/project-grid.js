@@ -6,7 +6,7 @@ import Button from '../../dev-hub/button';
 import Grid from '../../dev-hub/grid';
 import ProjectCard from '../../dev-hub/project-card';
 import { H5, P } from '../../dev-hub/text';
-import { size } from '../../dev-hub/theme';
+import { screenSize, size } from '../../dev-hub/theme';
 import { transformProjectStrapiData } from '~utils/transform-project-strapi-data';
 
 const SECTION_HORIZONTAL_PADDING = '120px';
@@ -21,10 +21,16 @@ const FullWidthBackground = styled('div')`
     background-color: ${({ theme }) => theme.colorMap.devBlack};
     margin: 0 ${size.medium};
     padding-bottom: ${size.xlarge};
+    @media ${screenSize.upToMedium} {
+        margin: 0;
+    }
 `;
 
 const GridContainer = styled('div')`
     padding: ${SECTION_VERTICAL_PADDING} ${SECTION_HORIZONTAL_PADDING};
+    @media ${screenSize.upToMedium} {
+        padding: ${size.large} ${size.default} 48px;
+    }
 `;
 
 const entryFeaturedProjects = graphql`

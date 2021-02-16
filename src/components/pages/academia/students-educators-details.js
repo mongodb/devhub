@@ -5,10 +5,17 @@ import AcademiaEducators from '~images/student-spotlight/academia-educators.svg'
 import AcademiaStudents from '~images/student-spotlight/academia-students.svg';
 import Card from '~components/dev-hub/card';
 import { H5, P } from '~components/dev-hub/text';
-import { size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 
+const MOBILE_IMG_MAX_HEIGHT = '300px';
 const IMAGE_HEIGHT = '98px';
 const IMAGE_WIDTH = '130px';
+
+const MaxWidthMobileImage = styled('img')`
+    @media ${screenSize.upToMedium} {
+        max-height: ${MOBILE_IMG_MAX_HEIGHT};
+    }
+`;
 
 const BenefitsLayout = styled('div')`
     display: grid;
@@ -16,6 +23,9 @@ const BenefitsLayout = styled('div')`
     margin: 0 auto;
     max-width: ${({ maxwidth }) => maxwidth};
     padding: ${size.xlarge} 0;
+    @media ${screenSize.upToLarge} {
+        display: block;
+    }
 `;
 
 const SingleBenefitLayout = styled('div')`
@@ -24,6 +34,9 @@ const SingleBenefitLayout = styled('div')`
     grid-template-columns: ${IMAGE_WIDTH} auto;
     grid-template-rows: ${IMAGE_HEIGHT} auto;
     height: 100%;
+    @media ${screenSize.upToMedium} {
+        display: block;
+    }
 `;
 
 const CardRightSideContent = styled('div')`
@@ -55,9 +68,9 @@ const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
     return (
         <NoMaxWidthCard href={href} to={to} collapseImage>
             <SingleBenefitLayout>
-                <img
-                    height={IMAGE_HEIGHT}
-                    width={IMAGE_WIDTH}
+                <MaxWidthMobileImage
+                    height="100%"
+                    width="100%"
                     alt=""
                     src={image}
                 />
