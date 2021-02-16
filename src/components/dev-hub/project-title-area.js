@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import useMedia from '~hooks/use-media';
 import HeroBanner from './hero-banner';
 import ImageGallery from './image-gallery';
 import Link from './link';
@@ -38,7 +39,7 @@ const TopRow = styled('div')`
 
 const ProjectTitleArea = ({ description, images, title, url }) => {
     const BlogTitle = IncreasedMarginH2.withComponent('h1');
-
+    const isMobile = useMedia(screenSize.upToMedium);
     return (
         <IncreasedMarginHeroBanner
             showImageOnMobile={false}
@@ -48,7 +49,7 @@ const ProjectTitleArea = ({ description, images, title, url }) => {
             <TopRow>
                 <BlogTitle>{title}</BlogTitle>
                 <ShareMenu
-                    position="left"
+                    position={isMobile ? 'right' : 'left'}
                     title={title}
                     Trigger={<Link>Share</Link>}
                     url={url}
