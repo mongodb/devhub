@@ -5,7 +5,7 @@ import ImageGallery from './image-gallery';
 import Link from './link';
 import ShareMenu from './share-menu';
 import { H2 } from './text';
-import { size } from './theme';
+import { screenSize, size } from './theme';
 
 const STUDENT_SPOTLIGHT_BREADCRUMBS = [
     { label: 'Home', target: '/' },
@@ -15,19 +15,30 @@ const STUDENT_SPOTLIGHT_BREADCRUMBS = [
 
 const IncreasedMarginH2 = styled(H2)`
     margin-bottom: ${size.medium};
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.xsmall};
+    }
 `;
 
 const TopRow = styled('div')`
     align-items: baseline;
     display: flex;
     justify-content: space-between;
+    @media ${screenSize.upToMedium} {
+        flex-direction: column;
+        margin-bottom: ${size.medium};
+    }
 `;
 
 const ProjectTitleArea = ({ description, images, title, url }) => {
     const BlogTitle = IncreasedMarginH2.withComponent('h1');
 
     return (
-        <HeroBanner breadcrumb={STUDENT_SPOTLIGHT_BREADCRUMBS} fullWidth>
+        <HeroBanner
+            showImageOnMobile={false}
+            breadcrumb={STUDENT_SPOTLIGHT_BREADCRUMBS}
+            fullWidth
+        >
             <TopRow>
                 <BlogTitle>{title}</BlogTitle>
                 <ShareMenu
