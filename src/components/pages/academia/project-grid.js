@@ -54,6 +54,11 @@ const ProjectGrid = () => {
                         rowSpan: [2, 1, 1, 1],
                         colSpan: [2, 2, 1, 1],
                     }}
+                    mobileNumCols={2}
+                    mobileLayout={{
+                        rowSpan: [2, 1, 1, 1],
+                        colSpan: [2, 2, 1, 1],
+                    }}
                     rowHeight="250px"
                 >
                     {mappedProjects.map(project => (

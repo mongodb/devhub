@@ -37,6 +37,10 @@ const AllProjects = () => {
         () => ({ rowSpan: [1], colSpan: [2, 1, 1, 1, 1, 1, 2] }),
         []
     );
+    const mobileGridLayout = useMemo(
+        () => ({ rowSpan: [1], colSpan: [2, 1, 1] }),
+        []
+    );
     const data = useStaticQuery(allGalleryProjects);
     const projects = dlv(data, ['allStrapiProjects', 'nodes'], []);
     const mappedProjects = useMemo(
@@ -46,8 +50,10 @@ const AllProjects = () => {
     const gridProps = {
         gridGap: '48px',
         rowHeight: GRID_ROW_HEIGHT,
+        mobileNumCols: 2,
         numCols: 3,
         layout: gridLayout,
+        mobileLayout: mobileGridLayout,
     };
     return (
         <AllProjectsContainer>
