@@ -1,5 +1,4 @@
 import React, { useMemo, useRef } from 'react';
-import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import useMedia from '~hooks/use-media';
 import { GridLayout } from '../../utils/grid-layout';

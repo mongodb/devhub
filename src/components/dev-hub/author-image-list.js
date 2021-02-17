@@ -22,14 +22,14 @@ const AuthorImageList = ({
     ...props
 }) => (
     <AuthorImageContainer {...props}>
-        {students.map(({ name, image_url }) => (
+        {students.map(({ image_url }) => (
             <StyledAuthorImage
                 gradientOffset={4}
                 hideOnMobile={false}
                 height={size}
                 width={size}
                 image={image_url}
-                key={name}
+                key={image_url}
             />
         ))}
     </AuthorImageContainer>

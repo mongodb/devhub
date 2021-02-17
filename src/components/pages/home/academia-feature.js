@@ -30,6 +30,7 @@ const AcademiaFeature = () => {
                 mediaWidth="550px"
                 mediaComponent={<ProjectCardGrid />}
                 reverse
+                fullWidthContentOnMobile
             >
                 <SectionContent>
                     <H2>
