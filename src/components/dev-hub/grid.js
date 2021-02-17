@@ -1,13 +1,23 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import useMedia from '~hooks/use-media';
 import { GridLayout } from '../../utils/grid-layout';
 import { screenSize, size } from './theme';
+import { useRefDimensions } from '~hooks/use-ref-dimensions';
+
+const calculateGridRowHeight = (totalWidth, gridGap, layoutCols) => `calc(
+        (
+                ${totalWidth}px -
+                    ${(layoutCols - 1) * size.stripUnit(gridGap)}px
+            ) / ${layoutCols}
+    );`;
 
 const GridContainer = styled('div')`
     display: grid;
     grid-template-columns: repeat(${({ layoutCols }) => layoutCols}, 1fr);
-    grid-auto-rows: ${({ rowHeight }) => rowHeight};
+    grid-auto-rows: ${({ totalWidth, gridGap, layoutCols }) =>
+        calculateGridRowHeight(totalWidth, gridGap, layoutCols)};
     grid-gap: ${({ gridGap }) => gridGap};
 `;
 
@@ -27,12 +37,15 @@ const Grid = ({
     children,
     layout,
     mobileLayout,
+    mobileGridGap = size.default,
     mobileNumCols,
     numCols,
     gridGap = size.default,
     rowHeight = '1fr',
     ...props
 }) => {
+    const thisGrid = useRef(null);
+    const { width } = useRefDimensions(thisGrid);
     const isMobile = useMedia(screenSize.upToMedium);
     const activeLayout = useMemo(
         () => (isMobile ? mobileLayout || layout : layout),
@@ -57,8 +70,10 @@ const Grid = ({
     );
     return (
         <GridContainer
-            gridGap={gridGap}
+            ref={thisGrid}
+            gridGap={isMobile ? mobileGridGap : gridGap}
             rowHeight={rowHeight}
+            totalWidth={width}
             layoutCols={isMobile ? mobileNumCols || numCols : numCols}
             {...props}
         >
