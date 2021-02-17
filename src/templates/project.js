@@ -91,7 +91,11 @@ const Project = props => {
     const projectUrl = `${siteUrl}${props.pageContext.slug}`;
     return (
         <Layout>
-            <SEO articleTitle={name} />
+            <SEO
+                articleTitle={name}
+                metaDescription={description}
+                ogUrl={projectUrl}
+            />
             <ProjectTitleArea
                 description={description}
                 // TODO: Clean up src/url difference between Strapi and Snooty

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import styled from '@emotion/styled';
 import Layout from '~components/dev-hub/layout';
+import SEO from '~components/dev-hub/SEO';
 import {
     GithubStudentPack,
     ShareProjectCTA,
@@ -27,13 +27,16 @@ const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
     padding-bottom: 88px;
 `;
 
-const Students = () => {
-    const metadata = useSiteMetadata();
+const Students = ({ path }) => {
+    const { siteUrl } = useSiteMetadata();
+    const fullUrl = `${siteUrl}${path}`;
     return (
         <Layout>
-            <Helmet>
-                <title>Student Spotlights - {metadata.title}</title>
-            </Helmet>
+            <SEO
+                articleTitle="Student Spotlights"
+                ogUrl={fullUrl}
+                metaDescription="MongoDB projects created by students, for students!"
+            />
             <GalleryHeroBanner />
             <ContentContainer>
                 <FeaturedProject />
