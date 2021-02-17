@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
@@ -168,7 +169,6 @@ const FeaturedArticles = ({ articles }) => {
                 >
                     <Card
                         collapseImage
-                        maxDescriptionLines={4}
                         to={slug}
                         title={title}
                         description={description}
@@ -243,9 +243,14 @@ export default ({
             setArticles(filteredArticles);
             if (window.location.search !== searchParams) {
                 // if the search params are empty, push the pathname state in order to remove params
-                navigate(searchParams === '' ? pathname : searchParams, {
-                    replace: true,
-                });
+                navigate(
+                    searchParams === ''
+                        ? pathname
+                        : withPrefix(`/learn/${searchParams}`),
+                    {
+                        replace: true,
+                    }
+                );
             }
         },
         // Exclude "navigate" since it constantly changes

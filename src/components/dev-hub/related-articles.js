@@ -6,6 +6,8 @@ import ARTICLE_PLACEHOLDER from '../../images/1x/MDB-and-Node.js.png';
 import Card from './card';
 import { H4 } from './text';
 import { screenSize, size } from './theme';
+import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
+import { makeLinkInternalIfApplicable } from '~utils/make-link-internal-if-applicable';
 
 const MAX_CARD_WIDTH = 270;
 
@@ -49,7 +51,9 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
             const slug =
                 relatedArticle.target && relatedArticle.target.slice(1);
             // 'doc' is for internal articles, so links should be prefixed
-            const target = withPrefix(relatedArticle.target);
+            const target = addTrailingSlashIfMissing(
+                withPrefix(relatedArticle.target)
+            );
             const image = relatedArticle.image
                 ? withPrefix(relatedArticle.image)
                 : ARTICLE_PLACEHOLDER;
@@ -74,7 +78,7 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
                 image: relatedArticle.image
                     ? withPrefix(relatedArticle.image)
                     : ARTICLE_PLACEHOLDER,
-                target: relatedArticle.refuri,
+                target: makeLinkInternalIfApplicable(relatedArticle.refuri),
                 title: dlv(relatedArticle, ['children', 0, 'value'], ''),
             };
         default:
@@ -104,7 +108,6 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
                                 key={`${title}-${i}`}
                                 image={image}
                                 href={target}
-                                maxTitleLines={2}
                                 title={title}
                                 maxWidth={MAX_CARD_WIDTH}
                             />

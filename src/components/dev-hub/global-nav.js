@@ -16,7 +16,7 @@ const MOBILE_NAV_BREAK = screenSize.upToLarge;
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
 
-const GlobalNav = styled('nav')`
+const Nav = styled('nav')`
     background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     display: flex;
     flex-direction: column;
@@ -135,12 +135,12 @@ const MobileItems = ({ items }) => {
     );
 };
 
-export default () => {
+const GlobalNav = () => {
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
     const isMobile = useMedia(MOBILE_NAV_BREAK);
     return (
-        <GlobalNav>
+        <Nav>
             <NavContent>
                 <HomeLink aria-label="Home" to="/">
                     <LeafLogo />
@@ -148,9 +148,11 @@ export default () => {
                 {isMobile ? (
                     <MobileItems items={items} />
                 ) : (
-                    items.map(item => <NavItem item={item} />)
+                    items.map(item => <NavItem key={item.name} item={item} />)
                 )}
             </NavContent>
-        </GlobalNav>
+        </Nav>
     );
 };
+
+export default GlobalNav;

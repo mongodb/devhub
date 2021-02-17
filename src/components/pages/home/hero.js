@@ -48,13 +48,7 @@ const FeaturedHomePageItem = ({ item }) => {
     if (item.type === 'article') {
         const { image, slug, title } = getFeaturedCardFields(item);
         return (
-            <StyledTopCard
-                maxTitleLines={3}
-                image={image}
-                to={slug}
-                title={title}
-                key={title}
-            />
+            <StyledTopCard image={image} to={slug} title={title} key={title} />
         );
     }
 };
@@ -69,7 +63,7 @@ const Hero = ({ featuredItems }) => (
         <Sub>What will you create today?</Sub>
         <CardGallery>
             {featuredItems.map(item => (
-                <FeaturedHomePageItem item={item} />
+                <FeaturedHomePageItem key={item._id} item={item} />
             ))}
         </CardGallery>
         <div>
