@@ -7,7 +7,7 @@ describe('Learn Page', () => {
     it('should properly render the learn page', () => {
         cy.visitWithoutFetch('/learn/');
         // Make sure something renders on the page
-        cy.contains('Make better, faster applications');
+        cy.contains('Make better apps, faster');
     });
     it('should have a proper canonical url', () => {
         cy.checkCanonicalUrlValue(CANONICAL_URL);

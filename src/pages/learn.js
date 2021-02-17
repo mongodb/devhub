@@ -332,7 +332,7 @@ export default ({
             </Helmet>
             <Header>
                 <HeaderContent>
-                    <H2>Make better, faster applications</H2>
+                    <H2>Make better apps, faster</H2>
                     <FeaturedArticles articles={featuredArticles} />
                 </HeaderContent>
             </Header>
