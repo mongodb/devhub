@@ -33,6 +33,7 @@ const gridStructure = ({ reverse, flexible }) => css`
 
 const MediaBlockContainer = styled('div')`
     display: grid;
+    width: 100%;
     ${columnSizes};
     ${gridStructure};
     @media ${screenSize.upToLarge} {
@@ -54,6 +55,8 @@ const MediaWrapper = styled('div')`
     }
     @media ${screenSize.upToLarge} {
         margin-right: 0;
+        ${({ fullWidthContentOnMobile }) =>
+            fullWidthContentOnMobile && 'max-width: 540px; width: 100%;'};
     }
 `;
 
@@ -71,6 +74,7 @@ const MediaBlock = ({
     mediaComponent,
     mediaWidth,
     reverse,
+    fullWidthContentOnMobile,
     flexible = true,
 }) => (
     <MediaBlockContainer
@@ -80,7 +84,12 @@ const MediaBlock = ({
         className={className}
     >
         {mediaComponent && (
-            <MediaWrapper reverse={reverse}>{mediaComponent}</MediaWrapper>
+            <MediaWrapper
+                fullWidthContentOnMobile={fullWidthContentOnMobile}
+                reverse={reverse}
+            >
+                {mediaComponent}
+            </MediaWrapper>
         )}
         <ContentWrapper>{children}</ContentWrapper>
     </MediaBlockContainer>
