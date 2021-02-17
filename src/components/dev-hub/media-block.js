@@ -56,7 +56,7 @@ const MediaWrapper = styled('div')`
     @media ${screenSize.upToLarge} {
         margin-right: 0;
         ${({ fullWidthContentOnMobile }) =>
-            fullWidthContentOnMobile && 'width: 100%'};
+            fullWidthContentOnMobile && 'max-width: 540px; width: 100%;'};
     }
 `;
 
