@@ -1,20 +1,23 @@
 import React from 'react';
 import Layout from '~components/dev-hub/layout';
+import SEO from '~components/dev-hub/SEO';
 import {
     ProjectGrid,
     TopBanner,
     StudentsEducatorsDetails,
 } from '~components/pages/academia';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
-import { Helmet } from 'react-helmet';
 
-const AcademiaLandingPage = () => {
-    const { title } = useSiteMetadata();
+const AcademiaLandingPage = ({ path }) => {
+    const { siteUrl } = useSiteMetadata();
+    const fullUrl = `${siteUrl}${path}`;
     return (
         <Layout>
-            <Helmet>
-                <title>MongoDB for Academia - {title}</title>
-            </Helmet>
+            <SEO
+                articleTitle="MongoDB for Academia"
+                ogUrl={fullUrl}
+                metaDescription="MongoDB for Academia is your home for resources, tools, and community support while you learn or teach MongoDB!"
+            />
             <TopBanner />
             <StudentsEducatorsDetails />
             <ProjectGrid />
