@@ -13,6 +13,7 @@ import Button from '~components/dev-hub/button';
 const GRID_COL_GAP = '24px';
 const GRID_LAYOUT = { rowSpan: [1], colSpan: [1] };
 const GRID_ROW_HEIGHT = '282px';
+const MOBILE_GRID_LAYOUT = { rowSpan: [1], colSpan: [2] };
 const NUM_ADDITIONAL_PROJECTS = 4;
 
 // Limit is NUM_ADDITIONAL_PROJECTS + 1, but no interpolation in gql queries
@@ -78,6 +79,7 @@ const AdditionalProjects = ({ excludedProjectName }) => {
                 <FullLengthGrid
                     gridGap={GRID_COL_GAP}
                     layout={GRID_LAYOUT}
+                    mobileLayout={MOBILE_GRID_LAYOUT}
                     numCols={NUM_ADDITIONAL_PROJECTS}
                     rowHeight={GRID_ROW_HEIGHT}
                 >

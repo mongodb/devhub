@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
+import useMedia from '~hooks/use-media';
 import { GridLayout } from '../../utils/grid-layout';
-import { size } from './theme';
+import { screenSize, size } from './theme';
 
 const GridContainer = styled('div')`
     display: grid;
@@ -25,14 +26,21 @@ const gridSpan = ({ rowSpan, colSpan }) => ({
 const Grid = ({
     children,
     layout,
+    mobileLayout,
+    mobileNumCols,
     numCols,
     gridGap = size.default,
     rowHeight = '1fr',
     ...props
 }) => {
+    const isMobile = useMedia(screenSize.upToMedium);
+    const activeLayout = useMemo(
+        () => (isMobile ? mobileLayout || layout : layout),
+        [isMobile, layout, mobileLayout]
+    );
     const gridLayout = useMemo(
-        () => new GridLayout(layout.rowSpan, layout.colSpan),
-        [layout]
+        () => new GridLayout(activeLayout.rowSpan, activeLayout.colSpan),
+        [activeLayout]
     );
     const gridElements = useMemo(
         () =>
@@ -51,7 +59,7 @@ const Grid = ({
         <GridContainer
             gridGap={gridGap}
             rowHeight={rowHeight}
-            layoutCols={numCols}
+            layoutCols={isMobile ? mobileNumCols || numCols : numCols}
             {...props}
         >
             {gridElements}
