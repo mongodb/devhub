@@ -7,16 +7,16 @@ const GreenBullet = styled('ul')`
     list-style-type: circle;
 `;
 
-const WhiteBulletText = styled(P)`
-    color: white;
+export const BulletText = styled(P)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     margin-bottom: 0;
 `;
 
-const GreenBulletedList = ({ children }) => (
-    <GreenBullet>
+const GreenBulletedList = ({ children, ...props }) => (
+    <GreenBullet {...props}>
         {children.map(content => (
             <li key={content}>
-                <WhiteBulletText>{content}</WhiteBulletText>
+                <BulletText>{content}</BulletText>
             </li>
         ))}
     </GreenBullet>
