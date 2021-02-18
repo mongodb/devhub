@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import GreenBulletedList from '../educators/green-bulleted-list';
+import GreenBulletedList, {
+    BulletText,
+} from '../educators/green-bulleted-list';
 import AcademiaEducators from '~images/student-spotlight/academia-educators.svg';
 import AcademiaStudents from '~images/student-spotlight/academia-students.svg';
 import Card from '~components/dev-hub/card';
-import { H5, P } from '~components/dev-hub/text';
+import { H5, P2 } from '~components/dev-hub/text';
 import { screenSize, size } from '~components/dev-hub/theme';
 
 const MOBILE_IMG_MAX_HEIGHT = '300px';
@@ -46,11 +48,20 @@ const CardRightSideContent = styled('div')`
 const NoMaxWidthCard = styled(Card)`
     /* TODO: Update Card component to take any max width setting then use as prop */
     max-width: none;
+    ${BulletText} {
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    }
+    &:hover {
+        ${BulletText} {
+            color: ${({ theme }) => theme.colorMap.devWhite};
+        }
+    }
 `;
 
-const GradientText = styled(P)`
+const GradientText = styled(P2)`
     background: ${({ theme }) => theme.gradientMap.greenTealOffset};
     background-clip: text;
+    font-family: 'Fira Mono';
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
