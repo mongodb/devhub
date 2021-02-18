@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import EducatorsJoin from '~images/student-spotlight/educators-join.svg';
 import { screenSize } from '../../dev-hub/theme';
-import { H4, P } from '../../dev-hub/text';
+import { H4, P, P2 } from '../../dev-hub/text';
 import MediaBlock from '../../dev-hub/media-block';
 import SignUpModal from './sign-up-modal';
 import GreenBulletedList from './green-bulleted-list';
@@ -41,8 +41,7 @@ const gradientBullet = theme => css`
     line-height: ${CUSTOM_BULLET_SIZE};
     position: absolute;
     text-align: center;
-    /* line-height is 32px. (32px - 24px) / 2 gives a 4px veritcal offset to center */
-    top: 4px;
+    top: 0;
     width: ${CUSTOM_BULLET_SIZE};
 `;
 const reducePaddingOnMobile = css`
@@ -95,10 +94,18 @@ const HowToJoin = () => (
                 ]}
             ></GreenBulletedList>
             <CustomGradientOrderedList>
-                <li>Fill out a form with teaching details</li>
-                <li>Our team will verify your details</li>
-                <li>You'll get an email within 5 business days</li>
-                <li>Bring your students on board</li>
+                <li>
+                    <P2 collapse>Fill out a form with teaching details</P2>
+                </li>
+                <li>
+                    <P2 collapse>Our team will verify your details</P2>
+                </li>
+                <li>
+                    <P2 collapse>You'll get an email within 5 business days</P2>
+                </li>
+                <li>
+                    <P2 collapse>Bring your students on board</P2>
+                </li>
             </CustomGradientOrderedList>
             <SignUpModal />
         </MediaBlock>
