@@ -193,6 +193,7 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
             </InstitutionSection>
 
             <StyledCheckbox
+                bold
                 darkMode={true}
                 onChange={e => setAgreeToEmail(e.target.value)}
                 required
