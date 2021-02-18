@@ -11,6 +11,11 @@ const defaultLineHeight = css`
     line-height: ${lineHeight.default};
 `;
 
+const HeadingCopy = styled(P)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    ${defaultLineHeight};
+`;
+
 const Header = styled('header')`
     padding-top: ${size.large};
     @media ${screenSize.upToLarge} {
@@ -30,12 +35,12 @@ const TopBanner = () => (
         <Header>
             <H2>MongoDB for Academia</H2>
 
-            <P css={defaultLineHeight}>
+            <HeadingCopy>
                 MongoDB for Academia is your home for resources, tools, and
                 community support while you learn or teach MongoDB! Wherever you
                 are in your journey -- beginner or advanced developer -- we’re
                 here to equip you for success.
-            </P>
+            </HeadingCopy>
         </Header>
     </ReducedMarginBanner>
 );

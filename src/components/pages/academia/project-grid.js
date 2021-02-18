@@ -12,6 +12,10 @@ import { transformProjectStrapiData } from '~utils/transform-project-strapi-data
 const SECTION_HORIZONTAL_PADDING = '120px';
 const SECTION_VERTICAL_PADDING = '60px';
 
+const GridCopy = styled(P)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+
 const CenterButtonContainer = styled('div')`
     display: flex;
     justify-content: center;
@@ -53,7 +57,7 @@ const ProjectGrid = () => {
         <FullWidthBackground>
             <GridContainer>
                 <H5 collapse>See what students are creating with MongoDB.</H5>
-                <P>Projects created by students, for students.</P>
+                <GridCopy>Projects created by students, for students.</GridCopy>
                 <Grid
                     numCols={4}
                     layout={{
