@@ -14,9 +14,7 @@ const activeThumbnailBorder = theme => css`
 
 const CurrentImage = styled('img')`
     border-radius: ${size.xsmall};
-    height: ${DESKTOP_GALLERY_HEIGHT};
     object-fit: contain;
-    width: ${DESKTOP_GALLERY_WIDTH};
 `;
 
 const ThumbnailWrapper = styled('div')`
@@ -51,7 +49,11 @@ const ImageGallery = ({ description, images }) => {
     const updateCurrentImage = img => setCurrentImage(img);
     return (
         <div>
-            <CurrentImage src={currentImage.src} />
+            <CurrentImage
+                height={DESKTOP_GALLERY_HEIGHT}
+                src={currentImage.src}
+                width={DESKTOP_GALLERY_WIDTH}
+            />
             <GalleryItemsContainer>
                 <P>{description}</P>
                 <ThumbnailContainer>
