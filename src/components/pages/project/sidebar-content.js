@@ -16,6 +16,7 @@ const LinksContainer = styled('div')`
 
 const ProjectLink = styled(Link)`
     color: ${({ theme }) => theme.colorMap.devWhite};
+    font-weight: bold;
 `;
 
 const ToolsUsedWithPadding = styled(ToolsUsed)`
