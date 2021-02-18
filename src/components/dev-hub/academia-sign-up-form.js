@@ -8,7 +8,6 @@ import Button from './button';
 import Select from './select';
 import Checkbox from '@leafygreen-ui/checkbox';
 import SectionHeader from './section-header';
-import SuccessState from './success-state';
 
 const INPUT_BOX_WIDTH = '100%';
 
@@ -42,11 +41,6 @@ const StyledSectionText = styled(ArticleH3)`
     font-weight: normal;
 `;
 
-const StyledSuccessState = styled(SuccessState)`
-    margin-bottom: ${size.xlarge};
-    margin-top: ${size.xlarge};
-`;
-
 const InstructorSection = styled('div')`
     display: grid;
     grid-template-columns: ${INPUT_BOX_WIDTH};
@@ -68,7 +62,7 @@ const InstitutionSection = styled('div')`
     }
 `;
 
-const Form = React.memo(({ setSuccess, success, ...props }) => {
+const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -218,13 +212,5 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
         </form>
     );
 });
-
-const AcademiaSignUpForm = ({ ...props }) => {
-    const [success, setSuccess] = useState(null);
-    if (success) {
-        return <StyledSuccessState>Thank you for joining!</StyledSuccessState>;
-    }
-    return <Form setSuccess={setSuccess} success={success} {...props} />;
-};
 
 export default AcademiaSignUpForm;
