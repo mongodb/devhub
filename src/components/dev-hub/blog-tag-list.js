@@ -1,10 +1,21 @@
 import React, { useCallback, useState } from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from './link';
 import { fontSize, lineHeight, screenSize, size } from './theme';
 
 const MINIMUM_EXPANDABLE_SIZE = 3;
 const MAX_TAG_LIST_SIZE = 5;
+
+const tagHoverState = theme => css`
+    &:active,
+    &:focus,
+    &:hover {
+        border: 1px solid ${theme.colorMap.lightGreen};
+        cursor: pointer;
+        transition: border 0.15s;
+    }
+`;
 
 const TagLink = styled('div')`
     background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
@@ -21,13 +32,7 @@ const TagLink = styled('div')`
     @media ${screenSize.upToMedium} {
         font-size: ${fontSize.micro};
     }
-    &:active,
-    &:focus,
-    &:hover {
-        border: 1px solid ${({ theme }) => theme.colorMap.lightGreen};
-        cursor: pointer;
-        transition: border 0.15s;
-    }
+    ${({ enableHoverState, theme }) => enableHoverState && tagHoverState(theme)}
     &:visited {
         color: ${({ theme }) => theme.colorMap.greyLightTwo};
     }
@@ -42,14 +47,16 @@ const TagListItem = styled('li')`
     display: inline-block;
 `;
 
-const BlogTag = ({ children, ...props }) => {
+const BlogTag = ({ children, enableHoverState = true, ...props }) => {
     const renderAsLink = !!(props.to || props.onClick);
     const TagLinkComponent = renderAsLink
         ? TagLink.withComponent(Link)
         : TagLink;
     return (
         <TagListItem>
-            <TagLinkComponent {...props}>{children}</TagLinkComponent>
+            <TagLinkComponent enableHoverState={enableHoverState} {...props}>
+                {children}
+            </TagLinkComponent>
         </TagListItem>
     );
 };
@@ -68,7 +75,11 @@ const BlogTagList = ({ className, navigates = true, tags = [] }) => {
         if (navigates) {
             props.to = t.to;
         }
-        return <BlogTag {...props}>{t.label}</BlogTag>;
+        return (
+            <BlogTag enableHoverState={navigates} {...props}>
+                {t.label}
+            </BlogTag>
+        );
     };
 
     return (
