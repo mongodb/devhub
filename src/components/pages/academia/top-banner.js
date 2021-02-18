@@ -31,7 +31,10 @@ const ReducedMarginBanner = styled(HeroBanner)`
 `;
 
 const TopBanner = () => (
-    <ReducedMarginBanner background={AcademiaHeader}>
+    <ReducedMarginBanner
+        background={AcademiaHeader}
+        backgroundPosition="100% 42px"
+    >
         <Header>
             <H2>MongoDB for Academia</H2>
 

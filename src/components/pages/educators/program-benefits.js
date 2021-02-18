@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { screenSize } from '../../dev-hub/theme';
+import { screenSize, size } from '../../dev-hub/theme';
 import { H3, H5 } from '../../dev-hub/text';
 import ThumbnailConnect from '~images/student-spotlight/thumbnail-connect.svg';
 import ThumbnailCurriculum from '~images/student-spotlight/thumbnail-curriculum.svg';
@@ -50,9 +50,15 @@ const BodyContent = styled('div')`
     ${reducePaddingOnMobile};
 `;
 
+const BenefitGraphic = styled('img')`
+    display: block;
+    max-width: 200px;
+    margin: 0 auto ${size.medium};
+`;
+
 const FeaturedBenefit = ({ bullets, image, title }) => (
     <FeaturedBenefitMaxWidthContainer>
-        <img alt="" src={image} />
+        <BenefitGraphic alt="" src={image} />
         <H5>{title}</H5>
         <GreenBulletedList>{bullets}</GreenBulletedList>
     </FeaturedBenefitMaxWidthContainer>
