@@ -12,6 +12,10 @@ const activeThumbnailBorder = theme => css`
     border: 2px solid ${theme.colorMap.darkGreen};
 `;
 
+const hoverThumbnailBorder = theme => css`
+    border: 2px solid ${theme.colorMap.greyLightTwo};
+`;
+
 const CurrentImage = styled('img')`
     border-radius: ${size.xsmall};
     object-fit: contain;
@@ -19,6 +23,10 @@ const CurrentImage = styled('img')`
 
 const ThumbnailWrapper = styled('div')`
     cursor: pointer;
+    margin-right: 8px;
+    :last-of-type {
+        margin-right: 0;
+    }
 `;
 
 const ImageThumbnail = styled('img')`
@@ -28,6 +36,11 @@ const ImageThumbnail = styled('img')`
     height: ${THUMBNAIL_SIZE};
     object-fit: cover;
     width: ${THUMBNAIL_SIZE};
+    &:hover,
+    &:active,
+    &:focus {
+        ${({ theme }) => hoverThumbnailBorder(theme)};
+    }
     ${({ isActive, theme }) => isActive && activeThumbnailBorder(theme)};
 `;
 
