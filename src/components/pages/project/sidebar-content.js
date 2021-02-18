@@ -34,7 +34,7 @@ const Links = ({ github_url, project_link }) => {
     if (hasExternalLinks) {
         return (
             <LinksContainer>
-                <LinkIfExists to={github_url} label="View on GitHub" />
+                <LinkIfExists to={github_url} label="View Code" />
                 <LinkIfExists to={project_link} label="Live Demo" />
             </LinksContainer>
         );
