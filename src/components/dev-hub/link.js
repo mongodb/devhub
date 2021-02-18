@@ -39,8 +39,7 @@ const tertiaryLinkStyling = theme => css`
     text-decoration: none;
     &:hover {
         cursor: pointer;
-        color: ${theme.colorMap.magenta};
-        transition: color ${animationSpeed.fast} ease ${animationSpeed.fast};
+        color: ${theme.colorMap.lightGreen};
     }
 
     &:after {
