@@ -48,6 +48,9 @@ const CardRightSideContent = styled('div')`
 const NoMaxWidthCard = styled(Card)`
     /* TODO: Update Card component to take any max width setting then use as prop */
     max-width: none;
+    ${BulletText} {
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    }
     &:hover {
         ${BulletText} {
             color: ${({ theme }) => theme.colorMap.devWhite};
