@@ -64,7 +64,7 @@ const ProjectInfo = ({ state, onChange, ...props }) => {
                     required={false}
                     name="github_url"
                     onChange={onChange}
-                    placeholder="GitHub Link"
+                    placeholder="Source Code URL (GitHub)"
                     type="url"
                     value={state.github_url}
                 />
