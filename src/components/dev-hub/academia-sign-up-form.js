@@ -22,7 +22,7 @@ const StyledCheckbox = styled(Checkbox)`
         height: 20px;
         width: 20px;
     }
-    > span {
+    > label {
         font-size: ${fontSize.small};
     }
 `;
@@ -44,8 +44,8 @@ const StyledSectionText = styled(ArticleH3)`
 const InstructorSection = styled('div')`
     display: grid;
     grid-template-columns: ${INPUT_BOX_WIDTH};
-    grid-row-gap: ${size.mediumLarge};
-    margin-bottom: ${size.xlarge};
+    grid-row-gap: ${size.default};
+    margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
         grid-template-columns: 100%;
     }
@@ -54,9 +54,9 @@ const InstructorSection = styled('div')`
 const InstitutionSection = styled('div')`
     display: grid;
     grid-template-columns: ${INPUT_BOX_WIDTH};
-    grid-row-gap: ${size.mediumLarge};
+    grid-row-gap: ${size.default};
     justify-content: space-between;
-    margin-bottom: ${size.xlarge};
+    margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
         grid-template-columns: 100%;
     }
@@ -193,11 +193,11 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
             </InstitutionSection>
 
             <StyledCheckbox
+                darkMode={true}
                 onChange={e => setAgreeToEmail(e.target.value)}
                 required
                 label="I agree to receive emails from MongoDB, Inc. After submitting, 
                 a MongoDB representative will reach out within five business days."
-                variant="light"
                 title="Please submit"
             />
 
