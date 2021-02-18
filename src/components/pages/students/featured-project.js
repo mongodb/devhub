@@ -40,6 +40,8 @@ const RelativePositionedBadge = styled(Badge)`
 
 const StyledLink = styled(Link)`
     color: ${({ theme }) => theme.colorMap.devWhite};
+    font-weight: bold;
+    width: fit-content;
 `;
 
 const TagListWithMargin = styled(BlogTagList)`

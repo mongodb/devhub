@@ -38,8 +38,9 @@ const ReducedMarginBanner = styled(HeroBanner)`
 
 const TopBanner = () => (
     <ReducedMarginBanner
-        breadcrumb={ACADEMIA_BREADCRUMBS}
         background={EducatorsHeader}
+        backgroundPosition="100% 42px"
+        breadcrumb={ACADEMIA_BREADCRUMBS}
     >
         <Header>
             <H2>MongoDB Academia for Educators</H2>
