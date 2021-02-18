@@ -40,7 +40,8 @@ const SignUpModal = () => {
                     Join MongoDB for Academia
                 </ButtonWithAdditionalTopMargin>
             }
-            dialogContainerStyle={{ maxWidth: MAX_SIGN_UP_WIDTH }}
+            dialogContainerStyle={{ maxWidth: MAX_SIGN_UP_WIDTH, padding: 0 }}
+            verticallyCenter
         >
             <H5>Join MongoDB for Academia</H5>
             <P css={defaultLineHeight}>
