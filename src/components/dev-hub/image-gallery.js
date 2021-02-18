@@ -4,7 +4,8 @@ import styled from '@emotion/styled';
 import { P } from './text';
 import { size } from './theme';
 
-const DESKTOP_GALLERY_MAX_HEIGHT = '600px';
+const DESKTOP_GALLERY_HEIGHT = '500px';
+const DESKTOP_GALLERY_WIDTH = '1200px';
 const THUMBNAIL_SIZE = '56px';
 
 const activeThumbnailBorder = theme => css`
@@ -13,9 +14,9 @@ const activeThumbnailBorder = theme => css`
 
 const CurrentImage = styled('img')`
     border-radius: ${size.xsmall};
-    max-height: ${DESKTOP_GALLERY_MAX_HEIGHT};
-    object-fit: cover;
-    width: 100%;
+    height: ${DESKTOP_GALLERY_HEIGHT};
+    object-fit: contain;
+    width: ${DESKTOP_GALLERY_WIDTH};
 `;
 
 const ThumbnailWrapper = styled('div')`
@@ -27,6 +28,7 @@ const ImageThumbnail = styled('img')`
     border: 2px solid transparent;
     border-radius: ${size.xsmall};
     height: ${THUMBNAIL_SIZE};
+    object-fit: cover;
     width: ${THUMBNAIL_SIZE};
     ${({ isActive, theme }) => isActive && activeThumbnailBorder(theme)};
 `;
