@@ -15,9 +15,19 @@ const calculateGridRowHeight = (totalWidth, gridGap, layoutCols) => `calc(
 const GridContainer = styled('div')`
     display: grid;
     grid-template-columns: repeat(${({ layoutCols }) => layoutCols}, 1fr);
-    grid-auto-rows: ${({ totalWidth, gridGap, layoutCols }) =>
-        calculateGridRowHeight(totalWidth, gridGap, layoutCols)};
+    grid-auto-rows: ${({ rowHeight, totalWidth, gridGap, layoutCols }) =>
+        rowHeight || calculateGridRowHeight(totalWidth, gridGap, layoutCols)};
     grid-gap: ${({ gridGap }) => gridGap};
+    @media ${screenSize.upToLarge} {
+        grid-auto-rows: ${({
+            mobileRowHeight,
+            totalWidth,
+            gridGap,
+            layoutCols,
+        }) =>
+            mobileRowHeight ||
+            calculateGridRowHeight(totalWidth, gridGap, layoutCols)};
+    }
 `;
 
 const gridSpan = ({ rowSpan, colSpan }) => ({
@@ -38,14 +48,15 @@ const Grid = ({
     mobileLayout,
     mobileGridGap = size.default,
     mobileNumCols,
+    mobileRowHeight,
     numCols,
     gridGap = size.default,
-    rowHeight = '1fr',
+    rowHeight,
     ...props
 }) => {
     const thisGrid = useRef(null);
     const { width } = useRefDimensions(thisGrid);
-    const isMobile = useMedia(screenSize.upToMedium);
+    const isMobile = useMedia(screenSize.upToLarge);
     const activeLayout = useMemo(
         () => (isMobile ? mobileLayout || layout : layout),
         [isMobile, layout, mobileLayout]
@@ -56,7 +67,7 @@ const Grid = ({
     );
     const gridElements = useMemo(
         () =>
-            children.map((child, i) =>
+            React.Children.toArray(children).map((child, i) =>
                 React.cloneElement(child, {
                     style: {
                         ...gridSpan(gridLayout.position(i)),
@@ -71,6 +82,7 @@ const Grid = ({
         <GridContainer
             ref={thisGrid}
             gridGap={isMobile ? mobileGridGap : gridGap}
+            mobileRowHeight={mobileRowHeight}
             rowHeight={rowHeight}
             totalWidth={width}
             layoutCols={isMobile ? mobileNumCols || numCols : numCols}

@@ -22,6 +22,7 @@ const LightText = styled(P)`
 const ImageContainer = styled('div')`
     display: flex;
     justify-content: flex-end;
+    object-fit: contain;
 `;
 
 // We want this content centered and, on mobile, the text centered as well
