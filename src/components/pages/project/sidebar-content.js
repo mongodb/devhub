@@ -23,9 +23,9 @@ const ToolsUsedWithPadding = styled(ToolsUsed)`
     padding-bottom: ${size.large};
 `;
 
-const LinkIfExists = ({ label, to }) =>
+const LinkIfExists = ({ label, to, ...props }) =>
     to ? (
-        <ProjectLink tertiary to={to}>
+        <ProjectLink tertiary to={to} {...props}>
             {label}
         </ProjectLink>
     ) : null;
@@ -36,7 +36,11 @@ const Links = ({ github_url, project_link }) => {
         return (
             <LinksContainer>
                 <LinkIfExists to={github_url} label="View Code" />
-                <LinkIfExists to={project_link} label="Live Demo" />
+                <LinkIfExists
+                    target="_blank"
+                    to={project_link}
+                    label="Live Demo"
+                />
             </LinksContainer>
         );
     }
