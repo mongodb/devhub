@@ -46,7 +46,7 @@ const ProjectTitleArea = ({ description, images, title, url }) => {
             fullWidth
         >
             <TopRow>
-                <BlogTitle collapse>{title}</BlogTitle>
+                <BlogTitle>{title}</BlogTitle>
                 <ShareMenu
                     position={isMobile ? 'right' : 'left'}
                     title={title}
