@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { P } from './text';
 import { size } from './theme';
 
-const DESKTOP_GALLERY_HEIGHT = '500px';
+const DESKTOP_GALLERY_HEIGHT = '450px';
 const DESKTOP_GALLERY_WIDTH = '1200px';
 const THUMBNAIL_SIZE = '56px';
 
