@@ -1,4 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
+import dlv from 'dlv';
 import styled from '@emotion/styled';
 import { size } from '~components/dev-hub/theme';
 import { useStudentSpotlightReducer } from '~hooks/use-student-spotlight-reducer';
@@ -25,11 +26,22 @@ const uploadImagesToStrapi = async images => {
         body: form_data,
     });
     const resp = await r.json();
-    return resp.map(r => r._id);
+    try {
+        return { success: true, data: resp.map(r => r._id) };
+    } catch (e) {
+        // Something failed in image upload
+        const errorMsg = dlv(
+            resp,
+            'data.errors.0.message',
+            'An unknown error occurred'
+        );
+        return { success: false, data: `${resp.error} ${errorMsg}` };
+    }
 };
 
 const Form = () => {
-    const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState(true);
+    const [error, setError] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [fieldsetsOpen, setFieldsetsOpen] = useState([true, false, false]);
     const [state, dispatch] = useStudentSpotlightReducer();
@@ -66,16 +78,32 @@ const Form = () => {
             );
             if (isValid) {
                 if (isFinalPart) {
+                    setError(null);
                     const newState = { ...state };
                     setIsSubmitting(true);
-                    newState.project_images = await uploadImagesToStrapi(
-                        newState.project_images
-                    );
+                    // Try project image upload
+                    const {
+                        success: projImageSuccess,
+                        data: projImageData,
+                    } = await uploadImagesToStrapi(newState.project_images);
+                    if (!projImageSuccess) {
+                        setError(projImageData);
+                        setIsSubmitting(false);
+                        return;
+                    }
+                    newState.project_images = projImageData;
+                    // Try student images upload
                     const studentImages = newState.students.map(s => s.image);
-                    const studentImageIds = await uploadImagesToStrapi(
-                        studentImages
-                    );
-                    studentImageIds.forEach((id, i) => {
+                    const {
+                        success: studentImageSuccess,
+                        data: studentImageData,
+                    } = await uploadImagesToStrapi(studentImages);
+                    if (!studentImageSuccess) {
+                        setError(studentImageData);
+                        setIsSubmitting(false);
+                        return;
+                    }
+                    studentImageData.forEach((id, i) => {
                         newState.students[i].image = id;
                     });
                     const {
@@ -86,6 +114,7 @@ const Form = () => {
                     if (success) {
                         setSuccess(true);
                     } else {
+                        setError(message);
                         console.error(message);
                     }
                 } else {
@@ -140,8 +169,25 @@ const Form = () => {
                 onStudentChange={onStudentChange}
                 state={state}
             />
+            {error && (
+                <Modal
+                    verticallyCenter
+                    isOpenToStart={true}
+                    dialogContainerStyle={{
+                        maxWidth: '600px',
+                        padding: `0 ${size.large}`,
+                    }}
+                >
+                    <H3>Error: {error}</H3>
+                    <P2>
+                        Please try submitting again. If this persists please
+                        email academia@mongodb.com.
+                    </P2>
+                </Modal>
+            )}
             {isSubmitting && (
                 <Modal
+                    verticallyCenter
                     isOpenToStart={true}
                     dialogContainerStyle={{
                         maxWidth: '600px',
@@ -153,6 +199,7 @@ const Form = () => {
             )}
             {success && (
                 <Modal
+                    verticallyCenter
                     isOpenToStart={true}
                     dialogContainerStyle={{
                         maxWidth: '600px',
