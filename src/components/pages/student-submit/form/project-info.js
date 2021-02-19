@@ -14,8 +14,9 @@ const LinksSection = styled('div')`
     grid-row-gap: ${size.mediumLarge};
     justify-content: space-between;
     margin-bottom: ${size.xlarge};
-    @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToLarge} {
         grid-template-columns: 100%;
+        margin-bottom: ${size.large};
     }
 `;
 

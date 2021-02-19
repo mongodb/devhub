@@ -43,6 +43,7 @@ const RemoveButton = styled(Button)`
 const CondensedStudentEntry = ({ authorImage, onEdit, onRemove, state }) => (
     <CondensedContainer>
         <AuthorImage
+            hideOnMobile={false}
             isInternalReference={false}
             height={IMAGE_PREVIEW_SIZE}
             width={IMAGE_PREVIEW_SIZE}
