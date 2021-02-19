@@ -15,7 +15,7 @@ const FormWithMargin = styled('form')`
 `;
 
 const Form = () => {
-    const [success, setSuccess] = useState(true);
+    const [success, setSuccess] = useState(false);
     const [error, setError] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [fieldsetsOpen, setFieldsetsOpen] = useState([true, false, false]);
