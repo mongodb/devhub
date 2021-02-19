@@ -22,6 +22,9 @@ const LightText = styled(P)`
 const ImageContainer = styled('div')`
     display: flex;
     justify-content: flex-end;
+`;
+
+const ImgWithContain = styled('img')`
     object-fit: contain;
 `;
 
@@ -45,7 +48,7 @@ const StyledLink = P2.withComponent(WhiteLink);
 
 const GithubBackpackImg = () => (
     <ImageContainer>
-        <img
+        <ImgWithContain
             alt="Backpack with GitHub logo plus MongoDB leaf"
             height="240"
             src={githubStudentPackPng}
