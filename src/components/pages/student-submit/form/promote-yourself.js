@@ -5,6 +5,8 @@ import Button from '~components/dev-hub/button';
 import SingleStudentFieldset from './single-student-fieldset';
 import SubmitFormFieldset from './submit-form-fieldset';
 
+const getRemoveStudentMsg = name => `Remove ${name} from project?`;
+
 const RightAligned = styled('div')`
     display: flex;
     justify-content: flex-end;
@@ -75,9 +77,15 @@ const PromoteYourself = ({
     );
     const removeStudent = useCallback(
         i => () => {
-            const newStudents = [...state.students];
-            newStudents.splice(i, 1);
-            updateStudents(newStudents);
+            if (
+                window.confirm(
+                    getRemoveStudentMsg(state.students[i].first_name)
+                )
+            ) {
+                const newStudents = [...state.students];
+                newStudents.splice(i, 1);
+                updateStudents(newStudents);
+            }
         },
         [state.students, updateStudents]
     );
