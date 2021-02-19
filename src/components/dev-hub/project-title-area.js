@@ -21,7 +21,6 @@ const IncreasedMarginHeroBanner = styled(HeroBanner)`
 `;
 
 const IncreasedMarginH2 = styled(H2)`
-    margin-bottom: ${size.medium};
     @media ${screenSize.upToMedium} {
         margin-bottom: ${size.xsmall};
     }
@@ -47,7 +46,7 @@ const ProjectTitleArea = ({ description, images, title, url }) => {
             fullWidth
         >
             <TopRow>
-                <BlogTitle>{title}</BlogTitle>
+                <BlogTitle collapse>{title}</BlogTitle>
                 <ShareMenu
                     position={isMobile ? 'right' : 'left'}
                     title={title}

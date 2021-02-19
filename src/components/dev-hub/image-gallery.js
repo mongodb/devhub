@@ -18,12 +18,16 @@ const hoverThumbnailBorder = theme => css`
 
 const CurrentImage = styled('img')`
     border-radius: ${size.xsmall};
+    display: block;
+    margin-bottom: ${size.xsmall};
     object-fit: contain;
 `;
 
 const ThumbnailWrapper = styled('div')`
     cursor: pointer;
-    margin-right: 8px;
+    margin-right: ${size.xsmall};
+    height: ${THUMBNAIL_SIZE};
+    width: ${THUMBNAIL_SIZE};
     :last-of-type {
         margin-right: 0;
     }
