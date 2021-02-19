@@ -61,8 +61,13 @@ const BlogTag = ({ children, enableHoverState = true, ...props }) => {
     );
 };
 
-const BlogTagList = ({ className, navigates = true, tags = [] }) => {
-    const canExpand = tags.length >= MINIMUM_EXPANDABLE_SIZE;
+const BlogTagList = ({
+    className,
+    expanded = false,
+    navigates = true,
+    tags = [],
+}) => {
+    const canExpand = tags.length >= MINIMUM_EXPANDABLE_SIZE && !expanded;
     // By default any list of blog tags under the minimum expandable size is already expanded
     const [isExpanded, setIsExpanded] = useState(!canExpand);
     const expandList = useCallback(() => setIsExpanded(true), []);

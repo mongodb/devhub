@@ -39,10 +39,6 @@ const StudentToggle = styled(Button)`
         }
     }
 `;
-const InvisibleLink = styled(Link)`
-    margin-bottom: 10px;
-    text-decoration: none;
-`;
 const StudentLi = styled('li')`
     border-bottom: 1px solid ${({ theme }) => theme.colorMap.greyDarkThree};
     display: flex;
@@ -74,11 +70,22 @@ const LinkText = styled(P3)`
     text-overflow: ellipsis;
     white-space: nowrap;
 `;
+const InvisibleLink = styled(Link)`
+    margin-bottom: 10px;
+    text-decoration: none;
+    &:active,
+    &:focus,
+    &:hover {
+        ${LinkText} {
+            color: ${({ theme }) => theme.colorMap.lightGreen};
+        }
+    }
+`;
 
 const SocialMediaEntry = ({ Icon, url }) => {
     const theme = useTheme();
     return url ? (
-        <InvisibleLink to={url}>
+        <InvisibleLink target="_blank" to={url}>
             <LinkContainer>
                 <Icon color={theme.colorMap.darkGreen} width={ICON_SIZE} />
                 <LinkText collapse>{url}</LinkText>

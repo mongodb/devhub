@@ -21,7 +21,6 @@ const IncreasedMarginHeroBanner = styled(HeroBanner)`
 `;
 
 const IncreasedMarginH2 = styled(H2)`
-    margin-bottom: ${size.medium};
     @media ${screenSize.upToMedium} {
         margin-bottom: ${size.xsmall};
     }

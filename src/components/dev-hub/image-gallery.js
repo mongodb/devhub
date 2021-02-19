@@ -4,22 +4,33 @@ import styled from '@emotion/styled';
 import { P } from './text';
 import { size } from './theme';
 
-const DESKTOP_GALLERY_MAX_HEIGHT = '600px';
+const DESKTOP_GALLERY_HEIGHT = '450px';
+const DESKTOP_GALLERY_WIDTH = '1200px';
 const THUMBNAIL_SIZE = '56px';
 
 const activeThumbnailBorder = theme => css`
     border: 2px solid ${theme.colorMap.darkGreen};
 `;
 
+const hoverThumbnailBorder = theme => css`
+    border: 2px solid ${theme.colorMap.greyLightTwo};
+`;
+
 const CurrentImage = styled('img')`
     border-radius: ${size.xsmall};
-    max-height: ${DESKTOP_GALLERY_MAX_HEIGHT};
-    object-fit: cover;
-    width: 100%;
+    display: block;
+    margin-bottom: ${size.xsmall};
+    object-fit: contain;
 `;
 
 const ThumbnailWrapper = styled('div')`
     cursor: pointer;
+    margin-right: ${size.xsmall};
+    height: ${THUMBNAIL_SIZE};
+    width: ${THUMBNAIL_SIZE};
+    :last-of-type {
+        margin-right: 0;
+    }
 `;
 
 const ImageThumbnail = styled('img')`
@@ -27,7 +38,13 @@ const ImageThumbnail = styled('img')`
     border: 2px solid transparent;
     border-radius: ${size.xsmall};
     height: ${THUMBNAIL_SIZE};
+    object-fit: cover;
     width: ${THUMBNAIL_SIZE};
+    &:hover,
+    &:active,
+    &:focus {
+        ${({ theme }) => hoverThumbnailBorder(theme)};
+    }
     ${({ isActive, theme }) => isActive && activeThumbnailBorder(theme)};
 `;
 
@@ -49,7 +66,11 @@ const ImageGallery = ({ description, images }) => {
     const updateCurrentImage = img => setCurrentImage(img);
     return (
         <div>
-            <CurrentImage src={currentImage.src} />
+            <CurrentImage
+                height={DESKTOP_GALLERY_HEIGHT}
+                src={currentImage.src}
+                width={DESKTOP_GALLERY_WIDTH}
+            />
             <GalleryItemsContainer>
                 <P>{description}</P>
                 <ThumbnailContainer>

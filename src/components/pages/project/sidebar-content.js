@@ -23,9 +23,9 @@ const ToolsUsedWithPadding = styled(ToolsUsed)`
     padding-bottom: ${size.large};
 `;
 
-const LinkIfExists = ({ label, to }) =>
+const LinkIfExists = ({ label, to, ...props }) =>
     to ? (
-        <ProjectLink tertiary to={to}>
+        <ProjectLink target="_blank" tertiary to={to} {...props}>
             {label}
         </ProjectLink>
     ) : null;
