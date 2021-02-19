@@ -24,6 +24,10 @@ const ImageContainer = styled('div')`
     justify-content: flex-end;
 `;
 
+const ImgWithContain = styled('img')`
+    object-fit: contain;
+`;
+
 // We want this content centered and, on mobile, the text centered as well
 const Centered = styled('div')`
     display: flex;
@@ -44,7 +48,7 @@ const StyledLink = P2.withComponent(WhiteLink);
 
 const GithubBackpackImg = () => (
     <ImageContainer>
-        <img
+        <ImgWithContain
             alt="Backpack with GitHub logo plus MongoDB leaf"
             height="240"
             src={githubStudentPackPng}

@@ -25,6 +25,10 @@ const ContentContainer = styled('div')`
 const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
     padding-top: ${size.xlarge};
     padding-bottom: 88px;
+    @media ${screenSize.upToLarge} {
+        padding-bottom: ${size.large};
+        padding-top: ${size.large};
+    }
 `;
 
 const Students = ({ path }) => {

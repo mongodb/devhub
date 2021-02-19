@@ -10,9 +10,8 @@ import { grid, size } from '~components/dev-hub/theme';
 import { transformProjectStrapiData } from '~utils/transform-project-strapi-data';
 import Button from '~components/dev-hub/button';
 
-const GRID_COL_GAP = '24px';
+const GRID_COL_GAP = size.mediumLarge;
 const GRID_LAYOUT = { rowSpan: [1], colSpan: [1] };
-const GRID_ROW_HEIGHT = '282px';
 const MOBILE_GRID_LAYOUT = { rowSpan: [1], colSpan: [1] };
 const NUM_ADDITIONAL_PROJECTS = 4;
 
@@ -82,7 +81,6 @@ const AdditionalProjects = ({ excludedProjectName }) => {
                     mobileLayout={MOBILE_GRID_LAYOUT}
                     mobileNumCols={2}
                     numCols={NUM_ADDITIONAL_PROJECTS}
-                    rowHeight={GRID_ROW_HEIGHT}
                 >
                     {mappedProjects.map(project => (
                         <ProjectCard key={project.name} project={project} />

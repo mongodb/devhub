@@ -2,7 +2,8 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import EducatorsJoin from '~images/student-spotlight/educators-join.svg';
-import { screenSize } from '../../dev-hub/theme';
+import useMedia from '~hooks/use-media';
+import { screenSize, size } from '../../dev-hub/theme';
 import { H4, P, P2 } from '../../dev-hub/text';
 import MediaBlock from '../../dev-hub/media-block';
 import SignUpModal from './sign-up-modal';
@@ -11,13 +12,6 @@ import GreenBulletedList from './green-bulleted-list';
 const CUSTOM_BULLET_SIZE = '24px';
 const SECTION_HORIZONTAL_PADDING = '120px';
 const SECTION_VERTICAL_PADDING = '60px';
-
-const centerContentOnMobile = css`
-    @media ${screenSize.upToLarge} {
-        justify-content: center;
-        text-align: center;
-    }
-`;
 
 // Custom counter so we can apply custom styles after disabling list-style
 const customOrderedListCounter = css`
@@ -46,7 +40,7 @@ const gradientBullet = theme => css`
 `;
 const reducePaddingOnMobile = css`
     @media ${screenSize.upToLarge} {
-        padding: 16px 20px;
+        padding: ${size.large} ${size.medium} 48px;
     }
 `;
 
@@ -70,21 +64,13 @@ const CustomGradientOrderedList = styled('ol')`
 const EligibilitySection = styled('div')`
     background-color: ${({ theme }) => theme.colorMap.devBlack};
     padding: ${SECTION_VERTICAL_PADDING} ${SECTION_HORIZONTAL_PADDING};
-    ${centerContentOnMobile};
     ${reducePaddingOnMobile};
 `;
 
-const HowToJoin = () => (
-    <EligibilitySection>
-        <MediaBlock
-            mediaComponent={
-                <img
-                    src={EducatorsJoin}
-                    alt="person with book and browser window looking over six other people"
-                />
-            }
-            reverse
-        >
+const HowToJoin = () => {
+    const isMobile = useMedia(screenSize.upToLarge);
+    const Requirements = () => (
+        <>
             <H4>How to join MongoDB for Academia</H4>
             <P>You're eligible for this program if you teach:</P>
             <GreenBulletedList
@@ -92,24 +78,44 @@ const HowToJoin = () => (
                     'Higher Education, College and University programs',
                     'Bootcamps and Online Courses',
                 ]}
-            ></GreenBulletedList>
-            <CustomGradientOrderedList>
-                <li>
-                    <P2 collapse>Fill out a form with teaching details</P2>
-                </li>
-                <li>
-                    <P2 collapse>Our team will verify your details</P2>
-                </li>
-                <li>
-                    <P2 collapse>You'll get an email within 5 business days</P2>
-                </li>
-                <li>
-                    <P2 collapse>Bring your students on board</P2>
-                </li>
-            </CustomGradientOrderedList>
-            <SignUpModal />
-        </MediaBlock>
-    </EligibilitySection>
-);
+            />
+        </>
+    );
+    return (
+        <EligibilitySection>
+            <MediaBlock
+                mediaComponent={
+                    <>
+                        {isMobile && <Requirements />}
+                        <img
+                            src={EducatorsJoin}
+                            alt="person with book and browser window looking over six other people"
+                        />
+                    </>
+                }
+                reverse
+            >
+                {!isMobile && <Requirements />}
+                <CustomGradientOrderedList>
+                    <li>
+                        <P2 collapse>Fill out a form with teaching details</P2>
+                    </li>
+                    <li>
+                        <P2 collapse>Our team will verify your details</P2>
+                    </li>
+                    <li>
+                        <P2 collapse>
+                            You'll get an email within 5 business days
+                        </P2>
+                    </li>
+                    <li>
+                        <P2 collapse>Bring your students on board</P2>
+                    </li>
+                </CustomGradientOrderedList>
+                <SignUpModal />
+            </MediaBlock>
+        </EligibilitySection>
+    );
+};
 
 export default HowToJoin;

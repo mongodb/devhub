@@ -50,6 +50,9 @@ const NoMaxWidthCard = styled(Card)`
     max-width: none;
     ${BulletText} {
         color: ${({ theme }) => theme.colorMap.greyLightTwo};
+        @media ${screenSize.upToLarge} {
+            color: ${({ theme }) => theme.colorMap.devWhite};
+        }
     }
     &:hover {
         ${BulletText} {

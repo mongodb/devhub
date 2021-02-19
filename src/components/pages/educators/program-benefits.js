@@ -16,13 +16,6 @@ const FeaturedBenefitMaxWidthContainer = styled('div')`
     max-width: ${MAX_FEATURED_BENEFIT_WIDTH};
 `;
 
-const centerContentOnMobile = css`
-    @media ${screenSize.upToLarge} {
-        justify-content: center;
-        text-align: center;
-    }
-`;
-
 const reducePaddingOnMobile = css`
     @media ${screenSize.upToLarge} {
         padding: 16px 20px;
@@ -38,6 +31,7 @@ const BenefitsLayout = styled('div')`
         align-items: center;
         justify-content: unset;
         flex-direction: column;
+        margin-top: ${size.large};
     }
 `;
 
@@ -46,7 +40,6 @@ const BodyContent = styled('div')`
     display: flex;
     flex-direction: column;
     padding: ${SECTION_VERTICAL_PADDING} ${SECTION_HORIZONTAL_PADDING};
-    ${centerContentOnMobile};
     ${reducePaddingOnMobile};
 `;
 
@@ -66,7 +59,7 @@ const FeaturedBenefit = ({ bullets, image, title }) => (
 
 const ProgramBenefits = () => (
     <BodyContent>
-        <H3>Teach MongoDB with confidence</H3>
+        <H3 collapse>Teach MongoDB with confidence</H3>
         <BenefitsLayout>
             <FeaturedBenefit
                 bullets={[

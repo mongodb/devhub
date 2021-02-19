@@ -14,6 +14,9 @@ const SECTION_VERTICAL_PADDING = '60px';
 
 const GridCopy = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    @media ${screenSize.upToLarge} {
+        display: none;
+    }
 `;
 
 const CenterButtonContainer = styled('div')`

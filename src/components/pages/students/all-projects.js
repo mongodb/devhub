@@ -6,10 +6,9 @@ import Grid from '~components/dev-hub/grid';
 import Paginate from '~components/dev-hub/paginate';
 import ProjectCard from '~components/dev-hub/project-card';
 import { H3 } from '~components/dev-hub/text';
-import { size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 import { transformProjectStrapiData } from '~utils/transform-project-strapi-data';
 
-const GRID_ROW_HEIGHT = '360px';
 const PAGINATION_LIMIT = 7;
 
 const allGalleryProjects = graphql`
@@ -26,10 +25,17 @@ const AllProjectsContainer = styled('div')`
     border-bottom: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
     padding-top: 48px;
     padding-bottom: ${size.xlarge};
+    @media ${screenSize.upToLarge} {
+        padding-bottom: ${size.large};
+        padding-top: ${size.large};
+    }
 `;
 
 const TitleWithBottomPadding = styled(H3)`
     padding-bottom: ${size.large};
+    @media ${screenSize.upToLarge} {
+        padding-bottom: ${size.mediumLarge};
+    }
 `;
 
 const AllProjects = () => {
@@ -49,7 +55,6 @@ const AllProjects = () => {
     );
     const gridProps = {
         gridGap: '48px',
-        rowHeight: GRID_ROW_HEIGHT,
         mobileNumCols: 2,
         numCols: 3,
         layout: gridLayout,
