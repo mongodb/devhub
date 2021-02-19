@@ -1,43 +1,18 @@
 import React, { useCallback, useRef, useState } from 'react';
-import dlv from 'dlv';
 import styled from '@emotion/styled';
 import { size } from '~components/dev-hub/theme';
 import { useStudentSpotlightReducer } from '~hooks/use-student-spotlight-reducer';
-import { submitStudentSpotlightProject } from '~utils/devhub-api-stitch';
 import ProjectInfo from './project-info';
 import PromoteYourself from './promote-yourself';
 import ShareDetails from './share-details';
-import SuccessState from '~components/dev-hub/success-state';
-import { H3, P2 } from '~components/dev-hub/text';
-import Modal from '~src/components/dev-hub/modal';
+import { onStudentSpotlightFormSubmission } from '~utils/on-student-spotlight-form-submission';
+import FormErrorModal from './form-error-modal';
+import FormSubmittingModal from './form-submitting-modal';
+import FormSuccessModal from './form-success-modal';
 
 const FormWithMargin = styled('form')`
     margin: ${size.xlarge} 0;
 `;
-
-const uploadImagesToStrapi = async images => {
-    const form_data = new FormData();
-    images.forEach(img => {
-        form_data.append('files', img);
-    });
-    const r = await fetch(`${process.env.STRAPI_URL}/upload`, {
-        'Content-Type': 'multipart/form-data',
-        method: 'post',
-        body: form_data,
-    });
-    const resp = await r.json();
-    try {
-        return { success: true, data: resp.map(r => r._id) };
-    } catch (e) {
-        // Something failed in image upload
-        const errorMsg = dlv(
-            resp,
-            'data.errors.0.message',
-            'An unknown error occurred'
-        );
-        return { success: false, data: `${resp.error} ${errorMsg}` };
-    }
-};
 
 const Form = () => {
     const [success, setSuccess] = useState(true);
@@ -78,45 +53,12 @@ const Form = () => {
             );
             if (isValid) {
                 if (isFinalPart) {
-                    setError(null);
-                    const newState = { ...state };
-                    setIsSubmitting(true);
-                    // Try project image upload
-                    const {
-                        success: projImageSuccess,
-                        data: projImageData,
-                    } = await uploadImagesToStrapi(newState.project_images);
-                    if (!projImageSuccess) {
-                        setError(projImageData);
-                        setIsSubmitting(false);
-                        return;
-                    }
-                    newState.project_images = projImageData;
-                    // Try student images upload
-                    const studentImages = newState.students.map(s => s.image);
-                    const {
-                        success: studentImageSuccess,
-                        data: studentImageData,
-                    } = await uploadImagesToStrapi(studentImages);
-                    if (!studentImageSuccess) {
-                        setError(studentImageData);
-                        setIsSubmitting(false);
-                        return;
-                    }
-                    studentImageData.forEach((id, i) => {
-                        newState.students[i].image = id;
-                    });
-                    const {
-                        success,
-                        message,
-                    } = await submitStudentSpotlightProject(newState);
-                    setIsSubmitting(false);
-                    if (success) {
-                        setSuccess(true);
-                    } else {
-                        setError(message);
-                        console.error(message);
-                    }
+                    await onStudentSpotlightFormSubmission(
+                        state,
+                        setError,
+                        setIsSubmitting,
+                        setSuccess
+                    );
                 } else {
                     const newOpen = [...fieldsetsOpen];
                     newOpen[i] = false;
@@ -169,53 +111,9 @@ const Form = () => {
                 onStudentChange={onStudentChange}
                 state={state}
             />
-            {error && (
-                <Modal
-                    verticallyCenter
-                    isOpenToStart={true}
-                    dialogContainerStyle={{
-                        maxWidth: '600px',
-                        padding: `0 ${size.large}`,
-                    }}
-                >
-                    <H3>Error: {error}</H3>
-                    <P2>
-                        Please try submitting again. If this persists please
-                        email academia@mongodb.com.
-                    </P2>
-                </Modal>
-            )}
-            {isSubmitting && (
-                <Modal
-                    verticallyCenter
-                    isOpenToStart={true}
-                    dialogContainerStyle={{
-                        maxWidth: '600px',
-                        padding: `0 ${size.large}`,
-                    }}
-                >
-                    <H3>Submitting...</H3>
-                </Modal>
-            )}
-            {success && (
-                <Modal
-                    verticallyCenter
-                    isOpenToStart={true}
-                    dialogContainerStyle={{
-                        maxWidth: '600px',
-                        padding: `0 ${size.large}`,
-                    }}
-                >
-                    <SuccessState>
-                        <H3>Thank you for sharing!</H3>
-                        <P2>
-                            We’re looking forward to reading about your project.
-                            We will review your submission and will send you an
-                            email once it’s added to the page, stay tuned!
-                        </P2>
-                    </SuccessState>
-                </Modal>
-            )}
+            {error && <FormErrorModal error={error} />}
+            {isSubmitting && <FormSubmittingModal />}
+            {success && <FormSuccessModal />}
         </FormWithMargin>
     );
 };
