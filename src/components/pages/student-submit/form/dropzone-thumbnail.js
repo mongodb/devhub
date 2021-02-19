@@ -37,6 +37,8 @@ const ThumbnailContent = styled('div')`
 const Image = styled('img')`
     display: block;
     height: 100%;
+    margin: 0 auto;
+    object-fit: contain;
     width: auto;
 `;
 
