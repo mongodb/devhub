@@ -1,6 +1,21 @@
 import React, { useMemo, useState } from 'react';
+import styled from '@emotion/styled';
 import CondensedStudentEntry from './condensed-student-entry';
 import NewStudentFieldset from './new-student-fieldset';
+
+const ShowOnExpanded = styled('div')`
+    display: ${({ isExpanded }) => (isExpanded ? 'contents' : 'none')};
+    > * {
+        margin-bottom: inherit;
+    }
+`;
+
+const ShowOnCondensed = styled('div')`
+    display: ${({ isExpanded }) => (isExpanded ? 'none' : 'contents')};
+    > * {
+        margin-bottom: inherit;
+    }
+`;
 
 const SingleStudentFieldset = ({
     isExpanded,
@@ -17,20 +32,25 @@ const SingleStudentFieldset = ({
         [activePicture, hasActivePicture]
     );
 
-    return isExpanded ? (
-        <NewStudentFieldset
-            authorImage={authorImage}
-            setActivePicture={setActivePicture}
-            onChange={onChange}
-            state={state}
-        />
-    ) : (
-        <CondensedStudentEntry
-            authorImage={authorImage}
-            state={state}
-            onEdit={onEdit}
-            onRemove={onRemove}
-        />
+    return (
+        <>
+            <ShowOnCondensed isExpanded={isExpanded}>
+                <CondensedStudentEntry
+                    authorImage={authorImage}
+                    state={state}
+                    onEdit={onEdit}
+                    onRemove={onRemove}
+                />
+            </ShowOnCondensed>
+            <ShowOnExpanded isExpanded={isExpanded}>
+                <NewStudentFieldset
+                    authorImage={authorImage}
+                    setActivePicture={setActivePicture}
+                    onChange={onChange}
+                    state={state}
+                />
+            </ShowOnExpanded>
+        </>
     );
 };
 

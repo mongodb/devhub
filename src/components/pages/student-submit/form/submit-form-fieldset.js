@@ -35,7 +35,7 @@ const FieldsetContent = styled('div')`
     clear: both;
     display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
     > * {
-        margin-bottom: 24px;
+        margin-bottom: ${size.mediumLarge};
     }
 `;
 

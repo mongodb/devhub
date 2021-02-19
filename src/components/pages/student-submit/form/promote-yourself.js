@@ -5,6 +5,10 @@ import Button from '~components/dev-hub/button';
 import SingleStudentFieldset from './single-student-fieldset';
 import SubmitFormFieldset from './submit-form-fieldset';
 
+const getRemoveStudentMsg = name => `Remove ${name} from project?`;
+const wantsToRemoveStudent = student =>
+    window.confirm(getRemoveStudentMsg(student.first_name));
+
 const RightAligned = styled('div')`
     display: flex;
     justify-content: flex-end;
@@ -75,9 +79,11 @@ const PromoteYourself = ({
     );
     const removeStudent = useCallback(
         i => () => {
-            const newStudents = [...state.students];
-            newStudents.splice(i, 1);
-            updateStudents(newStudents);
+            if (wantsToRemoveStudent(state.students[i])) {
+                const newStudents = [...state.students];
+                newStudents.splice(i, 1);
+                updateStudents(newStudents);
+            }
         },
         [state.students, updateStudents]
     );
