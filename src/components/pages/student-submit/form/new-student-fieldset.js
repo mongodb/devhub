@@ -122,6 +122,7 @@ const NewStudentFieldset = ({
                     <ButtonImage>
                         {hasActivePicture ? (
                             <AuthorImage
+                                hideOnMobile={false}
                                 isInternalReference={false}
                                 height={IMAGE_PREVIEW_SIZE}
                                 width={IMAGE_PREVIEW_SIZE}

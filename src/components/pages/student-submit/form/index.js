@@ -8,10 +8,14 @@ import PromoteYourself from './promote-yourself';
 import ShareDetails from './share-details';
 import SuccessState from '~components/dev-hub/success-state';
 import { H3, P2 } from '~components/dev-hub/text';
+import { screenSize } from '~components/dev-hub/theme';
 import Modal from '~src/components/dev-hub/modal';
 
 const FormWithMargin = styled('form')`
     margin: ${size.xlarge} 0;
+    @media ${screenSize.upToLarge} {
+        margin-bottom: 48px;
+    }
 `;
 
 const uploadImagesToStrapi = async images => {

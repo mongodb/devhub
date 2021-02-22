@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Button from '~components/dev-hub/button';
 import { H5 } from '~components/dev-hub/text';
-import { size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 
 const FIELDSET_MAX_WIDTH = '794px';
 
@@ -27,7 +27,14 @@ const Fieldset = styled('fieldset')`
     max-width: ${FIELDSET_MAX_WIDTH};
     margin: 0 auto;
     :not(:last-of-type) {
-        margin-bottom: 24px;
+        margin-bottom: ${size.mediumLarge};
+        @media ${screenSize.upToLarge} {
+            margin-bottom: ${size.default};
+        }
+    }
+    @media ${screenSize.upToLarge} {
+        margin: 0 ${size.xsmall};
+        padding: ${size.default};
     }
 `;
 

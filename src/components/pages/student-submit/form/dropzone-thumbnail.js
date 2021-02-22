@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 import Icon from '@leafygreen-ui/icon';
 import Button from '~components/dev-hub/button';
 
+export const THUMBNAIL_MOBILE_HEIGHT = '74px';
+export const THUMBNAIL_MOBILE_WIDTH = '74px';
 export const THUMBNAIL_WIDTH = '96px';
 
 const RemoveButton = styled(Button)`
@@ -16,13 +18,17 @@ const RemoveButton = styled(Button)`
 const ThumbnailWrapper = styled('div')`
     border: 1px dashed ${({ theme }) => theme.colorMap.greyLightThree};
     border-radius: 10px;
-    grid-row-start: 2;
     height: ${size.xlarge};
     margin: 0 ${size.mediumLarge} ${size.xsmall} 0;
     padding: 4px;
     width: ${THUMBNAIL_WIDTH};
     :last-of-type {
         margin-right: 0;
+    }
+    @media ${screenSize.upToMedium} {
+        height: ${THUMBNAIL_MOBILE_HEIGHT};
+        margin: 0;
+        width: ${THUMBNAIL_MOBILE_WIDTH};
     }
 `;
 
