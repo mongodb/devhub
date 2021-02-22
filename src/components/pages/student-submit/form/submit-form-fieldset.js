@@ -27,10 +27,14 @@ const Fieldset = styled('fieldset')`
     max-width: ${FIELDSET_MAX_WIDTH};
     margin: 0 auto;
     :not(:last-of-type) {
-        margin-bottom: 24px;
+        margin-bottom: ${size.mediumLarge};
+        @media ${screenSize.upToLarge} {
+            margin-bottom: ${size.default};
+        }
     }
     @media ${screenSize.upToLarge} {
-        padding: ${size.large} ${size.default};
+        margin: 0 ${size.xsmall};
+        padding: ${size.default};
     }
 `;
 
