@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { STUDENT_DEFAULT_KEYS } from '~utils/student-spotlight-reducer';
 import styled from '@emotion/styled';
 import Button from '~components/dev-hub/button';
+import { screenSize } from '~components/dev-hub/theme';
 import SingleStudentFieldset from './single-student-fieldset';
 import SubmitFormFieldset from './submit-form-fieldset';
 
@@ -12,6 +13,9 @@ const wantsToRemoveStudent = student =>
 const RightAligned = styled('div')`
     display: flex;
     justify-content: flex-end;
+    @media ${screenSize.upToLarge} {
+        justify-content: center;
+    }
 `;
 
 const isEmpty = student => {

@@ -4,6 +4,8 @@ import { screenSize, size } from '~components/dev-hub/theme';
 import Icon from '@leafygreen-ui/icon';
 import Button from '~components/dev-hub/button';
 
+export const THUMBNAIL_MOBILE_HEIGHT = '74px';
+export const THUMBNAIL_MOBILE_WIDTH = '74px';
 export const THUMBNAIL_WIDTH = '96px';
 
 const RemoveButton = styled(Button)`
@@ -26,6 +28,9 @@ const ThumbnailWrapper = styled('div')`
     }
     @media ${screenSize.upToLarge} {
         grid-row-start: ${({ row }) => row};
+        height: ${THUMBNAIL_MOBILE_HEIGHT};
+        margin: 0;
+        width: ${THUMBNAIL_MOBILE_WIDTH};
     }
 `;
 

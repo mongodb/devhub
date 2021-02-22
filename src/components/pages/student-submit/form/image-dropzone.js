@@ -60,8 +60,11 @@ const ThumbnailGrid = styled('div')`
     row-gap: 4px;
     text-align: center;
     @media ${screenSize.upToLarge} {
+        grid-gap: ${size.default};
         grid-template-columns: repeat(3, 74px);
         grid-template-rows: ${size.medium} 74px 74px;
+        margin: ${size.xsmall} auto 0;
+        width: fit-content;
     }
 `;
 
