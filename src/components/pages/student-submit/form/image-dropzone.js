@@ -46,7 +46,7 @@ const Dropzone = styled('div')`
     justify-content: center;
     position: relative;
     text-align: center;
-    @media ${screenSize.upToLarge} {
+    @media ${screenSize.upToMedium} {
         height: ${DROPZONE_MOBILE_HEIGHT};
     }
 `;
@@ -55,21 +55,29 @@ const ThumbnailGrid = styled('div')`
     column-gap: ${size.mediumLarge};
     display: grid;
     grid-template-columns: repeat(6, ${THUMBNAIL_WIDTH});
-    grid-template-rows: ${size.medium} ${size.xlarge};
+    grid-template-rows: ${size.xlarge};
     margin-top: ${size.mediumLarge};
+    position: relative;
     row-gap: 4px;
     text-align: center;
-    @media ${screenSize.upToLarge} {
+    @media ${screenSize.upToMedium} {
         grid-gap: ${size.default};
         grid-template-columns: repeat(3, 74px);
-        grid-template-rows: ${size.medium} 74px 74px;
-        margin: ${size.xsmall} auto 0;
+        grid-template-rows: 74px 74px;
+        margin: ${size.mediumLarge} auto 0;
         width: fit-content;
     }
 `;
 
 const ImageLabelText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    position: absolute;
+    top: -20px;
+    left: 16px;
+    @media ${screenSize.upToMedium} {
+        top: -20px;
+        left: 8px;
+    }
 `;
 
 const FullInput = styled('input')`
@@ -155,7 +163,6 @@ const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
             file={file}
             key={file ? file.name : index}
             removeImage={removeImage(index)}
-            row={1 + Math.ceil((index + 1) / 3)}
         />
     ));
 

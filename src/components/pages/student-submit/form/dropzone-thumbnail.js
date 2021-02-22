@@ -18,7 +18,6 @@ const RemoveButton = styled(Button)`
 const ThumbnailWrapper = styled('div')`
     border: 1px dashed ${({ theme }) => theme.colorMap.greyLightThree};
     border-radius: 10px;
-    grid-row-start: 2;
     height: ${size.xlarge};
     margin: 0 ${size.mediumLarge} ${size.xsmall} 0;
     padding: 4px;
@@ -26,8 +25,7 @@ const ThumbnailWrapper = styled('div')`
     :last-of-type {
         margin-right: 0;
     }
-    @media ${screenSize.upToLarge} {
-        grid-row-start: ${({ row }) => row};
+    @media ${screenSize.upToMedium} {
         height: ${THUMBNAIL_MOBILE_HEIGHT};
         margin: 0;
         width: ${THUMBNAIL_MOBILE_WIDTH};
