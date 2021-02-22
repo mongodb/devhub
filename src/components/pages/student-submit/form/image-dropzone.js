@@ -2,11 +2,17 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useDropzone } from 'react-dropzone';
-import { H5, P, P3 } from '~components/dev-hub/text';
-import { layer, size } from '~components/dev-hub/theme';
+import { H5, P2, P3 } from '~components/dev-hub/text';
+import { layer, screenSize, size } from '~components/dev-hub/theme';
 import DropzoneThumbnail, { THUMBNAIL_WIDTH } from './dropzone-thumbnail';
+import useMedia from '~hooks/use-media';
 
 const DROPZONE_HEIGHT = '232px';
+const DROPZONE_MOBILE_HEIGHT = '48px';
+
+const firaMono = css`
+    font-family: 'Fira Mono';
+`;
 
 const greyText = theme => css`
     color: ${theme.colorMap.greyLightTwo};
@@ -20,7 +26,7 @@ const GreyH5 = styled(H5)`
     ${({ theme }) => greyText(theme)};
 `;
 
-const GreyP = styled(P)`
+const GreyP2 = styled(P2)`
     ${({ theme }) => greyText(theme)};
 `;
 
@@ -40,6 +46,9 @@ const Dropzone = styled('div')`
     justify-content: center;
     position: relative;
     text-align: center;
+    @media ${screenSize.upToLarge} {
+        height: ${DROPZONE_MOBILE_HEIGHT};
+    }
 `;
 
 const ThumbnailGrid = styled('div')`
@@ -50,6 +59,10 @@ const ThumbnailGrid = styled('div')`
     margin-top: ${size.mediumLarge};
     row-gap: 4px;
     text-align: center;
+    @media ${screenSize.upToLarge} {
+        grid-template-columns: repeat(3, 74px);
+        grid-template-rows: ${size.medium} 74px 74px;
+    }
 `;
 
 const ImageLabelText = styled(P3)`
@@ -91,6 +104,7 @@ const removeFileValueFromInput = input => (input.value = '');
 
 // Adopted from https://react-dropzone.js.org/#section-previews
 const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
+    const isMobile = useMedia(screenSize.upToLarge);
     const [files, setFiles] = useState(new Array(maxFiles).fill(null));
     const filesWithoutNulls = useMemo(() => files.filter(f => !!f), [files]);
 
@@ -138,6 +152,7 @@ const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
             file={file}
             key={file ? file.name : index}
             removeImage={removeImage(index)}
+            row={1 + Math.ceil((index + 1) / 3)}
         />
     ));
 
@@ -151,13 +166,21 @@ const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
                     // We want to display for the validation message
                     style={{ display: 'block' }}
                 />
-                <GreyH5>Drag and drop images (6 max)</GreyH5>
-                <GreyP collapse>
-                    or <Underline>browse</Underline> to choose a file
-                </GreyP>
-                <GreyP3>
-                    (1600 x 1200 or larger recommended, up to 10MB each)
-                </GreyP3>
+                {isMobile ? (
+                    <GreyP2 collapse css={firaMono}>
+                        + Add Images
+                    </GreyP2>
+                ) : (
+                    <>
+                        <GreyH5>Drag and drop images (6 max)</GreyH5>
+                        <GreyP2 collapse>
+                            or <Underline>browse</Underline> to choose a file
+                        </GreyP2>
+                        <GreyP3>
+                            (1600 x 1200 or larger recommended, up to 10MB each)
+                        </GreyP3>
+                    </>
+                )}
             </Dropzone>
             <ThumbnailGrid>
                 <ImageLabelText collapse>Main Image</ImageLabelText>

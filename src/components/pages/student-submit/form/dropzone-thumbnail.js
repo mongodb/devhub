@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 import Icon from '@leafygreen-ui/icon';
 import Button from '~components/dev-hub/button';
 
@@ -24,6 +24,9 @@ const ThumbnailWrapper = styled('div')`
     :last-of-type {
         margin-right: 0;
     }
+    @media ${screenSize.upToLarge} {
+        grid-row-start: ${({ row }) => row};
+    }
 `;
 
 const ThumbnailContent = styled('div')`
@@ -42,11 +45,11 @@ const Image = styled('img')`
     width: auto;
 `;
 
-const DropzoneThumbnail = ({ file, removeImage }) => {
+const DropzoneThumbnail = ({ file, removeImage, row }) => {
     const isFile = !!file;
     const preview = isFile && file.preview;
     return (
-        <ThumbnailWrapper>
+        <ThumbnailWrapper row={row}>
             <ThumbnailContent>
                 {preview ? (
                     <div>
