@@ -56,7 +56,7 @@ const ThumbnailGrid = styled('div')`
     display: grid;
     grid-template-columns: repeat(6, ${THUMBNAIL_WIDTH});
     grid-template-rows: ${size.xlarge};
-    margin-top: ${size.mediumLarge};
+    margin-top: 48px;
     position: relative;
     row-gap: 4px;
     text-align: center;
@@ -73,7 +73,7 @@ const ImageLabelText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
     position: absolute;
     top: -20px;
-    left: 16px;
+    left: 14px;
     @media ${screenSize.upToMedium} {
         top: -20px;
         left: 8px;
