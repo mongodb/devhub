@@ -37,6 +37,14 @@ const PromoteYourself = ({
         we allow for students to be added or removed
     */
     const [numStudents, setNumStudents] = useState(1);
+    const scrollToTopOfSection = useCallback(
+        () =>
+            window.scrollTo({
+                behavior: 'smooth',
+                top: newRef.current.offsetTop,
+            }),
+        [newRef]
+    );
     const updateStudents = useCallback(
         value => dispatch({ field: 'students', value }),
         [dispatch]
@@ -65,10 +73,17 @@ const PromoteYourself = ({
 
             newStudents.push({ key: numStudents, isExpanded: true });
             updateStudents(newStudents);
+            scrollToTopOfSection();
         } else {
             form.reportValidity();
         }
-    }, [newRef, numStudents, state.students, updateStudents]);
+    }, [
+        newRef,
+        numStudents,
+        scrollToTopOfSection,
+        state.students,
+        updateStudents,
+    ]);
     const editStudent = useCallback(
         i => () => {
             const newStudents = removeLastStudentIfEmpty();
