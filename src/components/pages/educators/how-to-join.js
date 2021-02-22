@@ -13,6 +13,12 @@ const CUSTOM_BULLET_SIZE = '24px';
 const SECTION_HORIZONTAL_PADDING = '120px';
 const SECTION_VERTICAL_PADDING = '60px';
 
+const P2WithConsistentLineHeight = styled(P2)`
+    @media ${screenSize.upToMedium} {
+        line-height: ${CUSTOM_BULLET_SIZE};
+    }
+`;
+
 // Custom counter so we can apply custom styles after disabling list-style
 const customOrderedListCounter = css`
     counter-reset: ordered-list-counter;
@@ -98,18 +104,24 @@ const HowToJoin = () => {
                 {!isMobile && <Requirements />}
                 <CustomGradientOrderedList>
                     <li>
-                        <P2 collapse>Fill out a form with teaching details</P2>
+                        <P2WithConsistentLineHeight collapse>
+                            Fill out a form with teaching details
+                        </P2WithConsistentLineHeight>
                     </li>
                     <li>
-                        <P2 collapse>Our team will verify your details</P2>
+                        <P2WithConsistentLineHeight collapse>
+                            Our team will verify your details
+                        </P2WithConsistentLineHeight>
                     </li>
                     <li>
-                        <P2 collapse>
+                        <P2WithConsistentLineHeight collapse>
                             You'll get an email within 5 business days
-                        </P2>
+                        </P2WithConsistentLineHeight>
                     </li>
                     <li>
-                        <P2 collapse>Bring your students on board</P2>
+                        <P2WithConsistentLineHeight collapse>
+                            Bring your students on board
+                        </P2WithConsistentLineHeight>
                     </li>
                 </CustomGradientOrderedList>
                 <SignUpModal />
