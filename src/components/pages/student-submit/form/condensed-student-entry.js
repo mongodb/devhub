@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import AuthorImage from '~components/dev-hub/author-image';
-import { size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 import Button from '~components/dev-hub/button';
 import { P3 } from '~components/dev-hub/text';
 
@@ -18,6 +18,11 @@ const CondensedContainer = styled('div')`
     display: grid;
     grid-template-columns: ${`${IMAGE_PREVIEW_SIZE}px`} auto ${EDIT_BUTTON_SIZE} ${REMOVE_BUTTON_SIZE};
     padding-bottom: ${size.mediumLarge};
+    @media ${screenSize.upToMedium} {
+        grid-template-columns: ${`${IMAGE_PREVIEW_SIZE}px`} auto;
+        grid-template-rows: auto 20px;
+        row-gap: ${size.xsmall};
+    }
 `;
 
 const PreviewText = styled(P3)`
@@ -33,11 +38,23 @@ const modifyButtonStyling = css`
 const EditButton = styled(Button)`
     color: ${({ theme }) => theme.colorMap.devWhite};
     ${modifyButtonStyling};
+    @media ${screenSize.upToMedium} {
+        margin-right: ${size.default};
+    }
 `;
 
 const RemoveButton = styled(Button)`
     color: ${({ theme }) => theme.colorMap.salmon};
     ${modifyButtonStyling};
+`;
+
+const ButtonContainer = styled('div')`
+    display: contents;
+    @media ${screenSize.upToMedium} {
+        display: block;
+        grid-column-start: 2;
+        grid-row-start: 2;
+    }
 `;
 
 const CondensedStudentEntry = ({ authorImage, onEdit, onRemove, state }) => (
@@ -55,12 +72,14 @@ const CondensedStudentEntry = ({ authorImage, onEdit, onRemove, state }) => (
             </PreviewText>
             <PreviewText collapse>{state.school_name}</PreviewText>
         </div>
-        <EditButton onClick={onEdit}>
-            <P3 collapse>Edit</P3>
-        </EditButton>
-        <RemoveButton onClick={onRemove}>
-            <P3 collapse>Remove</P3>
-        </RemoveButton>
+        <ButtonContainer>
+            <EditButton onClick={onEdit}>
+                <P3 collapse>Edit</P3>
+            </EditButton>
+            <RemoveButton onClick={onRemove}>
+                <P3 collapse>Remove</P3>
+            </RemoveButton>
+        </ButtonContainer>
     </CondensedContainer>
 );
 
