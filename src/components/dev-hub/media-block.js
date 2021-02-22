@@ -21,13 +21,16 @@ const columnSizes = ({ mediaWidth, reverse }) => css`
     }
 `;
 
-const gridStructure = ({ reverse, flexible }) => css`
+const gridStructure = ({ reverse, reverseImageOnMobile, flexible }) => css`
     grid-template-areas: ${reverse ? '"content image";' : '"image content";'};
     @media ${screenSize.upToLarge} {
         /* If flexible is true, this will allow media block to allow content to stack on smaller screens */
         ${flexible &&
         `grid-template-areas: 'image'
         'content';`}
+        ${reverseImageOnMobile &&
+        `grid-template-areas: 'content'
+        'image';`}
     }
 `;
 
@@ -76,10 +79,12 @@ const MediaBlock = ({
     reverse,
     fullWidthContentOnMobile,
     flexible = true,
+    reverseImageOnMobile = false,
 }) => (
     <MediaBlockContainer
         flexible={flexible}
         reverse={reverse}
+        reverseImageOnMobile={reverseImageOnMobile}
         mediaWidth={mediaWidth}
         className={className}
     >
