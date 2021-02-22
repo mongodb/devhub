@@ -54,6 +54,7 @@ const BenefitsLayout = styled('div')`
     padding: ${size.xlarge} 0;
     @media ${screenSize.upToLarge} {
         display: block;
+        padding: 0;
     }
 `;
 
