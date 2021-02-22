@@ -4,7 +4,11 @@ import styled from '@emotion/styled';
 import { useDropzone } from 'react-dropzone';
 import { H5, P2, P3 } from '~components/dev-hub/text';
 import { layer, screenSize, size } from '~components/dev-hub/theme';
-import DropzoneThumbnail, { THUMBNAIL_WIDTH } from './dropzone-thumbnail';
+import DropzoneThumbnail, {
+    THUMBNAIL_MOBILE_HEIGHT,
+    THUMBNAIL_MOBILE_WIDTH,
+    THUMBNAIL_WIDTH,
+} from './dropzone-thumbnail';
 import useMedia from '~hooks/use-media';
 
 const DROPZONE_HEIGHT = '232px';
@@ -62,9 +66,9 @@ const ThumbnailGrid = styled('div')`
     text-align: center;
     @media ${screenSize.upToMedium} {
         grid-gap: ${size.default};
-        grid-template-columns: repeat(3, 74px);
-        grid-template-rows: 74px 74px;
-        margin: ${size.mediumLarge} auto 0;
+        grid-template-columns: repeat(3, ${THUMBNAIL_MOBILE_WIDTH});
+        grid-template-rows: ${THUMBNAIL_MOBILE_HEIGHT} ${THUMBNAIL_MOBILE_HEIGHT};
+        margin: ${size.large} auto 0;
         width: fit-content;
     }
 `;
@@ -76,7 +80,7 @@ const ImageLabelText = styled(P3)`
     left: 14px;
     @media ${screenSize.upToMedium} {
         top: -20px;
-        left: 8px;
+        left: ${size.xsmall};
     }
 `;
 
@@ -115,7 +119,7 @@ const removeFileValueFromInput = input => (input.value = '');
 
 // Adopted from https://react-dropzone.js.org/#section-previews
 const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
-    const isMobile = useMedia(screenSize.upToLarge);
+    const isMobile = useMedia(screenSize.upToMedium);
     const [files, setFiles] = useState(new Array(maxFiles).fill(null));
     const filesWithoutNulls = useMemo(() => files.filter(f => !!f), [files]);
 

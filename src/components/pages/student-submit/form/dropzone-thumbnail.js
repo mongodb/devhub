@@ -48,11 +48,11 @@ const Image = styled('img')`
     width: auto;
 `;
 
-const DropzoneThumbnail = ({ file, removeImage, row }) => {
+const DropzoneThumbnail = ({ file, removeImage }) => {
     const isFile = !!file;
     const preview = isFile && file.preview;
     return (
-        <ThumbnailWrapper row={row}>
+        <ThumbnailWrapper>
             <ThumbnailContent>
                 {preview ? (
                     <div>

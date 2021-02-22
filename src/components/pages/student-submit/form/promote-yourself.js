@@ -10,7 +10,7 @@ const getRemoveStudentMsg = name => `Remove ${name} from project?`;
 const wantsToRemoveStudent = student =>
     window.confirm(getRemoveStudentMsg(student.first_name));
 
-const RightAligned = styled('div')`
+const CustomAligned = styled('div')`
     display: flex;
     justify-content: flex-end;
     @media ${screenSize.upToLarge} {
@@ -118,11 +118,11 @@ const PromoteYourself = ({
                     state={s}
                 />
             ))}
-            <RightAligned>
+            <CustomAligned>
                 <Button onClick={addNewStudent}>
                     + Add another team member
                 </Button>
-            </RightAligned>
+            </CustomAligned>
         </SubmitFormFieldset>
     );
 };
