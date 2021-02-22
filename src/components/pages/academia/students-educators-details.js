@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import GreenBulletedList, {
     BulletText,
@@ -9,13 +10,39 @@ import Card from '~components/dev-hub/card';
 import { H5, P2 } from '~components/dev-hub/text';
 import { screenSize, size } from '~components/dev-hub/theme';
 
-const MOBILE_IMG_MAX_HEIGHT = '300px';
+const MOBILE_IMG_MAX_SIZE = '50%';
 const IMAGE_HEIGHT = '98px';
 const IMAGE_WIDTH = '130px';
 
+const absolutelyPlaceInSquare = css`
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+`;
+
+const responsiveSquareContainer = css`
+    margin: 0 auto;
+    position: relative;
+    :after {
+        content: '';
+        display: block;
+        padding-bottom: 100%;
+    }
+`;
+
+const ImageWrapper = styled('div')`
+    @media ${screenSize.upToMedium} {
+        max-height: ${MOBILE_IMG_MAX_SIZE};
+        max-width: ${MOBILE_IMG_MAX_SIZE};
+        ${responsiveSquareContainer}
+    }
+`;
+
 const MaxWidthMobileImage = styled('img')`
     @media ${screenSize.upToMedium} {
-        max-height: ${MOBILE_IMG_MAX_HEIGHT};
+        ${absolutelyPlaceInSquare}
     }
 `;
 
@@ -27,6 +54,7 @@ const BenefitsLayout = styled('div')`
     padding: ${size.xlarge} 0;
     @media ${screenSize.upToLarge} {
         display: block;
+        padding: 0;
     }
 `;
 
@@ -82,12 +110,9 @@ const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
     return (
         <NoMaxWidthCard href={href} to={to} collapseImage>
             <SingleBenefitLayout>
-                <MaxWidthMobileImage
-                    height="100%"
-                    width="100%"
-                    alt=""
-                    src={image}
-                />
+                <ImageWrapper>
+                    <MaxWidthMobileImage alt="" src={image} />
+                </ImageWrapper>
                 <CardRightSideContent>
                     <H5>{forAudienceText}</H5>
                     <GreenBulletedList children={bullets} />
