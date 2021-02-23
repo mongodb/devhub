@@ -131,7 +131,9 @@ const FeaturedProject = () => {
                 mobileGridGap={size.default}
                 numCols={3}
             >
-                <FeaturedImage src={image_url} />
+                <Link to={slug}>
+                    <FeaturedImage src={image_url} />
+                </Link>
                 {!isMobile && <ProjectDetails />}
             </GridWithBottomBorder>
             {isMobile && <ProjectDetails />}

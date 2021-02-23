@@ -15,7 +15,7 @@ const DescriptiveText = styled(P)`
 `;
 
 const SectionContent = styled('div')`
-    padding: 0 ${size.default};
+    padding: ${size.large} ${size.default};
     @media ${screenSize.largeAndUp} {
         margin-top: 15%;
         padding: 8%;
@@ -30,6 +30,7 @@ const AcademiaFeature = () => {
                 mediaWidth="550px"
                 mediaComponent={<ProjectCardGrid />}
                 reverse
+                reverseImageOnMobile
                 fullWidthContentOnMobile
             >
                 <SectionContent>

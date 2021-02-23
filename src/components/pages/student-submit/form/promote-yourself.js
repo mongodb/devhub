@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { STUDENT_DEFAULT_KEYS } from '~utils/student-spotlight-reducer';
 import styled from '@emotion/styled';
 import Button from '~components/dev-hub/button';
+import { screenSize } from '~components/dev-hub/theme';
 import SingleStudentFieldset from './single-student-fieldset';
 import SubmitFormFieldset from './submit-form-fieldset';
 
@@ -9,9 +10,12 @@ const getRemoveStudentMsg = name => `Remove ${name} from project?`;
 const wantsToRemoveStudent = student =>
     window.confirm(getRemoveStudentMsg(student.first_name));
 
-const RightAligned = styled('div')`
+const CustomAligned = styled('div')`
     display: flex;
     justify-content: flex-end;
+    @media ${screenSize.upToLarge} {
+        justify-content: center;
+    }
 `;
 
 const isEmpty = student => {
@@ -33,6 +37,14 @@ const PromoteYourself = ({
         we allow for students to be added or removed
     */
     const [numStudents, setNumStudents] = useState(1);
+    const scrollToTopOfSection = useCallback(
+        () =>
+            window.scrollTo({
+                behavior: 'smooth',
+                top: newRef.current.offsetTop,
+            }),
+        [newRef]
+    );
     const updateStudents = useCallback(
         value => dispatch({ field: 'students', value }),
         [dispatch]
@@ -61,10 +73,17 @@ const PromoteYourself = ({
 
             newStudents.push({ key: numStudents, isExpanded: true });
             updateStudents(newStudents);
+            scrollToTopOfSection();
         } else {
             form.reportValidity();
         }
-    }, [newRef, numStudents, state.students, updateStudents]);
+    }, [
+        newRef,
+        numStudents,
+        scrollToTopOfSection,
+        state.students,
+        updateStudents,
+    ]);
     const editStudent = useCallback(
         i => () => {
             const newStudents = removeLastStudentIfEmpty();
@@ -114,11 +133,11 @@ const PromoteYourself = ({
                     state={s}
                 />
             ))}
-            <RightAligned>
+            <CustomAligned>
                 <Button onClick={addNewStudent}>
                     + Add another team member
                 </Button>
-            </RightAligned>
+            </CustomAligned>
         </SubmitFormFieldset>
     );
 };

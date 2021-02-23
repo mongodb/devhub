@@ -9,9 +9,13 @@ import { onStudentSpotlightFormSubmission } from '~utils/on-student-spotlight-fo
 import FormErrorModal from './form-error-modal';
 import FormSubmittingModal from './form-submitting-modal';
 import FormSuccessModal from './form-success-modal';
+import { screenSize } from '~components/dev-hub/theme';
 
 const FormWithMargin = styled('form')`
     margin: ${size.xlarge} 0;
+    @media ${screenSize.upToLarge} {
+        margin-bottom: 48px;
+    }
 `;
 
 const Form = () => {
