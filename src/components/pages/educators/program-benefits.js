@@ -49,9 +49,9 @@ const BenefitGraphic = styled('img')`
     margin: 0 auto ${size.medium};
 `;
 
-const FeaturedBenefit = ({ bullets, image, title }) => (
+const FeaturedBenefit = ({ alt, bullets, image, title }) => (
     <FeaturedBenefitMaxWidthContainer>
-        <BenefitGraphic alt="" src={image} />
+        <BenefitGraphic alt={alt} src={image} />
         <H5>{title}</H5>
         <GreenBulletedList>{bullets}</GreenBulletedList>
     </FeaturedBenefitMaxWidthContainer>
@@ -62,6 +62,7 @@ const ProgramBenefits = () => (
         <H3 collapse>Teach MongoDB with confidence</H3>
         <BenefitsLayout>
             <FeaturedBenefit
+                alt="Person with speech bubble with a star in the bubble. Check marks to the left and right of person. Stars around the person."
                 bullets={[
                     'Access to MongoDB software and curriculum content sourced from MongoDB education experts',
                     'Consult with us for help planning your curriculum',
@@ -70,6 +71,7 @@ const ProgramBenefits = () => (
                 title="Curriculum Content Sourced from MongoDB Education Experts"
             />
             <FeaturedBenefit
+                alt="Leaf standing in middle. Two arrows in front and right of leaf. Two browser with play video icons to the left and behind leaf."
                 bullets={[
                     'Get on-demand access to MongoDB University, for you and your students',
                     'Student cohort tracking and usage analytics with MongoDB University',
@@ -78,6 +80,7 @@ const ProgramBenefits = () => (
                 title="Exclusive MongoDB University On-Demand Access"
             />
             <FeaturedBenefit
+                alt="Three people. Middle person has large speech bubble connected to other two people. One additional small speech bubble for each other person"
                 bullets={[
                     'Access to our MongoDB for Academia community',
                     'Collaborate, share tips and get inspired with other MongoDB for Academia educators',
