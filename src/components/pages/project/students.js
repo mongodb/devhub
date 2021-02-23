@@ -8,7 +8,7 @@ import LinkedinIcon from '~components/dev-hub/icons/linkedin';
 import YoutubeIcon from '~components/dev-hub/icons/youtube';
 import AuthorImage from '~components/dev-hub/author-image';
 import { P3, H5 } from '~components/dev-hub/text';
-import { size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 import Link from '~components/Link';
 
 const AUTHOR_IMAGE_SIZE = 32;
@@ -46,6 +46,11 @@ const StudentLi = styled('li')`
     flex-direction: column;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    @media ${screenSize.upToMedium} {
+        :last-of-type {
+            border-bottom: none;
+        }
+    }
 `;
 const StudentsList = styled('ul')`
     list-style: none;
