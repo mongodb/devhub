@@ -10,6 +10,7 @@ export const onStudentSpotlightFormSubmission = async (
     setError(null);
     const newState = { ...state };
     setIsSubmitting(true);
+
     // Try project image upload
     const {
         success: projImageSuccess,
@@ -21,6 +22,7 @@ export const onStudentSpotlightFormSubmission = async (
         return;
     }
     newState.project_images = projImageData;
+
     // Try student images upload
     const studentImages = newState.students.map(s => s.image);
     const {
@@ -35,6 +37,8 @@ export const onStudentSpotlightFormSubmission = async (
     studentImageData.forEach((id, i) => {
         newState.students[i].image = id;
     });
+
+    // Try Form submission
     const { success, message } = await submitStudentSpotlightProject(newState);
     setIsSubmitting(false);
     if (success) {
