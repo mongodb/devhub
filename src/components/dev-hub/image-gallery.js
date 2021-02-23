@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import Button from './button';
 import { P } from './text';
 import { screenSize, size } from './theme';
 
@@ -31,9 +32,9 @@ const CurrentImage = styled('img')`
     }
 `;
 
-const ThumbnailWrapper = styled('div')`
-    cursor: pointer;
+const ThumbnailWrapper = styled(Button)`
     height: ${THUMBNAIL_SIZE};
+    padding: 0;
     width: ${THUMBNAIL_SIZE};
 `;
 

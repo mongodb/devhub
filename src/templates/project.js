@@ -68,7 +68,7 @@ const InfoSidebar = styled('div')`
     }
 `;
 
-const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
+const ShareProjectCTAWithPadding = styled(ShareProjectCTA)`
     padding-top: ${size.xlarge};
     padding-bottom: 88px;
 `;
@@ -129,7 +129,7 @@ const Project = props => {
                 />
             </Container>
             <AdditionalProjects excludedProjectName={name} />
-            <TopPaddedShareProjectCTA />
+            <ShareProjectCTAWithPadding />
             <GithubStudentPack />
         </Layout>
     );
