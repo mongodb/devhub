@@ -102,7 +102,14 @@ const GradientText = styled(P2)`
     }
 `;
 
-const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
+const BenefitTypeCard = ({
+    alt,
+    bullets,
+    image,
+    href,
+    to,
+    isStudents = true,
+}) => {
     const forAudienceText = isStudents ? 'For Students' : 'For Educators';
     const ctaText = isStudents
         ? 'Get Student Benefits'
@@ -111,7 +118,7 @@ const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
         <NoMaxWidthCard href={href} to={to} collapseImage>
             <SingleBenefitLayout>
                 <ImageWrapper>
-                    <MaxWidthMobileImage alt="" src={image} />
+                    <MaxWidthMobileImage alt={alt} src={image} />
                 </ImageWrapper>
                 <CardRightSideContent>
                     <H5>{forAudienceText}</H5>
@@ -126,6 +133,7 @@ const BenefitTypeCard = ({ bullets, image, href, to, isStudents = true }) => {
 const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
     <BenefitsLayout maxwidth={maxWidth}>
         <BenefitTypeCard
+            alt="Desk with book on top. Chair is behind the desk."
             href="https://www.mongodb.com/students"
             image={AcademiaStudents}
             bullets={[
@@ -135,6 +143,7 @@ const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
             ]}
         />
         <BenefitTypeCard
+            alt="Desk with two stacked drawers. Globe is on desk. Pen is on desk."
             isStudents={false}
             image={AcademiaEducators}
             to="/academia/educators/"
