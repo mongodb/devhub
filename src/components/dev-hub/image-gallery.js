@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import Button from './button';
 import { P } from './text';
-import { size } from './theme';
+import { screenSize, size } from './theme';
 
 const DESKTOP_GALLERY_HEIGHT = '450px';
 const DESKTOP_GALLERY_WIDTH = '1200px';
+const MAX_MOBILE_GALLERY_HEIGHT = '450px';
+const MOBILE_BREAKPOINT = screenSize.upToLarge;
 const THUMBNAIL_SIZE = '56px';
 
 const activeThumbnailBorder = theme => css`
@@ -19,18 +22,20 @@ const hoverThumbnailBorder = theme => css`
 const CurrentImage = styled('img')`
     border-radius: ${size.xsmall};
     display: block;
+    height: ${DESKTOP_GALLERY_HEIGHT};
     margin-bottom: ${size.xsmall};
     object-fit: contain;
+    width: ${DESKTOP_GALLERY_WIDTH};
+    @media ${MOBILE_BREAKPOINT} {
+        height: unset;
+        max-height: ${MAX_MOBILE_GALLERY_HEIGHT};
+    }
 `;
 
-const ThumbnailWrapper = styled('div')`
-    cursor: pointer;
-    margin-right: ${size.xsmall};
+const ThumbnailWrapper = styled(Button)`
     height: ${THUMBNAIL_SIZE};
+    padding: 0;
     width: ${THUMBNAIL_SIZE};
-    :last-of-type {
-        margin-right: 0;
-    }
 `;
 
 const ImageThumbnail = styled('img')`
@@ -51,10 +56,22 @@ const ImageThumbnail = styled('img')`
 const GalleryItemsContainer = styled('div')`
     display: flex;
     justify-content: space-between;
+    @media ${MOBILE_BREAKPOINT} {
+        flex-direction: column-reverse;
+    }
 `;
 
 const ThumbnailContainer = styled('div')`
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: ${size.xsmall};
+    grid-template-columns: repeat(auto-fill, ${THUMBNAIL_SIZE});
+    grid-template-rows: ${THUMBNAIL_SIZE};
+    @media ${MOBILE_BREAKPOINT} {
+        grid-auto-flow: row;
+        justify-content: center;
+        padding-bottom: ${size.mediumLarge};
+    }
 `;
 
 /**
@@ -66,11 +83,7 @@ const ImageGallery = ({ description, images }) => {
     const updateCurrentImage = img => setCurrentImage(img);
     return (
         <div>
-            <CurrentImage
-                height={DESKTOP_GALLERY_HEIGHT}
-                src={currentImage.src}
-                width={DESKTOP_GALLERY_WIDTH}
-            />
+            <CurrentImage src={currentImage.src} />
             <GalleryItemsContainer>
                 <P>{description}</P>
                 <ThumbnailContainer>

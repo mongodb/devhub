@@ -10,6 +10,7 @@ const MAX_WIDTH = '600px';
 const MaxWidthContainer = styled('div')`
     margin: 0 auto;
     max-width: ${MAX_WIDTH};
+    padding: 0 ${size.default};
     text-align: center;
 `;
 
