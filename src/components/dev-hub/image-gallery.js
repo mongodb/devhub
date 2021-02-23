@@ -7,6 +7,7 @@ import { screenSize, size } from './theme';
 const DESKTOP_GALLERY_HEIGHT = '450px';
 const DESKTOP_GALLERY_WIDTH = '1200px';
 const MAX_MOBILE_GALLERY_HEIGHT = '450px';
+const MOBILE_BREAKPOINT = screenSize.upToLarge;
 const THUMBNAIL_SIZE = '56px';
 
 const activeThumbnailBorder = theme => css`
@@ -24,7 +25,7 @@ const CurrentImage = styled('img')`
     margin-bottom: ${size.xsmall};
     object-fit: contain;
     width: ${DESKTOP_GALLERY_WIDTH};
-    @media ${screenSize.upToLarge} {
+    @media ${MOBILE_BREAKPOINT} {
         height: unset;
         max-height: ${MAX_MOBILE_GALLERY_HEIGHT};
     }
@@ -54,7 +55,7 @@ const ImageThumbnail = styled('img')`
 const GalleryItemsContainer = styled('div')`
     display: flex;
     justify-content: space-between;
-    @media ${screenSize.upToLarge} {
+    @media ${MOBILE_BREAKPOINT} {
         flex-direction: column-reverse;
     }
 `;
@@ -65,7 +66,7 @@ const ThumbnailContainer = styled('div')`
     grid-gap: ${size.xsmall};
     grid-template-columns: repeat(auto-fill, ${THUMBNAIL_SIZE});
     grid-template-rows: ${THUMBNAIL_SIZE};
-    @media ${screenSize.upToLarge} {
+    @media ${MOBILE_BREAKPOINT} {
         grid-auto-flow: row;
         justify-content: center;
         padding-bottom: ${size.mediumLarge};
