@@ -30,28 +30,19 @@ const FormInput = ({ required = true, ...props }) => (
 );
 
 const ProjectInfo = ({ state, onChange, ...props }) => {
-    const onAdditionalImageDropzoneChange = useCallback(
-        images => {
+    const onImageChange = useCallback(
+        name => images => {
             onChange({
                 target: {
-                    name: 'additional_images',
+                    name: name,
                     value: images,
                 },
             });
         },
         [onChange]
     );
-    const onMainImageDropzoneChange = useCallback(
-        image => {
-            onChange({
-                target: {
-                    name: 'image',
-                    value: image,
-                },
-            });
-        },
-        [onChange]
-    );
+    const onAdditionalImageChange = onImageChange('additional_images');
+    const onMainImageChange = onImageChange('image');
     return (
         <SubmitFormFieldset
             buttonText="Next"
@@ -96,11 +87,9 @@ const ProjectInfo = ({ state, onChange, ...props }) => {
             </LinksSection>
             <H5>Show off with images and video</H5>
             <GreyP2 collapse>Main Image</GreyP2>
-            <MainImageDropzone onChange={onMainImageDropzoneChange} />
+            <MainImageDropzone onChange={onMainImageChange} />
             <GreyP2 collapse>Additional Images</GreyP2>
-            <AdditionalImageDropzone
-                onChange={onAdditionalImageDropzoneChange}
-            />
+            <AdditionalImageDropzone onChange={onAdditionalImageChange} />
             <FormInput
                 required={false}
                 name="youtube_link"
