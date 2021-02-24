@@ -31,7 +31,7 @@ const FormInput = ({ required = true, ...props }) => (
 
 const ProjectInfo = ({ state, onChange, ...props }) => {
     const onImageChange = useCallback(
-        name => images => {
+        (name, images) => {
             onChange({
                 target: {
                     name: name,
@@ -41,8 +41,14 @@ const ProjectInfo = ({ state, onChange, ...props }) => {
         },
         [onChange]
     );
-    const onAdditionalImageChange = onImageChange('additional_images');
-    const onMainImageChange = onImageChange('image');
+    const onAdditionalImageChange = useCallback(
+        images => onImageChange('additional_images', images),
+        [onImageChange]
+    );
+    const onMainImageChange = useCallback(
+        images => onImageChange('image', images),
+        [onImageChange]
+    );
     return (
         <SubmitFormFieldset
             buttonText="Next"
