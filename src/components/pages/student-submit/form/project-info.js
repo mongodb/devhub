@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Input from '~components/dev-hub/input';
 import MainImageDropzone from './main-image-dropzone';
-import ImageDropzone from './image-dropzone';
+import AdditionalImageDropzone from './additional-image-dropzone';
 import SubmitFormFieldset from './submit-form-fieldset';
 import { screenSize, size } from '~components/dev-hub/theme';
 import { H5, P2 } from '~components/dev-hub/text';
@@ -39,27 +39,24 @@ const FormInput = ({ required = true, ...props }) => (
 );
 
 const ProjectInfo = ({ canReopen, state, onChange, onClick, ...props }) => {
-    const onAdditionalImageDropzoneChange = useCallback(
-        images => {
+    const onImageChange = useCallback(
+        (name, images) => {
             onChange({
                 target: {
-                    name: 'additional_images',
+                    name: name,
                     value: images,
                 },
             });
         },
         [onChange]
     );
-    const onMainImageDropzoneChange = useCallback(
-        image => {
-            onChange({
-                target: {
-                    name: 'image',
-                    value: image,
-                },
-            });
-        },
-        [onChange]
+    const onAdditionalImageChange = useCallback(
+        images => onImageChange('additional_images', images),
+        [onImageChange]
+    );
+    const onMainImageChange = useCallback(
+        images => onImageChange('image', images),
+        [onImageChange]
     );
     return (
         <ReopenController canReopen={canReopen} onClick={onClick}>
@@ -106,9 +103,9 @@ const ProjectInfo = ({ canReopen, state, onChange, onClick, ...props }) => {
                 </LinksSection>
                 <H5>Show off with images and video</H5>
                 <GreyP2 collapse>Main Image</GreyP2>
-                <MainImageDropzone onChange={onMainImageDropzoneChange} />
+                <MainImageDropzone onChange={onMainImageChange} />
                 <GreyP2 collapse>Additional Images</GreyP2>
-                <ImageDropzone onChange={onAdditionalImageDropzoneChange} />
+                <AdditionalImageDropzone onChange={onAdditionalImageChange} />
                 <FormInput
                     required={false}
                     name="youtube_link"
