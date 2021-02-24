@@ -15,13 +15,25 @@ export const onStudentSpotlightFormSubmission = async (
     const {
         success: projImageSuccess,
         data: projImageData,
-    } = await uploadImagesToStrapi(newState.project_images);
+    } = await uploadImagesToStrapi([newState.image]);
     if (!projImageSuccess) {
         setError(projImageData);
         setIsSubmitting(false);
         return;
     }
-    newState.project_images = projImageData;
+    newState.image = projImageData;
+
+    // Try project additional image upload
+    const {
+        success: addtlImageSuccess,
+        data: addtlImageData,
+    } = await uploadImagesToStrapi(newState.additional_images);
+    if (!addtlImageSuccess) {
+        setError(addtlImageData);
+        setIsSubmitting(false);
+        return;
+    }
+    newState.additional_images = addtlImageData;
 
     // Try student images upload
     const studentImages = newState.students.map(s => s.image);

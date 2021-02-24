@@ -58,29 +58,21 @@ const Dropzone = styled('div')`
 const ThumbnailGrid = styled('div')`
     column-gap: ${size.mediumLarge};
     display: grid;
-    grid-template-columns: repeat(6, ${THUMBNAIL_WIDTH});
+    grid-template-columns: repeat(5, ${THUMBNAIL_WIDTH});
     grid-template-rows: ${size.xlarge};
-    margin-top: 48px;
+    margin: ${size.default} auto 0;
     position: relative;
     row-gap: 4px;
     text-align: center;
+    width: fit-content;
     @media ${screenSize.upToMedium} {
         grid-gap: ${size.default};
-        grid-template-columns: repeat(3, ${THUMBNAIL_MOBILE_WIDTH});
-        grid-template-rows: ${THUMBNAIL_MOBILE_HEIGHT} ${THUMBNAIL_MOBILE_HEIGHT};
-        margin: ${size.large} auto 0;
-        width: fit-content;
-    }
-`;
-
-const ImageLabelText = styled(P3)`
-    color: ${({ theme }) => theme.colorMap.greyLightTwo};
-    position: absolute;
-    top: -20px;
-    left: 14px;
-    @media ${screenSize.upToMedium} {
-        top: -20px;
-        left: ${size.xsmall};
+        grid-auto-flow: row;
+        grid-template-columns: repeat(auto-fit, ${THUMBNAIL_MOBILE_WIDTH});
+        grid-template-rows: ${THUMBNAIL_MOBILE_HEIGHT};
+        margin: ${size.default} auto 0;
+        justify-content: center;
+        width: unset;
     }
 `;
 
@@ -118,7 +110,7 @@ const removeFileFromArray = (files, index) => {
 const removeFileValueFromInput = input => (input.value = '');
 
 // Adopted from https://react-dropzone.js.org/#section-previews
-const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
+const ImageDropzone = ({ onChange, maxFiles = 5 }) => {
     const isMobile = useMedia(screenSize.upToMedium);
     const [files, setFiles] = useState(new Array(maxFiles).fill(null));
     const filesWithoutNulls = useMemo(() => files.filter(f => !!f), [files]);
@@ -134,6 +126,7 @@ const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
 
     const { getRootProps, getInputProps, inputRef } = useDropzone({
         accept: 'image/*',
+        maxFiles,
         onDrop: onDrop,
     });
 
@@ -174,7 +167,6 @@ const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
         <section>
             <Dropzone {...getRootProps()}>
                 <FullInput
-                    required
                     {...getInputProps()}
                     // getInputProps() puts on a display: none
                     // We want to display for the validation message
@@ -186,7 +178,7 @@ const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
                     </GreyP2>
                 ) : (
                     <>
-                        <GreyH5>Drag and drop images (6 max)</GreyH5>
+                        <GreyH5>Drag and drop images (5 max)</GreyH5>
                         <GreyP2 collapse>
                             or <Underline>browse</Underline> to choose a file
                         </GreyP2>
@@ -196,10 +188,7 @@ const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
                     </>
                 )}
             </Dropzone>
-            <ThumbnailGrid>
-                <ImageLabelText collapse>Main Image</ImageLabelText>
-                {thumbs}
-            </ThumbnailGrid>
+            <ThumbnailGrid>{thumbs}</ThumbnailGrid>
         </section>
     );
 };
