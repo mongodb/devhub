@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import Input from '~components/dev-hub/input';
 import MainImageDropzone from './main-image-dropzone';
-import ImageDropzone from './image-dropzone';
+import AdditionalImageDropzone from './additional-image-dropzone';
 import SubmitFormFieldset from './submit-form-fieldset';
 import { screenSize, size } from '~components/dev-hub/theme';
 import { H5, P2 } from '~components/dev-hub/text';
@@ -98,7 +98,9 @@ const ProjectInfo = ({ state, onChange, ...props }) => {
             <GreyP2 collapse>Main Image</GreyP2>
             <MainImageDropzone onChange={onMainImageDropzoneChange} />
             <GreyP2 collapse>Additional Images</GreyP2>
-            <ImageDropzone onChange={onAdditionalImageDropzoneChange} />
+            <AdditionalImageDropzone
+                onChange={onAdditionalImageDropzoneChange}
+            />
             <FormInput
                 required={false}
                 name="youtube_link"

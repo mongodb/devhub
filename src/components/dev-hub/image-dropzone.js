@@ -53,7 +53,6 @@ const ImageDropzone = ({
     className,
     children,
     files,
-    ref,
     required,
     setFiles,
     onChange,
@@ -71,16 +70,12 @@ const ImageDropzone = ({
         setFiles(newFiles);
     };
 
-    const { getRootProps, getInputProps, inputRef } = useDropzone({
+    const { getRootProps, getInputProps } = useDropzone({
         accept: 'image/*',
         maxFiles,
         multiple: supportsMultipleFiles,
         onDrop: onDrop,
     });
-
-    if (ref) {
-        ref.current = inputRef;
-    }
 
     useEffect(() => {
         onChange(filesWithoutNulls);
