@@ -26,12 +26,6 @@ const Fieldset = styled('fieldset')`
     padding: ${size.large} 48px;
     max-width: ${FIELDSET_MAX_WIDTH};
     margin: 0 auto;
-    :not(:last-of-type) {
-        margin-bottom: ${size.mediumLarge};
-        @media ${screenSize.upToLarge} {
-            margin-bottom: ${size.default};
-        }
-    }
     @media ${screenSize.upToLarge} {
         margin: 0 ${size.xsmall};
         padding: ${size.default};
