@@ -15,7 +15,7 @@ export const onStudentSpotlightFormSubmission = async (
     const {
         success: projImageSuccess,
         data: projImageData,
-    } = await uploadImagesToStrapi([newState.image]);
+    } = await uploadImagesToStrapi(newState.image);
     if (!projImageSuccess) {
         setError(projImageData);
         setIsSubmitting(false);
