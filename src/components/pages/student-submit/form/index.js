@@ -55,6 +55,7 @@ const Form = () => {
                 (p, c) => p && c.checkValidity(),
                 true
             );
+            console.log(state);
             if (isValid) {
                 if (isFinalPart) {
                     await onStudentSpotlightFormSubmission(

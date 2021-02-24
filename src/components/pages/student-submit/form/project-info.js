@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import Input from '~components/dev-hub/input';
+import MainImageDropzone from './main-image-dropzone';
 import ImageDropzone from './image-dropzone';
 import SubmitFormFieldset from './submit-form-fieldset';
 import { screenSize, size } from '~components/dev-hub/theme';
@@ -25,12 +26,23 @@ const FormInput = ({ required = true, ...props }) => (
 );
 
 const ProjectInfo = ({ state, onChange, ...props }) => {
-    const onImageDropzoneChange = useCallback(
+    const onAdditionalImageDropzoneChange = useCallback(
         images => {
             onChange({
                 target: {
-                    name: 'project_images',
+                    name: 'additional_images',
                     value: images,
+                },
+            });
+        },
+        [onChange]
+    );
+    const onMainImageDropzoneChange = useCallback(
+        image => {
+            onChange({
+                target: {
+                    name: 'image',
+                    value: image,
                 },
             });
         },
@@ -79,7 +91,8 @@ const ProjectInfo = ({ state, onChange, ...props }) => {
                 />
             </LinksSection>
             <H5>Show off with images and video</H5>
-            <ImageDropzone onChange={onImageDropzoneChange} />
+            <MainImageDropzone onChange={onMainImageDropzoneChange} />
+            <ImageDropzone onChange={onAdditionalImageDropzoneChange} />
             <FormInput
                 required={false}
                 name="youtube_link"

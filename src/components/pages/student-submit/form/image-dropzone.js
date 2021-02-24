@@ -58,18 +58,18 @@ const Dropzone = styled('div')`
 const ThumbnailGrid = styled('div')`
     column-gap: ${size.mediumLarge};
     display: grid;
-    grid-template-columns: repeat(6, ${THUMBNAIL_WIDTH});
+    grid-template-columns: repeat(5, ${THUMBNAIL_WIDTH});
     grid-template-rows: ${size.xlarge};
-    margin-top: 48px;
+    margin: 48px auto 0;
     position: relative;
     row-gap: 4px;
     text-align: center;
+    width: fit-content;
     @media ${screenSize.upToMedium} {
         grid-gap: ${size.default};
         grid-template-columns: repeat(3, ${THUMBNAIL_MOBILE_WIDTH});
         grid-template-rows: ${THUMBNAIL_MOBILE_HEIGHT} ${THUMBNAIL_MOBILE_HEIGHT};
         margin: ${size.large} auto 0;
-        width: fit-content;
     }
 `;
 
@@ -118,7 +118,7 @@ const removeFileFromArray = (files, index) => {
 const removeFileValueFromInput = input => (input.value = '');
 
 // Adopted from https://react-dropzone.js.org/#section-previews
-const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
+const ImageDropzone = ({ onChange, maxFiles = 5 }) => {
     const isMobile = useMedia(screenSize.upToMedium);
     const [files, setFiles] = useState(new Array(maxFiles).fill(null));
     const filesWithoutNulls = useMemo(() => files.filter(f => !!f), [files]);
@@ -186,7 +186,7 @@ const ImageDropzone = ({ onChange, maxFiles = 6 }) => {
                     </GreyP2>
                 ) : (
                     <>
-                        <GreyH5>Drag and drop images (6 max)</GreyH5>
+                        <GreyH5>Drag and drop images (5 max)</GreyH5>
                         <GreyP2 collapse>
                             or <Underline>browse</Underline> to choose a file
                         </GreyP2>
