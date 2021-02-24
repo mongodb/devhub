@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useDropzone } from 'react-dropzone';
 import { H5 } from '~components/dev-hub/text';
 import { layer, screenSize } from '~components/dev-hub/theme';
+import Icon from '@leafygreen-ui/icon';
+import Button from '~components/dev-hub/button';
 
 const DROPZONE_HEIGHT = '64px';
 const DROPZONE_MOBILE_HEIGHT = '48px';
@@ -43,42 +45,44 @@ const FullInput = styled('input')`
     z-index: ${layer.superBack};
 `;
 
-const addAcceptedFilesToArray = (files, acceptedFiles, maxFiles) => {
-    let newFiles = [
-        ...acceptedFiles.map(file =>
-            Object.assign(file, {
-                preview: URL.createObjectURL(file),
-            })
-        ),
-        ...files,
-    ];
-    if (newFiles.length > maxFiles) {
-        newFiles = newFiles.slice(0, maxFiles);
-    }
-    return newFiles;
-};
+const ThumbnailContent = styled('div')`
+    display: flex;
+    max-height: 300px;
+    min-width: 0;
+    overflow: hidden;
+    position: relative;
+`;
 
-const removeFileFromArray = (files, index) => {
-    const newFiles = [...files];
-    newFiles[index] = null;
-    return newFiles;
-};
-
-const removeFileValueFromInput = input => (input.value = '');
+const Image = styled('img')`
+    display: block;
+    max-height: 100%;
+    margin: 0 auto;
+    object-fit: contain;
+    width: auto;
+`;
 
 // Adopted from https://react-dropzone.js.org/#section-previews
 const MainImageDropzone = ({ onChange }) => {
     const [file, setFile] = useState(null);
 
-    const { getRootProps, getInputProps, inputRef } = useDropzone({
-        accept: 'image/*',
-        onDrop: setFile,
-    });
+    const onDrop = files => {
+        if (files.length) {
+            const mainImage = files[0];
+            setFile(
+                Object.assign(mainImage, {
+                    preview: URL.createObjectURL(mainImage),
+                })
+            );
+        } else {
+            setFile(null);
+        }
+    };
 
-    const removeImage = useCallback(() => {
-        removeFileValueFromInput(inputRef.current);
-        setFile(null);
-    }, [inputRef]);
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: 'image/*',
+        maxFiles: 1,
+        onDrop,
+    });
 
     useEffect(() => {
         onChange(file);
@@ -102,7 +106,13 @@ const MainImageDropzone = ({ onChange }) => {
                     // We want to display for the validation message
                     style={{ display: 'block' }}
                 />
-                <GreyH5 collapse>Drag and drop/upload image</GreyH5>
+                {file ? (
+                    <ThumbnailContent>
+                        <Image src={file.preview} />
+                    </ThumbnailContent>
+                ) : (
+                    <GreyH5 collapse>Drag and drop/upload image</GreyH5>
+                )}
             </Dropzone>
         </section>
     );

@@ -134,6 +134,7 @@ const ImageDropzone = ({ onChange, maxFiles = 5 }) => {
 
     const { getRootProps, getInputProps, inputRef } = useDropzone({
         accept: 'image/*',
+        maxFiles,
         onDrop: onDrop,
     });
 
