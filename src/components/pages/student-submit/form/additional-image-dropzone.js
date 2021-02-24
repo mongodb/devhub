@@ -33,7 +33,6 @@ const GreyP3 = styled(P3)`
     ${({ theme }) => greyText(theme)};
 `;
 
-// Adopted from https://react-dropzone.js.org/#section-previews
 const AdditionalImageDropzone = ({ onChange }) => {
     const isMobile = useMedia(screenSize.upToMedium);
     const [files, setFiles] = useState(

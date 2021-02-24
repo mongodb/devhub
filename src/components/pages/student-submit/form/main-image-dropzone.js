@@ -49,7 +49,6 @@ const MaxHeightImageDropzone = styled(ImageDropzone)`
     }
 `;
 
-// Adopted from https://react-dropzone.js.org/#section-previews
 const MainImageDropzone = ({ onChange }) => {
     const [files, setFiles] = useState([]);
     const isMobile = useMedia(screenSize.upToMedium);
