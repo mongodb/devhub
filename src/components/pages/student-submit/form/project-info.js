@@ -5,9 +5,13 @@ import MainImageDropzone from './main-image-dropzone';
 import ImageDropzone from './image-dropzone';
 import SubmitFormFieldset from './submit-form-fieldset';
 import { screenSize, size } from '~components/dev-hub/theme';
-import { H5 } from '~components/dev-hub/text';
+import { H5, P2 } from '~components/dev-hub/text';
 
 const INPUT_BOX_WIDTH = '336px';
+
+const GreyP2 = styled(P2)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
 
 const LinksSection = styled('div')`
     display: grid;
@@ -91,7 +95,9 @@ const ProjectInfo = ({ state, onChange, ...props }) => {
                 />
             </LinksSection>
             <H5>Show off with images and video</H5>
+            <GreyP2 collapse>Main Image</GreyP2>
             <MainImageDropzone onChange={onMainImageDropzoneChange} />
+            <GreyP2 collapse>Additional Images</GreyP2>
             <ImageDropzone onChange={onAdditionalImageDropzoneChange} />
             <FormInput
                 required={false}

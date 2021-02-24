@@ -60,27 +60,19 @@ const ThumbnailGrid = styled('div')`
     display: grid;
     grid-template-columns: repeat(5, ${THUMBNAIL_WIDTH});
     grid-template-rows: ${size.xlarge};
-    margin: 48px auto 0;
+    margin: ${size.default} auto 0;
     position: relative;
     row-gap: 4px;
     text-align: center;
     width: fit-content;
     @media ${screenSize.upToMedium} {
         grid-gap: ${size.default};
-        grid-template-columns: repeat(3, ${THUMBNAIL_MOBILE_WIDTH});
-        grid-template-rows: ${THUMBNAIL_MOBILE_HEIGHT} ${THUMBNAIL_MOBILE_HEIGHT};
-        margin: ${size.large} auto 0;
-    }
-`;
-
-const ImageLabelText = styled(P3)`
-    color: ${({ theme }) => theme.colorMap.greyLightTwo};
-    position: absolute;
-    top: -20px;
-    left: 14px;
-    @media ${screenSize.upToMedium} {
-        top: -20px;
-        left: ${size.xsmall};
+        grid-auto-flow: row;
+        grid-template-columns: repeat(auto-fit, ${THUMBNAIL_MOBILE_WIDTH});
+        grid-template-rows: ${THUMBNAIL_MOBILE_HEIGHT};
+        margin: ${size.default} auto 0;
+        justify-content: center;
+        width: unset;
     }
 `;
 
@@ -175,7 +167,6 @@ const ImageDropzone = ({ onChange, maxFiles = 5 }) => {
         <section>
             <Dropzone {...getRootProps()}>
                 <FullInput
-                    required
                     {...getInputProps()}
                     // getInputProps() puts on a display: none
                     // We want to display for the validation message
@@ -197,10 +188,7 @@ const ImageDropzone = ({ onChange, maxFiles = 5 }) => {
                     </>
                 )}
             </Dropzone>
-            <ThumbnailGrid>
-                <ImageLabelText collapse>Main Image</ImageLabelText>
-                {thumbs}
-            </ThumbnailGrid>
+            <ThumbnailGrid>{thumbs}</ThumbnailGrid>
         </section>
     );
 };
