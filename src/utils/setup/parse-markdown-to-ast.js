@@ -16,7 +16,6 @@ export const parseMarkdownToAST = markdown => {
 
     function ondirective(node) {
         var data = node.data || (node.data = {});
-
         node['argument'] = [{ value: node.attributes.vid }];
         data['name'] = node.name;
         node.type = node.name;
