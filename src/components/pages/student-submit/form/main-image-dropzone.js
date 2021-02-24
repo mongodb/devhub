@@ -1,11 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useDropzone } from 'react-dropzone';
 import { H5 } from '~components/dev-hub/text';
 import { layer, screenSize } from '~components/dev-hub/theme';
-import Icon from '@leafygreen-ui/icon';
-import Button from '~components/dev-hub/button';
 
 const DROPZONE_HEIGHT = '64px';
 const DROPZONE_MOBILE_HEIGHT = '48px';
