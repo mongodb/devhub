@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { size } from '~components/dev-hub/theme';
 import { useStudentSpotlightReducer } from '~hooks/use-student-spotlight-reducer';
@@ -16,6 +16,12 @@ const FormWithMargin = styled('form')`
     @media ${screenSize.upToLarge} {
         margin-bottom: 48px;
     }
+    > :not(:last-child) {
+        margin-bottom: ${size.mediumLarge};
+        @media ${screenSize.upToLarge} {
+            margin-bottom: ${size.default};
+        }
+    }
 `;
 
 const Form = () => {
@@ -27,6 +33,11 @@ const Form = () => {
     const fieldsetOneRef = useRef();
     const fieldsetTwoRef = useRef();
     const fieldsetThreeRef = useRef();
+
+    const currentFieldsetIndex = useMemo(
+        () => fieldsetsOpen.lastIndexOf(true),
+        [fieldsetsOpen]
+    );
 
     const scrollToRef = ref =>
         window.scrollTo({ behavior: 'smooth', top: ref.current.offsetTop });
@@ -44,6 +55,17 @@ const Form = () => {
                 value: e.target.value,
             }),
         [dispatch]
+    );
+
+    const onReopen = useCallback(
+        i => () => {
+            if (i < currentFieldsetIndex) {
+                // Open this one and close all other ones
+                const newOpen = fieldsetsOpen.map((_, idx) => idx === i);
+                setFieldsetsOpen(newOpen);
+            }
+        },
+        [currentFieldsetIndex, fieldsetsOpen]
     );
 
     const onFormPartCompletion = useCallback(
@@ -94,16 +116,20 @@ const Form = () => {
     return (
         <FormWithMargin>
             <ProjectInfo
+                canReopen={0 < currentFieldsetIndex}
                 isOpen={fieldsetsOpen[0]}
                 newRef={fieldsetOneRef}
-                onComplete={onFirstPartComplete}
+                onClick={onReopen(0)}
                 onChange={onChange}
+                onComplete={onFirstPartComplete}
                 state={state}
             />
             <ShareDetails
+                canReopen={1 < currentFieldsetIndex}
                 isOpen={fieldsetsOpen[1]}
                 newRef={fieldsetTwoRef}
                 onComplete={onSecondPartComplete}
+                onClick={onReopen(1)}
                 onChange={onChange}
                 state={state}
             />
