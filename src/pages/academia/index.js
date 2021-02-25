@@ -7,10 +7,11 @@ import {
     StudentsEducatorsDetails,
 } from '~components/pages/academia';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
+import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
 
 const AcademiaLandingPage = ({ location }) => {
     const { siteUrl } = useSiteMetadata();
-    const fullUrl = `${siteUrl}${location.pathname}`;
+    const fullUrl = removePathPrefixFromUrl(`${siteUrl}${location.pathname}`);
     return (
         <Layout>
             <SEO

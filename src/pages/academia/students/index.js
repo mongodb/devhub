@@ -11,6 +11,7 @@ import AllProjects from '~components/pages/students/all-projects';
 import GalleryHeroBanner from '~components/pages/students/gallery-hero-banner';
 import { screenSize, size } from '~components/dev-hub/theme';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
+import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
 
 const ContentContainer = styled('div')`
     padding-left: ${size.xxlarge};
@@ -33,7 +34,7 @@ const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
 
 const Students = ({ location }) => {
     const { siteUrl } = useSiteMetadata();
-    const fullUrl = `${siteUrl}${location.pathname}`;
+    const fullUrl = removePathPrefixFromUrl(`${siteUrl}${location.pathname}`);
     return (
         <Layout>
             <SEO

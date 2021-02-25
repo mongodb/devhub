@@ -3,10 +3,11 @@ import Layout from '~components/dev-hub/layout';
 import SEO from '~components/dev-hub/SEO';
 import { Form, TopBanner } from '~components/pages/student-submit';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
+import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
 
 const Submit = ({ location }) => {
     const { siteUrl } = useSiteMetadata();
-    const fullUrl = `${siteUrl}${location.pathname}`;
+    const fullUrl = removePathPrefixFromUrl(`${siteUrl}${location.pathname}`);
     return (
         <Layout>
             <SEO
