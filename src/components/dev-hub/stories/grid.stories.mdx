@@ -1,0 +1,32 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Card from '../card';
+import HoverCard from '../hover-card';
+import { H3, P3 } from '../text';
+import { colorMap } from '../theme';
+import mockCardImage from '../../../images/360-mock-img.png';
+import { mapTagTypeToUrl } from '../../../utils/map-tag-type-to-url';
+import Grid from '../grid';
+
+<Meta title="Grids" />
+
+# Grids
+
+Grids take a `layout` property (as well as several optional dimension properties `colWidth` and `rowHeight`) to create a CSS Grid to wrap children in.
+
+<Preview>
+    <Story name="grid">
+        <Grid
+            layout={{ rowSpan: [1], colSpan: [2, 1, 1, 1, 1, 1, 2] }}
+            numCols={3}
+            rowHeight="300px"
+        >
+            <HoverCard image={mockCardImage}>An interesting article</HoverCard>
+            <HoverCard image={mockCardImage}>An interesting article</HoverCard>
+            <HoverCard image={mockCardImage}>An interesting article</HoverCard>
+            <HoverCard image={mockCardImage}>An interesting article</HoverCard>
+            <HoverCard image={mockCardImage}>An interesting article</HoverCard>
+            <HoverCard image={mockCardImage}>An interesting article</HoverCard>
+            <HoverCard image={mockCardImage}>An interesting article</HoverCard>
+        </Grid>
+    </Story>
+</Preview>

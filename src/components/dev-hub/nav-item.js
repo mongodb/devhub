@@ -170,7 +170,7 @@ export const MobileNavItem = ({ item, onLinkClick }) => {
             >
                 <NavListHeader isExpanded={isExpanded}>
                     {item.name}
-                    <ArrowheadIcon down={!isExpanded} />
+                    <ArrowheadIcon direction={isExpanded ? 'up' : 'down'} />
                 </NavListHeader>
                 <NavItemSublist isExpanded={isExpanded}>
                     {item.subitems.map(subitem => (

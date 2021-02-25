@@ -4,7 +4,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import AriaModal from 'react-aria-modal';
 import useMedia from '../../hooks/use-media';
-import { screenSize, size } from './theme';
+import { fontSize, screenSize, size } from './theme';
 import { useTheme } from 'emotion-theming';
 
 const transparentModalStyling = css`
@@ -37,9 +37,10 @@ const ModalDialog = styled('div')`
     ${({ transparent }) => transparent && transparentModalStyling};
 `;
 const CloseButtonWrapper = styled('div')`
-    font-weight: bold;
     color: ${({ theme }) => theme.colorMap.greyLightThree};
     cursor: pointer;
+    font-size: ${fontSize.medium};
+    font-weight: bold;
     padding: ${size.tiny};
 `;
 
@@ -106,7 +107,7 @@ export const Modal = ({
         ...dialogContainerStyle,
     };
     const dialogMobileStyle = {
-        padding: `${size.large}`,
+        padding: `${size.xsmall}`,
         ...dialogMobileContainerStyle,
     };
     const [isActive, setIsActive] = useState(isOpenToStart);

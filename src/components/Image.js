@@ -68,7 +68,9 @@ export default class Image extends Component {
     render() {
         const { alt, className, captioned, nodeData = {}, src } = this.props;
         const imgSrc =
-            src || getNestedValue(['argument', 0, 'value'], nodeData);
+            src ||
+            nodeData.url ||
+            getNestedValue(['argument', 0, 'value'], nodeData);
         const altText =
             alt || getNestedValue(['options', 'alt'], nodeData) || imgSrc;
         const customAlign = getNestedValue(['options', 'align'], nodeData);

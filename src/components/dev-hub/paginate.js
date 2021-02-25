@@ -23,7 +23,13 @@ const HasMoreButtonContainer = styled('div')`
     text-align: center;
 `;
 
-const Paginate = ({ children, limit, ...props }) => {
+const Paginate = ({
+    children,
+    limit,
+    Grid = ElementGrid,
+    gridProps = {},
+    ...props
+}) => {
     const { pathname, search } = useLocation();
     const localPage = pathname.replace(__PATH_PREFIX__, '');
     // Build next link, preserving other links
@@ -51,7 +57,7 @@ const Paginate = ({ children, limit, ...props }) => {
 
     return (
         <div {...props}>
-            <ElementGrid>{visibleElements}</ElementGrid>
+            <Grid children={visibleElements} {...gridProps} />
             {hasMore && (
                 <HasMoreButtonContainer>
                     <Button secondary pagination to={nextPageLink}>
