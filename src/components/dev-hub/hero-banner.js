@@ -24,7 +24,7 @@ const HeroBannerContainer = styled('div')`
     ${({ background }) =>
         background && `background-image: url(${background});`};
     /* Send background to the right */
-    background-position: 100%;
+    background-position: ${({ backgroundPosition }) => backgroundPosition};
     background-repeat: no-repeat;
     background-size: ${({ shouldContainBackground }) =>
         shouldContainBackground ? 'contain' : 'cover'};
@@ -64,6 +64,7 @@ const HeroBanner = ({
     breadcrumb,
     children,
     collapse,
+    backgroundPosition = '100%',
     // Setting below to false would allow for bleed effect on bg
     shouldContainBackground = true,
     showImageOnMobile = true,
@@ -75,6 +76,7 @@ const HeroBanner = ({
         <Header collapse={collapse} {...props}>
             <HeroBannerContainer
                 background={background}
+                backgroundPosition={backgroundPosition}
                 shouldContainBackground={shouldContainBackground}
             >
                 <ContentContainer fullWidth={fullWidth}>

@@ -74,7 +74,7 @@ const SocialIcon = ({ type, href, ...props }) => {
  * @param {Object<string, any>} props
  * @property {string} props.url
  */
-const ShareMenu = ({ title, url, ...props }) => {
+const ShareMenu = ({ title, Trigger, url, position = 'right', ...props }) => {
     const [showCopyMessage, setShowCopyMessage] = useState(false);
     const {
         articleUrl,
@@ -92,17 +92,19 @@ const ShareMenu = ({ title, url, ...props }) => {
         [articleUrl]
     );
 
+    const TriggerComponent = Trigger || (
+        <HoverTooltip
+            trigger={<StyledShareIcon {...props} />}
+            text="Share"
+            {...props}
+        />
+    );
+
     return (
         <Tooltip
             hasGradientBorder
-            position={'right'}
-            trigger={
-                <HoverTooltip
-                    trigger={<StyledShareIcon {...props} />}
-                    text="Share"
-                    {...props}
-                />
-            }
+            position={position}
+            trigger={TriggerComponent}
         >
             <Contents>
                 <SocialIcon css={!showCopyMessage && hide} type="success" />

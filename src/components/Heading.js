@@ -32,10 +32,12 @@ const HeadingMap = {
 };
 
 const Heading = ({ sectionDepth, nodeData, ...rest }) => {
+    const strapiHeadingDepth = nodeData.depth;
+    const headingDepth = sectionDepth || strapiHeadingDepth;
     const id = nodeData.id || '';
     const HeadingTag =
-        sectionDepth >= 1 && sectionDepth <= 5
-            ? HeadingMap[sectionDepth]
+        headingDepth >= 1 && headingDepth <= 5
+            ? HeadingMap[headingDepth]
             : HeadingMap[5];
     return (
         <HeadingTag id={id} css={showLinkOnHover}>
@@ -56,7 +58,7 @@ const Heading = ({ sectionDepth, nodeData, ...rest }) => {
 };
 
 Heading.propTypes = {
-    sectionDepth: PropTypes.number.isRequired,
+    sectionDepth: PropTypes.number,
     nodeData: PropTypes.shape({
         children: PropTypes.arrayOf(
             PropTypes.shape({

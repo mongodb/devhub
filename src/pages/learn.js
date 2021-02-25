@@ -165,7 +165,7 @@ const FeaturedArticles = ({ articles }) => {
             <PrimarySection data-test="primary-featured-article">
                 <MediaBlock
                     mediaComponent={<PrimaryImage src={image} alt="" />}
-                    mediaWidth={360}
+                    mediaWidth="360px"
                 >
                     <Card
                         collapseImage

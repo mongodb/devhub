@@ -9,9 +9,9 @@ import DEFAULT_AUTHOR_IMAGE from '../../images/2x/Default-Profile@2x.png';
 const DEFAULT_GRADIENT_POSITION_OFFSET = 6;
 const DEFAULT_IMAGE_HEIGHT = 50;
 
-const imageStyles = background => css`
+const imageStyles = (background, isInternalReference) => css`
     background-image: ${background
-        ? `url(${withPrefix(background)})`
+        ? `url(${isInternalReference ? withPrefix(background) : background})`
         : `url(${DEFAULT_AUTHOR_IMAGE})`};
     background-position: center center;
     background-size: auto 100%;
@@ -48,11 +48,13 @@ const CircularImage = styled('div')`
     margin-right: ${size.medium};
     position: relative;
     width: ${({ width }) => width}px;
-    ${({ image }) => imageStyles(image)};
+    ${({ image, isInternalReference }) =>
+        imageStyles(image, isInternalReference)};
 `;
 
 const AuthorImage = ({
     image,
+    isInternalReference = true,
     gradientOffset = DEFAULT_GRADIENT_POSITION_OFFSET,
     hideOnMobile = true,
     height = DEFAULT_IMAGE_HEIGHT,
@@ -67,7 +69,12 @@ const AuthorImage = ({
         width={width}
         {...props}
     >
-        <CircularImage height={height} width={width} image={image} />
+        <CircularImage
+            isInternalReference={isInternalReference}
+            height={height}
+            width={width}
+            image={image}
+        />
     </AuthorImageContainer>
 );
 

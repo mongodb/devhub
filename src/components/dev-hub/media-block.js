@@ -10,7 +10,7 @@ const ContentWrapper = styled('span')`
 
 const columnWidth = (mediaWidth, reverse) => {
     if (mediaWidth) {
-        return reverse ? `auto ${mediaWidth}px` : `${mediaWidth}px auto`;
+        return reverse ? `auto ${mediaWidth}` : `${mediaWidth} auto`;
     }
     return '1fr 1fr';
 };
@@ -21,18 +21,22 @@ const columnSizes = ({ mediaWidth, reverse }) => css`
     }
 `;
 
-const gridStructure = ({ reverse, flexible }) => css`
+const gridStructure = ({ reverse, reverseImageOnMobile, flexible }) => css`
     grid-template-areas: ${reverse ? '"content image";' : '"image content";'};
     @media ${screenSize.upToLarge} {
         /* If flexible is true, this will allow media block to allow content to stack on smaller screens */
         ${flexible &&
         `grid-template-areas: 'image'
         'content';`}
+        ${reverseImageOnMobile &&
+        `grid-template-areas: 'content'
+        'image';`}
     }
 `;
 
 const MediaBlockContainer = styled('div')`
     display: grid;
+    width: 100%;
     ${columnSizes};
     ${gridStructure};
     @media ${screenSize.upToLarge} {
@@ -54,6 +58,8 @@ const MediaWrapper = styled('div')`
     }
     @media ${screenSize.upToLarge} {
         margin-right: 0;
+        ${({ fullWidthContentOnMobile }) =>
+            fullWidthContentOnMobile && 'max-width: 540px; width: 100%;'};
     }
 `;
 
@@ -71,16 +77,24 @@ const MediaBlock = ({
     mediaComponent,
     mediaWidth,
     reverse,
+    fullWidthContentOnMobile,
     flexible = true,
+    reverseImageOnMobile = false,
 }) => (
     <MediaBlockContainer
         flexible={flexible}
         reverse={reverse}
+        reverseImageOnMobile={reverseImageOnMobile}
         mediaWidth={mediaWidth}
         className={className}
     >
         {mediaComponent && (
-            <MediaWrapper reverse={reverse}>{mediaComponent}</MediaWrapper>
+            <MediaWrapper
+                fullWidthContentOnMobile={fullWidthContentOnMobile}
+                reverse={reverse}
+            >
+                {mediaComponent}
+            </MediaWrapper>
         )}
         <ContentWrapper>{children}</ContentWrapper>
     </MediaBlockContainer>

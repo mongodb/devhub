@@ -1,6 +1,14 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { fontSize, layer, lineHeight } from './theme';
+
+const useEllipsisOnOverflow = labelAbsoluteLeft => css`
+    max-width: calc(100% - ${labelAbsoluteLeft}px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
 
 export const InputLabel = styled('label')`
     background: linear-gradient(
@@ -14,9 +22,10 @@ export const InputLabel = styled('label')`
     line-height: ${lineHeight.tiny};
     left: ${({ labelAbsoluteLeft }) => labelAbsoluteLeft}px;
     position: absolute;
-    top: ${({ labelStartTop }) => labelStartTop}px;
     opacity: 0;
+    top: ${({ labelStartTop }) => labelStartTop}px;
     z-index: ${layer.front};
+    ${({ labelAbsoluteLeft }) => useEllipsisOnOverflow(labelAbsoluteLeft)}
 `;
 
 export default ({ children, ...props }) => {

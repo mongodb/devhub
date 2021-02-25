@@ -8,9 +8,8 @@ import Button from './button';
 import Select from './select';
 import Checkbox from '@leafygreen-ui/checkbox';
 import SectionHeader from './section-header';
-import SuccessState from './success-state';
 
-const INPUT_BOX_WIDTH = '335px';
+const INPUT_BOX_WIDTH = '100%';
 
 const StyledButton = styled(Button)`
     display: flex;
@@ -23,7 +22,7 @@ const StyledCheckbox = styled(Checkbox)`
         height: 20px;
         width: 20px;
     }
-    > span {
+    > label {
         font-size: ${fontSize.small};
     }
 `;
@@ -42,17 +41,11 @@ const StyledSectionText = styled(ArticleH3)`
     font-weight: normal;
 `;
 
-const StyledSuccessState = styled(SuccessState)`
-    margin-bottom: ${size.xlarge};
-    margin-top: ${size.xlarge};
-`;
-
 const InstructorSection = styled('div')`
     display: grid;
-    grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
-    grid-row-gap: ${size.mediumLarge};
-    justify-content: space-between;
-    margin-bottom: ${size.xlarge};
+    grid-template-columns: ${INPUT_BOX_WIDTH};
+    grid-row-gap: ${size.default};
+    margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
         grid-template-columns: 100%;
     }
@@ -60,16 +53,16 @@ const InstructorSection = styled('div')`
 
 const InstitutionSection = styled('div')`
     display: grid;
-    grid-template-columns: repeat(auto-fill, ${INPUT_BOX_WIDTH});
-    grid-row-gap: ${size.mediumLarge};
+    grid-template-columns: ${INPUT_BOX_WIDTH};
+    grid-row-gap: ${size.default};
     justify-content: space-between;
-    margin-bottom: ${size.xlarge};
+    margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
         grid-template-columns: 100%;
     }
 `;
 
-const Form = React.memo(({ setSuccess, success, ...props }) => {
+const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -139,7 +132,7 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
             </ErrorMessage>
 
             <SectionHeader>
-                <StyledSectionText>Instructor's Info</StyledSectionText>
+                <StyledSectionText>Instructor</StyledSectionText>
             </SectionHeader>
 
             <InstructorSection>
@@ -178,7 +171,7 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
             </InstructorSection>
 
             <SectionHeader>
-                <StyledSectionText>Institution's Info</StyledSectionText>
+                <StyledSectionText>Institution</StyledSectionText>
             </SectionHeader>
 
             <InstitutionSection>
@@ -200,11 +193,12 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
             </InstitutionSection>
 
             <StyledCheckbox
+                bold
+                darkMode={true}
                 onChange={e => setAgreeToEmail(e.target.value)}
                 required
                 label="I agree to receive emails from MongoDB, Inc. After submitting, 
                 a MongoDB representative will reach out within five business days."
-                variant="light"
                 title="Please submit"
             />
 
@@ -219,13 +213,5 @@ const Form = React.memo(({ setSuccess, success, ...props }) => {
         </form>
     );
 });
-
-const AcademiaSignUpForm = ({ ...props }) => {
-    const [success, setSuccess] = useState(null);
-    if (success) {
-        return <StyledSuccessState>Thank you for joining!</StyledSuccessState>;
-    }
-    return <Form setSuccess={setSuccess} success={success} {...props} />;
-};
 
 export default AcademiaSignUpForm;

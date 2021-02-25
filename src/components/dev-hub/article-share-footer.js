@@ -30,7 +30,7 @@ const BlogShareLinks = styled('div')`
     }
 `;
 
-const ArticleShareFooter = ({ tags, title, url }) => {
+const ArticleShareFooter = ({ tags, title, url, ...props }) => {
     const {
         articleUrl,
         facebookUrl,
@@ -41,7 +41,7 @@ const ArticleShareFooter = ({ tags, title, url }) => {
         copy(articleUrl);
     }, [articleUrl]);
     return (
-        <ArticleShareArea>
+        <ArticleShareArea {...props}>
             <BlogTagList tags={tags} />
             <BlogShareLinks data-test="article-share-links">
                 <Tooltip
