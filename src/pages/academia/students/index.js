@@ -31,9 +31,9 @@ const TopPaddedShareProjectCTA = styled(ShareProjectCTA)`
     }
 `;
 
-const Students = ({ path }) => {
+const Students = ({ location }) => {
     const { siteUrl } = useSiteMetadata();
-    const fullUrl = `${siteUrl}${path}`;
+    const fullUrl = `${siteUrl}${location.pathname}`;
     return (
         <Layout>
             <SEO

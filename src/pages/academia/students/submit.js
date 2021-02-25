@@ -4,9 +4,9 @@ import SEO from '~components/dev-hub/SEO';
 import { Form, TopBanner } from '~components/pages/student-submit';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 
-const Submit = ({ path }) => {
+const Submit = ({ location }) => {
     const { siteUrl } = useSiteMetadata();
-    const fullUrl = `${siteUrl}${path}`;
+    const fullUrl = `${siteUrl}${location.pathname}`;
     return (
         <Layout>
             <SEO

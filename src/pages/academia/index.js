@@ -8,9 +8,9 @@ import {
 } from '~components/pages/academia';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 
-const AcademiaLandingPage = ({ path }) => {
+const AcademiaLandingPage = ({ location }) => {
     const { siteUrl } = useSiteMetadata();
-    const fullUrl = `${siteUrl}${path}`;
+    const fullUrl = `${siteUrl}${location.pathname}`;
     return (
         <Layout>
             <SEO
