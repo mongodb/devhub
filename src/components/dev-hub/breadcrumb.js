@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Link from './link';
+import BreadcrumbSchema from './breadcrumb-schema';
+
 const StyledBreadcrumb = styled(Link)`
     display: inline-block;
     font-family: 'Fira Mono', monospace;
@@ -41,6 +43,8 @@ const BreadcrumbList = styled('div')`
 */
 const Breadcrumb = ({ children, ...props }) => {
     return (
+        <>
+        <BreadcrumbSchema breadcrumb={children} />
         <BreadcrumbList {...props}>
             {children.map(c => (
                 <StyledBreadcrumb tertiary key={c.label} to={c.to || c.target}>
@@ -48,6 +52,7 @@ const Breadcrumb = ({ children, ...props }) => {
                 </StyledBreadcrumb>
             ))}
         </BreadcrumbList>
+        </>
     );
 };
 
