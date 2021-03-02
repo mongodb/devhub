@@ -6,6 +6,7 @@ public/
 static/*
 # Assets we can add manually into the static folder
 !static/public
+!static/sitemap.xml
 coverage/
 .coverage
 .env.*
