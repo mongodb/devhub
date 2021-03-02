@@ -1,7 +1,9 @@
 import { getNestedValue } from './get-nested-value';
 import { withPrefix } from 'gatsby';
 
-export const getFeaturedCardFields = article => {
+const generateTrackingParam = page => `?tck=feat${page}`;
+
+export const getFeaturedCardFields = (article, page) => {
     if (!article || !article.query_fields) {
         return {
             image: null,
@@ -14,7 +16,7 @@ export const getFeaturedCardFields = article => {
     const query_fields = article.query_fields;
     return {
         image: withPrefix(query_fields['atf-image']),
-        slug: query_fields['slug'],
+        slug: query_fields['slug'] + generateTrackingParam(page),
         title: getNestedValue(['title', 0, 'value'], query_fields) || '',
         description: getNestedValue(
             ['meta-description', 0, 'children', 0, 'value'],
