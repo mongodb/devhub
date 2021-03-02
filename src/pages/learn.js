@@ -130,7 +130,8 @@ const filterArticles = (filter, initialArticles) => {
 const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
     try {
         const { description, slug, tags, title } = getFeaturedCardFields(
-            article
+            article,
+            'learn'
         );
         return (
             <Wrapper
@@ -158,7 +159,8 @@ const FeaturedArticles = ({ articles }) => {
     }
 
     const { description, image, slug, tags, title } = getFeaturedCardFields(
-        articles[0]
+        articles[0],
+        'learn'
     );
     return (
         <MainFeatureGrid data-test="featured-articles">
