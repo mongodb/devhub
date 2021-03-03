@@ -46,6 +46,7 @@ module.exports = {
         },
         {
             resolve: 'gatsby-plugin-sitemap',
+            output: '/sitemap-pages.xml',
             options: {
                 // Exclude paths we are using the noindex tag on
                 exclude: [
