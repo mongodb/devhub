@@ -8,6 +8,7 @@ import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
 import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
+import Searchbar from './searchbar';
 
 const GREEN_BORDER_SIZE = '2px';
 // Account for bottom bar on mobile browsers
@@ -20,6 +21,7 @@ const Nav = styled('nav')`
     background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     display: flex;
     flex-direction: column;
+    position: relative;
     width: 100%;
     &:after {
         background: radial-gradient(circle, #3ebb8c 0%, #76d3b1 100%);
@@ -136,6 +138,7 @@ const MobileItems = ({ items }) => {
 };
 
 const GlobalNav = () => {
+    const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(true);
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
     const isMobile = useMedia(MOBILE_NAV_BREAK);
@@ -151,6 +154,14 @@ const GlobalNav = () => {
                     items.map(item => <NavItem key={item.name} item={item} />)
                 )}
             </NavContent>
+            <Searchbar
+                getResultsFromJSON={x => x}
+                isExpanded={isSearchbarExpanded}
+                setIsExpanded={setIsSearchbarExpanded}
+                searchParamsToURL={x => x}
+                // Autofocus the searchbar when the user expands only so the user can start typing
+                shouldAutofocus={false}
+            />
         </Nav>
     );
 };
