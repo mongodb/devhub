@@ -1,0 +1,10 @@
+[
+    {
+        "label": "Home",
+        "target": "/"
+    },
+    {
+        "label": "Learn",
+        "target": "/learn"
+    }
+]

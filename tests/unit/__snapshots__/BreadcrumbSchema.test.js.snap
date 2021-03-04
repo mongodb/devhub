@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BreadcrumbSchema renders correctly 1`] = `
+<HelmetWrapper
+  defer={true}
+  encodeSpecialCharacters={true}
+>
+  <script
+    type="application/ld+json"
+  >
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://developer.mongodb.com"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://developer.mongodb.com/learn/"}]}
+  </script>
+</HelmetWrapper>
+`;
