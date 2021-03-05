@@ -39,6 +39,7 @@ const TopBanner = () => (
     <ReducedMarginBanner
         background={FormHeader}
         breadcrumb={STUDENT_SPOTLIGHT_BREADCRUMBS}
+        maintainSquareAspectRatio={false}
     >
         <Header>
             <H2>Share Something You're Proud&nbsp;Of</H2>
