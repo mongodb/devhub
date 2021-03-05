@@ -34,6 +34,7 @@ const TopBanner = () => (
     <ReducedMarginBanner
         background={AcademiaHeader}
         backgroundPosition="100% 42px"
+        maintainSquareAspectRatio={false}
     >
         <Header>
             <H2>MongoDB for Academia</H2>

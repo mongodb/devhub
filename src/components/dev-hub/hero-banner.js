@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Breadcrumb from './breadcrumb';
 import { fontSize, HERO_CONTENT_WIDTH, screenSize, size } from './theme';
@@ -6,6 +7,19 @@ import useMedia from '../../hooks/use-media';
 
 const HERO_BOTTOM_MARGIN = '30px';
 const BANNER_BOTTOM_PADDING = '50px';
+
+const positionAbsolutelyWithinContainer = css`
+    position: absolute; /* If you want text inside of it */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+`;
+
+const squareAspectRatioContainer = css`
+    padding-top: 100%;
+    position: relative;
+`;
 
 const ContentContainer = styled('div')`
     ${({ fullWidth }) =>
@@ -52,10 +66,16 @@ const MobileMediaContainer = styled('div')`
     width: 100%;
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.default};
+        ${({ maintainSquareAspectRatio }) =>
+            maintainSquareAspectRatio && squareAspectRatioContainer};
     }
     > img {
         border-radius: ${size.small};
         width: inherit;
+        @media ${screenSize.upToLarge} {
+            ${({ maintainSquareAspectRatio }) =>
+                maintainSquareAspectRatio && positionAbsolutelyWithinContainer};
+        }
     }
 `;
 
@@ -65,6 +85,7 @@ const HeroBanner = ({
     children,
     collapse,
     backgroundPosition = '100%',
+    maintainSquareAspectRatio = true,
     // Setting below to false would allow for bleed effect on bg
     shouldContainBackground = true,
     showImageOnMobile = true,
@@ -84,7 +105,11 @@ const HeroBanner = ({
                         <HeroBreadcrumb>{breadcrumb}</HeroBreadcrumb>
                     )}
                     {isMobile && showImageOnMobile && (
-                        <MobileMediaContainer>
+                        <MobileMediaContainer
+                            maintainSquareAspectRatio={
+                                maintainSquareAspectRatio
+                            }
+                        >
                             <img src={background} alt="" />
                         </MobileMediaContainer>
                     )}
