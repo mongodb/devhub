@@ -19,7 +19,7 @@ const StyledResultText = styled('p')`
 
 const SearchResultsContainer = styled('div')`
     align-items: center;
-    box-shadow: 0 0 ${size.tiny} 0 rgba(184, 196, 194, 0.48);
+    background-color: ${({ theme }) => theme.colorMap.pageBackground};
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: ${({ hasResults }) =>
@@ -28,7 +28,7 @@ const SearchResultsContainer = styled('div')`
             : `${size.medium} ${size.large}`};
     position: relative;
     /* Give top padding on desktop to offset this extending into the searchbar */
-    padding-top: ${size.large};
+    padding-top: 36px;
     width: 100%;
     @media ${screenSize.upToSmall} {
         box-shadow: none;
@@ -42,13 +42,15 @@ const SearchResultsContainer = styled('div')`
 `;
 
 const StyledSearchResult = styled(SearchResult)`
+    border-bottom: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
     max-height: 100%;
     height: 100%;
     > div {
         padding: ${size.default} ${size.medium};
     }
     @media ${screenSize.upToSmall} {
-        background-color: #fff;
+        background-color: color: ${({ theme }) =>
+            theme.colorMap.pageBackground};
         border: 1px solid rgba(184, 196, 194, 0.2);
         border-radius: ${size.tiny};
         box-shadow: 0 0 ${size.tiny} 0 rgba(231, 238, 236, 0.4);
@@ -74,7 +76,6 @@ const SearchResults = ({
         index => (currentPage - 1) * index + 1,
         [currentPage]
     );
-    console.log(visibleResults);
     return (
         <SearchResultsContainer hasResults={hasResults} {...props}>
             <StyledResultText>

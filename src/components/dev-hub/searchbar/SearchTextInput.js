@@ -1,27 +1,30 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { uiColors } from '@leafygreen-ui/palette';
 import TextInput from '@leafygreen-ui/text-input';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
-import { fontSize, screenSize, size } from '~components/dev-hub/theme';
+import {
+    colorMap,
+    fontSize,
+    screenSize,
+    size,
+} from '~components/dev-hub/theme';
 import SearchContext from './SearchContext';
 
 const SEARCHBAR_HEIGHT_OFFSET = '5px';
 
 const activeTextBarStyling = css`
-    background-color: #fff;
+    background-color: ${colorMap.pageBackground};
     border: none;
-    color: ${uiColors.gray.dark3};
 `;
 
 const StyledTextInput = styled(TextInput)`
     /* Curve the text input box and put padding around text for icons/buttons */
     div > input {
-        border: none;
-        background-color: ${uiColors.gray.light3};
+        border: 1px solid transparent;
+        background-color: ${({ theme }) => theme.colorMap.pageBackground};
         border-radius: ${size.medium};
-        color: ${uiColors.gray.dark1};
+        color: ${({ theme }) => theme.colorMap.devWhite};
         /* 24 px for magnifying glass plus 16px margin */
         padding-left: 40px;
         padding-right: ${size.large};
@@ -29,7 +32,7 @@ const StyledTextInput = styled(TextInput)`
         letter-spacing: 0.5px;
         transition: background-color 150ms ease-in;
         ::placeholder {
-            color: ${uiColors.gray.dark1};
+            color: ${({ theme }) => theme.colorMap.greyLightTwo};
         }
         @media ${screenSize.upToSmall} {
             border: none;
@@ -50,7 +53,7 @@ const StyledTextInput = styled(TextInput)`
     }
 
     @media ${screenSize.upToSmall} {
-        background-color: #fff;
+        background-color: ${({ theme }) => theme.colorMap.pageBackground};
         padding-bottom: ${size.tiny};
         div > input {
             /* Always have this element filled in for mobile */
@@ -65,7 +68,7 @@ const StyledTextInput = styled(TextInput)`
       below from peeking through with a pseudoelement to cover this top space
     */
         :before {
-            background-color: #fff;
+            background-color: ${({ theme }) => theme.colorMap.pageBackground};
             bottom: 100%;
             content: '';
             position: absolute;
@@ -87,20 +90,13 @@ const SearchTextInput = React.forwardRef(
     ({ isSearching, onChange, value, ...props }, ref) => {
         const { searchFilter, shouldAutofocus } = useContext(SearchContext);
         const { project } = useSiteMetadata();
-        const placeholder = useMemo(
-            () =>
-                project === 'realm' && searchFilter === 'realm-master'
-                    ? 'Search Realm Documentation'
-                    : 'Search Documentation',
-            [project, searchFilter]
-        );
         return (
             <SearchWrapper isSearching={isSearching}>
                 <StyledTextInput
                     autoFocus={shouldAutofocus}
                     label="Search Docs"
                     onChange={onChange}
-                    placeholder={placeholder}
+                    placeholder={'Search Articles...'}
                     ref={ref}
                     tabIndex="0"
                     value={value}

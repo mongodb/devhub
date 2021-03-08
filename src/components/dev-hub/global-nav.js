@@ -155,10 +155,8 @@ const GlobalNav = () => {
                 )}
             </NavContent>
             <Searchbar
-                getResultsFromJSON={x => x}
                 isExpanded={isSearchbarExpanded}
                 setIsExpanded={setIsSearchbarExpanded}
-                searchParamsToURL={x => x}
                 // Autofocus the searchbar when the user expands only so the user can start typing
                 shouldAutofocus={false}
             />
