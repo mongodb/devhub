@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
 import { useEventListener } from '@leafygreen-ui/hooks';
-import Icon, { isComponentGlyph } from '@leafygreen-ui/icon';
+import Icon from '@leafygreen-ui/icon';
 import IconButton from '@leafygreen-ui/icon-button';
 import { uiColors } from '@leafygreen-ui/palette';
 import useMedia from '~hooks/use-media';
@@ -16,7 +16,7 @@ const ARROW_DOWN_KEY = 40;
 const CLOSE_BUTTON_SIZE = size.medium;
 const ENTER_KEY = 13;
 const GO_BUTTON_COLOR = '#FFFFFF';
-const GO_BUTTON_SIZE = '20px';
+const GO_BUTTON_SIZE = size.default;
 
 const removeDefaultHoverEffects = css`
     background-image: none;
@@ -50,32 +50,34 @@ const GoButton = styled(IconButton)`
     padding: 0;
     position: absolute;
     right: ${size.default};
-    /* button is 20 px and entire container is 36px so 8px top gives equal spacing */
-    top: ${size.small};
+    /* button is 16 px and entire container is 36px so 10px top gives equal spacing */
+    top: 10px;
     width: ${GO_BUTTON_SIZE};
     z-index: 1;
 `;
 
 const GoIcon = styled(Icon)`
-    /* Icon box size is 20px, 5px gives equal width and height */
-    left: 5px;
-    top: 5px;
-    height: 10px;
+    /* Icon box size is 16px, 4px gives equal width and height */
+    left: 4px;
+    top: 4px;
+    height: 8px;
     position: absolute;
-    width: 10px;
+    width: 8px;
 `;
 
 const MagnifyingGlass = styled(Icon)`
-    color: ${uiColors.gray.base};
+    color: ${({ theme }) => theme.colorMap.greyDarkTwo};
     transition: color 150ms ease-in;
 `;
 
 const MagnifyingGlassButton = styled(IconButton)`
-    left: ${size.small};
+    height: ${size.default};
+    width: ${size.default};
+    left: 10px;
     padding: 0;
     position: absolute;
-    /* This button is 28px tall in a 36px tall container, so 4px gives equal spacing */
-    top: ${size.tiny};
+    /* This button is 16px tall in a 36px tall container, so 4px gives equal spacing */
+    top: 10px;
     z-index: 1;
     /* Remove hover state */
     :before {

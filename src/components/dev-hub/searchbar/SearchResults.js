@@ -28,7 +28,7 @@ const SearchResultsContainer = styled('div')`
             : `${size.medium} ${size.large}`};
     position: relative;
     /* Give top padding on desktop to offset this extending into the searchbar */
-    padding-top: ${size.large};
+    padding-top: 36px;
     width: 100%;
     @media ${screenSize.upToSmall} {
         box-shadow: none;
@@ -42,6 +42,7 @@ const SearchResultsContainer = styled('div')`
 `;
 
 const StyledSearchResult = styled(SearchResult)`
+    border-bottom: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
     max-height: 100%;
     height: 100%;
     > div {

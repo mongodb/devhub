@@ -19,7 +19,7 @@ const PaginationButton = styled(IconButton)`
     &:hover,
     &:focus {
         :before {
-            background-color: ${({ theme }) => theme.colorMap.pageBackground};
+            background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
         }
     }
 `;

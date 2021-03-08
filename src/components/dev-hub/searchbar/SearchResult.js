@@ -61,7 +61,7 @@ const SearchResultLink = styled(Link)`
         color: ${LINK_COLOR};
         text-decoration: none;
         ${SearchResultContainer} {
-            background-color: ${({ theme }) => theme.colorMap.pageBackground};
+            background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
             transition: background-color 150ms ease-in;
         }
     }

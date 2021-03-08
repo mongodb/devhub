@@ -23,7 +23,7 @@ const REPORT_SEARCH_DELAY_TIME = 1000;
 const SEARCH_DELAY_TIME = 200;
 const SEARCHBAR_DESKTOP_WIDTH = '372px';
 const SEARCHBAR_HEIGHT = '36px';
-const SEARCHBAR_HEIGHT_OFFSET = '5px';
+const SEARCHBAR_HEIGHT_OFFSET = '10px';
 const TRANSITION_SPEED = '150ms';
 
 const SearchbarContainer = styled('div')`

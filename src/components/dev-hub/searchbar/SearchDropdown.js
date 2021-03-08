@@ -32,7 +32,6 @@ const FixedHeightSearchResults = styled(SearchResults)`
 `;
 
 const SearchResultsContainer = styled('div')`
-    background-color: #ffffff;
     border-radius: 0 0 ${size.tiny} ${size.tiny};
     opacity: 1;
     position: absolute;

@@ -22,7 +22,7 @@ const activeTextBarStyling = css`
 const StyledTextInput = styled(TextInput)`
     /* Curve the text input box and put padding around text for icons/buttons */
     div > input {
-        border: none;
+        border: 1px solid transparent;
         background-color: ${({ theme }) => theme.colorMap.pageBackground};
         border-radius: ${size.medium};
         color: ${({ theme }) => theme.colorMap.devWhite};
