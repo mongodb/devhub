@@ -56,7 +56,8 @@ const NavContent = styled('div')`
     position: relative;
     width: 100%;
     @media ${MOBILE_NAV_BREAK} {
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: auto auto 32px;
         padding-right: ${size.medium};
     }
 `;
@@ -145,21 +146,38 @@ const GlobalNav = () => {
     return (
         <Nav>
             <NavContent>
-                <HomeLink aria-label="Home" to="/">
-                    <LeafLogo />
-                </HomeLink>
                 {isMobile ? (
-                    <MobileItems items={items} />
+                    <>
+                        <MobileItems items={items} />
+                        <HomeLink aria-label="Home" to="/">
+                            <LeafLogo />
+                        </HomeLink>
+                        <Searchbar
+                            isExpanded={isSearchbarExpanded}
+                            setIsExpanded={setIsSearchbarExpanded}
+                            // Autofocus the searchbar when the user expands only so the user can start typing
+                            shouldAutofocus={false}
+                        />
+                    </>
                 ) : (
-                    items.map(item => <NavItem key={item.name} item={item} />)
+                    <>
+                        <HomeLink aria-label="Home" to="/">
+                            <LeafLogo />
+                        </HomeLink>
+                        {items.map(item => (
+                            <NavItem key={item.name} item={item} />
+                        ))}
+                    </>
                 )}
             </NavContent>
-            <Searchbar
-                isExpanded={isSearchbarExpanded}
-                setIsExpanded={setIsSearchbarExpanded}
-                // Autofocus the searchbar when the user expands only so the user can start typing
-                shouldAutofocus={false}
-            />
+            {!isMobile && (
+                <Searchbar
+                    isExpanded={isSearchbarExpanded}
+                    setIsExpanded={setIsSearchbarExpanded}
+                    // Autofocus the searchbar when the user expands only so the user can start typing
+                    shouldAutofocus={false}
+                />
+            )}
         </Nav>
     );
 };
