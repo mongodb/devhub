@@ -55,19 +55,21 @@ const SearchResultLink = styled(Link)`
     color: ${LINK_COLOR};
     height: 100%;
     text-decoration: none;
+    background-color: ${({ theme }) => theme.colorMap.pageBackground};
     :hover,
     :focus {
         color: ${LINK_COLOR};
         text-decoration: none;
         ${SearchResultContainer} {
-            background-color: rgba(231, 238, 236, 0.4);
+            background-color: ${({ theme }) => theme.colorMap.pageBackground};
             transition: background-color 150ms ease-in;
         }
     }
 `;
 
 const StyledPreviewText = styled('p')`
-    font-family: 'Akzidenz Grotesk BQ Light';
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    font-family: Akzidenz;
     font-size: ${fontSize.small};
     letter-spacing: 0.5px;
     line-height: 20px;
@@ -77,6 +79,7 @@ const StyledPreviewText = styled('p')`
 `;
 
 const StyledResultTitle = styled('p')`
+    color: ${({ theme }) => theme.colorMap.devWhite};
     font-family: Akzidenz;
     font-size: ${fontSize.small};
     line-height: ${size.medium};

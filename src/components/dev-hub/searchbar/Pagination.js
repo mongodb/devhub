@@ -2,20 +2,26 @@ import React, { useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
 import IconButton from '@leafygreen-ui/icon-button';
 import Icon from '@leafygreen-ui/icon';
-import { uiColors } from '@leafygreen-ui/palette';
-import { size } from '~components/dev-hub/theme';
+import { colorMap, size } from '~components/dev-hub/theme';
 
 // 16px for the icon + 2px padding on each side for hover circle
 const BUTTON_WIDTH = `${size.stripUnit(size.default) + 4}px`;
-const ENABLED_COLOR = uiColors.gray.dark2;
-const DISABLED_COLOR = uiColors.gray.light1;
+const ENABLED_COLOR = colorMap.devWhite;
+const DISABLED_COLOR = colorMap.greyDarkOne;
 
 const PaginationButton = styled(IconButton)`
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colorMap.pageBackground};
     height: ${BUTTON_WIDTH};
     padding: 0;
     width: ${BUTTON_WIDTH};
     z-index: 1;
+    &:active,
+    &:hover,
+    &:focus {
+        :before {
+            background-color: ${({ theme }) => theme.colorMap.pageBackground};
+        }
+    }
 `;
 
 const PaginationContainer = styled('div')`

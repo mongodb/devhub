@@ -49,7 +49,7 @@ const SearchResultsContainer = styled('div')`
 
 const SearchFooter = styled('div')`
     align-items: center;
-    box-shadow: 0 2px ${size.tiny} 0 rgba(184, 196, 194, 0.56);
+    background-color: ${({ theme }) => theme.colorMap.pageBackground};
     display: flex;
     height: ${SEARCH_FOOTER_DESKTOP_HEIGHT};
     justify-content: space-between;

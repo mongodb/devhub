@@ -6,7 +6,6 @@ import React, {
     useRef,
 } from 'react';
 import styled from '@emotion/styled';
-import { uiColors } from '@leafygreen-ui/palette';
 import CondensedSearchbar from './CondensedSearchbar';
 import ExpandedSearchbar, { MagnifyingGlass } from './ExpandedSearchbar';
 import SearchContext from './SearchContext';
@@ -41,12 +40,12 @@ const SearchbarContainer = styled('div')`
     :focus,
     :focus-within {
         ${MagnifyingGlass} {
-            color: ${uiColors.gray.dark3};
+            color: ${({ theme }) => theme.colorMap.devWhite};
         }
         ${StyledTextInput} {
             div > input {
                 ${activeTextBarStyling}
-                box-shadow: 0 0 ${size.tiny} 0 rgba(184, 196, 194, 0.56);
+                border: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne};
                 transition: background-color ${TRANSITION_SPEED} ease-in,
                     color ${TRANSITION_SPEED} ease-in;
                 @media ${screenSize.upToSmall} {

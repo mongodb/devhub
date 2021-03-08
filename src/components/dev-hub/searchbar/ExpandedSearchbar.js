@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useMemo, useRef } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import { useTheme } from 'emotion-theming';
 import { useEventListener } from '@leafygreen-ui/hooks';
 import Icon, { isComponentGlyph } from '@leafygreen-ui/icon';
 import IconButton from '@leafygreen-ui/icon-button';
@@ -14,7 +15,7 @@ import SearchContext from './SearchContext';
 const ARROW_DOWN_KEY = 40;
 const CLOSE_BUTTON_SIZE = size.medium;
 const ENTER_KEY = 13;
-const GO_BUTTON_COLOR = uiColors.green.light3;
+const GO_BUTTON_COLOR = '#FFFFFF';
 const GO_BUTTON_SIZE = '20px';
 
 const removeDefaultHoverEffects = css`
@@ -86,6 +87,7 @@ const MagnifyingGlassButton = styled(IconButton)`
 `;
 
 const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
+    const theme = useTheme();
     const { isMobile } = useMedia(screenSize.upToMedium);
     const { searchContainerRef, searchTerm } = useContext(SearchContext);
     const isSearching = useMemo(() => !!searchTerm && isFocused, [
@@ -166,7 +168,10 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
                     aria-label="Go"
                     href={searchUrl}
                 >
-                    <GoIcon glyph="ArrowRight" fill="#13AA52" />
+                    <GoIcon
+                        glyph="ArrowRight"
+                        fill={theme.colorMap.pageBackground}
+                    />
                 </GoButton>
             )}
             {isMobile && (
