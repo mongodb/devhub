@@ -11,7 +11,6 @@ import ExpandedSearchbar, { MagnifyingGlass } from './ExpandedSearchbar';
 import SearchContext from './SearchContext';
 import { activeTextBarStyling, StyledTextInput } from './SearchTextInput';
 import { useClickOutside } from '~hooks/use-click-outside';
-import { useSiteMetadata } from '~hooks/use-site-metadata';
 import { screenSize, size } from '~components/dev-hub/theme';
 import { requestTextFilterResults } from '~utils/devhub-api-stitch';
 import { reportAnalytics } from '~utils/report-analytics';
@@ -64,26 +63,10 @@ const SearchbarContainer = styled('div')`
     }
 `;
 
-const Searchbar = ({
-    getResultsFromJSON,
-    isExpanded,
-    setIsExpanded,
-    searchParamsToURL,
-    shouldAutofocus,
-}) => {
-    const { project } = useSiteMetadata();
-    const [value, setValue] = useState('');
+const limitSearchResults = (results, limit) => results.slice(0, limit);
 
-    // XXX: Search filter defaults to Realm if a user is on the Realm docs
-    const defaultSearchFilter = useMemo(
-        () => (project === 'realm' ? 'realm-master' : null),
-        [project]
-    );
-    const [searchFilter, setSearchFilter] = useState(defaultSearchFilter);
-    // Use a second search filter state var to track filters but not make any calls yet
-    const [draftSearchFilter, setDraftSearchFilter] = useState(
-        defaultSearchFilter
-    );
+const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
+    const [value, setValue] = useState('');
     const [searchEvent, setSearchEvent] = useState(null);
     const [reportEvent, setReportEvent] = useState(null);
     const [searchResults, setSearchResults] = useState([]);
@@ -91,12 +74,6 @@ const Searchbar = ({
     const searchContainerRef = useRef(null);
     // A user is searching if the text input is focused and it is not empty
     const isSearching = useMemo(() => !!value && isFocused, [isFocused, value]);
-    // Callback to "promote" an in-progress search filter to kick off a search
-    const onApplyFilters = useCallback(
-        () => setSearchFilter(draftSearchFilter),
-        [draftSearchFilter]
-    );
-
     // Focus Handlers
     const onExpand = useCallback(() => setIsExpanded(true), [setIsExpanded]);
     const onFocus = useCallback(() => {
@@ -136,7 +113,7 @@ const Searchbar = ({
     // Update state on a new search query or filters
     const fetchNewSearchResults = useCallback(async () => {
         const result = await requestTextFilterResults(value);
-        setSearchResults(result);
+        setSearchResults(limitSearchResults(result, NUMBER_SEARCH_RESULTS));
     }, [value]);
 
     const reportSearchEvent = useCallback(() => {
@@ -166,8 +143,6 @@ const Searchbar = ({
                 <SearchContext.Provider
                     value={{
                         searchContainerRef,
-                        searchFilter: draftSearchFilter,
-                        setSearchFilter: setDraftSearchFilter,
                         searchTerm: value,
                         shouldAutofocus,
                     }}
@@ -177,12 +152,7 @@ const Searchbar = ({
                         onChange={onSearchChange}
                         value={value}
                     />
-                    {isSearching && (
-                        <SearchDropdown
-                            applySearchFilter={onApplyFilters}
-                            results={searchResults}
-                        />
-                    )}
+                    {isSearching && <SearchDropdown results={searchResults} />}
                 </SearchContext.Provider>
             ) : (
                 <CondensedSearchbar onExpand={onExpand} />
