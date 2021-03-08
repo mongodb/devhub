@@ -1,7 +1,6 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { uiColors } from '@leafygreen-ui/palette';
 import TextInput from '@leafygreen-ui/text-input';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import {
