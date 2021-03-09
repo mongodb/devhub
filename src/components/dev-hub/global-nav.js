@@ -59,8 +59,9 @@ const NavContent = styled('div')`
         isExpanded && shouldOpaqueWhenExpanded && 'opacity: 0.2;'};
     @media ${MOBILE_NAV_BREAK} {
         display: grid;
-        grid-template-columns: auto auto 32px;
-        padding-right: ${size.medium};
+        grid-template-columns: ${size.large} auto ${size.large};
+        justify-items: center;
+        padding: 0 ${size.default};
     }
 `;
 
