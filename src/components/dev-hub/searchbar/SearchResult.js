@@ -73,10 +73,11 @@ const StyledResultTitle = styled('p')`
     letter-spacing: 0.5px;
     margin-bottom: 6px;
     margin-top: 0;
-    ${truncate(2)};
+    ${truncate(1)};
     ${({ useLargeTitle }) => useLargeTitle && largeResultTitle};
     @media ${screenSize.upToSmall} {
         ${largeResultTitle};
+        ${truncate(2)};
     }
 `;
 
