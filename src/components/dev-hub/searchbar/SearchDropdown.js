@@ -41,7 +41,7 @@ const SearchResultsContainer = styled('div')`
     ${fadeInAnimation(0, '0.2s')};
     @media ${screenSize.upToSmall} {
         background-color: ${uiColors.gray.light3};
-        top: 60px;
+        top: 50px;
         height: 100vh;
         padding-bottom: 20px;
         overflow: scroll;

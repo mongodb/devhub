@@ -30,6 +30,7 @@ const SearchResultsContainer = styled('div')`
     padding-top: 36px;
     width: 100%;
     @media ${screenSize.upToSmall} {
+        background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
         box-shadow: none;
         grid-template-rows: ${size.medium};
         grid-auto-rows: ${SEARCH_RESULT_MOBILE_HEIGHT};
