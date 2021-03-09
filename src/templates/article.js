@@ -21,6 +21,7 @@ import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missin
 import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedText } from '../utils/get-nested-text';
+import ArticleSchema from '../components/dev-hub/article-schema';
 
 /**
  * Name map of directives we want to display in an article
@@ -161,6 +162,8 @@ const Article = props => {
         addTrailingSlashIfMissing(articleUrl)
     );
 
+    const articleImage = withPrefix(meta['atf-image']);
+
     return (
         <Layout includeCanonical={false}>
             <SEO
@@ -174,8 +177,17 @@ const Article = props => {
                 twitterNode={twitterNode}
                 type={og.type}
             />
+            <ArticleSchema
+                articleUrl={canonicalUrl}
+                title={articleTitle}
+                description={metaDescription}
+                publishedDate={meta.pubdat}
+                modifiedDate={meta['updated-date']}
+                imageUrl={articleImage}
+                authors={meta.author}
+            />
             <BlogPostTitleArea
-                articleImage={withPrefix(meta['atf-image'])}
+                articleImage={articleImage}
                 authors={meta.author}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={formattedPublishedDate}
