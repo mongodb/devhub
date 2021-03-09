@@ -141,13 +141,25 @@ const MobileItems = ({ items }) => {
 };
 
 const GlobalNav = () => {
-    const isSearchbarDefaultExpanded = useMedia(screenSize.upToLarge);
+    const isSearchbarDefaultExpanded = useMedia(screenSize.largeAndUp);
     const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(
         isSearchbarDefaultExpanded
     );
+    useEffect(() => {
+        setIsSearchbarExpanded(isSearchbarDefaultExpanded);
+    }, [isSearchbarDefaultExpanded]);
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
     const isMobile = useMedia(MOBILE_NAV_BREAK);
+    const onSearchbarExpand = useCallback(
+        isExpanded => {
+            // On certain screens the searchbar is never collapsed
+            if (!isSearchbarDefaultExpanded) {
+                setIsSearchbarExpanded(isExpanded);
+            }
+        },
+        [isSearchbarDefaultExpanded]
+    );
     return (
         <Nav>
             <NavContent
@@ -162,7 +174,7 @@ const GlobalNav = () => {
                         </HomeLink>
                         <Searchbar
                             isExpanded={isSearchbarExpanded}
-                            setIsExpanded={setIsSearchbarExpanded}
+                            setIsExpanded={onSearchbarExpand}
                             // Autofocus the searchbar when the user expands only so the user can start typing
                             shouldAutofocus={false}
                         />
@@ -181,7 +193,7 @@ const GlobalNav = () => {
             {!isMobile && (
                 <Searchbar
                     isExpanded={isSearchbarExpanded}
-                    setIsExpanded={setIsSearchbarExpanded}
+                    setIsExpanded={onSearchbarExpand}
                     // Autofocus the searchbar when the user expands only so the user can start typing
                     shouldAutofocus={false}
                 />
