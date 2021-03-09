@@ -40,16 +40,32 @@ Cypress.Commands.add('checkTagListProperties', shouldExpand => {
     }
 });
 
-// Basic sanity checks for an article card (image, title, tags, etc)
-Cypress.Commands.add('checkArticleCard', card => {
+// Basic sanity checks for a card (image, title, description)
+Cypress.Commands.add('checkStandardCardInfo', card => {
     cy.get(card).within(() => {
         // Title
         cy.get('h5').should('not.be.empty');
         // Description
         cy.get('p').should('not.be.empty');
+        // Image
         cy.get('img').should('have.attr', 'src').should('not.be.empty');
+    });
+});
+
+// Basic sanity checks for an article card (image, title, tags, etc)
+Cypress.Commands.add('checkArticleCard', card => {
+    cy.get(card).within(() => {
+        cy.checkStandardCardInfo(card);
         // Tags
         cy.checkTagListProperties();
+    });
+});
+
+Cypress.Commands.add('checkGridCard', card => {
+    cy.get(card).within(() => {
+        cy.checkStandardCardInfo(card);
+        // Author
+        cy.get('[data-test="author-image"]').should('not.be.empty');
     });
 });
 
@@ -127,4 +143,13 @@ Cypress.Commands.add('visitWithoutFetch', path => {
             });
         }
     );
+});
+
+Cypress.Commands.add('checkBreadcrumbs', () => {
+    cy.get('div[class*="BreadcrumbList"] > a')
+        .should('have.attr', 'href')
+        .and('not.be.empty');
+    cy.get('div[class*="BreadcrumbList"] > a').first().contains('Home').click();
+    cy.url().should('include', '/');
+    cy.go('back');
 });
