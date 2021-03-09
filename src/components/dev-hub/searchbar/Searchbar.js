@@ -11,6 +11,7 @@ import ExpandedSearchbar, { MagnifyingGlass } from './ExpandedSearchbar';
 import SearchContext from './SearchContext';
 import { activeTextBarStyling, StyledTextInput } from './SearchTextInput';
 import { useClickOutside } from '~hooks/use-click-outside';
+import useMedia from '~hooks/use-media';
 import { screenSize, size } from '~components/dev-hub/theme';
 import { requestTextFilterResults } from '~utils/devhub-api-stitch';
 import { reportAnalytics } from '~utils/report-analytics';
@@ -73,6 +74,7 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
     const [searchResults, setSearchResults] = useState([]);
     const [isFocused, setIsFocused] = useState(false);
     const searchContainerRef = useRef(null);
+    const isMobile = useMedia(screenSize.upToSmall);
     // A user is searching if the text input is focused and it is not empty
     const isSearching = useMemo(() => !!value && isFocused, [isFocused, value]);
     // Focus Handlers
@@ -113,9 +115,14 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
 
     // Update state on a new search query or filters
     const fetchNewSearchResults = useCallback(async () => {
-        const result = await requestTextFilterResults(value);
-        setSearchResults(limitSearchResults(result, NUMBER_SEARCH_RESULTS));
-    }, [value]);
+        const results = await requestTextFilterResults(value);
+        // On mobile, we do not limit search results
+        const applyLimit = !isMobile;
+        const limitedResults = applyLimit
+            ? limitSearchResults(results, NUMBER_SEARCH_RESULTS)
+            : results;
+        setSearchResults(limitedResults);
+    }, [isMobile, value]);
 
     const reportSearchEvent = useCallback(() => {
         reportAnalytics('SearchQuery', { query: value });
