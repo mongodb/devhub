@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
-import useMedia from '~hooks/use-media';
 import { fontSize, screenSize, size } from '~components/dev-hub/theme';
 import SearchResult from './SearchResult';
 import { reportAnalytics } from '~utils/report-analytics';
@@ -71,7 +70,6 @@ const SearchResults = ({
     ...props
 }) => {
     const hasResults = useMemo(() => !!totalResultsCount, [totalResultsCount]);
-    const isMobile = useMedia(screenSize.upToSmall);
     const getRankFromPage = useCallback(
         index => (currentPage - 1) * index + 1,
         [currentPage]
@@ -100,7 +98,6 @@ const SearchResults = ({
                                     selectionUrl: slug,
                                 })
                             }
-                            learnMoreLink={isMobile}
                             title={title[0].value}
                             preview={preview}
                             url={slug}

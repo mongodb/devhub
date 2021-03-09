@@ -48,6 +48,7 @@ const SearchbarContainer = styled('div')`
                 transition: background-color ${TRANSITION_SPEED} ease-in,
                     color ${TRANSITION_SPEED} ease-in;
                 @media ${screenSize.upToSmall} {
+                    border: none;
                     box-shadow: none;
                 }
             }

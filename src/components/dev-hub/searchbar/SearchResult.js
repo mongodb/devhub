@@ -29,19 +29,6 @@ const truncate = maxLines => css`
     overflow: hidden;
 `;
 
-const MobileFooterContainer = styled('div')`
-    align-items: flex-end;
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-`;
-
-const LearnMoreLink = styled('a')`
-    font-size: ${fontSize.small};
-    letter-spacing: 0.5px;
-    line-height: ${size.default};
-`;
-
 const SearchResultContainer = styled('div')`
     height: 100%;
     @media ${screenSize.upToSmall} {
@@ -84,10 +71,9 @@ const StyledResultTitle = styled('p')`
     font-size: ${fontSize.small};
     line-height: ${size.medium};
     letter-spacing: 0.5px;
-    height: ${size.medium};
     margin-bottom: 6px;
     margin-top: 0;
-    ${truncate(1)};
+    ${truncate(2)};
     ${({ useLargeTitle }) => useLargeTitle && largeResultTitle};
     @media ${screenSize.upToSmall} {
         ${largeResultTitle};
@@ -96,7 +82,6 @@ const StyledResultTitle = styled('p')`
 
 const SearchResult = React.memo(
     ({
-        learnMoreLink = false,
         maxLines = 2,
         useLargeTitle = false,
         onClick,
@@ -182,13 +167,6 @@ const SearchResult = React.memo(
                     <StyledPreviewText maxLines={maxLines}>
                         {preview}
                     </StyledPreviewText>
-                    {learnMoreLink && (
-                        <MobileFooterContainer>
-                            <LearnMoreLink href={url}>
-                                <strong>Learn More</strong>
-                            </LearnMoreLink>
-                        </MobileFooterContainer>
-                    )}
                 </SearchResultContainer>
             </SearchResultLink>
         );

@@ -5,7 +5,6 @@ import { useTheme } from 'emotion-theming';
 import { useEventListener } from '@leafygreen-ui/hooks';
 import Icon from '@leafygreen-ui/icon';
 import IconButton from '@leafygreen-ui/icon-button';
-import { uiColors } from '@leafygreen-ui/palette';
 import useMedia from '~hooks/use-media';
 import { screenSize, size } from '~components/dev-hub/theme';
 import SearchTextInput from './SearchTextInput';
@@ -13,7 +12,7 @@ import { SearchResultLink } from './SearchResult';
 import SearchContext from './SearchContext';
 
 const ARROW_DOWN_KEY = 40;
-const CLOSE_BUTTON_SIZE = size.medium;
+const CLOSE_BUTTON_SIZE = size.default;
 const ENTER_KEY = 13;
 const GO_BUTTON_COLOR = '#FFFFFF';
 const GO_BUTTON_SIZE = size.default;
@@ -31,13 +30,13 @@ const removeDefaultHoverEffects = css`
 `;
 
 const CloseButton = styled(IconButton)`
-    background-color: #fff;
+    background-color: none;
     border-radius: ${CLOSE_BUTTON_SIZE};
     height: ${CLOSE_BUTTON_SIZE};
     position: absolute;
-    right: ${size.small};
-    /* button is 24 px and entire container is 36px so 6px top gives equal spacing */
-    top: 6px;
+    right: 10px;
+    /* button is 16px and entire container is 36px so 8px top gives equal spacing */
+    top: 10px;
     width: ${CLOSE_BUTTON_SIZE};
     z-index: 1;
     ${removeDefaultHoverEffects};
@@ -76,7 +75,7 @@ const MagnifyingGlassButton = styled(IconButton)`
     left: 10px;
     padding: 0;
     position: absolute;
-    /* This button is 16px tall in a 36px tall container, so 4px gives equal spacing */
+    /* This button is 16px tall in a 36px tall container, so 10px gives equal spacing */
     top: 10px;
     z-index: 1;
     /* Remove hover state */
@@ -90,7 +89,7 @@ const MagnifyingGlassButton = styled(IconButton)`
 
 const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
     const theme = useTheme();
-    const { isMobile } = useMedia(screenSize.upToSmall);
+    const isMobile = useMedia(screenSize.upToSmall);
     const { searchContainerRef, searchTerm } = useContext(SearchContext);
     const isSearching = useMemo(() => !!searchTerm && isFocused, [
         isFocused,
@@ -152,7 +151,7 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
     return (
         <>
             <MagnifyingGlassButton
-                aria-label="Search MongoDB Documentation"
+                aria-label="Search MongoDB Developer Hub"
                 onClick={onSearchFocus}
             >
                 <MagnifyingGlass glyph="MagnifyingGlass" />
@@ -178,7 +177,7 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
             )}
             {isMobile && (
                 <CloseButton onClick={onMobileClose}>
-                    <Icon glyph="X" fill={uiColors.gray.base} />
+                    <Icon glyph="X" />
                 </CloseButton>
             )}
         </>
