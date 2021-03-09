@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
 import useMedia from '~hooks/use-media';
 import { fontSize, screenSize, size } from '~components/dev-hub/theme';
@@ -76,6 +76,12 @@ const SearchResults = ({
         index => (currentPage - 1) * index + 1,
         [currentPage]
     );
+    useEffect(() => {
+        // This effect prevents scrolling outside the opened nav
+        // We restore normal scrolling when the nav is closed
+        document.body.style.overflow = 'hidden';
+        return () => (document.body.style.overflow = 'auto');
+    }, []);
     return (
         <SearchResultsContainer hasResults={hasResults} {...props}>
             <StyledResultText>
