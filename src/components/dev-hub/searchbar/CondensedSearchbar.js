@@ -38,7 +38,7 @@ const ExpandButton = styled(IconButton)`
 `;
 
 const CondensedSearchbar = ({ onExpand }) => (
-    <ExpandButton aria-label="Open MongoDB Docs Search" onClick={onExpand}>
+    <ExpandButton aria-label="Open MongoDB Developer Search" onClick={onExpand}>
         <ExpandMagnifyingGlass glyph="MagnifyingGlass" />
     </ExpandButton>
 );

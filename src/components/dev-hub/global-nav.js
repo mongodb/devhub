@@ -55,6 +55,8 @@ const NavContent = styled('div')`
     max-width: ${size.maxWidth};
     position: relative;
     width: 100%;
+    ${({ isExpanded, shouldOpaqueWhenExpanded }) =>
+        isExpanded && shouldOpaqueWhenExpanded && 'opacity: 0.2;'};
     @media ${MOBILE_NAV_BREAK} {
         display: grid;
         grid-template-columns: auto auto 32px;
@@ -139,13 +141,19 @@ const MobileItems = ({ items }) => {
 };
 
 const GlobalNav = () => {
-    const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(true);
+    const isSearchbarDefaultExpanded = useMedia(screenSize.upToLarge);
+    const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(
+        isSearchbarDefaultExpanded
+    );
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
     const isMobile = useMedia(MOBILE_NAV_BREAK);
     return (
         <Nav>
-            <NavContent>
+            <NavContent
+                isExpanded={isSearchbarExpanded}
+                shouldOpaqueWhenExpanded={!isSearchbarDefaultExpanded}
+            >
                 {isMobile ? (
                     <>
                         <MobileItems items={items} />
