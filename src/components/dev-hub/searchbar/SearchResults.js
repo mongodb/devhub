@@ -71,7 +71,7 @@ const SearchResults = ({
     ...props
 }) => {
     const hasResults = useMemo(() => !!totalResultsCount, [totalResultsCount]);
-    const isMobile = useMedia(screenSize.upToMedium);
+    const isMobile = useMedia(screenSize.upToSmall);
     const getRankFromPage = useCallback(
         index => (currentPage - 1) * index + 1,
         [currentPage]

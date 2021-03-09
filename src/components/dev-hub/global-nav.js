@@ -141,7 +141,7 @@ const MobileItems = ({ items }) => {
 };
 
 const GlobalNav = () => {
-    const isSearchbarDefaultExpanded = useMedia(screenSize.largeAndUp);
+    const isSearchbarDefaultExpanded = useMedia(screenSize.xlargeAndUp);
     const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(
         isSearchbarDefaultExpanded
     );
@@ -172,12 +172,6 @@ const GlobalNav = () => {
                         <HomeLink aria-label="Home" to="/">
                             <LeafLogo />
                         </HomeLink>
-                        <Searchbar
-                            isExpanded={isSearchbarExpanded}
-                            setIsExpanded={onSearchbarExpand}
-                            // Autofocus the searchbar when the user expands only so the user can start typing
-                            shouldAutofocus={false}
-                        />
                     </>
                 ) : (
                     <>
@@ -190,14 +184,12 @@ const GlobalNav = () => {
                     </>
                 )}
             </NavContent>
-            {!isMobile && (
-                <Searchbar
-                    isExpanded={isSearchbarExpanded}
-                    setIsExpanded={onSearchbarExpand}
-                    // Autofocus the searchbar when the user expands only so the user can start typing
-                    shouldAutofocus={false}
-                />
-            )}
+            <Searchbar
+                isExpanded={isSearchbarExpanded}
+                setIsExpanded={onSearchbarExpand}
+                // Autofocus the searchbar when the user expands only so the user can start typing
+                shouldAutofocus={false}
+            />
         </Nav>
     );
 };

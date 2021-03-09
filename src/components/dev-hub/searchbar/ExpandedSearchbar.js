@@ -90,7 +90,7 @@ const MagnifyingGlassButton = styled(IconButton)`
 
 const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
     const theme = useTheme();
-    const { isMobile } = useMedia(screenSize.upToMedium);
+    const { isMobile } = useMedia(screenSize.upToSmall);
     const { searchContainerRef, searchTerm } = useContext(SearchContext);
     const isSearching = useMemo(() => !!searchTerm && isFocused, [
         isFocused,

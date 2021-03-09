@@ -56,7 +56,7 @@ const SearchFooter = styled('div')`
     padding-left: ${size.default};
     padding-right: ${size.default};
     width: 100%;
-    @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToSmall} {
         display: none;
     }
 `;
@@ -65,7 +65,7 @@ const SearchDropdown = ({ results = [] }) => {
     const [visibleResults, setVisibleResults] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     // Number of filters is always 2, since branch is inferred when a product is picked
-    const isMobile = useMedia(screenSize.upToMedium);
+    const isMobile = useMedia(screenSize.upToSmall);
     const totalPages = results
         ? Math.ceil(results.length / RESULTS_PER_PAGE)
         : 0;
