@@ -14,12 +14,12 @@ const ExpandButton = styled(IconButton)`
     border-radius: ${size.medium};
     box-shadow: none;
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
-    height: ${size.large};
+    height: 20px;
     position: absolute;
-    right: ${size.small};
+    right: 20px;
     /* 32px button in a 36px container, 2px top gives equal spacing */
-    top: 2px;
-    width: ${size.large};
+    top: 10px;
+    width: 20px;
     z-index: 1;
     :hover,
     :focus {
@@ -38,7 +38,7 @@ const ExpandButton = styled(IconButton)`
 `;
 
 const CondensedSearchbar = ({ onExpand }) => (
-    <ExpandButton aria-label="Open MongoDB Docs Search" onClick={onExpand}>
+    <ExpandButton aria-label="Open MongoDB Developer Search" onClick={onExpand}>
         <ExpandMagnifyingGlass glyph="MagnifyingGlass" />
     </ExpandButton>
 );

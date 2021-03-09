@@ -55,9 +55,13 @@ const NavContent = styled('div')`
     max-width: ${size.maxWidth};
     position: relative;
     width: 100%;
+    ${({ isExpanded, shouldOpaqueWhenExpanded }) =>
+        isExpanded && shouldOpaqueWhenExpanded && 'opacity: 0.2;'};
     @media ${MOBILE_NAV_BREAK} {
-        justify-content: space-between;
-        padding-right: ${size.medium};
+        display: grid;
+        grid-template-columns: ${size.large} auto ${size.large};
+        justify-items: center;
+        padding: 0 ${size.default};
     }
 `;
 
@@ -138,25 +142,52 @@ const MobileItems = ({ items }) => {
 };
 
 const GlobalNav = () => {
-    const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(true);
+    const isSearchbarDefaultExpanded = useMedia(screenSize.xlargeAndUp);
+    const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(
+        isSearchbarDefaultExpanded
+    );
+    useEffect(() => {
+        setIsSearchbarExpanded(isSearchbarDefaultExpanded);
+    }, [isSearchbarDefaultExpanded]);
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
     const isMobile = useMedia(MOBILE_NAV_BREAK);
+    const onSearchbarExpand = useCallback(
+        isExpanded => {
+            // On certain screens the searchbar is never collapsed
+            if (!isSearchbarDefaultExpanded) {
+                setIsSearchbarExpanded(isExpanded);
+            }
+        },
+        [isSearchbarDefaultExpanded]
+    );
     return (
         <Nav>
-            <NavContent>
-                <HomeLink aria-label="Home" to="/">
-                    <LeafLogo />
-                </HomeLink>
+            <NavContent
+                isExpanded={isSearchbarExpanded}
+                shouldOpaqueWhenExpanded={!isSearchbarDefaultExpanded}
+            >
                 {isMobile ? (
-                    <MobileItems items={items} />
+                    <>
+                        <MobileItems items={items} />
+                        <HomeLink aria-label="Home" to="/">
+                            <LeafLogo />
+                        </HomeLink>
+                    </>
                 ) : (
-                    items.map(item => <NavItem key={item.name} item={item} />)
+                    <>
+                        <HomeLink aria-label="Home" to="/">
+                            <LeafLogo />
+                        </HomeLink>
+                        {items.map(item => (
+                            <NavItem key={item.name} item={item} />
+                        ))}
+                    </>
                 )}
             </NavContent>
             <Searchbar
                 isExpanded={isSearchbarExpanded}
-                setIsExpanded={setIsSearchbarExpanded}
+                setIsExpanded={onSearchbarExpand}
                 // Autofocus the searchbar when the user expands only so the user can start typing
                 shouldAutofocus={false}
             />

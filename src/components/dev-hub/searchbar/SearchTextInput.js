@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import TextInput from '@leafygreen-ui/text-input';
-import { useSiteMetadata } from '~hooks/use-site-metadata';
 import {
     colorMap,
     fontSize,
@@ -11,7 +10,7 @@ import {
 } from '~components/dev-hub/theme';
 import SearchContext from './SearchContext';
 
-const SEARCHBAR_HEIGHT_OFFSET = '5px';
+const SEARCHBAR_HEIGHT_OFFSET = '12px';
 
 const activeTextBarStyling = css`
     background-color: ${colorMap.pageBackground};
@@ -54,7 +53,7 @@ const StyledTextInput = styled(TextInput)`
 
     @media ${screenSize.upToSmall} {
         background-color: ${({ theme }) => theme.colorMap.pageBackground};
-        padding-bottom: ${size.tiny};
+        position: relative;
         div > input {
             /* Always have this element filled in for mobile */
             ${activeTextBarStyling}
@@ -69,7 +68,7 @@ const StyledTextInput = styled(TextInput)`
     */
         :before {
             background-color: ${({ theme }) => theme.colorMap.pageBackground};
-            bottom: 100%;
+            bottom: -${SEARCHBAR_HEIGHT_OFFSET};
             content: '';
             position: absolute;
             top: -${SEARCHBAR_HEIGHT_OFFSET};
@@ -88,8 +87,7 @@ const SearchWrapper = styled('span')`
 
 const SearchTextInput = React.forwardRef(
     ({ isSearching, onChange, value, ...props }, ref) => {
-        const { searchFilter, shouldAutofocus } = useContext(SearchContext);
-        const { project } = useSiteMetadata();
+        const { shouldAutofocus } = useContext(SearchContext);
         return (
             <SearchWrapper isSearching={isSearching}>
                 <StyledTextInput
