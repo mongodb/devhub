@@ -2,18 +2,12 @@ import React, { useContext } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import TextInput from '@leafygreen-ui/text-input';
-import {
-    colorMap,
-    fontSize,
-    screenSize,
-    size,
-} from '~components/dev-hub/theme';
+import { fontSize, screenSize, size } from '~components/dev-hub/theme';
 import SearchContext from './SearchContext';
 
 const SEARCHBAR_HEIGHT_OFFSET = '12px';
 
 const activeTextBarStyling = css`
-    background-color: ${colorMap.pageBackground};
     border: none;
 `;
 

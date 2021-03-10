@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useMemo, useRef } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
+import { withPrefix } from 'gatsby';
 import { useEventListener } from '@leafygreen-ui/hooks';
 import Icon from '@leafygreen-ui/icon';
 import IconButton from '@leafygreen-ui/icon-button';
@@ -53,6 +54,11 @@ const GoButton = styled(IconButton)`
     top: 10px;
     width: ${GO_BUTTON_SIZE};
     z-index: 1;
+    :active,
+    :hover,
+    :focus {
+        background-color: ${({ theme }) => theme.colorMap.devWhite};
+    }
 `;
 
 const GoIcon = styled(Icon)`
@@ -65,7 +71,7 @@ const GoIcon = styled(Icon)`
 `;
 
 const MagnifyingGlass = styled(Icon)`
-    color: ${({ theme }) => theme.colorMap.greyDarkTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     transition: color 150ms ease-in;
 `;
 
@@ -144,9 +150,10 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
         element: searchTextbox.current,
     });
 
-    const searchUrl = useMemo(() => `/learn/?text=${searchTerm}#main`, [
-        searchTerm,
-    ]);
+    const searchUrl = useMemo(
+        () => withPrefix(`/learn/?text=${searchTerm}#main`),
+        [searchTerm]
+    );
 
     return (
         <>
