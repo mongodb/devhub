@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
 const getAuthorsList = authors =>
-    authors?.map(({ name }) => {
-        return {
-            '@type': 'Person',
-            name: name,
-        };
-    });
+    authors?.map(({ name }) => ({
+        '@type': 'Person',
+        name,
+    }));
 
 const ArticleSchema = ({
     articleUrl,
@@ -27,7 +25,7 @@ const ArticleSchema = ({
                 '@type': 'BlogPosting',
                 url: articleUrl,
                 headline: title,
-                description: description,
+                description,
                 datePublished: publishedDate,
                 dateModified: modifiedDate || publishedDate,
                 mainEntityOfPage: {

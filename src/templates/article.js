@@ -178,10 +178,10 @@ const Article = props => {
                 type={og.type}
             />
             <ArticleSchema
-                articleUrl={canonicalUrl}
+                articleUrl={articleUrl}
                 title={articleTitle}
                 description={metaDescription}
-                publishedDate={meta.pubdat}
+                publishedDate={meta.pubdate}
                 modifiedDate={meta['updated-date']}
                 imageUrl={articleImage}
                 authors={meta.author}
