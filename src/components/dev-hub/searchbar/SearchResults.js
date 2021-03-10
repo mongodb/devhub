@@ -6,7 +6,7 @@ import { reportAnalytics } from '~utils/report-analytics';
 
 const SEARCHBAR_HEIGHT = '36px';
 const SEARCH_RESULT_HEIGHT = '102px';
-const SEARCH_RESULT_MOBILE_HEIGHT = '156px';
+const SEARCH_RESULT_MOBILE_HEIGHT = '136px';
 
 const StyledResultText = styled('p')`
     font-family: Akzidenz;
@@ -30,7 +30,7 @@ const SearchResultsContainer = styled('div')`
     padding-top: 36px;
     width: 100%;
     @media ${screenSize.upToSmall} {
-        background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+        background-color: ${({ theme }) => theme.colorMap.pageBackground};
         box-shadow: none;
         grid-template-rows: ${size.medium};
         grid-auto-rows: ${SEARCH_RESULT_MOBILE_HEIGHT};
@@ -49,11 +49,9 @@ const StyledSearchResult = styled(SearchResult)`
         padding: ${size.default} ${size.medium};
     }
     @media ${screenSize.upToSmall} {
-        background-color: color: ${({ theme }) =>
-            theme.colorMap.pageBackground};
-        border: 1px solid rgba(184, 196, 194, 0.2);
+        background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+        border: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
         border-radius: ${size.tiny};
-        box-shadow: 0 0 ${size.tiny} 0 rgba(231, 238, 236, 0.4);
         height: calc(100% - ${size.default});
         /* place-self adds both align-self and justify-self for flexbox */
         place-self: center;
