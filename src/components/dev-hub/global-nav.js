@@ -142,7 +142,7 @@ const MobileItems = ({ items }) => {
 };
 
 const GlobalNav = () => {
-    const isSearchbarDefaultExpanded = useMedia(screenSize.xlargeAndUp);
+    const isSearchbarDefaultExpanded = useMedia(screenSize.smallDesktopAndUp);
     const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(
         isSearchbarDefaultExpanded
     );
