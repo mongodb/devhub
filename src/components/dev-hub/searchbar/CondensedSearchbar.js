@@ -8,7 +8,7 @@ import { size } from '~components/dev-hub/theme';
 const ExpandMagnifyingGlass = styled(Icon)``;
 
 const ExpandButton = styled(IconButton)`
-    background-color: none;
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     background-image: none;
     border: none;
     border-radius: ${size.medium};
@@ -23,7 +23,7 @@ const ExpandButton = styled(IconButton)`
     z-index: 1;
     :hover,
     :focus {
-        background-color: none;
+        background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
         ${ExpandMagnifyingGlass} {
             color: ${({ theme }) => theme.colorMap.greyDarkTwo};
             transition: color 150ms ease-in;
