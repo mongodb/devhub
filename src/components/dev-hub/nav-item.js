@@ -71,13 +71,7 @@ const NavListHeader = styled('div')`
     justify-content: space-between;
     ${({ isExpanded }) =>
         isExpanded && `background-color: ${HOVER_STATE_BACKGROUND_COLOR}`};
-    padding: ${LINK_VERTICAL_PADDING} ${size.xlarge};
-    @media ${screenSize.upToXlarge} {
-        padding: ${LINK_VERTICAL_PADDING} 40px;
-    }
-    @media ${screenSize.upToSmallDesktop} {
-        padding: ${LINK_VERTICAL_PADDING} ${size.mediumLarge};
-    }
+    padding: ${LINK_VERTICAL_PADDING} ${size.medium};
     @media ${MOBILE_NAV_BREAK} {
         padding: ${size.mediumLarge} ${size.default};
         box-shadow: 0px 1px 0px ${({ theme }) => theme.colorMap.greyDarkTwo};
