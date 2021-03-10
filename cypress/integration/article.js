@@ -9,7 +9,7 @@ const EXPECTED_ATTRIBUTION_LINK =
 // Article with no og description or og type (test meta description fallback)
 const ARTICLE_WITH_MINIMAL_OG_URL =
     '/article/active-active-application-architectures';
-const PROD_MINIMAL_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_MINIMAL_OG_URL}`;
+const PROD_MINIMAL_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_MINIMAL_OG_URL}/`;
 const ARTICLE_WITHOUT_OG_META_DESCRIPTION =
     'This post will begin by describing the database capabilities required by modern multi-data center applications.';
 const DEFAULT_OG_TYPE = 'article';
