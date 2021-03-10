@@ -141,7 +141,7 @@ const Article = props => {
     }
     const tagList = getTagLinksFromMeta(meta);
     const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
-    const articleUrl = `${siteUrl}/${thisPage}`;
+    const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${thisPage}`);
     const headingNodes = findSectionHeadings(
         getNestedValue(['ast', 'children'], __refDocMapping),
         'type',
@@ -159,7 +159,7 @@ const Article = props => {
     const canonicalUrl = dlv(
         __refDocMapping,
         'ast.options.canonical-href',
-        addTrailingSlashIfMissing(articleUrl)
+        articleUrl
     );
 
     const articleImage = withPrefix(meta['atf-image']);
