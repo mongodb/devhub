@@ -50,6 +50,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
         <PaginationContainer>
             <PaginationButton
                 aria-label="Back Page"
+                data-test="Back Search Page"
                 disabled={!canDecrementPage}
                 onClick={decrementPage}
                 title="Back Page"
@@ -59,13 +60,14 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
                     fill={canDecrementPage ? ENABLED_COLOR : DISABLED_COLOR}
                 />
             </PaginationButton>
-            <PaginationText>
+            <PaginationText data-test="Search Page Text">
                 <strong>
                     {currentPage}/{totalPages}
                 </strong>
             </PaginationText>
             <PaginationButton
                 aria-label="Forward Page"
+                data-test="Forward Search Page"
                 disabled={!canIncrementPage}
                 onClick={incrementPage}
                 title="Forward Page"

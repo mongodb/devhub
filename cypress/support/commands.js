@@ -106,6 +106,15 @@ Cypress.Commands.add('mockTextFilterResponse', () => {
     }).as('filterJavaArticles');
 });
 
+Cypress.Commands.add('mockEmptySearchResponse', () => {
+    cy.server();
+    cy.route({
+        method: 'POST',
+        url: '**/api/client/v2.0/app/devhubauthentication-lidpq/functions/call',
+        response: [],
+    }).as('searchEmptyArticles');
+});
+
 Cypress.Commands.add('toggleLearnPageTab', tabName => {
     cy.get('[data-test="tabs"]').within(() => {
         cy.contains(tabName).should('exist').click({ force: true });
