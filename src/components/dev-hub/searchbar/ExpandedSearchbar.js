@@ -149,7 +149,7 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
     ]);
 
     return (
-        <>
+        <span data-test="Expanded Searchbar">
             <MagnifyingGlassButton
                 aria-label="Search MongoDB Developer Hub"
                 onClick={onSearchFocus}
@@ -180,7 +180,7 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
                     <Icon glyph="X" />
                 </CloseButton>
             )}
-        </>
+        </span>
     );
 };
 
