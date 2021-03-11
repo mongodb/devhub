@@ -14,6 +14,7 @@ import { useClickOutside } from '~hooks/use-click-outside';
 import useMedia from '~hooks/use-media';
 import { layer, screenSize, size } from '~components/dev-hub/theme';
 import { requestTextFilterResults } from '~utils/devhub-api-stitch';
+import { showOnDeviceSize } from '~utils/show-on-device-size';
 import { reportAnalytics } from '~utils/report-analytics';
 import SearchDropdown from './SearchDropdown';
 
@@ -27,7 +28,6 @@ const SEARCHBAR_HEIGHT_OFFSET = '10px';
 const TRANSITION_SPEED = '150ms';
 
 const CommonSearchbarContainer = styled('div')`
-    display: none;
     top: ${SEARCHBAR_HEIGHT_OFFSET};
     height: ${SEARCHBAR_HEIGHT};
     position: absolute;
@@ -56,19 +56,15 @@ const CommonSearchbarContainer = styled('div')`
 `;
 
 const DesktopSearchbarContainer = styled(CommonSearchbarContainer)`
+    ${showOnDeviceSize(screenSize.smallDesktopAndUp)}
     width: ${SEARCHBAR_DESKTOP_WIDTH};
-    @media ${screenSize.smallDesktopAndUp} {
-        display: block;
-    }
 `;
 
 const MobileSearchbarContainer = styled(CommonSearchbarContainer)`
+    ${showOnDeviceSize(screenSize.upToSmallDesktop)}
     transition: width ${TRANSITION_SPEED} ease-in;
     width: ${({ isExpanded }) =>
         isExpanded ? SEARCHBAR_DESKTOP_WIDTH : BUTTON_SIZE};
-    @media ${screenSize.upToSmallDesktop} {
-        display: block;
-    }
     @media ${screenSize.upToSmall} {
         top: ${SEARCHBAR_HEIGHT_OFFSET};
         height: ${({ isExpanded, isSearching }) =>
