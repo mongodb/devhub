@@ -82,7 +82,7 @@ const SearchDropdown = ({ results = [] }) => {
         }
     }, [currentPage, isMobile, results]);
     return (
-        <SearchResultsContainer>
+        <SearchResultsContainer data-test="Search Dropdown">
             <FixedHeightSearchResults
                 currentPage={currentPage}
                 totalResultsCount={results.length}

@@ -155,6 +155,7 @@ const SearchResult = React.memo(
         );
         return (
             <SearchResultLink
+                data-test="Search Result"
                 ref={resultLinkRef}
                 to={url}
                 onClick={onClick}
