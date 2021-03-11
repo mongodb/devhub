@@ -8,6 +8,7 @@ import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
+import { createStrapiArticlePages } from './src/utils/setup/create-strapi-article-pages';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getMetadata } from './src/utils/get-metadata';
 import {
@@ -121,6 +122,16 @@ export const createPages = async ({ actions, graphql }) => {
         graphql(articles),
     ]);
 
+    await createStrapiArticlePages(createPage, graphql, (slug, nodes) =>
+        createArticlePage(
+            slug,
+            slugContentMapping,
+            allSeries,
+            metadataDocument,
+            createPage,
+            nodes
+        )
+    );
     await createProjectPages(createPage, graphql);
 
     if (result.error) {

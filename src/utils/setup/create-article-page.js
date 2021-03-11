@@ -11,9 +11,10 @@ export const createArticlePage = (
     slugContentMapping,
     allSeries,
     metadata,
-    createPage
+    createPage,
+    parsedPageNodes = null
 ) => {
-    const pageNodes = slugContentMapping[page];
+    const pageNodes = parsedPageNodes || slugContentMapping[page];
     if (pageNodes && Object.keys(pageNodes).length > 0) {
         const template = getTemplate(
             getNestedValue(['ast', 'options', 'template'], pageNodes)
