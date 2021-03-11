@@ -21,6 +21,7 @@ import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missin
 import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedText } from '../utils/get-nested-text';
+import ArticleSchema from '../components/dev-hub/article-schema';
 
 /**
  * Name map of directives we want to display in an article
@@ -140,7 +141,7 @@ const Article = props => {
     }
     const tagList = getTagLinksFromMeta(meta);
     const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
-    const articleUrl = `${siteUrl}/${thisPage}`;
+    const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${thisPage}`);
     const headingNodes = findSectionHeadings(
         getNestedValue(['ast', 'children'], __refDocMapping),
         'type',
@@ -158,8 +159,10 @@ const Article = props => {
     const canonicalUrl = dlv(
         __refDocMapping,
         'ast.options.canonical-href',
-        addTrailingSlashIfMissing(articleUrl)
+        articleUrl
     );
+
+    const articleImage = withPrefix(meta['atf-image']);
 
     return (
         <Layout includeCanonical={false}>
@@ -174,8 +177,17 @@ const Article = props => {
                 twitterNode={twitterNode}
                 type={og.type}
             />
+            <ArticleSchema
+                articleUrl={articleUrl}
+                title={articleTitle}
+                description={metaDescription}
+                publishedDate={meta.pubdate}
+                modifiedDate={meta['updated-date']}
+                imageUrl={articleImage}
+                authors={meta.author}
+            />
             <BlogPostTitleArea
-                articleImage={withPrefix(meta['atf-image'])}
+                articleImage={articleImage}
                 authors={meta.author}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={formattedPublishedDate}

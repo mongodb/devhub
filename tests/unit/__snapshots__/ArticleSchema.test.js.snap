@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleSchema script has a correct schema 1`] = `
+<HelmetWrapper
+  defer={true}
+  encodeSpecialCharacters={true}
+>
+  <script
+    id="structured-data"
+    type="application/ld+json"
+  >
+    {"@context":"https://schema.org","@type":"BlogPosting","url":"https://developer.mongodb.com/how-to/zap-tweet-repeat-how-to-use-zapier-mongodb/","headline":"Test Title","description":"Test Description","datePublished":"2000-03-03","dateModified":"2000-03-04","mainEntityOfPage":{"@type":"WebPage","url":"https://developer.mongodb.com/how-to/zap-tweet-repeat-how-to-use-zapier-mongodb/"},"image":{"@type":"imageObject","url":"test/test.png"},"publisher":{"@type":"Organization","name":"MongoDB","logo":{"@type":"imageObject","url":"https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png"}},"author":[{"@type":"Person","name":"D Test"}],"inLanguage":"English"}
+  </script>
+</HelmetWrapper>
+`;
+
+exports[`ArticleSchema script has a correct schema without modified date 1`] = `
+<HelmetWrapper
+  defer={true}
+  encodeSpecialCharacters={true}
+>
+  <script
+    id="structured-data"
+    type="application/ld+json"
+  >
+    {"@context":"https://schema.org","@type":"BlogPosting","url":"https://developer.mongodb.com/how-to/zap-tweet-repeat-how-to-use-zapier-mongodb/","headline":"Test Title","description":"Test Description","datePublished":"2000-03-03","dateModified":"2000-03-03","mainEntityOfPage":{"@type":"WebPage","url":"https://developer.mongodb.com/how-to/zap-tweet-repeat-how-to-use-zapier-mongodb/"},"image":{"@type":"imageObject","url":"test/test.png"},"publisher":{"@type":"Organization","name":"MongoDB","logo":{"@type":"imageObject","url":"https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png"}},"author":[{"@type":"Person","name":"D Test"}],"inLanguage":"Test"}
+  </script>
+</HelmetWrapper>
+`;

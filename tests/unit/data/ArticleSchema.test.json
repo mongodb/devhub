@@ -1,0 +1,11 @@
+{
+    "articleUrl": "https://developer.mongodb.com/how-to/zap-tweet-repeat-how-to-use-zapier-mongodb/",
+    "title": "Test Title",
+    "description": "Test Description",
+    "publishedDate": "2000-03-03",
+    "modifiedDate": "2000-03-04",
+    "imageUrl": "test/test.png",
+    "authors": [{
+        "name": "D Test"
+    }]
+}
