@@ -11,6 +11,7 @@ import { H2, P } from '../../components/dev-hub/text';
 import { screenSize, fontSize, size } from '../../components/dev-hub/theme';
 import communityHeroBackground from '../../images/1x/Community-hero.png';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
+import { FORUMS_URL } from '~src/constants';
 
 const sectionPadding = css`
     padding: ${size.xlarge} ${size.medium};
@@ -100,10 +101,7 @@ export default () => {
                         Collaborate with other MongoDB users. Solve problems.
                         Build the future.
                     </P>
-                    <Button
-                        primary
-                        href="https://developer.mongodb.com/community/forums"
-                    >
+                    <Button primary href={FORUMS_URL}>
                         Join
                     </Button>
                 </HeroContent>

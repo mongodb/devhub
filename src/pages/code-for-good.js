@@ -12,6 +12,7 @@ import WildAidLogo from '../images/code-for-good/wild-aid-logo.png';
 import WildAidDashboard from '../images/code-for-good/wild-aid-dashboard.png';
 import VesselRecord from '../images/code-for-good/vessel-record.png';
 import Link from '../components/dev-hub/link';
+import { FORUMS_URL } from '~src/constants';
 
 const CAPTION_MAX_WIDTH = '345px';
 const BODY_TEXT_MAX_WIDTH = '320px';
@@ -318,7 +319,7 @@ export default () => {
                                 discuss how the O-FISH app works and how to make
                                 it better.
                             </BodyText>
-                            <StyledLink href="https://developer.mongodb.com/community/forums/">
+                            <StyledLink href={FORUMS_URL}>
                                 Discuss O-FISH with the community
                             </StyledLink>
                         </VesselAppTextContainer>

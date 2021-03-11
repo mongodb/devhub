@@ -13,6 +13,7 @@ import {
     Hero,
     TwitchFeature,
 } from '~components/pages/home';
+import { SITE_URL } from '~src/constants';
 
 const BackgroundImage = styled('div')`
     background-image: url(${homepageBackground});
@@ -42,7 +43,7 @@ const Index = ({ pageContext: { fallbackTwitchVideo, featuredItems } }) => {
                         name: 'MongoDB Developer Hub',
                         logo:
                             'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
-                        url: 'https://developer.mongodb.com',
+                        url: SITE_URL,
                         telephone: '+1-844-666-4632',
                         sameAs: [
                             'https://www.facebook.com/MongoDB/',

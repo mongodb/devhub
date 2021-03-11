@@ -31,3 +31,6 @@ export const ADMONITIONS = [
 ];
 
 export const STITCH_AUTH_APP_ID = 'devhubauthentication-lidpq';
+
+export const SITE_URL = 'https://developer.mongodb.com';
+export const FORUMS_URL = `${SITE_URL}/community/forums`;
