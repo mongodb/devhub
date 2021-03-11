@@ -1,10 +1,10 @@
-const BACK_PAGE_BUTTON = "[data-test='Back Search Page']";
-const FORWARD_PAGE_BUTTON = "[data-test='Forward Search Page']";
-const SEARCHBAR = "[data-test='Expanded Searchbar']";
-const SEARCH_DROPDOWN = "[data-test='Search Dropdown']";
-const SEARCH_INPUT = "[data-test='Expanded Searchbar'] input";
-const SEARCH_PAGINATION_TEXT = "[data-test='Search Page Text']";
-const SEARCH_RESULT = "[data-test='Search Result']";
+const BACK_PAGE_BUTTON = "[data-test='Back Search Page']:visible";
+const FORWARD_PAGE_BUTTON = "[data-test='Forward Search Page']:visible";
+const SEARCHBAR = "[data-test='Expanded Searchbar']:visible";
+const SEARCH_DROPDOWN = "[data-test='Search Dropdown']:visible";
+const SEARCH_INPUT = "[data-test='Expanded Searchbar'] input:visible";
+const SEARCH_PAGINATION_TEXT = "[data-test='Search Page Text']:visible";
+const SEARCH_RESULT = "[data-test='Search Result']:visible";
 
 const DEVHUB_URL = 'https://developer.mongodb.com';
 const RESULTS_PER_PAGE = 3;
@@ -93,7 +93,9 @@ describe('search', () => {
         checkCondensedSearchbar();
         mockJavaSearch();
         // The below line ensures we wait until the stub is done
-        cy.get(SEARCH_RESULT).should('have.length', 6);
+        cy.get(
+            "[data-test='Search Dropdown']:visible [data-test='Search Result']"
+        ).should('have.length', 6);
         checkSearchResults(1);
     });
 });

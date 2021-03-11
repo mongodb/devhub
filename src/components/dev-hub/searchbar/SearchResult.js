@@ -140,6 +140,8 @@ const SearchResult = React.memo(
                     if (e.key === 'ArrowDown' || e.keyCode === ARROW_DOWN_KEY) {
                         e.preventDefault();
                         // find next result and focus
+
+                        console.log('arrow down');
                         onArrowDown(resultLinkRef);
                     } else if (
                         e.key === 'ArrowUp' ||

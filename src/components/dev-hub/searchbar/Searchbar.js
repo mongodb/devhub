@@ -12,8 +12,9 @@ import SearchContext from './SearchContext';
 import { activeTextBarStyling, StyledTextInput } from './SearchTextInput';
 import { useClickOutside } from '~hooks/use-click-outside';
 import useMedia from '~hooks/use-media';
-import { screenSize, size } from '~components/dev-hub/theme';
+import { layer, screenSize, size } from '~components/dev-hub/theme';
 import { requestTextFilterResults } from '~utils/devhub-api-stitch';
+import { showOnDeviceSize } from '~utils/show-on-device-size';
 import { reportAnalytics } from '~utils/report-analytics';
 import SearchDropdown from './SearchDropdown';
 
@@ -26,16 +27,13 @@ const SEARCHBAR_HEIGHT = '36px';
 const SEARCHBAR_HEIGHT_OFFSET = '10px';
 const TRANSITION_SPEED = '150ms';
 
-const SearchbarContainer = styled('div')`
+const CommonSearchbarContainer = styled('div')`
     top: ${SEARCHBAR_HEIGHT_OFFSET};
     height: ${SEARCHBAR_HEIGHT};
     position: absolute;
     right: ${size.default};
-    transition: width ${TRANSITION_SPEED} ease-in;
-    width: ${({ isExpanded }) =>
-        isExpanded ? SEARCHBAR_DESKTOP_WIDTH : BUTTON_SIZE};
     /* docs-tools navbar z-index is 9999 */
-    z-index: 10000;
+    z-index: ${layer.front};
     :hover,
     :focus,
     :focus-within {
@@ -55,6 +53,18 @@ const SearchbarContainer = styled('div')`
             }
         }
     }
+`;
+
+const DesktopSearchbarContainer = styled(CommonSearchbarContainer)`
+    ${showOnDeviceSize(screenSize.smallDesktopAndUp)}
+    width: ${SEARCHBAR_DESKTOP_WIDTH};
+`;
+
+const MobileSearchbarContainer = styled(CommonSearchbarContainer)`
+    ${showOnDeviceSize(screenSize.upToSmallDesktop)}
+    transition: width ${TRANSITION_SPEED} ease-in;
+    width: ${({ isExpanded }) =>
+        isExpanded ? SEARCHBAR_DESKTOP_WIDTH : BUTTON_SIZE};
     @media ${screenSize.upToSmall} {
         top: ${SEARCHBAR_HEIGHT_OFFSET};
         height: ${({ isExpanded, isSearching }) =>
@@ -141,13 +151,12 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
     }, [fetchNewSearchResults, reportSearchEvent, value]);
 
     return (
-        <SearchbarContainer
-            isSearching={isSearching}
-            isExpanded={isExpanded}
-            onFocus={onFocus}
-            ref={searchContainerRef}
-        >
-            {isExpanded ? (
+        <div ref={searchContainerRef}>
+            {/* Expanded Desktop */}
+            <DesktopSearchbarContainer
+                isSearching={isSearching}
+                onFocus={onFocus}
+            >
                 <SearchContext.Provider
                     value={{
                         searchContainerRef,
@@ -156,16 +165,40 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
                     }}
                 >
                     <ExpandedSearchbar
-                        onMobileClose={onClose}
                         onChange={onSearchChange}
                         value={value}
                     />
                     {isSearching && <SearchDropdown results={searchResults} />}
                 </SearchContext.Provider>
-            ) : (
-                <CondensedSearchbar onExpand={onExpand} />
-            )}
-        </SearchbarContainer>
+            </DesktopSearchbarContainer>
+            {/* Condensed */}
+            <MobileSearchbarContainer
+                isSearching={isSearching}
+                isExpanded={isExpanded}
+                onFocus={onFocus}
+            >
+                {isExpanded ? (
+                    <SearchContext.Provider
+                        value={{
+                            searchContainerRef,
+                            searchTerm: value,
+                            shouldAutofocus,
+                        }}
+                    >
+                        <ExpandedSearchbar
+                            onMobileClose={onClose}
+                            onChange={onSearchChange}
+                            value={value}
+                        />
+                        {isSearching && (
+                            <SearchDropdown results={searchResults} />
+                        )}
+                    </SearchContext.Provider>
+                ) : (
+                    <CondensedSearchbar onExpand={onExpand} />
+                )}
+            </MobileSearchbarContainer>
+        </div>
     );
 };
 

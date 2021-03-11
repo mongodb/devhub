@@ -55,8 +55,9 @@ const NavContent = styled('div')`
     max-width: ${size.maxWidth};
     position: relative;
     width: 100%;
-    ${({ isExpanded, shouldOpaqueWhenExpanded }) =>
-        isExpanded && shouldOpaqueWhenExpanded && 'opacity: 0.2;'};
+    @media ${screenSize.upToSmallDesktop} {
+        ${({ isExpanded }) => isExpanded && 'opacity: 0.2;'};
+    }
     @media ${MOBILE_NAV_BREAK} {
         display: grid;
         grid-template-columns: ${size.large} auto ${size.large};
@@ -142,31 +143,17 @@ const MobileItems = ({ items }) => {
 };
 
 const GlobalNav = () => {
-    const isSearchbarDefaultExpanded = useMedia(screenSize.smallDesktopAndUp);
-    const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(
-        isSearchbarDefaultExpanded
-    );
-    useEffect(() => {
-        setIsSearchbarExpanded(isSearchbarDefaultExpanded);
-    }, [isSearchbarDefaultExpanded]);
+    const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(false);
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
     const isMobile = useMedia(MOBILE_NAV_BREAK);
-    const onSearchbarExpand = useCallback(
-        isExpanded => {
-            // On certain screens the searchbar is never collapsed
-            if (!isSearchbarDefaultExpanded) {
-                setIsSearchbarExpanded(isExpanded);
-            }
-        },
-        [isSearchbarDefaultExpanded]
-    );
+    const onSearchbarExpand = useCallback(isExpanded => {
+        // On certain screens the searchbar is never collapsed
+        setIsSearchbarExpanded(isExpanded);
+    }, []);
     return (
         <Nav>
-            <NavContent
-                isExpanded={isSearchbarExpanded}
-                shouldOpaqueWhenExpanded={!isSearchbarDefaultExpanded}
-            >
+            <NavContent isExpanded={isSearchbarExpanded}>
                 {isMobile ? (
                     <>
                         <MobileItems items={items} />
