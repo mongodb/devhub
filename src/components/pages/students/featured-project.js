@@ -42,8 +42,8 @@ const DescriptionText = styled(P)`
 const FeaturedImage = styled('img')`
     border-radius: ${size.xsmall};
     height: 100%;
-    /* Preserve aspect ratio but fill appropriately */
     object-fit: cover;
+    width: 100%;
 `;
 
 const GridWithBottomBorder = styled(Grid)`
