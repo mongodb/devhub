@@ -151,12 +151,11 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
     }, [fetchNewSearchResults, reportSearchEvent, value]);
 
     return (
-        <>
+        <div ref={searchContainerRef}>
             {/* Expanded Desktop */}
             <DesktopSearchbarContainer
                 isSearching={isSearching}
                 onFocus={onFocus}
-                ref={searchContainerRef}
             >
                 <SearchContext.Provider
                     value={{
@@ -177,7 +176,6 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
                 isSearching={isSearching}
                 isExpanded={isExpanded}
                 onFocus={onFocus}
-                ref={searchContainerRef}
             >
                 {isExpanded ? (
                     <SearchContext.Provider
@@ -200,7 +198,7 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
                     <CondensedSearchbar onExpand={onExpand} />
                 )}
             </MobileSearchbarContainer>
-        </>
+        </div>
     );
 };
 
