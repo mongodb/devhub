@@ -8,6 +8,7 @@ import { getNestedValue } from '~utils/get-nested-value';
 import SearchContext from './SearchContext';
 import { StyledTextInput } from './SearchTextInput';
 
+const ABOVE_MOBILE = screenSize.smallAndUp;
 const ARROW_DOWN_KEY = 40;
 const ARROW_UP_KEY = 38;
 const LINK_COLOR = '#494747';
@@ -43,13 +44,16 @@ const SearchResultLink = styled(Link)`
     height: 100%;
     text-decoration: none;
     background-color: ${({ theme }) => theme.colorMap.pageBackground};
-    :hover,
-    :focus {
-        color: ${LINK_COLOR};
-        text-decoration: none;
-        ${SearchResultContainer} {
-            background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
-            transition: background-color 150ms ease-in;
+    @media ${ABOVE_MOBILE} {
+        :hover,
+        :focus {
+            color: ${LINK_COLOR};
+            text-decoration: none;
+            ${SearchResultContainer} {
+                background-color: ${({ theme }) =>
+                    theme.colorMap.greyDarkThree};
+                transition: background-color 150ms ease-in;
+            }
         }
     }
 `;
