@@ -122,7 +122,7 @@ export const createPages = async ({ actions, graphql }) => {
         graphql(articles),
     ]);
 
-    await createStrapiArticlePages(createPage, graphql, (slug, nodes) =>
+    await createStrapiArticlePages(graphql, (slug, nodes) =>
         createArticlePage(
             slug,
             slugContentMapping,
