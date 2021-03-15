@@ -13,6 +13,7 @@ const StyledResultText = styled(P)`
     font-family: Akzidenz;
     font-size: ${fontSize.small};
     letter-spacing: 0.5px;
+    line-height: ${size.mediumLarge};
     margin: 0;
     padding-left: ${size.medium};
 `;
@@ -24,8 +25,8 @@ const SearchResultsContainer = styled('div')`
     grid-template-columns: 100%;
     grid-template-rows: ${({ hasResults }) =>
         hasResults
-            ? `${size.medium} ${SEARCH_RESULT_HEIGHT} ${SEARCH_RESULT_HEIGHT} ${SEARCH_RESULT_HEIGHT}`
-            : `${size.medium} ${size.large}`};
+            ? `${size.mediumLarge} ${SEARCH_RESULT_HEIGHT} ${SEARCH_RESULT_HEIGHT} ${SEARCH_RESULT_HEIGHT}`
+            : `${size.mediumLarge} ${size.large}`};
     position: relative;
     /* Give top padding on desktop to offset this extending into the searchbar */
     padding-top: 36px;
