@@ -3,15 +3,17 @@ import styled from '@emotion/styled';
 import { fontSize, screenSize, size } from '~components/dev-hub/theme';
 import SearchResult from './SearchResult';
 import { reportAnalytics } from '~utils/report-analytics';
+import { P } from '~components/dev-hub/text';
 
 const SEARCHBAR_HEIGHT = '36px';
 const SEARCH_RESULT_HEIGHT = '102px';
 const SEARCH_RESULT_MOBILE_HEIGHT = '136px';
 
-const StyledResultText = styled('p')`
+const StyledResultText = styled(P)`
     font-family: Akzidenz;
     font-size: ${fontSize.small};
     letter-spacing: 0.5px;
+    line-height: ${size.mediumLarge};
     margin: 0;
     padding-left: ${size.medium};
 `;
@@ -23,8 +25,8 @@ const SearchResultsContainer = styled('div')`
     grid-template-columns: 100%;
     grid-template-rows: ${({ hasResults }) =>
         hasResults
-            ? `${size.medium} ${SEARCH_RESULT_HEIGHT} ${SEARCH_RESULT_HEIGHT} ${SEARCH_RESULT_HEIGHT}`
-            : `${size.medium} ${size.large}`};
+            ? `${size.mediumLarge} ${SEARCH_RESULT_HEIGHT} ${SEARCH_RESULT_HEIGHT} ${SEARCH_RESULT_HEIGHT}`
+            : `${size.mediumLarge} ${size.large}`};
     position: relative;
     /* Give top padding on desktop to offset this extending into the searchbar */
     padding-top: 36px;
@@ -32,8 +34,13 @@ const SearchResultsContainer = styled('div')`
     @media ${screenSize.upToSmall} {
         background-color: ${({ theme }) => theme.colorMap.pageBackground};
         box-shadow: none;
-        grid-template-rows: ${size.medium};
+        grid-template-rows: ${({ hasResults }) =>
+            hasResults
+                ? size.mediumLarge
+                : `${size.mediumLarge} ${size.medium}`};
         grid-auto-rows: ${SEARCH_RESULT_MOBILE_HEIGHT};
+        row-gap: ${({ hasResults }) =>
+            hasResults ? size.default : size.xsmall};
         /* On mobile, let the dropdown take the available height */
         height: calc(100% - ${SEARCHBAR_HEIGHT});
         padding-top: ${size.default};
@@ -52,7 +59,7 @@ const StyledSearchResult = styled(SearchResult)`
         background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
         border: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
         border-radius: ${size.tiny};
-        height: calc(100% - ${size.default});
+        height: 100%;
         /* place-self adds both align-self and justify-self for flexbox */
         place-self: center;
         width: calc(100% - ${size.large});

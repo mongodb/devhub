@@ -8,13 +8,14 @@ import { getNestedValue } from '~utils/get-nested-value';
 import SearchContext from './SearchContext';
 import { StyledTextInput } from './SearchTextInput';
 
+const ABOVE_MOBILE = screenSize.smallAndUp;
 const ARROW_DOWN_KEY = 40;
 const ARROW_UP_KEY = 38;
 const LINK_COLOR = '#494747';
 
 const largeResultTitle = css`
     font-size: ${size.default};
-    line-height: ${size.medium};
+    line-height: ${size.mediumLarge};
     /* Only add bold on larger devices */
     @media ${screenSize.smallAndUp} {
         font-weight: bolder;
@@ -43,13 +44,16 @@ const SearchResultLink = styled(Link)`
     height: 100%;
     text-decoration: none;
     background-color: ${({ theme }) => theme.colorMap.pageBackground};
-    :hover,
-    :focus {
-        color: ${LINK_COLOR};
-        text-decoration: none;
-        ${SearchResultContainer} {
-            background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
-            transition: background-color 150ms ease-in;
+    @media ${ABOVE_MOBILE} {
+        :hover,
+        :focus {
+            color: ${LINK_COLOR};
+            text-decoration: none;
+            ${SearchResultContainer} {
+                background-color: ${({ theme }) =>
+                    theme.colorMap.greyDarkThree};
+                transition: background-color 150ms ease-in;
+            }
         }
     }
 `;
@@ -59,7 +63,7 @@ const StyledPreviewText = styled('p')`
     font-family: Akzidenz;
     font-size: ${fontSize.small};
     letter-spacing: 0.5px;
-    line-height: 20px;
+    line-height: ${size.mediumLarge};
     margin-bottom: 0;
     margin-top: 0;
     ${({ maxLines }) => truncate(maxLines)};
@@ -69,9 +73,9 @@ const StyledResultTitle = styled('p')`
     color: ${({ theme }) => theme.colorMap.devWhite};
     font-family: Akzidenz;
     font-size: ${fontSize.small};
-    line-height: ${size.medium};
+    line-height: ${size.mediumLarge};
     letter-spacing: 0.5px;
-    margin-bottom: 6px;
+    margin-bottom: ${size.xsmall};
     margin-top: 0;
     ${truncate(1)};
     ${({ useLargeTitle }) => useLargeTitle && largeResultTitle};

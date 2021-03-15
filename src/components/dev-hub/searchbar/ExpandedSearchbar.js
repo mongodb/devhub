@@ -176,7 +176,7 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
                 </GoButton>
             )}
             {isMobile && (
-                <CloseButton onClick={onMobileClose}>
+                <CloseButton aria-label="Close Search" onClick={onMobileClose}>
                     <Icon glyph="X" />
                 </CloseButton>
             )}
