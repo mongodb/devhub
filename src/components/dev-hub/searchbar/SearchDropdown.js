@@ -54,9 +54,6 @@ const SearchResultsContainer = styled('div')`
 const SearchFooter = styled('div')`
     align-items: center;
     background-color: ${({ theme }) => theme.colorMap.pageBackground};
-    /* border-bottom: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne}; */
-    /* border-left: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne}; */
-    /* border-right: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne}; */
     border-radius: 0 0 ${size.xsmall} ${size.xsmall};
     display: flex;
     height: ${SEARCH_FOOTER_DESKTOP_HEIGHT};
