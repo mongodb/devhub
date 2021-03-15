@@ -15,7 +15,7 @@ const LINK_COLOR = '#494747';
 
 const largeResultTitle = css`
     font-size: ${size.default};
-    line-height: ${size.medium};
+    line-height: ${size.mediumLarge};
     /* Only add bold on larger devices */
     @media ${screenSize.smallAndUp} {
         font-weight: bolder;
@@ -63,7 +63,7 @@ const StyledPreviewText = styled('p')`
     font-family: Akzidenz;
     font-size: ${fontSize.small};
     letter-spacing: 0.5px;
-    line-height: 20px;
+    line-height: ${size.mediumLarge};
     margin-bottom: 0;
     margin-top: 0;
     ${({ maxLines }) => truncate(maxLines)};
@@ -73,9 +73,9 @@ const StyledResultTitle = styled('p')`
     color: ${({ theme }) => theme.colorMap.devWhite};
     font-family: Akzidenz;
     font-size: ${fontSize.small};
-    line-height: ${size.medium};
+    line-height: ${size.mediumLarge};
     letter-spacing: 0.5px;
-    margin-bottom: 6px;
+    margin-bottom: ${size.xsmall};
     margin-top: 0;
     ${truncate(1)};
     ${({ useLargeTitle }) => useLargeTitle && largeResultTitle};
