@@ -88,7 +88,7 @@ const MobileSearchbarContainer = styled(CommonSearchbarContainer)`
 
 const limitSearchResults = (results, limit) => results.slice(0, limit);
 
-const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
+const Searchbar = ({ isExpanded, setIsExpanded }) => {
     const [value, setValue] = useState('');
     const [searchEvent, setSearchEvent] = useState(null);
     const [reportEvent, setReportEvent] = useState(null);
@@ -178,7 +178,7 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
                         isLoading,
                         searchContainerRef,
                         searchTerm: value,
-                        shouldAutofocus,
+                        shouldAutofocus: false,
                     }}
                 >
                     <ExpandedSearchbar
@@ -200,7 +200,7 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
                             isLoading,
                             searchContainerRef,
                             searchTerm: value,
-                            shouldAutofocus,
+                            shouldAutofocus: true,
                         }}
                     >
                         <ExpandedSearchbar

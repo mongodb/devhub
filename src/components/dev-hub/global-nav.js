@@ -175,8 +175,6 @@ const GlobalNav = () => {
             <Searchbar
                 isExpanded={isSearchbarExpanded}
                 setIsExpanded={onSearchbarExpand}
-                // Autofocus the searchbar when the user expands only so the user can start typing
-                shouldAutofocus={false}
             />
         </Nav>
     );
