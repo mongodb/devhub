@@ -9,7 +9,7 @@ import SearchResults from './SearchResults';
 
 const RESULTS_PER_PAGE = 3;
 const SEARCH_FOOTER_DESKTOP_HEIGHT = size.xlarge;
-const SEARCH_RESULTS_DESKTOP_HEIGHT = '368px';
+const SEARCH_RESULTS_DESKTOP_HEIGHT = '392px';
 
 const animationKeyframe = startingOpacity => keyframes`
     0% {
@@ -44,6 +44,7 @@ const SearchResultsContainer = styled('div')`
     ${fadeInAnimation(0, '0.2s')};
     @media ${screenSize.upToSmall} {
         background-color: ${uiColors.gray.light3};
+        border: none;
         top: 50px;
         height: 100vh;
         padding-bottom: 20px;
@@ -54,6 +55,7 @@ const SearchResultsContainer = styled('div')`
 const SearchFooter = styled('div')`
     align-items: center;
     background-color: ${({ theme }) => theme.colorMap.pageBackground};
+    border-top: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne};
     border-radius: 0 0 ${size.xsmall} ${size.xsmall};
     display: flex;
     height: ${SEARCH_FOOTER_DESKTOP_HEIGHT};

@@ -6,7 +6,7 @@ import { reportAnalytics } from '~utils/report-analytics';
 import { P } from '~components/dev-hub/text';
 
 const SEARCHBAR_HEIGHT = '36px';
-const SEARCH_RESULT_HEIGHT = '102px';
+const SEARCH_RESULT_HEIGHT = '112px';
 const SEARCH_RESULT_MOBILE_HEIGHT = '136px';
 
 const StyledResultText = styled(P)`
@@ -54,6 +54,9 @@ const StyledSearchResult = styled(SearchResult)`
     height: 100%;
     > div {
         padding: ${size.default} ${size.medium};
+    }
+    :last-of-type {
+        border-bottom: none;
     }
     @media ${screenSize.upToSmall} {
         background-color: ${({ theme }) => theme.colorMap.greyDarkThree};

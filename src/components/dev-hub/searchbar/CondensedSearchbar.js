@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Icon from '@leafygreen-ui/icon';
 import IconButton from '@leafygreen-ui/icon-button';
-import { size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 
 // Defining as a styled component allows us to use as a selector in ExpandButton
 const ExpandMagnifyingGlass = styled(Icon)``;
@@ -35,6 +35,9 @@ const ExpandButton = styled(IconButton)`
     :after {
         display: none;
     }
+    @media ${screenSize.upToSmall} {
+        color: ${({ theme }) => theme.colorMap.devWhite};
+    }
 `;
 
 const CondensedSearchbar = ({ onExpand }) => (
@@ -43,7 +46,7 @@ const CondensedSearchbar = ({ onExpand }) => (
         data-test="Closed Searchbar Button"
         onClick={onExpand}
     >
-        <ExpandMagnifyingGlass glyph="MagnifyingGlass" />
+        <ExpandMagnifyingGlass glyph="MagnifyingGlass" height="20" width="20" />
     </ExpandButton>
 );
 

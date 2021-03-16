@@ -58,7 +58,7 @@ const StyledTextInput = styled(TextInput)`
             /* Always have this element filled in for mobile */
             ${activeTextBarStyling}
             /* Switching font size on mobile allows us to prevent iOS Safari from zooming in */
-      font-size: ${fontSize.default};
+            font-size: ${fontSize.small};
             padding-top: 2px;
         }
         /**
@@ -92,9 +92,9 @@ const SearchTextInput = React.forwardRef(
             <SearchWrapper isSearching={isSearching}>
                 <StyledTextInput
                     autoFocus={shouldAutofocus}
-                    label="Search Docs"
+                    label="Search Articles"
                     onChange={onChange}
-                    placeholder={'Search Articles...'}
+                    placeholder="Search Articles..."
                     ref={ref}
                     tabIndex="0"
                     value={value}
