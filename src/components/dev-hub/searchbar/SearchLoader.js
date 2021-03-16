@@ -4,9 +4,12 @@ import styled from '@emotion/styled';
 import { fontSize, size } from '~components/dev-hub/theme';
 import { P } from '~components/dev-hub/text';
 
+const MAX_WIDTH = '20px';
+const TRANSITION_SPEED = '900ms';
+
 const ellipsis = keyframes`
     to {
-      width: 20px;   
+      width: ${MAX_WIDTH};
     }
 `;
 
@@ -21,12 +24,11 @@ const LoaderText = styled(P)`
     line-height: ${size.mediumLarge};
     margin: 0;
     :after {
-        overflow: hidden;
-        display: inline-block;
-        vertical-align: bottom;
-        -webkit-animation: ${ellipsis} steps(4, end) 900ms infinite;
-        animation: ${ellipsis} steps(4, end) 900ms infinite;
+        animation: ${ellipsis} steps(4, end) ${TRANSITION_SPEED} infinite;
         content: '\u2026'; /* ascii code for the ellipsis character */
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: bottom;
         width: 0px;
     }
 `;
