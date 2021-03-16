@@ -74,15 +74,13 @@ const DesktopSearchbarContainer = styled(CommonSearchbarContainer)`
 `;
 
 const MobileSearchbarContainer = styled(CommonSearchbarContainer)`
-    ${showOnDeviceSize(screenSize.upToSmallDesktop)}
-    transition: width ${TRANSITION_SPEED} ease-in;
+    ${showOnDeviceSize(screenSize.upToSmallDesktop)};
     width: ${({ isExpanded }) =>
         isExpanded ? SEARCHBAR_DESKTOP_WIDTH : BUTTON_SIZE};
     @media ${screenSize.upToSmall} {
         top: ${SEARCHBAR_HEIGHT_OFFSET};
         height: ${({ isExpanded, isSearching }) =>
             isExpanded && isSearching ? '100%' : SEARCHBAR_HEIGHT};
-        transition: unset;
         width: ${({ isExpanded }) => (isExpanded ? '100%' : BUTTON_SIZE)};
         ${({ isExpanded }) => (isExpanded ? 'left: 0' : 'right: 0')};
     }
