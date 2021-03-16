@@ -65,7 +65,7 @@ const GoIcon = styled(Icon)`
 `;
 
 const MagnifyingGlass = styled(Icon)`
-    color: ${({ theme }) => theme.colorMap.greyDarkTwo};
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     transition: color 150ms ease-in;
 `;
 
