@@ -12,10 +12,11 @@ import { SearchResultLink } from './SearchResult';
 import SearchContext from './SearchContext';
 
 const ARROW_DOWN_KEY = 40;
-const CLOSE_BUTTON_SIZE = size.default;
 const ENTER_KEY = 13;
 const GO_BUTTON_COLOR = '#FFFFFF';
 const GO_BUTTON_SIZE = size.default;
+const MOBILE_CLOSE_BUTTON_COLOR = '#F9FBFA';
+const MOBILE_CLOSE_BUTTON_SIZE = size.medium;
 
 const removeDefaultHoverEffects = css`
     background-image: none;
@@ -29,15 +30,15 @@ const removeDefaultHoverEffects = css`
     }
 `;
 
-const CloseButton = styled(IconButton)`
+const MobileCloseButton = styled(IconButton)`
     background-color: none;
-    border-radius: ${CLOSE_BUTTON_SIZE};
-    height: ${CLOSE_BUTTON_SIZE};
+    border-radius: ${MOBILE_CLOSE_BUTTON_SIZE};
+    height: ${MOBILE_CLOSE_BUTTON_SIZE};
     position: absolute;
     right: 10px;
     /* button is 16px and entire container is 36px so 8px top gives equal spacing */
     top: 10px;
-    width: ${CLOSE_BUTTON_SIZE};
+    width: ${MOBILE_CLOSE_BUTTON_SIZE};
     z-index: 1;
     ${removeDefaultHoverEffects};
 `;
@@ -67,6 +68,9 @@ const GoIcon = styled(Icon)`
 const MagnifyingGlass = styled(Icon)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
     transition: color 150ms ease-in;
+    @media ${screenSize.upToSmall} {
+        color: ${({ theme }) => theme.colorMap.devWhite};
+    }
 `;
 
 const MagnifyingGlassButton = styled(IconButton)`
@@ -84,6 +88,10 @@ const MagnifyingGlassButton = styled(IconButton)`
     }
     :after {
         display: none;
+    }
+    @media ${screenSize.upToSmall} {
+        height: ${size.medium};
+        width: ${size.medium};
     }
 `;
 
@@ -176,9 +184,17 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
                 </GoButton>
             )}
             {isMobile && (
-                <CloseButton aria-label="Close Search" onClick={onMobileClose}>
-                    <Icon glyph="X" />
-                </CloseButton>
+                <MobileCloseButton
+                    aria-label="Close Search"
+                    onClick={onMobileClose}
+                >
+                    <Icon
+                        color={MOBILE_CLOSE_BUTTON_COLOR}
+                        height="20"
+                        width="20"
+                        glyph="X"
+                    />
+                </MobileCloseButton>
             )}
         </span>
     );

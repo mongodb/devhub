@@ -58,7 +58,7 @@ const StyledTextInput = styled(TextInput)`
             /* Always have this element filled in for mobile */
             ${activeTextBarStyling}
             /* Switching font size on mobile allows us to prevent iOS Safari from zooming in */
-      font-size: ${fontSize.default};
+            font-size: ${fontSize.small};
             padding-top: 2px;
         }
         /**
