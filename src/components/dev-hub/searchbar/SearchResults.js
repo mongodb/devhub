@@ -88,8 +88,9 @@ const SearchResults = ({
         [currentPage]
     );
     useEffect(() => {
-        // This effect prevents scrolling outside the opened nav
-        // We restore normal scrolling when the nav is closed
+        // This effect prevents scrolling outside the opened search bar on mobile
+        // This is a bit hacky because of the iOS keyboard behavior
+        // https://blog.opendigerati.com/the-eccentric-ways-of-ios-safari-with-the-keyboard-b5aa3f34228d
         if (isMobile) {
             scrollPosition = window.pageYOffset;
             document.body.style.overflow = 'hidden';

@@ -6,6 +6,7 @@ import { screenSize, size } from '~components/dev-hub/theme';
 import Pagination from './Pagination';
 import SearchResults from './SearchResults';
 
+const MOBILE_HEIGHT_OFFSET = '256px';
 const RESULTS_PER_PAGE = 3;
 const SEARCH_FOOTER_DESKTOP_HEIGHT = size.xlarge;
 const SEARCH_RESULTS_DESKTOP_HEIGHT = '392px';
@@ -31,9 +32,9 @@ const FixedHeightSearchResults = styled(SearchResults)`
     @media ${screenSize.upToSmall} {
         background-color: ${({ theme }) => theme.colorMap.pageBackground};
         border: none;
-        top: 50px;
         height: 100vh;
-        padding-bottom: 256px;
+        padding-bottom: ${MOBILE_HEIGHT_OFFSET};
+        top: 50px;
         overflow: scroll;
     }
 `;
