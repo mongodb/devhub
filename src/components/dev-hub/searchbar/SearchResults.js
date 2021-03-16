@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { fontSize, screenSize, size } from '~components/dev-hub/theme';
 import useMedia from '~hooks/use-media';
 import SearchResult from './SearchResult';
 import { reportAnalytics } from '~utils/report-analytics';
+import SearchContext from './SearchContext';
+import SearchLoader from './SearchLoader';
 import { P } from '~components/dev-hub/text';
 
 const SEARCHBAR_HEIGHT = '36px';
@@ -81,6 +83,7 @@ const SearchResults = ({
     visibleResults,
     ...props
 }) => {
+    const { isLoading } = useContext(SearchContext);
     const isMobile = useMedia(screenSize.upToSmall);
     const hasResults = useMemo(() => !!totalResultsCount, [totalResultsCount]);
     const getRankFromPage = useCallback(
@@ -108,30 +111,40 @@ const SearchResults = ({
     }, [isMobile]);
     return (
         <SearchResultsContainer hasResults={hasResults} {...props}>
-            <StyledResultText>
-                <strong>Most Relevant Results ({totalResultsCount})</strong>
-            </StyledResultText>
-            {hasResults ? (
-                visibleResults.map(
-                    ({ title, description: preview, slug }, index) => (
-                        <StyledSearchResult
-                            // Have to use index because multiple results can show with same url
-                            key={`${slug}${index}`}
-                            onClick={() =>
-                                reportAnalytics('SearchSelection', {
-                                    areaFrom: 'Searchbar',
-                                    rank: getRankFromPage(index),
-                                    selectionUrl: slug,
-                                })
-                            }
-                            title={title[0].value}
-                            preview={preview}
-                            url={slug}
-                        />
-                    )
-                )
+            {isLoading ? (
+                <SearchLoader />
             ) : (
-                <StyledResultText>There are no search results</StyledResultText>
+                <>
+                    <StyledResultText>
+                        <strong>
+                            Most Relevant Results ({totalResultsCount})
+                        </strong>
+                    </StyledResultText>
+                    {hasResults ? (
+                        visibleResults.map(
+                            ({ title, description: preview, slug }, index) => (
+                                <StyledSearchResult
+                                    // Have to use index because multiple results can show with same url
+                                    key={`${slug}${index}`}
+                                    onClick={() =>
+                                        reportAnalytics('SearchSelection', {
+                                            areaFrom: 'Searchbar',
+                                            rank: getRankFromPage(index),
+                                            selectionUrl: slug,
+                                        })
+                                    }
+                                    title={title[0].value}
+                                    preview={preview}
+                                    url={slug}
+                                />
+                            )
+                        )
+                    ) : (
+                        <StyledResultText>
+                            There are no search results
+                        </StyledResultText>
+                    )}
+                </>
             )}
         </SearchResultsContainer>
     );

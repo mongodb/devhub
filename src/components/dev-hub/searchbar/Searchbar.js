@@ -94,6 +94,7 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
     const [reportEvent, setReportEvent] = useState(null);
     const [searchResults, setSearchResults] = useState([]);
     const [isFocused, setIsFocused] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const searchContainerRef = useRef(null);
     const isMobile = useMedia(screenSize.upToSmall);
     // A user is searching if the text input is focused and it is not empty
@@ -142,6 +143,8 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
         const limitedResults = applyLimit
             ? limitSearchResults(results, NUMBER_SEARCH_RESULTS)
             : results;
+        // End loading animation
+        setIsLoading(false);
         setSearchResults(limitedResults);
     }, [isMobile, value]);
 
@@ -151,6 +154,8 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
 
     useEffect(() => {
         if (value) {
+            // Start loading animation
+            setIsLoading(true);
             // Set a timeout to trigger the search to avoid over-requesting
             setSearchEvent(
                 setTimeout(fetchNewSearchResults, SEARCH_DELAY_TIME)
@@ -170,6 +175,7 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
             >
                 <SearchContext.Provider
                     value={{
+                        isLoading,
                         searchContainerRef,
                         searchTerm: value,
                         shouldAutofocus,
@@ -191,6 +197,7 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
                 {isExpanded ? (
                     <SearchContext.Provider
                         value={{
+                            isLoading,
                             searchContainerRef,
                             searchTerm: value,
                             shouldAutofocus,
