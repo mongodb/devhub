@@ -32,7 +32,7 @@ const FixedHeightSearchResults = styled(SearchResults)`
     @media ${screenSize.upToSmall} {
         background-color: ${({ theme }) => theme.colorMap.pageBackground};
         border: none;
-        height: 100vh;
+        height: calc(100vh - 60px);
         padding-bottom: ${MOBILE_HEIGHT_OFFSET};
         top: 50px;
         overflow: scroll;
@@ -50,6 +50,10 @@ const SearchResultsContainer = styled('div')`
     width: 100%;
     z-index: -1;
     ${fadeInAnimation(0, '0.2s')};
+    @media ${screenSize.upToSmall} {
+        top: 0;
+        border: none;
+    }
 `;
 
 const SearchFooter = styled('div')`
