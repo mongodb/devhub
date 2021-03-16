@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { css, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
-import { uiColors } from '@leafygreen-ui/palette';
 import useMedia from '~hooks/use-media';
 import { screenSize, size } from '~components/dev-hub/theme';
 import Pagination from './Pagination';
 import SearchResults from './SearchResults';
 
+const MOBILE_HEIGHT_OFFSET = '256px';
 const RESULTS_PER_PAGE = 3;
 const SEARCH_FOOTER_DESKTOP_HEIGHT = size.xlarge;
 const SEARCH_RESULTS_DESKTOP_HEIGHT = '392px';
@@ -29,6 +29,14 @@ const fadeInAnimation = (startingOpacity, seconds) => css`
 
 const FixedHeightSearchResults = styled(SearchResults)`
     height: ${SEARCH_RESULTS_DESKTOP_HEIGHT};
+    @media ${screenSize.upToSmall} {
+        background-color: ${({ theme }) => theme.colorMap.pageBackground};
+        border: none;
+        height: 100vh;
+        padding-bottom: ${MOBILE_HEIGHT_OFFSET};
+        top: 50px;
+        overflow: scroll;
+    }
 `;
 
 const SearchResultsContainer = styled('div')`
@@ -42,14 +50,6 @@ const SearchResultsContainer = styled('div')`
     width: 100%;
     z-index: -1;
     ${fadeInAnimation(0, '0.2s')};
-    @media ${screenSize.upToSmall} {
-        background-color: ${uiColors.gray.light3};
-        border: none;
-        top: 50px;
-        height: 100vh;
-        padding-bottom: 20px;
-        overflow: scroll;
-    }
 `;
 
 const SearchFooter = styled('div')`

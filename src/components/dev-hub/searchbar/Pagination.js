@@ -6,7 +6,7 @@ import { colorMap, size } from '~components/dev-hub/theme';
 
 // 16px for the icon + 2px padding on each side for hover circle
 const BUTTON_WIDTH = `${size.stripUnit(size.default) + 4}px`;
-const ENABLED_COLOR = colorMap.devWhite;
+const ENABLED_COLOR = colorMap.greyLightOne;
 const DISABLED_COLOR = colorMap.greyDarkOne;
 
 const PaginationButton = styled(IconButton)`
@@ -19,8 +19,16 @@ const PaginationButton = styled(IconButton)`
     &:hover,
     &:focus {
         :before {
-            background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+            content: none;
         }
+    }
+`;
+
+const PaginationIcon = styled(Icon)`
+    &:active,
+    &:hover,
+    &:focus {
+        color: ${({ theme }) => theme.colorMap.devWhite};
     }
 `;
 
@@ -55,7 +63,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
                 onClick={decrementPage}
                 title="Back Page"
             >
-                <Icon
+                <PaginationIcon
                     glyph="ChevronLeft"
                     fill={canDecrementPage ? ENABLED_COLOR : DISABLED_COLOR}
                 />
@@ -72,7 +80,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
                 onClick={incrementPage}
                 title="Forward Page"
             >
-                <Icon
+                <PaginationIcon
                     glyph="ChevronRight"
                     fill={canIncrementPage ? ENABLED_COLOR : DISABLED_COLOR}
                 />
