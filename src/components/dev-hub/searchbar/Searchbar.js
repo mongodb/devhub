@@ -5,9 +5,13 @@ import React, {
     useState,
     useRef,
 } from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import CondensedSearchbar from './CondensedSearchbar';
-import ExpandedSearchbar, { MagnifyingGlass } from './ExpandedSearchbar';
+import ExpandedSearchbar, {
+    GoButton,
+    MagnifyingGlass,
+} from './ExpandedSearchbar';
 import SearchContext from './SearchContext';
 import { activeTextBarStyling, StyledTextInput } from './SearchTextInput';
 import { useClickOutside } from '~hooks/use-click-outside';
@@ -27,6 +31,21 @@ const SEARCHBAR_HEIGHT = '36px';
 const SEARCHBAR_HEIGHT_OFFSET = '10px';
 const TRANSITION_SPEED = '150ms';
 
+const focusedInputStyling = theme => css`
+    ${StyledTextInput} {
+        div > input {
+            ${activeTextBarStyling}
+            border: 1px solid ${theme.colorMap.greyDarkOne};
+            transition: background-color ${TRANSITION_SPEED} ease-in,
+                color ${TRANSITION_SPEED} ease-in;
+            @media ${screenSize.upToSmall} {
+                border: none;
+                box-shadow: none;
+            }
+        }
+    }
+`;
+
 const CommonSearchbarContainer = styled('div')`
     top: ${SEARCHBAR_HEIGHT_OFFSET};
     height: ${SEARCHBAR_HEIGHT};
@@ -34,21 +53,18 @@ const CommonSearchbarContainer = styled('div')`
     right: ${size.default};
     /* docs-tools navbar z-index is 9999 */
     z-index: ${layer.front};
-    :hover,
     :focus,
     :focus-within {
-        ${StyledTextInput} {
-            div > input {
-                ${activeTextBarStyling}
-                border: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne};
-                transition: background-color ${TRANSITION_SPEED} ease-in,
-                    color ${TRANSITION_SPEED} ease-in;
-                @media ${screenSize.upToSmall} {
-                    border: none;
-                    box-shadow: none;
-                }
-            }
+        ${({ theme }) => focusedInputStyling(theme)};
+        ${MagnifyingGlass} {
+            color: ${({ theme }) => theme.colorMap.devWhite};
         }
+        ${GoButton} {
+            background-color: ${({ theme }) => theme.colorMap.greyLightOne};
+        }
+    }
+    :hover {
+        ${({ theme }) => focusedInputStyling(theme)};
     }
 `;
 

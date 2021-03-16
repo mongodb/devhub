@@ -201,5 +201,5 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
 };
 
 // Export this icon to be used as a selector by a parent component
-export { MagnifyingGlass };
+export { GoButton, MagnifyingGlass };
 export default ExpandedSearchbar;
