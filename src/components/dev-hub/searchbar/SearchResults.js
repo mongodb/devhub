@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { fontSize, screenSize, size } from '~components/dev-hub/theme';
+import useMedia from '~hooks/use-media';
 import SearchResult from './SearchResult';
 import { reportAnalytics } from '~utils/report-analytics';
 import { P } from '~components/dev-hub/text';
@@ -72,12 +73,15 @@ const StyledSearchResult = styled(SearchResult)`
     }
 `;
 
+let scrollPosition = 0;
+
 const SearchResults = ({
     currentPage,
     totalResultsCount,
     visibleResults,
     ...props
 }) => {
+    const isMobile = useMedia(screenSize.upToSmall);
     const hasResults = useMemo(() => !!totalResultsCount, [totalResultsCount]);
     const getRankFromPage = useCallback(
         index => (currentPage - 1) * index + 1,
@@ -86,9 +90,21 @@ const SearchResults = ({
     useEffect(() => {
         // This effect prevents scrolling outside the opened nav
         // We restore normal scrolling when the nav is closed
-        document.body.style.overflow = 'hidden';
-        return () => (document.body.style.overflow = 'auto');
-    }, []);
+        if (isMobile) {
+            scrollPosition = window.pageYOffset;
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollPosition}px`;
+            document.body.style.width = `100%`;
+            return () => {
+                document.body.style.overflow = null;
+                document.body.style.position = null;
+                document.body.style.top = null;
+                document.body.style.width = null;
+                window.scrollTo(0, scrollPosition);
+            };
+        }
+    }, [isMobile]);
     return (
         <SearchResultsContainer hasResults={hasResults} {...props}>
             <StyledResultText>
