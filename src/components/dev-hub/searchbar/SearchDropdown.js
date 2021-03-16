@@ -43,8 +43,8 @@ const SearchResultsContainer = styled('div')`
     z-index: -1;
     ${fadeInAnimation(0, '0.2s')};
     @media ${screenSize.upToSmall} {
-        border: none;
         background-color: ${uiColors.gray.light3};
+        border: none;
         top: 50px;
         height: 100vh;
         padding-bottom: 20px;

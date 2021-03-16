@@ -7,7 +7,7 @@ import Icon from '@leafygreen-ui/icon';
 import IconButton from '@leafygreen-ui/icon-button';
 import useMedia from '~hooks/use-media';
 import { screenSize, size } from '~components/dev-hub/theme';
-import SearchTextInput, { StyledTextInput } from './SearchTextInput';
+import SearchTextInput from './SearchTextInput';
 import { SearchResultLink } from './SearchResult';
 import SearchContext from './SearchContext';
 
@@ -190,8 +190,8 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
                 >
                     <Icon
                         color={MOBILE_CLOSE_BUTTON_COLOR}
-                        height="20"
-                        width="20"
+                        height={MOBILE_CLOSE_BUTTON_SIZE}
+                        width={MOBILE_CLOSE_BUTTON_SIZE}
                         glyph="X"
                     />
                 </MobileCloseButton>
