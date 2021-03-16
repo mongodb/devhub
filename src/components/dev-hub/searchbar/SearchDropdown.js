@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { css, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
-import { uiColors } from '@leafygreen-ui/palette';
 import useMedia from '~hooks/use-media';
 import { screenSize, size } from '~components/dev-hub/theme';
 import Pagination from './Pagination';
@@ -29,6 +28,14 @@ const fadeInAnimation = (startingOpacity, seconds) => css`
 
 const FixedHeightSearchResults = styled(SearchResults)`
     height: ${SEARCH_RESULTS_DESKTOP_HEIGHT};
+    @media ${screenSize.upToSmall} {
+        background-color: ${({ theme }) => theme.colorMap.pageBackground};
+        border: none;
+        top: 50px;
+        height: 100vh;
+        padding-bottom: 256px;
+        overflow: scroll;
+    }
 `;
 
 const SearchResultsContainer = styled('div')`
@@ -42,14 +49,6 @@ const SearchResultsContainer = styled('div')`
     width: 100%;
     z-index: -1;
     ${fadeInAnimation(0, '0.2s')};
-    @media ${screenSize.upToSmall} {
-        background-color: ${uiColors.gray.light3};
-        border: none;
-        top: 50px;
-        height: 100vh;
-        padding-bottom: 20px;
-        overflow: scroll;
-    }
 `;
 
 const SearchFooter = styled('div')`
