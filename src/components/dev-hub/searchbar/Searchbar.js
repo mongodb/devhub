@@ -5,9 +5,13 @@ import React, {
     useState,
     useRef,
 } from 'react';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import CondensedSearchbar from './CondensedSearchbar';
-import ExpandedSearchbar, { MagnifyingGlass } from './ExpandedSearchbar';
+import ExpandedSearchbar, {
+    GoButton,
+    MagnifyingGlass,
+} from './ExpandedSearchbar';
 import SearchContext from './SearchContext';
 import { activeTextBarStyling, StyledTextInput } from './SearchTextInput';
 import { useClickOutside } from '~hooks/use-click-outside';
@@ -27,6 +31,21 @@ const SEARCHBAR_HEIGHT = '36px';
 const SEARCHBAR_HEIGHT_OFFSET = '10px';
 const TRANSITION_SPEED = '150ms';
 
+const focusedInputStyling = theme => css`
+    ${StyledTextInput} {
+        div > input {
+            ${activeTextBarStyling}
+            border: 1px solid ${theme.colorMap.greyDarkOne};
+            transition: background-color ${TRANSITION_SPEED} ease-in,
+                color ${TRANSITION_SPEED} ease-in;
+            @media ${screenSize.upToSmall} {
+                border: none;
+                box-shadow: none;
+            }
+        }
+    }
+`;
+
 const CommonSearchbarContainer = styled('div')`
     top: ${SEARCHBAR_HEIGHT_OFFSET};
     height: ${SEARCHBAR_HEIGHT};
@@ -34,21 +53,18 @@ const CommonSearchbarContainer = styled('div')`
     right: ${size.default};
     /* docs-tools navbar z-index is 9999 */
     z-index: ${layer.front};
-    :hover,
     :focus,
     :focus-within {
-        ${StyledTextInput} {
-            div > input {
-                ${activeTextBarStyling}
-                border: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne};
-                transition: background-color ${TRANSITION_SPEED} ease-in,
-                    color ${TRANSITION_SPEED} ease-in;
-                @media ${screenSize.upToSmall} {
-                    border: none;
-                    box-shadow: none;
-                }
-            }
+        ${({ theme }) => focusedInputStyling(theme)};
+        ${MagnifyingGlass} {
+            color: ${({ theme }) => theme.colorMap.devWhite};
         }
+        ${GoButton} {
+            background-color: ${({ theme }) => theme.colorMap.greyLightOne};
+        }
+    }
+    :hover {
+        ${({ theme }) => focusedInputStyling(theme)};
     }
 `;
 
@@ -58,15 +74,13 @@ const DesktopSearchbarContainer = styled(CommonSearchbarContainer)`
 `;
 
 const MobileSearchbarContainer = styled(CommonSearchbarContainer)`
-    ${showOnDeviceSize(screenSize.upToSmallDesktop)}
-    transition: width ${TRANSITION_SPEED} ease-in;
+    ${showOnDeviceSize(screenSize.upToSmallDesktop)};
     width: ${({ isExpanded }) =>
         isExpanded ? SEARCHBAR_DESKTOP_WIDTH : BUTTON_SIZE};
     @media ${screenSize.upToSmall} {
         top: ${SEARCHBAR_HEIGHT_OFFSET};
         height: ${({ isExpanded, isSearching }) =>
             isExpanded && isSearching ? '100%' : SEARCHBAR_HEIGHT};
-        transition: unset;
         width: ${({ isExpanded }) => (isExpanded ? '100%' : BUTTON_SIZE)};
         ${({ isExpanded }) => (isExpanded ? 'left: 0' : 'right: 0')};
     }
@@ -74,12 +88,13 @@ const MobileSearchbarContainer = styled(CommonSearchbarContainer)`
 
 const limitSearchResults = (results, limit) => results.slice(0, limit);
 
-const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
+const Searchbar = ({ isExpanded, setIsExpanded }) => {
     const [value, setValue] = useState('');
     const [searchEvent, setSearchEvent] = useState(null);
     const [reportEvent, setReportEvent] = useState(null);
     const [searchResults, setSearchResults] = useState([]);
     const [isFocused, setIsFocused] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const searchContainerRef = useRef(null);
     const isMobile = useMedia(screenSize.upToSmall);
     // A user is searching if the text input is focused and it is not empty
@@ -128,6 +143,8 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
         const limitedResults = applyLimit
             ? limitSearchResults(results, NUMBER_SEARCH_RESULTS)
             : results;
+        // End loading animation
+        setIsLoading(false);
         setSearchResults(limitedResults);
     }, [isMobile, value]);
 
@@ -137,6 +154,8 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
 
     useEffect(() => {
         if (value) {
+            // Start loading animation
+            setIsLoading(true);
             // Set a timeout to trigger the search to avoid over-requesting
             setSearchEvent(
                 setTimeout(fetchNewSearchResults, SEARCH_DELAY_TIME)
@@ -156,9 +175,10 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
             >
                 <SearchContext.Provider
                     value={{
+                        isLoading,
                         searchContainerRef,
                         searchTerm: value,
-                        shouldAutofocus,
+                        shouldAutofocus: false,
                     }}
                 >
                     <ExpandedSearchbar
@@ -177,9 +197,10 @@ const Searchbar = ({ isExpanded, setIsExpanded, shouldAutofocus }) => {
                 {isExpanded ? (
                     <SearchContext.Provider
                         value={{
+                            isLoading,
                             searchContainerRef,
                             searchTerm: value,
-                            shouldAutofocus,
+                            shouldAutofocus: true,
                         }}
                     >
                         <ExpandedSearchbar
