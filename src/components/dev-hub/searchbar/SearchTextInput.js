@@ -92,9 +92,9 @@ const SearchTextInput = React.forwardRef(
             <SearchWrapper isSearching={isSearching}>
                 <StyledTextInput
                     autoFocus={shouldAutofocus}
-                    label="Search Docs"
+                    label="Search Articles"
                     onChange={onChange}
-                    placeholder={'Search Articles...'}
+                    placeholder="Search Articles..."
                     ref={ref}
                     tabIndex="0"
                     value={value}

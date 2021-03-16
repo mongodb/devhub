@@ -37,9 +37,6 @@ const CommonSearchbarContainer = styled('div')`
     :hover,
     :focus,
     :focus-within {
-        ${MagnifyingGlass} {
-            color: ${({ theme }) => theme.colorMap.devWhite};
-        }
         ${StyledTextInput} {
             div > input {
                 ${activeTextBarStyling}
