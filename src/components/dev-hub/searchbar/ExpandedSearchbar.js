@@ -38,7 +38,7 @@ const MobileCloseButton = styled(IconButton)`
     position: absolute;
     right: 10px;
     /* button is 16px and entire container is 36px so 8px top gives equal spacing */
-    top: 8px;
+    top: ${size.xsmall};
     width: ${MOBILE_CLOSE_BUTTON_SIZE};
     z-index: 1;
     ${removeDefaultHoverEffects};
@@ -61,9 +61,9 @@ const GoIcon = styled(Icon)`
     /* Icon box size is 16px, 4px gives equal width and height */
     left: 4px;
     top: 4px;
-    height: 8px;
+    height: ${size.xsmall};
     position: absolute;
-    width: 8px;
+    width: ${size.xsmall};
 `;
 
 const MagnifyingGlass = styled(Icon)`
@@ -92,7 +92,7 @@ const MagnifyingGlassButton = styled(IconButton)`
     }
     @media ${screenSize.upToSmall} {
         height: ${size.medium};
-        top: 8px;
+        top: ${size.xsmall};
         width: ${size.medium};
     }
 `;
