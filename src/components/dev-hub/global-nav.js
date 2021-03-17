@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import dlv from 'dlv';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import LeafLogo from './icons/mdb-dev-logo-leaf';
@@ -16,6 +17,11 @@ const MOBILE_MENU_ADDITIONAL_PADDING = '256px';
 const MOBILE_NAV_BREAK = screenSize.upToLarge;
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
+
+const expandedState = css`
+    opacity: 0.2;
+    pointer-events: none;
+`;
 
 const Nav = styled('nav')`
     background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
@@ -60,7 +66,7 @@ const NavContent = styled('div')`
     flex-wrap: wrap;
     width: 100%;
     @media ${screenSize.upToSmallDesktop} {
-        ${({ isExpanded }) => isExpanded && 'opacity: 0.2;'};
+        ${({ isExpanded }) => isExpanded && expandedState};
     }
     @media ${MOBILE_NAV_BREAK} {
         display: grid;
