@@ -1,7 +1,5 @@
 import { makeLinkInternalIfApplicable } from '~utils/make-link-internal-if-applicable';
-
-const DEVHUB_URL = 'https://developer.mongodb.com';
-const FORUMS_URL = 'https://developer.mongodb.com/community/forums';
+import { FORUMS_URL, SITE_URL } from '~src/constants';
 
 it('should parse internal links and add a trailing slash if needed', () => {
     expect(makeLinkInternalIfApplicable(null)).toBe(null);
@@ -9,7 +7,7 @@ it('should parse internal links and add a trailing slash if needed', () => {
 
     const internalArticleSlug = '/foo/bar';
     const internalArticleSlugTrailingSlash = `${internalArticleSlug}/`;
-    const fullArticleLink = `${DEVHUB_URL}${internalArticleSlug}`;
+    const fullArticleLink = `${SITE_URL}${internalArticleSlug}`;
 
     const forumsLink = `${FORUMS_URL}/u/foo`;
     const externalLink = 'https://google.com';
