@@ -14,7 +14,7 @@ import SearchContext from './SearchContext';
 
 const ARROW_DOWN_KEY = 40;
 const ENTER_KEY = 13;
-const GO_BUTTON_COLOR = '#FFFFFF';
+const GO_BUTTON_COLOR = '#E7EEEC';
 const GO_BUTTON_SIZE = size.default;
 const MOBILE_CLOSE_BUTTON_COLOR = '#F9FBFA';
 const MOBILE_CLOSE_BUTTON_SIZE = size.medium;
@@ -38,7 +38,7 @@ const MobileCloseButton = styled(IconButton)`
     position: absolute;
     right: 10px;
     /* button is 16px and entire container is 36px so 8px top gives equal spacing */
-    top: 10px;
+    top: 8px;
     width: ${MOBILE_CLOSE_BUTTON_SIZE};
     z-index: 1;
     ${removeDefaultHoverEffects};
@@ -92,6 +92,7 @@ const MagnifyingGlassButton = styled(IconButton)`
     }
     @media ${screenSize.upToSmall} {
         height: ${size.medium};
+        top: 8px;
         width: ${size.medium};
     }
 `;

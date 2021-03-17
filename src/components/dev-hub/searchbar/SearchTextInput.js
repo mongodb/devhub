@@ -25,8 +25,8 @@ const StyledTextInput = styled(TextInput)`
         border-radius: ${size.medium};
         color: ${({ theme }) => theme.colorMap.devWhite};
         /* 24 px for magnifying glass plus 16px margin */
-        padding-left: 40px;
-        padding-right: ${size.large};
+        /* Explicitly set 0 for iOS inputs */
+        padding: 0 ${size.large} 0 40px;
         font-weight: 300;
         letter-spacing: 0.5px;
         transition: background-color 150ms ease-in;

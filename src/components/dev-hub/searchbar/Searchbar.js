@@ -35,7 +35,7 @@ const focusedInputStyling = theme => css`
     ${StyledTextInput} {
         div > input {
             ${activeTextBarStyling}
-            border: 1px solid ${theme.colorMap.greyDarkOne};
+            border: 1px solid ${theme.colorMap.greyDarkTwo};
             transition: background-color ${TRANSITION_SPEED} ease-in,
                 color ${TRANSITION_SPEED} ease-in;
             @media ${screenSize.upToSmall} {
@@ -53,18 +53,23 @@ const CommonSearchbarContainer = styled('div')`
     right: ${size.default};
     /* docs-tools navbar z-index is 9999 */
     z-index: ${layer.front};
+    :hover {
+        ${({ theme }) => focusedInputStyling(theme)};
+    }
     :focus,
     :focus-within {
         ${({ theme }) => focusedInputStyling(theme)};
+        ${StyledTextInput} {
+            div > input {
+                border: 1px solid ${({ theme }) => theme.colorMap.greyDarkOne};
+            }
+        }
         ${MagnifyingGlass} {
             color: ${({ theme }) => theme.colorMap.devWhite};
         }
         ${GoButton} {
             background-color: ${({ theme }) => theme.colorMap.greyLightOne};
         }
-    }
-    :hover {
-        ${({ theme }) => focusedInputStyling(theme)};
     }
 `;
 
