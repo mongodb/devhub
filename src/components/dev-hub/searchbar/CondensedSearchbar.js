@@ -17,8 +17,8 @@ const ExpandButton = styled(IconButton)`
     height: 20px;
     position: absolute;
     right: 20px;
-    /* 32px button in a 36px container, 2px top gives equal spacing */
-    top: 10px;
+    /* 20px button in a 36px container, 8px top gives equal spacing */
+    top: 8px;
     width: 20px;
     z-index: 1;
     :hover,

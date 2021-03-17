@@ -46,14 +46,18 @@ const MobileNavMenu = styled('div')`
     }
 `;
 
+const MaxWidthContainer = styled('div')`
+    margin: 0 auto;
+    max-width: ${size.maxWidth};
+    position: relative;
+    width: 100%;
+`;
+
 const NavContent = styled('div')`
     align-items: center;
     color: ${({ theme }) => theme.colorMap.devWhite};
     display: flex;
     flex-wrap: wrap;
-    margin: 0 auto;
-    max-width: ${size.maxWidth};
-    position: relative;
     width: 100%;
     @media ${screenSize.upToSmallDesktop} {
         ${({ isExpanded }) => isExpanded && 'opacity: 0.2;'};
@@ -62,7 +66,7 @@ const NavContent = styled('div')`
         display: grid;
         grid-template-columns: ${size.large} auto ${size.large};
         justify-items: center;
-        padding: 0 ${size.default};
+        padding: 0;
     }
 `;
 
@@ -153,29 +157,31 @@ const GlobalNav = () => {
     }, []);
     return (
         <Nav>
-            <NavContent isExpanded={isSearchbarExpanded}>
-                {isMobile ? (
-                    <>
-                        <MobileItems items={items} />
-                        <HomeLink aria-label="Home" to="/">
-                            <LeafLogo />
-                        </HomeLink>
-                    </>
-                ) : (
-                    <>
-                        <HomeLink aria-label="Home" to="/">
-                            <LeafLogo />
-                        </HomeLink>
-                        {items.map(item => (
-                            <NavItem key={item.name} item={item} />
-                        ))}
-                    </>
-                )}
-            </NavContent>
-            <Searchbar
-                isExpanded={isSearchbarExpanded}
-                setIsExpanded={onSearchbarExpand}
-            />
+            <MaxWidthContainer>
+                <NavContent isExpanded={isSearchbarExpanded}>
+                    {isMobile ? (
+                        <>
+                            <MobileItems items={items} />
+                            <HomeLink aria-label="Home" to="/">
+                                <LeafLogo />
+                            </HomeLink>
+                        </>
+                    ) : (
+                        <>
+                            <HomeLink aria-label="Home" to="/">
+                                <LeafLogo />
+                            </HomeLink>
+                            {items.map(item => (
+                                <NavItem key={item.name} item={item} />
+                            ))}
+                        </>
+                    )}
+                </NavContent>
+                <Searchbar
+                    isExpanded={isSearchbarExpanded}
+                    setIsExpanded={onSearchbarExpand}
+                />
+            </MaxWidthContainer>
         </Nav>
     );
 };
