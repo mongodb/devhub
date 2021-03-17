@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useMemo, useRef } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
+import { withPrefix } from 'gatsby';
 import { useEventListener } from '@leafygreen-ui/hooks';
 import Icon from '@leafygreen-ui/icon';
 import IconButton from '@leafygreen-ui/icon-button';
@@ -152,9 +153,10 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
         element: searchTextbox.current,
     });
 
-    const searchUrl = useMemo(() => `/learn/?text=${searchTerm}#main`, [
-        searchTerm,
-    ]);
+    const searchUrl = useMemo(
+        () => withPrefix(`/learn/?text=${searchTerm}#main`),
+        [searchTerm]
+    );
 
     return (
         <span data-test="Expanded Searchbar">
