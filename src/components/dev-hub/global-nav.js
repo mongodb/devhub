@@ -119,7 +119,7 @@ const topNavItems = graphql`
     }
 `;
 
-const MobileItems = ({ items }) => {
+const MobileItems = ({ isSearchbarExpanded, items }) => {
     const [isOpen, setIsOpen] = useState(false);
     const closeMenu = useCallback(() => setIsOpen(false), []);
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
@@ -137,7 +137,7 @@ const MobileItems = ({ items }) => {
     return (
         <>
             <MenuToggle isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
-            {isOpen && (
+            {isOpen && !isSearchbarExpanded && (
                 <MobileNavMenu>
                     {items.map(item => (
                         <MobileNavItem
@@ -167,7 +167,10 @@ const GlobalNav = () => {
                 <NavContent isExpanded={isSearchbarExpanded}>
                     {isMobile ? (
                         <>
-                            <MobileItems items={items} />
+                            <MobileItems
+                                isSearchbarExpanded={isSearchbarExpanded}
+                                items={items}
+                            />
                             <HomeLink aria-label="Home" to="/">
                                 <LeafLogo />
                             </HomeLink>
