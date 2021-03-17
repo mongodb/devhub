@@ -14,7 +14,7 @@ import SearchContext from './SearchContext';
 
 const ARROW_DOWN_KEY = 40;
 const ENTER_KEY = 13;
-const GO_BUTTON_COLOR = '#FFFFFF';
+const GO_BUTTON_COLOR = '#E7EEEC';
 const GO_BUTTON_SIZE = size.default;
 const MOBILE_CLOSE_BUTTON_COLOR = '#F9FBFA';
 const MOBILE_CLOSE_BUTTON_SIZE = size.medium;
@@ -38,7 +38,7 @@ const MobileCloseButton = styled(IconButton)`
     position: absolute;
     right: 10px;
     /* button is 16px and entire container is 36px so 8px top gives equal spacing */
-    top: 10px;
+    top: ${size.xsmall};
     width: ${MOBILE_CLOSE_BUTTON_SIZE};
     z-index: 1;
     ${removeDefaultHoverEffects};
@@ -55,15 +55,22 @@ const GoButton = styled(IconButton)`
     top: 10px;
     width: ${GO_BUTTON_SIZE};
     z-index: 1;
+    :hover,
+    :focus {
+        background-color: ${({ theme }) => theme.colorMap.devWhite};
+        :before {
+            background-color: ${({ theme }) => theme.colorMap.devWhite};
+        }
+    }
 `;
 
 const GoIcon = styled(Icon)`
     /* Icon box size is 16px, 4px gives equal width and height */
     left: 4px;
     top: 4px;
-    height: 8px;
+    height: ${size.xsmall};
     position: absolute;
-    width: 8px;
+    width: ${size.xsmall};
 `;
 
 const MagnifyingGlass = styled(Icon)`
@@ -92,6 +99,7 @@ const MagnifyingGlassButton = styled(IconButton)`
     }
     @media ${screenSize.upToSmall} {
         height: ${size.medium};
+        top: ${size.xsmall};
         width: ${size.medium};
     }
 `;

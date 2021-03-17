@@ -84,7 +84,7 @@ describe('search', () => {
         cy.get(SEARCH_INPUT).type('node');
         cy.wait('@searchEmptyArticles');
         cy.get(SEARCH_DROPDOWN).within(() => {
-            cy.contains('There are no search results');
+            cy.contains('No matching results');
         });
     });
     it('should be mobile responsive', () => {

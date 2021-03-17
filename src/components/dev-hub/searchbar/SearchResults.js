@@ -13,6 +13,7 @@ const SEARCH_RESULT_HEIGHT = '112px';
 const SEARCH_RESULT_MOBILE_HEIGHT = '136px';
 
 const StyledResultText = styled(P)`
+    align-self: flex-start;
     font-family: Akzidenz;
     font-size: ${fontSize.small};
     letter-spacing: 0.5px;
@@ -29,10 +30,11 @@ const SearchResultsContainer = styled('div')`
     grid-template-rows: ${({ hasResults }) =>
         hasResults
             ? `${size.mediumLarge} ${SEARCH_RESULT_HEIGHT} ${SEARCH_RESULT_HEIGHT} ${SEARCH_RESULT_HEIGHT}`
-            : `${size.mediumLarge} ${size.large}`};
+            : `${size.mediumLarge} 48px`};
     position: relative;
     /* Give top padding on desktop to offset this extending into the searchbar */
     padding-top: 36px;
+    row-gap: ${({ hasResults }) => (hasResults ? 0 : size.small)};
     width: 100%;
     @media ${screenSize.upToSmall} {
         background-color: ${({ theme }) => theme.colorMap.pageBackground};
@@ -117,7 +119,9 @@ const SearchResults = ({
                 <>
                     <StyledResultText>
                         <strong>
-                            Most Relevant Results ({totalResultsCount})
+                            {hasResults
+                                ? `Most Relevant Results (${totalResultsCount})`
+                                : 'No matching results.'}
                         </strong>
                     </StyledResultText>
                     {hasResults ? (
@@ -141,7 +145,8 @@ const SearchResults = ({
                         )
                     ) : (
                         <StyledResultText>
-                            There are no search results
+                            We did not find any articles matching your query,
+                            please try with different search query.
                         </StyledResultText>
                     )}
                 </>

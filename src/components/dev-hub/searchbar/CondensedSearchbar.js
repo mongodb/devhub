@@ -25,7 +25,7 @@ const ExpandButton = styled(IconButton)`
     :focus {
         background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
         ${ExpandMagnifyingGlass} {
-            color: ${({ theme }) => theme.colorMap.greyDarkTwo};
+            color: ${({ theme }) => theme.colorMap.devWhite};
             transition: color 150ms ease-in;
         }
     }
@@ -35,7 +35,7 @@ const ExpandButton = styled(IconButton)`
     :after {
         display: none;
     }
-    @media ${screenSize.upToSmall} {
+    @media ${screenSize.upToLarge} {
         color: ${({ theme }) => theme.colorMap.devWhite};
     }
 `;
