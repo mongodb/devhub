@@ -28,7 +28,7 @@ const REPORT_SEARCH_DELAY_TIME = 1000;
 const SEARCH_DELAY_TIME = 200;
 const SEARCHBAR_DESKTOP_WIDTH = '372px';
 const SEARCHBAR_HEIGHT = '36px';
-const SEARCHBAR_HEIGHT_OFFSET = '10px';
+const SEARCHBAR_HEIGHT_OFFSET = '11px';
 const TRANSITION_SPEED = '150ms';
 
 const focusedInputStyling = theme => css`
@@ -77,12 +77,17 @@ const MobileSearchbarContainer = styled(CommonSearchbarContainer)`
     ${showOnDeviceSize(screenSize.upToSmallDesktop)};
     width: ${({ isExpanded }) =>
         isExpanded ? SEARCHBAR_DESKTOP_WIDTH : BUTTON_SIZE};
+    @media ${screenSize.upToLarge} {
+        right: ${size.xsmall};
+        ${({ isExpanded }) =>
+            isExpanded ? `right: ${size.default}` : 'right: 0'};
+    }
     @media ${screenSize.upToSmall} {
         top: ${SEARCHBAR_HEIGHT_OFFSET};
         height: ${({ isExpanded, isSearching }) =>
             isExpanded && isSearching ? '100%' : SEARCHBAR_HEIGHT};
         width: ${({ isExpanded }) => (isExpanded ? '100%' : BUTTON_SIZE)};
-        ${({ isExpanded }) => (isExpanded ? 'left: 0' : 'right: 0')};
+        ${({ isExpanded }) => isExpanded && 'left: 0'};
     }
 `;
 
