@@ -55,6 +55,10 @@ const GoButton = styled(IconButton)`
     top: 10px;
     width: ${GO_BUTTON_SIZE};
     z-index: 1;
+    :hover,
+    :focus {
+        background-color: ${({ theme }) => theme.colorMap.devWhite};
+    }
 `;
 
 const GoIcon = styled(Icon)`

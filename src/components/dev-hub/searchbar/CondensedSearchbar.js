@@ -35,7 +35,7 @@ const ExpandButton = styled(IconButton)`
     :after {
         display: none;
     }
-    @media ${screenSize.upToSmallDesktop} {
+    @media ${screenSize.upToLarge} {
         color: ${({ theme }) => theme.colorMap.devWhite};
     }
 `;
