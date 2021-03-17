@@ -25,7 +25,7 @@ query Articles {
             tag
           }
           slug
-          Image {
+          image {
             url
           }
         Name

@@ -17,7 +17,8 @@ export const createArticlePage = (
     const pageNodes = parsedPageNodes || slugContentMapping[page];
     if (pageNodes && Object.keys(pageNodes).length > 0) {
         const template = getTemplate(
-            getNestedValue(['ast', 'options', 'template'], pageNodes)
+            getNestedValue(['ast', 'options', 'template'], pageNodes) ||
+                'devhub-article'
         );
         const slug = getPageSlug(page);
         if (pageNodes.query_fields) {

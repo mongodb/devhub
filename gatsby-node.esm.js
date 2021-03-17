@@ -122,6 +122,14 @@ export const createPages = async ({ actions, graphql }) => {
         graphql(articles),
     ]);
 
+    await createProjectPages(createPage, graphql);
+
+    if (result.error) {
+        throw new Error(`Page build error: ${result.error}`);
+    }
+
+    const allSeries = filteredPageGroups(metadataDocument.pageGroups);
+
     await createStrapiArticlePages(graphql, (slug, nodes) =>
         createArticlePage(
             slug,
@@ -132,13 +140,6 @@ export const createPages = async ({ actions, graphql }) => {
             nodes
         )
     );
-    await createProjectPages(createPage, graphql);
-
-    if (result.error) {
-        throw new Error(`Page build error: ${result.error}`);
-    }
-
-    const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
     result.data.allArticle.nodes.forEach(article => {
         createArticlePage(
