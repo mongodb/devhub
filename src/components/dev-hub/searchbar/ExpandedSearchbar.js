@@ -58,6 +58,9 @@ const GoButton = styled(IconButton)`
     :hover,
     :focus {
         background-color: ${({ theme }) => theme.colorMap.devWhite};
+        :before {
+            background-color: ${({ theme }) => theme.colorMap.devWhite};
+        }
     }
 `;
 
