@@ -74,35 +74,39 @@ const StyledLink = styled('a')`
  * @property {boolean?} props.tertiary
  * @property {string?} props.to
  */
-const Link = ({ href, onClick, target, tertiary, to, ...rest }) => {
-    if (to) {
-        const AsInternalLink = StyledLink.withComponent(RouterLink);
-        const absoluteLink = to.startsWith('/') ? to : `/${to}`;
-        const linkWithTrailingSlash = addTrailingSlashBeforeParams(
-            absoluteLink
-        );
+const Link = React.forwardRef(
+    ({ href, onClick, target, tertiary, to, ...rest }, ref) => {
+        if (to) {
+            const AsInternalLink = StyledLink.withComponent(RouterLink);
+            const absoluteLink = to.startsWith('/') ? to : `/${to}`;
+            const linkWithTrailingSlash = addTrailingSlashBeforeParams(
+                absoluteLink
+            );
+            return (
+                <AsInternalLink
+                    ref={ref}
+                    onClick={onClick}
+                    to={linkWithTrailingSlash}
+                    tertiary={tertiary}
+                    {...rest}
+                />
+            );
+        }
         return (
-            <AsInternalLink
-                onClick={onClick}
-                to={linkWithTrailingSlash}
+            <StyledLink
+                ref={ref}
+                href={href}
+                onClick={wrapPreventDefault(onClick, href)}
+                onKeyPress={href ? undefined : handleEnter(onClick)}
+                rel={target === '_blank' ? 'noreferrer noopener' : void 0}
+                target={target}
+                {...(typeof href === 'undefined' ? BUTTON_PROPS : null)}
                 tertiary={tertiary}
                 {...rest}
             />
         );
     }
-    return (
-        <StyledLink
-            href={href}
-            onClick={wrapPreventDefault(onClick, href)}
-            onKeyPress={href ? undefined : handleEnter(onClick)}
-            rel={target === '_blank' ? 'noreferrer noopener' : void 0}
-            target={target}
-            {...(typeof href === 'undefined' ? BUTTON_PROPS : null)}
-            tertiary={tertiary}
-            {...rest}
-        />
-    );
-};
+);
 
 Link.displayName = 'Link';
 
