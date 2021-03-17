@@ -12,6 +12,7 @@ import Youtube from './icons/youtube';
 import Twitch from './icons/twitch';
 import { P } from './text';
 import { useTheme } from 'emotion-theming';
+import { FORUMS_URL } from '~src/constants';
 
 // Logo size 150px + 64px padding right
 const LOGO_DESKTOP_COLUMN_SIZE = 214;
@@ -31,7 +32,7 @@ const siteLinks = [
     },
     {
         name: 'Community Forums',
-        url: 'https://developer.mongodb.com/community/forums',
+        url: FORUMS_URL,
     },
 ];
 
@@ -184,7 +185,7 @@ const FooterLink = styled(Link)`
     text-decoration: none;
 `;
 const ListItem = styled('li')`
-    @media ${screenSize.mediumAndUp}{
+    @media ${screenSize.mediumAndUp} {
         text-align: center;
     }
     ${props =>
