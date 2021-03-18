@@ -7,6 +7,7 @@ import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
 import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
+import { createStrapiAuthorPages } from './src/utils/setup/create-strapi-author-pages';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getMetadata } from './src/utils/get-metadata';
@@ -150,6 +151,7 @@ export const createPages = async ({ actions, graphql }) => {
         )
     );
     await Promise.all(tagPages);
+    await createStrapiAuthorPages(createPage, metadataDocument, graphql);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
