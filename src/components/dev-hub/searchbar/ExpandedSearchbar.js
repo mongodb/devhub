@@ -162,7 +162,7 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
     });
 
     const searchUrl = useMemo(
-        () => withPrefix(`/learn/?text=${searchTerm}#main`),
+        () => withPrefix(`/learn/?content=Articles&text=${searchTerm}#main`),
         [searchTerm]
     );
 
