@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import dlv from 'dlv';
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import LeafLogo from './icons/mdb-dev-logo-leaf';
@@ -8,6 +9,7 @@ import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
 import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
+import Searchbar from './searchbar';
 
 const GREEN_BORDER_SIZE = '2px';
 // Account for bottom bar on mobile browsers
@@ -16,10 +18,16 @@ const MOBILE_NAV_BREAK = screenSize.upToLarge;
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
 
+const expandedState = css`
+    opacity: 0.2;
+    pointer-events: none;
+`;
+
 const Nav = styled('nav')`
     background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     display: flex;
     flex-direction: column;
+    position: relative;
     width: 100%;
     &:after {
         background: radial-gradient(circle, #3ebb8c 0%, #76d3b1 100%);
@@ -44,18 +52,27 @@ const MobileNavMenu = styled('div')`
     }
 `;
 
+const MaxWidthContainer = styled('div')`
+    margin: 0 auto;
+    max-width: ${size.maxWidth};
+    position: relative;
+    width: 100%;
+`;
+
 const NavContent = styled('div')`
     align-items: center;
     color: ${({ theme }) => theme.colorMap.devWhite};
     display: flex;
     flex-wrap: wrap;
-    margin: 0 auto;
-    max-width: ${size.maxWidth};
-    position: relative;
     width: 100%;
+    @media ${screenSize.upToSmallDesktop} {
+        ${({ isExpanded }) => isExpanded && expandedState};
+    }
     @media ${MOBILE_NAV_BREAK} {
-        justify-content: space-between;
-        padding-right: ${size.medium};
+        display: grid;
+        grid-template-columns: ${size.large} auto ${size.large};
+        justify-items: center;
+        padding: 0;
     }
 `;
 
@@ -102,7 +119,7 @@ const topNavItems = graphql`
     }
 `;
 
-const MobileItems = ({ items }) => {
+const MobileItems = ({ isSearchbarExpanded, items }) => {
     const [isOpen, setIsOpen] = useState(false);
     const closeMenu = useCallback(() => setIsOpen(false), []);
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
@@ -120,7 +137,7 @@ const MobileItems = ({ items }) => {
     return (
         <>
             <MenuToggle isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
-            {isOpen && (
+            {isOpen && !isSearchbarExpanded && (
                 <MobileNavMenu>
                     {items.map(item => (
                         <MobileNavItem
@@ -136,21 +153,44 @@ const MobileItems = ({ items }) => {
 };
 
 const GlobalNav = () => {
+    const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(false);
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
     const isMobile = useMedia(MOBILE_NAV_BREAK);
+    const onSearchbarExpand = useCallback(isExpanded => {
+        // On certain screens the searchbar is never collapsed
+        setIsSearchbarExpanded(isExpanded);
+    }, []);
     return (
         <Nav>
-            <NavContent>
-                <HomeLink aria-label="Home" to="/">
-                    <LeafLogo />
-                </HomeLink>
-                {isMobile ? (
-                    <MobileItems items={items} />
-                ) : (
-                    items.map(item => <NavItem key={item.name} item={item} />)
-                )}
-            </NavContent>
+            <MaxWidthContainer>
+                <NavContent isExpanded={isSearchbarExpanded}>
+                    {isMobile ? (
+                        <>
+                            <MobileItems
+                                isSearchbarExpanded={isSearchbarExpanded}
+                                items={items}
+                            />
+                            <HomeLink aria-label="Home" to="/">
+                                <LeafLogo />
+                            </HomeLink>
+                        </>
+                    ) : (
+                        <>
+                            <HomeLink aria-label="Home" to="/">
+                                <LeafLogo />
+                            </HomeLink>
+                            {items.map(item => (
+                                <NavItem key={item.name} item={item} />
+                            ))}
+                        </>
+                    )}
+                </NavContent>
+                <Searchbar
+                    isExpanded={isSearchbarExpanded}
+                    setIsExpanded={onSearchbarExpand}
+                />
+            </MaxWidthContainer>
         </Nav>
     );
 };
