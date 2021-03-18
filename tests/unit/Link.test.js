@@ -20,6 +20,14 @@ describe('Link component renders a variety of strings correctly', () => {
         expect(tree).toMatchSnapshot();
     });
 
+    it('external mailto', () => {
+        const tree = setup({
+            to: 'mailto:person@mail.com',
+            text: 'Jake Gyllenhaal',
+        });
+        expect(tree).toMatchSnapshot();
+    });
+
     it('internal link', () => {
         const tree = setup({
             to: 'drivers/c',
