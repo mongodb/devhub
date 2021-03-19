@@ -28,7 +28,7 @@ module.exports = {
             resolve: `gatsby-source-strapi`,
             options: {
                 apiURL: process.env.STRAPI_URL,
-                contentTypes: ['projects'],
+                contentTypes: ['authors', 'projects'],
                 singleTypes: ['student-spotlight-featured', 'top-nav'],
             },
         },
