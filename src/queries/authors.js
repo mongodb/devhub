@@ -2,13 +2,13 @@ export const buildTimeAuthors = `
 query Authors {
     allStrapiAuthors {
       nodes {
-        Name
-        Bio
-        Image {
+        name
+        bio
+        image {
           url
         }
-        Location
-        Title
+        location
+        title
       }
     }
   }

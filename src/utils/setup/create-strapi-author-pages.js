@@ -16,16 +16,15 @@ export const createStrapiAuthorPages = async (
     const authors = await getAuthorListFromGraphql(graphql);
     const createSingleAuthorPage = author => {
         // Some bad data for authors doesn't follow this structure, so ignore it
-        const urlSuffix = getTagPageUriComponent(author.Name);
+        const urlSuffix = getTagPageUriComponent(author.name);
         const newPage = {
             type: 'author',
             slug: `/author/${urlSuffix}`,
             pages: [],
-            name: author.Name,
-            bio: author.Bio,
-            location: author.Location,
-            image: author.Image,
-            title: author.Title,
+            author_image: author.image.url,
+            isInternalImage: false,
+            isASTBio: false,
+            ...author,
         };
         createPage({
             path: newPage.slug,
