@@ -35,7 +35,8 @@ export const createTagPageType = async (
     createPage,
     pageMetadata,
     RESOLVED_REF_DOC_MAPPING,
-    stitchClient
+    stitchClient,
+    strapiAuthors
 ) => {
     const isAuthor = stitchType === 'author';
     const pageType = STITCH_TYPE_TO_URL_PREFIX[stitchType];
@@ -72,6 +73,9 @@ export const createTagPageType = async (
         const name = isAuthor ? page.item._id.name : page.item._id;
         // Some bad data for authors doesn't follow this structure, so ignore it
         if (name) {
+            if (strapiAuthors.find(a => a.name === name)) {
+                return;
+            }
             const urlSuffix = getTagPageUriComponent(name);
             const newPage = {
                 name,

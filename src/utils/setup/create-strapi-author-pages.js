@@ -1,14 +1,7 @@
 import path from 'path';
-import { buildTimeAuthors } from '../../queries/authors';
 import { getTagPageUriComponent } from '../get-tag-page-uri-component';
 import { transformAuthorStrapiData } from './transform-author-strapi-data';
 import { getMetadata } from '../get-metadata';
-
-const getAuthorListFromGraphql = async graphql => {
-    const authorResp = await graphql(buildTimeAuthors);
-    const result = authorResp.data.allStrapiAuthors.nodes;
-    return result;
-};
 
 const getSnootyArticlesForAuthor = async (snootyAuthor, realmClient) => {
     const requestKey = { author: snootyAuthor._id };
@@ -23,10 +16,9 @@ const metadata = getMetadata();
 export const createStrapiAuthorPages = async (
     createPage,
     pageMetadata,
-    graphql,
-    realmClient
+    realmClient,
+    authors
 ) => {
-    const authors = await getAuthorListFromGraphql(graphql);
     const snootyAuthors = await realmClient.callFunction('getValuesByKey', [
         metadata,
         'author',
