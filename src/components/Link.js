@@ -14,7 +14,7 @@ const Link = React.forwardRef(
     ({ children, to, activeClassName, partiallyActive, ...other }, ref) => {
         if (!to) to = '';
         // Assume that external links begin with http:// or https:// or have mailto
-        const external = /^http(s)?:\/\/|mailto:[\w-.]+@(\w+.)/.test(to);
+        const external = /^http(s)?:\/\/|^mailto:[\w-.]+@(\w+.)/.test(to);
         const anchor = to.startsWith('#');
 
         // Use Gatsby Link for internal links, and <a> for others
