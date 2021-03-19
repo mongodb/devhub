@@ -1,7 +1,7 @@
 const AUTHOR_BIO = 'Short bio';
-const AUTHOR_TITLE = 'UI Engineer - NYC';
-const AUTHOR_NAME = 'Jordan Stapinski';
-const AUTHOR_URL = '/author/jordan-stapinski/';
+const AUTHOR_TITLE = 'Developer Advocate - United States';
+const AUTHOR_NAME = 'Lauren Schaefer';
+const AUTHOR_URL = '/author/lauren-schaefer/';
 
 describe('Author Page', () => {
     it('should show an image for the author', () => {
@@ -21,7 +21,7 @@ describe('Author Page', () => {
         });
     });
     // TODO: Fill in once Strapi articles are available, or we swap authors
-    xit('should show articles for this author', () => {
+    it('should show articles for this author', () => {
         cy.get('[data-test="card"]')
             .first()
             .then(card => {
