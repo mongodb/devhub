@@ -151,7 +151,12 @@ export const createPages = async ({ actions, graphql }) => {
         )
     );
     await Promise.all(tagPages);
-    await createStrapiAuthorPages(createPage, metadataDocument, graphql);
+    await createStrapiAuthorPages(
+        createPage,
+        metadataDocument,
+        graphql,
+        stitchClient
+    );
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
