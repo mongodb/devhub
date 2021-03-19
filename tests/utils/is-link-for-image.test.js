@@ -1,6 +1,6 @@
 import { isLinkForImage } from '../../src/utils/is-link-for-image';
 
-it('should remove trailing slashes from links where appropriate', () => {
+it('should identify links that lead to images', () => {
     // Null
     expect(isLinkForImage(null)).toBe(false);
     expect(isLinkForImage('')).toBe(false);
