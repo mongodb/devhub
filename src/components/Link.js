@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DevHubLink from './dev-hub/link';
-import { isPreviewMode } from '../utils/is-preview-mode';
+import { isLinkForImage } from '~utils/is-link-for-image';
+import { isPreviewMode } from '~utils/is-preview-mode';
 
 /*
  * Note: This component is not suitable for internal page navigation:
@@ -14,7 +15,9 @@ const Link = React.forwardRef(
     ({ children, to, activeClassName, partiallyActive, ...other }, ref) => {
         if (!to) to = '';
         // Assume that external links begin with http:// or https:// or have mailto
-        const external = /^http(s)?:\/\/|^mailto:[\w-.]+@(\w+.)/.test(to);
+        const external =
+            /^http(s)?:\/\/|^mailto:[\w-.]+@(\w+.)/.test(to) ||
+            isLinkForImage(to);
         const anchor = to.startsWith('#');
 
         // Use Gatsby Link for internal links, and <a> for others
