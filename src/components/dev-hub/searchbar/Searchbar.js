@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import { useEventListener } from '@leafygreen-ui/hooks';
 import CondensedSearchbar from './CondensedSearchbar';
 import ExpandedSearchbar, {
     GoButton,
@@ -30,6 +31,7 @@ const SEARCHBAR_DESKTOP_WIDTH = '372px';
 const SEARCHBAR_HEIGHT = '36px';
 const SEARCHBAR_HEIGHT_OFFSET = '11px';
 const TRANSITION_SPEED = '150ms';
+const SLASH_KEY = 47;
 
 const focusedInputStyling = theme => css`
     ${StyledTextInput} {
@@ -135,6 +137,15 @@ const Searchbar = ({ isExpanded, setIsExpanded }) => {
         }
         setIsFocused(true);
     }, [isFocused]);
+
+    // Focus when slash pressed
+    const onSlashKeyUp = useCallback(({ key, keyCode }) => {
+        (key === '/' || keyCode === SLASH_KEY) && onExpand();
+    }, [onExpand]);
+
+    // Add event listener using hook
+    useEventListener("keyup", onSlashKeyUp);
+
     // Remove focus and close searchbar if it disrupts the navbar
     const onBlur = useCallback(() => {
         // Since this is tied to a document click off event, we want to be sure this is
