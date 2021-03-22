@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
-import queryString from 'query-string';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import AuthorHeroBackground from '../images/1x/author-hero-background.png';
 import TagBackground from '../images/1x/tag-background.png';
@@ -14,6 +13,7 @@ import HeroBanner from '../components/dev-hub/hero-banner';
 import Layout from '../components/dev-hub/layout';
 import { H2, H3, P, P3 } from '../components/dev-hub/text';
 import { screenSize, size, fontSize } from '../components/dev-hub/theme';
+import { parseQueryString } from '~utils/query-string';
 
 const toTitleCase = css`
     text-transform: capitalize;
@@ -83,7 +83,7 @@ const Tag = props => {
     const isAuthor = type === 'author';
     const articles = constructArticles(pages);
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
-    const { page } = queryString.parse(search);
+    const { page } = parseQueryString(search);
 
     return (
         <Layout>
