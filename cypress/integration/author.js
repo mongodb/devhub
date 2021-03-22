@@ -28,7 +28,7 @@ describe('Author Page', () => {
     });
     it('should have updated cards after "Load More" is activated', () => {
         cy.get('[data-test="card-list"]').within(() => {
-            cy.get('[data-test="card"]').should('have.length', 12);
+            cy.get('[data-test="card"]').should('have.length', 9);
         });
         cy.contains('Load more').should('exist').click();
         cy.url().should('include', 'page=2');

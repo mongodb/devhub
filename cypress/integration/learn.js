@@ -1,7 +1,7 @@
 const CANONICAL_URL = 'https://developer.mongodb.com/learn/';
 const FIRST_ARTICLE_IN_ORDERING = '/how-to/transactions-c-dotnet/';
-const FIRST_ARTICLE_UPDATED_DATE = '03 Oct 2020';
-const FIRST_ARTICLE_PUBLISHED_DATE = '17 Oct 2018';
+const FIRST_ARTICLE_UPDATED_DATE = 'Oct 03, 2020';
+const FIRST_ARTICLE_PUBLISHED_DATE = 'Oct 17, 2018';
 
 describe('Learn Page', () => {
     it('should properly render the learn page', () => {
