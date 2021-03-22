@@ -8,6 +8,7 @@ import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
+import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getMetadata } from './src/utils/get-metadata';
 import {
@@ -82,6 +83,14 @@ export const createSchemaCustomization = ({ actions }) => {
     type SitePage implements Node @dontInfer {
         path: String
     }
+    type StrapiClientSideRedirect implements Node {
+        fromPath: String
+        isPermanent: Boolean
+        toPath: String
+    }
+    type allStrapiClientSideRedirects implements Node {
+        nodes: [StrapiClientSideRedirect]
+    }
     `;
     createTypes(typeDefs);
 };
@@ -138,22 +147,7 @@ export const createPages = async ({ actions, graphql }) => {
         );
     });
 
-    // This will shortly be replaced by CMS-friendly logic once verified
-    // This is not a substitute for Fastly redirects, both are needed
-    createRedirect({
-        fromPath: '/quickstart/node-connect-mongodb/',
-        isPermanent: true,
-        redirectInBrowser: true,
-        toPath:
-            'https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb--how-to-get-connected-to-your-database',
-    });
-    createRedirect({
-        fromPath: '/quickstart/node-connect-mongodb-3-3-2/',
-        isPermanent: true,
-        redirectInBrowser: true,
-        toPath:
-            'https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb--how-to-get-connected-to-your-database',
-    });
+    await createClientSideRedirects(graphql, createRedirect);
 
     const tagTypes = ['author', 'languages', 'products', 'tags', 'type'];
     const tagPages = tagTypes.map(type =>
