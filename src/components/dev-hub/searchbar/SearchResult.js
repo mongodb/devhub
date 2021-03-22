@@ -145,7 +145,6 @@ const SearchResult = React.memo(
                         e.preventDefault();
                         // find next result and focus
 
-                        console.log('arrow down');
                         onArrowDown(resultLinkRef);
                     } else if (
                         e.key === 'ArrowUp' ||
