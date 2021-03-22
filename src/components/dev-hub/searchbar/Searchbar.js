@@ -140,8 +140,11 @@ const Searchbar = ({ isExpanded, setIsExpanded }) => {
 
     // Focus when slash pressed
     const onSlashKeyUp = useCallback(({ key, keyCode }) => {
-        (key === '/' || keyCode === SLASH_KEY) && onExpand();
-    }, [onExpand]);
+        if(key === '/' || keyCode === SLASH_KEY) {
+            onExpand();
+            onFocus();
+        }
+    }, [onExpand, onFocus]);
 
     // Add event listener using hook
     useEventListener("keyup", onSlashKeyUp);
@@ -223,7 +226,7 @@ const Searchbar = ({ isExpanded, setIsExpanded }) => {
                 >
                     <ExpandedSearchbar
                         onChange={onSearchChange}
-                        value={value}
+                        isFocused={isFocused}
                     />
                     {isSearching && <SearchDropdown results={searchResults} />}
                 </SearchContext.Provider>
@@ -247,7 +250,6 @@ const Searchbar = ({ isExpanded, setIsExpanded }) => {
                         <ExpandedSearchbar
                             onMobileClose={onClose}
                             onChange={onSearchChange}
-                            value={value}
                         />
                         {isSearching && (
                             <SearchDropdown results={searchResults} />
