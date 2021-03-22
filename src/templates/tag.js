@@ -133,7 +133,7 @@ const Tag = props => {
 
             <ArticleContent>
                 {isAuthor && <H3>Articles by {name}</H3>}
-                <CardList articles={[...articles, ...articles, ...articles]} />
+                <CardList articles={articles} />
             </ArticleContent>
         </Layout>
     );
