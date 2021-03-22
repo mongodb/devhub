@@ -15,7 +15,6 @@ import {
     METADATA_COLLECTION,
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
-
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
 
@@ -106,7 +105,7 @@ const filteredPageGroups = allSeries => {
 };
 
 export const createPages = async ({ actions, graphql }) => {
-    const { createPage } = actions;
+    const { createPage, createRedirect } = actions;
     const [, metadataDocument, result] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
         stitchClient.callFunction('fetchDocument', [
@@ -137,6 +136,23 @@ export const createPages = async ({ actions, graphql }) => {
             metadataDocument,
             createPage
         );
+    });
+
+    // This will shortly be replaced by CMS-friendly logic once verified
+    // This is not a substitute for Fastly redirects, both are needed
+    createRedirect({
+        fromPath: '/quickstart/node-connect-mongodb/',
+        isPermanent: true,
+        redirectInBrowser: true,
+        toPath:
+            'https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb--how-to-get-connected-to-your-database',
+    });
+    createRedirect({
+        fromPath: '/quickstart/node-connect-mongodb-3-3-2/',
+        isPermanent: true,
+        redirectInBrowser: true,
+        toPath:
+            'https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb--how-to-get-connected-to-your-database',
     });
 
     const tagTypes = ['author', 'languages', 'products', 'tags', 'type'];
