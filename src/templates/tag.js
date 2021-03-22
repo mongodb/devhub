@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import AuthorHeroBackground from '../images/1x/author-hero-background.png';
 import TagBackground from '../images/1x/tag-background.png';
@@ -76,16 +77,20 @@ const Tag = props => {
             title,
             type,
         },
+        location: { search },
     } = props;
     const metadata = useSiteMetadata();
     const isAuthor = type === 'author';
     const articles = constructArticles(pages);
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
+    const { page } = queryString.parse(search);
+
     return (
         <Layout>
             <Helmet>
                 <title>
-                    {name} - {metadata.title}
+                    {name} - {page ? `Page ${page} - ` : ''}
+                    {metadata.title}
                 </title>
                 {!isAuthor && <meta name="robots" content="noindex" />}
             </Helmet>
@@ -128,7 +133,7 @@ const Tag = props => {
 
             <ArticleContent>
                 {isAuthor && <H3>Articles by {name}</H3>}
-                <CardList articles={articles} />
+                <CardList articles={[...articles, ...articles, ...articles]} />
             </ArticleContent>
         </Layout>
     );

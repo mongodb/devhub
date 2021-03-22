@@ -1,13 +1,14 @@
 const CANONICAL_URL = 'https://developer.mongodb.com/learn/';
 const FIRST_ARTICLE_IN_ORDERING = '/how-to/transactions-c-dotnet/';
-const FIRST_ARTICLE_UPDATED_DATE = 'Oct 03, 2020';
-const FIRST_ARTICLE_PUBLISHED_DATE = 'Oct 17, 2018';
+const FIRST_ARTICLE_UPDATED_DATE = '03 Oct 2020';
+const FIRST_ARTICLE_PUBLISHED_DATE = '17 Oct 2018';
 
 describe('Learn Page', () => {
     it('should properly render the learn page', () => {
         cy.visitWithoutFetch('/learn/');
         // Make sure something renders on the page
         cy.contains('Make better, faster applications');
+        cy.title().should('eq', 'Learn - MongoDB Developer Hub')
     });
     it('should have a proper canonical url', () => {
         cy.checkCanonicalUrlValue(CANONICAL_URL);
@@ -90,6 +91,7 @@ describe('Learn Page', () => {
     it('should have updated fields after "Load More" is activated', () => {
         cy.contains('Load more').should('exist').click();
         cy.url().should('include', 'page=2');
+        cy.title().should('eq', 'Learn - Page 2 - MongoDB Developer Hub');
         cy.get('[data-test="card-list"]').within(() => {
             cy.get('[data-test="card"]').should('have.length', 24);
         });
