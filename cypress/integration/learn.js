@@ -12,6 +12,9 @@ describe('Learn Page', () => {
     it('should have a proper canonical url', () => {
         cy.checkCanonicalUrlValue(CANONICAL_URL);
     });
+    it('should have a uniq h1 tag', () => {
+        cy.get('h1').should('have.length', 1)
+    });
     it('should properly render some featured articles', () => {
         // Check main featured article
         cy.get('[data-test="primary-featured-article"]')

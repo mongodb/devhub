@@ -25,4 +25,7 @@ describe('Author Page', () => {
                 cy.checkArticleCard(card);
             });
     });
+    it('should have a uniq h1 tag', () => {
+        cy.get('h1').should('have.length', 1)
+    });
 });

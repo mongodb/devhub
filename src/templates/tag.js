@@ -11,8 +11,13 @@ import AuthorImage from '../components/dev-hub/author-image';
 import CardList from '../components/dev-hub/card-list';
 import HeroBanner from '../components/dev-hub/hero-banner';
 import Layout from '../components/dev-hub/layout';
-import { H2, H3, P, P3 } from '../components/dev-hub/text';
-import { screenSize, size, fontSize } from '../components/dev-hub/theme';
+import { H1, H2, H3, P, P3 } from '../components/dev-hub/text';
+import {
+    screenSize,
+    size,
+    fontSize,
+    lineHeight,
+} from '../components/dev-hub/theme';
 
 const toTitleCase = css`
     text-transform: capitalize;
@@ -30,8 +35,13 @@ const AuthorName = styled('div')`
         color: ${({ theme }) => theme.colorMap.greyLightThree};
     }
 
-    ${H2} {
+    ${H1} {
         font-size: ${fontSize.xlarge};
+        line-height: ${lineHeight.xxlarge};
+        @media ${screenSize.upToMedium} {
+            font-size: ${fontSize.large};
+            line-height: 34px;
+        }
     }
 `;
 
@@ -112,7 +122,7 @@ const Tag = props => {
                             <AuthorByline>
                                 <SyledAuthorImage image={author_image} />
                                 <AuthorName>
-                                    <H2>{name}</H2>
+                                    <H1>{name}</H1>
                                     {title && location && (
                                         <P>
                                             {title} - {location}

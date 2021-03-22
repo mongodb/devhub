@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import Layout from '../components/dev-hub/layout';
-import { H2 } from '../components/dev-hub/text';
+import { H1 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
 import Card from '../components/dev-hub/card';
 import CardList from '../components/dev-hub/card-list';
@@ -19,6 +19,7 @@ import useAllVideos from '../hooks/use-all-videos';
 import usePodcasts from '../hooks/use-podcasts';
 import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
+import { fontSize, lineHeight } from '~components/dev-hub/theme';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
@@ -70,6 +71,14 @@ const HeaderContent = styled('div')`
     max-width: ${FEATURED_ARTICLE_MAX_WIDTH};
     margin-left: auto;
     margin-right: auto;
+    ${H1} {
+        font-size: ${fontSize.xxlarge};
+        line-height: ${lineHeight.xxlarge};
+        @media ${screenSize.upToMedium} {
+            font-size: ${fontSize.large};
+            line-height: 34px;
+        }
+    }
 `;
 
 const Article = styled('article')`
@@ -334,7 +343,7 @@ export default ({
             </Helmet>
             <Header>
                 <HeaderContent>
-                    <H2>Make better, faster applications</H2>
+                    <H1>Make better, faster applications</H1>
                     <FeaturedArticles articles={featuredArticles} />
                 </HeaderContent>
             </Header>
