@@ -73,7 +73,17 @@ const StrapiArticle = props => {
             type,
             products,
             languages,
-            SEO,
+            SEO: {
+                canonical_url,
+                meta_description,
+                og_description,
+                og_image,
+                og_type,
+                og_url,
+                twitter_creator,
+                twitter_description,
+                twitter_image,
+            },
             published_at,
             updatedAt,
         },
@@ -82,10 +92,7 @@ const StrapiArticle = props => {
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(parsedContent, 'children', []);
     const meta = dlv(parsedContent, 'query_fields') || {};
-    const og = SEO.og || {};
-    const ogDescription = og.description;
-    const twitterNode = SEO.twitter;
-    const metaDescription = SEO.meta_description;
+    const twitterNode = { twitter_creator, twitter_description, twitter_image };
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
@@ -104,7 +111,6 @@ const StrapiArticle = props => {
         dateFormatOptions
     );
     const formattedUpdatedDate = toDateString(updatedAt, dateFormatOptions);
-    const canonicalUrl = SEO.canonical_url;
 
     const articleImage = image.url;
 
@@ -112,19 +118,19 @@ const StrapiArticle = props => {
         <Layout includeCanonical={false}>
             <SEOComponent
                 articleTitle={name}
-                canonicalUrl={canonicalUrl}
-                image={og.image}
-                metaDescription={metaDescription}
-                ogDescription={ogDescription}
-                ogTitle={og.title || name}
-                ogUrl={og.url || articleUrl}
+                canonicalUrl={canonical_url}
+                image={og_image.url}
+                metaDescription={meta_description}
+                ogDescription={og_description}
+                ogTitle={name}
+                ogUrl={og_url || articleUrl}
                 twitterNode={twitterNode}
-                type={og.type}
+                type={og_type}
             />
             <ArticleSchema
                 articleUrl={articleUrl}
                 title={name}
-                description={metaDescription}
+                description={meta_description}
                 publishedDate={published_at}
                 modifiedDate={updatedAt}
                 imageUrl={articleImage}
