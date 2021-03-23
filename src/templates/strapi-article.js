@@ -1,6 +1,5 @@
 import React from 'react';
 import dlv from 'dlv';
-import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
@@ -9,7 +8,7 @@ import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
 import RelatedArticles from '../components/dev-hub/related-articles';
 import { screenSize, size } from '../components/dev-hub/theme';
-import SEO from '../components/dev-hub/SEO';
+import SEOComponent from '../components/dev-hub/SEO';
 import ArticleSeries from '../components/dev-hub/article-series';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
@@ -18,9 +17,6 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
-import { getNestedValue } from '../utils/get-nested-value';
-import { findSectionHeadings } from '../utils/find-section-headings';
-import { getNestedText } from '../utils/get-nested-text';
 import ArticleSchema from '../components/dev-hub/article-schema';
 
 const dateFormatOptions = {
@@ -64,44 +60,40 @@ const Container = styled('div')`
         justify-content: center;
     }
 `;
-const Article = props => {
+const StrapiArticle = props => {
     const {
         pageContext: {
             parsedContent,
             seriesArticles,
             slug: thisPage,
             metadata: { slugToTitle: slugTitleMapping },
+            image,
             name,
             tags,
+            type,
             products,
             languages,
+            SEO,
             published_at,
             updatedAt,
-            ...otherContext
         },
         ...rest
     } = props;
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(parsedContent, 'children', []);
-    console.log(childNodes, otherContext, languages);
     const meta = dlv(parsedContent, 'query_fields') || {};
-    const og = meta.og || {};
-    const ogDescription =
-        og.children && og.children.length ? getNestedText(og.children) : null;
-    const twitterNode = childNodes.find(node => node.name === 'twitter');
-    const metaDescriptionNode = childNodes.find(
-        node => node.name === 'meta-description'
-    );
-    const metaDescription =
-        metaDescriptionNode && getNestedText(metaDescriptionNode.children);
+    const og = SEO.og || {};
+    const ogDescription = og.description;
+    const twitterNode = SEO.twitter;
+    const metaDescription = SEO.meta_description;
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
     ];
-    if (meta.type && meta.type.length) {
+    if (type && type.length) {
         articleBreadcrumbs.push({
-            label: meta.type[0].toUpperCase() + meta.type.substring(1),
-            target: `/type/${getTagPageUriComponent(meta.type)}`,
+            label: type[0].toUpperCase() + type.substring(1),
+            target: `/type/${getTagPageUriComponent(type)}`,
         });
     }
     const tagList = getTagLinksFromMeta({ tags, products, languages });
@@ -112,17 +104,13 @@ const Article = props => {
         dateFormatOptions
     );
     const formattedUpdatedDate = toDateString(updatedAt, dateFormatOptions);
-    const canonicalUrl = dlv(
-        parsedContent,
-        'ast.options.canonical-href',
-        articleUrl
-    );
+    const canonicalUrl = SEO.canonical_url;
 
-    const articleImage = withPrefix(meta['atf-image']);
+    const articleImage = image.url;
 
     return (
         <Layout includeCanonical={false}>
-            <SEO
+            <SEOComponent
                 articleTitle={name}
                 canonicalUrl={canonicalUrl}
                 image={og.image}
@@ -193,7 +181,7 @@ const Article = props => {
     );
 };
 
-Article.propTypes = {
+StrapiArticle.propTypes = {
     pageContext: PropTypes.shape({
         __refDocMapping: PropTypes.shape({
             ast: PropTypes.shape({
@@ -206,4 +194,4 @@ Article.propTypes = {
     }).isRequired,
 };
 
-export default Article;
+export default StrapiArticle;

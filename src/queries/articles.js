@@ -31,6 +31,21 @@ query Articles {
         name
         published_at
         updatedAt
+        SEO {
+          canonical_url
+          meta_description
+          og_description
+          og_image {
+            url
+          }
+          og_type
+          og_url
+          twitter_creator
+          twitter_description
+          twitter_image {
+            url
+          }
+        }
       }
     }
   }
