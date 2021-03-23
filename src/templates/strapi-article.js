@@ -94,7 +94,12 @@ const StrapiArticle = props => {
     } = props;
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(parsedContent, 'children', []);
-    const twitterNode = { twitter_creator, twitter_description, twitter_image };
+    // TODO: Fix with SEO component
+    const twitterNode = {
+        twitter_creator,
+        description: twitter_description,
+        image: twitter_image.url,
+    };
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
@@ -129,7 +134,7 @@ const StrapiArticle = props => {
                 ogDescription={og_description}
                 ogTitle={name}
                 ogUrl={og_url || articleUrl}
-                twitterNode={twitterNode}
+                twitterNode={null}
                 type={og_type}
             />
             <ArticleSchema
