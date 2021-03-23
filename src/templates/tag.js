@@ -70,6 +70,8 @@ const Tag = props => {
             bio,
             pages,
             author_image,
+            isASTBio = true,
+            isInternalImage = true,
             location,
             name,
             slug,
@@ -110,7 +112,10 @@ const Tag = props => {
                     <div>
                         <AuthorHero>
                             <AuthorByline>
-                                <SyledAuthorImage image={author_image} />
+                                <SyledAuthorImage
+                                    isInternalImage={isInternalImage}
+                                    image={author_image}
+                                />
                                 <AuthorName>
                                     <H2>{name}</H2>
                                     {title && location && (
@@ -121,7 +126,12 @@ const Tag = props => {
                                 </AuthorName>
                             </AuthorByline>
                         </AuthorHero>
-                        {bio && <ComponentFactory nodeData={bio} />}
+                        {bio &&
+                            (isASTBio ? (
+                                <ComponentFactory nodeData={bio} />
+                            ) : (
+                                bio
+                            ))}
                     </div>
                 )}
             </HeroBanner>

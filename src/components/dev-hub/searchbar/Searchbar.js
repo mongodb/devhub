@@ -28,16 +28,29 @@ const REPORT_SEARCH_DELAY_TIME = 1000;
 const SEARCH_DELAY_TIME = 200;
 const SEARCHBAR_DESKTOP_WIDTH = '372px';
 const SEARCHBAR_HEIGHT = '36px';
-const SEARCHBAR_HEIGHT_OFFSET = '10px';
+const SEARCHBAR_HEIGHT_OFFSET = '11px';
 const TRANSITION_SPEED = '150ms';
 
 const focusedInputStyling = theme => css`
     ${StyledTextInput} {
         div > input {
             ${activeTextBarStyling}
-            border: 1px solid ${theme.colorMap.greyDarkOne};
+            border: 1px solid ${theme.colorMap.greyDarkTwo};
             transition: background-color ${TRANSITION_SPEED} ease-in,
                 color ${TRANSITION_SPEED} ease-in;
+            @media ${screenSize.upToSmall} {
+                border: none;
+                box-shadow: none;
+            }
+        }
+    }
+`;
+
+const activeInputStyling = theme => css`
+    ${focusedInputStyling};
+    ${StyledTextInput} {
+        div > input {
+            border: 1px solid ${theme.colorMap.greyDarkOne};
             @media ${screenSize.upToSmall} {
                 border: none;
                 box-shadow: none;
@@ -53,9 +66,13 @@ const CommonSearchbarContainer = styled('div')`
     right: ${size.default};
     /* docs-tools navbar z-index is 9999 */
     z-index: ${layer.front};
+    :hover {
+        ${({ hasValue, theme }) =>
+            hasValue ? activeInputStyling(theme) : focusedInputStyling(theme)};
+    }
     :focus,
     :focus-within {
-        ${({ theme }) => focusedInputStyling(theme)};
+        ${({ theme }) => activeInputStyling(theme)};
         ${MagnifyingGlass} {
             color: ${({ theme }) => theme.colorMap.devWhite};
         }
@@ -63,9 +80,7 @@ const CommonSearchbarContainer = styled('div')`
             background-color: ${({ theme }) => theme.colorMap.greyLightOne};
         }
     }
-    :hover {
-        ${({ theme }) => focusedInputStyling(theme)};
-    }
+    ${({ hasValue, theme }) => hasValue && activeInputStyling(theme)};
 `;
 
 const DesktopSearchbarContainer = styled(CommonSearchbarContainer)`
@@ -77,12 +92,25 @@ const MobileSearchbarContainer = styled(CommonSearchbarContainer)`
     ${showOnDeviceSize(screenSize.upToSmallDesktop)};
     width: ${({ isExpanded }) =>
         isExpanded ? SEARCHBAR_DESKTOP_WIDTH : BUTTON_SIZE};
+    @media ${screenSize.upToLarge} {
+        right: ${size.xsmall};
+        ${({ isExpanded }) =>
+            isExpanded ? `right: ${size.default}` : 'right: 0'};
+    }
     @media ${screenSize.upToSmall} {
         top: ${SEARCHBAR_HEIGHT_OFFSET};
         height: ${({ isExpanded, isSearching }) =>
             isExpanded && isSearching ? '100%' : SEARCHBAR_HEIGHT};
         width: ${({ isExpanded }) => (isExpanded ? '100%' : BUTTON_SIZE)};
-        ${({ isExpanded }) => (isExpanded ? 'left: 0' : 'right: 0')};
+        ${({ isExpanded }) => isExpanded && 'left: 0'};
+        :focus,
+        :focus-within {
+            ${StyledTextInput} {
+                div > input {
+                    border: none;
+                }
+            }
+        }
     }
 `;
 
@@ -170,6 +198,7 @@ const Searchbar = ({ isExpanded, setIsExpanded }) => {
         <div ref={searchContainerRef}>
             {/* Expanded Desktop */}
             <DesktopSearchbarContainer
+                hasValue={!!value}
                 isSearching={isSearching}
                 onFocus={onFocus}
             >
@@ -190,6 +219,7 @@ const Searchbar = ({ isExpanded, setIsExpanded }) => {
             </DesktopSearchbarContainer>
             {/* Condensed */}
             <MobileSearchbarContainer
+                hasValue={!!value}
                 isSearching={isSearching}
                 isExpanded={isExpanded}
                 onFocus={onFocus}

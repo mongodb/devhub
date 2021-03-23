@@ -2,9 +2,14 @@ import React from 'react';
 import { render } from 'enzyme';
 import Link from '../../src/components/Link';
 import { ThemeProvider } from 'emotion-theming';
-import { darkTheme} from '../../src/components/dev-hub/theme';
+import { darkTheme } from '../../src/components/dev-hub/theme';
 
-const setup = ({ text, ...rest }) => render(<ThemeProvider theme={darkTheme}><Link {...rest}>{text}</Link></ThemeProvider>);
+const setup = ({ text, ...rest }) =>
+    render(
+        <ThemeProvider theme={darkTheme}>
+            <Link {...rest}>{text}</Link>
+        </ThemeProvider>
+    );
 
 describe('Link component renders a variety of strings correctly', () => {
     it('empty string', () => {
@@ -16,6 +21,14 @@ describe('Link component renders a variety of strings correctly', () => {
         const tree = setup({
             to: 'http://mongodb.com',
             text: 'MongoDB Company',
+        });
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('external mailto', () => {
+        const tree = setup({
+            to: 'mailto:person@mail.com',
+            text: 'Jake Gyllenhaal',
         });
         expect(tree).toMatchSnapshot();
     });

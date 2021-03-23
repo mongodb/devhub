@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import { size } from '~components/dev-hub/theme';
 
 const expanded = css`
     span:nth-of-type(1) {
@@ -25,6 +26,7 @@ const expanded = css`
 const HamburgerToggle = styled('div')`
     cursor: pointer;
     height: 10px;
+    margin-left: ${size.default};
     transform: rotate(0deg);
     transition: 300ms ease-in-out;
     width: 20px;

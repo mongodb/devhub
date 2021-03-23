@@ -18,6 +18,15 @@ exports[`Link component renders a variety of strings correctly external URL 1`] 
 </a>
 `;
 
+exports[`Link component renders a variety of strings correctly external mailto 1`] = `
+<a
+  class="css-5b30hw-StyledLink eygprlc0"
+  href="mailto:person@mail.com"
+>
+  Jake Gyllenhaal
+</a>
+`;
+
 exports[`Link component renders a variety of strings correctly internal link 1`] = `
 <a
   class="test-class css-mvucl6-AsInternalLink-StyledLink eygprlc1"
