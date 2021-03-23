@@ -13,8 +13,8 @@ query Articles {
     allStrapiArticles {
       nodes {
           content
-          Type
-          Description
+          type
+          description
           languages {
             language
           }
@@ -28,7 +28,7 @@ query Articles {
           image {
             url
           }
-        Name
+        name
         published_at
         updatedAt
       }

@@ -11,14 +11,12 @@ export const createArticlePage = (
     slugContentMapping,
     allSeries,
     metadata,
-    createPage,
-    parsedPageNodes = null
+    createPage
 ) => {
-    const pageNodes = parsedPageNodes || slugContentMapping[page];
+    const pageNodes = slugContentMapping[page];
     if (pageNodes && Object.keys(pageNodes).length > 0) {
         const template = getTemplate(
-            getNestedValue(['ast', 'options', 'template'], pageNodes) ||
-                'devhub-article'
+            getNestedValue(['ast', 'options', 'template'], pageNodes)
         );
         const slug = getPageSlug(page);
         if (pageNodes.query_fields) {

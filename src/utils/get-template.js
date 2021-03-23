@@ -3,6 +3,8 @@ const getTemplate = template => {
     switch (template) {
         case 'devhub-article':
             return 'article';
+        case 'strapi-article':
+            return 'strapi-article';
         default:
             throw new Error(
                 `The given article template was not devhub-article, it was ${template}. This means there was likely a parsing issue.`
