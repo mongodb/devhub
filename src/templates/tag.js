@@ -11,14 +11,14 @@ import AuthorImage from '../components/dev-hub/author-image';
 import CardList from '../components/dev-hub/card-list';
 import HeroBanner from '../components/dev-hub/hero-banner';
 import Layout from '../components/dev-hub/layout';
-import { H1, H2, H3, P, P3 } from '../components/dev-hub/text';
+import { H2, H3, P, P3 } from '../components/dev-hub/text';
 import {
     screenSize,
-    size,
-    fontSize,
-    lineHeight,
+    size
 } from '../components/dev-hub/theme';
 import { parseQueryString } from '~utils/query-string';
+
+const Title = H2.withComponent('h1');
 
 const toTitleCase = css`
     text-transform: capitalize;
@@ -34,15 +34,6 @@ const SubHead = styled(P3)`
 const AuthorName = styled('div')`
     ${P3} {
         color: ${({ theme }) => theme.colorMap.greyLightThree};
-    }
-
-    ${H1} {
-        font-size: ${fontSize.xlarge};
-        line-height: ${lineHeight.xxlarge};
-        @media ${screenSize.upToMedium} {
-            font-size: ${fontSize.large};
-            line-height: 34px;
-        }
     }
 `;
 
@@ -118,7 +109,7 @@ const Tag = props => {
                 {!isAuthor && (
                     <>
                         <SubHead bold>Tagged In</SubHead>
-                        <H2 css={toTitleCase}>{name}</H2>
+                        <Title css={toTitleCase}>{name}</Title>
                     </>
                 )}
                 {isAuthor && (
@@ -127,7 +118,7 @@ const Tag = props => {
                             <AuthorByline>
                                 <SyledAuthorImage image={author_image} />
                                 <AuthorName>
-                                    <H1>{name}</H1>
+                                    <Title>{name}</Title>
                                     {title && location && (
                                         <P>
                                             {title} - {location}
