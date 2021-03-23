@@ -9,6 +9,7 @@ import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createStrapiAuthorPages } from './src/utils/setup/create-strapi-author-pages';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
+import { createStrapiArticlePages } from './src/utils/setup/create-strapi-article-pages';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getAuthorListFromGraphql } from './src/utils/setup/get-author-list-from-graphql';
 import { getMetadata } from './src/utils/get-metadata';
@@ -132,6 +133,8 @@ export const createPages = async ({ actions, graphql }) => {
     }
 
     const allSeries = filteredPageGroups(metadataDocument.pageGroups);
+
+    await createStrapiArticlePages(graphql, createPage, metadataDocument);
 
     result.data.allArticle.nodes.forEach(article => {
         createArticlePage(
