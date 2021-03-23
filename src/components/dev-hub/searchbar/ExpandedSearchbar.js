@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
@@ -133,6 +133,12 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
 
     const goButton = useRef(null);
     const searchTextbox = useRef(null);
+
+    useEffect(() => {
+        if(isFocused) {
+            searchTextbox.current?.focus();
+        }
+    }, [isFocused])
 
     const onKeyDown = useCallback(
         e => {

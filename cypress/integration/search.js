@@ -98,4 +98,25 @@ describe('search', () => {
         ).should('have.length', 6);
         checkSearchResults(1);
     });
+    it('should open and focus search bar when press slash', () => {
+        cy.viewport(1040, 660);
+        cy.visitWithoutFetch('/');
+        cy.get(SEARCHBAR).should('not.exist');
+
+        // Simulate slash typing
+        cy.get('body').trigger('keydown', {
+            key: '/',
+            keyCode: 47,
+            force: true,
+        });
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(500);
+        cy.get('body').trigger('keyup', {
+            key: '/',
+            keyCode: 47,
+            force: true,
+        });
+
+        cy.get(SEARCHBAR).should('exist');
+    });
 });
