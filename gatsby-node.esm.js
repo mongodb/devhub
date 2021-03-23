@@ -136,15 +136,15 @@ export const createPages = async ({ actions, graphql }) => {
 
     await createStrapiArticlePages(graphql, createPage, metadataDocument);
 
-    // result.data.allArticle.nodes.forEach(article => {
-    //     createArticlePage(
-    //         article.slug,
-    //         slugContentMapping,
-    //         allSeries,
-    //         metadataDocument,
-    //         createPage
-    //     );
-    // });
+    result.data.allArticle.nodes.forEach(article => {
+        createArticlePage(
+            article.slug,
+            slugContentMapping,
+            allSeries,
+            metadataDocument,
+            createPage
+        );
+    });
 
     const tagTypes = ['author', 'languages', 'products', 'tags', 'type'];
     const tagPages = tagTypes.map(type =>
