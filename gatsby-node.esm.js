@@ -8,6 +8,7 @@ import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
+import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getMetadata } from './src/utils/get-metadata';
 import {
@@ -15,7 +16,6 @@ import {
     METADATA_COLLECTION,
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
-
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
 
@@ -83,6 +83,14 @@ export const createSchemaCustomization = ({ actions }) => {
     type SitePage implements Node @dontInfer {
         path: String
     }
+    type StrapiClientSideRedirect implements Node {
+        fromPath: String
+        isPermanent: Boolean
+        toPath: String
+    }
+    type allStrapiClientSideRedirects implements Node {
+        nodes: [StrapiClientSideRedirect]
+    }
     `;
     createTypes(typeDefs);
 };
@@ -106,7 +114,7 @@ const filteredPageGroups = allSeries => {
 };
 
 export const createPages = async ({ actions, graphql }) => {
-    const { createPage } = actions;
+    const { createPage, createRedirect } = actions;
     const [, metadataDocument, result] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
         stitchClient.callFunction('fetchDocument', [
@@ -138,6 +146,8 @@ export const createPages = async ({ actions, graphql }) => {
             createPage
         );
     });
+
+    await createClientSideRedirects(graphql, createRedirect);
 
     const tagTypes = ['author', 'languages', 'products', 'tags', 'type'];
     const tagPages = tagTypes.map(type =>

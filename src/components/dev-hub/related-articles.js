@@ -78,7 +78,10 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
                 image: relatedArticle.image
                     ? withPrefix(relatedArticle.image)
                     : ARTICLE_PLACEHOLDER,
-                target: makeLinkInternalIfApplicable(relatedArticle.refuri),
+                target: makeLinkInternalIfApplicable(
+                    relatedArticle.refuri,
+                    true
+                ),
                 title: dlv(relatedArticle, ['children', 0, 'value'], ''),
             };
         default:

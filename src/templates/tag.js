@@ -18,6 +18,7 @@ import {
     fontSize,
     lineHeight,
 } from '../components/dev-hub/theme';
+import { parseQueryString } from '~utils/query-string';
 
 const toTitleCase = css`
     text-transform: capitalize;
@@ -86,16 +87,20 @@ const Tag = props => {
             title,
             type,
         },
+        location: { search },
     } = props;
     const metadata = useSiteMetadata();
     const isAuthor = type === 'author';
     const articles = constructArticles(pages);
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
+    const { page } = parseQueryString(search);
+
     return (
         <Layout>
             <Helmet>
                 <title>
-                    {name} - {metadata.title}
+                    {name} - {page ? `Page ${page} - ` : ''}
+                    {metadata.title}
                 </title>
                 {!isAuthor && <meta name="robots" content="noindex" />}
             </Helmet>

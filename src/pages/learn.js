@@ -336,10 +336,15 @@ export default ({
         }
     };
 
+    const { page } = filterValue;
+
     return (
         <Layout>
             <Helmet>
-                <title>Learn - {metadata.title}</title>
+                <title>
+                    Learn - {page ? `Page ${page} - ` : ''}
+                    {metadata.title}
+                </title>
             </Helmet>
             <Header>
                 <HeaderContent>
