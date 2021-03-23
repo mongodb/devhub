@@ -55,6 +55,15 @@ describe('search', () => {
         cy.visitWithoutFetch('/');
         checkCondensedSearchbar();
     });
+    it('should open and focus search bar when press slash', () => {
+        cy.viewport(1040, 660);
+        cy.visitWithoutFetch('/');
+        cy.get(SEARCHBAR).should('not.exist');
+        cy.get("[data-test='Closed Searchbar Button']").should('exist').click();
+        // Simulate slash typing
+        cy.get('body').type('/');
+        cy.get(SEARCHBAR).should('exist');
+    });
     it('should expand search by default on certain sizes', () => {
         // This will reset the viewport to default
         cy.get(SEARCHBAR).should('exist');
@@ -97,26 +106,5 @@ describe('search', () => {
             "[data-test='Search Dropdown']:visible [data-test='Search Result']"
         ).should('have.length', 6);
         checkSearchResults(1);
-    });
-    it('should open and focus search bar when press slash', () => {
-        cy.viewport(1040, 660);
-        cy.visitWithoutFetch('/');
-        cy.get(SEARCHBAR).should('not.exist');
-
-        // Simulate slash typing
-        cy.get('body').trigger('keydown', {
-            key: '/',
-            keyCode: 47,
-            force: true,
-        });
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(500);
-        cy.get('body').trigger('keyup', {
-            key: '/',
-            keyCode: 47,
-            force: true,
-        });
-
-        cy.get(SEARCHBAR).should('exist');
     });
 });
