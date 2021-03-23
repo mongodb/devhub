@@ -63,16 +63,15 @@ const Container = styled('div')`
 const StrapiArticle = props => {
     const {
         pageContext: {
-            parsedContent,
-            seriesArticles,
-            slug: thisPage,
-            metadata: { slugToTitle: slugTitleMapping },
+            authors = [],
             image,
-            name,
-            tags,
-            type,
-            products,
             languages,
+            metadata: { slugToTitle: slugTitleMapping },
+            name,
+            parsedContent,
+            products,
+            published_at,
+            related_articles = [],
             SEO: {
                 canonical_url,
                 meta_description,
@@ -84,19 +83,23 @@ const StrapiArticle = props => {
                 twitter_description,
                 twitter_image,
             },
-            published_at,
+            seriesArticles,
+            // Clarify and add in type in transform
+            slug: thisPage,
+            tags,
+            type,
             updatedAt,
         },
         ...rest
     } = props;
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(parsedContent, 'children', []);
-    const meta = dlv(parsedContent, 'query_fields') || {};
     const twitterNode = { twitter_creator, twitter_description, twitter_image };
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
     ];
+    // Add mapping for type in transform
     if (type && type.length) {
         articleBreadcrumbs.push({
             label: type[0].toUpperCase() + type.substring(1),
@@ -105,6 +108,7 @@ const StrapiArticle = props => {
     }
     const tagList = getTagLinksFromMeta({ tags, products, languages });
     const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${thisPage}`);
+    // TODO: Fill in
     const headingNodes = [];
     const formattedPublishedDate = toDateString(
         published_at,
@@ -112,6 +116,7 @@ const StrapiArticle = props => {
     );
     const formattedUpdatedDate = toDateString(updatedAt, dateFormatOptions);
 
+    // Move into transform
     const articleImage = image.url;
 
     return (
@@ -134,11 +139,11 @@ const StrapiArticle = props => {
                 publishedDate={published_at}
                 modifiedDate={updatedAt}
                 imageUrl={articleImage}
-                authors={meta.author}
+                authors={authors}
             />
             <BlogPostTitleArea
                 articleImage={articleImage}
-                authors={meta.author}
+                authors={authors}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={formattedPublishedDate}
                 tags={tagList}
@@ -180,7 +185,7 @@ const StrapiArticle = props => {
                 </ArticleContent>
             </Container>
             <RelatedArticles
-                related={meta.related}
+                related={related_articles}
                 slugTitleMapping={slugTitleMapping}
             />
         </Layout>

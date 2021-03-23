@@ -12,22 +12,22 @@ export const buildTimeArticles = `
 query Articles {
     allStrapiArticles {
       nodes {
-          content
-          type
-          description
-          languages {
-            language
-          }
-          products {
-            product
-          }
-          tags {
-            tag
-          }
-          slug
-          image {
-            url
-          }
+        content
+        type
+        description
+        languages {
+          language
+        }
+        products {
+          product
+        }
+        tags {
+          tag
+        }
+        slug
+        image {
+          url
+        }
         name
         published_at
         updatedAt
