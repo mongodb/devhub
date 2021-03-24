@@ -55,6 +55,15 @@ describe('search', () => {
         cy.visitWithoutFetch('/');
         checkCondensedSearchbar();
     });
+    it('should open and focus search bar when press slash', () => {
+        cy.viewport(1040, 660);
+        cy.visitWithoutFetch('/');
+        cy.get(SEARCHBAR).should('not.exist');
+        cy.get("[data-test='Closed Searchbar Button']").should('exist').click();
+        // Simulate slash typing
+        cy.get('body').type('/');
+        cy.get(SEARCHBAR).should('exist');
+    });
     it('should expand search by default on certain sizes', () => {
         // This will reset the viewport to default
         cy.get(SEARCHBAR).should('exist');
