@@ -53,7 +53,7 @@ export const sourceNodes = async ({
         metadata.patchId
     );
 
-    const documents = await stitchClient.callFunction('fetchDocuments', [
+    const documents = await stitchClient.callFunction('fetchDevhubDocuments', [
         DB,
         DOCUMENTS_COLLECTION,
         query,
@@ -63,13 +63,17 @@ export const sourceNodes = async ({
     }
 
     documents.forEach(doc => {
+        const rawContent = doc.source;
+        // We use the source for search RSS XML but do not want it in page data
+        delete doc.source;
         createAssetNodes(doc, createNode, createContentDigest);
         createArticleNode(
             doc,
             PAGE_ID_PREFIX,
             createNode,
             createContentDigest,
-            slugContentMapping
+            slugContentMapping,
+            rawContent
         );
     });
 };
