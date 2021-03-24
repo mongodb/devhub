@@ -139,15 +139,20 @@ const Searchbar = ({ isExpanded, setIsExpanded }) => {
     }, [isFocused]);
 
     // Focus when slash pressed
-    const onSlashKeyUp = useCallback(({ key, keyCode }) => {
-        if(key === '/' || keyCode === SLASH_KEY) {
-            onExpand();
-            onFocus();
-        }
-    }, [onExpand, onFocus]);
+    const onSlashKeyDown = useCallback(
+        e => {
+            const { key, keyCode } = e;
+            if (key === '/' || keyCode === SLASH_KEY) {
+                e.preventDefault();
+                onExpand();
+                onFocus();
+            }
+        },
+        [onExpand, onFocus]
+    );
 
     // Add event listener using hook
-    useEventListener("keyup", onSlashKeyUp);
+    useEventListener('keydown', onSlashKeyDown);
 
     // Remove focus and close searchbar if it disrupts the navbar
     const onBlur = useCallback(() => {
