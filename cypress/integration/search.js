@@ -59,8 +59,9 @@ describe('search', () => {
         cy.viewport(1040, 660);
         cy.visitWithoutFetch('/');
         cy.get(SEARCHBAR).should('not.exist');
-        cy.get("[data-test='Closed Searchbar Button']").should('exist').click();
-        // Simulate slash typing
+        cy.get("[data-test='Closed Searchbar Button']").should('exist');
+        // Simulate focus and slash typing
+        cy.get('body').click({ force: true });
         cy.get('body').type('/');
         cy.get(SEARCHBAR).should('exist');
     });
