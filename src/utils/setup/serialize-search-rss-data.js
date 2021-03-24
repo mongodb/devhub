@@ -22,6 +22,7 @@ const getCustomRSSElements = article => {
         'language'
     );
     const products = handlePossiblyEmptyField(article, 'products', 'product');
+    const rawContent = article.rawContent;
     const tags = handlePossiblyEmptyField(article, 'tags', 'tag');
     const customElements = [
         { atf_image: article.atfimage },
@@ -36,6 +37,9 @@ const getCustomRSSElements = article => {
     }
     if (products) {
         customElements.push({ products: products });
+    }
+    if (rawContent) {
+        customElements.push({ raw_content: rawContent });
     }
     if (tags) {
         customElements.push({ tags: tags });

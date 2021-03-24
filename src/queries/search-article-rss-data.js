@@ -11,6 +11,7 @@ const searchArticleRSSData = `
                 languages
                 products
                 pubdate
+                rawContent
                 tags
                 title
                 type
