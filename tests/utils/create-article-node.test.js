@@ -7,6 +7,7 @@ describe('Should properly postprocess an article node after it is fetched', () =
     const articleLanguages = ['Python'];
     const articleProducts = ['MongoDB'];
     const articlePubdate = '2030-01-01';
+    const articleRawContent = 'Raw content';
     const articleSlug = 'article/test-article';
     const articleTags = ['first-tag', 'second-tag'];
     const articleTitle = 'Test Article';
@@ -78,7 +79,8 @@ describe('Should properly postprocess an article node after it is fetched', () =
             pageIdPrefix,
             createNode,
             createContentDigest,
-            {}
+            {},
+            articleRawContent
         );
         expect(createNode.mock.calls.length).toBe(1);
         const createdArticleNode = createNode.mock.calls[0][0];
@@ -87,6 +89,7 @@ describe('Should properly postprocess an article node after it is fetched', () =
         expect(createdArticleNode.title).toBe(articleTitle);
         expect(createdArticleNode.description).toBe(articleDescription);
         expect(createdArticleNode.pubdate).toBe(articlePubdate);
+        expect(createdArticleNode.rawContent).toBe(articleRawContent);
 
         expect(createdArticleNode.internal.contentDigest).not.toBeUndefined();
         expect(createContentDigest.mock.calls.length).toBe(1);
@@ -97,6 +100,7 @@ describe('Should properly postprocess an article node after it is fetched', () =
             languages: articleLanguages,
             products: articleProducts,
             pubdate: articlePubdate,
+            rawContent: articleRawContent,
             tags: articleTags,
             title: articleTitle,
             type: articleType,
