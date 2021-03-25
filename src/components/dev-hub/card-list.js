@@ -38,7 +38,7 @@ const sortCardsByDate = contentList =>
 const renderArticle = article => (
     <ArticleCard
         to={article['slug']}
-        key={article['_id']}
+        key={article['id']}
         image={withPrefix(article['atf-image'])}
         tags={getTagLinksFromMeta(article)}
         title={getNestedText(article['title'])}
