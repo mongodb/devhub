@@ -79,9 +79,7 @@ const StrapiArticle = props => {
                 og_image,
                 og_type,
                 og_url,
-                twitter_creator,
-                twitter_description,
-                twitter_image,
+                twitterNode,
             },
             seriesArticles,
             // Clarify and add in type in transform
@@ -95,13 +93,6 @@ const StrapiArticle = props => {
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(parsedContent, 'children', []);
     // TODO: Put in transform
-    const twitterNode = {
-        options: {
-            creator: twitter_creator,
-            description: twitter_description,
-            image: twitter_image.url,
-        },
-    };
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
