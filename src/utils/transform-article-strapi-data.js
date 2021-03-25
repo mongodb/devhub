@@ -15,6 +15,7 @@ export const transformArticleStrapiData = article => {
         ...article,
         authors: transformedAuthors,
         image: article.image.url,
+        isFromStrapi: true,
         languages: article.languages.map(l => l.language),
         products: article.products.map(p => p.product),
         SEO: {

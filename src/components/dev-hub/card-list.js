@@ -47,6 +47,19 @@ const renderArticle = article => (
     />
 );
 
+const renderStrapiArticle = article => (
+    <ArticleCard
+        to={article['slug']}
+        key={article['_id']}
+        image={article['image']}
+        // Cleanup below
+        tags={getTagLinksFromMeta(article)}
+        title={article['name']}
+        badge="article"
+        description={article['description']}
+    />
+);
+
 const renderVideo = video => (
     <VideoCard
         key={video.mediaType + video.title}
@@ -81,7 +94,9 @@ const renderContentTypeCard = (item, openAudio) => {
             default:
                 return;
         }
-
+    if (item.isFromStrapi) {
+        return renderStrapiArticle(item);
+    }
     return renderArticle(item);
 };
 

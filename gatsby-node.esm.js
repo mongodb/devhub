@@ -18,6 +18,7 @@ import {
     METADATA_COLLECTION,
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
+import { getStrapiArticleListFromGraphql } from './src/utils/setup/create-strapi-article-pages';
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
@@ -134,6 +135,8 @@ export const createPages = async ({ actions, graphql }) => {
 
     const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
+    const articleList = await getStrapiArticleListFromGraphql(graphql);
+
     await createStrapiArticlePages(graphql, createPage, metadataDocument);
 
     result.data.allArticle.nodes.forEach(article => {
@@ -162,7 +165,8 @@ export const createPages = async ({ actions, graphql }) => {
         createPage,
         metadataDocument,
         stitchClient,
-        strapiAuthors
+        strapiAuthors,
+        articleList
     );
 };
 

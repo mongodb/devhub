@@ -12,6 +12,7 @@ export const buildTimeArticles = `
 query Articles {
     allStrapiArticles {
       nodes {
+        _id
         authors {
           name
           image {
