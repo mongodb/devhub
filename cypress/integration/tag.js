@@ -17,6 +17,7 @@ describe('Tag page', () => {
                     .and('include', TAG_PAGE_URL);
             });
         });
+        cy.get('h1').should('have.length', 1);
     });
     it('should contain several articles with basic information', () => {
         cy.get('[data-test="card"]').should('have.length', 5);
@@ -53,5 +54,15 @@ describe('Tag page', () => {
     });
     it('should have a proper canonical URL', () => {
         cy.checkCanonicalUrlValue(`${PROD_TAG_PAGE_URL}`);
+    });
+
+    it('should have a header with some basic tag information', () => {
+        cy.visit(TAG_PAGE_URL);
+    });
+
+    it('should have title with page number and uniq h1 tag', () => {
+        cy.visit(TAG_PAGE_URL + '?page=2');
+        cy.title().should('eq', `${TITLE} - Page 2 - MongoDB Developer Hub`);
+        cy.get('h1').should('have.length', 1).contains(`${TITLE} - Page 2`);
     });
 });
