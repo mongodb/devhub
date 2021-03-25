@@ -85,7 +85,7 @@ const StrapiArticle = props => {
             },
             seriesArticles,
             // Clarify and add in type in transform
-            slug: thisPage,
+            slug,
             tags,
             type,
             updatedAt,
@@ -94,17 +94,18 @@ const StrapiArticle = props => {
     } = props;
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(parsedContent, 'children', []);
-    // TODO: Fix with SEO component
+    // TODO: Put in transform
     const twitterNode = {
-        twitter_creator,
-        description: twitter_description,
-        image: twitter_image.url,
+        options: {
+            creator: twitter_creator,
+            description: twitter_description,
+            image: twitter_image.url,
+        },
     };
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
     ];
-    // Add mapping for type in transform
     if (type && type.length) {
         articleBreadcrumbs.push({
             label: type[0].toUpperCase() + type.substring(1),
@@ -112,7 +113,7 @@ const StrapiArticle = props => {
         });
     }
     const tagList = getTagLinksFromMeta({ tags, products, languages });
-    const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${thisPage}`);
+    const articleUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
     // TODO: Fill in
     const headingNodes = [];
     const formattedPublishedDate = toDateString(
@@ -130,7 +131,7 @@ const StrapiArticle = props => {
                 ogDescription={og_description}
                 ogTitle={name}
                 ogUrl={og_url || articleUrl}
-                twitterNode={null}
+                twitterNode={twitterNode}
                 type={og_type}
             />
             <ArticleSchema
@@ -170,7 +171,7 @@ const StrapiArticle = props => {
                     <DocumentBody
                         pageNodes={childNodes}
                         slugTitleMapping={slugTitleMapping}
-                        slug={thisPage}
+                        slug={slug}
                         {...rest}
                     />
                     <ArticleShareFooter

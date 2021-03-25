@@ -28,7 +28,7 @@ const SEO = ({
 }) => {
     const twitter = twitterNode ? twitterNode.options : {};
     const twitterDescription = twitterNode
-        ? getNestedText(twitterNode.children)
+        ? twitterNode.options.description || getNestedText(twitterNode.children)
         : null;
     const { siteUrl } = useSiteMetadata();
     const ogImgSrc = image ? getImageSrc(image, siteUrl) : null;
