@@ -12,6 +12,12 @@ export const buildTimeArticles = `
 query Articles {
     allStrapiArticles {
       nodes {
+        authors {
+          name
+          image {
+            url
+          }
+        }
         content
         type
         description

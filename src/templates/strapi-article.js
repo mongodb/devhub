@@ -120,7 +120,6 @@ const StrapiArticle = props => {
         dateFormatOptions
     );
     const formattedUpdatedDate = toDateString(updatedAt, dateFormatOptions);
-
     return (
         <Layout includeCanonical={false}>
             <SEOComponent

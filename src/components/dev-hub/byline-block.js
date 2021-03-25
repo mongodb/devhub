@@ -47,8 +47,12 @@ const StyledAuthorImage = styled(AuthorImage)`
 
 const AuthorImages = ({ authors }) => (
     <AuthorImageContainer>
-        {authors.map(({ name, image }) => (
-            <StyledAuthorImage image={image} key={name} />
+        {authors.map(({ name, image, isInternalReference = false }) => (
+            <StyledAuthorImage
+                image={image}
+                key={name}
+                isInternalReference={isInternalReference}
+            />
         ))}
     </AuthorImageContainer>
 );
