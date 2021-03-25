@@ -121,9 +121,6 @@ const StrapiArticle = props => {
     );
     const formattedUpdatedDate = toDateString(updatedAt, dateFormatOptions);
 
-    // Move into transform
-    const articleImage = image.url;
-
     return (
         <Layout includeCanonical={false}>
             <SEOComponent
@@ -143,11 +140,11 @@ const StrapiArticle = props => {
                 description={meta_description}
                 publishedDate={published_at}
                 modifiedDate={updatedAt}
-                imageUrl={articleImage}
+                imageUrl={image}
                 authors={authors}
             />
             <BlogPostTitleArea
-                articleImage={articleImage}
+                articleImage={image}
                 authors={authors}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={formattedPublishedDate}
