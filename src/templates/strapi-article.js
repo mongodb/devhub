@@ -92,7 +92,6 @@ const StrapiArticle = props => {
     } = props;
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(parsedContent, 'children', []);
-    // TODO: Put in transform
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },

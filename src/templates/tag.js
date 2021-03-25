@@ -61,9 +61,9 @@ const constructArticles = data =>
     data.reduce(
         (accum, article) =>
             accum.concat(
-                article.query_fields
-                    ? { ...article.query_fields, _id: article._id }
-                    : article
+                article.isFromStrapi
+                    ? article
+                    : { ...article.query_fields, _id: article._id }
             ),
         []
     );
