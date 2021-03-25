@@ -52,7 +52,6 @@ const renderStrapiArticle = article => (
         to={article['slug']}
         key={article['_id']}
         image={article['image']}
-        // Cleanup below
         tags={getTagLinksFromMeta(article)}
         title={article['name']}
         badge="article"
