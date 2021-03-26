@@ -33,6 +33,14 @@ module.exports = {
             },
         },
         {
+            resolve: `gatsby-plugin-layout`,
+            options: {
+                component: require.resolve(
+                    `./src/components/dev-hub/audio-layout.js`
+                ),
+            },
+        },
+        {
             resolve: `gatsby-plugin-alias-imports`,
             options: {
                 alias: {

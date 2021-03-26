@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled';
-import Audio from './audio';
+import { AudioContext } from './audio-context';
 import Card from './card';
 import { withPrefix } from 'gatsby';
 import Paginate from './paginate';
@@ -59,14 +59,14 @@ const renderVideo = video => (
     />
 );
 
-const renderPodcast = (podcast, openAudio) => (
+const renderPodcast = (podcast, setActiveAudioNode) => (
     <Card
         key={podcast.mediaType + podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
         badge={podcast.mediaType}
         description={podcast.description}
-        onClick={() => openAudio(podcast)}
+        onClick={() => setActiveAudioNode(podcast)}
     />
 );
 
@@ -95,26 +95,17 @@ export default React.memo(
             videos.concat(articles, podcasts)
         );
 
-        const [activePodcast, setActivePodcast] = useState(false);
-
-        const openAudio = useCallback(podcast => {
-            setActivePodcast(podcast);
-        }, []);
-        const closeAudio = useCallback(e => {
-            e.stopPropagation();
-            setActivePodcast(null);
-        }, []);
-
+        const { activeAudioNode, setActiveAudioNode } = useContext(
+            AudioContext
+        );
+        console.log(activeAudioNode, setActiveAudioNode);
         return (
             <>
                 <Paginate limit={limit} data-test="card-list">
                     {fullContentList.map(contentType =>
-                        renderContentTypeCard(contentType, openAudio)
+                        renderContentTypeCard(contentType, setActiveAudioNode)
                     )}
                 </Paginate>
-                {podcasts.length ? (
-                    <Audio onClose={closeAudio} podcast={activePodcast} />
-                ) : null}
             </>
         );
     }
