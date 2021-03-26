@@ -244,7 +244,7 @@ export default ({
             const filter = stripAllParam(filterValue);
             const searchParams = buildQueryString(filter);
             const filteredArticles = filterActiveArticles(filter);
-            setArticles(filteredArticles);
+            filteredArticles.length && setArticles(filteredArticles);
             if (window.location.search !== searchParams) {
                 // if the search params are empty, push the pathname state in order to remove params
                 navigate(
