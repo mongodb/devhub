@@ -10,6 +10,7 @@ import useMedia from '~hooks/use-media';
 import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
 import Searchbar from './searchbar';
+import { makeLinkInternalIfApplicable } from '~src/utils/make-link-internal-if-applicable';
 
 const GREEN_BORDER_SIZE = '2px';
 // Account for bottom bar on mobile browsers
@@ -156,6 +157,17 @@ const GlobalNav = () => {
     const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(false);
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
+    items.forEach(i => {
+        const hasSubMenu = !!i.subitems.length;
+        if (hasSubMenu) {
+            i.subitems = i.subitems.map(item => ({
+                ...item,
+                url: makeLinkInternalIfApplicable(item.url),
+            }));
+        } else {
+            i.url = makeLinkInternalIfApplicable(i.url);
+        }
+    });
     const isMobile = useMedia(MOBILE_NAV_BREAK);
     const onSearchbarExpand = useCallback(isExpanded => {
         // On certain screens the searchbar is never collapsed

@@ -1,5 +1,5 @@
 import { withPrefix } from 'gatsby';
-import { addTrailingSlashIfMissing } from './add-trailing-slash-if-missing';
+import { addTrailingSlashBeforeParams } from './add-trailing-slash-if-missing';
 import { SITE_URL, FORUMS_URL } from '~src/constants';
 import { isLinkForImage } from '~utils/is-link-for-image';
 
@@ -15,7 +15,7 @@ export const makeLinkInternalIfApplicable = (link, includePrefix = false) => {
         // that one alone
         return isLinkForImage(link)
             ? withPrefix(linkWithoutSiteUrl)
-            : addTrailingSlashIfMissing(
+            : addTrailingSlashBeforeParams(
                   includePrefix
                       ? withPrefix(linkWithoutSiteUrl)
                       : linkWithoutSiteUrl

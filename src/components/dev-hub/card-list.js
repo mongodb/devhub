@@ -95,10 +95,7 @@ export default React.memo(
             videos.concat(articles, podcasts)
         );
 
-        const { activeAudioNode, setActiveAudioNode } = useContext(
-            AudioContext
-        );
-        console.log(activeAudioNode, setActiveAudioNode);
+        const { setActiveAudioNode } = useContext(AudioContext);
         return (
             <>
                 <Paginate limit={limit} data-test="card-list">
