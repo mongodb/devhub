@@ -60,7 +60,11 @@ const SyledAuthorImage = styled(AuthorImage)`
 const constructArticles = data =>
     data.reduce(
         (accum, article) =>
-            accum.concat({ ...article.query_fields, _id: article._id }),
+            accum.concat(
+                article.isFromStrapi
+                    ? article
+                    : { ...article.query_fields, _id: article._id }
+            ),
         []
     );
 

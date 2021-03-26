@@ -4,8 +4,7 @@ import { buildTimeArticles } from '../../queries/articles';
 import { parseMarkdownToAST } from './parse-markdown-to-ast';
 
 const createPageForStrapiArticle = async (article, createPage, metadata) => {
-    const updatedArticle = transformArticleStrapiData(article);
-    const { content, slug, ...rest } = updatedArticle;
+    const { content, slug, ...rest } = article;
     const parsedContent = await parseMarkdownToAST(content);
     const template = 'strapi-article';
     if (parsedContent && Object.keys(parsedContent).length > 0) {
@@ -24,9 +23,11 @@ const createPageForStrapiArticle = async (article, createPage, metadata) => {
     }
 };
 
-const getStrapiArticleListFromGraphql = async graphql => {
+export const getStrapiArticleListFromGraphql = async graphql => {
     const projectResp = await graphql(buildTimeArticles);
-    const result = projectResp.data.allStrapiArticles.nodes;
+    const result = projectResp.data.allStrapiArticles.nodes.map(
+        transformArticleStrapiData
+    );
     return result;
 };
 

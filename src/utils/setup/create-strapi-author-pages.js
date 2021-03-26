@@ -17,7 +17,8 @@ export const createStrapiAuthorPages = async (
     createPage,
     pageMetadata,
     realmClient,
-    authors
+    authors,
+    strapiArticles
 ) => {
     const snootyAuthors = await realmClient.callFunction('getValuesByKey', [
         metadata,
@@ -30,10 +31,17 @@ export const createStrapiAuthorPages = async (
         const snootyAuthor = snootyAuthors.find(
             a => a._id.name === transformedAuthorData.name
         );
-        let pages = [];
+        let pages = strapiArticles.filter(
+            a =>
+                !!a.authors.find(
+                    author => author.name === transformedAuthorData.name
+                )
+        );
         if (snootyAuthor) {
             // Get snooty pages
-            pages = await getSnootyArticlesForAuthor(snootyAuthor, realmClient);
+            pages.push(
+                ...(await getSnootyArticlesForAuthor(snootyAuthor, realmClient))
+            );
         }
         const newPage = {
             type: 'author',
