@@ -8,9 +8,13 @@ describe('Learn Page', () => {
         cy.visitWithoutFetch('/learn/');
         // Make sure something renders on the page
         cy.contains('Make better, faster applications');
+        cy.title().should('eq', 'Learn - MongoDB Developer Hub');
     });
     it('should have a proper canonical url', () => {
         cy.checkCanonicalUrlValue(CANONICAL_URL);
+    });
+    it('should have a uniq h1 tag', () => {
+        cy.get('h1').should('have.length', 1);
     });
     it('should properly render some featured articles', () => {
         // Check main featured article
@@ -90,6 +94,7 @@ describe('Learn Page', () => {
     it('should have updated fields after "Load More" is activated', () => {
         cy.contains('Load more').should('exist').click();
         cy.url().should('include', 'page=2');
+        cy.title().should('eq', 'Learn - Page 2 - MongoDB Developer Hub');
         cy.get('[data-test="card-list"]').within(() => {
             cy.get('[data-test="card"]').should('have.length', 24);
         });

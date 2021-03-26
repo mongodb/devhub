@@ -10,6 +10,7 @@ import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createStrapiAuthorPages } from './src/utils/setup/create-strapi-author-pages';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
 import { createStrapiArticlePages } from './src/utils/setup/create-strapi-article-pages';
+import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getAuthorListFromGraphql } from './src/utils/setup/get-author-list-from-graphql';
 import { getMetadata } from './src/utils/get-metadata';
@@ -57,7 +58,7 @@ export const sourceNodes = async ({
         metadata.patchId
     );
 
-    const documents = await stitchClient.callFunction('fetchDocuments', [
+    const documents = await stitchClient.callFunction('fetchDevhubDocuments', [
         DB,
         DOCUMENTS_COLLECTION,
         query,
@@ -67,13 +68,17 @@ export const sourceNodes = async ({
     }
 
     documents.forEach(doc => {
+        const rawContent = doc.source;
+        // We use the source for search RSS XML but do not want it in page data
+        delete doc.source;
         createAssetNodes(doc, createNode, createContentDigest);
         createArticleNode(
             doc,
             PAGE_ID_PREFIX,
             createNode,
             createContentDigest,
-            slugContentMapping
+            slugContentMapping,
+            rawContent
         );
     });
 };
@@ -86,6 +91,14 @@ export const createSchemaCustomization = ({ actions }) => {
     const typeDefs = `
     type SitePage implements Node @dontInfer {
         path: String
+    }
+    type StrapiClientSideRedirect implements Node {
+        fromPath: String
+        isPermanent: Boolean
+        toPath: String
+    }
+    type allStrapiClientSideRedirects implements Node {
+        nodes: [StrapiClientSideRedirect]
     }
     `;
     createTypes(typeDefs);
@@ -110,7 +123,7 @@ const filteredPageGroups = allSeries => {
 };
 
 export const createPages = async ({ actions, graphql }) => {
-    const { createPage } = actions;
+    const { createPage, createRedirect } = actions;
     const [, metadataDocument, result] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
         stitchClient.callFunction('fetchDocument', [
@@ -148,6 +161,8 @@ export const createPages = async ({ actions, graphql }) => {
             createPage
         );
     });
+
+    await createClientSideRedirects(graphql, createRedirect);
 
     const tagTypes = ['author', 'languages', 'products', 'tags', 'type'];
     const tagPages = tagTypes.map(type =>

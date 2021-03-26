@@ -7,7 +7,8 @@ export const createArticleNode = (
     PAGE_ID_PREFIX,
     createNode,
     createContentDigest,
-    slugContentMapping
+    slugContentMapping,
+    rawContent
 ) => {
     const filename = getNestedValue(['filename'], doc) || '';
     const isArticlePage =
@@ -27,6 +28,7 @@ export const createArticleNode = (
             languages: doc.query_fields['languages'],
             products: doc.query_fields['products'],
             pubdate: doc.query_fields['pubdate'],
+            rawContent,
             tags: doc.query_fields['tags'],
             title: getNestedText(doc.query_fields['title']),
             type: doc.query_fields['type'],
