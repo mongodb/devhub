@@ -18,6 +18,7 @@ import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
 import ArticleSchema from '../components/dev-hub/article-schema';
+import { findSectionHeadings } from '../utils/find-section-headings';
 
 const dateFormatOptions = {
     month: 'short',
@@ -104,8 +105,13 @@ const StrapiArticle = props => {
     }
     const tagList = getTagLinksFromMeta({ tags, products, languages });
     const articleUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
-    // TODO: Fill in
-    const headingNodes = [];
+    const headingNodes = findSectionHeadings(
+        childNodes,
+        'type',
+        'heading',
+        1,
+        -1
+    );
     const formattedPublishedDate = toDateString(
         published_at,
         dateFormatOptions
