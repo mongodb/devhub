@@ -53,6 +53,7 @@
     "gatsby-plugin-feed": "^2.12.0",
     "gatsby-plugin-force-trailing-slashes": "^1.0.5",
     "gatsby-plugin-google-tagmanager": "^2.10.0",
+    "gatsby-plugin-layout": "^2.1.0",
     "gatsby-plugin-meta-redirect": "^1.1.1",
     "gatsby-plugin-react-helmet": "^3.9.0",
     "gatsby-plugin-sitemap": "^2.12.0",
