@@ -27,10 +27,6 @@ const StyledCheckbox = styled(Checkbox)`
     }
 `;
 
-const StyledSelect = styled(Select)`
-    color: ${({ theme }) => theme.colorMap.greyLightTwo};
-`;
-
 const ErrorMessage = styled(P)`
     color: ${({ theme }) => theme.colorMap.salmon};
 `;
@@ -142,7 +138,7 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                     maxLength="25"
                     required
                     pattern="^[A-Za-zÀ-ÿ ,.'-]+$"
-                    placeholder="First Name"
+                    label="First Name"
                     onChange={e => setFirstName(e.target.value)}
                     onInput={e => e.target.setCustomValidity('')}
                     onInvalid={onFirstNameInvalid}
@@ -153,7 +149,7 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                     maxLength="25"
                     required
                     pattern="^[A-Za-zÀ-ÿ ,.'-]+$"
-                    placeholder="Last Name"
+                    label="Last Name"
                     onChange={e => setLastName(e.target.value)}
                     onInput={e => e.target.setCustomValidity('')}
                     onInvalid={onLastNameInvalid}
@@ -163,7 +159,7 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                     type="email"
                     value={email}
                     required
-                    placeholder="Email Address"
+                    label="Email Address"
                     onChange={e => setEmail(e.target.value)}
                     onInput={e => e.target.setCustomValidity('')}
                     onInvalid={onEmailInvalid}
@@ -180,13 +176,13 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                     value={institutionName}
                     required
                     maxLength="50"
-                    placeholder="Name of Institution"
+                    label="Name of Institution"
                     onChange={e => setInstitutionName(e.target.value)}
                 />
-                <StyledSelect
-                    narrow
+                <Select
+                    name="institution_type"
                     value={institutionType}
-                    defaultText="Institution Type"
+                    label="Institution Type"
                     choices={institutionTypes}
                     onChange={e => setInstitutionType(e)}
                 />

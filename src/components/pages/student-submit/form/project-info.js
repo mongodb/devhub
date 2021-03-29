@@ -35,7 +35,7 @@ const LinksSection = styled('div')`
 `;
 
 const FormInput = ({ required = true, ...props }) => (
-    <Input narrow required={required} {...props} />
+    <Input required={required} {...props} />
 );
 
 const ProjectInfo = ({ canReopen, state, onChange, onClick, ...props }) => {
@@ -68,19 +68,19 @@ const ProjectInfo = ({ canReopen, state, onChange, onClick, ...props }) => {
                 <FormInput
                     name="name"
                     onChange={onChange}
-                    placeholder="Project Name"
+                    label="Project Name"
                     value={state.name}
                 />
                 <FormInput
                     name="short_description"
                     onChange={onChange}
-                    placeholder="Short description of project"
+                    label="Short description of project"
                     value={state.short_description}
                 />
                 <FormInput
                     name="tools_used"
                     onChange={onChange}
-                    placeholder="Tools used (separate each tool with a comma)"
+                    label="Tools used (separate each tool with a comma)"
                     value={state.tools_used}
                 />
                 <LinksSection>
@@ -88,7 +88,7 @@ const ProjectInfo = ({ canReopen, state, onChange, onClick, ...props }) => {
                         required={false}
                         name="github_url"
                         onChange={onChange}
-                        placeholder="Source Code URL (GitHub)"
+                        label="Source Code URL (GitHub)"
                         type="url"
                         value={state.github_url}
                     />
@@ -96,7 +96,7 @@ const ProjectInfo = ({ canReopen, state, onChange, onClick, ...props }) => {
                         required={false}
                         name="project_link"
                         onChange={onChange}
-                        placeholder="Other Project Link"
+                        label="Other Project Link"
                         type="url"
                         value={state.project_link}
                     />
@@ -110,7 +110,7 @@ const ProjectInfo = ({ canReopen, state, onChange, onClick, ...props }) => {
                     required={false}
                     name="youtube_link"
                     onChange={onChange}
-                    placeholder="YouTube Video Demo Link"
+                    label="YouTube Video Demo Link"
                     type="url"
                     value={state.youtube_link}
                 />

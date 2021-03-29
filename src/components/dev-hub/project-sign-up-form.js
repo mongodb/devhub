@@ -96,7 +96,7 @@ const Form = React.memo(({ setSuccess, success }) => {
                 value={projectDescription}
                 maxLength="250"
                 required
-                placeholder="Project Description (250 characters)"
+                label="Project Description (250 characters)"
                 onChange={e => setProjectDescription(e.target.value)}
             />
             <SubmitContainer>
