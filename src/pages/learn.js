@@ -23,6 +23,8 @@ import Tab from '../components/dev-hub/tab';
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
 
+const Title = H2.withComponent('h1');
+
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
         display: grid;
@@ -242,7 +244,7 @@ export default ({
             const filter = stripAllParam(filterValue);
             const searchParams = buildQueryString(filter);
             const filteredArticles = filterActiveArticles(filter);
-            setArticles(filteredArticles);
+            filteredArticles.length && setArticles(filteredArticles);
             if (window.location.search !== searchParams) {
                 // if the search params are empty, push the pathname state in order to remove params
                 navigate(
@@ -339,7 +341,7 @@ export default ({
             </Helmet>
             <Header>
                 <HeaderContent>
-                    <H2>Make better, faster applications</H2>
+                    <Title>Make better, faster applications</Title>
                     <FeaturedArticles articles={featuredArticles} />
                 </HeaderContent>
             </Header>

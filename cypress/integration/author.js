@@ -41,4 +41,7 @@ describe('Author Page', () => {
             cy.get('[data-test="card"]').should('have.length', 24);
         });
     });
+    it('should have a uniq h1 tag', () => {
+        cy.get('h1').should('have.length', 1)
+    });
 });
