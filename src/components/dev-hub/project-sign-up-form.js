@@ -24,7 +24,7 @@ const Title = styled(H5)`
     padding-bottom: ${size.medium};
 `;
 const StyledInput = styled(Input)`
-    margin-bottom: ${size.large};
+    margin-bottom: ${size.small};
 `;
 const ErrorMessage = styled(P)`
     color: ${({ theme }) => theme.colorMap.salmon};
@@ -69,7 +69,7 @@ const Form = React.memo(({ setSuccess, success }) => {
                 value={name}
                 maxLength="50"
                 required
-                placeholder="Name"
+                label="Name"
                 pattern="^[A-Za-zÀ-ÿ ,.'-]+$"
                 onChange={e => setName(e.target.value)}
                 onInput={e => e.target.setCustomValidity('')}
@@ -83,7 +83,7 @@ const Form = React.memo(({ setSuccess, success }) => {
                 type="email"
                 value={email}
                 required
-                placeholder="Email Address"
+                label="Email Address"
                 onChange={e => setEmail(e.target.value)}
                 onInput={e => e.target.setCustomValidity('')}
                 onInvalid={e =>

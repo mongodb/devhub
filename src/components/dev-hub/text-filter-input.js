@@ -31,7 +31,6 @@ const TextFilterInputContainer = styled('div')`
 const TextFilterInput = ({ onChange, value, ...props }) => (
     <TextFilterInputContainer>
         <InputWithLeftPadding
-            narrow
             onChange={onChange}
             value={value}
             {...props}

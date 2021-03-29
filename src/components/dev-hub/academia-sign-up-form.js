@@ -40,7 +40,7 @@ const StyledSectionText = styled(ArticleH3)`
 const InstructorSection = styled('div')`
     display: grid;
     grid-template-columns: ${INPUT_BOX_WIDTH};
-    grid-row-gap: ${size.default};
+    grid-row-gap: ${size.small};
     margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
         grid-template-columns: 100%;
@@ -50,7 +50,7 @@ const InstructorSection = styled('div')`
 const InstitutionSection = styled('div')`
     display: grid;
     grid-template-columns: ${INPUT_BOX_WIDTH};
-    grid-row-gap: ${size.default};
+    grid-row-gap: ${size.small};
     justify-content: space-between;
     margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
