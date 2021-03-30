@@ -83,13 +83,6 @@ export default React.memo(
             () => filterValue.languages && filterValue.languages !== 'all',
             [filterValue.languages]
         );
-        const selectTextFormatting = useMemo(
-            () =>
-                hasLanguageFilter && hasProductFilter
-                    ? x => x.replace(/\(\d*\)/g, '')
-                    : null,
-            [hasLanguageFilter, hasProductFilter]
-        );
         // Update filter values when changed
         useEffect(() => {
             if (hasProductFilter) {
@@ -122,10 +115,10 @@ export default React.memo(
         const handleChange = (value, type) => {
             // only update if the filter value has changed
             if (filterValue[type]) {
-                filterValue[type] !== value &&
+                value && filterValue[type] !== value &&
                     setFilterValue({ ...filterValue, [type]: value });
             } else {
-                setFilterValue({ ...filterValue, [type]: value });
+                value && setFilterValue({ ...filterValue, [type]: value });
             }
         };
         const onTextFilterChange = useCallback(
@@ -145,27 +138,25 @@ export default React.memo(
                     <FilterLabel>Filter By</FilterLabel>
                     <SelectWrapper>
                         <Select
-                            enabled={!textFilterQuery}
-                            narrow
+                            disabled={textFilterQuery}
                             name="product"
                             choices={products}
-                            defaultText="Product"
+                            placeholder="Product"
+                            aria-labelledby="Product"
                             value={filterValue.products}
                             onChange={e => handleChange(e, 'products')}
-                            styleSelectedText={selectTextFormatting}
-                        ></Select>
+                        />
                     </SelectWrapper>
                     <SelectWrapper>
                         <Select
-                            enabled={!textFilterQuery}
-                            narrow
+                            disabled={textFilterQuery}
                             name="language"
                             choices={languages}
-                            defaultText="Language"
+                            placeholder="Language"
+                            aria-labelledby="Language"
                             value={filterValue.languages}
                             onChange={e => handleChange(e, 'languages')}
-                            styleSelectedText={selectTextFormatting}
-                        ></Select>
+                        />
                     </SelectWrapper>
                 </ResponsiveFlexContainer>
             </FilterBar>

@@ -95,27 +95,27 @@ const NewStudentFieldset = ({
                     name="first_name"
                     onChange={onChange}
                     value={state.first_name}
-                    placeholder="First Name"
+                    label="First Name"
                 />
                 <FormInput
                     name="last_name"
                     onChange={onChange}
                     value={state.last_name}
-                    placeholder="Last Name"
+                    label="Last Name"
                 />
                 <FormInput
                     name="email"
                     onChange={onChange}
                     value={state.email}
                     type="email"
-                    placeholder="Email Address"
+                    label="Email Address"
                 />
             </LinksSection>
             <TextArea
                 name="bio"
                 onChange={onChange}
                 value={state.bio}
-                placeholder="Short Bio"
+                label="Short Bio"
             />
             <HiddenInputContainer>
                 <ButtonWithImage onClick={openFileSelector}>
@@ -152,35 +152,35 @@ const NewStudentFieldset = ({
                 name="school_name"
                 onChange={onChange}
                 value={state.school_name}
-                placeholder="School Name"
+                label="School Name"
             />
             <FormInput
                 name="github_url"
                 onChange={onChange}
                 value={state.github_url}
                 required={false}
-                placeholder="GitHub Page"
+                label="GitHub Page"
             />
             <FormInput
                 name="twitter_handle"
                 onChange={onChange}
                 value={state.twitter_handle}
                 required={false}
-                placeholder="Twitter"
+                label="Twitter"
             />
             <FormInput
                 name="linkedin_url"
                 onChange={onChange}
                 value={state.linkedin_url}
                 required={false}
-                placeholder="LinkedIn"
+                label="LinkedIn"
             />
             <FormInput
                 name="personal_website"
                 onChange={onChange}
                 value={state.personal_website}
                 required={false}
-                placeholder="Personal Website"
+                label="Personal Website"
             />
         </>
     );

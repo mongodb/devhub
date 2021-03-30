@@ -75,12 +75,9 @@ describe('Learn Page', () => {
         cy.toggleLearnPageTab('Articles');
         cy.checkFirstCardInCardList('Working with MongoDB Transactions');
         cy.get('[data-test="filter-bar"]').within(() => {
-            cy.get('[role="listbox"]').first().click();
+            cy.get('[role="combobox"]').first().parent().parent().parent().click({timeout: 5000});
+            cy.get('ul > li').contains('Atlas').click({force: true});
         });
-        // Update filter
-        // Using click() for some reason loses focus before the onClick fires
-        // Using trigger seems to work, but this should be looked into a bit more
-        cy.contains('Atlas (26)').trigger('click');
         // The url should contain the filter value as a param
         cy.url().should('include', 'products=Atlas');
         // Check content
