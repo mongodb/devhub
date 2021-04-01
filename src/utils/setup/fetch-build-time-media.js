@@ -7,7 +7,7 @@ import memoizerific from 'memoizerific';
 
 const MAX_RESULTS = 5;
 
-const fetch = async () => {
+const fetchContent = async () => {
     const client = await initStitch(STITCH_AUTH_APP_ID);
     const [youtubeVideos, twitchVideos, lybsinPodcasts] = await Promise.all([
         client.callFunction('fetchYoutubeData', [MAX_RESULTS]),
@@ -26,5 +26,5 @@ const fetch = async () => {
 };
 
 export const fetchBuildTimeMedia = memoizerific(1)(
-    async () => await fetch()
+    async () => await fetchContent()
 );
