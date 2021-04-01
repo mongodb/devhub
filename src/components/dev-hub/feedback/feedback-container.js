@@ -11,7 +11,8 @@ const feedbackItems = graphql`
 
 const FeedbackContainer = () => {
     const data = useStaticQuery(feedbackItems);
-    console.log(data);
+    // Uncomment below to see shape of data
+    // console.log(data);
     // TODO: Implement feedback UI
     return <div />;
 };
