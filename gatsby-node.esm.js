@@ -16,6 +16,7 @@ import {
     METADATA_COLLECTION,
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
+import { createPodcastPages } from './src/utils/setup/create-podcast-pages';
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
 
@@ -150,6 +151,8 @@ export const createPages = async ({ actions, graphql }) => {
             createPage
         );
     });
+
+    await createPodcastPages(createPage, metadataDocument);
 
     await createClientSideRedirects(graphql, createRedirect);
 
