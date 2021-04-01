@@ -11,6 +11,7 @@ import RelatedArticles from '../components/dev-hub/related-articles';
 import { screenSize, size } from '../components/dev-hub/theme';
 import SEO from '../components/dev-hub/SEO';
 import ArticleSeries from '../components/dev-hub/article-series';
+import { FeedbackContainer } from '~components/dev-hub/feedback';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { toDateString } from '../utils/format-dates';
@@ -195,6 +196,7 @@ const Article = props => {
                 title={articleTitle}
                 updatedDate={formattedUpdatedDate}
             />
+            <FeedbackContainer />
             <Container>
                 <Icons>
                     <ContentsMenu
