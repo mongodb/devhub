@@ -30,10 +30,6 @@ const getAllArticles = memoizerific(1)(async () => {
     return filteredDocuments;
 });
 
-const memoizedBuildTimeMedia = memoizerific(1)(
-    async () => await fetchBuildTimeMedia()
-);
-
 export const handleCreatePage = async (
     page,
     actions,
@@ -47,7 +43,7 @@ export const handleCreatePage = async (
 
     switch (page.path) {
         case '/learn/':
-            const allMedia = await memoizedBuildTimeMedia();
+            const allMedia = await fetchBuildTimeMedia();
             await handleCreateLearnPage(
                 page,
                 actions,
@@ -58,7 +54,7 @@ export const handleCreatePage = async (
             );
             break;
         case '/':
-            const { fallbackTwitchVideo } = await memoizedBuildTimeMedia();
+            const { fallbackTwitchVideo } = await fetchBuildTimeMedia();
             await handleCreateHomePage(
                 page,
                 actions,
