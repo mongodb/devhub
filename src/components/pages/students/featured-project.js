@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import dlv from 'dlv';
 import { useStaticQuery, graphql } from 'gatsby';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import BlogTagList from '~components/dev-hub/blog-tag-list';
 import Link from '~components/dev-hub/link';

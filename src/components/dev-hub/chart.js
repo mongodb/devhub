@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { buildQueryString } from '../../utils/query-string';
 import styled from '@emotion/styled';
 

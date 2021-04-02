@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
 import { P } from './dev-hub/text';

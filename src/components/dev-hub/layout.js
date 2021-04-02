@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { ThemeProvider } from 'emotion-theming';
-import { Global, css } from '@emotion/core';
+import { ThemeProvider } from '@emotion/react';
+import { Global, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useLocation } from '@reach/router';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';

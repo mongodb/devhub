@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import { withPrefix } from 'gatsby';
 import { useEventListener } from '@leafygreen-ui/hooks';
 import Icon from '@leafygreen-ui/icon';

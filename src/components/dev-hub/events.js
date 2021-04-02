@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import LocationIcon from './icons/location-icon';
 import Link from './link';
 import { P, H4 } from './text';
 import { toDateString } from '../../utils/format-dates';
 import { size, fontSize, animationSpeed } from './theme';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 
 const Day = styled('span')`
     display: block;

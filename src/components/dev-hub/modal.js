@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import AriaModal from 'react-aria-modal';
 import useMedia from '../../hooks/use-media';
 import { fontSize, screenSize, size } from './theme';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 
 const transparentModalStyling = css`
     background-color: transparent;
