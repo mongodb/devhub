@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import Button from '../../components/dev-hub/button';
 import HeroBanner from '../../components/dev-hub/hero-banner';
 import Layout from '../../components/dev-hub/layout';

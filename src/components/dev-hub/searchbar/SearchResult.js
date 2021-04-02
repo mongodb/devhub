@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useRef } from 'react';
 // import sanitizeHtml from 'sanitize-html';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { fontSize, screenSize, size } from '~components/dev-hub/theme';
 import Link from '~components/Link';

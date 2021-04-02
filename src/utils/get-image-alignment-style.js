@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { screenSize, size } from '../components/dev-hub/theme';
 
 export const getImageAlignmentStyle = align => {

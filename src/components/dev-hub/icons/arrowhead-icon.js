@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 
 const DIRECTION_TO_SVG_PATH = {
     down: 'M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z',

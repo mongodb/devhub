@@ -7,7 +7,7 @@ import { screenSize, size } from '../../dev-hub/theme';
 import Button from '../../dev-hub/button';
 import buildImage from '../../../images/2x/Build@2x.png';
 import GradientUnderline from '../../dev-hub/gradient-underline';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import FeatureSection from './feature-section';
 import ProjectSignUpForm from '../../dev-hub/project-sign-up-form';
 

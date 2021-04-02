@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import Popover from 'react-tiny-popover';
 import { animationSpeed, layer, size } from './theme';
 
