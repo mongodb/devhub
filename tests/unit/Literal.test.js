@@ -1,5 +1,4 @@
 import React from 'react';
-import { ThemeProvider } from '@emotion/react';
 import { shallow } from 'enzyme';
 import Literal from '../../src/components/Literal';
 import { darkTheme } from '../../src/components/dev-hub/theme';
