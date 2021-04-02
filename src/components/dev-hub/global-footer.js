@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import { fontSize, lineHeight, screenSize, size } from './theme';
 import MongodbLogoIcon from './icons/mongodb-logo';
 import Link from './link';
@@ -11,7 +11,6 @@ import Github from './icons/github';
 import Youtube from './icons/youtube';
 import Twitch from './icons/twitch';
 import { P } from './text';
-import { useTheme } from '@emotion/react';
 import { FORUMS_URL } from '~src/constants';
 
 // Logo size 150px + 64px padding right
