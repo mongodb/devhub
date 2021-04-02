@@ -8,10 +8,6 @@ import { darkTheme } from '../../src/components/dev-hub/theme';
 import mockData from './data/Literal.test.json';
 
 it('renders correctly', () => {
-    const tree = shallow(
-        <ThemeProvider theme={darkTheme}>
-            <Literal nodeData={mockData} />
-        </ThemeProvider>
-    );
+    const tree = shallow(<Literal nodeData={mockData} />);
     expect(tree).toMatchSnapshot();
 });
