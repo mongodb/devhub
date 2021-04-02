@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css, useTheme } from '@emotion/react';
 import { getArticleShareLinks } from '../../utils/get-article-share-links';
 import Tooltip from './tooltip';
 import ShareIcon from './icons/share-icon';
@@ -13,7 +13,6 @@ import LinkedIn from './icons/linkedin';
 import copy from 'copy-to-clipboard';
 import SuccessIcon from './icons/success';
 import HoverTooltip from './hover-tooltip';
-import { useTheme } from 'emotion-theming';
 
 const StyledShareIcon = styled(ShareIcon)`
     &:hover {

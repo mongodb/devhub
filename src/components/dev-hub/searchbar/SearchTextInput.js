@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import TextInput from '@leafygreen-ui/text-input';
 import {

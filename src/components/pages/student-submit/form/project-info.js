@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Input from '~components/dev-hub/input';
 import MainImageDropzone from './main-image-dropzone';

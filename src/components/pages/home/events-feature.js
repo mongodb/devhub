@@ -7,7 +7,7 @@ import { screenSize, size } from '../../dev-hub/theme';
 import Button from '../../dev-hub/button';
 import meetupsImage from '../../../images/1x/Meetups.png';
 import GradientUnderline from '../../dev-hub/gradient-underline';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import FeatureSection from './feature-section';
 
 const MEDIA_WIDTH = '550px';
