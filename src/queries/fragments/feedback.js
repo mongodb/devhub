@@ -9,6 +9,8 @@ export const feedbackFlows = graphql`
                     labels {
                         label
                     }
+                    name
+                    required
                 }
                 cta
                 description
@@ -22,6 +24,8 @@ export const feedbackFlows = graphql`
                         label
                     }
                     type
+                    name
+                    required
                 }
                 cta
                 description
@@ -35,6 +39,8 @@ export const feedbackFlows = graphql`
                         label
                     }
                     type
+                    name
+                    required
                 }
                 cta
                 description
@@ -48,6 +54,8 @@ export const feedbackFlows = graphql`
                         label
                     }
                     type
+                    name
+                    required
                 }
                 cta
                 description
@@ -61,6 +69,8 @@ export const feedbackFlows = graphql`
                         label
                     }
                     type
+                    name
+                    required
                 }
                 cta
                 description
