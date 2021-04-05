@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
+import CMSForm from '~components/dev-hub/cms-form';
 
 const feedbackItems = graphql`
     query FeedbackItems {
@@ -12,9 +13,17 @@ const feedbackItems = graphql`
 const FeedbackContainer = () => {
     const data = useStaticQuery(feedbackItems);
     // Uncomment below to see shape of data
-    // console.log(data);
+    console.log(data);
     // TODO: Implement feedback UI
-    return <div />;
+    return (
+        <CMSForm
+            form={
+                data
+                    ? data.strapiFeedbackRatingFlow.OneStarRatingFlow.forms[0]
+                    : []
+            }
+        />
+    );
 };
 
 export default FeedbackContainer;
