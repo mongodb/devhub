@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'enzyme';
 import Heading from '../../src/components/Heading';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import { darkTheme} from '../../src/components/dev-hub/theme';
 
 // data for this component

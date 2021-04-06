@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { size } from './theme';
 import { P3 } from './text';

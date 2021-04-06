@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import dlv from 'dlv';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import LeafLogo from './icons/mdb-dev-logo-leaf';

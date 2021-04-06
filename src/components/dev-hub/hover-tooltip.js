@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import Tooltip from './tooltip';
 import { P4 } from './text';
 import { size } from './theme';

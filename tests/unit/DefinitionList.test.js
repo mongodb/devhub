@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import { render } from 'enzyme';
 import DefinitionList from '../../src/components/DefinitionList';
 import { darkTheme } from '../../src/components/dev-hub/theme';

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { H5, P2 } from '~components/dev-hub/text';
 import { screenSize } from '~components/dev-hub/theme';
