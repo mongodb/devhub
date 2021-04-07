@@ -8,11 +8,13 @@ const StyledContainerTop = styled.div``;
 
 const StyledContainerBottom = styled.div`
     background-color: ${colorMap.devBlack};
-    border: 1px solid ${colorMap.greyDarkThree};
     border-radius: ${size.xsmall};
+    border: 1px solid ${colorMap.greyDarkThree};
     padding: ${size.mediumLarge};
+  
     @media ${screenSize.mediumAndUp} {
         padding-left: ${size.large};
+        padding: 15px;
     }
 `;
 
@@ -27,15 +29,13 @@ const ArticleRating = ({ isTop, isBottom }) => {
     return (
         <Container>
             <StarRating
-                onFirstsClick={() => {
-                    alert('First Modal');
-                }}
-                onMiddleClick={() => {
-                    alert('Second Modal');
-                }}
-                onLatestClick={() => {
-                    alert('Third Modal');
-                }}
+                clickHandlers={[
+                    () => alert('1 Modal'),
+                    () => alert('2 Modal'),
+                    () => alert('3 Modal'),
+                    () => alert('4 Modal'),
+                    () => alert('5 Modal'),
+                ]}
             />
         </Container>
     );

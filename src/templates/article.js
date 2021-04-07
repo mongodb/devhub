@@ -23,6 +23,7 @@ import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedText } from '../utils/get-nested-text';
 import ArticleSchema from '../components/dev-hub/article-schema';
+import ArticleRating from '~components/ArticleRating';
 
 /**
  * Name map of directives we want to display in an article
@@ -219,6 +220,7 @@ const Article = props => {
                         slug={thisPage}
                         {...rest}
                     />
+                    <ArticleRating isBottom />
                     <ArticleShareFooter
                         title={articleTitle}
                         url={articleUrl}

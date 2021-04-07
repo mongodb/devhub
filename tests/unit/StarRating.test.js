@@ -4,9 +4,7 @@ import { shallow } from 'enzyme';
 import StarRating from '~components/dev-hub/star-rating';
 
 const props = {
-    onMiddleClick: jest.fn(),
-    onLatestClick: jest.fn(),
-    onFirstsClick: jest.fn(),
+    clickHandlers: [jest.fn()],
 };
 
 describe('StarRating', () => {

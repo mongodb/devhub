@@ -8,91 +8,106 @@ exports[`StarRating renders correctly 1`] = `
   <StyledStarsContainer
     onMouseLeave={[Function]}
   >
-    <StyledStar
+    <StyledButton
       isActive={false}
-      isClicked={false}
-      name="first-star"
       onClick={[Function]}
       onMouseEnter={[Function]}
-      width={false}
     >
-      <stop
-        offset="0%"
-        stopColor="#D34F94"
-      />
-      <stop
-        offset="100%"
-        stopColor="#D95B8F"
-      />
-    </StyledStar>
-    <StyledStar
+      <Memo(StarIcon)
+        isActive={false}
+        name="first-star"
+        size={false}
+      >
+        <stop
+          offset="0%"
+          stopColor="#D34F94"
+        />
+        <stop
+          offset="100%"
+          stopColor="#D95B8F"
+        />
+      </Memo(StarIcon)>
+    </StyledButton>
+    <StyledButton
       isActive={false}
-      isClicked={false}
-      name="second-star"
       onClick={[Function]}
       onMouseEnter={[Function]}
-      width={false}
     >
-      <stop
-        offset="0%"
-        stopColor="#D95B8F"
-      />
-      <stop
-        offset="100%"
-        stopColor="#E06D88"
-      />
-    </StyledStar>
-    <StyledStar
+      <Memo(StarIcon)
+        isActive={false}
+        name="second-star"
+        size={false}
+      >
+        <stop
+          offset="0%"
+          stopColor="#D95B8F"
+        />
+        <stop
+          offset="100%"
+          stopColor="#E06D88"
+        />
+      </Memo(StarIcon)>
+    </StyledButton>
+    <StyledButton
       isActive={false}
-      isClicked={false}
-      name="third-star"
       onClick={[Function]}
       onMouseEnter={[Function]}
-      width={false}
     >
-      <stop
-        offset="0%"
-        stopColor="#E06D88"
-      />
-      <stop
-        offset="100%"
-        stopColor="#E47983"
-      />
-    </StyledStar>
-    <StyledStar
+      <Memo(StarIcon)
+        isActive={false}
+        name="third-star"
+        size={false}
+      >
+        <stop
+          offset="0%"
+          stopColor="#E06D88"
+        />
+        <stop
+          offset="100%"
+          stopColor="#E47983"
+        />
+      </Memo(StarIcon)>
+    </StyledButton>
+    <StyledButton
       isActive={false}
-      isClicked={false}
-      name="fourth-star"
       onClick={[Function]}
       onMouseEnter={[Function]}
-      width={false}
     >
-      <stop
-        offset="0%"
-        stopColor="#E47983"
-      />
-      <stop
-        offset="100%"
-        stopColor="#F09677"
-      />
-    </StyledStar>
-    <StyledStar
+      <Memo(StarIcon)
+        isActive={false}
+        name="fourth-star"
+        size={false}
+      >
+        <stop
+          offset="0%"
+          stopColor="#E47983"
+        />
+        <stop
+          offset="100%"
+          stopColor="#F09677"
+        />
+      </Memo(StarIcon)>
+    </StyledButton>
+    <StyledButton
       isActive={false}
-      isClicked={false}
-      name="fifth-star"
       onClick={[Function]}
       onMouseEnter={[Function]}
-      width={false}
     >
-      <stop
-        offset="0%"
-        stopColor="#F09677"
-      />
-      <stop
-        offset="100%"
-        stopColor="#F7A76F"
-      />
-    </StyledStar>
+      <Memo(StarIcon)
+        isActive={false}
+        name="fifth-star"
+        size={false}
+      >
+        <stop
+          offset="0%"
+          stopColor="#F09677"
+        />
+        <stop
+          offset="100%"
+          stopColor="#F7A76F"
+        />
+      </Memo(StarIcon)>
+    </StyledButton>
   </StyledStarsContainer>
 </StyledContainer>
 `;

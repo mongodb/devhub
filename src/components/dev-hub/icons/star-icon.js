@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import { size } from '~components/dev-hub/theme';
 
-const StarIcon = ({ color, isActive, name, children, width, ...props }) => {
+const StarIcon = ({ color, isActive, name, children, size: iconSize, ...props }) => {
     const theme = useTheme();
     const iconColor = color || theme.colorMap.greyDarkOne;
 
     return (
         <svg
             aria-label="Star"
-            width={width || size.default}
+            width={iconSize || size.default}
+            height={iconSize || size.default}
             viewBox="0 0 576 512"
             {...props}
         >
