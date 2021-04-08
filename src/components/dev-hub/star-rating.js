@@ -20,7 +20,7 @@ const StyledButton = styled(Button)`
     }
 
     @media ${screenSize.mediumAndUp} {
-        margin-right: ${({ isActive }) => (isActive ? '0' : size.xsmall)};
+        margin: ${({ isActive }) => (isActive ? '0' : '0 4px')};
         padding: 4px;
         svg {
             height: auto;
@@ -58,7 +58,7 @@ const StyledStarsContainer = styled('div')`
     display: flex;
 
     @media ${screenSize.mediumAndUp} {
-        margin-left: ${size.large};
+        margin-left: 28px;
     }
 `;
 
