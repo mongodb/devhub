@@ -26,7 +26,7 @@ const mapTypeToFormElement = (type, labels, state, dispatch, name) => {
                     onChange={e =>
                         dispatch({
                             field: `${name}-${index}`,
-                            value: e.target.value,
+                            value: e.target.checked,
                         })
                     }
                     darkMode={true}
