@@ -10,9 +10,9 @@ const StyledButton = styled(Button)`
     margin-right: ${size.mediumLarge};
     padding: 0;
 
+    align-items: center;
     display: inline-flex;
     justify-content: center;
-    align-items: center;
 
     svg {
         height: ${size.mediumLarge};
@@ -34,8 +34,8 @@ const StyledContainer = styled('div')`
     flex-direction: column;
 
     @media ${screenSize.mediumAndUp} {
-        flex-direction: row;
         align-items: center;
+        flex-direction: row;
         min-height: ${size.large};
     }
 `;
