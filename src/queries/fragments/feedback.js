@@ -5,12 +5,13 @@ export const feedbackFlows = graphql`
         OneStarRatingFlow {
             forms {
                 FormElement {
-                    type
                     labels {
                         label
                     }
                     name
+                    placeholder
                     required
+                    type
                 }
                 cta
                 description
@@ -23,9 +24,10 @@ export const feedbackFlows = graphql`
                     labels {
                         label
                     }
-                    type
                     name
+                    placeholder
                     required
+                    type
                 }
                 cta
                 description
@@ -38,9 +40,10 @@ export const feedbackFlows = graphql`
                     labels {
                         label
                     }
-                    type
                     name
+                    placeholder
                     required
+                    type
                 }
                 cta
                 description
@@ -53,9 +56,10 @@ export const feedbackFlows = graphql`
                     labels {
                         label
                     }
-                    type
                     name
+                    placeholder
                     required
+                    type
                 }
                 cta
                 description
@@ -68,9 +72,10 @@ export const feedbackFlows = graphql`
                     labels {
                         label
                     }
-                    type
                     name
+                    placeholder
                     required
+                    type
                 }
                 cta
                 description

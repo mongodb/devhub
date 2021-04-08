@@ -16,7 +16,11 @@ const handleCMSFormChange = (state, { field, value }) => ({
     [field]: value,
 });
 
-const mapTypeToFormElement = (type, labels, state, dispatch, name) => {
+const mapTypeToFormElement = (
+    { labels, name, placeholder, type },
+    state,
+    dispatch
+) => {
     switch (type) {
         case FORM_ELEMENT_TYPES.CHECKBOXES:
             return labels.map(({ label }, index) => (
@@ -40,7 +44,7 @@ const mapTypeToFormElement = (type, labels, state, dispatch, name) => {
                     bold
                     darkMode={true}
                     label={labels[0].label}
-                    placeholder={labels[1].label}
+                    placeholder={placeholder}
                     type="email"
                     value={state[name]}
                     onChange={e =>
@@ -58,7 +62,7 @@ const mapTypeToFormElement = (type, labels, state, dispatch, name) => {
                     bold
                     darkMode={true}
                     label={labels[0].label}
-                    placeholder={labels[1].label}
+                    placeholder={placeholder}
                     value={state[name]}
                     onChange={e =>
                         dispatch({
@@ -80,8 +84,8 @@ const CMSForm = ({ form }) => {
     );
     return (
         <>
-            {form.FormElement.map(({ type, labels, name }) =>
-                mapTypeToFormElement(type, labels, state, dispatch, name)
+            {form.FormElement.map(formElement =>
+                mapTypeToFormElement(formElement, state, dispatch)
             )}
         </>
     );
