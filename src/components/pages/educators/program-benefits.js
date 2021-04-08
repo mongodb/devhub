@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { screenSize, size } from '../../dev-hub/theme';
 import { H3, H5 } from '../../dev-hub/text';
 import ThumbnailConnect from '~images/student-spotlight/thumbnail-connect.svg';

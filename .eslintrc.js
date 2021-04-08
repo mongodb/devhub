@@ -16,9 +16,10 @@ module.exports = {
         'plugin:import/errors',
     ],
     ignorePatterns: ['.gitignore', 'preview/'],
-    plugins: ['cypress', 'emotion', 'jest'],
+    plugins: ['@emotion', 'cypress', 'jest'],
     rules: {
-        'emotion/syntax-preference': [WARN, 'string'],
+        '@emotion/syntax-preference': [WARN, 'string'],
+        '@emotion/pkg-renaming': 'error',
         eqeqeq: [WARN, 'always', { null: 'ignore' }],
         'import/no-extraneous-dependencies': [
             'warn',

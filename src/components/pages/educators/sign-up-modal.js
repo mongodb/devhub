@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { size, lineHeight } from '../../dev-hub/theme';
 import { H5, P } from '../../dev-hub/text';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import Button from '../../dev-hub/button';
 import AcademiaSignUpForm from '../../dev-hub/academia-sign-up-form';
 import Modal from '../../dev-hub/modal';

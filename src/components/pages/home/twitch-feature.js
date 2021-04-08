@@ -8,7 +8,7 @@ import { H2, P } from '../../dev-hub/text';
 import FeatureSection from './feature-section';
 import { screenSize, size } from '../../dev-hub/theme';
 import GradientUnderline from '../../dev-hub/gradient-underline';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import Button from '../../dev-hub/button';
 
 const MEDIA_WIDTH = '550';

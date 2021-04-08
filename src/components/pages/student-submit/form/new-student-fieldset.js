@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import AuthorImage from '~components/dev-hub/author-image';
 import Button from '~components/dev-hub/button';
 import Folder from '~components/dev-hub/icons/folder';
