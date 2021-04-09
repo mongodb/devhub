@@ -29,7 +29,7 @@ const StyledButton = styled(Button)`
     }
 `;
 
-const StyledContainer = styled('div')`
+export const StyledContainer = styled('div')`
     display: flex;
     flex-direction: column;
 
@@ -53,7 +53,7 @@ const StyledTitle = styled('span')`
     }
 `;
 
-const StyledStarsContainer = styled('div')`
+export const StyledStarsContainer = styled('div')`
     align-items: center;
     display: flex;
 

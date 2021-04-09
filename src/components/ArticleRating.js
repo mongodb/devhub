@@ -1,17 +1,38 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import { colorMap, size, screenSize } from '~components/dev-hub/theme';
-import StarRating from '~components/dev-hub/star-rating';
 import PropTypes from 'prop-types';
+import styled from '@emotion/styled';
+import {
+    default as StarRating,
+    StyledContainer,
+    StyledStarsContainer,
+} from '~components/dev-hub/star-rating';
 
-const StyledContainerTop = styled.div``;
+import { colorMap, size, screenSize } from '~components/dev-hub/theme';
+
+export const StyledContainerTop = styled.div`
+    span {
+        padding: 0;
+    }
+    ${StyledContainer} {
+      align-items: flex-end;
+    }
+    ${StyledStarsContainer} a:last-child {
+      margin-right: 0;
+    }
+ 
+    @media ${screenSize.mediumAndUp} {
+      ${StyledContainer} {
+        align-items: center;
+      }
+    }
+`;
 
 const StyledContainerBottom = styled.div`
     background-color: ${colorMap.devBlack};
     border-radius: ${size.xsmall};
     border: 1px solid ${colorMap.greyDarkThree};
     padding: ${size.mediumLarge};
-  
+
     @media ${screenSize.mediumAndUp} {
         padding-left: ${size.large};
         padding: 15px;

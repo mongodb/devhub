@@ -23,7 +23,10 @@ import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedText } from '../utils/get-nested-text';
 import ArticleSchema from '../components/dev-hub/article-schema';
-import ArticleRating from '~components/ArticleRating';
+import {
+    default as ArticleRating,
+    StyledContainerTop,
+} from '~components/ArticleRating';
 
 /**
  * Name map of directives we want to display in an article
@@ -78,29 +81,58 @@ const ArticleContent = styled('article')`
     max-width: ${size.maxContentWidth};
     padding-left: ${size.small};
     padding-right: ${size.small};
+
+    ${StyledContainerTop} {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 48px;
+    }
+
     @media ${screenSize.upToLarge} {
         margin: 0 auto;
+
+        ${StyledContainerTop} {
+            display: none;
+        }
     }
 `;
 const Icons = styled('div')`
+    display: flex;
     margin: ${size.tiny} ${size.default};
     span {
         padding: 0 ${size.tiny};
     }
+
     @media ${screenSize.largeAndUp} {
-        display: flex;
         flex-direction: column;
+        margin-top: 80px;
+
         span:not(:first-of-type) {
             margin-top: ${size.small};
         }
+
+        ${StyledContainerTop} {
+            display: none;
+        }
     }
     @media ${screenSize.upToLarge} {
-        margin: 0 ${size.small};
+        justify-content: space-between;
+        margin: ${size.mediumLarge} ${size.small} ${size.large} ${size.small};
+
         span:not(:first-of-type) {
             margin-left: ${size.small};
         }
     }
 `;
+
+const MenuContainer = styled('div')`
+    display: flex;
+
+    @media ${screenSize.largeAndUp} {
+        flex-direction: column;
+    }
+`;
+
 const Container = styled('div')`
     margin: 0 auto;
     @media ${screenSize.largeAndUp} {
@@ -200,20 +232,24 @@ const Article = props => {
             <FeedbackContainer />
             <Container>
                 <Icons>
-                    <ContentsMenu
-                        title="Contents"
-                        headingNodes={headingNodes}
-                        height={size.default}
-                        width={size.default}
-                    />
-                    <ShareMenu
-                        title={articleTitle}
-                        url={articleUrl}
-                        height={size.default}
-                        width={size.default}
-                    />
+                    <MenuContainer>
+                        <ContentsMenu
+                            title="Contents"
+                            headingNodes={headingNodes}
+                            height={size.default}
+                            width={size.default}
+                        />
+                        <ShareMenu
+                            title={articleTitle}
+                            url={articleUrl}
+                            height={size.default}
+                            width={size.default}
+                        />
+                    </MenuContainer>
+                    <ArticleRating isTop />
                 </Icons>
                 <ArticleContent>
+                    <ArticleRating isTop />
                     <DocumentBody
                         pageNodes={contentNodes}
                         slugTitleMapping={slugTitleMapping}
