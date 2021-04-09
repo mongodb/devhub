@@ -197,8 +197,8 @@ const Article = props => {
                 title={articleTitle}
                 updatedDate={formattedUpdatedDate}
             />
-            <FeedbackContainer />
             <Container>
+                <FeedbackContainer />
                 <Icons>
                     <ContentsMenu
                         title="Contents"
