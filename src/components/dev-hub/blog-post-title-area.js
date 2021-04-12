@@ -36,6 +36,7 @@ const BlogPostTitleArea = ({
     breadcrumb,
     originalDate,
     tags,
+    timeToRead,
     title,
     updatedDate,
 }) => {
@@ -55,6 +56,7 @@ const BlogPostTitleArea = ({
                     {originalDate && (
                         <DateText collapse>Published: {originalDate}</DateText>
                     )}
+                    {timeToRead && timeToRead}
                 </DateTextContainer>
                 <BlogTagList tags={tags} />
             </PostMetaLine>
