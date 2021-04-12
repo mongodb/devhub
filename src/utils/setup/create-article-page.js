@@ -7,7 +7,7 @@ import { getTemplate } from '../get-template';
 import { SNOOTY_STITCH_ID } from '../../build-constants';
 
 export const createArticlePage = (
-    page,
+    { slug: page, ...rest },
     slugContentMapping,
     allSeries,
     metadata,
@@ -36,6 +36,7 @@ export const createArticlePage = (
                 slug,
                 snootyStitchId: SNOOTY_STITCH_ID,
                 __refDocMapping: pageNodes,
+                ...rest,
             },
         });
     }

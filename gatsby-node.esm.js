@@ -143,7 +143,7 @@ export const createPages = async ({ actions, graphql }) => {
 
     result.data.allArticle.nodes.forEach(article => {
         createArticlePage(
-            article.slug,
+            article,
             slugContentMapping,
             allSeries,
             metadataDocument,

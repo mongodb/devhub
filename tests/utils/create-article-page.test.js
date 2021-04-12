@@ -2,6 +2,7 @@ import { createArticlePage } from '../../src/utils/setup/create-article-page';
 
 describe('creating an article page', () => {
     const articleOneSlug = '/article1';
+    const articleOne = { slug: articleOneSlug };
     const slugContentMapping = {
         [articleOneSlug]: { ast: { options: { template: 'devhub-article' } } },
     };
@@ -12,13 +13,7 @@ describe('creating an article page', () => {
     });
 
     it('should create a page at the correct slug', () => {
-        createArticlePage(
-            articleOneSlug,
-            slugContentMapping,
-            {},
-            {},
-            createPage
-        );
+        createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);
         expect(createPage.mock.calls.length).toBe(1);
         expect(createPage.mock.calls[0][0].path).toBe(articleOneSlug);
     });
@@ -29,7 +24,7 @@ describe('creating an article page', () => {
             seriesWithoutArticleOne: [],
         };
         createArticlePage(
-            articleOneSlug,
+            articleOne,
             slugContentMapping,
             series,
             {},
@@ -55,13 +50,7 @@ describe('creating an article page', () => {
                 template: 'devhub-article',
             },
         };
-        createArticlePage(
-            articleOneSlug,
-            slugContentMapping,
-            {},
-            {},
-            createPage
-        );
+        createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);
         expect(createPage.mock.calls[0][0].component).toContain('article.js');
     });
 
@@ -73,13 +62,7 @@ describe('creating an article page', () => {
         slugContentMapping[articleOneSlug].query_fields = {
             related: [{ refuri: articleTwoSlug }],
         };
-        createArticlePage(
-            articleOneSlug,
-            slugContentMapping,
-            {},
-            {},
-            createPage
-        );
+        createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);
         expect(
             createPage.mock.calls[0][0].context.__refDocMapping.query_fields
                 .related.length
