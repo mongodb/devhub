@@ -58,7 +58,8 @@ describe('Should properly postprocess an article node after it is fetched', () =
             pageIdPrefix,
             createNode,
             createContentDigest,
-            mapping
+            mapping,
+            articleRawContent
         );
         createArticleNode(
             imageNode,
@@ -103,6 +104,7 @@ describe('Should properly postprocess an article node after it is fetched', () =
             rawContent: articleRawContent,
             tags: articleTags,
             title: articleTitle,
+            timeToRead: 0,
             type: articleType,
         };
         expect(createContentDigest.mock.calls[0][0]).toStrictEqual(
