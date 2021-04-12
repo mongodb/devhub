@@ -1,5 +1,6 @@
 import { getNestedText } from '../get-nested-text';
 import { getNestedValue } from '../get-nested-value';
+import { getTimeToRead } from './get-time-to-read';
 import { updateAttributionLinks } from './update-attribution-links';
 
 export const createArticleNode = (
@@ -21,6 +22,7 @@ export const createArticleNode = (
         const paths = slug.split('/');
         const filenameWithoutExtension = paths[paths.length - 1];
         updateAttributionLinks(doc, filenameWithoutExtension);
+        const timeToRead = getTimeToRead(rawContent);
         const content = {
             atfimage: doc.query_fields['atf-image'],
             authors: doc.query_fields['author'],
@@ -31,6 +33,7 @@ export const createArticleNode = (
             rawContent,
             tags: doc.query_fields['tags'],
             title: getNestedText(doc.query_fields['title']),
+            timeToRead,
             type: doc.query_fields['type'],
         };
         createNode({

@@ -3,6 +3,7 @@ const articles = `
         allArticle {
             nodes {
                 slug: id
+                timeToRead
             }
         }
     }
