@@ -7,12 +7,6 @@ const Clock = ({ color, ...props }) => (
         viewBox="0 0 12 12"
         fill={color || 'none'}
         xmlns="http://www.w3.org/2000/svg"
-        style={{
-            lineHeight: '20px',
-            marginRight: '4px',
-            marginTop: '-3px',
-            verticalAlign: 'middle',
-        }}
         {...props}
     >
         <path

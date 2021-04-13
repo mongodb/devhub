@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import Clock from '~components/dev-hub/icons/clock';
 import BlogTagList from './blog-tag-list';
 import { H2, P } from './text';
-import { screenSize, fontSize, size } from './theme';
+import { fontSize, lineHeight, screenSize, size } from './theme';
 import BylineBlock from './byline-block';
 import HeroBanner from './hero-banner';
 
@@ -15,8 +15,8 @@ const stackedView = css`
 const PostMetaLine = styled('div')`
     color: ${({ theme }) => theme.colorMap.greyLightThree};
     display: flex;
-    margin: ${size.medium} 0 40px;
     font-size: ${fontSize.tiny};
+    margin: ${size.medium} 0 40px;
     ${({ hasTimeToRead }) => hasTimeToRead && stackedView};
     @media ${screenSize.upToLarge} {
         font-size: ${fontSize.xsmall};
@@ -27,7 +27,7 @@ const PostMetaLine = styled('div')`
 
 const TimeToReadContainer = styled('span')`
     @media ${screenSize.largeAndUp} {
-        margin-left: 24px;
+        margin-left: ${size.medium};
     }
 `;
 
@@ -36,15 +36,15 @@ const DateText = styled(P)`
     margin-right: ${size.tiny};
     @media ${screenSize.upToLarge} {
         font-size: ${fontSize.xsmall};
-        line-height: 20px;
+        line-height: ${lineHeight.tiny};
     }
 `;
 
 const TextContainer = styled('div')`
     display: inline-block;
     flex: 0 0 auto;
-    margin-right: ${size.medium};
     line-height: 20px;
+    margin-right: ${size.medium};
     ${({ hasTimeToRead }) => hasTimeToRead && `margin-bottom: ${size.medium}`};
     @media ${screenSize.upToLarge} {
         display: flex;
@@ -55,7 +55,7 @@ const TextContainer = styled('div')`
 `;
 
 const StyledClock = styled(Clock)`
-    line-height: 20px;
+    line-height: ${lineHeight.tiny};
     margin-right: 4px;
     margin-top: -3px;
     vertical-align: middle;
