@@ -42,28 +42,45 @@ const renderArticle = article => (
         image={withPrefix(article['atf-image'])}
         tags={getTagLinksFromMeta(article)}
         title={getNestedText(article['title'])}
+        timeToRead={article['timeToRead']}
         badge="article"
         description={getNestedText(article['meta-description'])}
     />
 );
 
-const renderVideo = video => (
-    <VideoCard
-        key={video.mediaType + video.title}
-        image={getThumbnailUrl(video)}
-        videoModalThumbnail={getThumbnailUrl(video)}
-        title={video.title}
-        badge={video.mediaType}
-        description={video.description}
-        video={video}
-    />
-);
+const renderVideo = video => {
+    const breakdown = video.duration && video.duration.match(/(.*)h(.*)m/);
+    let hours = 0;
+    let minutes = 31;
+    // TODO update youtube API situation to also call the video endpoint
+    // YouTube currently does not provide duration via the playlist API
+    if (breakdown) {
+        hours = breakdown[1];
+        minutes = breakdown[1];
+    }
+    return (
+        <VideoCard
+            key={video.mediaType + video.title}
+            image={getThumbnailUrl(video)}
+            videoModalThumbnail={getThumbnailUrl(video)}
+            title={video.title}
+            // this is not the best way to parse here, just for POC purposes
+            timeToRead={`${
+                hours > 0 ? `${hours} hour${hours > 1 ? 's ' : ''}` : ''
+            } ${minutes}`}
+            badge={video.mediaType}
+            description={video.description}
+            video={video}
+        />
+    );
+};
 
 const renderPodcast = (podcast, openAudio) => (
     <Card
         key={podcast.mediaType + podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
+        timeToRead={podcast.duration}
         badge={podcast.mediaType}
         description={podcast.description}
         onClick={() => openAudio(podcast)}

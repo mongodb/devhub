@@ -53,7 +53,7 @@ export const createTagPageType = async (
         const requestKey = {};
         requestKey[stitchType] = tag._id;
         requests.push(
-            stitchClient.callFunction('fetchDevhubMetadata', [
+            stitchClient.callFunction('fetchSkunkworksDevhubMetadata', [
                 metadata,
                 requestKey,
             ])

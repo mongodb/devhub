@@ -5,6 +5,7 @@ const simplifyPodcast = podcast => {
     const podcastJSON = {
         mediaType: 'podcast',
         title: podcast['title'],
+        duration: podcast['itunes:duration'].split(':')[0],
         publishDate: podcast['pubDate'],
         description: podcast['itunes:summary'],
         url: podcast['enclosure'] && podcast['enclosure']['url'],
