@@ -65,6 +65,7 @@ const renderPodcast = (podcast, openAudio) => (
         key={podcast.mediaType + podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
+        timeToRead={podcast.duration}
         badge={podcast.mediaType}
         description={podcast.description}
         onClick={() => openAudio(podcast)}
