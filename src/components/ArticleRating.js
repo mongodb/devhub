@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { colorMap, size, screenSize } from '~components/dev-hub/theme';
 import StarRating from '~components/dev-hub/star-rating';
-import PropTypes from 'prop-types';
+import { FeedbackContainer } from '~components/dev-hub/feedback';
 
 const StyledContainerTop = styled.div``;
 
@@ -11,14 +12,13 @@ const StyledContainerBottom = styled.div`
     border-radius: ${size.xsmall};
     border: 1px solid ${colorMap.greyDarkThree};
     padding: ${size.mediumLarge};
-  
+
     @media ${screenSize.mediumAndUp} {
         padding-left: ${size.large};
         padding: 15px;
     }
 `;
 
-//TODO: test container for rating
 const ArticleRating = ({ isTop, isBottom }) => {
     const Container = isBottom
         ? StyledContainerBottom
@@ -26,18 +26,27 @@ const ArticleRating = ({ isTop, isBottom }) => {
         ? StyledContainerTop
         : null;
 
+    const [modal, setModal] = useState('');
+
+    const onSubmitHandler = useCallback(data => {
+        console.log('Form Submit', data);
+    }, [])
+
     return (
-        <Container>
-            <StarRating
-                clickHandlers={[
-                    () => alert('1 Modal'),
-                    () => alert('2 Modal'),
-                    () => alert('3 Modal'),
-                    () => alert('4 Modal'),
-                    () => alert('5 Modal'),
-                ]}
-            />
-        </Container>
+        <>
+            {modal && <FeedbackContainer onSubmit={onSubmitHandler} starRatingFlow={modal} />}
+            <Container>
+                <StarRating
+                    clickHandlers={[
+                        () => setModal('one'),
+                        () => setModal('two'),
+                        () => setModal('three'),
+                        () => setModal('four'),
+                        () => setModal('five'),
+                    ]}
+                />
+            </Container>
+        </>
     );
 };
 

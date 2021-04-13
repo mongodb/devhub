@@ -2,6 +2,9 @@ import React, { useReducer } from 'react';
 import Checkbox from '@leafygreen-ui/checkbox';
 import Input from './input';
 import TextArea from './text-area';
+import styled from '@emotion/styled';
+
+import { fontSize, lineHeight } from '~components/dev-hub/theme';
 
 const getInitialFormState = () => ({});
 
@@ -15,6 +18,17 @@ const handleCMSFormChange = (state, { field, value }) => ({
     ...state,
     [field]: value,
 });
+
+const StyledLabel = styled('span')`
+    font-family: Akzidenz;
+    font-weight: 400;
+    font-size: ${fontSize.tiny};
+    line-height: ${lineHeight.tiny};
+`;
+
+export const InputContainer = styled('div')`
+`;
+
 
 const mapTypeToFormElement = (
     { labels, name, placeholder, type },
@@ -39,52 +53,58 @@ const mapTypeToFormElement = (
             ));
         case FORM_ELEMENT_TYPES.EMAILINPUT:
             return (
-                <Input
-                    key={labels[0].label}
-                    bold
-                    darkMode={true}
-                    label={labels[0].label}
-                    placeholder={placeholder}
-                    type="email"
-                    value={state[name]}
-                    onChange={e =>
-                        dispatch({
-                            field: name,
-                            value: e.target.value,
-                        })
-                    }
-                />
+                <InputContainer key={labels[0].label}>
+                    {labels[0].label && (
+                        <StyledLabel>{labels[0].label}</StyledLabel>
+                    )}
+                    <Input
+                        bold
+                        darkMode={true}
+                        placeholder={placeholder}
+                        type="email"
+                        value={state[name]}
+                        onChange={e =>
+                            dispatch({
+                                field: name,
+                                value: e.target.value,
+                            })
+                        }
+                    />
+                </InputContainer>
             );
         case FORM_ELEMENT_TYPES.TEXTAREA:
             return (
-                <TextArea
-                    key={labels[0].label}
-                    bold
-                    darkMode={true}
-                    label={labels[0].label}
-                    placeholder={placeholder}
-                    value={state[name]}
-                    onChange={e =>
-                        dispatch({
-                            field: name,
-                            value: e.target.value,
-                        })
-                    }
-                />
+                <InputContainer key={labels[0].label}>
+                    {labels[0].label && (
+                        <StyledLabel>{labels[0].label}</StyledLabel>
+                    )}
+                    <TextArea
+                        bold
+                        darkMode={true}
+                        placeholder={placeholder}
+                        value={state[name]}
+                        onChange={e =>
+                            dispatch({
+                                field: name,
+                                value: e.target.value,
+                            })
+                        }
+                    />
+                </InputContainer>
             );
         default:
             break;
     }
 };
 
-const CMSForm = ({ form }) => {
+const CMSForm = ({ form = {} }) => {
     const [state, dispatch] = useReducer(
         handleCMSFormChange,
         getInitialFormState()
     );
     return (
         <>
-            {form.FormElement.map(formElement =>
+            {form.FormElement?.map(formElement =>
                 mapTypeToFormElement(formElement, state, dispatch)
             )}
         </>
