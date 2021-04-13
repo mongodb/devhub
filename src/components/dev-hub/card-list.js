@@ -48,17 +48,30 @@ const renderArticle = article => (
     />
 );
 
-const renderVideo = video => (
-    <VideoCard
-        key={video.mediaType + video.title}
-        image={getThumbnailUrl(video)}
-        videoModalThumbnail={getThumbnailUrl(video)}
-        title={video.title}
-        badge={video.mediaType}
-        description={video.description}
-        video={video}
-    />
-);
+const renderVideo = video => {
+    const breakdown = video.duration && video.duration.match(/(.*)h(.*)m/);
+    let hours = 0;
+    let minutes = 31;
+    if (breakdown) {
+        hours = breakdown[1];
+        minutes = breakdown[1];
+    }
+    return (
+        <VideoCard
+            key={video.mediaType + video.title}
+            image={getThumbnailUrl(video)}
+            videoModalThumbnail={getThumbnailUrl(video)}
+            title={video.title}
+            // this is not the best way to parse here, just for POC purposes
+            timeToRead={`${
+                hours > 0 ? `${hours} hour${hours > 1 ? 's ' : ''}` : ''
+            } ${minutes}`}
+            badge={video.mediaType}
+            description={video.description}
+            video={video}
+        />
+    );
+};
 
 const renderPodcast = (podcast, openAudio) => (
     <Card
