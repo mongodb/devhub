@@ -112,6 +112,7 @@ const Article = props => {
             __refDocMapping,
             seriesArticles,
             slug: thisPage,
+            timeToRead,
             metadata: { slugToTitle: slugTitleMapping },
         },
         ...rest
@@ -192,6 +193,7 @@ const Article = props => {
                 breadcrumb={articleBreadcrumbs}
                 originalDate={formattedPublishedDate}
                 tags={tagList}
+                timeToRead={timeToRead}
                 title={articleTitle}
                 updatedDate={formattedUpdatedDate}
             />
