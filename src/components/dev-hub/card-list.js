@@ -52,6 +52,8 @@ const renderVideo = video => {
     const breakdown = video.duration && video.duration.match(/(.*)h(.*)m/);
     let hours = 0;
     let minutes = 31;
+    // TODO update youtube API situation to also call the video endpoint
+    // YouTube currently does not provide duration via the playlist API
     if (breakdown) {
         hours = breakdown[1];
         minutes = breakdown[1];

@@ -9,7 +9,6 @@ export const simplifyYoutubeResponse = responseData => {
         'contentDetails.videoPublishedAt',
         null
     );
-    console.log(responseData.contentDetails);
     const youtubeJSON = {
         mediaType: 'youtube',
         title: video['title'],
