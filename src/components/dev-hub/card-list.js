@@ -42,6 +42,7 @@ const renderArticle = article => (
         image={withPrefix(article['atf-image'])}
         tags={getTagLinksFromMeta(article)}
         title={getNestedText(article['title'])}
+        timeToRead={article['timeToRead']}
         badge="article"
         description={getNestedText(article['meta-description'])}
     />

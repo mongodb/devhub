@@ -2,6 +2,7 @@ import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Button from './button';
+import Clock from '~components/dev-hub/icons/clock';
 import { animationSpeed, lineHeight, size, fontSize } from './theme';
 import { H5, P } from './text';
 import Link from './link';
@@ -75,6 +76,12 @@ const DescriptionText = styled(P)`
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
 `;
+const TimeToReadText = styled(P)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    font-size: ${fontSize.tiny};
+    line-height: ${lineHeight.tiny};
+    margin-bottom: ${size.medium};
+`;
 const CardTitle = styled(H5)`
     text-align: left;
 `;
@@ -86,6 +93,10 @@ const VideoThumbnailButton = styled(Button)`
     bottom: 0;
     margin: auto;
     position: absolute;
+`;
+
+const StyledClock = styled(Clock)`
+    margin-right: 4px;
 `;
 
 const Card = ({
@@ -102,6 +113,7 @@ const Card = ({
     to,
     tags,
     target,
+    timeToRead,
     title,
     video,
     videoModalThumbnail,
@@ -158,7 +170,17 @@ const Card = ({
                 )}
             </div>
             {children}
-            {tags && <TagList tags={tags} />}
+            <div>
+                {timeToRead && (
+                    <>
+                        <TimeToReadText>
+                            <StyledClock />
+                            {timeToRead} min
+                        </TimeToReadText>
+                    </>
+                )}
+                {tags && <TagList tags={tags} />}
+            </div>
         </ContentWrapper>
     );
 };

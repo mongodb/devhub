@@ -19,7 +19,10 @@ const requestStitch = async (functionName, ...args) =>
 const memoizedStitchRequest = memoizerific(10)(requestStitch);
 
 const getAllArticles = memoizerific(1)(async () => {
-    const documents = await memoizedStitchRequest('fetchDevhubMetadata', {});
+    const documents = await memoizedStitchRequest(
+        'fetchSkunkworksDevhubMetadata',
+        {}
+    );
     // Ignore bad data, including links to the home page as an "article"
     const filteredDocuments = documents.filter(d => {
         const route = getNestedValue(['query_fields', 'slug'], d);
