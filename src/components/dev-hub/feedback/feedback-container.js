@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
-import {
-    default as CMSForm,
-    StyledInputContainer,
-} from '~components/dev-hub/cms-form';
+import CMSForm from '~components/dev-hub/cms-form';
 import { H5, P } from '~components/dev-hub/text';
 import Modal from '~components/dev-hub/modal';
 import Button from '~components/dev-hub/button';
@@ -34,8 +31,7 @@ const StyledForm = styled('form')`
     padding: 0 ${size.medium};
 
     button,
-    > label,
-    ${StyledInputContainer} {
+    > label {
         margin: ${size.default} 0;
     }
 `;
@@ -68,8 +64,8 @@ const FeedbackContainer = ({ onSubmit, starRatingFlow }) => {
             isOpenToStart={true}
             verticallyCenter
             contentStyle={{
-                'max-width': MODAL_WIDTH,
-                'min-width': MODAL_WIDTH,
+                maxWidth: MODAL_WIDTH,
+                minWidth: MODAL_WIDTH,
             }}
         >
             <StyledForm

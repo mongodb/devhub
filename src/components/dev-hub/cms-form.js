@@ -4,6 +4,8 @@ import Checkbox from '@leafygreen-ui/checkbox';
 import Input from './input';
 import TextArea from './text-area';
 
+import { size } from '~components/dev-hub/theme';
+
 const getInitialFormState = () => ({});
 
 const FORM_ELEMENT_TYPES = {
@@ -12,7 +14,9 @@ const FORM_ELEMENT_TYPES = {
     TEXTAREA: 'Textarea',
 };
 
-export const StyledInputContainer = styled('div')``;
+export const StyledInputContainer = styled('div')`
+  margin: ${size.default} 0;
+`;
 
 const handleCMSFormChange = (state, { field, value }) => ({
     ...state,
