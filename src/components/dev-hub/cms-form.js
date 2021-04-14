@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import styled from '@emotion/styled';
 import Checkbox from '@leafygreen-ui/checkbox';
 import Input from './input';
 import TextArea from './text-area';
@@ -10,6 +11,8 @@ const FORM_ELEMENT_TYPES = {
     EMAILINPUT: 'EmailInput',
     TEXTAREA: 'Textarea',
 };
+
+export const StyledInputContainer = styled('div')``;
 
 const handleCMSFormChange = (state, { field, value }) => ({
     ...state,
@@ -39,36 +42,38 @@ const mapTypeToFormElement = (
             ));
         case FORM_ELEMENT_TYPES.EMAILINPUT:
             return (
-                <Input
-                    bold
-                    darkMode={true}
-                    key={labels[0].label}
-                    placeholder={placeholder}
-                    type="email"
-                    value={state[name]}
-                    onChange={e =>
-                        dispatch({
-                            field: name,
-                            value: e.target.value,
-                        })
-                    }
-                />
+                <StyledInputContainer key={labels[0].label}>
+                    <Input
+                        bold
+                        darkMode={true}
+                        placeholder={placeholder}
+                        type="email"
+                        value={state[name]}
+                        onChange={e =>
+                            dispatch({
+                                field: name,
+                                value: e.target.value,
+                            })
+                        }
+                    />
+                </StyledInputContainer>
             );
         case FORM_ELEMENT_TYPES.TEXTAREA:
             return (
-                <TextArea
-                    bold
-                    darkMode={true}
-                    key={labels[0].label}
-                    placeholder={placeholder}
-                    value={state[name]}
-                    onChange={e =>
-                        dispatch({
-                            field: name,
-                            value: e.target.value,
-                        })
-                    }
-                />
+                <StyledInputContainer key={labels[0].label}>
+                    <TextArea
+                        bold
+                        darkMode={true}
+                        placeholder={placeholder}
+                        value={state[name]}
+                        onChange={e =>
+                            dispatch({
+                                field: name,
+                                value: e.target.value,
+                            })
+                        }
+                    />
+                </StyledInputContainer>
             );
         default:
             break;

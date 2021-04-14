@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import dlv from 'dlv';
 import { graphql, useStaticQuery } from 'gatsby';
-import CMSForm from '~components/dev-hub/cms-form';
+import {
+    default as CMSForm,
+    StyledInputContainer,
+} from '~components/dev-hub/cms-form';
 import { H5, P } from '~components/dev-hub/text';
 import Modal from '~components/dev-hub/modal';
 import Button from '~components/dev-hub/button';
 
 import { fontSize, lineHeight, size } from '~components/dev-hub/theme';
+import {
+    getStarRatingFlow,
+    STAR_RATING_FLOW,
+} from '~components/dev-hub/feedback/helpers/getStarRatingFlow';
 
 const feedbackItems = graphql`
     query FeedbackItems {
@@ -28,13 +34,9 @@ const StyledForm = styled('form')`
     padding: 0 ${size.medium};
 
     button,
-    label,
-    textarea {
+    > label,
+    ${StyledInputContainer} {
         margin: ${size.default} 0;
-    }
-
-    input {
-        margin-bottom: ${size.default};
     }
 `;
 
@@ -47,62 +49,15 @@ const StyledDescription = styled(P)`
 
 const MODAL_WIDTH = '400px';
 
-export const STAR_RATING_FLOW = {
-    ONE: 'one',
-    TWO: 'two',
-    THREE: 'three',
-    FOUR: 'four',
-    FIVE: 'five',
-};
-
-const getStarRatingFlow = (data, star, step) => {
-    const {
-        OneStarRatingFlow,
-        TwoStarRatingFlow,
-        ThreeStarRatingFlow,
-        FourStarRatingFlow,
-        FiveStarRatingFlow,
-    } = dlv(data, 'strapiFeedbackRatingFlow', {});
-
-    switch (star) {
-        case STAR_RATING_FLOW.ONE:
-            return {
-                ratingFlow: OneStarRatingFlow?.forms[step],
-                stepsCounter: OneStarRatingFlow?.forms?.length,
-            };
-        case STAR_RATING_FLOW.TWO:
-            return {
-                ratingFlow: TwoStarRatingFlow?.forms[step],
-                stepsCounter: TwoStarRatingFlow?.forms?.length,
-            };
-        case STAR_RATING_FLOW.THREE:
-            return {
-                ratingFlow: ThreeStarRatingFlow?.forms[step],
-                stepsCounter: ThreeStarRatingFlow?.forms?.length,
-            };
-        case STAR_RATING_FLOW.FOUR:
-            return {
-                ratingFlow: FourStarRatingFlow?.forms[step],
-                stepsCounter: FourStarRatingFlow?.forms?.length,
-            };
-        case STAR_RATING_FLOW.FIVE:
-            return {
-                ratingFlow: FiveStarRatingFlow?.forms[step],
-                stepsCounter: FiveStarRatingFlow?.forms?.length,
-            };
-        default:
-            return {};
-    }
-};
-
 const FeedbackContainer = ({ onSubmit, starRatingFlow }) => {
     const [step, setStep] = useState(0);
     const data = useStaticQuery(feedbackItems);
 
-    const {
-        ratingFlow = {},
-        stepsCounter,
-    } = getStarRatingFlow(data, starRatingFlow, step);
+    const { ratingFlow = {}, stepsCounter } = getStarRatingFlow(
+        data,
+        starRatingFlow,
+        step
+    );
 
     const { title, description, cta: button } = ratingFlow;
 
