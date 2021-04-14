@@ -1,3 +1,6 @@
-import FeedbackContainer from './feedback-container';
+import {
+    default as FeedbackContainer,
+    STAR_RATING_FLOW,
+} from './feedback-container';
 
-export { FeedbackContainer };
+export { FeedbackContainer, STAR_RATING_FLOW };

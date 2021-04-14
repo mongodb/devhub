@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { colorMap, size, screenSize } from '~components/dev-hub/theme';
 import StarRating from '~components/dev-hub/star-rating';
-import { FeedbackContainer } from '~components/dev-hub/feedback';
+import { FeedbackContainer, STAR_RATING_FLOW } from '~components/dev-hub/feedback';
 
 const StyledContainerTop = styled.div``;
 
@@ -38,11 +38,11 @@ const ArticleRating = ({ isTop, isBottom }) => {
             <Container>
                 <StarRating
                     clickHandlers={[
-                        () => setModal('one'),
-                        () => setModal('two'),
-                        () => setModal('three'),
-                        () => setModal('four'),
-                        () => setModal('five'),
+                        () => setModal(STAR_RATING_FLOW.ONE),
+                        () => setModal(STAR_RATING_FLOW.TWO),
+                        () => setModal(STAR_RATING_FLOW.THREE),
+                        () => setModal(STAR_RATING_FLOW.FOUR),
+                        () => setModal(STAR_RATING_FLOW.FIVE),
                     ]}
                 />
             </Container>
