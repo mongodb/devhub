@@ -14,7 +14,7 @@ const FORM_ELEMENT_TYPES = {
     TEXTAREA: 'Textarea',
 };
 
-export const StyledInputContainer = styled('div')`
+const StyledInputContainer = styled('div')`
   margin: ${size.default} 0;
 `;
 
