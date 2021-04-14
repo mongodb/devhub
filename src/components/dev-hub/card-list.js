@@ -42,7 +42,7 @@ const renderArticle = article => (
         image={withPrefix(article['atf-image'])}
         tags={getTagLinksFromMeta(article)}
         title={getNestedText(article['title'])}
-        timeToRead={article['timeToRead']}
+        timeToRead={`${article.timeToRead} min read`}
         badge="article"
         description={getNestedText(article['meta-description'])}
     />
@@ -67,7 +67,7 @@ const renderVideo = video => {
             // this is not the best way to parse here, just for POC purposes
             timeToRead={`${
                 hours > 0 ? `${hours} hour${hours > 1 ? 's ' : ''}` : ''
-            } ${minutes}`}
+            } ${minutes} min`}
             badge={video.mediaType}
             description={video.description}
             video={video}
@@ -80,7 +80,7 @@ const renderPodcast = (podcast, openAudio) => (
         key={podcast.mediaType + podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
-        timeToRead={podcast.duration}
+        timeToRead={`${podcast.duration} min`}
         badge={podcast.mediaType}
         description={podcast.description}
         onClick={() => openAudio(podcast)}
