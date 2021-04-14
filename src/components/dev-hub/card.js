@@ -98,6 +98,8 @@ const VideoThumbnailButton = styled(Button)`
 
 const StyledClock = styled(Clock)`
     margin-right: 4px;
+    margin-top: -3px;
+    vertical-align: middle;
 `;
 
 const Card = ({
