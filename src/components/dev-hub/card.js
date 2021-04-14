@@ -81,6 +81,7 @@ const TimeToReadText = styled(P)`
     font-size: ${fontSize.tiny};
     line-height: ${lineHeight.tiny};
     margin-bottom: ${size.medium};
+    margin-top: ${size.medium};
 `;
 const CardTitle = styled(H5)`
     text-align: left;
@@ -97,6 +98,8 @@ const VideoThumbnailButton = styled(Button)`
 
 const StyledClock = styled(Clock)`
     margin-right: 4px;
+    margin-top: -3px;
+    vertical-align: middle;
 `;
 
 const Card = ({
@@ -168,19 +171,16 @@ const Card = ({
                         {description}
                     </DescriptionText>
                 )}
+                {timeToRead && (
+                    <TimeToReadText>
+                        <StyledClock />
+                        {timeToRead}
+                    </TimeToReadText>
+                )}
             </div>
             {children}
-            <div>
-                {timeToRead && (
-                    <>
-                        <TimeToReadText>
-                            <StyledClock />
-                            {timeToRead} min
-                        </TimeToReadText>
-                    </>
-                )}
-                {tags && <TagList tags={tags} />}
-            </div>
+
+            {tags && <TagList tags={tags} />}
         </ContentWrapper>
     );
 };
