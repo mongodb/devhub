@@ -74,6 +74,7 @@ const getContent = nodes => {
 };
 
 const ArticleContent = styled('article')`
+    grid-area: article;
     max-width: ${size.maxContentWidth};
     padding-left: ${size.small};
     padding-right: ${size.small};
@@ -81,7 +82,9 @@ const ArticleContent = styled('article')`
         margin: 0 auto;
     }
 `;
+
 const Icons = styled('div')`
+    grid-area: icons;
     margin: ${size.tiny} ${size.default};
     span {
         padding: 0 ${size.tiny};
@@ -94,19 +97,48 @@ const Icons = styled('div')`
         }
     }
     @media ${screenSize.upToLarge} {
-        margin: 0 ${size.small};
+        margin: 0 0 0 ${size.small};
         span:not(:first-of-type) {
             margin-left: ${size.small};
         }
     }
 `;
+
 const Container = styled('div')`
-    margin: 0 auto;
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-columns: auto;
+    justify-content: center;
+
+    grid-template-areas:
+        'icons icons rating'
+        'article article article'
+        'article article article'
+        'article article article';
+
     @media ${screenSize.largeAndUp} {
-        display: flex;
-        justify-content: center;
+        grid-template-areas:
+            'rating rating rating'
+            'icons article article'
+            'icons article article'
+            'icons article article';
     }
 `;
+
+const StyledRating = styled(ArticleRating)`
+    grid-area: rating;
+    justify-self: end;
+    margin: 0 ${size.default} ${size.large} 0;
+
+    @media ${screenSize.mediumAndUp} {
+        margin: 0 6px ${size.small} 6px;
+    }
+
+    @media ${screenSize.largeAndUp} {
+        margin-bottom: ${size.large};
+    }
+`;
+
 const Article = props => {
     const {
         pageContext: {
@@ -197,6 +229,7 @@ const Article = props => {
                 updatedDate={formattedUpdatedDate}
             />
             <Container>
+                <StyledRating isTop />
                 <Icons>
                     <ContentsMenu
                         title="Contents"

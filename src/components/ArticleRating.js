@@ -3,9 +3,22 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { colorMap, size, screenSize } from '~components/dev-hub/theme';
 import StarRating from '~components/dev-hub/star-rating';
-import { FeedbackContainer, STAR_RATING_FLOW } from '~components/dev-hub/feedback';
+import {
+    FeedbackContainer,
+    STAR_RATING_FLOW,
+} from '~components/dev-hub/feedback';
 
-const StyledContainerTop = styled.div``;
+const StyledContainerTop = styled.div`
+    span {
+        text-align: end;
+    }
+
+    @media ${screenSize.upToMedium} {
+        a:last-child {
+            margin-right: 0;
+        }
+    }
+`;
 
 const StyledContainerBottom = styled.div`
     background-color: ${colorMap.devBlack};
@@ -19,7 +32,7 @@ const StyledContainerBottom = styled.div`
     }
 `;
 
-const ArticleRating = ({ isTop, isBottom }) => {
+const ArticleRating = ({ isTop, isBottom, className }) => {
     const Container = isBottom
         ? StyledContainerBottom
         : isTop
@@ -30,12 +43,17 @@ const ArticleRating = ({ isTop, isBottom }) => {
 
     const onSubmitHandler = useCallback(data => {
         console.log('Form Submit', data);
-    }, [])
+    }, []);
 
     return (
         <>
-            {modal && <FeedbackContainer onSubmit={onSubmitHandler} starRatingFlow={modal} />}
-            <Container>
+            {modal && (
+                <FeedbackContainer
+                    onSubmit={onSubmitHandler}
+                    starRatingFlow={modal}
+                />
+            )}
+            <Container className={className}>
                 <StarRating
                     clickHandlers={[
                         () => setModal(STAR_RATING_FLOW.ONE),
