@@ -97,7 +97,7 @@ const Icons = styled('div')`
         }
     }
     @media ${screenSize.upToLarge} {
-        margin: 0 ${size.small};
+        margin: 0 0 0 ${size.small};
         span:not(:first-of-type) {
             margin-left: ${size.small};
         }
@@ -111,7 +111,7 @@ const Container = styled('div')`
     justify-content: center;
 
     grid-template-areas:
-        'icons rating rating'
+        'icons icons rating'
         'article article article'
         'article article article'
         'article article article';
@@ -128,14 +128,14 @@ const Container = styled('div')`
 const StyledRating = styled(ArticleRating)`
     grid-area: rating;
     justify-self: end;
-    margin: 0 ${size.small} ${size.large} ${size.small};
+    margin: 0 ${size.default} ${size.large} 0;
 
     @media ${screenSize.mediumAndUp} {
         margin: 0 6px ${size.small} 6px;
     }
 
     @media ${screenSize.largeAndUp} {
-        margin-bottom: 48px;
+        margin-bottom: ${size.large};
     }
 `;
 
