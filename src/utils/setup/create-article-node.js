@@ -9,7 +9,8 @@ export const createArticleNode = (
     createNode,
     createContentDigest,
     slugContentMapping,
-    rawContent
+    rawContent,
+    associations
 ) => {
     const filename = getNestedValue(['filename'], doc) || '';
     const isArticlePage =
@@ -23,7 +24,12 @@ export const createArticleNode = (
         const filenameWithoutExtension = paths[paths.length - 1];
         updateAttributionLinks(doc, filenameWithoutExtension);
         const timeToRead = getTimeToRead(rawContent);
+        let articleAssociations = associations.find(x => x._id === `/${slug}/`);
+        articleAssociations = articleAssociations
+            ? articleAssociations.related
+            : [];
         const content = {
+            associations: articleAssociations,
             atfimage: doc.query_fields['atf-image'],
             authors: doc.query_fields['author'],
             description: getNestedText(doc.query_fields['meta-description']),

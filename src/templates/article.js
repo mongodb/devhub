@@ -109,6 +109,7 @@ const Container = styled('div')`
 const Article = props => {
     const {
         pageContext: {
+            associations,
             __refDocMapping,
             seriesArticles,
             slug: thisPage,
@@ -117,6 +118,7 @@ const Article = props => {
         },
         ...rest
     } = props;
+    console.log(associations);
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
