@@ -1,5 +1,6 @@
 import path from 'path';
 import { getRelatedPagesWithImages } from './get-related-pages-with-images';
+import { tempRelatedPagesCreate } from './temp-related-pages-create';
 import { getNestedValue } from '../get-nested-value';
 import { getPageSlug } from '../get-page-slug';
 import { getSeriesArticles } from '../get-series-articles';
@@ -28,6 +29,12 @@ export const createArticlePage = async (
                 associations,
                 ttrFunction
             );
+            const relatedPages = tempRelatedPagesCreate(
+                pageNodes,
+                slugContentMapping
+            );
+            pageNodes['query_fields'].related = relatedPages;
+            console.log(slug, relatedPages);
         }
         const seriesArticles = getSeriesArticles(allSeries, slug);
         createPage({

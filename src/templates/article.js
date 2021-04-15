@@ -235,6 +235,8 @@ const Article = props => {
             <ArticleAssociations
                 associations={associations}
                 slugTitleMapping={slugTitleMapping}
+                seriesArticles={seriesArticles}
+                related={meta.related}
             />
         </Layout>
     );

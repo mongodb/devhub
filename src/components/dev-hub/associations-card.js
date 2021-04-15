@@ -87,6 +87,7 @@ const Card = ({
     to,
     timeToRead,
     title,
+    type,
     ...props
 }) => {
     const isLink = !!(to || href);
@@ -109,7 +110,7 @@ const Card = ({
                 <Image height="80" width="80" src={image} />
             </ImageWrapper>
             <Grid>
-                <RelativeBadge contentType="article" />
+                <RelativeBadge contentType={type} />
                 {timeToRead && (
                     <TimeToReadText>
                         <StyledClock />

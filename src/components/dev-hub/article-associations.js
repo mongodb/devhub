@@ -6,6 +6,8 @@ import ARTICLE_PLACEHOLDER from '../../images/1x/MDB-and-Node.js.png';
 import { H4 } from './text';
 import { screenSize, size } from './theme';
 import AssociationsCard from './associations-card';
+import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
+import { makeLinkInternalIfApplicable } from '~utils/make-link-internal-if-applicable';
 
 const RelatedContainer = styled('div')`
     background-color: ${({ theme }) => theme.colorMap.devBlack};
@@ -44,19 +46,86 @@ const getCardParamsFromRelatedType = (
     return { image: withPrefix(image), title, to: associatedLink };
 };
 
-const ArticleAssociations = ({ associations, slugTitleMapping }) => {
+const getNewCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
+    const name = relatedArticle.name
+        ? relatedArticle.name
+        : relatedArticle.type;
+    switch (name) {
+        case 'doc':
+            const slug =
+                relatedArticle.target && relatedArticle.target.slice(1);
+            // 'doc' is for internal articles, so links should be prefixed
+            const to = addTrailingSlashIfMissing(
+                withPrefix(relatedArticle.target)
+            );
+            const image = relatedArticle.image
+                ? withPrefix(relatedArticle.image)
+                : ARTICLE_PLACEHOLDER;
+            const title = dlv(slugTitleMapping, [slug, 0, 'value'], '');
+            if (title === '') {
+                console.error(
+                    `No title found for this internal article ${slug}`,
+                    slugTitleMapping
+                );
+            }
+            return { image, to, title };
+        case 'literal':
+            return {
+                image: relatedArticle.image
+                    ? withPrefix(relatedArticle.image)
+                    : ARTICLE_PLACEHOLDER,
+                target: null,
+                title: dlv(relatedArticle, ['children', 0, 'value'], ''),
+            };
+        case 'reference':
+            return {
+                image: relatedArticle.image
+                    ? withPrefix(relatedArticle.image)
+                    : ARTICLE_PLACEHOLDER,
+                href: makeLinkInternalIfApplicable(relatedArticle.refuri, true),
+                title: dlv(relatedArticle, ['children', 0, 'value'], ''),
+                type: relatedArticle.refuri.includes('you')
+                    ? 'youtube'
+                    : 'article',
+            };
+        default:
+            console.error(`Related article type not implemented: ${name}`);
+            return { title: null, image: null, target: null };
+    }
+};
+
+const ArticleAssociations = ({
+    associations,
+    related,
+    seriesArticles,
+    slugTitleMapping,
+}) => {
+    console.log(related);
     if (!associations || !associations.length) return null;
+    let seriesArticlesToRemove = [];
+    Object.keys(seriesArticles).forEach(series => {
+        console.log(seriesArticles[series]);
+        seriesArticlesToRemove = seriesArticlesToRemove.concat(
+            seriesArticles[series]
+        );
+    });
+    seriesArticlesToRemove = seriesArticlesToRemove.map(a => `/${a}/`);
+    const filteredAssociations = associations.filter(
+        a => !seriesArticlesToRemove.includes(a.target)
+    );
+    console.log(seriesArticlesToRemove, filteredAssociations);
+    if (filteredAssociations.length === 0) return null;
     return (
         <RelatedContainer>
             <H4>Recommended for you</H4>
             <RelatedCards>
-                {associations.map((link, i) => {
-                    console.log(link);
+                {filteredAssociations.map((link, i) => {
                     const {
                         image,
                         href,
                         to,
                         title,
+                        type = 'article',
                     } = getCardParamsFromRelatedType(link, slugTitleMapping);
                     /* TODO: Case on doc to link internal vs external */
                     return (
@@ -68,8 +137,32 @@ const ArticleAssociations = ({ associations, slugTitleMapping }) => {
                                 href={href}
                                 title={title}
                                 to={to}
+                                type={type}
                                 timeToRead={link.timeToRead}
-                                maxWidth={'400px'}
+                            />
+                        </>
+                    );
+                })}
+                {related.map((link, i) => {
+                    const {
+                        image,
+                        href,
+                        to,
+                        title,
+                        type = 'article',
+                    } = getNewCardParamsFromRelatedType(link, slugTitleMapping);
+                    /* TODO: Case on doc to link internal vs external */
+                    return (
+                        <>
+                            <AssociationsCard
+                                // Title may be undefined, so tacking on index keeps unique
+                                key={`${title}-${i}`}
+                                image={image}
+                                href={href}
+                                title={title}
+                                to={to}
+                                type={type}
+                                timeToRead={link.timeToRead}
                             />
                         </>
                     );

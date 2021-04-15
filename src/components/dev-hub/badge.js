@@ -42,7 +42,7 @@ export default ({ contentType, color = '', ...props }) => {
     return (
         <Badge color={color || determineColor(contentType, theme)} {...props}>
             <P5 bold collapse>
-                {badgeContent(contentType)}
+                {contentType}
             </P5>
         </Badge>
     );
