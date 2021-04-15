@@ -2,7 +2,7 @@ import React from 'react';
 import { size } from './theme';
 import { P5 } from './text';
 import styled from '@emotion/styled';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 
 const Badge = styled('div')`
     bottom: 0;

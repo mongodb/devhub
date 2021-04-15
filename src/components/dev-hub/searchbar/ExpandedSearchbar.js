@@ -5,9 +5,8 @@ import React, {
     useMemo,
     useRef,
 } from 'react';
-import { css } from '@emotion/core';
+import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useTheme } from 'emotion-theming';
 import { withPrefix } from 'gatsby';
 import { useEventListener } from '@leafygreen-ui/hooks';
 import Icon from '@leafygreen-ui/icon';

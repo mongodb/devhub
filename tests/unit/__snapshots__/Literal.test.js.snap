@@ -1,16 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<code
-  css={
-    Object {
-      "map": "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkxpdGVyYWwuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSzZCIiwiZmlsZSI6IkxpdGVyYWwuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnQGVtb3Rpb24vY29yZSc7XG5pbXBvcnQgUHJvcFR5cGVzIGZyb20gJ3Byb3AtdHlwZXMnO1xuaW1wb3J0IENvbXBvbmVudEZhY3RvcnkgZnJvbSAnLi9Db21wb25lbnRGYWN0b3J5JztcblxuY29uc3QgYnJlYWtXb3JkT3ZlcmZsb3cgPSBjc3NgXG4gICAgb3ZlcmZsb3ctd3JhcDogYnJlYWstd29yZDtcbmA7XG5cbmNvbnN0IExpdGVyYWwgPSAoeyBub2RlRGF0YTogeyBjaGlsZHJlbiB9IH0pID0+IChcbiAgICA8Y29kZSBjc3M9e2JyZWFrV29yZE92ZXJmbG93fT5cbiAgICAgICAge2NoaWxkcmVuLm1hcCgobm9kZSwgaSkgPT4gKFxuICAgICAgICAgICAgPENvbXBvbmVudEZhY3Rvcnkgbm9kZURhdGE9e25vZGV9IGtleT17aX0gLz5cbiAgICAgICAgKSl9XG4gICAgPC9jb2RlPlxuKTtcblxuTGl0ZXJhbC5wcm9wVHlwZXMgPSB7XG4gICAgbm9kZURhdGE6IFByb3BUeXBlcy5zaGFwZSh7XG4gICAgICAgIGNoaWxkcmVuOiBQcm9wVHlwZXMuYXJyYXlPZihQcm9wVHlwZXMub2JqZWN0KS5pc1JlcXVpcmVkLFxuICAgIH0pLmlzUmVxdWlyZWQsXG59O1xuXG5leHBvcnQgZGVmYXVsdCBMaXRlcmFsO1xuIl19 */",
-      "name": "12btru0-breakWordOverflow",
-      "styles": "overflow-wrap:break-word;;label:breakWordOverflow;",
-      "toString": [Function],
-    }
-  }
->
+<StyledLiteral>
   <ComponentFactory
     key="0"
     nodeData={
@@ -25,5 +16,5 @@ exports[`renders correctly 1`] = `
       }
     }
   />
-</code>
+</StyledLiteral>
 `;

@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css, useTheme } from '@emotion/react';
 import { size } from './theme';
-import { useTheme } from 'emotion-theming';
 
 const fullSizeAbsolute = css`
     bottom: 0;

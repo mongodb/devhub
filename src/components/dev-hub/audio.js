@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import ReactPlayer from 'react-player/lazy';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useMedia from '../../hooks/use-media';
 import { getTimeLabel } from '../../utils/get-time-label';

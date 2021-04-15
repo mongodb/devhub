@@ -1,3 +1,5 @@
+import { transformAuthorStrapiData } from './setup/transform-author-strapi-data';
+
 const typeMap = {
     Article: 'article',
     HowTo: 'how-to',
@@ -6,11 +8,10 @@ const typeMap = {
 
 // This will get more complicated as we build the pipeline out
 export const transformArticleStrapiData = article => {
-    const authors =
-        typeof article.authors === 'object'
-            ? [article.authors]
-            : article.authors;
-    const transformedAuthors = authors.map(a => ({ ...a, image: a.image.url }));
+    console.log(article, article.authors, typeof article.authors);
+    const authors = article.authors;
+    console.log(authors.length, authors);
+    const transformedAuthors = authors.map(transformAuthorStrapiData);
     return {
         ...article,
         authors: transformedAuthors,

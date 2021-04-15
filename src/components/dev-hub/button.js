@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import {
     animationSpeed,
@@ -154,20 +154,9 @@ const StyledButton = styled('button')`
 
     ${({ primary, theme }) => primary && primaryStyles(theme)}
     ${({ secondary, theme }) => secondary && secondaryStyles(theme)}
-    ${({
-        play,
-        theme,
-    }) => play && playStyles(theme)}
-    ${({
-        play,
-        primary,
-        secondary,
-        theme,
-    }) =>
-        !primary &&
-        !secondary &&
-        !play &&
-        tertiaryStyles(theme)}
+    ${({ play, theme }) => play && playStyles(theme)}
+    ${({ play, primary, secondary, theme }) =>
+        !primary && !secondary && !play && tertiaryStyles(theme)}
     &[disabled],
     &[disabled]:hover {
         background: ${({ theme }) => theme.colorMap.greyLightThree};

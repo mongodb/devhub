@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import AuthorHeroBackground from '../images/1x/author-hero-background.png';
