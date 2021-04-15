@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleRating renders bottom variant correctly 1`] = `
+<Fragment>
+  <StyledContainerBottom>
+    <Memo(StarRating)
+      clickHandlers={
+        Array [
+          [Function],
+          [Function],
+          [Function],
+          [Function],
+          [Function],
+        ]
+      }
+    />
+  </StyledContainerBottom>
+</Fragment>
+`;
+
+exports[`ArticleRating renders top variant correctly 1`] = `
+<Fragment>
+  <StyledContainerTop>
+    <Memo(StarRating)
+      clickHandlers={
+        Array [
+          [Function],
+          [Function],
+          [Function],
+          [Function],
+          [Function],
+        ]
+      }
+    />
+  </StyledContainerTop>
+</Fragment>
+`;
