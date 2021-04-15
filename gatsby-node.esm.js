@@ -1,5 +1,5 @@
 import path from 'path';
-import { articles } from './src/queries/articles';
+import { articles, singleArticleQuery } from './src/queries/articles';
 import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
@@ -145,15 +145,22 @@ export const createPages = async ({ actions, graphql }) => {
 
     const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
+    const promises = [];
+
     result.data.allArticle.nodes.forEach(article => {
-        createArticlePage(
-            article,
-            slugContentMapping,
-            allSeries,
-            metadataDocument,
-            createPage
+        promises.push(
+            createArticlePage(
+                article,
+                slugContentMapping,
+                allSeries,
+                metadataDocument,
+                createPage,
+                slug => graphql(singleArticleQuery, { slug })
+            )
         );
     });
+
+    await Promise.all(promises);
 
     await createClientSideRedirects(graphql, createRedirect);
 

@@ -10,4 +10,12 @@ const articles = `
     }
 `;
 
-module.exports = { articles };
+const singleArticleQuery = `
+    query SingleArticle($slug: String!) {
+        article(id: { eq: $slug }) {
+            timeToRead
+        }
+    }
+`;
+
+module.exports = { articles, singleArticleQuery };

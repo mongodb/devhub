@@ -7,7 +7,7 @@ import DocumentBody from '../components/DocumentBody';
 import ArticleShareFooter from '../components/dev-hub/article-share-footer';
 import BlogPostTitleArea from '../components/dev-hub/blog-post-title-area';
 import Layout from '../components/dev-hub/layout';
-import RelatedArticles from '../components/dev-hub/related-articles';
+import ArticleAssociations from '../components/dev-hub/article-associations';
 import { screenSize, size } from '../components/dev-hub/theme';
 import SEO from '../components/dev-hub/SEO';
 import ArticleSeries from '../components/dev-hub/article-series';
@@ -118,7 +118,6 @@ const Article = props => {
         },
         ...rest
     } = props;
-    console.log(associations);
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
     const contentNodes = getContent(childNodes);
@@ -233,8 +232,8 @@ const Article = props => {
                     />
                 </ArticleContent>
             </Container>
-            <RelatedArticles
-                related={meta.related}
+            <ArticleAssociations
+                associations={associations}
                 slugTitleMapping={slugTitleMapping}
             />
         </Layout>

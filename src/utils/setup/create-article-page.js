@@ -6,12 +6,13 @@ import { getSeriesArticles } from '../get-series-articles';
 import { getTemplate } from '../get-template';
 import { SNOOTY_STITCH_ID } from '../../build-constants';
 
-export const createArticlePage = (
-    { slug: page, ...rest },
+export const createArticlePage = async (
+    { slug: page, associations, ...rest },
     slugContentMapping,
     allSeries,
     metadata,
-    createPage
+    createPage,
+    ttrFunction
 ) => {
     const pageNodes = slugContentMapping[page];
     if (pageNodes && Object.keys(pageNodes).length > 0) {
@@ -19,18 +20,21 @@ export const createArticlePage = (
             getNestedValue(['ast', 'options', 'template'], pageNodes)
         );
         const slug = getPageSlug(page);
+        let mappedAssociations = [];
         if (pageNodes.query_fields) {
-            const relatedPages = getRelatedPagesWithImages(
+            mappedAssociations = await getRelatedPagesWithImages(
                 pageNodes,
-                slugContentMapping
+                slugContentMapping,
+                associations,
+                ttrFunction
             );
-            pageNodes['query_fields'].related = relatedPages;
         }
         const seriesArticles = getSeriesArticles(allSeries, slug);
         createPage({
             path: slug,
             component: path.resolve(`./src/templates/${template}.js`),
             context: {
+                associations: mappedAssociations,
                 metadata,
                 seriesArticles,
                 slug,
