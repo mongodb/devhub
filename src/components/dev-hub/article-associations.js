@@ -1,7 +1,9 @@
 import React from 'react';
 import dlv from 'dlv';
+import { withPrefix } from 'gatsby';
 import styled from '@emotion/styled';
 import ARTICLE_PLACEHOLDER from '../../images/1x/MDB-and-Node.js.png';
+import { H4 } from './text';
 import { screenSize, size } from './theme';
 import AssociationsCard from './associations-card';
 
@@ -39,14 +41,14 @@ const getCardParamsFromRelatedType = (
         [associatedLink.slice(1, -1), 0, 'value'],
         ''
     );
-    return { image, title, to: associatedLink };
+    return { image: withPrefix(image), title, to: associatedLink };
 };
 
 const ArticleAssociations = ({ associations, slugTitleMapping }) => {
     if (!associations || !associations.length) return null;
     return (
         <RelatedContainer>
-            <h3>Recommended for you</h3>
+            <H4>Recommended for you</H4>
             <RelatedCards>
                 {associations.map((link, i) => {
                     console.log(link);
