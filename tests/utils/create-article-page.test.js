@@ -4,7 +4,7 @@ describe('creating an article page', () => {
     const articleOneSlug = '/article1';
     const articleOne = { slug: articleOneSlug };
     const slugContentMapping = {
-        [articleOneSlug]: { ast: { options: { template: 'devhub-article' } } },
+        [articleOne.slug]: { ast: { options: { template: 'devhub-article' } } },
     };
     let createPage;
     beforeEach(() => {
@@ -15,12 +15,12 @@ describe('creating an article page', () => {
     it('should create a page at the correct slug', () => {
         createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);
         expect(createPage.mock.calls.length).toBe(1);
-        expect(createPage.mock.calls[0][0].path).toBe(articleOneSlug);
+        expect(createPage.mock.calls[0][0].path).toBe(articleOne.slug);
     });
 
     it('should properly tag series for a page', () => {
         const series = {
-            seriesWithArticleOne: [articleOneSlug],
+            seriesWithArticleOne: [articleOne.slug],
             seriesWithoutArticleOne: [],
         };
         createArticlePage(
@@ -44,7 +44,7 @@ describe('creating an article page', () => {
     });
 
     it('should get the correct template for a page', () => {
-        slugContentMapping[articleOneSlug].ast = {
+        slugContentMapping[articleOne.slug].ast = {
             options: {
                 // "devhub-article" is a keyword to choose a specific article template
                 template: 'devhub-article',
@@ -59,7 +59,7 @@ describe('creating an article page', () => {
         slugContentMapping[articleTwoSlug] = {
             ast: {},
         };
-        slugContentMapping[articleOneSlug].query_fields = {
+        slugContentMapping[articleOne.slug].query_fields = {
             related: [{ refuri: articleTwoSlug }],
         };
         createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);

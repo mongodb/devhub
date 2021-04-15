@@ -11,6 +11,7 @@ import { createProjectPages } from './src/utils/setup/create-project-pages';
 import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getMetadata } from './src/utils/get-metadata';
+import { STITCH_AUTH_APP_ID } from './src/constants';
 import {
     DOCUMENTS_COLLECTION,
     METADATA_COLLECTION,
@@ -58,6 +59,11 @@ export const sourceNodes = async ({
         DOCUMENTS_COLLECTION,
         query,
     ]);
+    const client = await initStitch(STITCH_AUTH_APP_ID);
+    const recommendedMapping = await client.callFunction(
+        'fetchAssociationData',
+        []
+    );
     if (documents.length === 0) {
         console.error('No documents matched your query.');
     }
@@ -73,7 +79,8 @@ export const sourceNodes = async ({
             createNode,
             createContentDigest,
             slugContentMapping,
-            rawContent
+            rawContent,
+            recommendedMapping
         );
     });
 };

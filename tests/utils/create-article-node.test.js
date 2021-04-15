@@ -59,14 +59,17 @@ describe('Should properly postprocess an article node after it is fetched', () =
             createNode,
             createContentDigest,
             mapping,
-            articleRawContent
+            articleRawContent,
+            []
         );
         createArticleNode(
             imageNode,
             pageIdPrefix,
             createNode,
             createContentDigest,
-            mapping
+            mapping,
+            articleRawContent,
+            []
         );
         // refDocMapping should not include page_id, but should contain everything else
         expect(mapping[articleSlug]).toStrictEqual(articleNode);
@@ -81,7 +84,8 @@ describe('Should properly postprocess an article node after it is fetched', () =
             createNode,
             createContentDigest,
             {},
-            articleRawContent
+            articleRawContent,
+            []
         );
         expect(createNode.mock.calls.length).toBe(1);
         const createdArticleNode = createNode.mock.calls[0][0];
@@ -96,6 +100,7 @@ describe('Should properly postprocess an article node after it is fetched', () =
         expect(createContentDigest.mock.calls.length).toBe(1);
         const contentToDigest = {
             atfimage,
+            associations: [],
             authors: articleAuthors,
             description: articleDescription,
             languages: articleLanguages,
@@ -118,7 +123,9 @@ describe('Should properly postprocess an article node after it is fetched', () =
             pageIdPrefix,
             createNode,
             createContentDigest,
-            {}
+            {},
+            articleRawContent,
+            []
         );
         expect(createNode.mock.calls.length).toBe(0);
     });
