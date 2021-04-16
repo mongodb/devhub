@@ -100,11 +100,9 @@ const ArticleAssociations = ({
     seriesArticles,
     slugTitleMapping,
 }) => {
-    console.log(related);
     if (!associations || !associations.length) return null;
     let seriesArticlesToRemove = [];
     Object.keys(seriesArticles).forEach(series => {
-        console.log(seriesArticles[series]);
         seriesArticlesToRemove = seriesArticlesToRemove.concat(
             seriesArticles[series]
         );
@@ -113,7 +111,6 @@ const ArticleAssociations = ({
     const filteredAssociations = associations.filter(
         a => !seriesArticlesToRemove.includes(a.target)
     );
-    console.log(seriesArticlesToRemove, filteredAssociations);
     if (filteredAssociations.length === 0) return null;
     return (
         <RelatedContainer>
