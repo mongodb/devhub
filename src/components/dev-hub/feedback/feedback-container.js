@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
-import CMSForm from '~components/dev-hub/cms-form';
-import { H5, P } from '~components/dev-hub/text';
 import Modal from '~components/dev-hub/modal';
-import Button from '~components/dev-hub/button';
-
-import { fontSize, lineHeight, size } from '~components/dev-hub/theme';
+import FeedbackFinalStep from '~components/dev-hub/feedback/feedback-final-step';
 import {
     getStarRatingFlow,
     STAR_RATING_FLOW,
 } from '~components/dev-hub/feedback/helpers/getStarRatingFlow';
+import FeedbackForm from '~components/dev-hub/feedback/feedback-form';
+import {
+    createDevhubFeedback,
+    updateDevhubFeedback,
+} from '~utils/devhub-api-stitch';
+import useSegmentData from '~hooks/use-segment-data';
+
+const getAuthorsNames = authors => authors?.map(({ name }) => name);
 
 const feedbackItems = graphql`
     query FeedbackItems {
@@ -21,33 +24,50 @@ const feedbackItems = graphql`
     }
 `;
 
-const StyledButtonContainer = styled('div')`
-    display: flex;
-    justify-content: center;
-    margin-bottom: 4px;
-`;
-
-const StyledForm = styled('form')`
-    padding: 0 ${size.medium};
-
-    button,
-    > label {
-        margin: ${size.default} 0;
-    }
-`;
-
-const StyledDescription = styled(P)`
-    display: inline-block;
-    font-family: Akzidenz;
-    font-size: ${fontSize.small};
-    line-height: ${lineHeight.small};
-`;
-
 const MODAL_WIDTH = '400px';
 
-const FeedbackContainer = ({ onSubmit, starRatingFlow }) => {
+const FeedbackContainer = ({ starRatingFlow, articleMeta }) => {
     const [step, setStep] = useState(0);
+    const [feedbackId, setFeedbackId] = useState('');
+
     const data = useStaticQuery(feedbackItems);
+    const { segmentAnonymousId } = useSegmentData();
+
+    const createFeedback = useCallback(
+        async ({ author, slug, title }) => {
+            console.log('Test - FeedBackData', {
+                authorNames: getAuthorsNames(author),
+                rating: starRatingFlow,
+                title: title[0].value,
+                slug,
+                segment_id: segmentAnonymousId,
+            });
+            const feedbackId = await createDevhubFeedback({
+                authorNames: getAuthorsNames(author),
+                rating: starRatingFlow,
+                title: title[0].value,
+                slug,
+                segment_id: segmentAnonymousId,
+            });
+
+            setFeedbackId(feedbackId);
+        },
+        [segmentAnonymousId, starRatingFlow]
+    );
+
+    const updateFeeback = useCallback(
+        async formData => {
+            await updateDevhubFeedback({
+                feedbackId,
+                ...formData,
+            });
+        },
+        [feedbackId]
+    );
+
+    useEffect(() => {
+        createFeedback(articleMeta);
+    }, [articleMeta, createFeedback]);
 
     const { ratingFlow = {}, stepsCounter } = getStarRatingFlow(
         data,
@@ -55,9 +75,21 @@ const FeedbackContainer = ({ onSubmit, starRatingFlow }) => {
         step
     );
 
-    const { title, description, cta: button } = ratingFlow;
+    const incrementStepHandler = useCallback(() => {
+        setStep(step + 1);
+    }, [step]);
 
-    const isActiveModal = step < stepsCounter;
+    const onSubmitHandler = useCallback(
+        data => {
+            console.log('Form Submit', data);
+            updateFeeback(data);
+            incrementStepHandler();
+        },
+        [incrementStepHandler, updateFeeback]
+    );
+
+    const isActiveModal = step < stepsCounter + 1;
+    const isLastModal = step === stepsCounter;
 
     return isActiveModal ? (
         <Modal
@@ -68,28 +100,14 @@ const FeedbackContainer = ({ onSubmit, starRatingFlow }) => {
                 minWidth: MODAL_WIDTH,
             }}
         >
-            <StyledForm
-                onSubmit={e => {
-                    e.preventDefault();
-                    onSubmit('Some value');
-                    setStep(step + 1);
-                }}
-            >
-                {title && <H5 collapse>{title}</H5>}
-                {description && (
-                    <StyledDescription>{description}</StyledDescription>
-                )}
-
-                <CMSForm form={ratingFlow} />
-
-                {button && (
-                    <StyledButtonContainer>
-                        <Button hasArrow={button !== 'Send'} primary>
-                            {button}
-                        </Button>
-                    </StyledButtonContainer>
-                )}
-            </StyledForm>
+            {isLastModal ? (
+                <FeedbackFinalStep incrementStep={incrementStepHandler} />
+            ) : (
+                <FeedbackForm
+                    ratingFlow={ratingFlow}
+                    onSubmit={onSubmitHandler}
+                />
+            )}
         </Modal>
     ) : null;
 };

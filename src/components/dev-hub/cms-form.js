@@ -6,8 +6,6 @@ import TextArea from './text-area';
 
 import { size } from '~components/dev-hub/theme';
 
-const getInitialFormState = () => ({});
-
 const FORM_ELEMENT_TYPES = {
     CHECKBOXES: 'Checkboxes',
     EMAILINPUT: 'EmailInput',
@@ -15,13 +13,8 @@ const FORM_ELEMENT_TYPES = {
 };
 
 const StyledInputContainer = styled('div')`
-  margin: ${size.default} 0;
+    margin: ${size.default} 0;
 `;
-
-const handleCMSFormChange = (state, { field, value }) => ({
-    ...state,
-    [field]: value,
-});
 
 const mapTypeToFormElement = (
     { labels, name, placeholder, type },
@@ -84,11 +77,7 @@ const mapTypeToFormElement = (
     }
 };
 
-const CMSForm = ({ form = {} }) => {
-    const [state, dispatch] = useReducer(
-        handleCMSFormChange,
-        getInitialFormState()
-    );
+const CMSForm = ({ formState: state, formDispatch: dispatch, form = {} }) => {
     return (
         <>
             {form.FormElement?.map(formElement =>

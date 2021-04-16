@@ -1,11 +1,11 @@
 import dlv from 'dlv';
 
 export const STAR_RATING_FLOW = {
-    ONE: 'one',
-    TWO: 'two',
-    THREE: 'three',
-    FOUR: 'four',
-    FIVE: 'five',
+    ONE: 1,
+    TWO: 2,
+    THREE: 3,
+    FOUR: 4,
+    FIVE: 5,
 };
 
 const getFlow = (flow, step) => ({

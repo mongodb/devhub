@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { colorMap, size, screenSize } from '~components/dev-hub/theme';
@@ -32,24 +32,20 @@ const StyledContainerBottom = styled.div`
     }
 `;
 
-const ArticleRating = ({ isTop, isBottom, className }) => {
+const ArticleRating = ({ isTop, isBottom, className, articleMeta }) => {
     const Container = isBottom
         ? StyledContainerBottom
         : isTop
         ? StyledContainerTop
         : null;
 
-    const [modal, setModal] = useState('');
-
-    const onSubmitHandler = useCallback(data => {
-        console.log('Form Submit', data);
-    }, []);
+    const [modal, setModal] = useState(null);
 
     return (
         <>
             {modal && (
                 <FeedbackContainer
-                    onSubmit={onSubmitHandler}
+                    articleMeta={articleMeta}
                     starRatingFlow={modal}
                 />
             )}

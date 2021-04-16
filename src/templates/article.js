@@ -229,7 +229,7 @@ const Article = props => {
                 updatedDate={formattedUpdatedDate}
             />
             <Container>
-                <StyledRating isTop />
+                <StyledRating articleMeta={meta} isTop />
                 <Icons>
                     <ContentsMenu
                         title="Contents"
@@ -251,7 +251,7 @@ const Article = props => {
                         slug={thisPage}
                         {...rest}
                     />
-                    <ArticleRating isBottom />
+                    <ArticleRating isBottom articleMeta={meta} />
                     <ArticleShareFooter
                         title={articleTitle}
                         url={articleUrl}
