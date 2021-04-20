@@ -5,6 +5,7 @@ import { getPageSlug } from '../get-page-slug';
 import { getSeriesArticles } from '../get-series-articles';
 import { getTemplate } from '../get-template';
 import { SNOOTY_STITCH_ID } from '../../build-constants';
+import { SnootyArticle } from '../../classes/snooty-article';
 
 export const createArticlePage = (
     page,
@@ -26,16 +27,18 @@ export const createArticlePage = (
             );
             pageNodes['query_fields'].related = relatedPages;
         }
+        const articleInstance = new SnootyArticle(slug, pageNodes);
         const seriesArticles = getSeriesArticles(allSeries, slug);
         createPage({
             path: slug,
-            component: path.resolve(`./src/templates/${template}.tsx`),
+            component: path.resolve(`./src/templates/${template}.js`),
             context: {
                 metadata,
                 seriesArticles,
                 slug,
                 snootyStitchId: SNOOTY_STITCH_ID,
                 __refDocMapping: pageNodes,
+                article: articleInstance,
             },
         });
     }

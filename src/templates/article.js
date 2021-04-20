@@ -23,53 +23,11 @@ import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedText } from '../utils/get-nested-text';
 import ArticleSchema from '../components/dev-hub/article-schema';
 
-/**
- * Name map of directives we want to display in an article
- */
-const contentNodesMap = {
-    introduction: true,
-    prerequisites: true,
-    content: true,
-    summary: true,
-};
-
 const dateFormatOptions = {
     month: 'short',
     day: '2-digit',
     year: 'numeric',
     timeZone: 'UTC',
-};
-
-/**
- * search the ast for the few directives we need to display content
- * TODO this ignores some important meta like Twitter for now
- * @param {array} nodes
- * @returns {array} array of childNodes with our main content
- */
-const getContent = nodes => {
-    const nodesWeActuallyWant = [];
-    for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
-        const childNode = nodes[nodeIndex];
-        // check top level directives first
-        if (contentNodesMap[childNode.name]) {
-            nodesWeActuallyWant.push(childNode);
-        }
-        // Some content nodes will be children of section nodes
-        else if (childNode.type === 'section') {
-            for (
-                let childIndex = 0;
-                childIndex < childNode.children.length;
-                childIndex++
-            ) {
-                const grandChildNode = childNode.children[childIndex];
-                if (contentNodesMap[grandChildNode.name]) {
-                    nodesWeActuallyWant.push(grandChildNode);
-                }
-            }
-        }
-    }
-
-    return nodesWeActuallyWant;
 };
 
 const ArticleContent = styled('article')`
@@ -92,7 +50,7 @@ const Icons = styled('div')`
             margin-top: ${size.small};
         }
     }
-    @media ${screenSize.upToLarge} {
+    @media ${screenSize.upToarge} {
         margin: 0 ${size.small};
         span:not(:first-of-type) {
             margin-left: ${size.small};
@@ -111,14 +69,23 @@ const Article = props => {
         pageContext: {
             __refDocMapping,
             seriesArticles,
-            slug: thisPage,
             metadata: { slugToTitle: slugTitleMapping },
+            article: {
+                authors,
+                contentAST,
+                image,
+                languages,
+                products,
+                slug,
+                tags,
+                title,
+                type,
+            },
         },
         ...rest
     } = props;
     const { siteUrl } = useSiteMetadata();
     const childNodes = dlv(__refDocMapping, 'ast.children', []);
-    const contentNodes = getContent(childNodes);
     const meta = dlv(__refDocMapping, 'query_fields');
     const og = meta.og || {};
     const ogDescription =
@@ -133,15 +100,14 @@ const Article = props => {
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
     ];
-    if (meta.type && meta.type.length) {
+    if (type && type.length) {
         articleBreadcrumbs.push({
-            label: meta.type[0].toUpperCase() + meta.type.substring(1),
+            label: type[0].toUpperCase() + type.substring(1),
             target: `/type/${getTagPageUriComponent(meta.type)}`,
         });
     }
     const tagList = getTagLinksFromMeta(meta);
-    const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
-    const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${thisPage}`);
+    const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
     const headingNodes = findSectionHeadings(
         getNestedValue(['ast', 'children'], __refDocMapping),
         'type',
@@ -162,37 +128,37 @@ const Article = props => {
         articleUrl
     );
 
-    const articleImage = withPrefix(meta['atf-image']);
+    const articleImage = withPrefix(image);
 
     return (
         <Layout includeCanonical={false}>
             <SEO
-                articleTitle={articleTitle}
+                articleTitle={title}
                 canonicalUrl={canonicalUrl}
                 image={og.image}
                 metaDescription={metaDescription}
                 ogDescription={ogDescription}
-                ogTitle={og.title || articleTitle}
+                ogTitle={og.title || title}
                 ogUrl={og.url || articleUrl}
                 twitterNode={twitterNode}
                 type={og.type}
             />
             <ArticleSchema
                 articleUrl={articleUrl}
-                title={articleTitle}
+                title={title}
                 description={metaDescription}
                 publishedDate={meta.pubdate}
                 modifiedDate={meta['updated-date']}
                 imageUrl={articleImage}
-                authors={meta.author}
+                authors={authors}
             />
             <BlogPostTitleArea
                 articleImage={articleImage}
-                authors={meta.author}
+                authors={authors}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={formattedPublishedDate}
                 tags={tagList}
-                title={articleTitle}
+                title={title}
                 updatedDate={formattedUpdatedDate}
             />
             <Container>
@@ -204,7 +170,7 @@ const Article = props => {
                         width={size.default}
                     />
                     <ShareMenu
-                        title={articleTitle}
+                        title={title}
                         url={articleUrl}
                         height={size.default}
                         width={size.default}
@@ -212,20 +178,20 @@ const Article = props => {
                 </Icons>
                 <ArticleContent>
                     <DocumentBody
-                        pageNodes={contentNodes}
+                        pageNodes={contentAST}
                         slugTitleMapping={slugTitleMapping}
-                        slug={thisPage}
+                        slug={slug}
                         {...rest}
                     />
                     <ArticleShareFooter
-                        title={articleTitle}
+                        title={title}
                         url={articleUrl}
                         tags={tagList}
                     />
                     <ArticleSeries
                         allSeriesForArticle={seriesArticles}
                         slugTitleMapping={slugTitleMapping}
-                        title={articleTitle}
+                        title={title}
                     />
                 </ArticleContent>
             </Container>

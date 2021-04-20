@@ -33,6 +33,8 @@ const assets = {};
 // in-memory object with key/value = filename/document
 const slugContentMapping = {};
 
+let snootyArticles = [];
+
 // stich client connection
 let stitchClient;
 

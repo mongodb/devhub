@@ -1,8 +1,9 @@
 {
-    "include": ["./src/**/*"],
+    "include": ["./src/**/*", "./node_modules/**/*"],
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",
+        "moduleResolution": "node",
         "lib": ["dom", "es2017"],
         "jsx": "react",
         "strict": true,
