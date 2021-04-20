@@ -1,20 +1,23 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+    useCallback,
+    useContext,
+    useEffect,
+    useState,
+    memo,
+} from 'react';
 import PropTypes from 'prop-types';
 import { graphql, useStaticQuery } from 'gatsby';
 import Modal from '~components/dev-hub/modal';
 import FeedbackFinalStep from '~components/dev-hub/feedback/feedback-final-step';
-import {
-    getStarRatingFlow,
-    STAR_RATING_FLOW,
-} from '~components/dev-hub/feedback/helpers/getStarRatingFlow';
+import getStarRatingFlow from '~components/dev-hub/feedback/helpers/getStarRatingFlow';
 import FeedbackForm from '~components/dev-hub/feedback/feedback-form';
+import useFeedback from '~hooks/use-feedback';
+import { FeedbackFormContext } from '~components/dev-hub/feedback/feedback-context';
 import {
-    createDevhubFeedback,
-    updateDevhubFeedback,
-} from '~utils/devhub-api-stitch';
-import useSegmentData from '~hooks/use-segment-data';
-
-const getAuthorsNames = authors => authors?.map(({ name }) => name);
+    ArticleRatingContext,
+    STAR_ACTIONS,
+    STAR_RATING_FLOW,
+} from '~components/ArticleRatingContext';
 
 const feedbackItems = graphql`
     query FeedbackItems {
@@ -26,74 +29,68 @@ const feedbackItems = graphql`
 
 const MODAL_WIDTH = '400px';
 
-const FeedbackContainer = ({ starRatingFlow, articleMeta }) => {
+const getAuthorsNames = authors => authors?.map(({ name }) => name);
+
+const FeedbackContainer = ({ starRatingFlow, articleMeta, closeModal }) => {
     const [step, setStep] = useState(0);
-    const [feedbackId, setFeedbackId] = useState('');
+    const { formState } = useContext(FeedbackFormContext);
+    const { ratingDispatch } = useContext(ArticleRatingContext);
+    const { createFeedback, submitFeedback, updateFeedback } = useFeedback();
 
     const data = useStaticQuery(feedbackItems);
-    const { segmentAnonymousId } = useSegmentData();
-
-    const createFeedback = useCallback(
-        async ({ author, slug, title }) => {
-            console.log('Test - FeedBackData', {
-                authorNames: getAuthorsNames(author),
-                rating: starRatingFlow,
-                title: title[0].value,
-                slug,
-                segment_id: segmentAnonymousId,
-            });
-            const feedbackId = await createDevhubFeedback({
-                authorNames: getAuthorsNames(author),
-                rating: starRatingFlow,
-                title: title[0].value,
-                slug,
-                segment_id: segmentAnonymousId,
-            });
-
-            setFeedbackId(feedbackId);
-        },
-        [segmentAnonymousId, starRatingFlow]
-    );
-
-    const updateFeeback = useCallback(
-        async formData => {
-            await updateDevhubFeedback({
-                feedbackId,
-                ...formData,
-            });
-        },
-        [feedbackId]
-    );
-
-    useEffect(() => {
-        createFeedback(articleMeta);
-    }, [articleMeta, createFeedback]);
-
-    const { ratingFlow = {}, stepsCounter } = getStarRatingFlow(
+    const { ratingFlow, stepsCounter } = getStarRatingFlow(
         data,
         starRatingFlow,
         step
     );
 
+    const isActiveModal = step < stepsCounter + 1;
+    const isLastModal = step === stepsCounter;
+
+    useEffect(() => {
+        const { author, slug, title } = articleMeta;
+        createFeedback({
+            authors: getAuthorsNames(author),
+            slug,
+            title: title[0].value,
+            starRatingFlow,
+        });
+    }, [articleMeta, createFeedback, starRatingFlow]);
+
     const incrementStepHandler = useCallback(() => {
         setStep(step + 1);
     }, [step]);
 
-    const onSubmitHandler = useCallback(
-        data => {
-            console.log('Form Submit', data);
-            updateFeeback(data);
+    const onSubmitHandler = useCallback(() => {
+        updateFeedback(formState);
+        if (step < stepsCounter) {
             incrementStepHandler();
-        },
-        [incrementStepHandler, updateFeeback]
-    );
+        }
+        if (isLastModal) {
+            submitFeedback();
+        }
+    }, [
+        formState,
+        incrementStepHandler,
+        isLastModal,
+        step,
+        stepsCounter,
+        submitFeedback,
+        updateFeedback,
+    ]);
 
-    const isActiveModal = step < stepsCounter + 1;
-    const isLastModal = step === stepsCounter;
+    //Sent form information and refresh rating logic
+    const onCloseModalHandler = useCallback(() => {
+        updateFeedback(formState);
+        submitFeedback();
+        ratingDispatch(STAR_ACTIONS.CLEAR);
+        closeModal();
+    }, [closeModal, formState, ratingDispatch, submitFeedback, updateFeedback]);
 
     return isActiveModal ? (
         <Modal
-            isOpenToStart={true}
+            onCloseModal={onCloseModalHandler}
+            isOpenToStart
             verticallyCenter
             contentStyle={{
                 maxWidth: MODAL_WIDTH,
@@ -117,4 +114,4 @@ FeedbackContainer.propTypes = {
     starRatingFlow: PropTypes.oneOf([...Object.values(STAR_RATING_FLOW)]),
 };
 
-export default FeedbackContainer;
+export default memo(FeedbackContainer);

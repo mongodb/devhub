@@ -1,8 +1,12 @@
-import React, { useReducer } from 'react';
+import React, { useContext, memo } from 'react';
 import styled from '@emotion/styled';
 import Checkbox from '@leafygreen-ui/checkbox';
 import Input from './input';
 import TextArea from './text-area';
+import {
+    FEEDBACK_FORM_TYPES,
+    FeedbackFormContext,
+} from '~components/dev-hub/feedback/feedback-context';
 
 import { size } from '~components/dev-hub/theme';
 
@@ -29,7 +33,8 @@ const mapTypeToFormElement = (
                     bold
                     onChange={e =>
                         dispatch({
-                            field: `${name}-${index}`,
+                            type: FEEDBACK_FORM_TYPES.checkbox,
+                            field: label,
                             value: e.target.checked,
                         })
                     }
@@ -77,14 +82,15 @@ const mapTypeToFormElement = (
     }
 };
 
-const CMSForm = ({ formState: state, formDispatch: dispatch, form = {} }) => {
+const CMSForm = ({ form = {} }) => {
+    const { formState, formDispatch } = useContext(FeedbackFormContext);
     return (
         <>
             {form.FormElement?.map(formElement =>
-                mapTypeToFormElement(formElement, state, dispatch)
+                mapTypeToFormElement(formElement, formState, formDispatch)
             )}
         </>
     );
 };
 
-export default CMSForm;
+export default memo(CMSForm);

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { colorMap, size, screenSize } from '~components/dev-hub/theme';
 import StarRating from '~components/dev-hub/star-rating';
+import { FeedbackContainer } from '~components/dev-hub/feedback';
+import { FeedbackFormStateProvider } from '~components/dev-hub/feedback/feedback-context';
 import {
-    FeedbackContainer,
-    STAR_RATING_FLOW,
-} from '~components/dev-hub/feedback';
+    ArticleRatingContext,
+    STAR_ACTIONS,
+} from '~components/ArticleRatingContext';
 
 const StyledContainerTop = styled.div`
     span {
@@ -39,24 +41,44 @@ const ArticleRating = ({ isTop, isBottom, className, articleMeta }) => {
         ? StyledContainerTop
         : null;
 
-    const [modal, setModal] = useState(null);
+    const {
+        ratingState: { starRatingFlow },
+        ratingDispatch,
+    } = useContext(ArticleRatingContext);
+    const [showModal, setShowModal] = useState(false);
+
+    const setFlowHandler = useCallback(
+        flow => {
+            ratingDispatch(STAR_ACTIONS.SET_FLOW, flow);
+            setShowModal(true);
+        },
+        [ratingDispatch]
+    );
+
+    const closeModalHandler = useCallback(() => setShowModal(false), []);
+
+    const renderFeedback = () =>
+        showModal && starRatingFlow ? (
+            <FeedbackFormStateProvider>
+                <FeedbackContainer
+                    articleMeta={articleMeta}
+                    starRatingFlow={starRatingFlow}
+                    closeModal={closeModalHandler}
+                />
+            </FeedbackFormStateProvider>
+        ) : null;
 
     return (
         <>
-            {modal && (
-                <FeedbackContainer
-                    articleMeta={articleMeta}
-                    starRatingFlow={modal}
-                />
-            )}
+            {renderFeedback()}
             <Container className={className}>
                 <StarRating
                     clickHandlers={[
-                        () => setModal(STAR_RATING_FLOW.ONE),
-                        () => setModal(STAR_RATING_FLOW.TWO),
-                        () => setModal(STAR_RATING_FLOW.THREE),
-                        () => setModal(STAR_RATING_FLOW.FOUR),
-                        () => setModal(STAR_RATING_FLOW.FIVE),
+                        () => setFlowHandler(STAR_ACTIONS.ONE),
+                        () => setFlowHandler(STAR_ACTIONS.TWO),
+                        () => setFlowHandler(STAR_ACTIONS.THREE),
+                        () => setFlowHandler(STAR_ACTIONS.FOUR),
+                        () => setFlowHandler(STAR_ACTIONS.FIVE),
                     ]}
                 />
             </Container>

@@ -1,4 +1,4 @@
-import React, { memo, useReducer } from 'react';
+import React, { memo } from 'react';
 import styled from '@emotion/styled';
 import { H5, P } from '~components/dev-hub/text';
 import CMSForm from '~components/dev-hub/cms-form';
@@ -28,26 +28,14 @@ const StyledDescription = styled(P)`
     line-height: ${lineHeight.small};
 `;
 
-const getInitialFormState = () => ({});
-
-const handleCMSFormChange = (state, { field, value }) => ({
-    ...state,
-    [field]: value,
-});
-
-const FeedbackForm = ({ ratingFlow, onSubmit }) => {
+const FeedbackForm = ({ ratingFlow = {}, onSubmit }) => {
     const { title, description, cta: button } = ratingFlow;
-
-    const [state, dispatch] = useReducer(
-        handleCMSFormChange,
-        getInitialFormState()
-    );
 
     return (
         <StyledForm
             onSubmit={e => {
                 e.preventDefault();
-                onSubmit(state);
+                onSubmit();
             }}
         >
             {title && <H5 collapse>{title}</H5>}
@@ -55,11 +43,7 @@ const FeedbackForm = ({ ratingFlow, onSubmit }) => {
                 <StyledDescription>{description}</StyledDescription>
             )}
 
-            <CMSForm
-                formState={state}
-                formDispatch={dispatch}
-                form={ratingFlow}
-            />
+            <CMSForm form={ratingFlow} />
 
             {button && (
                 <StyledButtonContainer>

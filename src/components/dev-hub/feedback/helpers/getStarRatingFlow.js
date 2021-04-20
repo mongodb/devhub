@@ -1,19 +1,12 @@
 import dlv from 'dlv';
-
-export const STAR_RATING_FLOW = {
-    ONE: 1,
-    TWO: 2,
-    THREE: 3,
-    FOUR: 4,
-    FIVE: 5,
-};
+import { STAR_RATING_FLOW } from '~components/ArticleRatingContext';
 
 const getFlow = (flow, step) => ({
     ratingFlow: flow?.forms[step],
     stepsCounter: flow?.forms?.length,
 });
 
-export const getStarRatingFlow = (data, star, step) => {
+const getStarRatingFlow = (data, star, step) => {
     const {
         OneStarRatingFlow,
         TwoStarRatingFlow,
@@ -37,3 +30,5 @@ export const getStarRatingFlow = (data, star, step) => {
             return {};
     }
 };
+
+export default getStarRatingFlow;

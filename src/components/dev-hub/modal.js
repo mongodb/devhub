@@ -66,6 +66,7 @@ const getApplicationNode = () => document.getElementById('root');
  * @property {Object | String} props.contentStyle
  * @property {Object} props.dialogContainerStyle
  * @property {Object} props.dialogMobileContainerStyle
+ * @property {Function} props.onCloseModal
  * @property {String=} props.title
  * @property {JSX.Element[]= | JSX.Element=} props.triggerComponent
  * @property {Bool=} props.isOpenToStart
@@ -82,6 +83,7 @@ export const Modal = ({
     // Dialog Container Style must be an object because of the react-aria-modal library styling
     dialogContainerStyle,
     dialogMobileContainerStyle,
+    onCloseModal,
     title,
     triggerComponent,
     isOpenToStart = false,
@@ -112,7 +114,10 @@ export const Modal = ({
     const [isActive, setIsActive] = useState(isOpenToStart);
     const isMobile = useMedia(screenSize.upToMedium);
     const activateModal = () => setIsActive(true);
-    const deactivateModal = () => setIsActive(false);
+    const deactivateModal = () => {
+        onCloseModal && onCloseModal();
+        setIsActive(false);
+    }
     const closeModalOnEnter = e => {
         const enterKey = 13;
         if (e.keyCode === enterKey) {
@@ -120,7 +125,7 @@ export const Modal = ({
         }
     };
     const theme = useTheme();
-    const ResponsiveModal = () =>
+    const responsiveModal = () =>
         isActive && (
             <AriaModal
                 data-test="modal"
@@ -153,11 +158,11 @@ export const Modal = ({
         return (
             <>
                 <span onClick={activateModal}>{triggerComponent}</span>
-                <ResponsiveModal />
+                {responsiveModal()}
             </>
         );
     }
-    return <ResponsiveModal />;
+    return responsiveModal();
 };
 
 Modal.propTypes = {
@@ -166,6 +171,7 @@ Modal.propTypes = {
     contentStyle: PropTypes.object,
     dialogContainerStyle: PropTypes.object,
     dialogMobileContainerStyle: PropTypes.object,
+    onCloseModal: PropTypes.func,
     isOpenToStart: PropTypes.bool,
     isMounted: PropTypes.bool,
     title: PropTypes.string,
