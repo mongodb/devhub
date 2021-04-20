@@ -64,35 +64,38 @@ const Container = styled('div')`
 const StrapiArticle = props => {
     const {
         pageContext: {
-            authors = [],
-            image,
-            languages,
             metadata: { slugToTitle: slugTitleMapping },
-            name,
-            parsedContent,
-            products,
-            published_at,
-            related_articles = [],
-            SEO: {
-                canonical_url,
-                meta_description,
-                og_description,
-                og_image,
-                og_type,
-                og_url,
-                twitterNode,
+            article: {
+                authors = [],
+                contentAST,
+                image,
+                languages,
+                products,
+                published_at,
+                related_articles = [],
+                SEO: {
+                    canonical_url,
+                    meta_description,
+                    og_description,
+                    og_image,
+                    og_type,
+                    og_url,
+                    twitterNode,
+                },
+                seriesArticles,
+                // Clarify and add in type in transform
+                slug,
+                tags,
+                title,
+                type,
+                updatedAt,
+                ...rest
             },
-            seriesArticles,
-            // Clarify and add in type in transform
-            slug,
-            tags,
-            type,
-            updatedAt,
         },
-        ...rest
     } = props;
+    console.log(props);
     const { siteUrl } = useSiteMetadata();
-    const childNodes = dlv(parsedContent, 'children', []);
+    const childNodes = dlv(contentAST, 'children', []);
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
@@ -120,19 +123,19 @@ const StrapiArticle = props => {
     return (
         <Layout includeCanonical={false}>
             <SEOComponent
-                articleTitle={name}
+                articleTitle={title}
                 canonicalUrl={canonical_url}
                 image={og_image.url}
                 metaDescription={meta_description}
                 ogDescription={og_description}
-                ogTitle={name}
+                ogTitle={title}
                 ogUrl={og_url || articleUrl}
                 twitterNode={twitterNode}
                 type={og_type}
             />
             <ArticleSchema
                 articleUrl={articleUrl}
-                title={name}
+                title={title}
                 description={meta_description}
                 publishedDate={published_at}
                 modifiedDate={updatedAt}
@@ -145,7 +148,7 @@ const StrapiArticle = props => {
                 breadcrumb={articleBreadcrumbs}
                 originalDate={formattedPublishedDate}
                 tags={tagList}
-                title={name}
+                title={title}
                 updatedDate={formattedUpdatedDate}
             />
             <Container>
@@ -157,7 +160,7 @@ const StrapiArticle = props => {
                         width={size.default}
                     />
                     <ShareMenu
-                        title={name}
+                        title={title}
                         url={articleUrl}
                         height={size.default}
                         width={size.default}
@@ -171,14 +174,14 @@ const StrapiArticle = props => {
                         {...rest}
                     />
                     <ArticleShareFooter
-                        title={name}
+                        title={title}
                         url={articleUrl}
                         tags={tagList}
                     />
                     <ArticleSeries
                         allSeriesForArticle={seriesArticles}
                         slugTitleMapping={slugTitleMapping}
-                        title={name}
+                        title={title}
                     />
                 </ArticleContent>
             </Container>
