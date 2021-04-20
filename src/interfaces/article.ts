@@ -1,3 +1,3 @@
-interface Article {
+export interface Article {
   slug: String;
 }
