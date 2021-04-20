@@ -62,7 +62,7 @@ describe('creating an article page', () => {
             {},
             createPage
         );
-        expect(createPage.mock.calls[0][0].component).toContain('article.js');
+        expect(createPage.mock.calls[0][0].component).toContain('article.tsx');
     });
 
     it('should properly get related pages for a page', () => {

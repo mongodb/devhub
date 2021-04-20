@@ -29,7 +29,7 @@ export const createArticlePage = (
         const seriesArticles = getSeriesArticles(allSeries, slug);
         createPage({
             path: slug,
-            component: path.resolve(`./src/templates/${template}.js`),
+            component: path.resolve(`./src/templates/${template}.tsx`),
             context: {
                 metadata,
                 seriesArticles,

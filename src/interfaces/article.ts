@@ -1,0 +1,3 @@
+interface Article {
+  slug: String;
+}

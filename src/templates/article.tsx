@@ -22,6 +22,7 @@ import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedText } from '../utils/get-nested-text';
 import ArticleSchema from '../components/dev-hub/article-schema';
+import { SnootyArticle } from '~src/classes/snooty-article';
 
 /**
  * Name map of directives we want to display in an article
@@ -107,6 +108,8 @@ const Container = styled('div')`
     }
 `;
 const Article = props => {
+    const TestArticle = new SnootyArticle(props.pageContext);
+    console.log(TestArticle);
     const {
         pageContext: {
             __refDocMapping,
