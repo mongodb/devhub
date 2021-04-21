@@ -7,7 +7,6 @@ import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
 import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
-import { createStrapiAuthorPages } from './src/utils/setup/create-strapi-author-pages';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
 import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
@@ -19,7 +18,6 @@ import {
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
-import { SnootyArticle } from './src/classes/snooty-article';
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
@@ -34,7 +32,7 @@ const assets = {};
 const slugContentMapping = {};
 
 const snootyArticles = [];
-const strapiArticles = [];
+let allArticles = [];
 
 // stich client connection
 let stitchClient;
@@ -75,16 +73,15 @@ export const sourceNodes = async ({
         // We use the source for search RSS XML but do not want it in page data
         delete doc.source;
         createAssetNodes(doc, createNode, createContentDigest);
-        const slug = doc.page_id.replace(`${PAGE_ID_PREFIX}/`, '');
         createArticleNode(
             doc,
             PAGE_ID_PREFIX,
             createNode,
             createContentDigest,
             slugContentMapping,
-            rawContent
+            rawContent,
+            snootyArticles
         );
-        snootyArticles.push(new SnootyArticle(slug, doc));
     });
 };
 
@@ -155,7 +152,7 @@ export const createPages = async ({ actions, graphql }) => {
 
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
 
-    const allArticles = snootyArticles.concat(strapiArticleList);
+    allArticles = snootyArticles.concat(strapiArticleList);
 
     allArticles.forEach(article => {
         createArticlePage(
@@ -182,13 +179,6 @@ export const createPages = async ({ actions, graphql }) => {
         )
     );
     await Promise.all(tagPages);
-    // await createStrapiAuthorPages(
-    //     createPage,
-    //     metadataDocument,
-    //     stitchClient,
-    //     strapiAuthors,
-    //     allArticles
-    // );
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
@@ -223,7 +213,7 @@ export const onCreatePage = async ({ page, actions }) =>
     handleCreatePage(
         page,
         actions,
-        stitchClient,
+        allArticles,
         homeFeaturedArticles,
         learnFeaturedArticles,
         excludedLearnPageArticles

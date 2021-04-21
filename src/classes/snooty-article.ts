@@ -45,7 +45,6 @@ export class SnootyArticle implements Article {
         const childNodes = dlv(pageNodes, 'ast.children', []);
         const contentAST = getRelevantSnootyNodeContent(childNodes);
         const meta = dlv(pageNodes, 'query_fields', {});
-        console.log(meta);
         const og = meta.og || {};
         const ogDescription =
             og.children && og.children.length

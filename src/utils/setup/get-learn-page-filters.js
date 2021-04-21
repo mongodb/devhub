@@ -3,8 +3,8 @@ export const getLearnPageFilters = allArticles => {
     const products = {};
 
     allArticles.forEach(article => {
-        const languagesForArticle = article.query_fields.languages;
-        const productsForArticle = article.query_fields.products;
+        const languagesForArticle = article.languages;
+        const productsForArticle = article.products;
         // Go through languages for this article and update filter info.
         // Add a count of how many times this language appears and keep track
         // of how many itmes we see a product with this language

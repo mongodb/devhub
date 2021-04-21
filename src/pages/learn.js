@@ -87,11 +87,6 @@ const TabBar = styled(Tab)`
     margin: 0 ${size.large};
 `;
 
-const parseArticles = arr =>
-    arr.map(({ _id, query_fields }) => {
-        return { _id, ...query_fields };
-    });
-
 // strip out the 'All' param from the url and the stitch function key
 const stripAllParam = filterValue => {
     const newFilter = {};
@@ -142,7 +137,7 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
                 to={slug}
                 title={title}
                 description={description}
-                tags={getTagLinksFromMeta(tags)}
+                tags={tags}
             />
         );
     } catch {
@@ -176,7 +171,7 @@ const FeaturedArticles = ({ articles }) => {
                         to={slug}
                         title={title}
                         description={description}
-                        tags={getTagLinksFromMeta(tags)}
+                        tags={tags}
                     />
                 </MediaBlock>
             </PrimarySection>
@@ -204,17 +199,14 @@ export default ({
     },
 }) => {
     const metadata = useSiteMetadata();
-    const initialArticles = useMemo(() => parseArticles(allArticles), [
-        allArticles,
-    ]);
-    const [articles, setArticles] = useState(initialArticles);
+    const [articles, setArticles] = useState(allArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
     const [textFilterQuery, setTextFilterQuery] = useState(filterValue['text']);
     const { results: textFilterResults } = useTextFilter(textFilterQuery);
     const filterActiveArticles = useCallback(
-        filter => filterArticles(filter, initialArticles),
-        [initialArticles]
+        filter => filterArticles(filter, allArticles),
+        [allArticles]
     );
     // Update the filter value for page so it behaves nicely with query params
     const updateAllPageFilters = useCallback(search => {
