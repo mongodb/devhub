@@ -4,11 +4,10 @@ import { StrapiArticle } from '../../classes/strapi-article';
 
 const createPageForStrapiArticle = async (article, createPage, metadata) => {
     const { contentAST, slug } = article;
-    const template = 'strapi-article';
     if (contentAST && Object.keys(contentAST).length > 0) {
         createPage({
             path: slug,
-            component: path.resolve(`./src/templates/${template}.js`),
+            component: path.resolve(`./src/templates/article.js`),
             context: {
                 article,
                 metadata,

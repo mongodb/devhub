@@ -1,5 +1,4 @@
 import React from 'react';
-import dlv from 'dlv';
 import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
@@ -11,24 +10,13 @@ import RelatedArticles from '../components/dev-hub/related-articles';
 import { screenSize, size } from '../components/dev-hub/theme';
 import SEO from '../components/dev-hub/SEO';
 import ArticleSeries from '../components/dev-hub/article-series';
-import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
-import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
-import { getNestedValue } from '../utils/get-nested-value';
-import { findSectionHeadings } from '../utils/find-section-headings';
-import { getNestedText } from '../utils/get-nested-text';
-import ArticleSchema from '../components/dev-hub/article-schema';
 
-const dateFormatOptions = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC',
-};
+import ArticleSchema from '../components/dev-hub/article-schema';
 
 const ArticleContent = styled('article')`
     max-width: ${size.maxContentWidth};
@@ -67,35 +55,28 @@ const Container = styled('div')`
 const Article = props => {
     const {
         pageContext: {
-            __refDocMapping,
             seriesArticles,
             metadata: { slugToTitle: slugTitleMapping },
             article: {
                 authors,
                 contentAST,
+                headingNodes,
                 image,
                 languages,
                 products,
+                publishedDate,
+                related,
+                SEO: { canonicalUrl, metaDescription, og, twitter },
                 slug,
                 tags,
                 title,
                 type,
+                updatedDate,
             },
         },
         ...rest
     } = props;
     const { siteUrl } = useSiteMetadata();
-    const childNodes = dlv(__refDocMapping, 'ast.children', []);
-    const meta = dlv(__refDocMapping, 'query_fields');
-    const og = meta.og || {};
-    const ogDescription =
-        og.children && og.children.length ? getNestedText(og.children) : null;
-    const twitterNode = childNodes.find(node => node.name === 'twitter');
-    const metaDescriptionNode = childNodes.find(
-        node => node.name === 'meta-description'
-    );
-    const metaDescription =
-        metaDescriptionNode && getNestedText(metaDescriptionNode.children);
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
@@ -103,30 +84,11 @@ const Article = props => {
     if (type && type.length) {
         articleBreadcrumbs.push({
             label: type[0].toUpperCase() + type.substring(1),
-            target: `/type/${getTagPageUriComponent(meta.type)}`,
+            target: `/type/${getTagPageUriComponent(type)}`,
         });
     }
-    const tagList = getTagLinksFromMeta(meta);
+    const tagList = [...products, ...languages, ...tags];
     const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
-    const headingNodes = findSectionHeadings(
-        getNestedValue(['ast', 'children'], __refDocMapping),
-        'type',
-        'heading',
-        1
-    );
-    const formattedPublishedDate = toDateString(
-        meta.pubdate,
-        dateFormatOptions
-    );
-    const formattedUpdatedDate = toDateString(
-        meta['updated-date'],
-        dateFormatOptions
-    );
-    const canonicalUrl = dlv(
-        __refDocMapping,
-        'ast.options.canonical-href',
-        articleUrl
-    );
 
     const articleImage = withPrefix(image);
 
@@ -137,18 +99,18 @@ const Article = props => {
                 canonicalUrl={canonicalUrl}
                 image={og.image}
                 metaDescription={metaDescription}
-                ogDescription={ogDescription}
+                ogDescription={og.description}
                 ogTitle={og.title || title}
                 ogUrl={og.url || articleUrl}
-                twitterNode={twitterNode}
+                twitter={twitter}
                 type={og.type}
             />
             <ArticleSchema
                 articleUrl={articleUrl}
                 title={title}
                 description={metaDescription}
-                publishedDate={meta.pubdate}
-                modifiedDate={meta['updated-date']}
+                publishedDate={publishedDate}
+                modifiedDate={updatedDate}
                 imageUrl={articleImage}
                 authors={authors}
             />
@@ -156,10 +118,10 @@ const Article = props => {
                 articleImage={articleImage}
                 authors={authors}
                 breadcrumb={articleBreadcrumbs}
-                originalDate={formattedPublishedDate}
+                originalDate={publishedDate}
                 tags={tagList}
                 title={title}
-                updatedDate={formattedUpdatedDate}
+                updatedDate={updatedDate}
             />
             <Container>
                 <Icons>
@@ -196,7 +158,7 @@ const Article = props => {
                 </ArticleContent>
             </Container>
             <RelatedArticles
-                related={meta.related}
+                related={related}
                 slugTitleMapping={slugTitleMapping}
             />
         </Layout>
