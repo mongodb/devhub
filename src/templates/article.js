@@ -38,7 +38,7 @@ const Icons = styled('div')`
             margin-top: ${size.small};
         }
     }
-    @media ${screenSize.upToarge} {
+    @media ${screenSize.upToLarge} {
         margin: 0 ${size.small};
         span:not(:first-of-type) {
             margin-left: ${size.small};
