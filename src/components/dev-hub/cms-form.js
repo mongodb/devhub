@@ -3,14 +3,11 @@ import styled from '@emotion/styled';
 import Checkbox from '@leafygreen-ui/checkbox';
 import Input from './input';
 import TextArea from './text-area';
-import {
-    FEEDBACK_FORM_TYPES,
-    FeedbackFormContext,
-} from '~components/dev-hub/feedback/feedback-context';
+import { FeedbackFormContext } from '~components/dev-hub/feedback/feedback-context';
 
 import { size } from '~components/dev-hub/theme';
 
-const FORM_ELEMENT_TYPES = {
+export const FORM_ELEMENT_TYPES = {
     CHECKBOXES: 'Checkboxes',
     EMAILINPUT: 'EmailInput',
     TEXTAREA: 'Textarea',
@@ -33,7 +30,7 @@ const mapTypeToFormElement = (
                     bold
                     onChange={e =>
                         dispatch({
-                            type: FEEDBACK_FORM_TYPES.checkbox,
+                            type: FORM_ELEMENT_TYPES.CHECKBOXES,
                             field: label,
                             value: e.target.checked,
                         })

@@ -38,7 +38,9 @@ const useFeedback = () => {
                         responses,
                         email,
                     });
-                } catch (error) {}
+                } catch (error) {
+                    console.error(error);
+                }
             }
         },
         [feedbackId]

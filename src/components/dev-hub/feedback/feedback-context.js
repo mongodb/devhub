@@ -1,8 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-
-const FEEDBACK_FORM_TYPES = {
-    checkbox: 'checkbox',
-};
+import { FORM_ELEMENT_TYPES } from '~components/dev-hub/cms-form';
 
 const getInitialFormState = () => ({
     comment: '',
@@ -11,7 +8,7 @@ const getInitialFormState = () => ({
 });
 
 const handleCMSFormChange = (state, { field, value, type }) => {
-    if (type === FEEDBACK_FORM_TYPES.checkbox) {
+    if (type === FORM_ELEMENT_TYPES.CHECKBOXES) {
         return {
             ...state,
             responses: !!value
@@ -38,4 +35,4 @@ const FeedbackFormStateProvider = ({ children }) => {
     return <Provider value={{ formState, formDispatch }}>{children}</Provider>;
 };
 
-export { FeedbackFormContext, FeedbackFormStateProvider, FEEDBACK_FORM_TYPES };
+export { FeedbackFormContext, FeedbackFormStateProvider };

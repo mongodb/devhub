@@ -96,68 +96,68 @@ const StarRating = ({ clickHandlers }) => {
                 <StyledButton
                     onClick={() => onClickHandler(clickHandlers[0])}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.ONE)}
-                    isActive={ratingState.starts[0]}
+                    isActive={ratingState.stars[0]}
                 >
                     <StarIcon
-                        isActive={ratingState.starts[0]}
+                        isActive={ratingState.stars[0]}
                         name="first-star"
-                        size={ratingState.starts[0] && size.mediumLarge}
+                        size={ratingState.stars[0] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#D34F94" />
                         <stop offset="100%" stopColor="#D95B8F" />
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
-                    isActive={ratingState.starts[1]}
+                    isActive={ratingState.stars[1]}
                     onClick={() => onClickHandler(clickHandlers[1])}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.TWO)}
                 >
                     <StarIcon
-                        isActive={ratingState.starts[1]}
+                        isActive={ratingState.stars[1]}
                         name="second-star"
-                        size={ratingState.starts[1] && size.mediumLarge}
+                        size={ratingState.stars[1] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#D95B8F" />
                         <stop offset="100%" stopColor="#E06D88" />
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
-                    isActive={ratingState.starts[2]}
+                    isActive={ratingState.stars[2]}
                     onClick={() => onClickHandler(clickHandlers[2])}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.THREE)}
                 >
                     <StarIcon
                         name="third-star"
-                        isActive={ratingState.starts[2]}
-                        size={ratingState.starts[2] && size.mediumLarge}
+                        isActive={ratingState.stars[2]}
+                        size={ratingState.stars[2] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#E06D88" />
                         <stop offset="100%" stopColor="#E47983" />
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
-                    isActive={ratingState.starts[3]}
+                    isActive={ratingState.stars[3]}
                     onClick={() => onClickHandler(clickHandlers[3])}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FOUR)}
                 >
                     <StarIcon
-                        isActive={ratingState.starts[3]}
+                        isActive={ratingState.stars[3]}
                         name="fourth-star"
-                        size={ratingState.starts[3] && size.mediumLarge}
+                        size={ratingState.stars[3] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#E47983" />
                         <stop offset="100%" stopColor="#F09677" />
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
-                    isActive={ratingState.starts[4]}
+                    isActive={ratingState.stars[4]}
                     onClick={() => onClickHandler(clickHandlers[4])}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FIVE)}
                 >
                     <StarIcon
-                        isActive={ratingState.starts[4]}
+                        isActive={ratingState.stars[4]}
                         name="fifth-star"
-                        size={ratingState.starts[4] && size.mediumLarge}
+                        size={ratingState.stars[4] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#F09677" />
                         <stop offset="100%" stopColor="#F7A76F" />

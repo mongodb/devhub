@@ -4,7 +4,12 @@ import { H5, P } from '~components/dev-hub/text';
 import CMSForm from '~components/dev-hub/cms-form';
 import Button from '~components/dev-hub/button';
 
-import { fontSize, lineHeight, size } from '~components/dev-hub/theme';
+import {
+    fontSize,
+    lineHeight,
+    size,
+    colorMap,
+} from '~components/dev-hub/theme';
 
 const StyledButtonContainer = styled('div')`
     display: flex;
@@ -14,11 +19,13 @@ const StyledButtonContainer = styled('div')`
 
 const StyledForm = styled('form')`
     padding: 0 ${size.medium};
-
-    button,
     > label {
         margin: ${size.default} 0;
     }
+`;
+
+const StyledButton = styled(Button)`
+    margin: ${size.default} 0;
 `;
 
 const StyledDescription = styled(P)`
@@ -26,6 +33,7 @@ const StyledDescription = styled(P)`
     font-family: Akzidenz;
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
+    color: ${colorMap.greyLightTwo};
 `;
 
 const FeedbackForm = ({ ratingFlow = {}, onSubmit }) => {
@@ -47,9 +55,9 @@ const FeedbackForm = ({ ratingFlow = {}, onSubmit }) => {
 
             {button && (
                 <StyledButtonContainer>
-                    <Button hasArrow={button !== 'Send'} primary>
+                    <StyledButton hasArrow={button !== 'Send'} primary>
                         {button}
-                    </Button>
+                    </StyledButton>
                 </StyledButtonContainer>
             )}
         </StyledForm>

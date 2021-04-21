@@ -19,24 +19,24 @@ const STAR_ACTIONS = {
 };
 
 const initialState = {
-    starts: [false, false, false, false, false],
+    stars: [false, false, false, false, false],
     isClicked: false,
     starRatingFlow: null,
 };
 
 const ratingReducer = (state, { type, value }) => {
-    let nextState = { isClicked: false, starts: [...initialState.starts] };
+    let nextState = { isClicked: false, stars: [...initialState.stars] };
     switch (type) {
         case STAR_ACTIONS.FIVE:
-            nextState.starts[4] = true;
+            nextState.stars[4] = true;
         case STAR_ACTIONS.FOUR:
-            nextState.starts[3] = true;
+            nextState.stars[3] = true;
         case STAR_ACTIONS.THREE:
-            nextState.starts[2] = true;
+            nextState.stars[2] = true;
         case STAR_ACTIONS.TWO:
-            nextState.starts[1] = true;
+            nextState.stars[1] = true;
         case STAR_ACTIONS.ONE:
-            nextState.starts[0] = true;
+            nextState.stars[0] = true;
             break;
         case STAR_ACTIONS.CLICKED:
             nextState = { ...state, isClicked: true };

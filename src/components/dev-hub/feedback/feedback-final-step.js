@@ -1,9 +1,14 @@
 import React, { memo } from 'react';
-
+import Link from '~components/dev-hub/link';
 import { H5, P } from '~components/dev-hub/text';
 import Button from '~components/dev-hub/button';
 import styled from '@emotion/styled';
-import { fontSize, lineHeight, size } from '~components/dev-hub/theme';
+import {
+    fontSize,
+    lineHeight,
+    size,
+    colorMap,
+} from '~components/dev-hub/theme';
 
 const StyledTitle = styled(H5)`
     margin-bottom: ${size.mediumLarge};
@@ -15,6 +20,7 @@ const StyledDescription = styled(P)`
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
     margin-bottom: ${size.large};
+    color: ${colorMap.greyLightTwo};
 `;
 
 const StyledButtonContainer = styled('div')`
@@ -23,22 +29,21 @@ const StyledButtonContainer = styled('div')`
     margin-bottom: ${size.medium};
 `;
 
-const FeedbackFinalStep = ({ incrementStep }) => {
-    return (
-        <>
-            <StyledTitle>We appreciate your feedback.</StyledTitle>
-            <StyledDescription>
-                We'd love to chat with you and answer your questions in our
-                online MongoDB Community. It's where people who develop MongoDB
-                hang out with people who develop with MongoDB.
-            </StyledDescription>
-            <StyledButtonContainer>
-                <Button hasArrow={false} primary onClick={incrementStep}>
-                    Close
-                </Button>
-            </StyledButtonContainer>
-        </>
-    );
-};
+const FeedbackFinalStep = ({ incrementStep }) => (
+    <>
+        <StyledTitle>We appreciate your feedback.</StyledTitle>
+        <StyledDescription>
+            We'd love to chat with you and answer your
+            questions in our online <Link to="/community/forums/">MongoDB Community</Link>.
+            It's where people who develop MongoDB hang out with people who develop with
+            MongoDB.
+        </StyledDescription>
+        <StyledButtonContainer>
+            <Button hasArrow={false} primary onClick={incrementStep}>
+                Close
+            </Button>
+        </StyledButtonContainer>
+    </>
+);
 
 export default memo(FeedbackFinalStep);
