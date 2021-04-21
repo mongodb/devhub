@@ -9,7 +9,6 @@ import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createStrapiAuthorPages } from './src/utils/setup/create-strapi-author-pages';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
-import { createStrapiArticlePages } from './src/utils/setup/create-strapi-article-pages';
 import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getAuthorListFromGraphql } from './src/utils/setup/get-author-list-from-graphql';
@@ -20,6 +19,7 @@ import {
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/create-strapi-article-pages';
+import { SnootyArticle } from './src/classes/snooty-article';
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
@@ -32,6 +32,9 @@ const assets = {};
 
 // in-memory object with key/value = filename/document
 const slugContentMapping = {};
+
+const snootyArticles = [];
+const strapiArticles = [];
 
 // stich client connection
 let stitchClient;
@@ -72,6 +75,7 @@ export const sourceNodes = async ({
         // We use the source for search RSS XML but do not want it in page data
         delete doc.source;
         createAssetNodes(doc, createNode, createContentDigest);
+        const slug = doc.page_id.replace(`${PAGE_ID_PREFIX}/`, '');
         createArticleNode(
             doc,
             PAGE_ID_PREFIX,
@@ -80,6 +84,7 @@ export const sourceNodes = async ({
             slugContentMapping,
             rawContent
         );
+        snootyArticles.push(new SnootyArticle(slug, doc));
     });
 };
 
@@ -150,11 +155,11 @@ export const createPages = async ({ actions, graphql }) => {
 
     const articleList = await getStrapiArticleListFromGraphql(graphql);
 
-    await createStrapiArticlePages(graphql, createPage, metadataDocument);
+    const allArticles = snootyArticles.concat(strapiArticles);
 
-    result.data.allArticle.nodes.forEach(article => {
+    allArticles.forEach(article => {
         createArticlePage(
-            article.slug,
+            article,
             slugContentMapping,
             allSeries,
             metadataDocument,

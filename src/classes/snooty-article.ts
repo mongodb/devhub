@@ -77,7 +77,7 @@ export class SnootyArticle implements Article {
         this.languages = mapTagTypeToUrl(meta.languages, 'language');
         this.products = mapTagTypeToUrl(meta.products, 'product');
         this.publishedDate = formattedPublishedDate;
-        this.related = meta.related;
+        this.related = meta.related || [];
         this.SEO = {
             canonicalUrl,
             metaDescription,

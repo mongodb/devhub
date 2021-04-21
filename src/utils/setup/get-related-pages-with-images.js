@@ -1,10 +1,10 @@
 import dlv from 'dlv';
 
 export const getRelatedPagesWithImages = (
+    related,
     pageNodes,
     RESOLVED_REF_DOC_MAPPING
 ) => {
-    const related = dlv(pageNodes, 'query_fields.related', []);
     const relatedPageInfo = related.map(r => {
         // Handle `reference` and `ref_role` types
         const getTargetFromFileid = dlv(r, 'fileid.0', null);
