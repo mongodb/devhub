@@ -22,7 +22,7 @@ const SEO = ({
     ogDescription,
     ogTitle,
     ogUrl,
-    twitter,
+    twitter = {},
     type,
 }) => {
     const { siteUrl } = useSiteMetadata();
