@@ -1,18 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
+import { getImageSrc } from '../../utils/get-image-src';
 
 const DEFAULT_OG_TYPE = 'article';
 const DEFAULT_TWITTER_SITE = '@mongodb';
-const isExternalUrl = /^http(s)?:\/\//;
-
-const getImageSrc = (src, siteUrl) => {
-    if (!src) {
-        return null;
-    }
-
-    return isExternalUrl.test(src) ? src : siteUrl + src;
-};
 
 const SEO = ({
     articleTitle,
@@ -27,7 +19,6 @@ const SEO = ({
 }) => {
     const { siteUrl } = useSiteMetadata();
     const ogImgSrc = image ? getImageSrc(image, siteUrl) : null;
-    const twitterImgSrc = twitter.image;
     const effectiveMetaDescription = metaDescription || ogDescription;
     const effectiveOgDescription = ogDescription || metaDescription;
     const effectiveOgType = type || DEFAULT_OG_TYPE;
@@ -66,8 +57,8 @@ const SEO = ({
                     content={twitter.description}
                 />
             )}
-            {twitterImgSrc && (
-                <meta name="twitter:image" content={twitterImgSrc} />
+            {twitter.image && (
+                <meta name="twitter:image" content={twitter.image} />
             )}
             <meta name="twitter:site" content={effectiveTwitterSite} />
             {twitter.title && (

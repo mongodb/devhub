@@ -9,66 +9,14 @@ import {SITE_URL} from '../constants';
 import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
 import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
-
-/**
- * Name map of directives we want to display in an article
- */
-const contentNodesMap = {
-    introduction: true,
-    prerequisites: true,
-    content: true,
-    summary: true,
-};
+import { getRelevantSnootyNodeContent } from '../utils/setup/get-relevant-snooty-node-content.js';
+import { getImageSrc } from '../utils/get-image-src';
 
 const dateFormatOptions = {
     month: 'short',
     day: '2-digit',
     year: 'numeric',
     timeZone: 'UTC',
-};
-
-/**
- * search the ast for the few directives we need to display content
- * TODO this ignores some important meta like Twitter for now
- * @param {array} nodes
- * @returns {array} array of childNodes with our main content
- */
-const getContent = nodes => {
-    const nodesWeActuallyWant = [];
-    for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
-        const childNode = nodes[nodeIndex];
-        // check top level directives first
-        if (contentNodesMap[childNode.name]) {
-          //@ts-ignore
-            nodesWeActuallyWant.push(childNode);
-        }
-        // Some content nodes will be children of section nodes
-        else if (childNode.type === 'section') {
-            for (
-                let childIndex = 0;
-                childIndex < childNode.children.length;
-                childIndex++
-            ) {
-                const grandChildNode = childNode.children[childIndex];
-                if (contentNodesMap[grandChildNode.name]) {
-                  //@ts-ignore
-                    nodesWeActuallyWant.push(grandChildNode);
-                }
-            }
-        }
-    }
-
-    return nodesWeActuallyWant;
-};
-
-const isExternalUrl = /^http(s)?:\/\//;
-
-const getImageSrc = (src, siteUrl) => {
-    if (!src) {
-        return null;
-    }
-
-    return isExternalUrl.test(src) ? src : siteUrl + src;
 };
 
 export class SnootyArticle implements Article {
@@ -94,7 +42,7 @@ export class SnootyArticle implements Article {
         articleUrl
     );
     const childNodes = dlv(pageNodes, 'ast.children', []);
-    const contentNodes = getContent(childNodes);
+    const contentAST = getRelevantSnootyNodeContent(childNodes);
     const meta = dlv(pageNodes, 'query_fields', {});
     const og = meta.og || {};
     const ogDescription =
@@ -114,8 +62,18 @@ export class SnootyArticle implements Article {
         dateFormatOptions
     );
     this.authors = meta.author;
-    this.contentAST = contentNodes;
-    this.slug = slug;
+    this.contentAST = contentAST;
+    this.headingNodes = findSectionHeadings(
+        getNestedValue(['ast', 'children'], pageNodes) || [],
+        'type',
+        'heading',
+        1
+    );
+    this.image = meta['atf-image'];
+    this.languages = mapTagTypeToUrl(meta.languages, 'language');
+    this.products = mapTagTypeToUrl(meta.products, 'product');
+    this.publishedDate = formattedPublishedDate;
+    this.related = meta.related;
     this.SEO = {
       canonicalUrl,
       metaDescription,
@@ -138,17 +96,7 @@ export class SnootyArticle implements Article {
         title: twitterNode.options.title,
       }
     };
-    this.headingNodes = findSectionHeadings(
-        getNestedValue(['ast', 'children'], pageNodes) || [],
-        'type',
-        'heading',
-        1
-    );
-    this.image = meta['atf-image'];
-    this.languages = mapTagTypeToUrl(meta.languages, 'language');
-    this.products = mapTagTypeToUrl(meta.products, 'product');
-    this.publishedDate = formattedPublishedDate;
-    this.related = meta.related;
+    this.slug = slug;
     this.tags = mapTagTypeToUrl(meta.tags, 'tag');
     this.title = dlv(meta.title, [0, 'value'], slug);
     this.type = meta.type;
