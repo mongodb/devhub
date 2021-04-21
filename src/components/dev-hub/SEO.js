@@ -1,19 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
-import { getNestedText } from '../../utils/get-nested-text';
+import { getImageSrc } from '../../utils/get-image-src';
 
 const DEFAULT_OG_TYPE = 'article';
 const DEFAULT_TWITTER_SITE = '@mongodb';
-const isExternalUrl = /^http(s)?:\/\//;
-
-const getImageSrc = (src, siteUrl) => {
-    if (!src) {
-        return null;
-    }
-
-    return isExternalUrl.test(src) ? src : siteUrl + src;
-};
 
 const SEO = ({
     articleTitle,
@@ -23,18 +14,11 @@ const SEO = ({
     ogDescription,
     ogTitle,
     ogUrl,
-    twitterNode,
+    twitter = {},
     type,
 }) => {
-    const twitter = twitterNode ? twitterNode.options : {};
-    const twitterDescription = twitterNode
-        ? twitterNode.options.description || getNestedText(twitterNode.children)
-        : null;
     const { siteUrl } = useSiteMetadata();
     const ogImgSrc = image ? getImageSrc(image, siteUrl) : null;
-    const twitterImgSrc = twitter.image
-        ? getImageSrc(twitter.image, siteUrl)
-        : null;
     const effectiveMetaDescription = metaDescription || ogDescription;
     const effectiveOgDescription = ogDescription || metaDescription;
     const effectiveOgType = type || DEFAULT_OG_TYPE;
@@ -67,14 +51,14 @@ const SEO = ({
             {twitter.creator && (
                 <meta name="twitter:creator" content={twitter.creator} />
             )}
-            {twitterDescription && (
+            {twitter.description && (
                 <meta
                     property="twitter:description"
-                    content={twitterDescription}
+                    content={twitter.description}
                 />
             )}
-            {twitterImgSrc && (
-                <meta name="twitter:image" content={twitterImgSrc} />
+            {twitter.image && (
+                <meta name="twitter:image" content={twitter.image} />
             )}
             <meta name="twitter:site" content={effectiveTwitterSite} />
             {twitter.title && (

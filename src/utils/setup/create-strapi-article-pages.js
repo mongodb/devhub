@@ -1,23 +1,16 @@
 import path from 'path';
-import { transformArticleStrapiData } from '../transform-article-strapi-data';
 import { buildTimeArticles } from '../../queries/articles';
-import { parseMarkdownToAST } from './parse-markdown-to-ast';
+import { StrapiArticle } from '../../classes/strapi-article';
 
 const createPageForStrapiArticle = async (article, createPage, metadata) => {
-    const { content, slug, ...rest } = article;
-    const parsedContent = await parseMarkdownToAST(content);
-    const template = 'strapi-article';
-    if (parsedContent && Object.keys(parsedContent).length > 0) {
-        // TODO: Add related fields
-        // TODO: Add series
+    const { contentAST, slug } = article;
+    if (contentAST && Object.keys(contentAST).length > 0) {
         createPage({
             path: slug,
-            component: path.resolve(`./src/templates/${template}.js`),
+            component: path.resolve(`./src/templates/article.js`),
             context: {
+                article,
                 metadata,
-                parsedContent,
-                slug,
-                ...rest,
             },
         });
     }
@@ -26,7 +19,7 @@ const createPageForStrapiArticle = async (article, createPage, metadata) => {
 export const getStrapiArticleListFromGraphql = async graphql => {
     const projectResp = await graphql(buildTimeArticles);
     const result = projectResp.data.allStrapiArticles.nodes.map(
-        transformArticleStrapiData
+        article => new StrapiArticle(article)
     );
     return result;
 };
