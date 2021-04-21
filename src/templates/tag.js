@@ -56,17 +56,6 @@ const SyledAuthorImage = styled(AuthorImage)`
     margin-right: ${size.medium};
 `;
 
-const constructArticles = data =>
-    data.reduce(
-        (accum, article) =>
-            accum.concat(
-                article.isFromStrapi
-                    ? article
-                    : { ...article.query_fields, _id: article._id }
-            ),
-        []
-    );
-
 const Tag = props => {
     const {
         pageContext: {
@@ -85,7 +74,6 @@ const Tag = props => {
     } = props;
     const metadata = useSiteMetadata();
     const isAuthor = type === 'author';
-    const articles = constructArticles(pages);
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
     const { page } = parseQueryString(search);
 
@@ -149,7 +137,7 @@ const Tag = props => {
 
             <ArticleContent>
                 {isAuthor && <H3>Articles by {name}</H3>}
-                <CardList articles={articles} />
+                <CardList articles={pages} />
             </ArticleContent>
         </Layout>
     );

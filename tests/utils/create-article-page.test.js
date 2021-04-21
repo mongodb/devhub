@@ -5,6 +5,7 @@ describe('creating an article page', () => {
     const slugContentMapping = {
         [articleOneSlug]: { ast: { options: { template: 'devhub-article' } } },
     };
+    const articleOne = { slug: articleOneSlug, related: [] };
     let createPage;
     beforeEach(() => {
         // Reset mock fn each time to check calls in isolation
@@ -12,13 +13,7 @@ describe('creating an article page', () => {
     });
 
     it('should create a page at the correct slug', () => {
-        createArticlePage(
-            articleOneSlug,
-            slugContentMapping,
-            {},
-            {},
-            createPage
-        );
+        createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);
         expect(createPage.mock.calls.length).toBe(1);
         expect(createPage.mock.calls[0][0].path).toBe(articleOneSlug);
     });
@@ -29,7 +24,7 @@ describe('creating an article page', () => {
             seriesWithoutArticleOne: [],
         };
         createArticlePage(
-            articleOneSlug,
+            articleOne,
             slugContentMapping,
             series,
             {},
@@ -55,13 +50,7 @@ describe('creating an article page', () => {
                 template: 'devhub-article',
             },
         };
-        createArticlePage(
-            articleOneSlug,
-            slugContentMapping,
-            {},
-            {},
-            createPage
-        );
+        createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);
         expect(createPage.mock.calls[0][0].component).toContain('article.js');
     });
 
@@ -70,23 +59,13 @@ describe('creating an article page', () => {
         slugContentMapping[articleTwoSlug] = {
             ast: {},
         };
-        slugContentMapping[articleOneSlug].query_fields = {
-            related: [{ refuri: articleTwoSlug }],
-        };
-        createArticlePage(
-            articleOneSlug,
-            slugContentMapping,
-            {},
-            {},
-            createPage
+        articleOne.related = [{ refuri: articleTwoSlug }];
+        createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);
+        expect(createPage.mock.calls[0][0].context.article.related.length).toBe(
+            1
         );
         expect(
-            createPage.mock.calls[0][0].context.__refDocMapping.query_fields
-                .related.length
-        ).toBe(1);
-        expect(
-            createPage.mock.calls[0][0].context.__refDocMapping.query_fields
-                .related[0].target
+            createPage.mock.calls[0][0].context.article.related[0].target
         ).toBe(articleTwoSlug);
     });
 });

@@ -2,7 +2,6 @@ import dlv from 'dlv';
 
 export const getRelatedPagesWithImages = (
     related,
-    pageNodes,
     RESOLVED_REF_DOC_MAPPING
 ) => {
     const relatedPageInfo = related.map(r => {

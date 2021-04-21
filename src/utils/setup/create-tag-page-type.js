@@ -36,7 +36,8 @@ export const createTagPageType = async (
     pageMetadata,
     RESOLVED_REF_DOC_MAPPING,
     stitchClient,
-    strapiAuthors
+    strapiAuthors,
+    allArticles
 ) => {
     const isAuthor = stitchType === 'author';
     const pageType = STITCH_TYPE_TO_URL_PREFIX[stitchType];
@@ -47,21 +48,41 @@ export const createTagPageType = async (
         [metadata, stitchType]
     );
 
-    const requests = [];
+    let pageData = [];
 
     // For each possible tag value, query the pages that exist for it
     await possibleTagValues.forEach(async tag => {
-        const requestKey = {};
-        requestKey[stitchType] = tag._id;
-        requests.push(
-            stitchClient.callFunction('fetchDevhubMetadata', [
-                metadata,
-                requestKey,
-            ])
-        );
-    });
+        let target;
+        switch (stitchType) {
+            case 'author':
+                target = tag._id.name;
+                pageData.push(
+                    allArticles.filter(
+                        a =>
+                            !!a.authors &&
+                            a.authors.find(({ name }) => name === target)
+                    )
+                );
+                break;
+            case 'type':
+                target = tag._id;
+                pageData.push(
+                    allArticles.filter(a => !!a.type && a.type === target)
+                );
+                break;
 
-    const pageData = await Promise.all(requests);
+            default:
+                target = tag._id;
+                pageData.push(
+                    allArticles.filter(
+                        a =>
+                            !!a[stitchType] &&
+                            a[stitchType].find(({ label }) => label === target)
+                    )
+                );
+                break;
+        }
+    });
 
     // Once requests finish, map the item with name (and optional image) to the response's return value
     const itemsWithPageData = possibleTagValues.map((r, i) => ({
@@ -73,9 +94,6 @@ export const createTagPageType = async (
         const name = isAuthor ? page.item._id.name : page.item._id;
         // Some bad data for authors doesn't follow this structure, so ignore it
         if (name) {
-            if (strapiAuthors.find(a => a.name === name)) {
-                return;
-            }
             const urlSuffix = getTagPageUriComponent(name);
             const newPage = {
                 name,

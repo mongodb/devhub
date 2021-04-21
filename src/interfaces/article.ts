@@ -4,6 +4,7 @@ import { ArticleSEO } from '../types/article-seo';
 export interface Article {
     authors: object[];
     contentAST: object[];
+    description: String;
     image: String;
     languages: object[];
     products: object[];

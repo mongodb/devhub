@@ -37,25 +37,13 @@ const sortCardsByDate = contentList =>
 
 const renderArticle = article => (
     <ArticleCard
-        to={article['slug']}
+        to={article.slug}
         key={article['id']}
-        image={withPrefix(article['atf-image'])}
-        tags={getTagLinksFromMeta(article)}
-        title={getNestedText(article['title'])}
+        image={withPrefix(article.image)}
+        tags={[...article.products, ...article.languages, ...article.tags]}
+        title={article.title}
         badge="article"
-        description={getNestedText(article['meta-description'])}
-    />
-);
-
-const renderStrapiArticle = article => (
-    <ArticleCard
-        to={article['slug']}
-        key={article['_id']}
-        image={article['image']}
-        tags={getTagLinksFromMeta(article)}
-        title={article['name']}
-        badge="article"
-        description={article['description']}
+        description={article.description}
     />
 );
 
@@ -93,9 +81,6 @@ const renderContentTypeCard = (item, openAudio) => {
             default:
                 return;
         }
-    if (item.isFromStrapi) {
-        return renderStrapiArticle(item);
-    }
     return renderArticle(item);
 };
 

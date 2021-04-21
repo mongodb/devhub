@@ -12,12 +12,10 @@ export const createArticlePage = (
     createPage
 ) => {
     const slug = getPageSlug(articleInstance.slug);
-    const relatedPages = getRelatedPagesWithImages(
+    articleInstance.related = getRelatedPagesWithImages(
         articleInstance.related,
-        articleInstance.contentAST,
         slugContentMapping
     );
-    articleInstance.related = relatedPages;
     const seriesArticles = getSeriesArticles(allSeries, slug);
     createPage({
         path: slug,

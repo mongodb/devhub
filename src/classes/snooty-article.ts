@@ -22,6 +22,7 @@ const dateFormatOptions = {
 export class SnootyArticle implements Article {
     authors: object[];
     contentAST: object[];
+    description: String;
     image: String;
     languages: object[];
     headingNodes: object[];
@@ -44,6 +45,7 @@ export class SnootyArticle implements Article {
         const childNodes = dlv(pageNodes, 'ast.children', []);
         const contentAST = getRelevantSnootyNodeContent(childNodes);
         const meta = dlv(pageNodes, 'query_fields', {});
+        console.log(meta);
         const og = meta.og || {};
         const ogDescription =
             og.children && og.children.length
@@ -67,6 +69,7 @@ export class SnootyArticle implements Article {
         );
         this.authors = meta.author;
         this.contentAST = contentAST;
+        this.description = getNestedText(meta['meta-description']);
         this.headingNodes = findSectionHeadings(
             getNestedValue(['ast', 'children'], pageNodes) || [],
             'type',

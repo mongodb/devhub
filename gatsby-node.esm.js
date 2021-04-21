@@ -18,7 +18,7 @@ import {
     METADATA_COLLECTION,
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
-import { getStrapiArticleListFromGraphql } from './src/utils/setup/create-strapi-article-pages';
+import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
 import { SnootyArticle } from './src/classes/snooty-article';
 
 // Consolidated metadata object used to identify build and env variables
@@ -153,9 +153,9 @@ export const createPages = async ({ actions, graphql }) => {
 
     const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
-    const articleList = await getStrapiArticleListFromGraphql(graphql);
+    const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
 
-    const allArticles = snootyArticles.concat(strapiArticles);
+    const allArticles = snootyArticles.concat(strapiArticleList);
 
     allArticles.forEach(article => {
         createArticlePage(
@@ -177,17 +177,18 @@ export const createPages = async ({ actions, graphql }) => {
             metadataDocument,
             slugContentMapping,
             stitchClient,
-            strapiAuthors
+            strapiAuthors,
+            allArticles
         )
     );
     await Promise.all(tagPages);
-    await createStrapiAuthorPages(
-        createPage,
-        metadataDocument,
-        stitchClient,
-        strapiAuthors,
-        articleList
-    );
+    // await createStrapiAuthorPages(
+    //     createPage,
+    //     metadataDocument,
+    //     stitchClient,
+    //     strapiAuthors,
+    //     allArticles
+    // );
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
