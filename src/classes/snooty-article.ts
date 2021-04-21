@@ -95,11 +95,11 @@ export class SnootyArticle implements Article {
     );
     const childNodes = dlv(pageNodes, 'ast.children', []);
     const contentNodes = getContent(childNodes);
-    const meta = dlv(pageNodes, 'query_fields');
+    const meta = dlv(pageNodes, 'query_fields', {});
     const og = meta.og || {};
     const ogDescription =
         og.children && og.children.length ? getNestedText(og.children) : null;
-    const twitterNode = childNodes.find(node => node.name === 'twitter');
+    const twitterNode = childNodes.find(node => node.name === 'twitter') || {options: {}};
     const metaDescriptionNode = childNodes.find(
         node => node.name === 'meta-description'
     );
@@ -139,7 +139,7 @@ export class SnootyArticle implements Article {
       }
     };
     this.headingNodes = findSectionHeadings(
-        getNestedValue(['ast', 'children'], pageNodes),
+        getNestedValue(['ast', 'children'], pageNodes) || [],
         'type',
         'heading',
         1
