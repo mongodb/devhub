@@ -127,7 +127,7 @@ export class SnootyArticle implements Article {
         url: og.url,
       },
       twitter: {
-        creator: '',
+        creator: twitterNode.options.creator,
         description: twitterNode
         ? twitterNode.options.description || getNestedText(twitterNode.children)
         : null,
