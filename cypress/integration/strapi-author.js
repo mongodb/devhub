@@ -13,7 +13,7 @@ describe('Author Page', () => {
                 .should('not.be.empty');
         });
     });
-    it('should display a name and description for the author', () => {
+    xit('should display a name and description for the author', () => {
         cy.get('header').within(() => {
             cy.contains(AUTHOR_NAME);
             cy.contains(AUTHOR_BIO);
