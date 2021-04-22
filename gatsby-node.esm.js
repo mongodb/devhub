@@ -7,9 +7,7 @@ import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
 import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
-import { createStrapiAuthorPages } from './src/utils/setup/create-strapi-author-pages';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
-import { createStrapiArticlePages } from './src/utils/setup/create-strapi-article-pages';
 import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getAuthorListFromGraphql } from './src/utils/setup/get-author-list-from-graphql';
@@ -19,7 +17,7 @@ import {
     METADATA_COLLECTION,
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
-import { getStrapiArticleListFromGraphql } from './src/utils/setup/create-strapi-article-pages';
+import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
@@ -32,6 +30,9 @@ const assets = {};
 
 // in-memory object with key/value = filename/document
 const slugContentMapping = {};
+
+const snootyArticles = [];
+let allArticles = [];
 
 // stich client connection
 let stitchClient;
@@ -78,7 +79,8 @@ export const sourceNodes = async ({
             createNode,
             createContentDigest,
             slugContentMapping,
-            rawContent
+            rawContent,
+            snootyArticles
         );
     });
 };
@@ -148,13 +150,13 @@ export const createPages = async ({ actions, graphql }) => {
 
     const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
-    const articleList = await getStrapiArticleListFromGraphql(graphql);
+    const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
 
-    await createStrapiArticlePages(graphql, createPage, metadataDocument);
+    allArticles = snootyArticles.concat(strapiArticleList);
 
-    result.data.allArticle.nodes.forEach(article => {
+    allArticles.forEach(article => {
         createArticlePage(
-            article.slug,
+            article,
             slugContentMapping,
             allSeries,
             metadataDocument,
@@ -172,17 +174,11 @@ export const createPages = async ({ actions, graphql }) => {
             metadataDocument,
             slugContentMapping,
             stitchClient,
-            strapiAuthors
+            strapiAuthors,
+            allArticles
         )
     );
     await Promise.all(tagPages);
-    await createStrapiAuthorPages(
-        createPage,
-        metadataDocument,
-        stitchClient,
-        strapiAuthors,
-        articleList
-    );
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
@@ -217,7 +213,7 @@ export const onCreatePage = async ({ page, actions }) =>
     handleCreatePage(
         page,
         actions,
-        stitchClient,
+        allArticles,
         homeFeaturedArticles,
         learnFeaturedArticles,
         excludedLearnPageArticles

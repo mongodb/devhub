@@ -3,7 +3,7 @@ import { act, cleanup, renderHook } from '@testing-library/react-hooks';
 import {
     JAVA_RESULTS,
     mockTextFilterFetch,
-    NODE_RESULTS,
+    FINAL_NODE_RESULTS,
 } from './utils/mock-text-filter-fetch';
 
 describe('Use Text Filter', () => {
@@ -29,7 +29,7 @@ describe('Use Text Filter', () => {
         );
         await waitForNextUpdate();
         const { results } = result.current;
-        expect(results).toEqual(NODE_RESULTS);
+        expect(results).toEqual(FINAL_NODE_RESULTS);
         cleanup();
     });
 

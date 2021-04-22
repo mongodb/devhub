@@ -11,21 +11,11 @@ it('should get pages and images for posts related to an article', () => {
             query_fields: {},
         },
     };
-    const blankArticle = {
-        query_fields: {},
-    };
-    const articleWithRelatedImage = {
-        query_fields: {
-            related: [{ refuri: '/foo' }],
-        },
-    };
-    const articleWithoutRelatedImage = {
-        query_fields: {
-            related: [{ refuri: '/bar' }],
-        },
-    };
+    const blankRelated = [];
+    const articleWithRelatedImage = [{ refuri: '/foo' }];
+    const articleWithoutRelatedImage = [{ refuri: '/bar' }];
 
-    expect(getRelatedPagesWithImages(blankArticle, articleData)).toEqual([]);
+    expect(getRelatedPagesWithImages(blankRelated, articleData)).toEqual([]);
     expect(
         getRelatedPagesWithImages(articleWithRelatedImage, articleData)[0].image
     ).toBe(articleData.foo.query_fields['atf-image']);

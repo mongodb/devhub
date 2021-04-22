@@ -4,8 +4,6 @@ import Audio from './audio';
 import Card from './card';
 import { withPrefix } from 'gatsby';
 import Paginate from './paginate';
-import { getNestedText } from '~utils/get-nested-text';
-import { getTagLinksFromMeta } from '~utils/get-tag-links-from-meta';
 import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
 
 const CARD_LIST_LIMIT = 12;
@@ -24,38 +22,23 @@ const getThumbnailUrl = media => {
         : media.thumbnailUrl;
 };
 
-/* Different content types currently have different APIs for accessing dates.
- * Articles support `pubdate` and `updated-date` while Podcasts and Videos have publishDate
- * a TODO is to reconsile these APIs
- */
+// publishDate is for videos. TODO is to have this follow articles
 const sortCardsByDate = contentList =>
     contentList.sort(
         (a, b) =>
-            new Date(b['updated-date'] || b.publishDate || b.pubdate) -
-            new Date(a['updated-date'] || a.publishDate || a.pubdate)
+            new Date(b.updatedDate || b.publishedDate || b.publishDate) -
+            new Date(a.updatedDate || a.publishedDate || a.publishDate)
     );
 
 const renderArticle = article => (
     <ArticleCard
-        to={article['slug']}
-        key={article['id']}
-        image={withPrefix(article['atf-image'])}
-        tags={getTagLinksFromMeta(article)}
-        title={getNestedText(article['title'])}
+        to={article.slug}
+        key={article._id}
+        image={withPrefix(article.image)}
+        tags={[...article.products, ...article.languages, ...article.tags]}
+        title={article.title}
         badge="article"
-        description={getNestedText(article['meta-description'])}
-    />
-);
-
-const renderStrapiArticle = article => (
-    <ArticleCard
-        to={article['slug']}
-        key={article['_id']}
-        image={article['image']}
-        tags={getTagLinksFromMeta(article)}
-        title={article['name']}
-        badge="article"
-        description={article['description']}
+        description={article.description}
     />
 );
 
@@ -93,9 +76,6 @@ const renderContentTypeCard = (item, openAudio) => {
             default:
                 return;
         }
-    if (item.isFromStrapi) {
-        return renderStrapiArticle(item);
-    }
     return renderArticle(item);
 };
 

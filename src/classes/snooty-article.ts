@@ -20,8 +20,10 @@ const dateFormatOptions = {
 };
 
 export class SnootyArticle implements Article {
+    _id: String;
     authors: object[];
     contentAST: object[];
+    description: String;
     image: String;
     languages: object[];
     headingNodes: object[];
@@ -35,6 +37,7 @@ export class SnootyArticle implements Article {
     type: ArticleCategory;
     updatedDate: String;
     constructor(slug, pageNodes) {
+        this._id = pageNodes._id;
         const articleUrl = addTrailingSlashIfMissing(`${SITE_URL}/${slug}`);
         const canonicalUrl = dlv(
             pageNodes,
@@ -67,6 +70,7 @@ export class SnootyArticle implements Article {
         );
         this.authors = meta.author;
         this.contentAST = contentAST;
+        this.description = getNestedText(meta['meta-description']);
         this.headingNodes = findSectionHeadings(
             getNestedValue(['ast', 'children'], pageNodes) || [],
             'type',
@@ -77,7 +81,7 @@ export class SnootyArticle implements Article {
         this.languages = mapTagTypeToUrl(meta.languages, 'language');
         this.products = mapTagTypeToUrl(meta.products, 'product');
         this.publishedDate = formattedPublishedDate;
-        this.related = meta.related;
+        this.related = meta.related || [];
         this.SEO = {
             canonicalUrl,
             metaDescription,
