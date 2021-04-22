@@ -1,8 +1,9 @@
-import dlv from 'dlv';
 import path from 'path';
 import { getTagPageUriComponent } from '../get-tag-page-uri-component';
 import { SNOOTY_STITCH_ID } from '../../build-constants';
 import { getMetadata } from '../get-metadata';
+import { SnootyAuthorPage } from '../../classes/snooty-author-page';
+import { SnootyTagPage } from '../../classes/snooty-tag-page';
 
 const metadata = getMetadata();
 
@@ -12,22 +13,6 @@ const STITCH_TYPE_TO_URL_PREFIX = {
     products: 'product',
     tags: 'tag',
     type: 'type',
-};
-
-const getAuthorIncludesPath = authorName => {
-    switch (authorName) {
-        // Handle case where REF_DOC_MAP name isnt just lastname-firstname
-        case 'Ken W. Alger':
-            return 'includes/authors/alger-ken';
-        case 'MongoDB Inc.':
-            return 'includes/authors/mongodb';
-        default:
-            return `includes/authors/${authorName
-                .toLowerCase()
-                .split(' ')
-                .reverse()
-                .join('-')}`;
-    }
 };
 
 export const createTagPageType = async (
@@ -49,6 +34,8 @@ export const createTagPageType = async (
     );
 
     let pageData = [];
+
+    // filter out Strapi authors
 
     // For each possible tag value, query the pages that exist for it
     await possibleTagValues.forEach(async tag => {
@@ -94,32 +81,29 @@ export const createTagPageType = async (
         const name = isAuthor ? page.item._id.name : page.item._id;
         // Some bad data for authors doesn't follow this structure, so ignore it
         if (name) {
+            let tagPage;
             const urlSuffix = getTagPageUriComponent(name);
-            const newPage = {
-                name,
-                type: pageType,
-                slug: `/${pageType}/${urlSuffix}`,
-                pages: page.pages,
-            };
+            const slug = `/${pageType}/${urlSuffix}`;
             if (isAuthor) {
-                const authorBioPath = getAuthorIncludesPath(name);
-                const bio = dlv(
-                    RESOLVED_REF_DOC_MAPPING[authorBioPath],
-                    ['ast', 'children', 0, 'children', 0],
-                    null
+                tagPage = new SnootyAuthorPage(
+                    page,
+                    RESOLVED_REF_DOC_MAPPING,
+                    slug,
+                    page.pages
                 );
-                newPage['author_image'] = page.item._id.image;
-                newPage['bio'] = bio;
+            } else {
+                tagPage = new SnootyTagPage(name, pageType, slug, page.pages);
             }
             createPage({
-                path: newPage.slug,
+                path: slug,
                 component: path.resolve(`./src/templates/tag.js`),
                 context: {
                     metadata: pageMetadata,
                     snootyStitchId: SNOOTY_STITCH_ID,
-                    ...newPage,
+                    ...tagPage,
                 },
             });
         }
     });
+    // Now also do Strapi authors
 };

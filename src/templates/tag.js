@@ -61,8 +61,8 @@ const Tag = props => {
         pageContext: {
             bio,
             pages,
-            author_image,
-            isASTBio = true,
+            image,
+            isASTBio,
             isInternalImage = true,
             location,
             name,
@@ -111,7 +111,7 @@ const Tag = props => {
                             <AuthorByline>
                                 <SyledAuthorImage
                                     isInternalImage={isInternalImage}
-                                    image={author_image}
+                                    image={image}
                                 />
                                 <AuthorName>
                                     <Title>
@@ -145,14 +145,6 @@ const Tag = props => {
 
 Tag.propTypes = {
     pageContext: PropTypes.shape({
-        pages: PropTypes.arrayOf({
-            query_field: PropTypes.shape({
-                author: PropTypes.string,
-                languages: PropTypes.arrayOf(PropTypes.string),
-                tags: PropTypes.arrayOf(PropTypes.string),
-            }),
-        }),
-        // TODO: Some of these fields are not yet part of author's data (ex: bio, location, title)
         author_image: PropTypes.string,
         bio: PropTypes.string,
         location: PropTypes.string,

@@ -54,7 +54,6 @@ export const createStrapiAuthorPages = async (
             component: path.resolve(`./src/templates/tag.js`),
             context: {
                 metadata: pageMetadata,
-                isASTBio: false,
                 isInternalImage: false,
                 ...newPage,
             },
