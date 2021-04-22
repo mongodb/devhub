@@ -1,20 +1,21 @@
-import React, { useReducer } from 'react';
+import React, { useContext, memo } from 'react';
+import styled from '@emotion/styled';
 import Checkbox from '@leafygreen-ui/checkbox';
 import Input from './input';
 import TextArea from './text-area';
+import { FeedbackFormContext } from '~components/dev-hub/feedback/feedback-context';
 
-const getInitialFormState = () => ({});
+import { size } from '~components/dev-hub/theme';
 
-const FORM_ELEMENT_TYPES = {
+export const FORM_ELEMENT_TYPES = {
     CHECKBOXES: 'Checkboxes',
     EMAILINPUT: 'EmailInput',
     TEXTAREA: 'Textarea',
 };
 
-const handleCMSFormChange = (state, { field, value }) => ({
-    ...state,
-    [field]: value,
-});
+const StyledInputContainer = styled('div')`
+    margin: ${size.default} 0;
+`;
 
 const mapTypeToFormElement = (
     { labels, name, placeholder, type },
@@ -29,7 +30,8 @@ const mapTypeToFormElement = (
                     bold
                     onChange={e =>
                         dispatch({
-                            field: `${name}-${index}`,
+                            type: FORM_ELEMENT_TYPES.CHECKBOXES,
+                            field: label,
                             value: e.target.checked,
                         })
                     }
@@ -39,56 +41,53 @@ const mapTypeToFormElement = (
             ));
         case FORM_ELEMENT_TYPES.EMAILINPUT:
             return (
-                <Input
-                    key={labels[0].label}
-                    bold
-                    darkMode={true}
-                    label={labels[0].label}
-                    placeholder={placeholder}
-                    type="email"
-                    value={state[name]}
-                    onChange={e =>
-                        dispatch({
-                            field: name,
-                            value: e.target.value,
-                        })
-                    }
-                />
+                <StyledInputContainer key={labels[0].label}>
+                    <Input
+                        bold
+                        darkMode={true}
+                        placeholder={placeholder}
+                        type="email"
+                        value={state[name]}
+                        onChange={e =>
+                            dispatch({
+                                field: name,
+                                value: e.target.value,
+                            })
+                        }
+                    />
+                </StyledInputContainer>
             );
         case FORM_ELEMENT_TYPES.TEXTAREA:
             return (
-                <TextArea
-                    key={labels[0].label}
-                    bold
-                    darkMode={true}
-                    label={labels[0].label}
-                    placeholder={placeholder}
-                    value={state[name]}
-                    onChange={e =>
-                        dispatch({
-                            field: name,
-                            value: e.target.value,
-                        })
-                    }
-                />
+                <StyledInputContainer key={labels[0].label}>
+                    <TextArea
+                        bold
+                        darkMode={true}
+                        placeholder={placeholder}
+                        value={state[name]}
+                        onChange={e =>
+                            dispatch({
+                                field: name,
+                                value: e.target.value,
+                            })
+                        }
+                    />
+                </StyledInputContainer>
             );
         default:
             break;
     }
 };
 
-const CMSForm = ({ form }) => {
-    const [state, dispatch] = useReducer(
-        handleCMSFormChange,
-        getInitialFormState()
-    );
+const CMSForm = ({ form = {} }) => {
+    const { formState, formDispatch } = useContext(FeedbackFormContext);
     return (
         <>
-            {form.FormElement.map(formElement =>
-                mapTypeToFormElement(formElement, state, dispatch)
+            {form.FormElement?.map(formElement =>
+                mapTypeToFormElement(formElement, formState, formDispatch)
             )}
         </>
     );
 };
 
-export default CMSForm;
+export default memo(CMSForm);

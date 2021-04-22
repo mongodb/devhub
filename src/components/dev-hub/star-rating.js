@@ -1,8 +1,12 @@
-import React, { useCallback, useReducer } from 'react';
+import React, { useCallback, useContext, memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import StarIcon from '~components/dev-hub/icons/star-icon';
 import Button from '~components/dev-hub/button';
+import {
+    ArticleRatingContext,
+    STAR_ACTIONS,
+} from '~components/ArticleRatingContext';
 
 import { size, fontSize, screenSize, lineHeight } from './theme';
 
@@ -62,70 +66,28 @@ const StyledStarsContainer = styled('div')`
     }
 `;
 
-const STAR_ACTIONS = {
-    FIRST: 'first',
-    SECOND: 'second',
-    THIRD: 'third',
-    FOURTH: 'fourth',
-    FIFTH: 'fifth',
-    CLEAR: 'clear',
-    CLICKED: 'clicked',
-};
-
-const initialState = {
-    starts: [false, false, false, false, false],
-    isClicked: false,
-};
-
-const reducer = (state, action) => {
-    let nextState = { isClicked: false, starts: [...initialState.starts] };
-    switch (action) {
-        case STAR_ACTIONS.FIFTH:
-            nextState.starts[4] = true;
-        case STAR_ACTIONS.FOURTH:
-            nextState.starts[3] = true;
-        case STAR_ACTIONS.THIRD:
-            nextState.starts[2] = true;
-        case STAR_ACTIONS.SECOND:
-            nextState.starts[1] = true;
-        case STAR_ACTIONS.FIRST:
-            nextState.starts[0] = true;
-            break;
-        case STAR_ACTIONS.CLICKED:
-            nextState = { ...state, isClicked: true };
-            break;
-        case STAR_ACTIONS.CLEAR:
-            nextState = { ...initialState };
-            break;
-        default:
-            throw new Error();
-    }
-
-    return { ...nextState };
-};
-
 const StarRating = ({ clickHandlers }) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const { ratingState, ratingDispatch } = useContext(ArticleRatingContext);
 
     const onClickHandler = useCallback(
         handler => {
-            if (!state.isClicked) {
+            if (!ratingState.isClicked) {
                 handler && handler();
-                dispatch(STAR_ACTIONS.CLICKED);
+                ratingDispatch(STAR_ACTIONS.CLICKED);
             }
         },
-        [state.isClicked]
+        [ratingDispatch, ratingState.isClicked]
     );
 
     const onHoverHandler = useCallback(
         star => {
-            !state.isClicked && dispatch(star);
+            !ratingState.isClicked && ratingDispatch(star);
         },
-        [state.isClicked]
+        [ratingDispatch, ratingState.isClicked]
     );
     const onLeaveHandler = useCallback(() => {
-        !state.isClicked && dispatch(STAR_ACTIONS.CLEAR);
-    }, [state.isClicked]);
+        !ratingState.isClicked && ratingDispatch(STAR_ACTIONS.CLEAR);
+    }, [ratingDispatch, ratingState.isClicked]);
 
     return (
         <StyledContainer>
@@ -133,69 +95,69 @@ const StarRating = ({ clickHandlers }) => {
             <StyledStarsContainer onMouseLeave={onLeaveHandler}>
                 <StyledButton
                     onClick={() => onClickHandler(clickHandlers[0])}
-                    onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FIRST)}
-                    isActive={state.starts[0]}
+                    onMouseEnter={() => onHoverHandler(STAR_ACTIONS.ONE)}
+                    isActive={ratingState.stars[0]}
                 >
                     <StarIcon
-                        isActive={state.starts[0]}
+                        isActive={ratingState.stars[0]}
                         name="first-star"
-                        size={state.starts[0] && size.mediumLarge}
+                        size={ratingState.stars[0] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#D34F94" />
                         <stop offset="100%" stopColor="#D95B8F" />
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
-                    isActive={state.starts[1]}
+                    isActive={ratingState.stars[1]}
                     onClick={() => onClickHandler(clickHandlers[1])}
-                    onMouseEnter={() => onHoverHandler(STAR_ACTIONS.SECOND)}
+                    onMouseEnter={() => onHoverHandler(STAR_ACTIONS.TWO)}
                 >
                     <StarIcon
-                        isActive={state.starts[1]}
+                        isActive={ratingState.stars[1]}
                         name="second-star"
-                        size={state.starts[1] && size.mediumLarge}
+                        size={ratingState.stars[1] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#D95B8F" />
                         <stop offset="100%" stopColor="#E06D88" />
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
-                    isActive={state.starts[2]}
+                    isActive={ratingState.stars[2]}
                     onClick={() => onClickHandler(clickHandlers[2])}
-                    onMouseEnter={() => onHoverHandler(STAR_ACTIONS.THIRD)}
+                    onMouseEnter={() => onHoverHandler(STAR_ACTIONS.THREE)}
                 >
                     <StarIcon
                         name="third-star"
-                        isActive={state.starts[2]}
-                        size={state.starts[2] && size.mediumLarge}
+                        isActive={ratingState.stars[2]}
+                        size={ratingState.stars[2] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#E06D88" />
                         <stop offset="100%" stopColor="#E47983" />
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
-                    isActive={state.starts[3]}
+                    isActive={ratingState.stars[3]}
                     onClick={() => onClickHandler(clickHandlers[3])}
-                    onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FOURTH)}
+                    onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FOUR)}
                 >
                     <StarIcon
-                        isActive={state.starts[3]}
+                        isActive={ratingState.stars[3]}
                         name="fourth-star"
-                        size={state.starts[3] && size.mediumLarge}
+                        size={ratingState.stars[3] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#E47983" />
                         <stop offset="100%" stopColor="#F09677" />
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
-                    isActive={state.starts[4]}
+                    isActive={ratingState.stars[4]}
                     onClick={() => onClickHandler(clickHandlers[4])}
-                    onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FIFTH)}
+                    onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FIVE)}
                 >
                     <StarIcon
-                        isActive={state.starts[4]}
+                        isActive={ratingState.stars[4]}
                         name="fifth-star"
-                        size={state.starts[4] && size.mediumLarge}
+                        size={ratingState.stars[4] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#F09677" />
                         <stop offset="100%" stopColor="#F7A76F" />
@@ -210,4 +172,4 @@ StarRating.propTypes = {
     clickHandlers: PropTypes.arrayOf(PropTypes.func),
 };
 
-export default React.memo(StarRating);
+export default memo(StarRating);
