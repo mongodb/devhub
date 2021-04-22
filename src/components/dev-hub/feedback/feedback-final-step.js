@@ -9,6 +9,7 @@ import {
     size,
     colorMap,
 } from '~components/dev-hub/theme';
+import { FORUMS_URL } from '~src/constants';
 
 const StyledTitle = styled(H5)`
     margin-bottom: ${size.mediumLarge};
@@ -28,8 +29,6 @@ const StyledButtonContainer = styled('div')`
     justify-content: center;
     margin-bottom: ${size.medium};
 `;
-
-const FORUMS_URL = 'https://developer.mongodb.com/community/forums/';
 
 const FeedbackFinalStep = ({ incrementStep }) => (
     <>

@@ -40,6 +40,7 @@ const modalStyles = css`
         min-width: unset;
         max-width: unset;
         width: 100%;
+        border-radius: 0;
     }
 `;
 
