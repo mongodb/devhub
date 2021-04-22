@@ -22,6 +22,7 @@ const getThumbnailUrl = media => {
         : media.thumbnailUrl;
 };
 
+// publishDate is for videos. TODO is to have this follow articles
 const sortCardsByDate = contentList =>
     contentList.sort(
         (a, b) =>
