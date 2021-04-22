@@ -112,7 +112,9 @@ const filterArticles = (filter, initialArticles) => {
             if (
                 !(
                     filterValuesForArticle &&
-                    filterValuesForArticle.includes(filterValueRequired)
+                    filterValuesForArticle.find(
+                        ({ label }) => label === filterValueRequired
+                    )
                 )
             ) {
                 return acc;

@@ -12,6 +12,7 @@ export const handleCreateLearnPage = (
     allArticles,
     allMedia
 ) => {
+    console.log(allArticles);
     const { createPage, deletePage } = actions;
     const learnPageArticles = removeExcludedArticles(
         allArticles,
