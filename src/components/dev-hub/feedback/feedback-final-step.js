@@ -29,12 +29,14 @@ const StyledButtonContainer = styled('div')`
     margin-bottom: ${size.medium};
 `;
 
+const FORUMS_URL = 'https://developer.mongodb.com/community/forums/';
+
 const FeedbackFinalStep = ({ incrementStep }) => (
     <>
         <StyledTitle>We appreciate your feedback.</StyledTitle>
         <StyledDescription>
             We'd love to chat with you and answer your
-            questions in our online <Link to="/community/forums/">MongoDB Community</Link>.
+            questions in our online <Link href={FORUMS_URL}>MongoDB Community</Link>.
             It's where people who develop MongoDB hang out with people who develop with
             MongoDB.
         </StyledDescription>

@@ -58,7 +58,7 @@ const ArticleRatingProvider = ({ children }) => {
     const [ratingState, dispatch] = useReducer(ratingReducer, initialState);
 
     const ratingDispatch = (type, value) => {
-        dispatch({ type: type, value: value });
+        dispatch({ type, value });
     };
 
     return (

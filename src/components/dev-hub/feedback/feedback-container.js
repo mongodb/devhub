@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, useStaticQuery } from 'gatsby';
+import { css } from '@emotion/react';
 import Modal from '~components/dev-hub/modal';
 import FeedbackFinalStep from '~components/dev-hub/feedback/feedback-final-step';
 import getStarRatingFlow from '~components/dev-hub/feedback/helpers/getStarRatingFlow';
@@ -18,6 +19,7 @@ import {
     STAR_ACTIONS,
     STAR_RATING_FLOW,
 } from '~components/ArticleRatingContext';
+import { screenSize } from '~components/dev-hub/theme';
 
 const feedbackItems = graphql`
     query FeedbackItems {
@@ -28,6 +30,15 @@ const feedbackItems = graphql`
 `;
 
 const MODAL_WIDTH = '400px';
+
+const modalStyles = css`
+    max-width: ${MODAL_WIDTH};
+    min-width: ${MODAL_WIDTH};
+
+    @media ${screenSize.upToSmall} {
+      min-width: auto;
+    }
+`
 
 const getAuthorsNames = authors => authors?.map(({ name }) => name);
 
@@ -91,10 +102,7 @@ const FeedbackContainer = ({ starRatingFlow, articleMeta, closeModal }) => {
             onCloseModal={onCloseModalHandler}
             isOpenToStart
             verticallyCenter
-            contentStyle={{
-                maxWidth: MODAL_WIDTH,
-                minWidth: MODAL_WIDTH,
-            }}
+            contentStyle={modalStyles}
         >
             {isLastModal ? (
                 <FeedbackFinalStep incrementStep={incrementStepHandler} />
