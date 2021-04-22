@@ -4,8 +4,6 @@ import Audio from './audio';
 import Card from './card';
 import { withPrefix } from 'gatsby';
 import Paginate from './paginate';
-import { getNestedText } from '~utils/get-nested-text';
-import { getTagLinksFromMeta } from '~utils/get-tag-links-from-meta';
 import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
 
 const CARD_LIST_LIMIT = 12;
@@ -24,15 +22,11 @@ const getThumbnailUrl = media => {
         : media.thumbnailUrl;
 };
 
-/* Different content types currently have different APIs for accessing dates.
- * Articles support `pubdate` and `updated-date` while Podcasts and Videos have publishDate
- * a TODO is to reconsile these APIs
- */
 const sortCardsByDate = contentList =>
     contentList.sort(
         (a, b) =>
-            new Date(b['updated-date'] || b.publishDate || b.pubdate) -
-            new Date(a['updated-date'] || a.publishDate || a.pubdate)
+            new Date(b.updatedDate || b.publishedDate || b.publishDate) -
+            new Date(a.updatedDate || a.publishedDate || a.publishDate)
     );
 
 const renderArticle = article => (
