@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <a
-  class="reference css-5b30hw-StyledLink eygprlc0"
+  class="reference css-y3u9nj-StyledLink-linkStyling eygprlc0"
   href="https://docs.mlab.com/subscriptions/#change-plans-using-rnr"
   rel="noreferrer noopener"
   target="_blank"

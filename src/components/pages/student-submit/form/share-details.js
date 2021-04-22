@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import TextArea from '~components/dev-hub/text-area';
 import SubmitFormFieldset from './submit-form-fieldset';

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Link from '../Link';
 import ArrowheadIcon from './icons/arrowhead-icon';

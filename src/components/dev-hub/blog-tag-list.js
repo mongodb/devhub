@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Link from './link';
 import { fontSize, lineHeight, screenSize, size } from './theme';

@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { layer } from './theme';
 
 const createShadowElement = (

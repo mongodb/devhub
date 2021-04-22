@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Link from './link';
 import { H5, P3 } from './text';
@@ -10,21 +10,28 @@ const PAST_LINK_COLOR = '#89989b';
 
 // Needed to allow more magenta to account for proper text coloring
 const BULLET_GRADIENT = theme => css`
-    linear-gradient(
+    background: linear-gradient(
         315deg,
         ${theme.colorMap.sherbet} 0%,
         ${theme.colorMap.salmon} 40%,
         ${theme.colorMap.magenta} 100%
-    )
+    );
 `;
 
 const BORDER_GRADIENT = theme => css`
-    linear-gradient(
-        0deg,
-        ${theme.colorMap.sherbet} 0%,
-        ${theme.colorMap.salmon} 49.99%,
-        ${theme.colorMap.magenta} 100%
-    )
+    background-image: linear-gradient(
+            0deg,
+            transparent,
+            transparent 50%,
+            ${theme.colorMap.greyDarkThree} 50%,
+            ${theme.colorMap.greyDarkThree} 100%
+        ),
+        linear-gradient(
+            0deg,
+            ${theme.colorMap.sherbet} 0%,
+            ${theme.colorMap.salmon} 49.99%,
+            ${theme.colorMap.magenta} 100%
+        );
 `;
 
 const activeLiStyles = css`
@@ -104,7 +111,7 @@ const SeriesLink = styled(Link)`
 `;
 
 const BulletIcon = styled('div')`
-    background: ${({ theme }) => BULLET_GRADIENT(theme)};
+    ${({ theme }) => BULLET_GRADIENT(theme)};
     background-clip: text;
     display: inline-block;
     font-family: 'Fira Mono', monospace;
@@ -145,14 +152,7 @@ const SeriesList = styled('ul')`
     position: relative;
     /* Dashed border line */
     &:after {
-        background-image: linear-gradient(
-                0deg,
-                transparent,
-                transparent 50%,
-                ${({ theme }) => theme.colorMap.greyDarkThree} 50%,
-                ${({ theme }) => theme.colorMap.greyDarkThree} 100%
-            ),
-            ${({ theme }) => BORDER_GRADIENT(theme)};
+        ${({ theme }) => BORDER_GRADIENT(theme)};
         background-size: ${size.medium} 2px, cover;
         bottom: 0;
         content: '';

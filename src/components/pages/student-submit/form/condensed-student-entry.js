@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import AuthorImage from '~components/dev-hub/author-image';
 import { screenSize, size } from '~components/dev-hub/theme';

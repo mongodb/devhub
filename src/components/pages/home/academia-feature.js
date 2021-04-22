@@ -5,7 +5,7 @@ import { H2, P } from '../../dev-hub/text';
 import { screenSize, size } from '../../dev-hub/theme';
 import Button from '../../dev-hub/button';
 import GradientUnderline from '../../dev-hub/gradient-underline';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import FeatureSection from './feature-section';
 import ProjectCardGrid from './project-card-grid';
 
