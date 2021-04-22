@@ -117,7 +117,7 @@ export const Modal = ({
     const deactivateModal = () => {
         onCloseModal && onCloseModal();
         setIsActive(false);
-    }
+    };
     const closeModalOnEnter = e => {
         const enterKey = 13;
         if (e.keyCode === enterKey) {

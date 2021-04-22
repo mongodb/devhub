@@ -35,10 +35,13 @@ const modalStyles = css`
     max-width: ${MODAL_WIDTH};
     min-width: ${MODAL_WIDTH};
 
-    @media ${screenSize.upToSmall} {
-      min-width: auto;
+    @media ${screenSize.upToMedium} {
+        height: 100%;
+        min-width: unset;
+        max-width: unset;
+        width: 100%;
     }
-`
+`;
 
 const getAuthorsNames = authors => authors?.map(({ name }) => name);
 
@@ -103,6 +106,11 @@ const FeedbackContainer = ({ starRatingFlow, articleMeta, closeModal }) => {
             isOpenToStart
             verticallyCenter
             contentStyle={modalStyles}
+            dialogMobileContainerStyle={{
+                height: '100%',
+                padding: 0,
+                width: '100%',
+            }}
         >
             {isLastModal ? (
                 <FeedbackFinalStep incrementStep={incrementStepHandler} />
