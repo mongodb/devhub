@@ -33,7 +33,7 @@ const sortCardsByDate = contentList =>
 const renderArticle = article => (
     <ArticleCard
         to={article.slug}
-        key={article['id']}
+        key={article._id}
         image={withPrefix(article.image)}
         tags={[...article.products, ...article.languages, ...article.tags]}
         title={article.title}

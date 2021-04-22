@@ -58,6 +58,5 @@ export const getLearnPageFilters = allArticles => {
             });
         }
     });
-    console.log(languages, products);
     return { languages, products };
 };

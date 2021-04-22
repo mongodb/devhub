@@ -5,6 +5,7 @@ import { ArticleSEO } from '../types/article-seo';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 
 export class SearchArticleResult implements Article {
+    _id: String;
     authors: object[];
     contentAST: object[];
     description: String;
@@ -21,6 +22,7 @@ export class SearchArticleResult implements Article {
     type: ArticleCategory;
     updatedDate: String;
     constructor(result) {
+        this._id = result._id;
         this.authors = [];
         // Below is not passed from Realm
         this.contentAST = [];

@@ -2,6 +2,7 @@ import { ArticleCategory } from '../types/article-category';
 import { ArticleSEO } from '../types/article-seo';
 
 export interface Article {
+    _id: String;
     authors: object[];
     contentAST: object[];
     description: String;

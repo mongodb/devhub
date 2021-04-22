@@ -20,6 +20,7 @@ const dateFormatOptions = {
 };
 
 export class SnootyArticle implements Article {
+    _id: String;
     authors: object[];
     contentAST: object[];
     description: String;
@@ -36,6 +37,7 @@ export class SnootyArticle implements Article {
     type: ArticleCategory;
     updatedDate: String;
     constructor(slug, pageNodes) {
+        this._id = pageNodes._id;
         const articleUrl = addTrailingSlashIfMissing(`${SITE_URL}/${slug}`);
         const canonicalUrl = dlv(
             pageNodes,

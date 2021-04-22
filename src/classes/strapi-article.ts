@@ -13,6 +13,7 @@ const dateFormatOptions = {
 };
 
 export class StrapiArticle implements Article {
+    _id: String;
     authors: object[];
     contentAST: object[];
     description: String;
@@ -30,6 +31,7 @@ export class StrapiArticle implements Article {
     updatedDate: String;
     constructor(article) {
         const mappedArticle = transformArticleStrapiData(article);
+        this._id = mappedArticle.id;
         this.authors = mappedArticle.authors;
         this.contentAST = [mappedArticle.contentAST];
         this.description = mappedArticle.description;
