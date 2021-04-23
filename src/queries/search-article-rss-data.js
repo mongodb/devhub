@@ -17,6 +17,29 @@ const searchArticleRSSData = `
                 type
             }
         }
+        allStrapiArticles(sort: {fields: published_at, order: DESC}) {
+          nodes {
+            image {
+              url
+            }
+            authors {
+              name
+            }
+            languages {
+              language
+            }
+            description
+            content
+            slug
+            type
+            updatedAt
+            published_at
+            products {
+              product
+            }
+            name
+          }
+        }
     }
 `;
 

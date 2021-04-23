@@ -1,3 +1,9 @@
+const typeMap = {
+    Article: 'article',
+    HowTo: 'how-to',
+    Quickstart: 'quickstart',
+};
+
 // We want to omit empty fields from the XML entirely
 const handlePossiblyEmptyField = (
     article,
@@ -47,13 +53,64 @@ const getCustomRSSElements = article => {
     return customElements;
 };
 
-const serializeSearchRssData = ({ query: { site, allArticle } }) =>
-    allArticle.nodes.map(article => ({
-        custom_elements: getCustomRSSElements(article),
-        date: article.pubdate,
-        description: article.description,
-        title: article.title,
-        url: `${site.siteMetadata.siteUrl}/${article.slug}`,
-    }));
+const getStrapiCustomRSSElements = article => {
+    let authorNames;
+    try {
+        authorNames = article.authors.map(a => ({ author_name: a.name }));
+    } catch (error) {
+        // TODO: this datatype should always be an array
+        authorNames = [{ author_name: article.authors.name }];
+    }
+    const languages = article.languages;
+    const products = article.products;
+    const tags = article.tags;
+    const rawContent = article.content;
+    const customElements = [
+        { atf_image: article.image.url },
+        { slug: article.slug },
+        { type: article.type },
+    ];
+    if (authorNames) {
+        customElements.push({ author_names: authorNames });
+    }
+    if (languages) {
+        customElements.push({ languages: languages });
+    }
+    if (products) {
+        customElements.push({ products: products });
+    }
+    if (rawContent) {
+        customElements.push({ raw_content: rawContent });
+    }
+    if (tags) {
+        customElements.push({ tags: tags });
+    }
+    return customElements;
+};
+
+const serializeSearchRssData = ({
+    query: { site, allArticle, allStrapiArticles },
+}) =>
+    allArticle.nodes
+        .map(article => ({
+            custom_elements: getCustomRSSElements(article),
+            date: article.pubdate,
+            description: article.description,
+            title: article.title,
+            url: `${site.siteMetadata.siteUrl}/${article.slug}`,
+        }))
+        .concat(
+            allStrapiArticles.nodes.map(article => {
+                const slug = `${typeMap[article.type]}${article.slug}`;
+                article.slug = slug;
+                return {
+                    custom_elements: getStrapiCustomRSSElements(article),
+                    date: article.published_at,
+                    description: article.description,
+                    title: article.name,
+                    url: `${site.siteMetadata.siteUrl}/${article.slug}`,
+                };
+            })
+        );
 
 module.exports = { serializeSearchRssData };
