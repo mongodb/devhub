@@ -90,8 +90,6 @@ const Article = props => {
     const tagList = [...products, ...languages, ...tags];
     const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
 
-    const articleImage = withPrefix(image);
-
     return (
         <Layout includeCanonical={false}>
             <SEO
@@ -111,11 +109,11 @@ const Article = props => {
                 description={metaDescription}
                 publishedDate={publishedDate}
                 modifiedDate={updatedDate}
-                imageUrl={articleImage}
+                imageUrl={image}
                 authors={authors}
             />
             <BlogPostTitleArea
-                articleImage={articleImage}
+                articleImage={image}
                 authors={authors}
                 breadcrumb={articleBreadcrumbs}
                 originalDate={publishedDate}
