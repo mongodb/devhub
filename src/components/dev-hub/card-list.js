@@ -34,7 +34,7 @@ const renderArticle = article => (
     <ArticleCard
         to={article.slug}
         key={article._id}
-        image={withPrefix(article.image)}
+        image={article.image}
         tags={[...article.products, ...article.languages, ...article.tags]}
         title={article.title}
         badge="article"

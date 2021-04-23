@@ -1,6 +1,3 @@
-import { getNestedValue } from './get-nested-value';
-import { withPrefix } from 'gatsby';
-
 const generateTrackingParam = page => `?tck=feat${page}`;
 
 export const getFeaturedCardFields = (article, page) => {

@@ -11,6 +11,8 @@ import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getRelevantSnootyNodeContent } from '../utils/setup/get-relevant-snooty-node-content.js';
 import { getImageSrc } from '../utils/get-image-src';
+import { generatePathPrefix } from '../utils/generate-path-prefix';
+import { getMetadata } from '../utils/get-metadata';
 
 const dateFormatOptions = {
     month: 'short',
@@ -37,6 +39,8 @@ export class SnootyArticle implements Article {
     type: ArticleCategory;
     updatedDate: String;
     constructor(slug, pageNodes) {
+        const metadata = getMetadata();
+        const pathPrefix = generatePathPrefix(metadata);
         this._id = pageNodes._id;
         const articleUrl = addTrailingSlashIfMissing(`${SITE_URL}/${slug}`);
         const canonicalUrl = dlv(
@@ -68,7 +72,11 @@ export class SnootyArticle implements Article {
             meta['updated-date'],
             dateFormatOptions
         );
-        this.authors = meta.author;
+        // All Snooty images are hosted on-site
+        this.authors = meta.author.map(a => ({
+            ...a,
+            isInternalReference: true,
+        }));
         this.contentAST = contentAST;
         this.description = getNestedText(meta['meta-description']);
         this.headingNodes = findSectionHeadings(
@@ -77,7 +85,7 @@ export class SnootyArticle implements Article {
             'heading',
             1
         );
-        this.image = meta['atf-image'];
+        this.image = pathPrefix + meta['atf-image'];
         this.languages = mapTagTypeToUrl(meta.languages, 'language');
         this.products = mapTagTypeToUrl(meta.products, 'product');
         this.publishedDate = formattedPublishedDate;
