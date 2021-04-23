@@ -38,7 +38,7 @@ export const transformArticleStrapiData = article => {
                 title: article.SEO.twitter_title,
             },
         },
-        slug: `/${typeMap[article.type]}${article.slug}`,
+        slug: `${typeMap[article.type]}${article.slug}`,
         tags: article.tags.map(t => t.tag),
         type: typeMap[article.type],
     };
