@@ -1,4 +1,5 @@
 import React, { useCallback, useReducer, useRef } from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import ReactPlayer from 'react-player/lazy';
@@ -209,5 +210,11 @@ const AudioPlayer = ({ podcast }) => {
         </ContentContainer>
     ) : null;
 };
+
+AudioPlayer.propTypes = {
+    podcast: PropTypes.shape({
+        url: PropTypes.string
+    }).isRequired
+}
 
 export default AudioPlayer;
