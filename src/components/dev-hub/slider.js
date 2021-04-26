@@ -29,7 +29,7 @@ const inputTrackStyle = (percentage, theme) => css`
     margin-top: ${RANGE_BUFFER_SIZE};
 `;
 
-const SliderContainer = styled('div')`
+export const SliderContainer = styled('div')`
     align-items: center;
     display: flex;
     width: 100%;
@@ -39,6 +39,7 @@ const StyledInput = styled('input')`
     -webkit-appearance: none;
     background: none;
     width: 100%;
+    padding: 5px;
     /* Style the input "thumb" */
     ::-webkit-slider-thumb {
         ${({ theme }) => inputThumbStyle(theme)};
