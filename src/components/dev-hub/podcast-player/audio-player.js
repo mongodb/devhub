@@ -97,6 +97,11 @@ const PlayerFooter = styled('div')`
     @media only screen and (max-width: 600px) {
         margin-top: ${size.medium};
         width: 100%;
+        ${LogosContainer} {
+            > a:last-of-type {
+                margin-right: 0;
+            }
+        }
     }
 
     @media only screen and (max-width: 480px) {
