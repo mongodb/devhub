@@ -39,8 +39,12 @@ export class SnootyArticle implements Article {
     type: ArticleCategory;
     updatedDate: String;
     constructor(slug, pageNodes) {
+        // Hacky
         const metadata = getMetadata();
-        const pathPrefix = generatePathPrefix(metadata);
+        const pathPrefix =
+            process.env.NODE_ENV === `production`
+                ? generatePathPrefix(metadata)
+                : '';
         this._id = pageNodes._id;
         const articleUrl = addTrailingSlashIfMissing(`${SITE_URL}/${slug}`);
         const canonicalUrl = dlv(

@@ -25,7 +25,7 @@ module.exports = {
             },
         },
         {
-            resolve: `gatsby-new-source-strapi`,
+            resolve: `gatsby-source-strapi`,
             options: {
                 apiURL: process.env.STRAPI_URL,
                 contentTypes: [
