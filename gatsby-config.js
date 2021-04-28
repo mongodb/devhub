@@ -35,6 +35,7 @@ module.exports = {
                     'projects',
                 ],
                 singleTypes: ['student-spotlight-featured', 'top-nav'],
+                publicationState: process.env.STRAPI_PUBLICATION_STATE,
             },
         },
         {

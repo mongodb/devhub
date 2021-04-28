@@ -9,7 +9,7 @@ const typeMap = {
 
 // This will get more complicated as we build the pipeline out
 export const transformArticleStrapiData = article => {
-    const authors = [article.authors];
+    const authors = article.authors;
     const transformedAuthors = authors.map(transformAuthorStrapiData);
     const parsedContent = parseMarkdownToAST(article.content);
     return {
