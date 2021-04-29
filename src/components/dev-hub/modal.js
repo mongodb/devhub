@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Icon from '@leafygreen-ui/icon';
 import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import AriaModal from 'react-aria-modal';
@@ -17,9 +18,18 @@ const transparentModalStyling = css`
     }
 `;
 
+const StyledIcon = styled(Icon)`
+    @media ${screenSize.upToMedium} {
+        height: ${size.mediumLarge};
+        width: ${size.mediumLarge};
+    }
+`;
+
 const Heading = styled('header')`
     display: flex;
     justify-content: flex-end;
+    line-height: ${size.xsmall};
+    margin-bottom: ${size.xsmall};
 `;
 
 const ModalDialog = styled('div')`
@@ -30,17 +40,16 @@ const ModalDialog = styled('div')`
         padding: ${size.small};
     }
     @media ${screenSize.mediumAndUp} {
-        padding: ${size.medium};
+        padding: ${size.default};
     }
     ${props => props.contentStyle};
     ${({ transparent }) => transparent && transparentModalStyling};
 `;
 const CloseButtonWrapper = styled('div')`
-    color: ${({ theme }) => theme.colorMap.greyLightThree};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     cursor: pointer;
     font-size: ${fontSize.medium};
     font-weight: bold;
-    padding: ${size.tiny};
 `;
 
 const ModalClose = ({ closeModalOnEnter, deactivateModal }) => (
@@ -51,7 +60,7 @@ const ModalClose = ({ closeModalOnEnter, deactivateModal }) => (
             onKeyUp={closeModalOnEnter}
             data-test="modal-close"
         >
-            &times;
+            <StyledIcon glyph="X" />
         </CloseButtonWrapper>
     </Heading>
 );
