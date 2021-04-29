@@ -47,7 +47,7 @@ const StyledBlogShareLinks = styled(BlogShareLinks)`
     > * {
         margin-top: ${size.medium};
     }
-    @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToLarge} {
         display: inline-flex;
         flex-direction: row;
         > * {
