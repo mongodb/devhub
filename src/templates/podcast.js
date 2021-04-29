@@ -11,7 +11,7 @@ import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing'
 import { toDateString } from '~utils/format-dates';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 
-import { screenSize, size } from '~components/dev-hub/theme';
+import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
 import { dateFormatOptions } from '~src/constants';
 
 const PODCAST_BREADCRUMB = [
@@ -30,7 +30,7 @@ const TOOLTIP_TEXT = 'Podcast link copied to clipboard!';
 
 const Container = styled('div')`
     margin: 0 auto;
-  
+
     @media ${screenSize.largeAndUp} {
         display: flex;
         justify-content: center;
@@ -69,9 +69,13 @@ const Content = styled('article')`
     }
 `;
 
+const StyledParagraph = styled('p')`
+    line-height: ${lineHeight.default};
+`;
+
 const Podcast = ({
     pageContext: {
-        data: { publishDate, title, thumbnailUrl: imageUrl },
+        data: { description, publishDate, thumbnailUrl: imageUrl, title },
     },
     path: slug,
 }) => {
@@ -82,26 +86,26 @@ const Podcast = ({
     return (
         <Layout includeCanonical={false}>
             <PodcastJumbotron
-                title={title}
+                breadcrumb={PODCAST_BREADCRUMB}
                 image={imageUrl}
                 publishDate={formattedPublishedDate}
-                breadcrumb={PODCAST_BREADCRUMB}
+                title={title}
             />
             <Container>
                 <Icons>
                     <ShareMenu
+                        height={size.default}
                         title={title}
                         url={podcastUrl}
-                        height={size.default}
                         width={size.default}
                     />
                 </Icons>
                 <Content>
                     <div>TODO: Player</div>
-                    <div>TODO: Some Text</div>
+                    <StyledParagraph>{description}</StyledParagraph>
                     <ShareFooter
-                        tooltipText={TOOLTIP_TEXT}
                         title={title}
+                        tooltipText={TOOLTIP_TEXT}
                         url={podcastUrl}
                     />
                 </Content>
@@ -113,9 +117,10 @@ const Podcast = ({
 Podcast.propTypes = {
     pageContext: PropTypes.shape({
         data: PropTypes.shape({
+            description: PropTypes.string,
             publishDate: PropTypes.string,
-            title: PropTypes.string,
             thumbnailUrl: PropTypes.string,
+            title: PropTypes.string,
         }),
     }),
     path: PropTypes.string,
