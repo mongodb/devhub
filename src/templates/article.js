@@ -44,6 +44,17 @@ const dateFormatOptions = {
 const StyledBlogShareLinks = styled(BlogShareLinks)`
     flex-direction: column;
     align-items: center;
+    > * {
+        margin-top: ${size.medium};
+    }
+    @media ${screenSize.upToMedium} {
+        display: inline-flex;
+        flex-direction: row;
+        > * {
+            margin-top: 0;
+            margin-left: ${size.mediumLarge};
+        }
+    }
 `;
 
 /**
