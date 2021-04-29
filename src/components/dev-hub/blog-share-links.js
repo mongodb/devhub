@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import copy from 'copy-to-clipboard';
 import styled from '@emotion/styled';
 import { getArticleShareLinks } from '../../utils/get-article-share-links';
+import { size } from './theme';
 import LinkIcon from './icons/link-icon';
 import LinkedIn from './icons/linkedin';
 import FacebookIcon from './icons/facebook-icon';
@@ -14,18 +15,23 @@ const BlogShareContainer = styled('div')`
 `;
 
 const BlogShareLink = styled(Link)`
-    height: 16px;
-    line-height: 16px;
-    width: 16px;
+    display: inline-block;
+    height: ${size.default};
+    line-height: ${size.default};
+    width: ${size.default};
 `;
 
 const StyledTooltip = styled(Tooltip)`
-    /* span { */
-    line-height: 16px;
-    /* } */
+    line-height: ${size.default};
 `;
 
-const BlogShareLinks = ({ tags, title, url, ...props }) => {
+const BlogShareLinks = ({
+    iconSize = size.default,
+    tags,
+    title,
+    url,
+    ...props
+}) => {
     const {
         articleUrl,
         facebookUrl,
@@ -41,7 +47,7 @@ const BlogShareLinks = ({ tags, title, url, ...props }) => {
                 position="right"
                 trigger={
                     <BlogShareLink onClick={onCopyLink}>
-                        <LinkIcon height="16" width="16" />
+                        <LinkIcon height={iconSize} width={iconSize} />
                     </BlogShareLink>
                 }
             >
@@ -49,14 +55,14 @@ const BlogShareLinks = ({ tags, title, url, ...props }) => {
             </StyledTooltip>
 
             <BlogShareLink target="_blank" href={linkedInUrl}>
-                <LinkedIn height="16" width="16" />
+                <LinkedIn height={iconSize} width={iconSize} />
             </BlogShareLink>
 
             <BlogShareLink target="_blank" href={twitterUrl}>
-                <TwitterIcon height="16" width="16" />
+                <TwitterIcon height={iconSize} width={iconSize} />
             </BlogShareLink>
             <BlogShareLink target="_blank" href={facebookUrl}>
-                <FacebookIcon height="16" width="16" />
+                <FacebookIcon height={iconSize} width={iconSize} />
             </BlogShareLink>
         </BlogShareContainer>
     );
