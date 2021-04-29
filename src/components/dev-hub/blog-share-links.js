@@ -13,6 +13,18 @@ const BlogShareContainer = styled('div')`
     display: flex;
 `;
 
+const BlogShareLink = styled(Link)`
+    height: 16px;
+    line-height: 16px;
+    width: 16px;
+`;
+
+const StyledTooltip = styled(Tooltip)`
+    /* span { */
+    line-height: 16px;
+    /* } */
+`;
+
 const BlogShareLinks = ({ tags, title, url, ...props }) => {
     const {
         articleUrl,
@@ -25,27 +37,27 @@ const BlogShareLinks = ({ tags, title, url, ...props }) => {
     }, [articleUrl]);
     return (
         <BlogShareContainer {...props}>
-            <Tooltip
+            <StyledTooltip
                 position="bottom"
                 trigger={
-                    <Link onClick={onCopyLink}>
-                        <LinkIcon />
-                    </Link>
+                    <BlogShareLink onClick={onCopyLink}>
+                        <LinkIcon height="16" width="16" />
+                    </BlogShareLink>
                 }
             >
                 Article link copied to clipboard!
-            </Tooltip>
+            </StyledTooltip>
 
-            <Link target="_blank" href={linkedInUrl}>
-                <LinkedIn />
-            </Link>
+            <BlogShareLink target="_blank" href={linkedInUrl}>
+                <LinkedIn height="16" width="16" />
+            </BlogShareLink>
 
-            <Link target="_blank" href={twitterUrl}>
-                <TwitterIcon />
-            </Link>
-            <Link target="_blank" href={facebookUrl}>
-                <FacebookIcon height="22" width="22" />
-            </Link>
+            <BlogShareLink target="_blank" href={twitterUrl}>
+                <TwitterIcon height="16" width="16" />
+            </BlogShareLink>
+            <BlogShareLink target="_blank" href={facebookUrl}>
+                <FacebookIcon height="16" width="16" />
+            </BlogShareLink>
         </BlogShareContainer>
     );
 };

@@ -7,8 +7,8 @@ const LinkedIn = ({ color, ...props }) => {
     return (
         <svg
             aria-label="LinkedIn"
-            width="20"
-            height="20"
+            width="16"
+            height="16"
             viewBox="0 0 635 540"
             {...props}
         >
