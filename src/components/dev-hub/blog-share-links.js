@@ -38,7 +38,7 @@ const BlogShareLinks = ({ tags, title, url, ...props }) => {
     return (
         <BlogShareContainer {...props}>
             <StyledTooltip
-                position="bottom"
+                position="right"
                 trigger={
                     <BlogShareLink onClick={onCopyLink}>
                         <LinkIcon height="16" width="16" />
