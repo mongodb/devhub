@@ -28,7 +28,7 @@ const StyledForm = styled('form')`
 const StyledH5 = styled(H5)`
     margin-bottom: 4px;
     @media ${screenSize.upToMedium} {
-        margin-bottom: 8px;
+        margin-bottom: ${size.xsmall};
     }
 `;
 
