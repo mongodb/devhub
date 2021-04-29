@@ -15,13 +15,14 @@ import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-import ShareMenu from '../components/dev-hub/share-menu';
+// import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
 import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedText } from '../utils/get-nested-text';
 import ArticleSchema from '../components/dev-hub/article-schema';
+import BlogShareLinks from '../components/dev-hub/blog-share-links';
 
 /**
  * Name map of directives we want to display in an article
@@ -39,6 +40,11 @@ const dateFormatOptions = {
     year: 'numeric',
     timeZone: 'UTC',
 };
+
+const StyledBlogShareLinks = styled(BlogShareLinks)`
+    flex-direction: column;
+    align-items: center;
+`;
 
 /**
  * search the ast for the few directives we need to display content
@@ -203,11 +209,9 @@ const Article = props => {
                         height={size.default}
                         width={size.default}
                     />
-                    <ShareMenu
+                    <StyledBlogShareLinks
                         title={articleTitle}
                         url={articleUrl}
-                        height={size.default}
-                        width={size.default}
                     />
                 </Icons>
                 <ArticleContent>
