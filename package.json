@@ -58,6 +58,7 @@
     "gatsby-plugin-sitemap": "^2.12.0",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.21",
     "gatsby-source-strapi": "^1.0.0-alpha.0",
+    "html-to-text": "^7.1.1",
     "memoizerific": "^1.11.3",
     "mongodb-stitch-browser-sdk": "^4.8.0",
     "mongodb-stitch-server-sdk": "^4.8.0",
