@@ -30,6 +30,8 @@ const DateTextContainer = styled('div')`
     display: flex;
 `;
 
+const BlogTitle = H2.withComponent('h1');
+
 const BlogPostTitleArea = ({
     articleImage,
     authors,
@@ -38,29 +40,26 @@ const BlogPostTitleArea = ({
     tags,
     title,
     updatedDate,
-}) => {
-    const BlogTitle = H2.withComponent('h1');
-    return (
-        <HeroBanner
-            background={articleImage}
-            breadcrumb={breadcrumb}
-            data-test="hero-banner"
-        >
-            <BlogTitle collapse>{title}</BlogTitle>
-            <PostMetaLine>
-                <DateTextContainer>
-                    {updatedDate && (
-                        <DateText collapse>Updated: {updatedDate} | </DateText>
-                    )}
-                    {originalDate && (
-                        <DateText collapse>Published: {originalDate}</DateText>
-                    )}
-                </DateTextContainer>
-                <BlogTagList tags={tags} />
-            </PostMetaLine>
-            <BylineBlock authors={authors} />
-        </HeroBanner>
-    );
-};
+}) => (
+    <HeroBanner
+        background={articleImage}
+        breadcrumb={breadcrumb}
+        data-test="hero-banner"
+    >
+        <BlogTitle collapse>{title}</BlogTitle>
+        <PostMetaLine>
+            <DateTextContainer>
+                {updatedDate && (
+                    <DateText collapse>Updated: {updatedDate} | </DateText>
+                )}
+                {originalDate && (
+                    <DateText collapse>Published: {originalDate}</DateText>
+                )}
+            </DateTextContainer>
+            <BlogTagList tags={tags} />
+        </PostMetaLine>
+        <BylineBlock authors={authors} />
+    </HeroBanner>
+);
 
 export default BlogPostTitleArea;

@@ -22,6 +22,7 @@ import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getNestedText } from '../utils/get-nested-text';
 import ArticleSchema from '../components/dev-hub/article-schema';
+import { dateFormatOptions } from '~src/constants';
 
 /**
  * Name map of directives we want to display in an article
@@ -31,13 +32,6 @@ const contentNodesMap = {
     prerequisites: true,
     content: true,
     summary: true,
-};
-
-const dateFormatOptions = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC',
 };
 
 /**
