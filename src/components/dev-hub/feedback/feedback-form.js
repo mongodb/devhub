@@ -7,6 +7,7 @@ import Button from '~components/dev-hub/button';
 import {
     fontSize,
     lineHeight,
+    screenSize,
     size,
     colorMap,
 } from '~components/dev-hub/theme';
@@ -21,6 +22,13 @@ const StyledForm = styled('form')`
     padding: 0 ${size.medium};
     > label {
         margin: ${size.default} 0;
+    }
+`;
+
+const StyledH5 = styled(H5)`
+    margin-bottom: 4px;
+    @media ${screenSize.upToMedium} {
+        margin-bottom: 8px;
     }
 `;
 
@@ -46,7 +54,7 @@ const FeedbackForm = ({ ratingFlow = {}, onSubmit }) => {
                 onSubmit();
             }}
         >
-            {title && <H5 collapse>{title}</H5>}
+            {title && <StyledH5 collapse>{title}</StyledH5>}
             {description && (
                 <StyledDescription>{description}</StyledDescription>
             )}
