@@ -87,7 +87,7 @@ exports[`PlayerControls renders correctly pause 1`] = `
   </a>
   <a
     aria-label="pause"
-    class="ecyqnyh0 e1lzeyoj2 css-154jfdt-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledMainButton-buttonStyles eygprlc0"
+    class="ecyqnyh0 e1lzeyoj2 css-1m0siy7-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledMainButton-buttonStyles-mainButtonHover eygprlc0"
     role="button"
     tabindex="0"
   >
@@ -377,7 +377,7 @@ exports[`PlayerControls renders correctly play 1`] = `
   </a>
   <a
     aria-label="play"
-    class="ecyqnyh0 e1lzeyoj2 css-154jfdt-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledMainButton-buttonStyles eygprlc0"
+    class="ecyqnyh0 e1lzeyoj2 css-1m0siy7-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledMainButton-buttonStyles-mainButtonHover eygprlc0"
     role="button"
     tabindex="0"
   >

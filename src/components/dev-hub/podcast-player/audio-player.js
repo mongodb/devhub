@@ -21,6 +21,13 @@ import {
     playerReducer,
 } from '~components/dev-hub/podcast-player/player-reducer';
 
+const APPLE_PODCASTS_URL =
+    'https://podcasts.apple.com/us/podcast/the-mongodb-podcast/id1500452446';
+const SPOTIFY_PODCASTS_URL =
+    'https://open.spotify.com/show/0ibUtrJG4JVgwfvB2MXMSb?si=k1oOQ8JcSr6WtfeSMQ-kFA&nd=1';
+const GOOGLE_PODCASTS_URL =
+    'https://podcasts.google.com/feed/aHR0cHM6Ly9tb25nb2RiLmxpYnN5bi5jb20vcnNz?sa=X&ved=2ahUKEwiE97rnkfDrAhU1n3IEHanUCRUQ9sEGegQIARAC';
+
 const mobileSliderStyles = css`
     display: grid;
     grid-template-areas:
@@ -71,6 +78,9 @@ const AudioContainer = styled('div')`
 
         ${ControlsContainer} {
             margin-bottom: ${size.small};
+            a:last-of-type {
+              margin-right: 0;
+            }
         }
     }
 `;
@@ -162,14 +172,16 @@ const AudioPlayer = ({ podcast }) => {
     const moveForwardHandler = useCallback(() => {
         if (isReady) {
             const { getCurrentTime, seekTo } = playerRef.current;
-            seekTo(getCurrentTime() + 30, 'seconds');
+            const newTime = getCurrentTime() + 30;
+            seekTo(newTime, 'seconds');
         }
     }, [isReady]);
 
     const moveBackHandler = useCallback(() => {
         if (isReady) {
             const { getCurrentTime, seekTo } = playerRef.current;
-            seekTo(getCurrentTime() - 30, 'seconds');
+            const newTime = getCurrentTime() - 30;
+            seekTo(newTime, 'seconds');
         }
     }, [isReady]);
 
@@ -195,7 +207,11 @@ const AudioPlayer = ({ podcast }) => {
                     </StyledSliderContainer>
                 </AudioContainer>
                 <PlayerFooter>
-                    <PlayerListenOn />
+                    <PlayerListenOn
+                        appleHref={APPLE_PODCASTS_URL}
+                        googleHref={GOOGLE_PODCASTS_URL}
+                        spotifyHref={SPOTIFY_PODCASTS_URL}
+                    />
                 </PlayerFooter>
                 <ReactPlayer
                     height="0"
@@ -213,8 +229,8 @@ const AudioPlayer = ({ podcast }) => {
 
 AudioPlayer.propTypes = {
     podcast: PropTypes.shape({
-        url: PropTypes.string
-    }).isRequired
-}
+        url: PropTypes.string,
+    }).isRequired,
+};
 
 export default AudioPlayer;

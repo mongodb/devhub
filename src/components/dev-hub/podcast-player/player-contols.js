@@ -4,10 +4,12 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import Button from '~components/dev-hub/button';
-import FastForwardIcon from '~components/dev-hub/icons/audio-player/fast-forward-icon';
-import PauseIcon from '~components/dev-hub/icons/audio-player/pause-icon';
-import PlayIcon from '~components/dev-hub/icons/audio-player/play-icon';
-import RewindIcon from '~components/dev-hub/icons/audio-player/rewind-icon';
+import {
+    FastForwardIcon,
+    PauseIcon,
+    PlayIcon,
+    RewindIcon,
+} from '~components/dev-hub/icons/audio-player';
 
 import { size } from '~components/dev-hub/theme';
 
@@ -16,6 +18,18 @@ const buttonStyles = css`
     padding: ${size.tiny};
     &:active {
         filter: brightness(60%);
+    }
+`;
+
+const mainButtonHover = css`
+    svg {
+        circle {
+            stroke-width: 3;
+            r: 38;
+        }
+        path {
+            stroke-width: 3;
+        }
     }
 `;
 
@@ -37,15 +51,7 @@ const StyledTimeControlButton = styled(Button)`
 const StyledMainButton = styled(Button)`
     ${buttonStyles},
     &:hover {
-        svg {
-            circle {
-                stroke-width: 4;
-                r: 38;
-            }
-            path {
-                stroke-width: 4;
-            }
-        }
+        ${mainButtonHover}
     }
 
     @media only screen and (max-width: 480px) {

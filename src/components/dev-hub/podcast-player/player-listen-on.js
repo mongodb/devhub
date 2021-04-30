@@ -2,10 +2,12 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-import AppleLogo from '~components/dev-hub/icons/audio-player/logos/apple-logo';
 import Button from '~components/dev-hub/button';
-import GoogleLogo from '~components/dev-hub/icons/audio-player/logos/google-logo';
-import SpotifyLogo from '~components/dev-hub/icons/audio-player/logos/spotify-logo';
+import {
+    AppleLogo,
+    GoogleLogo,
+    SpotifyLogo,
+} from '~components/dev-hub/icons/audio-player';
 
 import { colorMap, size } from '~components/dev-hub/theme';
 
@@ -32,30 +34,37 @@ const StyledButton = styled(Button)`
     }
 `;
 
-const PlayerListenOn = ({
-    appleClick,
-    className,
-    googleClick,
-    spotifyClick,
-}) => (
+const PlayerListenOn = ({ appleHref, className, googleHref, spotifyHref }) => (
     <LogosContainer className={className}>
-        <StyledButton aria-label="google-podcasts" onClick={googleClick}>
+        <StyledButton
+            aria-label="google-podcasts"
+            href={googleHref}
+            target="_blank"
+        >
             <GoogleLogo />
         </StyledButton>
-        <StyledButton aria-label="spotify-podcasts" onClick={spotifyClick}>
+        <StyledButton
+            aria-label="spotify-podcasts"
+            href={spotifyHref}
+            target="_blank"
+        >
             <SpotifyLogo />
         </StyledButton>
-        <StyledButton aria-label="apple-podcasts" onClick={appleClick}>
+        <StyledButton
+            aria-label="apple-podcasts"
+            href={appleHref}
+            target="_blank"
+        >
             <AppleLogo />
         </StyledButton>
     </LogosContainer>
 );
 
 PlayerListenOn.propTypes = {
-    appleClick: PropTypes.func,
+    appleHref: PropTypes.string,
     className: PropTypes.object,
-    googleClick: PropTypes.func,
-    spotifyClick: PropTypes.func,
+    googleHref: PropTypes.string,
+    spotifyHref: PropTypes.string,
 };
 
 export default memo(PlayerListenOn);

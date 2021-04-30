@@ -7,8 +7,10 @@ exports[`PlayerListenOn renders correctly 1`] = `
   <a
     aria-label="google-podcasts"
     class="e1yciuf90 e1lzeyoj2 css-1luxalc-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledButton eygprlc0"
+    rel="noreferrer noopener"
     role="button"
     tabindex="0"
+    target="_blank"
   >
     <svg
       fill="none"
@@ -24,8 +26,10 @@ exports[`PlayerListenOn renders correctly 1`] = `
   <a
     aria-label="spotify-podcasts"
     class="e1yciuf90 e1lzeyoj2 css-1luxalc-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledButton eygprlc0"
+    rel="noreferrer noopener"
     role="button"
     tabindex="0"
+    target="_blank"
   >
     <svg
       fill="none"
@@ -47,8 +51,10 @@ exports[`PlayerListenOn renders correctly 1`] = `
   <a
     aria-label="apple-podcasts"
     class="e1yciuf90 e1lzeyoj2 css-1luxalc-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledButton eygprlc0"
+    rel="noreferrer noopener"
     role="button"
     tabindex="0"
+    target="_blank"
   >
     <svg
       fill="none"
