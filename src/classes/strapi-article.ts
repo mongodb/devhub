@@ -37,15 +37,23 @@ export class StrapiArticle implements Article {
         this.description = mappedArticle.description;
         this.headingNodes = [{}];
         this.image = mappedArticle.image;
-        this.languages = mapTagTypeToUrl(mappedArticle.languages, 'language');
-        this.products = mapTagTypeToUrl(mappedArticle.products, 'product');
+        this.languages = mapTagTypeToUrl(
+            mappedArticle.languages,
+            'language',
+            true
+        );
+        this.products = mapTagTypeToUrl(
+            mappedArticle.products,
+            'product',
+            true
+        );
         this.publishedDate = toDateString(
             mappedArticle.published_at,
             dateFormatOptions
         );
         this.SEO = mappedArticle.SEO;
         this.slug = mappedArticle.slug;
-        this.tags = mapTagTypeToUrl(mappedArticle.tags, 'tag');
+        this.tags = mapTagTypeToUrl(mappedArticle.tags, 'tag', true);
         this.title = mappedArticle.name;
         this.type = mappedArticle.type;
         this.updatedDate = toDateString(
