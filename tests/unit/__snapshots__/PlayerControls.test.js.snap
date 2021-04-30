@@ -15,6 +15,9 @@ exports[`PlayerControls renders correctly pause 1`] = `
       height="33px"
       width="31px"
     >
+      <title>
+        Rewind
+      </title>
       <path
         clip-rule="evenodd"
         d="M8.33 4.36a1.25 1.25 0 000 2.16l5.56 3.23c.83.49 1.88-.11 1.88-1.08V6c6.3.4 11.3 5.68 11.3 12.15 0 6.74-5.41 12.18-12.07 12.18A12.12 12.12 0 012.93 18.14a1 1 0 10-2 0c0 7.83 6.3 14.18 14.07 14.18 7.78 0 14.07-6.35 14.07-14.18 0-7.56-5.88-13.75-13.3-14.15V2.2c0-.97-1.05-1.57-1.88-1.08L8.33 4.36zm5.44-.85v3.86l-3.32-1.93 3.32-1.93z"
@@ -87,7 +90,7 @@ exports[`PlayerControls renders correctly pause 1`] = `
   </a>
   <a
     aria-label="pause"
-    class="ecyqnyh0 e1lzeyoj2 css-1m0siy7-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledMainButton-buttonStyles-mainButtonHover eygprlc0"
+    class="ecyqnyh0 e1lzeyoj2 css-hlx5sb-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledMainButton-buttonStyles-mainButtonHover eygprlc0"
     role="button"
     tabindex="0"
   >
@@ -97,6 +100,9 @@ exports[`PlayerControls renders correctly pause 1`] = `
       viewBox="0 0 80px 80px"
       width="80px"
     >
+      <title>
+        Pause
+      </title>
       <circle
         cx="40"
         cy="40"
@@ -217,6 +223,9 @@ exports[`PlayerControls renders correctly pause 1`] = `
       height="33px"
       width="31px"
     >
+      <title>
+        Fast forward
+      </title>
       <path
         clip-rule="evenodd"
         d="M21.67 4.36c.82.48.82 1.68 0 2.16L16.1 9.75a1.25 1.25 0 01-1.88-1.08V6c-6.3.4-11.3 5.68-11.3 12.15 0 6.74 5.41 12.18 12.07 12.18s12.07-5.44 12.07-12.18a1 1 0 112 0c0 7.83-6.3 14.18-14.07 14.18A14.12 14.12 0 01.93 18.14C.93 10.58 6.81 4.4 14.23 4V2.2c0-.97 1.05-1.57 1.88-1.08l5.56 3.23zm-5.44-.85v3.86l3.32-1.93-3.32-1.93z"
@@ -305,6 +314,9 @@ exports[`PlayerControls renders correctly play 1`] = `
       height="33px"
       width="31px"
     >
+      <title>
+        Rewind
+      </title>
       <path
         clip-rule="evenodd"
         d="M8.33 4.36a1.25 1.25 0 000 2.16l5.56 3.23c.83.49 1.88-.11 1.88-1.08V6c6.3.4 11.3 5.68 11.3 12.15 0 6.74-5.41 12.18-12.07 12.18A12.12 12.12 0 012.93 18.14a1 1 0 10-2 0c0 7.83 6.3 14.18 14.07 14.18 7.78 0 14.07-6.35 14.07-14.18 0-7.56-5.88-13.75-13.3-14.15V2.2c0-.97-1.05-1.57-1.88-1.08L8.33 4.36zm5.44-.85v3.86l-3.32-1.93 3.32-1.93z"
@@ -377,7 +389,7 @@ exports[`PlayerControls renders correctly play 1`] = `
   </a>
   <a
     aria-label="play"
-    class="ecyqnyh0 e1lzeyoj2 css-1m0siy7-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledMainButton-buttonStyles-mainButtonHover eygprlc0"
+    class="ecyqnyh0 e1lzeyoj2 css-hlx5sb-StyledLink-linkStyling-AsLink-StyledButton-tertiaryStyles-StyledMainButton-buttonStyles-mainButtonHover eygprlc0"
     role="button"
     tabindex="0"
   >
@@ -386,6 +398,9 @@ exports[`PlayerControls renders correctly play 1`] = `
       height="80px"
       width="80px"
     >
+      <title>
+        Play
+      </title>
       <circle
         cx="40"
         cy="40"
@@ -469,6 +484,9 @@ exports[`PlayerControls renders correctly play 1`] = `
       height="33px"
       width="31px"
     >
+      <title>
+        Fast forward
+      </title>
       <path
         clip-rule="evenodd"
         d="M21.67 4.36c.82.48.82 1.68 0 2.16L16.1 9.75a1.25 1.25 0 01-1.88-1.08V6c-6.3.4-11.3 5.68-11.3 12.15 0 6.74 5.41 12.18 12.07 12.18s12.07-5.44 12.07-12.18a1 1 0 112 0c0 7.83-6.3 14.18-14.07 14.18A14.12 14.12 0 01.93 18.14C.93 10.58 6.81 4.4 14.23 4V2.2c0-.97 1.05-1.57 1.88-1.08l5.56 3.23zm-5.44-.85v3.86l3.32-1.93-3.32-1.93z"

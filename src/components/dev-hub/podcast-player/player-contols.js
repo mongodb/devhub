@@ -11,7 +11,7 @@ import {
     RewindIcon,
 } from '~components/dev-hub/icons/audio-player';
 
-import { size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 
 const buttonStyles = css`
     margin-right: 12px;
@@ -54,7 +54,7 @@ const StyledMainButton = styled(Button)`
         ${mainButtonHover}
     }
 
-    @media only screen and (max-width: 480px) {
+     @media ${screenSize.upToSmall} {
         align-items: center;
         display: inline-flex;
         height: 100px;

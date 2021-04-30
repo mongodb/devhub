@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const PlayIcon = ({ width = '80px', height = '80px', ...props }) => (
     <svg width={width} height={height} fill="none" {...props}>
+        <title>Play</title>
         <circle
             cx="40"
             cy="40"

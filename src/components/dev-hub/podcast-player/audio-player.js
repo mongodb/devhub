@@ -7,26 +7,17 @@ import ReactPlayer from 'react-player/lazy';
 import PlayerControls, {
     ControlsContainer,
 } from '~components/dev-hub/podcast-player/player-contols';
-import PlayerListenOn, {
-    LogosContainer,
-} from '~components/dev-hub/podcast-player/player-listen-on';
+import PlayerListenOn from '~components/dev-hub/podcast-player/player-listen-on';
 import Slider, { SliderContainer } from '~components/dev-hub/slider';
 
 import { getTimeLabel } from '~utils/get-time-label';
-import { size, colorMap } from '~components/dev-hub/theme';
+import { size, colorMap, screenSize } from '~components/dev-hub/theme';
 
 import {
     PLAYER_ACTIONS,
     playerInitialState,
     playerReducer,
 } from '~components/dev-hub/podcast-player/player-reducer';
-
-const APPLE_PODCASTS_URL =
-    'https://podcasts.apple.com/us/podcast/the-mongodb-podcast/id1500452446';
-const SPOTIFY_PODCASTS_URL =
-    'https://open.spotify.com/show/0ibUtrJG4JVgwfvB2MXMSb?si=k1oOQ8JcSr6WtfeSMQ-kFA&nd=1';
-const GOOGLE_PODCASTS_URL =
-    'https://podcasts.google.com/feed/aHR0cHM6Ly9tb25nb2RiLmxpYnN5bi5jb20vcnNz?sa=X&ved=2ahUKEwiE97rnkfDrAhU1n3IEHanUCRUQ9sEGegQIARAC';
 
 const mobileSliderStyles = css`
     display: grid;
@@ -64,7 +55,7 @@ const PlayerContainer = styled('div')`
     display: flex;
     flex-direction: column;
     justify-items: center;
-    padding: 30px;
+    padding: ${size.large};
     width: 100%;
 `;
 
@@ -73,13 +64,12 @@ const AudioContainer = styled('div')`
     display: flex;
     width: 100%;
 
-    @media only screen and (max-width: 600px) {
+    @media ${screenSize.upToMedium} {
         flex-direction: column;
 
         ${ControlsContainer} {
-            margin-bottom: ${size.small};
             a:last-of-type {
-              margin-right: 0;
+                margin-right: 0;
             }
         }
     }
@@ -89,11 +79,12 @@ const StyledSliderContainer = styled('div')`
     margin-left: ${size.default};
     width: 100%;
 
-    @media only screen and (max-width: 600px) {
+    @media ${screenSize.upToMedium} {
+        margin-top: ${size.small};
         margin-left: 0;
     }
 
-    @media only screen and (max-width: 480px) {
+    @media ${screenSize.upToSmall} {
         margin-top: 15px;
 
         ${SliderContainer} {
@@ -105,26 +96,9 @@ const StyledSliderContainer = styled('div')`
 const PlayerFooter = styled('div')`
     margin-top: ${size.small};
 
-    @media only screen and (max-width: 600px) {
+    @media ${screenSize.upToMedium} {
         margin-top: ${size.medium};
         width: 100%;
-        ${LogosContainer} {
-            > a:last-of-type {
-                margin-right: 0;
-            }
-        }
-    }
-
-    @media only screen and (max-width: 480px) {
-        ${LogosContainer} {
-            flex-direction: column;
-            > a {
-                margin-right: 0;
-                &:not(:last-of-type) {
-                    margin-bottom: 20px;
-                }
-            }
-        }
     }
 `;
 
@@ -185,7 +159,7 @@ const AudioPlayer = ({ podcast }) => {
         }
     }, [isReady]);
 
-    return podcast?.url ? (
+    return podcast ? (
         <ContentContainer>
             <PlayerContainer>
                 <AudioContainer>
@@ -207,11 +181,7 @@ const AudioPlayer = ({ podcast }) => {
                     </StyledSliderContainer>
                 </AudioContainer>
                 <PlayerFooter>
-                    <PlayerListenOn
-                        appleHref={APPLE_PODCASTS_URL}
-                        googleHref={GOOGLE_PODCASTS_URL}
-                        spotifyHref={SPOTIFY_PODCASTS_URL}
-                    />
+                    <PlayerListenOn />
                 </PlayerFooter>
                 <ReactPlayer
                     height="0"

@@ -9,16 +9,27 @@ import {
     SpotifyLogo,
 } from '~components/dev-hub/icons/audio-player';
 
-import { colorMap, size } from '~components/dev-hub/theme';
+import { colorMap, screenSize, size } from '~components/dev-hub/theme';
 
-export const LogosContainer = styled('div')`
+const APPLE_PODCASTS_URL =
+    'https://podcasts.apple.com/us/podcast/the-mongodb-podcast/id1500452446';
+const SPOTIFY_PODCASTS_URL =
+    'https://open.spotify.com/show/0ibUtrJG4JVgwfvB2MXMSb?si=k1oOQ8JcSr6WtfeSMQ-kFA&nd=1';
+const GOOGLE_PODCASTS_URL =
+    'https://podcasts.google.com/feed/aHR0cHM6Ly9tb25nb2RiLmxpYnN5bi5jb20vcnNz?sa=X&ved=2ahUKEwiE97rnkfDrAhU1n3IEHanUCRUQ9sEGegQIARAC';
+
+const LogosContainer = styled('div')`
     align-items: center;
     display: flex;
     justify-content: center;
+
+    @media only screen and (max-width: 480px) {
+        flex-direction: column;
+    }
 `;
 
 const StyledButton = styled(Button)`
-    margin-right: 30px;
+    margin-right: ${size.large};
     padding: ${size.tiny};
 
     &:hover {
@@ -32,27 +43,40 @@ const StyledButton = styled(Button)`
             fill: #707f81;
         }
     }
+
+    @media ${screenSize.upToMedium} {
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        margin-right: 0;
+        &:not(:last-of-type) {
+            margin-bottom: ${size.medium};
+        }
+    }
 `;
 
-const PlayerListenOn = ({ appleHref, className, googleHref, spotifyHref }) => (
+const PlayerListenOn = ({ className }) => (
     <LogosContainer className={className}>
         <StyledButton
             aria-label="google-podcasts"
-            href={googleHref}
+            href={GOOGLE_PODCASTS_URL}
             target="_blank"
         >
             <GoogleLogo />
         </StyledButton>
         <StyledButton
             aria-label="spotify-podcasts"
-            href={spotifyHref}
+            href={SPOTIFY_PODCASTS_URL}
             target="_blank"
         >
             <SpotifyLogo />
         </StyledButton>
         <StyledButton
             aria-label="apple-podcasts"
-            href={appleHref}
+            href={APPLE_PODCASTS_URL}
             target="_blank"
         >
             <AppleLogo />
@@ -61,10 +85,7 @@ const PlayerListenOn = ({ appleHref, className, googleHref, spotifyHref }) => (
 );
 
 PlayerListenOn.propTypes = {
-    appleHref: PropTypes.string,
     className: PropTypes.object,
-    googleHref: PropTypes.string,
-    spotifyHref: PropTypes.string,
 };
 
 export default memo(PlayerListenOn);

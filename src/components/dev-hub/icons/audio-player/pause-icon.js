@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const PauseIcon = ({ width = '80px', height = '80px', ...props }) => (
     <svg width={width} height={height} fill="none" viewBox="0 0 80px 80px" {...props}>
+        <title>Pause</title>
         <circle
             cx="40"
             cy="40"

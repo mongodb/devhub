@@ -39,7 +39,7 @@ const StyledInput = styled('input')`
     -webkit-appearance: none;
     background: none;
     width: 100%;
-    padding: 5px;
+    padding: ${size.tiny};
     /* Style the input "thumb" */
     ::-webkit-slider-thumb {
         ${({ theme }) => inputThumbStyle(theme)};

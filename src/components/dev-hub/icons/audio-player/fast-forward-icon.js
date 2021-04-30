@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const FastForwardIcon = ({ width = '31px', height = '33px', ...props }) => (
     <svg width={width} height={height} fill="none" {...props}>
+        <title>Fast forward</title>
         <path
             fill="url(#paint0_linear)"
             fillRule="evenodd"
