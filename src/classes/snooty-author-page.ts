@@ -32,12 +32,14 @@ export class SnootyAuthorPage implements Author, TagPage {
     constructor(author, RESOLVED_REF_DOC_MAPPING, slug, pages) {
         const name = author.item._id.name;
         const authorBioPath = getAuthorIncludesPath(name);
-        this.bio = dlv(
-            RESOLVED_REF_DOC_MAPPING[authorBioPath],
-            ['ast', 'children', 0, 'children', 0],
-            null
-        );
-        this.isASTBio = true;
+        this.bio =
+            author.item._id.bio ||
+            dlv(
+                RESOLVED_REF_DOC_MAPPING[authorBioPath],
+                ['ast', 'children', 0, 'children', 0],
+                null
+            );
+        this.isASTBio = !author.item._id.bio;
         this.location = author.item._id.location;
         this.name = name;
         this.image = author.item._id.image;

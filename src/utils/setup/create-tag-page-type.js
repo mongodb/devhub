@@ -33,9 +33,36 @@ export const createTagPageType = async (
         [metadata, stitchType]
     );
 
-    let pageData = [];
+    if (isAuthor) {
+        // Update any with Strapi author info
+        strapiAuthors.forEach(({ name, bio, image, location, title }) => {
+            const snootyAuthor = possibleTagValues.find(
+                ({ _id }) => _id.name === name
+            );
+            // TODO: Use an Author/Tag Type Class to abstract
+            if (snootyAuthor) {
+                snootyAuthor._id = {
+                    ...snootyAuthor._id,
+                    bio,
+                    image: image ? image.url : snootyAuthor._id.image,
+                    location,
+                    title,
+                };
+            } else {
+                possibleTagValues.push({
+                    _id: {
+                        bio,
+                        name,
+                        image: image && image.url,
+                        location,
+                        title,
+                    },
+                });
+            }
+        });
+    }
 
-    // filter out Strapi authors
+    let pageData = [];
 
     // For each possible tag value, query the pages that exist for it
     await possibleTagValues.forEach(async tag => {
