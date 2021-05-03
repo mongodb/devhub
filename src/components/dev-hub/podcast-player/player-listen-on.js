@@ -18,12 +18,15 @@ const SPOTIFY_PODCASTS_URL =
 const GOOGLE_PODCASTS_URL =
     'https://podcasts.google.com/feed/aHR0cHM6Ly9tb25nb2RiLmxpYnN5bi5jb20vcnNz?sa=X&ved=2ahUKEwiE97rnkfDrAhU1n3IEHanUCRUQ9sEGegQIARAC';
 
+// This mobile size needs for logos responsive.
+const SPECIAL_MOBILE = '480px';
+
 const LogosContainer = styled('div')`
     align-items: center;
     display: flex;
     justify-content: center;
-
-    @media only screen and (max-width: 480px) {
+  
+    @media only screen and (max-width: ${SPECIAL_MOBILE}) {
         flex-direction: column;
     }
 `;
@@ -50,7 +53,7 @@ const StyledButton = styled(Button)`
         }
     }
 
-    @media only screen and (max-width: 480px) {
+    @media only screen and (max-width: ${SPECIAL_MOBILE}) {
         margin-right: 0;
         &:not(:last-of-type) {
             margin-bottom: ${size.medium};

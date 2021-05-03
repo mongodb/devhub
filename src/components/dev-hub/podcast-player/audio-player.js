@@ -85,7 +85,7 @@ const StyledSliderContainer = styled('div')`
     }
 
     @media ${screenSize.upToSmall} {
-        margin-top: 15px;
+        margin-top: ${size.mediumLarge};
 
         ${SliderContainer} {
             ${mobileSliderStyles}
@@ -97,7 +97,7 @@ const PlayerFooter = styled('div')`
     margin-top: ${size.small};
 
     @media ${screenSize.upToMedium} {
-        margin-top: ${size.medium};
+        margin-top: ${size.large};
         width: 100%;
     }
 `;
