@@ -10,6 +10,7 @@ import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
 import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
+import { createAuthorPages } from './src/utils/setup/create-author-pages';
 import { getAuthorListFromGraphql } from './src/utils/setup/get-author-list-from-graphql';
 import { getMetadata } from './src/utils/get-metadata';
 import {
@@ -18,6 +19,7 @@ import {
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
+import { getExistingValuesFromSnooty } from './src/utils/setup/get-existing-values-from-snooty';
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
@@ -166,19 +168,48 @@ export const createPages = async ({ actions, graphql }) => {
 
     await createClientSideRedirects(graphql, createRedirect);
 
-    const tagTypes = ['author', 'languages', 'products', 'tags', 'type'];
-    const tagPages = tagTypes.map(type =>
-        createTagPageType(
-            type,
-            createPage,
-            metadataDocument,
-            slugContentMapping,
-            stitchClient,
-            strapiAuthors,
-            allArticles
-        )
+    const tagPageDirectory = {};
+    const tagTypes = ['language', 'product', 'tag'];
+    tagTypes.forEach(type => {
+        // Loop through all articles
+        const total = allArticles.reduce((acc, current) => {
+            current[`${type}s`].forEach(({ label }) => {
+                if (acc[label]) {
+                    acc[label].push(current);
+                } else {
+                    acc[label] = [current];
+                }
+            });
+            return acc;
+        }, {});
+        tagPageDirectory[type] = total;
+    });
+    const total = allArticles.reduce((acc, current) => {
+        const type = current.type;
+        if (acc[type]) {
+            acc[type].push(current);
+        } else {
+            acc[type] = [current];
+        }
+        return acc;
+    }, {});
+    tagPageDirectory['type'] = total;
+    console.log(tagPageDirectory);
+    // Combine and reconcile
+
+    const tagPages = ['language', 'product', 'tag', 'type'].map(type =>
+        createTagPageType(type, createPage, tagPageDirectory, metadataDocument)
     );
     await Promise.all(tagPages);
+    await createAuthorPages(
+        'author',
+        createPage,
+        metadataDocument,
+        slugContentMapping,
+        stitchClient,
+        strapiAuthors,
+        allArticles
+    );
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
