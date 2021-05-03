@@ -4,6 +4,7 @@ import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { ArticleSEO } from '../types/article-seo';
 import { toDateString } from '../utils/format-dates';
 import { transformArticleStrapiData } from '../utils/transform-article-strapi-data';
+import { StrapiAuthor } from './strapi-author';
 
 const dateFormatOptions = {
     month: 'short',
@@ -32,7 +33,9 @@ export class StrapiArticle implements Article {
     constructor(article) {
         const mappedArticle = transformArticleStrapiData(article);
         this._id = mappedArticle.id;
-        this.authors = mappedArticle.authors;
+        this.authors = mappedArticle.authors.map(
+            author => new StrapiAuthor(author)
+        );
         this.contentAST = [mappedArticle.contentAST];
         this.description = mappedArticle.description;
         this.headingNodes = [{}];

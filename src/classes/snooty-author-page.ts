@@ -13,12 +13,13 @@ export class SnootyAuthorPage implements Author, TagPage {
     title: String;
     type: TagType;
     constructor(author, slug, pages) {
+        console.log(author);
         const name = author.name;
         this.bio = author.bio;
         this.isASTBio = author.isASTBio;
         this.location = author.location;
         this.name = name;
-        this.image = author.image && author.image.url;
+        this.image = author.image;
         this.pages = pages;
         this.slug = slug;
         this.title = author.title;

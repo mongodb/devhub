@@ -2,14 +2,7 @@ import path from 'path';
 import { getTagPageUriComponent } from '../get-tag-page-uri-component';
 import { SNOOTY_STITCH_ID } from '../../build-constants';
 import { SnootyTagPage } from '../../classes/snooty-tag-page';
-
-const STITCH_TYPE_TO_URL_PREFIX = {
-    author: 'author',
-    languages: 'language',
-    products: 'product',
-    tags: 'tag',
-    type: 'type',
-};
+import { SnootyAuthorPage } from '../../classes/snooty-author-page';
 
 export const createTagPageType = async (
     type,
@@ -18,15 +11,26 @@ export const createTagPageType = async (
     pageMetadata
 ) => {
     Object.keys(tagPageDirectory[type]).forEach(name => {
+        const isAuthor = type === 'author';
         let tagPage;
         const urlSuffix = getTagPageUriComponent(name);
         const slug = `/${type}/${urlSuffix}`;
-        tagPage = new SnootyTagPage(
-            name,
-            type,
-            slug,
-            tagPageDirectory[type][name]
-        );
+        if (isAuthor) {
+            console.log(tagPageDirectory[type][name]['author']);
+            tagPage = new SnootyAuthorPage(
+                tagPageDirectory[type][name]['author'],
+                slug,
+                tagPageDirectory[type][name]['pages']
+            );
+            console.log(tagPage);
+        } else {
+            tagPage = new SnootyTagPage(
+                name,
+                type,
+                slug,
+                tagPageDirectory[type][name]
+            );
+        }
         createPage({
             path: slug,
             component: path.resolve(`./src/templates/tag.js`),

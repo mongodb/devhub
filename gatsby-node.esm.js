@@ -10,7 +10,6 @@ import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
 import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
-import { createAuthorPages } from './src/utils/setup/create-author-pages';
 import { getAuthorListFromGraphql } from './src/utils/setup/get-author-list-from-graphql';
 import { getMetadata } from './src/utils/get-metadata';
 import {
@@ -19,7 +18,14 @@ import {
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
-import { getExistingValuesFromSnooty } from './src/utils/setup/get-existing-values-from-snooty';
+
+const pluralizeIfNeeded = {
+    author: 'authors',
+    language: 'languages',
+    product: 'products',
+    tag: 'tags',
+    type: 'type',
+};
 
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
@@ -142,8 +148,6 @@ export const createPages = async ({ actions, graphql }) => {
         graphql(articles),
     ]);
 
-    const strapiAuthors = await getAuthorListFromGraphql(graphql);
-
     await createProjectPages(createPage, graphql);
 
     if (result.error) {
@@ -169,47 +173,60 @@ export const createPages = async ({ actions, graphql }) => {
     await createClientSideRedirects(graphql, createRedirect);
 
     const tagPageDirectory = {};
-    const tagTypes = ['language', 'product', 'tag'];
+    const tagTypes = ['language', 'product', 'tag', 'type'];
     tagTypes.forEach(type => {
         // Loop through all articles
         const total = allArticles.reduce((acc, current) => {
-            current[`${type}s`].forEach(({ label }) => {
-                if (acc[label]) {
-                    acc[label].push(current);
+            const pluralAttribute = pluralizeIfNeeded[type];
+            if (pluralAttribute !== type) {
+                current[pluralizeIfNeeded[type]].forEach(({ label }) => {
+                    if (acc[label]) {
+                        acc[label].push(current);
+                    } else {
+                        acc[label] = [current];
+                    }
+                });
+            } else {
+                const type = current.type;
+                if (acc[type]) {
+                    acc[type].push(current);
                 } else {
-                    acc[label] = [current];
+                    acc[type] = [current];
                 }
-            });
+            }
             return acc;
         }, {});
         tagPageDirectory[type] = total;
     });
+
     const total = allArticles.reduce((acc, current) => {
-        const type = current.type;
-        if (acc[type]) {
-            acc[type].push(current);
-        } else {
-            acc[type] = [current];
-        }
+        current['authors'].forEach(author => {
+            const { name } = author;
+            console.log(author);
+            if (acc[name]) {
+                acc[name]['pages'].push(current);
+            } else {
+                acc[name] = {};
+                acc[name]['author'] = author;
+                acc[name]['pages'] = [current];
+            }
+        });
         return acc;
     }, {});
-    tagPageDirectory['type'] = total;
-    console.log(tagPageDirectory);
-    // Combine and reconcile
+    tagPageDirectory['author'] = total;
 
-    const tagPages = ['language', 'product', 'tag', 'type'].map(type =>
+    const tagPages = tagTypes.map(type =>
         createTagPageType(type, createPage, tagPageDirectory, metadataDocument)
     );
-    await Promise.all(tagPages);
-    await createAuthorPages(
-        'author',
-        createPage,
-        metadataDocument,
-        slugContentMapping,
-        stitchClient,
-        strapiAuthors,
-        allArticles
-    );
+    await Promise.all([
+        tagPages,
+        createTagPageType(
+            'author',
+            createPage,
+            tagPageDirectory,
+            metadataDocument
+        ),
+    ]);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.

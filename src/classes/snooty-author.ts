@@ -19,6 +19,7 @@ const getAuthorIncludesPath = authorName => {
 
 export class SnootyAuthor implements AuthorInterface {
     bio: String;
+    isInternalReference: Boolean;
     location: String;
     name: String;
     image: String;
@@ -32,6 +33,7 @@ export class SnootyAuthor implements AuthorInterface {
             null
         );
         this.isASTBio = true;
+        this.isInternalReference = true;
         this.location = location;
         this.name = name;
         this.image = image;

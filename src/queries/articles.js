@@ -15,6 +15,9 @@ query Articles {
         id
         authors {
           name
+          bio
+          location
+          title
           image {
             url
           }
