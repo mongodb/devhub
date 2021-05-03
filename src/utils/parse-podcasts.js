@@ -1,3 +1,4 @@
+import { htmlToText } from 'html-to-text';
 import parser from 'fast-xml-parser';
 import dlv from 'dlv';
 
@@ -6,7 +7,7 @@ const simplifyPodcast = podcast => {
         mediaType: 'podcast',
         title: podcast['title'],
         publishDate: podcast['pubDate'],
-        description: podcast['itunes:summary'],
+        description: htmlToText(podcast['description']),
         url: podcast['enclosure'] && podcast['enclosure']['url'],
         thumbnailUrl:
             podcast['itunes:image'] && podcast['itunes:image']['href'],
