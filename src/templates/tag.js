@@ -57,7 +57,6 @@ const SyledAuthorImage = styled(AuthorImage)`
 `;
 
 const Tag = props => {
-    console.log(props);
     const {
         pageContext: {
             bio,

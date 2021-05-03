@@ -157,7 +157,6 @@ export const createPages = async ({ actions, graphql }) => {
     const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
-
     allArticles = snootyArticles.concat(strapiArticleList);
 
     allArticles.forEach(article => {
@@ -201,10 +200,10 @@ export const createPages = async ({ actions, graphql }) => {
 
     const total = allArticles.reduce((acc, current) => {
         current['authors'].forEach(author => {
-            const { name } = author;
-            console.log(author);
+            const name = author.name;
             if (acc[name]) {
                 acc[name]['pages'].push(current);
+                acc[name]['author'] = author;
             } else {
                 acc[name] = {};
                 acc[name]['author'] = author;

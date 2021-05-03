@@ -16,13 +16,11 @@ export const createTagPageType = async (
         const urlSuffix = getTagPageUriComponent(name);
         const slug = `/${type}/${urlSuffix}`;
         if (isAuthor) {
-            console.log(tagPageDirectory[type][name]['author']);
             tagPage = new SnootyAuthorPage(
                 tagPageDirectory[type][name]['author'],
                 slug,
                 tagPageDirectory[type][name]['pages']
             );
-            console.log(tagPage);
         } else {
             tagPage = new SnootyTagPage(
                 name,
