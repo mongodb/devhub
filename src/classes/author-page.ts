@@ -2,7 +2,7 @@ import { Author } from '../interfaces/author';
 import { TagPage } from '../interfaces/tag-page';
 import { TagType } from '../types/tag-type';
 
-export class SnootyAuthorPage implements Author, TagPage {
+export class AuthorPage implements Author, TagPage {
     bio: String;
     location: String;
     name: String;

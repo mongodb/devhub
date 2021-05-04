@@ -2,7 +2,7 @@ import path from 'path';
 import { getTagPageUriComponent } from '../get-tag-page-uri-component';
 import { SNOOTY_STITCH_ID } from '../../build-constants';
 import { SnootyTagPage } from '../../classes/snooty-tag-page';
-import { SnootyAuthorPage } from '../../classes/snooty-author-page';
+import { AuthorPage } from '../../classes/author-page';
 
 export const createTagPageType = async (
     type,
@@ -16,7 +16,7 @@ export const createTagPageType = async (
         const urlSuffix = getTagPageUriComponent(name);
         const slug = `/${type}/${urlSuffix}`;
         if (isAuthor) {
-            tagPage = new SnootyAuthorPage(
+            tagPage = new AuthorPage(
                 tagPageDirectory[type][name]['author'],
                 slug,
                 tagPageDirectory[type][name]['pages']
