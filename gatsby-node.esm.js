@@ -9,6 +9,8 @@ import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
 import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
+import { aggregateItemsWithTagType } from './src/utils/setup/aggregate-items-with-tag-type';
+import { aggregateAuthorInformation } from './src/utils/setup/aggregate-author-information';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getMetadata } from './src/utils/get-metadata';
 import {
@@ -16,6 +18,16 @@ import {
     METADATA_COLLECTION,
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
+import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
+
+const pluralizeIfNeeded = {
+    author: 'authors',
+    language: 'languages',
+    product: 'products',
+    tag: 'tags',
+    type: 'type',
+};
+
 // Consolidated metadata object used to identify build and env variables
 const metadata = getMetadata();
 
@@ -27,6 +39,9 @@ const assets = {};
 
 // in-memory object with key/value = filename/document
 const slugContentMapping = {};
+
+const snootyArticles = [];
+let allArticles = [];
 
 // stich client connection
 let stitchClient;
@@ -73,7 +88,8 @@ export const sourceNodes = async ({
             createNode,
             createContentDigest,
             slugContentMapping,
-            rawContent
+            rawContent,
+            snootyArticles
         );
     });
 };
@@ -141,9 +157,12 @@ export const createPages = async ({ actions, graphql }) => {
 
     const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
-    result.data.allArticle.nodes.forEach(article => {
+    const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
+    allArticles = snootyArticles.concat(strapiArticleList);
+
+    allArticles.forEach(article => {
         createArticlePage(
-            article.slug,
+            article,
             slugContentMapping,
             allSeries,
             metadataDocument,
@@ -153,15 +172,24 @@ export const createPages = async ({ actions, graphql }) => {
 
     await createClientSideRedirects(graphql, createRedirect);
 
-    const tagTypes = ['author', 'languages', 'products', 'tags', 'type'];
+    const tagPageDirectory = {};
+    const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
+    tagTypes.forEach(type => {
+        const isAuthorType = type === 'author';
+        if (isAuthorType) {
+            tagPageDirectory[type] = aggregateAuthorInformation(allArticles);
+        } else {
+            const mappedType = pluralizeIfNeeded[type];
+            tagPageDirectory[type] = aggregateItemsWithTagType(
+                allArticles,
+                mappedType,
+                type !== mappedType
+            );
+        }
+    });
+
     const tagPages = tagTypes.map(type =>
-        createTagPageType(
-            type,
-            createPage,
-            metadataDocument,
-            slugContentMapping,
-            stitchClient
-        )
+        createTagPageType(type, createPage, tagPageDirectory, metadataDocument)
     );
     await Promise.all(tagPages);
 };
@@ -198,7 +226,7 @@ export const onCreatePage = async ({ page, actions }) =>
     handleCreatePage(
         page,
         actions,
-        stitchClient,
+        allArticles,
         homeFeaturedArticles,
         learnFeaturedArticles,
         excludedLearnPageArticles

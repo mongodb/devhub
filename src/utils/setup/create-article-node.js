@@ -1,6 +1,7 @@
 import { getNestedText } from '../get-nested-text';
 import { getNestedValue } from '../get-nested-value';
 import { updateAttributionLinks } from './update-attribution-links';
+import { SnootyArticle } from '../../classes/snooty-article';
 
 export const createArticleNode = (
     doc,
@@ -8,7 +9,8 @@ export const createArticleNode = (
     createNode,
     createContentDigest,
     slugContentMapping,
-    rawContent
+    rawContent,
+    snootyArticles
 ) => {
     const filename = getNestedValue(['filename'], doc) || '';
     const isArticlePage =
@@ -33,6 +35,7 @@ export const createArticleNode = (
             title: getNestedText(doc.query_fields['title']),
             type: doc.query_fields['type'],
         };
+        snootyArticles.push(new SnootyArticle(slug, doc, slugContentMapping));
         createNode({
             id: slug,
             parent: null,

@@ -14,20 +14,18 @@ it('should correctly find featured articles given a set of requested articles', 
         '/quickstart/java-setup-crud-operations',
         '/quickstart/csharp',
     ].map(slug => ({
-        query_fields: {
-            slug,
-        },
+        slug,
     }));
 
     let foundSlugs = findArticlesFromSlugs(
         allArticles,
         requestedFeaturedSlugs
-    ).map(a => a.query_fields.slug);
+    ).map(a => a.slug);
 
     const expectedArticleSlugsFound = [
-        allArticles[3].query_fields.slug,
-        allArticles[1].query_fields.slug,
-        allArticles[2].query_fields.slug,
+        allArticles[3].slug,
+        allArticles[1].slug,
+        allArticles[2].slug,
     ];
 
     // All articles were found, so we should get them back in order
@@ -40,7 +38,7 @@ it('should correctly find featured articles given a set of requested articles', 
     ];
 
     foundSlugs = findArticlesFromSlugs(allArticles, requestedFeaturedSlugs).map(
-        a => a.query_fields.slug
+        a => a.slug
     );
 
     // The first two were not found, so return the 0th and 1st elements (instead of null)
@@ -55,7 +53,7 @@ it('should correctly find featured articles given a set of requested articles', 
         allArticles,
         requestedFeaturedSlugs,
         maxSize
-    ).map(a => a.query_fields.slug);
+    ).map(a => a.slug);
 
     // Since we only want a max of one, only consider the first slug to check
     expect(foundSlugs).toStrictEqual(['/foo']);
