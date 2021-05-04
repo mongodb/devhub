@@ -4,6 +4,7 @@ import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { ArticleSEO } from '../types/article-seo';
 import { toDateString } from '../utils/format-dates';
 import { transformArticleStrapiData } from '../utils/transform-article-strapi-data';
+import { StrapiAuthor } from './strapi-author';
 
 const dateFormatOptions = {
     month: 'short',
@@ -32,20 +33,30 @@ export class StrapiArticle implements Article {
     constructor(article) {
         const mappedArticle = transformArticleStrapiData(article);
         this._id = mappedArticle.id;
-        this.authors = mappedArticle.authors;
+        this.authors = mappedArticle.authors.map(
+            author => new StrapiAuthor(author)
+        );
         this.contentAST = [mappedArticle.contentAST];
         this.description = mappedArticle.description;
         this.headingNodes = [{}];
         this.image = mappedArticle.image;
-        this.languages = mapTagTypeToUrl(mappedArticle.languages, 'language');
-        this.products = mapTagTypeToUrl(mappedArticle.products, 'product');
+        this.languages = mapTagTypeToUrl(
+            mappedArticle.languages,
+            'language',
+            true
+        );
+        this.products = mapTagTypeToUrl(
+            mappedArticle.products,
+            'product',
+            true
+        );
         this.publishedDate = toDateString(
             mappedArticle.published_at,
             dateFormatOptions
         );
         this.SEO = mappedArticle.SEO;
         this.slug = mappedArticle.slug;
-        this.tags = mapTagTypeToUrl(mappedArticle.tags, 'tag');
+        this.tags = mapTagTypeToUrl(mappedArticle.tags, 'tag', true);
         this.title = mappedArticle.name;
         this.type = mappedArticle.type;
         this.updatedDate = toDateString(

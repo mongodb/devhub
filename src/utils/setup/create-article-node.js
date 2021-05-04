@@ -35,7 +35,7 @@ export const createArticleNode = (
             title: getNestedText(doc.query_fields['title']),
             type: doc.query_fields['type'],
         };
-        snootyArticles.push(new SnootyArticle(slug, doc));
+        snootyArticles.push(new SnootyArticle(slug, doc, slugContentMapping));
         createNode({
             id: slug,
             parent: null,

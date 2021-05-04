@@ -13,6 +13,7 @@ import { getRelevantSnootyNodeContent } from '../utils/setup/get-relevant-snooty
 import { getImageSrc } from '../utils/get-image-src';
 import { generatePathPrefix } from '../utils/generate-path-prefix';
 import { getMetadata } from '../utils/get-metadata';
+import { SnootyAuthor } from './snooty-author';
 
 const dateFormatOptions = {
     month: 'short',
@@ -23,7 +24,7 @@ const dateFormatOptions = {
 
 export class SnootyArticle implements Article {
     _id: String;
-    authors: object[];
+    authors: SnootyAuthor[];
     contentAST: object[];
     description: String;
     image: String;
@@ -38,7 +39,7 @@ export class SnootyArticle implements Article {
     title: String;
     type: ArticleCategory;
     updatedDate: String;
-    constructor(slug, pageNodes) {
+    constructor(slug, pageNodes, slugContentMapping) {
         // Hacky
         const metadata = getMetadata();
         const pathPrefix =
@@ -77,10 +78,9 @@ export class SnootyArticle implements Article {
             dateFormatOptions
         );
         // All Snooty images are hosted on-site
-        this.authors = meta.author.map(a => ({
-            ...a,
-            isInternalReference: true,
-        }));
+        this.authors = meta.author.map(
+            a => new SnootyAuthor(a, slugContentMapping)
+        );
         this.contentAST = contentAST;
         this.description = getNestedText(meta['meta-description']);
         this.headingNodes = findSectionHeadings(
