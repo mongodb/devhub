@@ -19,6 +19,7 @@ import {
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
+import { schemaCustomization } from './src/utils/setup/schema-customization';
 
 const pluralizeIfNeeded = {
     author: 'authors',
@@ -56,9 +57,11 @@ let excludedLearnPageArticles;
 export const onPreBootstrap = validateEnvVariables;
 
 export const sourceNodes = async ({
-    actions: { createNode },
+    actions,
     createContentDigest,
+    pathPrefix,
 }) => {
+    const { createNode } = actions;
     // wait to connect to stitch
     stitchClient = await initStitch();
 
@@ -89,7 +92,8 @@ export const sourceNodes = async ({
             createContentDigest,
             slugContentMapping,
             rawContent,
-            snootyArticles
+            snootyArticles,
+            pathPrefix
         );
     });
 };
@@ -97,23 +101,7 @@ export const sourceNodes = async ({
 // Snooty Parser v0.7.0 introduced a fileid keyword that is passed as a string for the includes directive
 // Gatsby does not look at the directive name, it just checks the overall shape and so this causes Gatsby to think something is off when it is actually fine since we case on the directive
 // We can ignore the provided type warning on the context because the directives are distinct
-export const createSchemaCustomization = ({ actions }) => {
-    const { createTypes } = actions;
-    const typeDefs = `
-    type SitePage implements Node @dontInfer {
-        path: String
-    }
-    type StrapiClientSideRedirect implements Node {
-        fromPath: String
-        isPermanent: Boolean
-        toPath: String
-    }
-    type allStrapiClientSideRedirects implements Node {
-        nodes: [StrapiClientSideRedirect]
-    }
-    `;
-    createTypes(typeDefs);
-};
+export const createSchemaCustomization = schemaCustomization;
 
 export const onCreateNode = async ({ node }) => {
     if (node.internal.type === 'Asset') {

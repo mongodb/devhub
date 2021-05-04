@@ -90,8 +90,9 @@ const getStrapiCustomRSSElements = article => {
 
 const serializeSearchRssData = ({
     query: { site, allArticle, allStrapiArticles },
-}) =>
-    allArticle.nodes
+}) => {
+    const strapiArticles = allStrapiArticles ? allStrapiArticles.nodes : [];
+    return allArticle.nodes
         .map(article => ({
             custom_elements: getCustomRSSElements(article),
             date: article.pubdate,
@@ -100,7 +101,7 @@ const serializeSearchRssData = ({
             url: `${site.siteMetadata.siteUrl}/${article.slug}`,
         }))
         .concat(
-            allStrapiArticles.nodes.map(article => {
+            strapiArticles.map(article => {
                 const slug = `${typeMap[article.type]}${article.slug}`;
                 article.slug = slug;
                 return {
@@ -112,5 +113,6 @@ const serializeSearchRssData = ({
                 };
             })
         );
+};
 
 module.exports = { serializeSearchRssData };
