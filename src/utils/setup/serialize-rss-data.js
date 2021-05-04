@@ -4,8 +4,11 @@ const typeMap = {
     Quickstart: 'quickstart',
 };
 
-const serializeRssData = ({ query: { site, allArticle, allStrapiArticles } }) =>
-    allStrapiArticles.nodes
+const serializeRssData = ({
+    query: { site, allArticle, allStrapiArticles },
+}) => {
+    const strapiArticles = allStrapiArticles ? allStrapiArticles.nodes : [];
+    return strapiArticles
         .map(article => {
             const slug = `${typeMap[article.type]}${article.slug}`;
             article.slug = slug;
@@ -23,6 +26,8 @@ const serializeRssData = ({ query: { site, allArticle, allStrapiArticles } }) =>
                 title: article.title,
                 url: `${site.siteMetadata.siteUrl}/${article.slug}`,
             }))
-        );
+        )
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+};
 
 module.exports = { serializeRssData };

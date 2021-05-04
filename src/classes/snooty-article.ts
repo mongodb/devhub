@@ -11,9 +11,8 @@ import { getNestedValue } from '../utils/get-nested-value';
 import { findSectionHeadings } from '../utils/find-section-headings';
 import { getRelevantSnootyNodeContent } from '../utils/setup/get-relevant-snooty-node-content.js';
 import { getImageSrc } from '../utils/get-image-src';
-import { generatePathPrefix } from '../utils/generate-path-prefix';
-import { getMetadata } from '../utils/get-metadata';
 import { SnootyAuthor } from './snooty-author';
+import { withPrefix } from 'gatsby';
 
 const dateFormatOptions = {
     month: 'short',
@@ -39,13 +38,7 @@ export class SnootyArticle implements Article {
     title: String;
     type: ArticleCategory;
     updatedDate: String;
-    constructor(slug, pageNodes, slugContentMapping) {
-        // Hacky
-        const metadata = getMetadata();
-        const pathPrefix =
-            process.env.NODE_ENV === `production`
-                ? generatePathPrefix(metadata)
-                : '';
+    constructor(slug, pageNodes, slugContentMapping, pathPrefix) {
         this._id = pageNodes._id;
         const articleUrl = addTrailingSlashIfMissing(`${SITE_URL}/${slug}`);
         const canonicalUrl = dlv(
@@ -89,7 +82,10 @@ export class SnootyArticle implements Article {
             'heading',
             1
         );
-        this.image = pathPrefix + meta['atf-image'];
+        // We need to manually use the second arg here since BASE_PREFIX isn't
+        // defined yet.
+        //@ts-ignore
+        this.image = withPrefix(meta['atf-image'], pathPrefix);
         this.languages = mapTagTypeToUrl(meta.languages, 'language');
         this.products = mapTagTypeToUrl(meta.products, 'product');
         this.publishedDate = formattedPublishedDate;

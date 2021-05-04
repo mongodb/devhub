@@ -1,6 +1,6 @@
 const rssFeedArticleData = `
     query RSSFeedArticleData {
-        allStrapiArticles(sort: {fields: published_at, order: DESC}) {
+        allStrapiArticles {
           nodes {
             description
             slug
