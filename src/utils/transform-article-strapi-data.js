@@ -9,37 +9,39 @@ const typeMap = {
 
 // This will get more complicated as we build the pipeline out
 export const transformArticleStrapiData = article => {
+    const inferredType = article.type || 'Article';
     const authors = article.authors;
     const transformedAuthors = authors.map(transformAuthorStrapiData);
     const parsedContent = parseMarkdownToAST(article.content);
+    const SEOObject = article.SEO || {};
     return {
         ...article,
         authors: transformedAuthors,
         contentAST: parsedContent,
-        image: article.image.url,
+        image: article.image ? article.image.url : null,
         isFromStrapi: true,
         languages: article.languages.map(l => l.language),
         products: article.products.map(p => p.product),
         SEO: {
-            canonicalUrl: article.SEO.canonical_url,
-            metaDescription: article.SEO.meta_description,
+            canonicalUrl: SEOObject.canonical_url,
+            metaDescription: SEOObject.meta_description,
             og: {
-                description: article.SEO.og_description,
-                image: article.SEO.og_image,
+                description: SEOObject.og_description,
+                image: SEOObject.og_image,
                 title: article.name,
-                type: article.SEO.og_type,
-                url: article.SEO.og_url,
+                type: SEOObject.og_type,
+                url: SEOObject.og_url,
             },
             twitter: {
-                creator: article.SEO.twitter_creator,
-                description: article.SEO.twitter_description,
-                image: article.SEO.twitter_image,
-                site: article.SEO.twitter_site,
-                title: article.SEO.twitter_title,
+                creator: SEOObject.twitter_creator,
+                description: SEOObject.twitter_description,
+                image: SEOObject.twitter_image,
+                site: SEOObject.twitter_site,
+                title: SEOObject.twitter_title,
             },
         },
-        slug: `${typeMap[article.type]}${article.slug}`,
+        slug: `${typeMap[inferredType]}${article.slug}`,
         tags: article.tags.map(t => t.tag),
-        type: typeMap[article.type],
+        type: typeMap[inferredType],
     };
 };
