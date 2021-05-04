@@ -10,7 +10,6 @@ import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
 import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
-import { getAuthorListFromGraphql } from './src/utils/setup/get-author-list-from-graphql';
 import { getMetadata } from './src/utils/get-metadata';
 import {
     DOCUMENTS_COLLECTION,
