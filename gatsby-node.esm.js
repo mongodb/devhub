@@ -9,6 +9,8 @@ import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
 import { createProjectPages } from './src/utils/setup/create-project-pages';
 import { createClientSideRedirects } from './src/utils/setup/create-client-side-redirects';
+import { aggregateItemsWithTagType } from './src/utils/setup/aggregate-items-with-tag-type';
+import { aggregateAuthorInformation } from './src/utils/setup/aggregate-author-information';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { getMetadata } from './src/utils/get-metadata';
 import {
@@ -171,60 +173,25 @@ export const createPages = async ({ actions, graphql }) => {
     await createClientSideRedirects(graphql, createRedirect);
 
     const tagPageDirectory = {};
-    const tagTypes = ['language', 'product', 'tag', 'type'];
+    const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
     tagTypes.forEach(type => {
-        // Loop through all articles
-        const total = allArticles.reduce((acc, current) => {
-            const pluralAttribute = pluralizeIfNeeded[type];
-            if (pluralAttribute !== type) {
-                current[pluralizeIfNeeded[type]].forEach(({ label }) => {
-                    if (acc[label]) {
-                        acc[label].push(current);
-                    } else {
-                        acc[label] = [current];
-                    }
-                });
-            } else {
-                const type = current.type;
-                if (acc[type]) {
-                    acc[type].push(current);
-                } else {
-                    acc[type] = [current];
-                }
-            }
-            return acc;
-        }, {});
-        tagPageDirectory[type] = total;
+        const isAuthorType = type === 'author';
+        if (isAuthorType) {
+            tagPageDirectory[type] = aggregateAuthorInformation(allArticles);
+        } else {
+            const mappedType = pluralizeIfNeeded[type];
+            tagPageDirectory[type] = aggregateItemsWithTagType(
+                allArticles,
+                mappedType,
+                type !== mappedType
+            );
+        }
     });
-
-    const total = allArticles.reduce((acc, current) => {
-        current['authors'].forEach(author => {
-            const name = author.name;
-            if (acc[name]) {
-                acc[name]['pages'].push(current);
-                acc[name]['author'] = author;
-            } else {
-                acc[name] = {};
-                acc[name]['author'] = author;
-                acc[name]['pages'] = [current];
-            }
-        });
-        return acc;
-    }, {});
-    tagPageDirectory['author'] = total;
 
     const tagPages = tagTypes.map(type =>
         createTagPageType(type, createPage, tagPageDirectory, metadataDocument)
     );
-    await Promise.all([
-        tagPages,
-        createTagPageType(
-            'author',
-            createPage,
-            tagPageDirectory,
-            metadataDocument
-        ),
-    ]);
+    await Promise.all(tagPages);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
