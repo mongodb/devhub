@@ -2,7 +2,6 @@ import dlv from 'dlv';
 import { Article } from '../interfaces/article';
 import { ArticleCategory } from '../types/article-category';
 import { ArticleSEO } from '../types/article-seo';
-import { toDateString } from '../utils/format-dates';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { getNestedText } from '../utils/get-nested-text';
 import { SITE_URL } from '../constants';
@@ -13,13 +12,6 @@ import { getRelevantSnootyNodeContent } from '../utils/setup/get-relevant-snooty
 import { getImageSrc } from '../utils/get-image-src';
 import { SnootyAuthor } from './snooty-author';
 import { withPrefix } from 'gatsby';
-
-const dateFormatOptions = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC',
-};
 
 export class SnootyArticle implements Article {
     _id: String;
@@ -62,15 +54,6 @@ export class SnootyArticle implements Article {
         );
         const metaDescription =
             metaDescriptionNode && getNestedText(metaDescriptionNode.children);
-        const formattedPublishedDate = toDateString(
-            meta.pubdate,
-            dateFormatOptions
-        );
-        const formattedUpdatedDate = toDateString(
-            meta['updated-date'],
-            dateFormatOptions
-        );
-        // All Snooty images are hosted on-site
         this.authors = meta.author.map(
             a => new SnootyAuthor(a, slugContentMapping)
         );
@@ -88,7 +71,7 @@ export class SnootyArticle implements Article {
         this.image = withPrefix(meta['atf-image'], pathPrefix);
         this.languages = mapTagTypeToUrl(meta.languages, 'language');
         this.products = mapTagTypeToUrl(meta.products, 'product');
-        this.publishedDate = formattedPublishedDate;
+        this.publishedDate = meta.pubdate;
         this.related = meta.related || [];
         this.SEO = {
             canonicalUrl,
@@ -117,6 +100,6 @@ export class SnootyArticle implements Article {
         this.tags = mapTagTypeToUrl(meta.tags, 'tag');
         this.title = dlv(meta.title, [0, 'value'], slug);
         this.type = meta.type;
-        this.updatedDate = formattedUpdatedDate;
+        this.updatedDate = meta['updated-date'];
     }
 }

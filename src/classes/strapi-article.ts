@@ -2,16 +2,11 @@ import { Article } from '../interfaces/article';
 import { ArticleCategory } from '../types/article-category';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { ArticleSEO } from '../types/article-seo';
-import { toDateString } from '../utils/format-dates';
 import { transformArticleStrapiData } from '../utils/transform-article-strapi-data';
 import { StrapiAuthor } from './strapi-author';
+import { findSectionHeadings } from '../utils/find-section-headings';
 
-const dateFormatOptions = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC',
-};
+const toISODate = date => date && new Date(date).toISOString().slice(0, 10);
 
 export class StrapiArticle implements Article {
     _id: String;
@@ -38,7 +33,14 @@ export class StrapiArticle implements Article {
         );
         this.contentAST = [mappedArticle.contentAST];
         this.description = mappedArticle.description;
-        this.headingNodes = [{}];
+        this.headingNodes = findSectionHeadings(
+            mappedArticle.contentAST.children || [],
+            'type',
+            'heading',
+            2,
+            -1,
+            true
+        );
         this.image = mappedArticle.image;
         this.languages = mapTagTypeToUrl(
             mappedArticle.languages,
@@ -50,18 +52,12 @@ export class StrapiArticle implements Article {
             'product',
             true
         );
-        this.publishedDate = toDateString(
-            mappedArticle.published_at,
-            dateFormatOptions
-        );
+        this.publishedDate = toISODate(mappedArticle.published_at);
         this.SEO = mappedArticle.SEO;
         this.slug = mappedArticle.slug;
         this.tags = mapTagTypeToUrl(mappedArticle.tags, 'tag', true);
         this.title = mappedArticle.name;
         this.type = mappedArticle.type;
-        this.updatedDate = toDateString(
-            mappedArticle.updatedAt,
-            dateFormatOptions
-        );
+        this.updatedDate = toISODate(mappedArticle.updatedAt);
     }
 }

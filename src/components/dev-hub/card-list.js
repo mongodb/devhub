@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import Audio from './audio';
 import Card from './card';
-import { withPrefix } from 'gatsby';
 import Paginate from './paginate';
 import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
 
