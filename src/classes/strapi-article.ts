@@ -4,6 +4,7 @@ import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { ArticleSEO } from '../types/article-seo';
 import { transformArticleStrapiData } from '../utils/transform-article-strapi-data';
 import { StrapiAuthor } from './strapi-author';
+import { findSectionHeadings } from '../utils/find-section-headings';
 
 const toISODate = date => date && new Date(date).toISOString().slice(0, 10);
 
@@ -32,7 +33,14 @@ export class StrapiArticle implements Article {
         );
         this.contentAST = [mappedArticle.contentAST];
         this.description = mappedArticle.description;
-        this.headingNodes = [{}];
+        this.headingNodes = findSectionHeadings(
+            mappedArticle.contentAST.children || [],
+            'type',
+            'heading',
+            2,
+            -1,
+            true
+        );
         this.image = mappedArticle.image;
         this.languages = mapTagTypeToUrl(
             mappedArticle.languages,
