@@ -62,15 +62,6 @@ export class SnootyArticle implements Article {
         );
         const metaDescription =
             metaDescriptionNode && getNestedText(metaDescriptionNode.children);
-        const formattedPublishedDate = toDateString(
-            meta.pubdate,
-            dateFormatOptions
-        );
-        const formattedUpdatedDate = toDateString(
-            meta['updated-date'],
-            dateFormatOptions
-        );
-        // All Snooty images are hosted on-site
         this.authors = meta.author.map(
             a => new SnootyAuthor(a, slugContentMapping)
         );
@@ -88,7 +79,7 @@ export class SnootyArticle implements Article {
         this.image = withPrefix(meta['atf-image'], pathPrefix);
         this.languages = mapTagTypeToUrl(meta.languages, 'language');
         this.products = mapTagTypeToUrl(meta.products, 'product');
-        this.publishedDate = formattedPublishedDate;
+        this.publishedDate = meta.pubdate;
         this.related = meta.related || [];
         this.SEO = {
             canonicalUrl,
@@ -117,6 +108,6 @@ export class SnootyArticle implements Article {
         this.tags = mapTagTypeToUrl(meta.tags, 'tag');
         this.title = dlv(meta.title, [0, 'value'], slug);
         this.type = meta.type;
-        this.updatedDate = formattedUpdatedDate;
+        this.updatedDate = meta['updated-date'];
     }
 }
