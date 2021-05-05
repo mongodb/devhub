@@ -4,7 +4,7 @@ import { removeExcludedArticles } from './remove-excluded-articles';
 
 const MAX_LEARN_PAGE_FEATURED_ARTICLES = 3;
 
-export const handleCreateLearnPage = async (
+export const handleCreateLearnPage = (
     page,
     actions,
     learnFeaturedArticles,
@@ -17,7 +17,7 @@ export const handleCreateLearnPage = async (
         allArticles,
         excludedLearnPageArticles
     );
-    const filters = await getLearnPageFilters(learnPageArticles);
+    const filters = getLearnPageFilters(learnPageArticles);
     const featuredLearnArticles = findArticlesFromSlugs(
         learnPageArticles,
         learnFeaturedArticles,

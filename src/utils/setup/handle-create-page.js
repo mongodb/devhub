@@ -1,14 +1,9 @@
 import memoizerific from 'memoizerific';
 import { fetchBuildTimeMedia } from './fetch-build-time-media';
 import { removePageIfStaged } from './remove-page-if-staged';
-import { getNestedValue } from '../get-nested-value';
-import { getMetadata } from '../get-metadata';
 import { handleCreateHomePage } from './handle-create-home-page';
 import { getStagingPages } from './get-staging-pages';
 import { handleCreateLearnPage } from './handle-create-learn-page';
-
-const metadata = getMetadata();
-let stitchClient;
 
 const memoizedStagingPages = memoizerific(1)(
     async () => await getStagingPages()
@@ -33,18 +28,16 @@ const getAllArticles = memoizerific(1)(async () => {
 export const handleCreatePage = async (
     page,
     actions,
-    inheritedStitchClient,
+    allArticles,
     homeFeaturedArticles,
     learnFeaturedArticles,
     excludedLearnPageArticles
 ) => {
-    stitchClient = inheritedStitchClient;
-    const allArticles = await getAllArticles();
-
     switch (page.path) {
         case '/learn/':
             const allMedia = await fetchBuildTimeMedia();
-            await handleCreateLearnPage(
+
+            handleCreateLearnPage(
                 page,
                 actions,
                 learnFeaturedArticles,
