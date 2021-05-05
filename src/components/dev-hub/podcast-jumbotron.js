@@ -1,5 +1,5 @@
 import React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import { H2, P } from '~components/dev-hub/text';
@@ -17,15 +17,15 @@ import {
 const Title = H2.withComponent('h1');
 
 const PostMetaLine = styled('div')`
-    display: flex;
     color: ${colorMap.greyLightThree};
+    display: flex;
     font-size: ${fontSize.tiny};
     margin: ${size.medium} 0 40px;
 
     @media ${screenSize.upToLarge} {
         flex-direction: column;
         font-size: ${fontSize.xsmall};
-        margin-bottom: ${size.medium};
+        margin: ${size.default} 0 ${size.medium};
     }
 `;
 
@@ -49,22 +49,20 @@ const PodcastJumbotron = ({
     title,
     tags, //TODO: In Progress
     authors, //TODO: In Progress
-}) => {
-    return (
-        <HeroBanner background={image} breadcrumb={breadcrumb}>
-            <Title collapse>{title}</Title>
-            <PostMetaLine>
-                <DateTextContainer>
-                    {publishDate && (
-                        <DateText collapse>Published: {publishDate}</DateText>
-                    )}
-                </DateTextContainer>
-                <BlogTagList tags={tags} />
-            </PostMetaLine>
-            <BylineBlock authors={authors} />
-        </HeroBanner>
-    );
-};
+}) => (
+    <HeroBanner background={image} breadcrumb={breadcrumb}>
+        <Title collapse>{title}</Title>
+        <PostMetaLine>
+            <DateTextContainer>
+                {publishDate && (
+                    <DateText collapse>Published: {publishDate}</DateText>
+                )}
+            </DateTextContainer>
+            <BlogTagList tags={tags} />
+        </PostMetaLine>
+        <BylineBlock authors={authors} />
+    </HeroBanner>
+);
 
 PodcastJumbotron.propTypes = {
     authors: PropTypes.array,

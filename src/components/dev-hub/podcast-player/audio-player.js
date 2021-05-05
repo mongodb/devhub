@@ -102,7 +102,7 @@ const PlayerFooter = styled('div')`
     }
 `;
 
-const AudioPlayer = ({ podcast }) => {
+const AudioPlayer = ({ className, podcast }) => {
     const playerRef = useRef(null);
     const [playerState, playerDispatch] = useReducer(
         playerReducer,
@@ -160,7 +160,7 @@ const AudioPlayer = ({ podcast }) => {
     }, [isReady]);
 
     return podcast ? (
-        <ContentContainer>
+        <ContentContainer className={className}>
             <PlayerContainer>
                 <AudioContainer>
                     <PlayerControls
@@ -189,7 +189,7 @@ const AudioPlayer = ({ podcast }) => {
                     onProgress={setProgress}
                     onReady={onReadyHandler}
                     playing={isPlaying}
-                    url={podcast.url}
+                    url={podcast}
                     width="0"
                 />
             </PlayerContainer>
@@ -198,9 +198,8 @@ const AudioPlayer = ({ podcast }) => {
 };
 
 AudioPlayer.propTypes = {
-    podcast: PropTypes.shape({
-        url: PropTypes.string,
-    }).isRequired,
+    className: PropTypes.string,
+    podcast: PropTypes.string.isRequired,
 };
 
 export default AudioPlayer;

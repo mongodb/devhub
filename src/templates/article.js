@@ -1,5 +1,4 @@
 import React from 'react';
-import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';

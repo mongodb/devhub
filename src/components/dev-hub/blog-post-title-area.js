@@ -6,13 +6,7 @@ import { toDateString } from '../../utils/format-dates';
 import { screenSize, fontSize, size } from './theme';
 import BylineBlock from './byline-block';
 import HeroBanner from './hero-banner';
-
-const dateFormatOptions = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC',
-};
+import { dateFormatOptions } from '~src/constants';
 
 const PostMetaLine = styled('div')`
     color: ${({ theme }) => theme.colorMap.greyLightThree};
