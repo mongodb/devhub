@@ -59,13 +59,13 @@ const BlogPostTitleArea = ({
                 <DateTextContainer>
                     {updatedDate && (
                         <DateText collapse>
-                            Updated:{' '}
-                            {toDateString(updatedDate, dateFormatOptions)} |{' '}
+                            Updated:
+                            {toDateString(updatedDate, dateFormatOptions)} |
                         </DateText>
                     )}
                     {originalDate && (
                         <DateText collapse>
-                            Published:{' '}
+                            Published:
                             {toDateString(originalDate, dateFormatOptions)}
                         </DateText>
                     )}
