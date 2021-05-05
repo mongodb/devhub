@@ -2,7 +2,6 @@ import dlv from 'dlv';
 import { Article } from '../interfaces/article';
 import { ArticleCategory } from '../types/article-category';
 import { ArticleSEO } from '../types/article-seo';
-import { toDateString } from '../utils/format-dates';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { getNestedText } from '../utils/get-nested-text';
 import { SITE_URL } from '../constants';
@@ -13,13 +12,6 @@ import { getRelevantSnootyNodeContent } from '../utils/setup/get-relevant-snooty
 import { getImageSrc } from '../utils/get-image-src';
 import { SnootyAuthor } from './snooty-author';
 import { withPrefix } from 'gatsby';
-
-const dateFormatOptions = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC',
-};
 
 export class SnootyArticle implements Article {
     _id: String;
