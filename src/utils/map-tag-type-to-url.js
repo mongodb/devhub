@@ -33,6 +33,8 @@ export const mapTagTypeToUrl = (tags, tagType, useStrapiTagMapping = false) => {
     // Allow tag type to be omitted in article rST
     if (!tags || !tags.length) return [];
     return tags.map(t => {
+        // Handle a null tag
+        if (!t) return { label: '', to: '/' };
         const mappedTag = useStrapiTagMapping ? STRAPI_TAG_MAPPING[t] || t : t;
         return {
             label: mappedTag,
