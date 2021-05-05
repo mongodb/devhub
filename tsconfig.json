@@ -1,0 +1,27 @@
+{
+    "include": ["./src/**/*", "./node_modules/**/*"],
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "lib": ["dom", "es2017"],
+        "jsx": "react",
+        "strict": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "noEmit": true,
+        "skipLibCheck": true,
+        "baseUrl": "./",
+        "noImplicitAny": false,
+        "paths": {
+            "~src/*": ["src/*"],
+            "~components/*": ["src/components/*"],
+            "~hooks/*": ["./src/hooks/*"],
+            "~images/*": ["src/images/*"],
+            "~pages/*": ["src/pages/*"],
+            "~utils/*": ["src/utils/*"],
+            "~tests/*": ["tests/*"]
+        }
+    }
+}

@@ -6,9 +6,7 @@ export const removeExcludedArticles = (
         const filteredArticles = allArticles.filter(
             article =>
                 !excludedLearnPageArticles.find(excludedArticle =>
-                    article.query_fields.slug.match(
-                        new RegExp(`^/?${excludedArticle}$`)
-                    )
+                    article.slug.match(new RegExp(`^/?${excludedArticle}$`))
                 )
         );
         // Warn writers if not all excludes were found

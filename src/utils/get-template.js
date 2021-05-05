@@ -5,7 +5,7 @@ const getTemplate = template => {
             return 'article';
         default:
             throw new Error(
-                `The given article template was not devhub-article, it was ${template}. This means there was likely a parsing issue.`
+                `The given article template was not devhub-article or strapi-article, it was ${template}. This means there was likely a parsing issue.`
             );
     }
 };

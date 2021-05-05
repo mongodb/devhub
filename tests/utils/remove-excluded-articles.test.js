@@ -6,8 +6,8 @@ it('should remove specific articles from an array of all articles', () => {
     const includedArticleSlug = '/included';
     const excludedArticleSlug = '/excluded';
     const allArticles = [
-        { query_fields: { slug: includedArticleSlug } },
-        { query_fields: { slug: excludedArticleSlug } },
+        { slug: includedArticleSlug },
+        { slug: excludedArticleSlug },
     ];
     const articlesToExclude = [];
 
@@ -18,7 +18,7 @@ it('should remove specific articles from an array of all articles', () => {
     articlesToExclude.push(excludedArticleSlug);
     expect(
         removeExcludedArticles(allArticles, articlesToExclude)
-    ).toStrictEqual([{ query_fields: { slug: includedArticleSlug } }]);
+    ).toStrictEqual([{ slug: includedArticleSlug }]);
 
     // Don't log this next warning out for this test
     const warn = console.warn;

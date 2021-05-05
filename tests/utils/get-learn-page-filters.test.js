@@ -3,28 +3,20 @@ import { getLearnPageFilters } from '../../src/utils/setup/get-learn-page-filter
 it('should correctly create filters for the learn page based on article tags', () => {
     const allArticles = [
         {
-            query_fields: {
-                languages: ['node', 'react'],
-                products: ['atlas', 'stitch'],
-            },
+            languages: [{ label: 'node' }, { label: 'react' }],
+            products: [{ label: 'atlas' }, { label: 'stitch' }],
         },
         {
-            query_fields: {
-                languages: ['python', 'react'],
-                products: ['server'],
-            },
+            languages: [{ label: 'python' }, { label: 'react' }],
+            products: [{ label: 'server' }],
         },
         {
-            query_fields: {
-                languages: ['python', 'react'],
-                products: ['server'],
-            },
+            languages: [{ label: 'python' }, { label: 'react' }],
+            products: [{ label: 'server' }],
         },
         {
-            query_fields: {
-                languages: [],
-                products: ['server', 'stitch'],
-            },
+            languages: [],
+            products: [{ label: 'server' }, { label: 'stitch' }],
         },
     ];
 

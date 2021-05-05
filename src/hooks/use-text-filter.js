@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { requestTextFilterResults } from '../utils/devhub-api-stitch';
+import { SearchArticleResult } from '../classes/search-article-result';
 
 // Only kick off one search every 200ms
 const DEBOUNCE_TIME = 200;
@@ -26,7 +27,11 @@ function useTextFilter(query) {
                             query
                         );
                         if (filterResults) {
-                            setResults(filterResults);
+                            setResults(
+                                filterResults.map(r => ({
+                                    ...new SearchArticleResult(r),
+                                }))
+                            );
                         }
                     }, DEBOUNCE_TIME)
                 );

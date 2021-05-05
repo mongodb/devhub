@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
+import AudioPlayer from '~components/dev-hub/podcast-player/audio-player';
 import Layout from '~components/dev-hub/layout';
 import PodcastJumbotron from '~components/dev-hub/podcast-jumbotron';
 import ShareFooter from '~components/dev-hub/article-share-footer';
@@ -75,7 +76,7 @@ const StyledParagraph = styled('p')`
 
 const Podcast = ({
     pageContext: {
-        data: { description, publishDate, thumbnailUrl: imageUrl, title },
+        data: { podcast, description, publishDate, thumbnailUrl: imageUrl, title },
     },
     path: slug,
 }) => {
@@ -101,7 +102,7 @@ const Podcast = ({
                     />
                 </Icons>
                 <Content>
-                    <div>TODO: Player</div>
+                    { podcast && <AudioPlayer podcast={podcast} /> }
                     <StyledParagraph>{description}</StyledParagraph>
                     <ShareFooter
                         title={title}
