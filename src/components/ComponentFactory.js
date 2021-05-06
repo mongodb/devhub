@@ -33,6 +33,7 @@ import LiteralInclude from './LiteralInclude';
 import Meta from './Meta';
 import MetaDescription from './meta-description';
 import Paragraph from './Paragraph';
+import RawHTML from './dev-hub/raw-html';
 import Reference from './Reference';
 import RefRole from './RefRole';
 import Root from './Root';
@@ -92,6 +93,7 @@ export default class ComponentFactory extends Component {
             footnote_reference: FootnoteReference,
             heading: Heading,
             hlist: HorizontalList,
+            html: RawHTML,
             image: Image,
             include: Include,
             line: Line,
@@ -103,6 +105,7 @@ export default class ComponentFactory extends Component {
             literal: Literal,
             literal_block: LiteralBlock,
             literalinclude: LiteralInclude,
+            inlineCode: Literal,
             meta: Meta,
             'meta-description': MetaDescription,
             only: Cond,
