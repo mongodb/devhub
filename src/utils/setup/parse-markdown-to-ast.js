@@ -26,9 +26,11 @@ export const parseMarkdownToAST = markdown => {
         const data = node.data || (node.data = {});
         switch (node.type) {
             case 'heading':
-                node['id'] = getTagPageUriComponent(
-                    getNestedText(node['children'])
-                );
+                if (node['children'] && node['children'].length) {
+                    node['id'] = getTagPageUriComponent(
+                        getNestedText(node['children'])
+                    );
+                }
                 break;
             case 'image':
                 const isFigure = !!node.title;
