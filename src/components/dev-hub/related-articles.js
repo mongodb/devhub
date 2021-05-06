@@ -91,6 +91,7 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
 };
 
 const RelatedArticles = ({ related, slugTitleMapping }) => {
+    console.log(related);
     if (!related || !related.length) return null;
     return (
         <RelatedContainer>

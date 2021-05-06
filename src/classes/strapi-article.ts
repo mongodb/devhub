@@ -18,7 +18,7 @@ export class StrapiArticle implements Article {
     headingNodes: object[];
     products: object[];
     publishedDate: String;
-    related = [];
+    related: object[];
     SEO: ArticleSEO;
     slug: String;
     tags: object[];
@@ -53,6 +53,7 @@ export class StrapiArticle implements Article {
             true
         );
         this.publishedDate = toISODate(mappedArticle.published_at);
+        this.related = mappedArticle.related;
         this.SEO = mappedArticle.SEO;
         this.slug = mappedArticle.slug;
         this.tags = mapTagTypeToUrl(mappedArticle.tags, 'tag', true);
