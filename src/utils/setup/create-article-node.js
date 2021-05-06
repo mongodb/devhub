@@ -34,11 +34,7 @@ export const createArticleNode = (
             title: getNestedText(doc.query_fields['title']),
             type: doc.query_fields['type'],
         };
-        slugContentMapping[slug] = doc;
-        snootyArticles.push(
-            // Just do this after the forEach loop
-            { slug, doc }
-        );
+        snootyArticles.push({ slug, doc });
         createNode({
             id: slug,
             parent: null,
@@ -49,7 +45,6 @@ export const createArticleNode = (
             },
             ...content,
         });
-    } else {
-        slugContentMapping[slug] = doc;
     }
+    slugContentMapping[slug] = doc;
 };
