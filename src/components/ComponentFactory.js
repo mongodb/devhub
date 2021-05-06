@@ -103,6 +103,7 @@ export default class ComponentFactory extends Component {
             literal: Literal,
             literal_block: LiteralBlock,
             literalinclude: LiteralInclude,
+            inlineCode: Literal,
             meta: Meta,
             'meta-description': MetaDescription,
             only: Cond,

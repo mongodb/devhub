@@ -24,13 +24,19 @@ const StyledLiteral = styled('code')`
     }
 `;
 
-const Literal = ({ nodeData: { children } }) => (
-    <StyledLiteral>
-        {children.map((node, i) => (
-            <ComponentFactory nodeData={node} key={i} />
-        ))}
-    </StyledLiteral>
-);
+const Literal = ({ nodeData: { children, value } }) => {
+    // Value is the DevHub CMS representation
+    if (value) {
+        return <StyledLiteral>{value}</StyledLiteral>;
+    }
+    return (
+        <StyledLiteral>
+            {children.map((node, i) => (
+                <ComponentFactory nodeData={node} key={i} />
+            ))}
+        </StyledLiteral>
+    );
+};
 
 Literal.propTypes = {
     nodeData: PropTypes.shape({
