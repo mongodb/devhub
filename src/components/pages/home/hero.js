@@ -45,12 +45,8 @@ const StyledTopCard = styled(Card)`
 
 // TODO: Generalize as new content types are supported
 const FeaturedHomePageItem = ({ item }) => {
-    if (item.type === 'article') {
-        const { image, slug, title } = getFeaturedCardFields(item, 'home');
-        return (
-            <StyledTopCard image={image} to={slug} title={title} key={title} />
-        );
-    }
+    const { image, slug, title } = getFeaturedCardFields(item, 'home');
+    return <StyledTopCard image={image} to={slug} title={title} key={title} />;
 };
 
 const Hero = ({ featuredItems }) => (

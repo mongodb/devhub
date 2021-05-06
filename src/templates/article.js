@@ -1,5 +1,4 @@
 import React from 'react';
-import dlv from 'dlv';
 import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
@@ -11,66 +10,13 @@ import RelatedArticles from '../components/dev-hub/related-articles';
 import { screenSize, size } from '../components/dev-hub/theme';
 import SEO from '../components/dev-hub/SEO';
 import ArticleSeries from '../components/dev-hub/article-series';
-import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
-import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
-import { getNestedValue } from '../utils/get-nested-value';
-import { findSectionHeadings } from '../utils/find-section-headings';
-import { getNestedText } from '../utils/get-nested-text';
+
 import ArticleSchema from '../components/dev-hub/article-schema';
-
-/**
- * Name map of directives we want to display in an article
- */
-const contentNodesMap = {
-    introduction: true,
-    prerequisites: true,
-    content: true,
-    summary: true,
-};
-
-const dateFormatOptions = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC',
-};
-
-/**
- * search the ast for the few directives we need to display content
- * TODO this ignores some important meta like Twitter for now
- * @param {array} nodes
- * @returns {array} array of childNodes with our main content
- */
-const getContent = nodes => {
-    const nodesWeActuallyWant = [];
-    for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
-        const childNode = nodes[nodeIndex];
-        // check top level directives first
-        if (contentNodesMap[childNode.name]) {
-            nodesWeActuallyWant.push(childNode);
-        }
-        // Some content nodes will be children of section nodes
-        else if (childNode.type === 'section') {
-            for (
-                let childIndex = 0;
-                childIndex < childNode.children.length;
-                childIndex++
-            ) {
-                const grandChildNode = childNode.children[childIndex];
-                if (contentNodesMap[grandChildNode.name]) {
-                    nodesWeActuallyWant.push(grandChildNode);
-                }
-            }
-        }
-    }
-
-    return nodesWeActuallyWant;
-};
 
 const ArticleContent = styled('article')`
     max-width: ${size.maxContentWidth};
@@ -109,91 +55,71 @@ const Container = styled('div')`
 const Article = props => {
     const {
         pageContext: {
-            __refDocMapping,
             seriesArticles,
-            slug: thisPage,
             metadata: { slugToTitle: slugTitleMapping },
+            article: {
+                authors,
+                contentAST,
+                headingNodes,
+                image,
+                languages,
+                products,
+                publishedDate,
+                related,
+                SEO: { canonicalUrl, metaDescription, og, twitter },
+                slug,
+                tags,
+                title,
+                type,
+                updatedDate,
+            },
         },
         ...rest
     } = props;
     const { siteUrl } = useSiteMetadata();
-    const childNodes = dlv(__refDocMapping, 'ast.children', []);
-    const contentNodes = getContent(childNodes);
-    const meta = dlv(__refDocMapping, 'query_fields');
-    const og = meta.og || {};
-    const ogDescription =
-        og.children && og.children.length ? getNestedText(og.children) : null;
-    const twitterNode = childNodes.find(node => node.name === 'twitter');
-    const metaDescriptionNode = childNodes.find(
-        node => node.name === 'meta-description'
-    );
-    const metaDescription =
-        metaDescriptionNode && getNestedText(metaDescriptionNode.children);
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Learn', target: '/learn' },
     ];
-    if (meta.type && meta.type.length) {
+    if (type && type.length) {
         articleBreadcrumbs.push({
-            label: meta.type[0].toUpperCase() + meta.type.substring(1),
-            target: `/type/${getTagPageUriComponent(meta.type)}`,
+            label: type[0].toUpperCase() + type.substring(1),
+            target: `/type/${getTagPageUriComponent(type)}`,
         });
     }
-    const tagList = getTagLinksFromMeta(meta);
-    const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
-    const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${thisPage}`);
-    const headingNodes = findSectionHeadings(
-        getNestedValue(['ast', 'children'], __refDocMapping),
-        'type',
-        'heading',
-        1
-    );
-    const formattedPublishedDate = toDateString(
-        meta.pubdate,
-        dateFormatOptions
-    );
-    const formattedUpdatedDate = toDateString(
-        meta['updated-date'],
-        dateFormatOptions
-    );
-    const canonicalUrl = dlv(
-        __refDocMapping,
-        'ast.options.canonical-href',
-        articleUrl
-    );
-
-    const articleImage = withPrefix(meta['atf-image']);
+    const tagList = [...products, ...languages, ...tags];
+    const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
 
     return (
         <Layout includeCanonical={false}>
             <SEO
-                articleTitle={articleTitle}
+                articleTitle={title}
                 canonicalUrl={canonicalUrl}
                 image={og.image}
                 metaDescription={metaDescription}
-                ogDescription={ogDescription}
-                ogTitle={og.title || articleTitle}
+                ogDescription={og.description}
+                ogTitle={og.title || title}
                 ogUrl={og.url || articleUrl}
-                twitterNode={twitterNode}
+                twitter={twitter}
                 type={og.type}
             />
             <ArticleSchema
                 articleUrl={articleUrl}
-                title={articleTitle}
+                title={title}
                 description={metaDescription}
-                publishedDate={meta.pubdate}
-                modifiedDate={meta['updated-date']}
-                imageUrl={articleImage}
-                authors={meta.author}
+                publishedDate={publishedDate}
+                modifiedDate={updatedDate}
+                imageUrl={image}
+                authors={authors}
             />
             <BlogPostTitleArea
-                articleImage={articleImage}
-                authors={meta.author}
+                articleImage={image}
+                authors={authors}
                 breadcrumb={articleBreadcrumbs}
-                originalDate={formattedPublishedDate}
+                originalDate={publishedDate}
                 tags={tagList}
-                title={articleTitle}
-                updatedDate={formattedUpdatedDate}
+                title={title}
+                updatedDate={updatedDate}
             />
             <Container>
                 <Icons>
@@ -204,7 +130,7 @@ const Article = props => {
                         width={size.default}
                     />
                     <ShareMenu
-                        title={articleTitle}
+                        title={title}
                         url={articleUrl}
                         height={size.default}
                         width={size.default}
@@ -212,42 +138,29 @@ const Article = props => {
                 </Icons>
                 <ArticleContent>
                     <DocumentBody
-                        pageNodes={contentNodes}
+                        pageNodes={contentAST}
                         slugTitleMapping={slugTitleMapping}
-                        slug={thisPage}
+                        slug={slug}
                         {...rest}
                     />
                     <ArticleShareFooter
-                        title={articleTitle}
+                        title={title}
                         url={articleUrl}
                         tags={tagList}
                     />
                     <ArticleSeries
                         allSeriesForArticle={seriesArticles}
                         slugTitleMapping={slugTitleMapping}
-                        title={articleTitle}
+                        title={title}
                     />
                 </ArticleContent>
             </Container>
             <RelatedArticles
-                related={meta.related}
+                related={related}
                 slugTitleMapping={slugTitleMapping}
             />
         </Layout>
     );
-};
-
-Article.propTypes = {
-    pageContext: PropTypes.shape({
-        __refDocMapping: PropTypes.shape({
-            ast: PropTypes.shape({
-                children: PropTypes.array,
-            }).isRequired,
-        }).isRequired,
-        slugTitleMapping: PropTypes.shape({
-            [PropTypes.string]: PropTypes.string,
-        }),
-    }).isRequired,
 };
 
 export default Article;

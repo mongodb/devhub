@@ -1,10 +1,16 @@
-export const findSectionHeadings = (nodes, key, value, maxDepth) => {
+export const findSectionHeadings = (
+    nodes,
+    key,
+    value,
+    maxDepth,
+    minDepth = 1
+) => {
     const results = [];
     const searchNode = (node, sectionDepth) => {
         if (
             node[key] === value &&
             sectionDepth - 1 <= maxDepth &&
-            sectionDepth > 1
+            sectionDepth > minDepth
         ) {
             const nodeTitle = node.children;
             const newNode = {
