@@ -20,6 +20,7 @@ import {
 import { createArticlePage } from './src/utils/setup/create-article-page';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
 import { schemaCustomization } from './src/utils/setup/schema-customization';
+import { SnootyArticle } from './src/classes/snooty-article';
 
 const pluralizeIfNeeded = {
     author: 'authors',
@@ -41,7 +42,7 @@ const assets = {};
 // in-memory object with key/value = filename/document
 const slugContentMapping = {};
 
-const snootyArticles = [];
+let snootyArticles = [];
 let allArticles = [];
 
 // stich client connection
@@ -92,10 +93,14 @@ export const sourceNodes = async ({
             createContentDigest,
             slugContentMapping,
             rawContent,
-            snootyArticles,
-            pathPrefix
+            snootyArticles
         );
     });
+    // This must be done after so all author bios exist
+    snootyArticles = snootyArticles.map(
+        ({ slug, doc }) =>
+            new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
+    );
 };
 
 // Snooty Parser v0.7.0 introduced a fileid keyword that is passed as a string for the includes directive
