@@ -34,7 +34,7 @@ export const schemaCustomization = ({ actions }) => {
         title: String
         image: CMSImage
     }
-    type StrapiArticle implements Node {
+    type StrapiArticles implements Node {
         authors: [Author]
         content: String
         type: String
@@ -45,12 +45,9 @@ export const schemaCustomization = ({ actions }) => {
         slug: String
         image: CMSImage
         name: String
-        published_at: Date
-        updatedAt: Date
+        published_at: Date @dateformat
+        updatedAt: Date @dateformat
         SEO: SEO
-    }
-    type allStrapiArticles implements Node @dontInfer {
-        nodes: [StrapiArticle]
     }
     type StrapiClientSideRedirect implements Node {
         fromPath: String

@@ -162,17 +162,4 @@ const Article = props => {
     );
 };
 
-Article.propTypes = {
-    pageContext: PropTypes.shape({
-        __refDocMapping: PropTypes.shape({
-            ast: PropTypes.shape({
-                children: PropTypes.array,
-            }).isRequired,
-        }).isRequired,
-        slugTitleMapping: PropTypes.shape({
-            [PropTypes.string]: PropTypes.string,
-        }),
-    }).isRequired,
-};
-
 export default Article;

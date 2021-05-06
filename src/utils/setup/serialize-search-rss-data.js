@@ -66,7 +66,7 @@ const getStrapiCustomRSSElements = article => {
     const tags = article.tags;
     const rawContent = article.content;
     const customElements = [
-        { atf_image: article.image.url },
+        { atf_image: article.image && article.image.url },
         { slug: article.slug },
         { type: article.type },
     ];
