@@ -11,7 +11,13 @@ export const parseMarkdownToAST = markdown => {
     function transform(tree) {
         visit(
             tree,
-            ['heading', 'textDirective', 'leafDirective', 'containerDirective'],
+            [
+                'heading',
+                'textDirective',
+                'leafDirective',
+                'containerDirective',
+                'image',
+            ],
             ondirective
         );
     }
@@ -23,6 +29,14 @@ export const parseMarkdownToAST = markdown => {
                 node['id'] = getTagPageUriComponent(
                     getNestedText(node['children'])
                 );
+                break;
+            case 'image':
+                const isFigure = !!node.title;
+                if (isFigure) {
+                    node.type = 'figure';
+                    node.children = [{ type: 'text', value: node.title }];
+                    node.options = {};
+                }
                 break;
             case 'textDirective':
                 // Custom directive definitions go here
