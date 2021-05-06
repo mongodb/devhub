@@ -22,6 +22,13 @@ export const transformArticleStrapiData = article => {
         isFromStrapi: true,
         languages: article.languages.map(l => l.language),
         products: article.products.map(p => p.product),
+        related: article.related_content
+            ? article.related_content.map(({ label, url }) => ({
+                  name: 'reference',
+                  refuri: url,
+                  children: [{ value: label }],
+              }))
+            : [],
         SEO: {
             canonicalUrl: SEOObject.canonical_url,
             metaDescription: SEOObject.meta_description,

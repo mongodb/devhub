@@ -16,6 +16,10 @@ export const schemaCustomization = ({ actions }) => {
     type CMSImage implements Node {
         url: String
     }
+    type Related implements Node {
+        label: String
+        url: String
+    }
     type SEO implements Node {
         canonical_url: String
         meta_description: String
@@ -43,6 +47,7 @@ export const schemaCustomization = ({ actions }) => {
         products: [Product]
         tags: [Tag]
         slug: String
+        related_content: [Related]
         image: CMSImage
         name: String
         published_at: Date @dateformat
