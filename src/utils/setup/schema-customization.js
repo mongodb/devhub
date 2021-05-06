@@ -49,9 +49,6 @@ export const schemaCustomization = ({ actions }) => {
         updatedAt: Date @dateformat
         SEO: SEO
     }
-    type allStrapiArticles implements Node @dontInfer {
-        nodes: [StrapiArticles]
-    }
     type StrapiClientSideRedirect implements Node {
         fromPath: String
         isPermanent: Boolean
