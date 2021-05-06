@@ -13,7 +13,6 @@ export class AuthorPage implements Author, TagPage {
     title: String;
     type: TagType;
     constructor(author, slug, pages) {
-        console.log(author.name, author.bio);
         const name = author.name;
         this.bio = author.bio;
         this.isASTBio = author.isASTBio;

@@ -32,7 +32,6 @@ export class SnootyAuthor implements AuthorInterface {
             ['ast', 'children', 0, 'children', 0],
             null
         );
-        console.log(name, this.bio);
         this.isASTBio = true;
         this.isInternalReference = true;
         this.location = location;
