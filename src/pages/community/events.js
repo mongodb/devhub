@@ -34,7 +34,7 @@ export default () => {
         <Layout>
             <PageHelmet
                 metaTitle={`Events - ${title}`}
-                canonicalUrl={`${siteUtl}/community/events`}
+                canonicalUrl={`${siteUtl}/community/events/`}
                 metaDescription={PAGE_DESCRIPTION}
             />
             <HeroBanner

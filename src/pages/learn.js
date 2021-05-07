@@ -330,7 +330,7 @@ export default ({
     return (
         <Layout>
             <PageHelmet
-                canonicalUrl={`${siteUrl}/learn`}
+                canonicalUrl={`${siteUrl}/learn/`}
                 metaTitle={pageTitle}
             />
             <Header>

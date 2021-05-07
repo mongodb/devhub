@@ -83,7 +83,7 @@ const Tag = props => {
     return (
         <Layout>
             <PageHelmet
-                canonicalUrl={`${metadata.siteUrl}/${slug}`}
+                canonicalUrl={`${metadata.siteUrl}${slug}/`}
                 metaTitle={metaTitle}
             />
             <Helmet>

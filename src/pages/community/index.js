@@ -78,7 +78,7 @@ export default () => {
         <Layout>
             <PageHelmet
                 metaTitle={`Community - ${title}`}
-                canonicalUrl={`${siteUrl}/community`}
+                canonicalUrl={`${siteUrl}/community/`}
             />
             <UpcomingEvents>
                 <EventsHeader>

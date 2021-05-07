@@ -205,7 +205,7 @@ export default () => {
             <PageHelmet
                 metaDescription={PAGE_DESCRIPTION}
                 metaTitle={`Code for Good - ${title}`}
-                canonicalUrl={`${siteUrl}/code-for-good`}
+                canonicalUrl={`${siteUrl}/code-for-good/`}
             />
             <StyledHeroBanner
                 breadcrumb={codeForGoodBreadcrumbs}

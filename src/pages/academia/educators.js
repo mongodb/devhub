@@ -16,7 +16,7 @@ export default () => {
     return (
         <Layout>
             <PageHelmet
-                canonicalUrl={`${siteUrl}/academia/educators`}
+                canonicalUrl={`${siteUrl}/academia/educators/`}
                 metaDescription={PAGE_DESCRIPTION}
                 metaTitle={`Academia for Educators - ${title}`}
             />
