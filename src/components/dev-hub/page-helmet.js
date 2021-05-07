@@ -15,8 +15,6 @@ const PageHelmet = ({ canonicalUrl, metaDescription, metaTitle }) => {
     const title = metaTitle || standardTitle;
     const url = canonicalUrl || siteUrl;
 
-    console.log(standardTitle);
-
     return (
         <SEO
             articleTitle={title}
