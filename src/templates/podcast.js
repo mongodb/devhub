@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
@@ -9,6 +9,7 @@ import PodcastJumbotron from '~components/dev-hub/podcast-jumbotron';
 import SEO from '~components/dev-hub/SEO';
 import ShareFooter from '~components/dev-hub/article-share-footer';
 import ShareMenu from '~components/dev-hub/share-menu';
+import { P } from '~components/dev-hub/text';
 
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
@@ -23,10 +24,6 @@ const PODCAST_BREADCRUMB = [
         target: '/',
     },
     { label: 'Learn', target: '/learn' },
-    {
-        label: 'Podcasts',
-        target: '/podcasts',
-    },
 ];
 
 const TOOLTIP_TEXT = 'Podcast link copied to clipboard!';
@@ -37,7 +34,7 @@ const Container = styled('div')`
     @media ${screenSize.largeAndUp} {
         display: flex;
         justify-content: center;
-        margin-top: 100px;
+        margin-top: ${size.xxlarge};
     }
 `;
 
@@ -74,7 +71,7 @@ const Content = styled('article')`
     }
 `;
 
-const StyledParagraph = styled('p')`
+const StyledParagraph = styled(P)`
     line-height: ${lineHeight.default};
 `;
 
@@ -82,25 +79,36 @@ const StyledPlayer = styled(AudioPlayer)`
     margin-bottom: ${size.mediumLarge};
 
     @media ${screenSize.largeAndUp} {
-        margin-bottom: 40px;
+        margin-bottom: ${size.large};
     }
 `;
 
 const Podcast = ({
     pageContext: {
         data: {
-            url: podcastUrl,
             description,
             publishDate,
             thumbnailUrl: image,
             title,
+            url: podcastUrl,
         },
+        slug,
     },
-    path: slug,
 }) => {
     const { siteUrl } = useSiteMetadata();
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
     const formattedPublishDate = toDateString(publishDate, dateFormatOptions);
+
+    const podcastBreadcrumb = useMemo(
+        () => [
+            ...PODCAST_BREADCRUMB,
+            {
+                label: 'Podcast',
+                target: slug,
+            },
+        ],
+        [slug]
+    );
 
     return (
         <Layout includeCanonical={false}>
@@ -117,7 +125,6 @@ const Podcast = ({
                     image,
                     title,
                 }}
-                type="music.song"
             />
             <ArticleSchema
                 articleUrl={pageUrl}
@@ -127,7 +134,7 @@ const Podcast = ({
                 imageUrl={image}
             />
             <PodcastJumbotron
-                breadcrumb={PODCAST_BREADCRUMB}
+                breadcrumb={podcastBreadcrumb}
                 image={image}
                 publishDate={formattedPublishDate}
                 title={title}
@@ -147,7 +154,7 @@ const Podcast = ({
                     <ShareFooter
                         title={title}
                         tooltipText={TOOLTIP_TEXT}
-                        url={podcastUrl}
+                        url={pageUrl}
                     />
                 </Content>
             </Container>
@@ -164,8 +171,8 @@ Podcast.propTypes = {
             title: PropTypes.string,
             url: PropTypes.string,
         }),
+        slug: PropTypes.string,
     }),
-    path: PropTypes.string,
 };
 
 export default Podcast;

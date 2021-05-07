@@ -6,13 +6,14 @@ export const createPodcastPages = async (createPage, metadataDocument) => {
     const { allPodcasts } = await fetchBuildTimeMedia();
 
     allPodcasts.forEach(podcast => {
-        const urlSuffix = getTagPageUriComponent(podcast.title);
+        const slug = `/podcasts/${getTagPageUriComponent(podcast.title)}`;
         createPage({
-            path: `/podcasts/${urlSuffix}`,
+            path: slug,
             component: path.resolve(`./src/templates/podcast.js`),
             context: {
                 metadata: metadataDocument,
                 data: podcast,
+                slug,
             },
         });
     });
