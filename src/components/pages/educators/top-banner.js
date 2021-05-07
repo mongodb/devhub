@@ -36,7 +36,7 @@ const ReducedMarginBanner = styled(HeroBanner)`
     }
 `;
 
-const TopBanner = () => (
+const TopBanner = ({ description }) => (
     <ReducedMarginBanner
         background={EducatorsHeader}
         backgroundPosition="100% 42px"
@@ -44,12 +44,7 @@ const TopBanner = () => (
     >
         <Header>
             <H2>MongoDB Academia for Educators</H2>
-
-            <HeadingCopy>
-                MongoDB for Academia is for educators who want to prepare
-                students for careers that require in-demand database skills that
-                power modern applications.
-            </HeadingCopy>
+            <HeadingCopy>{description}</HeadingCopy>
             <SignUpModal />
         </Header>
     </ReducedMarginBanner>

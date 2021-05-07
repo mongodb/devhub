@@ -1,21 +1,26 @@
 import React from 'react';
 import Layout from '../../components/dev-hub/layout';
-import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import {
     TopBanner,
     HowToJoin,
     ProgramBenefits,
 } from '../../components/pages/educators';
+import PageHelmet from '~components/dev-hub/page-helmet';
+
+const PAGE_DESCRIPTION =
+    'MongoDB for Academia is for educators who want to prepare students for careers that require in-demand database skills that power modern applications.';
 
 export default () => {
-    const metadata = useSiteMetadata();
+    const { title, siteUrl } = useSiteMetadata();
     return (
         <Layout>
-            <Helmet>
-                <title>Academia for Educators - {metadata.title}</title>
-            </Helmet>
-            <TopBanner />
+            <PageHelmet
+                canonicalUrl={`${siteUrl}/academia/educators`}
+                metaDescription={PAGE_DESCRIPTION}
+                metaTitle={`Academia for Educators - ${title}`}
+            />
+            <TopBanner description={PAGE_DESCRIPTION} />
             <ProgramBenefits />
             <HowToJoin />
         </Layout>
