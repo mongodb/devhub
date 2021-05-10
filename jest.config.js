@@ -25,6 +25,7 @@ module.exports = {
             testMatch: ['<rootDir>/tests/unit/*.test.js'],
             transform: {
                 '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,
+                '^.+\\.(ts|tsx)$': 'ts-jest',
             },
             transformIgnorePatterns: ['/node_modules/(?!(@leafygreen-ui)/)'],
         },
@@ -44,6 +45,7 @@ module.exports = {
             testMatch: ['<rootDir>/tests/utils/*.test.js'],
             transform: {
                 '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,
+                '^.+\\.(ts|tsx)$': 'ts-jest',
             },
         },
         {
@@ -54,6 +56,7 @@ module.exports = {
             testMatch: ['<rootDir>/tests/hooks/*.test.js'],
             transform: {
                 '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,
+                '^.+\\.(ts|tsx)$': 'ts-jest',
             },
         },
     ],

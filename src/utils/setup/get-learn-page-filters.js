@@ -3,13 +3,13 @@ export const getLearnPageFilters = allArticles => {
     const products = {};
 
     allArticles.forEach(article => {
-        const languagesForArticle = article.query_fields.languages;
-        const productsForArticle = article.query_fields.products;
+        const languagesForArticle = article.languages;
+        const productsForArticle = article.products;
         // Go through languages for this article and update filter info.
         // Add a count of how many times this language appears and keep track
         // of how many itmes we see a product with this language
         if (languagesForArticle) {
-            languagesForArticle.forEach(language => {
+            languagesForArticle.forEach(({ label: language }) => {
                 const currentLanguage = languages[language];
                 if (currentLanguage) {
                     currentLanguage.count++;
@@ -23,7 +23,7 @@ export const getLearnPageFilters = allArticles => {
                 if (productsForArticle) {
                     // If this article also has products, update those counts as well for this language
                     const productsForLanguage = languages[language].products;
-                    productsForArticle.forEach(product => {
+                    productsForArticle.forEach(({ label: product }) => {
                         productsForLanguage[product]
                             ? productsForLanguage[product]++
                             : (productsForLanguage[product] = 1);
@@ -35,7 +35,7 @@ export const getLearnPageFilters = allArticles => {
         // Add a count of how many times this product appears and keep track
         // of how many itmes we see a language with this product
         if (productsForArticle) {
-            productsForArticle.forEach(product => {
+            productsForArticle.forEach(({ label: product }) => {
                 const currentProduct = products[product];
                 if (currentProduct) {
                     currentProduct.count++;
@@ -49,7 +49,7 @@ export const getLearnPageFilters = allArticles => {
                 if (languagesForArticle) {
                     // If this article also has languages, update those counts as well for this products
                     const languagesForProduct = products[product].languages;
-                    languagesForArticle.forEach(language => {
+                    languagesForArticle.forEach(({ label: language }) => {
                         languagesForProduct[language]
                             ? languagesForProduct[language]++
                             : (languagesForProduct[language] = 1);

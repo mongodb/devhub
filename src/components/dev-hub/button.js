@@ -154,20 +154,9 @@ const StyledButton = styled('button')`
 
     ${({ primary, theme }) => primary && primaryStyles(theme)}
     ${({ secondary, theme }) => secondary && secondaryStyles(theme)}
-    ${({
-        play,
-        theme,
-    }) => play && playStyles(theme)}
-    ${({
-        play,
-        primary,
-        secondary,
-        theme,
-    }) =>
-        !primary &&
-        !secondary &&
-        !play &&
-        tertiaryStyles(theme)}
+    ${({ play, theme }) => play && playStyles(theme)}
+    ${({ play, primary, secondary, theme }) =>
+        !primary && !secondary && !play && tertiaryStyles(theme)}
     &[disabled],
     &[disabled]:hover {
         background: ${({ theme }) => theme.colorMap.greyLightThree};

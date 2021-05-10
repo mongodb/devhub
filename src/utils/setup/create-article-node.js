@@ -8,7 +8,8 @@ export const createArticleNode = (
     createNode,
     createContentDigest,
     slugContentMapping,
-    rawContent
+    rawContent,
+    snootyArticles
 ) => {
     const filename = getNestedValue(['filename'], doc) || '';
     const isArticlePage =
@@ -33,6 +34,7 @@ export const createArticleNode = (
             title: getNestedText(doc.query_fields['title']),
             type: doc.query_fields['type'],
         };
+        snootyArticles.push({ slug, doc });
         createNode({
             id: slug,
             parent: null,

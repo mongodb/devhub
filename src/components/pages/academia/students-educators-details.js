@@ -46,11 +46,13 @@ const MaxWidthMobileImage = styled('img')`
     }
 `;
 
-const BenefitsLayout = styled('div')`
+const BenefitsLayout = styled('div', {
+    shouldForwardProp: prop => prop !== 'maxWidth',
+})`
     display: grid;
     grid-template-columns: repeat(2, 50%);
     margin: 0 auto;
-    max-width: ${({ maxwidth }) => maxwidth};
+    max-width: ${({ maxWidth }) => maxWidth};
     padding: ${size.xlarge} 0;
     @media ${screenSize.upToLarge} {
         display: block;
@@ -131,7 +133,7 @@ const BenefitTypeCard = ({
 };
 
 const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
-    <BenefitsLayout maxwidth={maxWidth}>
+    <BenefitsLayout maxWidth={maxWidth}>
         <BenefitTypeCard
             alt="Desk with book on top. Chair is behind the desk."
             href="https://www.mongodb.com/students"
