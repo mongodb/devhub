@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
 import { screenSize, size } from './dev-hub/theme';
 
@@ -24,18 +23,18 @@ const StyledLiteral = styled('code')`
     }
 `;
 
-const Literal = ({ nodeData: { children } }) => (
-    <StyledLiteral>
-        {children.map((node, i) => (
-            <ComponentFactory nodeData={node} key={i} />
-        ))}
-    </StyledLiteral>
-);
-
-Literal.propTypes = {
-    nodeData: PropTypes.shape({
-        children: PropTypes.arrayOf(PropTypes.object).isRequired,
-    }).isRequired,
+const Literal = ({ nodeData: { children, value } }) => {
+    // Value is the DevHub CMS representation
+    if (value) {
+        return <StyledLiteral>{value}</StyledLiteral>;
+    }
+    return (
+        <StyledLiteral>
+            {children.map((node, i) => (
+                <ComponentFactory nodeData={node} key={i} />
+            ))}
+        </StyledLiteral>
+    );
 };
 
 export default Literal;

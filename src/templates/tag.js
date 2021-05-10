@@ -56,19 +56,14 @@ const SyledAuthorImage = styled(AuthorImage)`
     margin-right: ${size.medium};
 `;
 
-const constructArticles = data =>
-    data.reduce(
-        (accum, article) =>
-            accum.concat({ ...article.query_fields, _id: article._id }),
-        []
-    );
-
 const Tag = props => {
     const {
         pageContext: {
             bio,
             pages,
-            author_image,
+            image,
+            isASTBio,
+            isInternalImage = true,
             location,
             name,
             slug,
@@ -79,7 +74,6 @@ const Tag = props => {
     } = props;
     const metadata = useSiteMetadata();
     const isAuthor = type === 'author';
-    const articles = constructArticles(pages);
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
     const { page } = parseQueryString(search);
 
@@ -115,7 +109,10 @@ const Tag = props => {
                     <div>
                         <AuthorHero>
                             <AuthorByline>
-                                <SyledAuthorImage image={author_image} />
+                                <SyledAuthorImage
+                                    isInternalImage={isInternalImage}
+                                    image={image}
+                                />
                                 <AuthorName>
                                     <Title>
                                         {page ? `${name} - Page ${page}` : name}
@@ -128,14 +125,19 @@ const Tag = props => {
                                 </AuthorName>
                             </AuthorByline>
                         </AuthorHero>
-                        {bio && <ComponentFactory nodeData={bio} />}
+                        {bio &&
+                            (isASTBio ? (
+                                <ComponentFactory nodeData={bio} />
+                            ) : (
+                                bio
+                            ))}
                     </div>
                 )}
             </HeroBanner>
 
             <ArticleContent>
                 {isAuthor && <H3>Articles by {name}</H3>}
-                <CardList articles={articles} />
+                <CardList articles={pages} />
             </ArticleContent>
         </Layout>
     );
@@ -143,14 +145,6 @@ const Tag = props => {
 
 Tag.propTypes = {
     pageContext: PropTypes.shape({
-        pages: PropTypes.arrayOf({
-            query_field: PropTypes.shape({
-                author: PropTypes.string,
-                languages: PropTypes.arrayOf(PropTypes.string),
-                tags: PropTypes.arrayOf(PropTypes.string),
-            }),
-        }),
-        // TODO: Some of these fields are not yet part of author's data (ex: bio, location, title)
         author_image: PropTypes.string,
         bio: PropTypes.string,
         location: PropTypes.string,

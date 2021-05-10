@@ -9,11 +9,8 @@ const ArticleShareArea = styled('div')`
     display: flex;
     justify-content: space-between;
     margin-bottom: ${size.large};
-    margin-top: ${size.xlarge};
+    margin-top: ${size.large};
     padding-top: ${size.medium};
-    @media ${screenSize.upToMedium} {
-        margin-top: ${size.large};
-    }
 `;
 
 const StyledBlogShareLinks = styled(BlogShareLinks)`

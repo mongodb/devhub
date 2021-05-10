@@ -72,7 +72,10 @@ export default class Image extends Component {
             nodeData.url ||
             getNestedValue(['argument', 0, 'value'], nodeData);
         const altText =
-            alt || getNestedValue(['options', 'alt'], nodeData) || imgSrc;
+            alt ||
+            nodeData.alt ||
+            getNestedValue(['options', 'alt'], nodeData) ||
+            imgSrc;
         const customAlign = getNestedValue(['options', 'align'], nodeData);
         const scale = getNestedValue(['options', 'scale'], nodeData);
 

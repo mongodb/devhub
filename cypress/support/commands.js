@@ -53,10 +53,10 @@ Cypress.Commands.add('checkArticleCard', card => {
     });
 });
 
-Cypress.Commands.add('checkFirstCardInCardList', contains => {
+Cypress.Commands.add('checkCardInCardList', (contains, index = 0) => {
     cy.get('[data-test="card-list"]').within(() => {
         cy.get('[data-test="card"]')
-            .first()
+            .eq(index)
             .within(card => {
                 cy.checkArticleCard(card);
                 cy.contains(contains);

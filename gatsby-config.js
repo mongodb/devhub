@@ -28,8 +28,13 @@ module.exports = {
             resolve: `gatsby-source-strapi`,
             options: {
                 apiURL: process.env.STRAPI_URL,
-                contentTypes: ['client-side-redirects', 'projects'],
-                singleTypes: ['student-spotlight-featured', 'top-nav'],
+                contentTypes: ['articles', 'client-side-redirects', 'projects'],
+                singleTypes: [
+                    'feedback-rating-flow',
+                    'student-spotlight-featured',
+                    'top-nav',
+                ],
+                publicationState: process.env.STRAPI_PUBLICATION_STATE,
             },
         },
         {

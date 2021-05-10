@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StarRating renders correctly 1`] = `
+<ArticleRatingProvider
+  value={
+    Object {
+      "ratingState": Object {
+        "isClicked": false,
+        "starRatingFlow": null,
+        "starts": Array [
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+      },
+    }
+  }
+>
+  <Memo(StarRating)
+    clickHandlers={
+      Array [
+        [MockFunction],
+        [MockFunction],
+        [MockFunction],
+        [MockFunction],
+        [MockFunction],
+      ]
+    }
+  />
+</ArticleRatingProvider>
+`;
