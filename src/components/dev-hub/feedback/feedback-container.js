@@ -19,6 +19,7 @@ import {
     STAR_ACTIONS,
     STAR_RATING_FLOW,
 } from '~components/ArticleRatingContext';
+import BalloonsIcon from '~components/dev-hub/icons/balloons-icon';
 import { screenSize } from '~components/dev-hub/theme';
 
 const feedbackItems = graphql`
@@ -119,6 +120,11 @@ const FeedbackContainer = ({ starRatingFlow, articleMeta, closeModal }) => {
                 <FeedbackForm
                     ratingFlow={ratingFlow}
                     onSubmit={onSubmitHandler}
+                    icon={
+                        starRatingFlow === STAR_RATING_FLOW.FIVE && (
+                            <BalloonsIcon />
+                        )
+                    }
                 />
             )}
         </Modal>
