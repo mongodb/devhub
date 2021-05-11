@@ -1,6 +1,4 @@
 import React from 'react';
-import { withPrefix } from 'gatsby';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
 import ArticleShareFooter from '../components/dev-hub/article-share-footer';
@@ -15,10 +13,12 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
-
 import ArticleSchema from '../components/dev-hub/article-schema';
+import ArticleRating from '~components/ArticleRating';
+import { ArticleRatingProvider } from '~components/ArticleRatingContext';
 
 const ArticleContent = styled('article')`
+    grid-area: article;
     max-width: ${size.maxContentWidth};
     padding-left: ${size.small};
     padding-right: ${size.small};
@@ -26,7 +26,9 @@ const ArticleContent = styled('article')`
         margin: 0 auto;
     }
 `;
+
 const Icons = styled('div')`
+    grid-area: icons;
     margin: ${size.tiny} ${size.default};
     span {
         padding: 0 ${size.tiny};
@@ -39,19 +41,48 @@ const Icons = styled('div')`
         }
     }
     @media ${screenSize.upToLarge} {
-        margin: 0 ${size.small};
+        margin: 0 0 0 ${size.small};
         span:not(:first-of-type) {
             margin-left: ${size.small};
         }
     }
 `;
+
 const Container = styled('div')`
-    margin: 0 auto;
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-columns: auto;
+    justify-content: center;
+
+    grid-template-areas:
+        'icons icons rating'
+        'article article article'
+        'article article article'
+        'article article article';
+
     @media ${screenSize.largeAndUp} {
-        display: flex;
-        justify-content: center;
+        grid-template-areas:
+            'rating rating rating'
+            'icons article article'
+            'icons article article'
+            'icons article article';
     }
 `;
+
+const StyledRating = styled(ArticleRating)`
+    grid-area: rating;
+    justify-self: end;
+    margin: 0 ${size.default} ${size.large} 0;
+
+    @media ${screenSize.mediumAndUp} {
+        margin: 0 6px ${size.small} 6px;
+    }
+
+    @media ${screenSize.largeAndUp} {
+        margin-bottom: ${size.large};
+    }
+`;
+
 const Article = props => {
     const {
         pageContext: {
@@ -76,6 +107,7 @@ const Article = props => {
         },
         ...rest
     } = props;
+    const meta = { authors, slug, title };
     const { siteUrl } = useSiteMetadata();
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
@@ -91,75 +123,79 @@ const Article = props => {
     const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
 
     return (
-        <Layout includeCanonical={false}>
-            <SEO
-                articleTitle={title}
-                canonicalUrl={canonicalUrl}
-                image={og.image}
-                metaDescription={metaDescription}
-                ogDescription={og.description}
-                ogTitle={og.title || title}
-                ogUrl={og.url || articleUrl}
-                twitter={twitter}
-                type={og.type}
-            />
-            <ArticleSchema
-                articleUrl={articleUrl}
-                title={title}
-                description={metaDescription}
-                publishedDate={publishedDate}
-                modifiedDate={updatedDate}
-                imageUrl={image}
-                authors={authors}
-            />
-            <BlogPostTitleArea
-                articleImage={image}
-                authors={authors}
-                breadcrumb={articleBreadcrumbs}
-                originalDate={publishedDate}
-                tags={tagList}
-                title={title}
-                updatedDate={updatedDate}
-            />
-            <Container>
-                <Icons>
-                    <ContentsMenu
-                        title="Contents"
-                        headingNodes={headingNodes}
-                        height={size.default}
-                        width={size.default}
-                    />
-                    <ShareMenu
-                        title={title}
-                        url={articleUrl}
-                        height={size.default}
-                        width={size.default}
-                    />
-                </Icons>
-                <ArticleContent>
-                    <DocumentBody
-                        pageNodes={contentAST}
-                        slugTitleMapping={slugTitleMapping}
-                        slug={slug}
-                        {...rest}
-                    />
-                    <ArticleShareFooter
-                        title={title}
-                        url={articleUrl}
-                        tags={tagList}
-                    />
-                    <ArticleSeries
-                        allSeriesForArticle={seriesArticles}
-                        slugTitleMapping={slugTitleMapping}
-                        title={title}
-                    />
-                </ArticleContent>
-            </Container>
-            <RelatedArticles
-                related={related}
-                slugTitleMapping={slugTitleMapping}
-            />
-        </Layout>
+        <ArticleRatingProvider>
+            <Layout includeCanonical={false}>
+                <SEO
+                    articleTitle={title}
+                    canonicalUrl={canonicalUrl}
+                    image={og.image}
+                    metaDescription={metaDescription}
+                    ogDescription={og.description}
+                    ogTitle={og.title || title}
+                    ogUrl={og.url || articleUrl}
+                    twitter={twitter}
+                    type={og.type}
+                />
+                <ArticleSchema
+                    articleUrl={articleUrl}
+                    title={title}
+                    description={metaDescription}
+                    publishedDate={publishedDate}
+                    modifiedDate={updatedDate}
+                    imageUrl={image}
+                    authors={authors}
+                />
+                <BlogPostTitleArea
+                    articleImage={image}
+                    authors={authors}
+                    breadcrumb={articleBreadcrumbs}
+                    originalDate={publishedDate}
+                    tags={tagList}
+                    title={title}
+                    updatedDate={updatedDate}
+                />
+                <Container>
+                    <StyledRating articleMeta={meta} isTop />
+                    <Icons>
+                        <ContentsMenu
+                            title="Contents"
+                            headingNodes={headingNodes}
+                            height={size.default}
+                            width={size.default}
+                        />
+                        <ShareMenu
+                            title={title}
+                            url={articleUrl}
+                            height={size.default}
+                            width={size.default}
+                        />
+                    </Icons>
+                    <ArticleContent>
+                        <DocumentBody
+                            pageNodes={contentAST}
+                            slugTitleMapping={slugTitleMapping}
+                            slug={slug}
+                            {...rest}
+                        />
+                        <ArticleRating isBottom articleMeta={meta} />
+                        <ArticleShareFooter
+                            title={title}
+                            url={articleUrl}
+                            tags={tagList}
+                        />
+                        <ArticleSeries
+                            allSeriesForArticle={seriesArticles}
+                            slugTitleMapping={slugTitleMapping}
+                            title={title}
+                        />
+                    </ArticleContent>
+                </Container>
+                <RelatedArticles
+                    related={related}
+                    slugTitleMapping={slugTitleMapping}
+                />
+            </Layout>
+        </ArticleRatingProvider>
     );
 };
 
