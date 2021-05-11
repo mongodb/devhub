@@ -66,4 +66,9 @@ const ArticleRatingProvider = ({ children }) => {
     );
 };
 
-export { ArticleRatingProvider, ArticleRatingContext, STAR_ACTIONS, STAR_RATING_FLOW };
+export {
+    ArticleRatingProvider,
+    ArticleRatingContext,
+    STAR_ACTIONS,
+    STAR_RATING_FLOW,
+};

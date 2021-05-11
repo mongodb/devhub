@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { useTheme } from '@emotion/react';
 import { size } from '~components/dev-hub/theme';
 
-const StarIcon = ({ color, isActive, name, children, size: iconSize, ...props }) => {
+const StarIcon = ({
+    color,
+    isActive,
+    name,
+    children,
+    size: iconSize,
+    ...props
+}) => {
     const theme = useTheme();
     const iconColor = color || theme.colorMap.greyDarkOne;
 

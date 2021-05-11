@@ -10,12 +10,28 @@ import SEO from '../components/dev-hub/SEO';
 import ArticleSeries from '../components/dev-hub/article-series';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
 import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
 import ArticleSchema from '../components/dev-hub/article-schema';
+import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import ArticleRating from '~components/ArticleRating';
 import { ArticleRatingProvider } from '~components/ArticleRatingContext';
+
+const StyledBlogShareLinks = styled(BlogShareLinks)`
+    flex-direction: column;
+    align-items: center;
+    > * {
+        margin-top: ${size.medium};
+    }
+    @media ${screenSize.upToLarge} {
+        display: inline-flex;
+        flex-direction: row;
+        > * {
+            margin-top: 0;
+            margin-left: ${size.mediumLarge};
+        }
+    }
+`;
 
 const ArticleContent = styled('article')`
     grid-area: article;
@@ -163,11 +179,10 @@ const Article = props => {
                             height={size.default}
                             width={size.default}
                         />
-                        <ShareMenu
+                        <StyledBlogShareLinks
+                            position="right"
                             title={title}
                             url={articleUrl}
-                            height={size.default}
-                            width={size.default}
                         />
                     </Icons>
                     <ArticleContent>
