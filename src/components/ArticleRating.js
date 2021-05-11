@@ -19,6 +19,10 @@ const StyledContainerTop = styled.div`
         a:last-child {
             margin-right: 0;
         }
+        padding-top: ${size.large};
+        span {
+            text-align: unset;
+        }
     }
 `;
 

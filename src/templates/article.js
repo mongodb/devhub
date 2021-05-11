@@ -38,6 +38,9 @@ const ArticleContent = styled('article')`
     max-width: ${size.maxContentWidth};
     padding-left: ${size.small};
     padding-right: ${size.small};
+    @media ${screenSize.upToMedium} {
+        padding: 0;
+    }
     @media ${screenSize.upToLarge} {
         margin: 0 auto;
     }
@@ -71,12 +74,18 @@ const Container = styled('div')`
     justify-content: center;
 
     grid-template-areas:
-        'icons icons rating'
+        'icons icons icons'
+        'rating rating rating'
         'article article article'
         'article article article'
         'article article article';
 
+    padding-left: ${size.small};
+    padding-right: ${size.small};
+
     @media ${screenSize.largeAndUp} {
+        padding-left: 0;
+        padding-right: 0;
         grid-template-areas:
             'rating rating rating'
             'icons article article'
@@ -87,11 +96,11 @@ const Container = styled('div')`
 
 const StyledRating = styled(ArticleRating)`
     grid-area: rating;
-    justify-self: end;
     margin: 0 ${size.default} ${size.large} 0;
 
     @media ${screenSize.mediumAndUp} {
         margin: 0 6px ${size.small} 6px;
+        justify-self: end;
     }
 
     @media ${screenSize.largeAndUp} {
