@@ -12,6 +12,15 @@ import {
     colorMap,
 } from '~components/dev-hub/theme';
 
+const IconContainer = styled('div')`
+    display: flex;
+    justify-content: center;
+    margin-bottom: ${size.mediumLarge};
+    @media ${screenSize.upToMedium} {
+        display: none;
+    }
+`;
+
 const StyledButtonContainer = styled('div')`
     display: flex;
     justify-content: center;
@@ -44,7 +53,7 @@ const StyledDescription = styled(P)`
     color: ${colorMap.greyLightTwo};
 `;
 
-const FeedbackForm = ({ ratingFlow = {}, onSubmit }) => {
+const FeedbackForm = ({ icon, ratingFlow = {}, onSubmit }) => {
     const { title, description, cta: button } = ratingFlow;
 
     return (
@@ -54,6 +63,7 @@ const FeedbackForm = ({ ratingFlow = {}, onSubmit }) => {
                 onSubmit();
             }}
         >
+            {icon && <IconContainer>{icon}</IconContainer>}
             {title && <StyledH5 collapse>{title}</StyledH5>}
             {description && (
                 <StyledDescription>{description}</StyledDescription>
