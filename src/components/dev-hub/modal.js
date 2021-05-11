@@ -30,6 +30,7 @@ const Heading = styled('header')`
     justify-content: flex-end;
     line-height: ${size.xsmall};
     margin-bottom: ${size.xsmall};
+    ${({ headingStyles }) => headingStyles};
 `;
 
 const ModalDialog = styled('div')`
@@ -52,8 +53,8 @@ const CloseButtonWrapper = styled('div')`
     font-weight: bold;
 `;
 
-const ModalClose = ({ closeModalOnEnter, deactivateModal }) => (
-    <Heading aria-label="close">
+const ModalClose = ({ closeModalOnEnter, deactivateModal, headingStyles }) => (
+    <Heading aria-label="close" headingStyles={headingStyles}>
         <CloseButtonWrapper
             tabIndex="0"
             onClick={deactivateModal}
@@ -92,6 +93,7 @@ export const Modal = ({
     // Dialog Container Style must be an object because of the react-aria-modal library styling
     dialogContainerStyle,
     dialogMobileContainerStyle,
+    headingStyles,
     onCloseModal,
     title,
     triggerComponent,
@@ -157,6 +159,7 @@ export const Modal = ({
                     <ModalClose
                         closeModalOnEnter={closeModalOnEnter}
                         deactivateModal={deactivateModal}
+                        headingStyles={headingStyles}
                     />
                     {children}
                 </ModalDialog>
