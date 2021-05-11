@@ -200,7 +200,7 @@ export default ({
         filters,
     },
 }) => {
-    const { title, siteUrl } = useSiteMetadata();
+    const { title } = useSiteMetadata();
     const [articles, setArticles] = useState(allArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
@@ -330,8 +330,8 @@ export default ({
     return (
         <Layout>
             <PageHelmet
-                canonicalUrl={`${siteUrl}/learn/`}
-                metaTitle={pageTitle}
+                pagePath="/learn"
+                title={pageTitle}
             />
             <Header>
                 <HeaderContent>

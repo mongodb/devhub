@@ -83,8 +83,8 @@ const Tag = props => {
     return (
         <Layout>
             <PageHelmet
-                canonicalUrl={`${metadata.siteUrl}${slug}/`}
-                metaTitle={metaTitle}
+                pagePath={`${slug}`}
+                title={metaTitle}
             />
             <Helmet>
                 {!isAuthor && <meta name="robots" content="noindex" />}

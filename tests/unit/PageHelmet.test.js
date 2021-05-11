@@ -18,9 +18,10 @@ describe('PageHelmet', () => {
     it('renders with custom props correctly', () => {
         const tree = shallow(
             <PageHelmet
-                metaTitle="Test Title"
-                canonicalUrl="test-url.com"
-                metaDescription="test description"
+                title="Test Title"
+                pagePath="/test-url.com"
+                description="test description"
+                type="test prop"
             />
         );
         expect(tree).toMatchSnapshot();

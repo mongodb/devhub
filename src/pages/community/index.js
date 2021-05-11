@@ -73,12 +73,12 @@ const CommunityHeroBanner = styled(HeroBanner)`
 `;
 
 export default () => {
-    const { title, siteUrl } = useSiteMetadata();
+    const { title } = useSiteMetadata();
     return (
         <Layout>
             <PageHelmet
-                metaTitle={`Community - ${title}`}
-                canonicalUrl={`${siteUrl}/community/`}
+                title={`Community - ${title}`}
+                pagePath="/community"
             />
             <UpcomingEvents>
                 <EventsHeader>

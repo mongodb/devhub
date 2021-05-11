@@ -28,14 +28,14 @@ const PAGE_DESCRIPTION =
 
 export default () => {
     const [events, error, isLoading] = useEventData();
-    const { title, siteUtl } = useSiteMetadata();
+    const { title } = useSiteMetadata();
 
     return (
         <Layout>
             <PageHelmet
-                metaTitle={`Events - ${title}`}
-                canonicalUrl={`${siteUtl}/community/events/`}
-                metaDescription={PAGE_DESCRIPTION}
+                title={`Events - ${title}`}
+                pagePath="/community/events"
+                description={PAGE_DESCRIPTION}
             />
             <HeroBanner
                 background={AllEventsBackgroundImage}

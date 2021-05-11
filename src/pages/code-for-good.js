@@ -194,7 +194,7 @@ const PAGE_DESCRIPTION =
     'Use your current MongoDB skills and pick up new ones. Contribute back to O-FISH and help protect our oceans.';
 
 export default () => {
-    const { siteUrl, title } = useSiteMetadata();
+    const { title } = useSiteMetadata();
     const codeForGoodBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Code for Good', target: '/code-for-good' },
@@ -203,9 +203,9 @@ export default () => {
     return (
         <Layout>
             <PageHelmet
-                metaDescription={PAGE_DESCRIPTION}
-                metaTitle={`Code for Good - ${title}`}
-                canonicalUrl={`${siteUrl}/code-for-good/`}
+                description={PAGE_DESCRIPTION}
+                title={`Code for Good - ${title}`}
+                pagePath="/code-for-good"
             />
             <StyledHeroBanner
                 breadcrumb={codeForGoodBreadcrumbs}

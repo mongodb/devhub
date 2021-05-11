@@ -23,12 +23,12 @@ exports[`PageHelmet renders standard correctly 1`] = `
 exports[`PageHelmet renders with custom props correctly 1`] = `
 <SEO
   articleTitle="Test Title"
-  canonicalUrl="test-url.com"
+  canonicalUrl="https://developer.mongodb.com/test-url.com/"
   image="https://developer.mongodb.com/public/images/MongoDB_Leaf.svg"
   metaDescription="test description"
   ogDescription="test description"
   ogTitle="Test Title"
-  ogUrl="test-url.com"
+  ogUrl="https://developer.mongodb.com/test-url.com/"
   twitter={
     Object {
       "description": "test description",
@@ -36,6 +36,6 @@ exports[`PageHelmet renders with custom props correctly 1`] = `
       "title": "Test Title",
     }
   }
-  type="website"
+  type="test prop"
 />
 `;
