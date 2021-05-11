@@ -123,7 +123,9 @@ export const Modal = ({
         ...dialogMobileContainerStyle,
     };
     const [isActive, setIsActive] = useState(isOpenToStart);
-    const isMobile = useMedia(screenSize.upToMedium);
+    const defaultMobileState = null;
+    const isMobile = useMedia(screenSize.upToMedium, defaultMobileState);
+    const canDecideIfIsMobile = isMobile !== defaultMobileState;
     const activateModal = () => setIsActive(true);
     const deactivateModal = () => {
         onCloseModal && onCloseModal();
@@ -165,7 +167,10 @@ export const Modal = ({
                 </ModalDialog>
             </AriaModal>
         );
-
+    // The below line is due to SSR/Weird Media Query use
+    // Since this requires a re-render, we delay any rendering until this is done
+    // This prevents a jarring mobile experience
+    if (!canDecideIfIsMobile) return null;
     if (triggerComponent) {
         return (
             <>
