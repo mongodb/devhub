@@ -6,13 +6,7 @@ import { toDateString } from '../../utils/format-dates';
 import { screenSize, fontSize, size } from './theme';
 import BylineBlock from './byline-block';
 import HeroBanner from './hero-banner';
-
-const dateFormatOptions = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC',
-};
+import { dateFormatOptions } from '~src/constants';
 
 const PostMetaLine = styled('div')`
     color: ${({ theme }) => theme.colorMap.greyLightThree};
@@ -38,6 +32,8 @@ const DateTextContainer = styled('div')`
     display: flex;
 `;
 
+const BlogTitle = H2.withComponent('h1');
+
 const BlogPostTitleArea = ({
     articleImage,
     authors,
@@ -46,9 +42,7 @@ const BlogPostTitleArea = ({
     tags,
     title,
     updatedDate,
-}) => {
-    const BlogTitle = H2.withComponent('h1');
-    return (
+}) => (
         <HeroBanner
             background={articleImage}
             breadcrumb={breadcrumb}
@@ -74,7 +68,6 @@ const BlogPostTitleArea = ({
             </PostMetaLine>
             <BylineBlock authors={authors} />
         </HeroBanner>
-    );
-};
+    )
 
 export default BlogPostTitleArea;

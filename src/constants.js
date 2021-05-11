@@ -34,3 +34,10 @@ export const STITCH_AUTH_APP_ID = 'devhubauthentication-lidpq';
 
 export const SITE_URL = 'https://developer.mongodb.com';
 export const FORUMS_URL = `${SITE_URL}/community/forums`;
+
+export const dateFormatOptions = {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+    timeZone: 'UTC',
+};

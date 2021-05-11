@@ -1,0 +1,12 @@
+{
+  "type": "directive",
+  "breadcrumb":  [
+    {
+      "label": "Home",
+      "target": "/"
+    }
+  ],
+  "image": "test-url",
+  "publishDate": "21 Apr 2021",
+  "title": "Test Title"
+}
