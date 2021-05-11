@@ -1,15 +1,8 @@
-import React, { useCallback } from 'react';
-import copy from 'copy-to-clipboard';
+import React from 'react';
 import styled from '@emotion/styled';
-import { getArticleShareLinks } from '../../utils/get-article-share-links';
 import BlogTagList from './blog-tag-list';
 import { screenSize, size } from './theme';
-import Link from './link';
-import Tooltip from './tooltip';
-import LinkIcon from './icons/link-icon';
-import LinkedIn from './icons/linkedin';
-import FacebookIcon from './icons/facebook-icon';
-import TwitterIcon from './icons/twitter-icon';
+import BlogShareLinks from './blog-share-links';
 
 const ArticleShareArea = styled('div')`
     border-top: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
@@ -20,51 +13,22 @@ const ArticleShareArea = styled('div')`
     padding-top: ${size.medium};
 `;
 
-const BlogShareLinks = styled('div')`
+const StyledBlogShareLinks = styled(BlogShareLinks)`
     /* The initial footer element is a span, so this works given the initial element does not have any margin applied to give spacing */
     a {
         margin-left: ${size.medium};
     }
 `;
 
-const ArticleShareFooter = ({ tags, title, url, ...props }) => {
-    const {
-        articleUrl,
-        facebookUrl,
-        linkedInUrl,
-        twitterUrl,
-    } = getArticleShareLinks(title, url);
-    const onCopyLink = useCallback(() => {
-        copy(articleUrl);
-    }, [articleUrl]);
-    return (
-        <ArticleShareArea {...props}>
-            <BlogTagList tags={tags} />
-            <BlogShareLinks data-test="article-share-links">
-                <Tooltip
-                    position="bottom"
-                    trigger={
-                        <Link onClick={onCopyLink}>
-                            <LinkIcon />
-                        </Link>
-                    }
-                >
-                    Article link copied to clipboard!
-                </Tooltip>
-
-                <Link target="_blank" href={linkedInUrl}>
-                    <LinkedIn />
-                </Link>
-
-                <Link target="_blank" href={twitterUrl}>
-                    <TwitterIcon />
-                </Link>
-                <Link target="_blank" href={facebookUrl}>
-                    <FacebookIcon height="22" width="22" />
-                </Link>
-            </BlogShareLinks>
-        </ArticleShareArea>
-    );
-};
+const ArticleShareFooter = ({ tags, title, url, ...props }) => (
+    <ArticleShareArea {...props}>
+        <BlogTagList tags={tags} />
+        <StyledBlogShareLinks
+            title={title}
+            url={url}
+            data-test="article-share-links"
+        />
+    </ArticleShareArea>
+);
 
 export default ArticleShareFooter;
