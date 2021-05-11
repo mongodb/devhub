@@ -94,7 +94,10 @@ const StarRating = ({ clickHandlers }) => {
             <StyledTitle>Rate this article</StyledTitle>
             <StyledStarsContainer onMouseLeave={onLeaveHandler}>
                 <StyledButton
-                    onClick={() => onClickHandler(clickHandlers[0])}
+                    onClick={() => {
+                        onHoverHandler(STAR_ACTIONS.ONE);
+                        onClickHandler(clickHandlers[0]);
+                    }}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.ONE)}
                     isActive={ratingState.stars[0]}
                 >
@@ -109,7 +112,10 @@ const StarRating = ({ clickHandlers }) => {
                 </StyledButton>
                 <StyledButton
                     isActive={ratingState.stars[1]}
-                    onClick={() => onClickHandler(clickHandlers[1])}
+                    onClick={() => {
+                        onHoverHandler(STAR_ACTIONS.TWO);
+                        onClickHandler(clickHandlers[1]);
+                    }}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.TWO)}
                 >
                     <StarIcon
@@ -123,7 +129,10 @@ const StarRating = ({ clickHandlers }) => {
                 </StyledButton>
                 <StyledButton
                     isActive={ratingState.stars[2]}
-                    onClick={() => onClickHandler(clickHandlers[2])}
+                    onClick={() => {
+                        onHoverHandler(STAR_ACTIONS.THREE);
+                        onClickHandler(clickHandlers[2]);
+                    }}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.THREE)}
                 >
                     <StarIcon
@@ -137,7 +146,10 @@ const StarRating = ({ clickHandlers }) => {
                 </StyledButton>
                 <StyledButton
                     isActive={ratingState.stars[3]}
-                    onClick={() => onClickHandler(clickHandlers[3])}
+                    onClick={() => {
+                        onHoverHandler(STAR_ACTIONS.FOUR);
+                        onClickHandler(clickHandlers[3]);
+                    }}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FOUR)}
                 >
                     <StarIcon
@@ -151,7 +163,10 @@ const StarRating = ({ clickHandlers }) => {
                 </StyledButton>
                 <StyledButton
                     isActive={ratingState.stars[4]}
-                    onClick={() => onClickHandler(clickHandlers[4])}
+                    onClick={() => {
+                        onHoverHandler(STAR_ACTIONS.FIVE);
+                        onClickHandler(clickHandlers[4]);
+                    }}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FIVE)}
                 >
                     <StarIcon
