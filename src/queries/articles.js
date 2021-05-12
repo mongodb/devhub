@@ -41,6 +41,10 @@ query Articles {
         name
         published_at
         updatedAt
+        related_content {
+          label
+          url
+        }
         SEO {
           canonical_url
           meta_description

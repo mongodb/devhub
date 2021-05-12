@@ -45,6 +45,8 @@ const slugContentMapping = {};
 
 let snootyArticles = [];
 let allArticles = [];
+// Create slimmer articles for tag pages
+let articlesWithoutContentAST = [];
 
 // stich client connection
 let stitchClient;
@@ -166,6 +168,12 @@ export const createPages = async ({ actions, graphql }) => {
 
     await createPodcastPages(createPage, metadataDocument);
 
+    articlesWithoutContentAST = allArticles.map(a => ({
+        ...a,
+        contentAST: [],
+        SEO: {},
+    }));
+
     await createClientSideRedirects(graphql, createRedirect);
 
     const tagPageDirectory = {};
@@ -173,11 +181,13 @@ export const createPages = async ({ actions, graphql }) => {
     tagTypes.forEach(type => {
         const isAuthorType = type === 'author';
         if (isAuthorType) {
-            tagPageDirectory[type] = aggregateAuthorInformation(allArticles);
+            tagPageDirectory[type] = aggregateAuthorInformation(
+                articlesWithoutContentAST
+            );
         } else {
             const mappedType = pluralizeIfNeeded[type];
             tagPageDirectory[type] = aggregateItemsWithTagType(
-                allArticles,
+                articlesWithoutContentAST,
                 mappedType,
                 type !== mappedType
             );
@@ -222,7 +232,7 @@ export const onCreatePage = async ({ page, actions }) =>
     handleCreatePage(
         page,
         actions,
-        allArticles,
+        articlesWithoutContentAST,
         homeFeaturedArticles,
         learnFeaturedArticles,
         excludedLearnPageArticles
