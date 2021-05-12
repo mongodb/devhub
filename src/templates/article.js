@@ -69,7 +69,7 @@ const Container = styled('div')`
     grid-auto-rows: auto;
     grid-template-columns: auto;
     justify-content: center;
-    grid-template-rows: 16px auto;
+    grid-template-rows: ${size.medium} auto;
     grid-template-areas:
         'icons icons icons'
         'rating rating rating'

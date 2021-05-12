@@ -16,9 +16,6 @@ const StyledContainerTop = styled('div')`
         a:last-child {
             margin-right: 0;
         }
-        span {
-            text-align: start;
-        }
     }
 `;
 
