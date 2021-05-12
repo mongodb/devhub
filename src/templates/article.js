@@ -80,12 +80,10 @@ const Container = styled('div')`
         'article article article'
         'article article article';
 
-    padding-left: ${size.small};
-    padding-right: ${size.small};
+    padding: 0 ${size.small};
 
     @media ${screenSize.largeAndUp} {
-        padding-left: 0;
-        padding-right: 0;
+        padding: 0;
         grid-template-areas:
             'rating rating rating'
             'icons article article'
@@ -100,11 +98,11 @@ const StyledRating = styled(ArticleRating)`
 
     @media ${screenSize.mediumAndUp} {
         margin: 0 6px ${size.small} 6px;
-        justify-self: end;
     }
 
     @media ${screenSize.largeAndUp} {
         margin-bottom: ${size.large};
+        justify-self: end;
     }
 `;
 

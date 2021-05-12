@@ -89,21 +89,22 @@ const StarRating = ({ clickHandlers }) => {
         !ratingState.isClicked && ratingDispatch(STAR_ACTIONS.CLEAR);
     }, [ratingDispatch, ratingState.isClicked]);
 
+    const onOpenFeedback = useCallback(
+        (index, starActionsNumber) => () => {
+            onHoverHandler(starActionsNumber);
+            onClickHandler(clickHandlers[index]);
+        },
+        [clickHandlers, onClickHandler, onHoverHandler]
+    );
+
     return (
         <StyledContainer>
             <StyledTitle>Rate this article</StyledTitle>
             <StyledStarsContainer onMouseLeave={onLeaveHandler}>
                 <StyledButton
-                    onClick={e => {
-                        e.stopPropagation();
-                        onHoverHandler(STAR_ACTIONS.ONE);
-                        onClickHandler(clickHandlers[0]);
-                    }}
+                    onClick={onOpenFeedback(0, STAR_ACTIONS.ONE)}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.ONE)}
-                    onTouchEnd={() => {
-                        onHoverHandler(STAR_ACTIONS.ONE);
-                        onClickHandler(clickHandlers[0]);
-                    }}
+                    onTouchEnd={onOpenFeedback(0, STAR_ACTIONS.ONE)}
                     isActive={ratingState.stars[0]}
                 >
                     <StarIcon
@@ -117,15 +118,9 @@ const StarRating = ({ clickHandlers }) => {
                 </StyledButton>
                 <StyledButton
                     isActive={ratingState.stars[1]}
-                    onClick={() => {
-                        onHoverHandler(STAR_ACTIONS.TWO);
-                        onClickHandler(clickHandlers[1]);
-                    }}
+                    onClick={onOpenFeedback(1, STAR_ACTIONS.TWO)}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.TWO)}
-                    onTouchEnd={() => {
-                        onHoverHandler(STAR_ACTIONS.TWO);
-                        onClickHandler(clickHandlers[1]);
-                    }}
+                    onTouchEnd={onOpenFeedback(1, STAR_ACTIONS.TWO)}
                 >
                     <StarIcon
                         isActive={ratingState.stars[1]}
@@ -138,15 +133,9 @@ const StarRating = ({ clickHandlers }) => {
                 </StyledButton>
                 <StyledButton
                     isActive={ratingState.stars[2]}
-                    onClick={() => {
-                        onHoverHandler(STAR_ACTIONS.THREE);
-                        onClickHandler(clickHandlers[2]);
-                    }}
-                    onTouchEnd={() => {
-                        onHoverHandler(STAR_ACTIONS.THREE);
-                        onClickHandler(clickHandlers[2]);
-                    }}
+                    onClick={onOpenFeedback(2, STAR_ACTIONS.THREE)}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.THREE)}
+                    onTouchEnd={onOpenFeedback(2, STAR_ACTIONS.THREE)}
                 >
                     <StarIcon
                         name="third-star"
@@ -159,15 +148,9 @@ const StarRating = ({ clickHandlers }) => {
                 </StyledButton>
                 <StyledButton
                     isActive={ratingState.stars[3]}
-                    onClick={() => {
-                        onHoverHandler(STAR_ACTIONS.FOUR);
-                        onClickHandler(clickHandlers[3]);
-                    }}
-                    onTouchEnd={() => {
-                        onHoverHandler(STAR_ACTIONS.FOUR);
-                        onClickHandler(clickHandlers[3]);
-                    }}
+                    onClick={onOpenFeedback(3, STAR_ACTIONS.FOUR)}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FOUR)}
+                    onTouchEnd={onOpenFeedback(3, STAR_ACTIONS.FOUR)}
                 >
                     <StarIcon
                         isActive={ratingState.stars[3]}
@@ -180,15 +163,9 @@ const StarRating = ({ clickHandlers }) => {
                 </StyledButton>
                 <StyledButton
                     isActive={ratingState.stars[4]}
-                    onClick={() => {
-                        onHoverHandler(STAR_ACTIONS.FIVE);
-                        onClickHandler(clickHandlers[4]);
-                    }}
-                    onTouchEnd={() => {
-                        onHoverHandler(STAR_ACTIONS.FIVE);
-                        onClickHandler(clickHandlers[4]);
-                    }}
+                    onClick={onOpenFeedback(4, STAR_ACTIONS.FIVE)}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FIVE)}
+                    onTouchEnd={onOpenFeedback(4, STAR_ACTIONS.FIVE)}
                 >
                     <StarIcon
                         isActive={ratingState.stars[4]}

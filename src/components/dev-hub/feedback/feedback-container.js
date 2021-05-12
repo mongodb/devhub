@@ -56,8 +56,7 @@ const headingStyles = css`
 
 const StyledStarRatingList = styled(StarRatingList)`
     background-color: ${({ theme }) => theme.colorMap.devBlack};
-    margin-top: -${size.xlarge};
-    margin-bottom: ${size.large};
+    margin: -${size.xlarge} 0 ${size.large};
     /* padding top is the size of the X on the modal (default) + 2*medium padding around it */
     /* Hardcoding 40px as that is a specific ask */
     padding: calc(${size.medium} + ${size.medium} + ${size.default}) 0
