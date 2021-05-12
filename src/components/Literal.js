@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
 import { screenSize, size } from './dev-hub/theme';
 
@@ -36,12 +35,6 @@ const Literal = ({ nodeData: { children, value } }) => {
             ))}
         </StyledLiteral>
     );
-};
-
-Literal.propTypes = {
-    nodeData: PropTypes.shape({
-        children: PropTypes.arrayOf(PropTypes.object).isRequired,
-    }).isRequired,
 };
 
 export default Literal;

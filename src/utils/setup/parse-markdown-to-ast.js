@@ -40,13 +40,21 @@ export const parseMarkdownToAST = markdown => {
                     node.options = {};
                 }
                 break;
+            // Custom directive definitions go here
             case 'textDirective':
-                // Custom directive definitions go here
-                // Right now, this is just YouTube
-                node['argument'] = [{ value: node.attributes.vid }];
                 data['name'] = node.name;
                 node.type = node.name;
-                node.nodeData = data;
+                switch (node.name) {
+                    case 'youtube':
+                        node['argument'] = [{ value: node.attributes.vid }];
+                        node.nodeData = data;
+                        break;
+                    case 'charts':
+                        node.options = node.attributes;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
                 break;
