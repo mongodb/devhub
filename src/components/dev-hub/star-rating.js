@@ -23,7 +23,7 @@ const StyledButton = styled(Button)`
         width: ${size.mediumLarge};
     }
 
-    @media ${screenSize.mediumAndUp} {
+    @media ${screenSize.largeAndUp} {
         margin: ${({ isActive }) => (isActive ? '0' : '0 4px')};
         padding: 4px;
         svg {
@@ -37,7 +37,7 @@ const StyledContainer = styled('div')`
     display: flex;
     flex-direction: column;
 
-    @media ${screenSize.mediumAndUp} {
+    @media ${screenSize.largeAndUp} {
         align-items: center;
         flex-direction: row;
         min-height: ${size.large};
@@ -51,7 +51,7 @@ const StyledTitle = styled('span')`
     line-height: ${lineHeight.micro};
     margin-bottom: ${size.default};
 
-    @media ${screenSize.mediumAndUp} {
+    @media ${screenSize.largeAndUp} {
         flex-direction: row;
         margin-bottom: 0;
     }
@@ -61,7 +61,7 @@ const StyledStarsContainer = styled('div')`
     align-items: center;
     display: flex;
 
-    @media ${screenSize.mediumAndUp} {
+    @media ${screenSize.largeAndUp} {
         margin-left: 28px;
     }
 `;
