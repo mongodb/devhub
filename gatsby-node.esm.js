@@ -45,6 +45,7 @@ const slugContentMapping = {};
 
 let snootyArticles = [];
 let allArticles = [];
+let allPodcasts = [];
 
 // stich client connection
 let stitchClient;
@@ -164,7 +165,7 @@ export const createPages = async ({ actions, graphql }) => {
         );
     });
 
-    await createPodcastPages(createPage, metadataDocument);
+    allPodcasts = await createPodcastPages(createPage, metadataDocument);
 
     await createClientSideRedirects(graphql, createRedirect);
 
@@ -225,5 +226,6 @@ export const onCreatePage = async ({ page, actions }) =>
         allArticles,
         homeFeaturedArticles,
         learnFeaturedArticles,
-        excludedLearnPageArticles
+        excludedLearnPageArticles,
+        allPodcasts
     );
