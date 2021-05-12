@@ -8,11 +8,13 @@ import React, {
 import PropTypes from 'prop-types';
 import { graphql, useStaticQuery } from 'gatsby';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import Modal from '~components/dev-hub/modal';
 import FeedbackFinalStep from '~components/dev-hub/feedback/feedback-final-step';
 import getStarRatingFlow from '~components/dev-hub/feedback/helpers/getStarRatingFlow';
 import FeedbackForm from '~components/dev-hub/feedback/feedback-form';
 import useFeedback from '~hooks/use-feedback';
+import StarRatingList from './star-rating-list';
 import { FeedbackFormContext } from '~components/dev-hub/feedback/feedback-context';
 import {
     ArticleRatingContext,
@@ -20,7 +22,7 @@ import {
     STAR_RATING_FLOW,
 } from '~components/ArticleRatingContext';
 import BalloonsIcon from '~components/dev-hub/icons/balloons-icon';
-import { screenSize } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 
 const feedbackItems = graphql`
     query FeedbackItems {
@@ -42,6 +44,26 @@ const modalStyles = css`
         max-width: unset;
         width: 100%;
         border-radius: 0;
+        padding: 0;
+    }
+`;
+
+const headingStyles = css`
+    @media ${screenSize.upToMedium} {
+        padding: ${size.default};
+    }
+`;
+
+const StyledStarRatingList = styled(StarRatingList)`
+    background-color: ${({ theme }) => theme.colorMap.devBlack};
+    margin: -${size.xlarge} 0 ${size.large};
+    /* padding top is the size of the X on the modal (default) + 2*medium padding around it */
+    /* Hardcoding 40px as that is a specific ask */
+    padding: calc(${size.medium} + ${size.medium} + ${size.default}) 0
+        ${size.large} 40px;
+    width: 100%;
+    @media ${screenSize.mediumAndUp} {
+        display: none;
     }
 `;
 
@@ -108,12 +130,14 @@ const FeedbackContainer = ({ starRatingFlow, articleMeta, closeModal }) => {
             isOpenToStart
             verticallyCenter
             contentStyle={modalStyles}
+            headingStyles={headingStyles}
             dialogMobileContainerStyle={{
                 height: '100%',
                 padding: 0,
                 width: '100%',
             }}
         >
+            <StyledStarRatingList />
             {isLastModal ? (
                 <FeedbackFinalStep incrementStep={incrementStepHandler} />
             ) : (

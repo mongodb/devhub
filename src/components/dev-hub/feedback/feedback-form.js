@@ -32,6 +32,10 @@ const StyledForm = styled('form')`
     > label {
         margin: ${size.default} 0;
     }
+    @media ${screenSize.upToMedium} {
+        /* Hardcoding 40px as that is a specific ask */
+        padding: 0 40px;
+    }
 `;
 
 const StyledH5 = styled(H5)`

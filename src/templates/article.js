@@ -36,10 +36,10 @@ const StyledBlogShareLinks = styled(BlogShareLinks)`
 const ArticleContent = styled('article')`
     grid-area: article;
     max-width: ${size.maxContentWidth};
-    padding-left: ${size.small};
-    padding-right: ${size.small};
+    padding: 0 ${size.small};
     @media ${screenSize.upToLarge} {
         margin: 0 auto;
+        padding: 0;
     }
 `;
 
@@ -57,7 +57,7 @@ const Icons = styled('div')`
         }
     }
     @media ${screenSize.upToLarge} {
-        margin: 0 0 0 ${size.small};
+        margin: 0;
         span:not(:first-of-type) {
             margin-left: ${size.small};
         }
@@ -69,14 +69,19 @@ const Container = styled('div')`
     grid-auto-rows: auto;
     grid-template-columns: auto;
     justify-content: center;
-
+    grid-template-rows: ${size.medium} auto;
     grid-template-areas:
-        'icons icons rating'
+        'icons icons icons'
+        'rating rating rating'
         'article article article'
         'article article article'
         'article article article';
 
+    padding: 0 ${size.default};
+
     @media ${screenSize.largeAndUp} {
+        grid-template-rows: unset;
+        padding: 0;
         grid-template-areas:
             'rating rating rating'
             'icons article article'
@@ -87,15 +92,11 @@ const Container = styled('div')`
 
 const StyledRating = styled(ArticleRating)`
     grid-area: rating;
-    justify-self: end;
     margin: 0 ${size.default} ${size.large} 0;
 
-    @media ${screenSize.mediumAndUp} {
-        margin: 0 6px ${size.small} 6px;
-    }
-
     @media ${screenSize.largeAndUp} {
-        margin-bottom: ${size.large};
+        margin: 0 6px ${size.large} 6px;
+        justify-self: end;
     }
 `;
 

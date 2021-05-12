@@ -10,27 +10,23 @@ import {
     STAR_ACTIONS,
 } from '~components/ArticleRatingContext';
 
-const StyledContainerTop = styled.div`
-    span {
-        text-align: end;
-    }
-
-    @media ${screenSize.upToMedium} {
+const StyledContainerTop = styled('div')`
+    @media ${screenSize.upToLarge} {
+        padding-top: ${size.large};
         a:last-child {
             margin-right: 0;
         }
     }
 `;
 
-const StyledContainerBottom = styled.div`
+const StyledContainerBottom = styled('div')`
     background-color: ${colorMap.devBlack};
     border-radius: ${size.xsmall};
     border: 1px solid ${colorMap.greyDarkThree};
     padding: ${size.mediumLarge};
 
-    @media ${screenSize.mediumAndUp} {
-        padding-left: ${size.large};
-        padding: 15px;
+    @media ${screenSize.largeAndUp} {
+        padding: ${size.default};
     }
 `;
 
