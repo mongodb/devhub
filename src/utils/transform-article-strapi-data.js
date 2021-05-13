@@ -34,7 +34,7 @@ export const transformArticleStrapiData = article => {
             metaDescription: SEOObject.meta_description,
             og: {
                 description: SEOObject.og_description,
-                image: SEOObject.og_image,
+                image: SEOObject.og_image && SEOObject.og_image.url,
                 title: article.name,
                 type: SEOObject.og_type,
                 url: SEOObject.og_url,
@@ -42,7 +42,7 @@ export const transformArticleStrapiData = article => {
             twitter: {
                 creator: SEOObject.twitter_creator,
                 description: SEOObject.twitter_description,
-                image: SEOObject.twitter_image,
+                image: SEOObject.twitter_image && SEOObject.twitter_image.url,
                 site: SEOObject.twitter_site,
                 title: SEOObject.twitter_title,
             },

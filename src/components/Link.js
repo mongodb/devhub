@@ -35,6 +35,14 @@ const Link = React.forwardRef(
                 </DevHubLink>
             );
         }
+        if (anchor) {
+            // We don't want any target="_blank" to apply
+            return (
+                <DevHubLink ref={ref} href={to} {...other} target="_self">
+                    {children}
+                </DevHubLink>
+            );
+        }
         return (
             <DevHubLink ref={ref} href={to} {...other}>
                 {children}
