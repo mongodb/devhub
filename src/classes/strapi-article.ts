@@ -53,7 +53,6 @@ export class StrapiArticle implements Article {
         );
         this.publishedDate = toISODate(mappedArticle.published_at);
         this.related = mappedArticle.related;
-        console.log(mappedArticle.SEO);
         this.SEO = mappedArticle.SEO;
         this.slug = mappedArticle.slug;
         this.tags = mapTagTypeToUrl(mappedArticle.tags, 'tag', true);
