@@ -193,7 +193,7 @@ const HeaderActionsContainer = styled('div')`
 const PAGE_DESCRIPTION =
     'Use your current MongoDB skills and pick up new ones. Contribute back to O-FISH and help protect our oceans.';
 
-export default () => {
+export default ({ path }) => {
     const { title } = useSiteMetadata();
     const codeForGoodBreadcrumbs = [
         { label: 'Home', target: '/' },
@@ -205,7 +205,7 @@ export default () => {
             <PageHelmet
                 description={PAGE_DESCRIPTION}
                 title={`Code for Good - ${title}`}
-                pagePath="/code-for-good"
+                pagePath={path}
             />
             <StyledHeroBanner
                 breadcrumb={codeForGoodBreadcrumbs}

@@ -199,6 +199,7 @@ export default ({
         featuredArticles,
         filters,
     },
+    path,
 }) => {
     const { title } = useSiteMetadata();
     const [articles, setArticles] = useState(allArticles);
@@ -329,10 +330,7 @@ export default ({
 
     return (
         <Layout>
-            <PageHelmet
-                pagePath="/learn"
-                title={pageTitle}
-            />
+            <PageHelmet pagePath={path} title={pageTitle} />
             <Header>
                 <HeaderContent>
                     <Title>Make better, faster applications</Title>

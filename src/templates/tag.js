@@ -72,20 +72,20 @@ const Tag = props => {
             type,
         },
         location: { search },
+        path,
     } = props;
     const metadata = useSiteMetadata();
     const isAuthor = type === 'author';
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
     const { page } = parseQueryString(search);
 
-    const metaTitle = `${name} - ${page ? `Page ${page} - ` : ''}${metadata.title}`;
+    const metaTitle = `${name} - ${page ? `Page ${page} - ` : ''}${
+        metadata.title
+    }`;
 
     return (
         <Layout>
-            <PageHelmet
-                pagePath={`${slug}`}
-                title={metaTitle}
-            />
+            <PageHelmet pagePath={path} title={metaTitle} />
             <Helmet>
                 {!isAuthor && <meta name="robots" content="noindex" />}
             </Helmet>

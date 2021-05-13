@@ -26,7 +26,7 @@ const breadcrumbs = [
 const PAGE_DESCRIPTION =
     'Join us in a city near you to connect with MongoDB users who are shaking up their industries, and be among the first to hear updates and exciting news.';
 
-export default () => {
+export default ({ path }) => {
     const [events, error, isLoading] = useEventData();
     const { title } = useSiteMetadata();
 
@@ -34,7 +34,7 @@ export default () => {
         <Layout>
             <PageHelmet
                 title={`Events - ${title}`}
-                pagePath="/community/events"
+                pagePath={path}
                 description={PAGE_DESCRIPTION}
             />
             <HeroBanner
