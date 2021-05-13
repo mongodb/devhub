@@ -5,7 +5,7 @@ import { fetchBuildTimeMedia } from '../../utils/setup/fetch-build-time-media';
 export const createPodcastPages = async (createPage, metadataDocument) => {
     const { allPodcasts } = await fetchBuildTimeMedia();
 
-    allPodcasts.forEach(podcast => {
+    return allPodcasts.map(podcast => {
         const slug = `/podcasts/${getTagPageUriComponent(podcast.title)}`;
         createPage({
             path: slug,
@@ -16,5 +16,7 @@ export const createPodcastPages = async (createPage, metadataDocument) => {
                 slug,
             },
         });
+
+        return { ...podcast, slug };
     });
 };

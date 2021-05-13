@@ -10,7 +10,8 @@ export const handleCreateLearnPage = (
     learnFeaturedArticles,
     excludedLearnPageArticles,
     allArticles,
-    allMedia
+    allMedia,
+    allPodcasts
 ) => {
     const { createPage, deletePage } = actions;
     const learnPageArticles = removeExcludedArticles(
@@ -23,7 +24,7 @@ export const handleCreateLearnPage = (
         learnFeaturedArticles,
         MAX_LEARN_PAGE_FEATURED_ARTICLES
     );
-    const { allPodcasts, allVideos } = allMedia;
+    const { allVideos } = allMedia;
     deletePage(page);
     createPage({
         ...page,

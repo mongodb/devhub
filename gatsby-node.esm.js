@@ -45,6 +45,7 @@ const slugContentMapping = {};
 
 let snootyArticles = [];
 let allArticles = [];
+let allPodcasts = [];
 // Create slimmer articles for tag pages
 let articlesWithoutContentAST = [];
 
@@ -166,7 +167,7 @@ export const createPages = async ({ actions, graphql }) => {
         );
     });
 
-    await createPodcastPages(createPage, metadataDocument);
+    allPodcasts = await createPodcastPages(createPage, metadataDocument);
 
     articlesWithoutContentAST = allArticles.map(a => ({
         ...a,
@@ -235,5 +236,6 @@ export const onCreatePage = async ({ page, actions }) =>
         articlesWithoutContentAST,
         homeFeaturedArticles,
         learnFeaturedArticles,
-        excludedLearnPageArticles
+        excludedLearnPageArticles,
+        allPodcasts
     );

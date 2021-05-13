@@ -1,6 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import Audio from './audio';
 import Card from './card';
 import Paginate from './paginate';
 import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
@@ -53,25 +52,25 @@ const renderVideo = video => (
     />
 );
 
-const renderPodcast = (podcast, openAudio) => (
+const renderPodcast = podcast => (
     <Card
+        to={podcast.slug}
         key={podcast.mediaType + podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
         badge={podcast.mediaType}
         description={podcast.description}
-        onClick={() => openAudio(podcast)}
     />
 );
 
-const renderContentTypeCard = (item, openAudio) => {
+const renderContentTypeCard = item => {
     if (item.mediaType)
         switch (item.mediaType) {
             case 'youtube':
             case 'twitch':
                 return renderVideo(item);
             case 'podcast':
-                return renderPodcast(item, openAudio);
+                return renderPodcast(item);
             default:
                 return;
         }
@@ -88,27 +87,12 @@ export default React.memo(
             videos.concat(articles, podcasts)
         );
 
-        const [activePodcast, setActivePodcast] = useState(false);
-
-        const openAudio = useCallback(podcast => {
-            setActivePodcast(podcast);
-        }, []);
-        const closeAudio = useCallback(e => {
-            e.stopPropagation();
-            setActivePodcast(null);
-        }, []);
-
         return (
-            <>
-                <Paginate limit={limit} data-test="card-list">
-                    {fullContentList.map(contentType =>
-                        renderContentTypeCard(contentType, openAudio)
-                    )}
-                </Paginate>
-                {podcasts.length ? (
-                    <Audio onClose={closeAudio} podcast={activePodcast} />
-                ) : null}
-            </>
+            <Paginate limit={limit} data-test="card-list">
+                {fullContentList.map(contentType =>
+                    renderContentTypeCard(contentType)
+                )}
+            </Paginate>
         );
     }
 );

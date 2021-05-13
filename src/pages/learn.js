@@ -16,7 +16,6 @@ import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { LearnPageTabs } from '../utils/learn-page-tabs';
 import useAllVideos from '../hooks/use-all-videos';
-import usePodcasts from '../hooks/use-podcasts';
 import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
 
@@ -194,7 +193,7 @@ export default ({
     navigate,
     pageContext: {
         allArticles,
-        allPodcasts,
+        allPodcasts: podcasts,
         allVideos,
         featuredArticles,
         filters,
@@ -267,8 +266,6 @@ export default ({
     );
 
     const { videos } = useAllVideos(allVideos);
-
-    const { podcasts } = usePodcasts(allPodcasts);
 
     const updateActiveFilter = useCallback(
         newTab => {
