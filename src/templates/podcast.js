@@ -83,7 +83,7 @@ const StyledPlayer = styled(AudioPlayer)`
 const StyledBlogShareLinks = styled(BlogShareLinks)`
     flex-direction: column;
     align-items: center;
-    > * {
+    > :not(:first-child) {
         margin-top: ${size.medium};
     }
     @media ${screenSize.upToLarge} {
@@ -93,6 +93,13 @@ const StyledBlogShareLinks = styled(BlogShareLinks)`
             margin-top: 0;
             margin-left: ${size.mediumLarge};
         }
+    }
+`;
+
+const StyledFooter = styled(ShareFooter)`
+    /* Target the copy link, although it is below some divs */
+    div > div > a {
+        margin-left: 0;
     }
 `;
 
@@ -163,7 +170,7 @@ const Podcast = ({
                 <Content>
                     <StyledPlayer podcast={podcastUrl} />
                     <StyledParagraph>{description}</StyledParagraph>
-                    <ShareFooter
+                    <StyledFooter
                         title={title}
                         tooltipText={TOOLTIP_TEXT}
                         url={pageUrl}

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import BlogTagList from './blog-tag-list';
-import { screenSize, size } from './theme';
+import { size } from './theme';
 import BlogShareLinks from './blog-share-links';
 
 const ArticleShareArea = styled('div')`
