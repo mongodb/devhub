@@ -79,14 +79,15 @@ const renderContentTypeCard = (item, openAudio) => {
 };
 
 export default React.memo(
-    ({ videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
+    ({ all, videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
         videos = videos || [];
         articles = articles || [];
         podcasts = podcasts || [];
 
-        const fullContentList = sortCardsByDate(
-            videos.concat(articles, podcasts)
-        );
+        // If we provide "all", we don't need to sort. We can assume any sorting
+        // has been done
+        const fullContentList =
+            all || sortCardsByDate(videos.concat(articles, podcasts));
 
         const [activePodcast, setActivePodcast] = useState(false);
 
