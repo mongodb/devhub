@@ -84,6 +84,8 @@ export default React.memo(
         articles = articles || [];
         podcasts = podcasts || [];
 
+        // If we provide "all", we don't need to sort. We can assume any sorting
+        // has been done
         const fullContentList =
             all || sortCardsByDate(videos.concat(articles, podcasts));
 
