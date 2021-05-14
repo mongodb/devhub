@@ -1,7 +1,7 @@
 interface YoutubeResponse {
-    id: string;
     contentDetails: ContentDetails;
     etag: string;
+    id: string;
     kind: string;
     snippet: Snippet;
 }
@@ -16,15 +16,15 @@ interface Thumbnails {
 
 interface Snippet {
     channelId: string;
-    playlistId: string;
-    resourceId: ResourceId;
-    videoOwnerChannelId: string;
     channelTitle: string;
     description: string;
+    playlistId: string;
     position: number;
     publishedAt: string;
+    resourceId: ResourceId;
     thumbnails: Thumbnails;
     title: string;
+    videoOwnerChannelId: string;
     videoOwnerChannelTitle: string;
 }
 

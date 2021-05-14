@@ -1,8 +1,8 @@
 import { initStitch } from './init-stitch';
 import { STITCH_AUTH_APP_ID } from '../../constants';
 import { parsePodcasts } from '../parse-podcasts';
-import { simplifyTwitchResponse } from '../simplify-twitch-response';
-import { simplifyYoutubeResponse } from '../simplify-youtube-response';
+import { transformTwitchResponse } from '../transform-twitch-response';
+import { transformYoutubeResponse } from '../transform-youtube-response';
 
 const MAX_RESULTS = 5;
 
@@ -13,10 +13,10 @@ export const fetchBuildTimeMedia = async () => {
         client.callFunction('fetchMDBTwitchVideos', [MAX_RESULTS]),
         client.callFunction('fetchLybsinPodcasts', []),
     ]);
-    const allTwitchVideos = twitchVideos.data.map(simplifyTwitchResponse);
+    const allTwitchVideos = twitchVideos.data.map(transformTwitchResponse);
     return {
         allVideos: [
-            youtubeVideos.items.map(simplifyYoutubeResponse),
+            youtubeVideos.items.map(transformYoutubeResponse),
             allTwitchVideos,
         ].flat(),
         allPodcasts: parsePodcasts(lybsinPodcasts),
