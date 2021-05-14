@@ -1,19 +1,16 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-
 import ArticleSchema from '~components/dev-hub/article-schema';
 import AudioPlayer from '~components/dev-hub/podcast-player/audio-player';
 import Layout from '~components/dev-hub/layout';
 import PodcastJumbotron from '~components/dev-hub/podcast-jumbotron';
 import SEO from '~components/dev-hub/SEO';
 import ShareFooter from '~components/dev-hub/article-share-footer';
-import ShareMenu from '~components/dev-hub/share-menu';
+import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import { P } from '~components/dev-hub/text';
-
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
-
 import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
 import { toDateString } from '~utils/format-dates';
 import { dateFormatOptions } from '~src/constants';
@@ -83,6 +80,22 @@ const StyledPlayer = styled(AudioPlayer)`
     }
 `;
 
+const StyledBlogShareLinks = styled(BlogShareLinks)`
+    flex-direction: column;
+    align-items: center;
+    > * {
+        margin-top: ${size.medium};
+    }
+    @media ${screenSize.upToLarge} {
+        display: inline-flex;
+        flex-direction: row;
+        > * {
+            margin-top: 0;
+            margin-left: ${size.mediumLarge};
+        }
+    }
+`;
+
 const Podcast = ({
     pageContext: {
         data: {
@@ -141,11 +154,10 @@ const Podcast = ({
             />
             <Container>
                 <Icons>
-                    <ShareMenu
-                        height={size.default}
+                    <StyledBlogShareLinks
+                        position="right"
                         title={title}
                         url={pageUrl}
-                        width={size.default}
                     />
                 </Icons>
                 <Content>
