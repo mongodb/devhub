@@ -20,10 +20,11 @@ const StyledBlogShareLinks = styled(BlogShareLinks)`
     }
 `;
 
-const ArticleShareFooter = ({ tags, title, url, ...props }) => (
+const ArticleShareFooter = ({ tags, title, tooltipText, url, ...props }) => (
     <ArticleShareArea {...props}>
         <BlogTagList tags={tags} />
         <StyledBlogShareLinks
+            tooltipText={tooltipText}
             title={title}
             url={url}
             data-test="article-share-links"

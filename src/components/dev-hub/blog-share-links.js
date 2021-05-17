@@ -29,6 +29,7 @@ const BlogShareLinks = ({
     iconSize = size.default,
     tags,
     title,
+    tooltipText,
     url,
     ...props
 }) => {
@@ -51,7 +52,7 @@ const BlogShareLinks = ({
                     </BlogShareLink>
                 }
             >
-                Article link copied to clipboard!
+                {tooltipText || 'Article link copied to clipboard!'}
             </StyledTooltip>
 
             <BlogShareLink target="_blank" href={linkedInUrl}>

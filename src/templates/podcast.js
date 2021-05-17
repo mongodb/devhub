@@ -164,6 +164,7 @@ const Podcast = ({
                     <StyledBlogShareLinks
                         position="right"
                         title={title}
+                        tooltipText={TOOLTIP_TEXT}
                         url={pageUrl}
                     />
                 </Icons>
