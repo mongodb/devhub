@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getNestedValue } from '../utils/get-nested-value';
+import ComponentFactory from './ComponentFactory';
 
 const Strong = ({ nodeData }) => (
-    <strong>{getNestedValue(['children', 0, 'value'], nodeData)}</strong>
+    <strong>
+        {nodeData.children.map((child, index) => (
+            <ComponentFactory nodeData={child} key={index} />
+        ))}
+    </strong>
 );
 
 Strong.propTypes = {
