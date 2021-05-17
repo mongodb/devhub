@@ -27,14 +27,19 @@ const initialState = {
 const ratingReducer = (state, { type, value }) => {
     let nextState = { isClicked: false, stars: [...initialState.stars] };
     switch (type) {
+        // Fallthrough here is expected
         case STAR_ACTIONS.FIVE:
             nextState.stars[4] = true;
+        // eslint-disable-next-line no-fallthrough
         case STAR_ACTIONS.FOUR:
             nextState.stars[3] = true;
+        // eslint-disable-next-line no-fallthrough
         case STAR_ACTIONS.THREE:
             nextState.stars[2] = true;
+        // eslint-disable-next-line no-fallthrough
         case STAR_ACTIONS.TWO:
             nextState.stars[1] = true;
+        // eslint-disable-next-line no-fallthrough
         case STAR_ACTIONS.ONE:
             nextState.stars[0] = true;
             break;

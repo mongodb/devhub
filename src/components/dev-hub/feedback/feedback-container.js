@@ -120,9 +120,11 @@ const FeedbackContainer = ({ starRatingFlow, articleMeta, closeModal }) => {
     //Sent form information and refresh rating logic
     const onCloseModalHandler = useCallback(() => {
         updateFeedback(formState);
-        ratingDispatch(STAR_ACTIONS.CLEAR);
+        if (!isLastModal) {
+            ratingDispatch(STAR_ACTIONS.CLEAR);
+        }
         closeModal();
-    }, [closeModal, formState, ratingDispatch, updateFeedback]);
+    }, [closeModal, formState, isLastModal, ratingDispatch, updateFeedback]);
 
     return isActiveModal ? (
         <Modal
