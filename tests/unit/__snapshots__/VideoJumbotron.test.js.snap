@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<StyledHeroBanner
+  breadcrumb={
+    Array [
+      Object {
+        "label": "Home",
+        "target": "/",
+      },
+    ]
+  }
+>
+  <Title
+    collapse={true}
+  >
+    Test Title
+  </Title>
+  <PostMetaLine>
+    <DateTextContainer>
+      <DateText
+        collapse={true}
+      >
+        Published: 
+        21 May 2021
+      </DateText>
+    </DateTextContainer>
+  </PostMetaLine>
+</StyledHeroBanner>
+`;

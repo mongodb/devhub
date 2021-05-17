@@ -104,7 +104,7 @@ const HeroBanner = ({
                     {breadcrumb && (
                         <HeroBreadcrumb>{breadcrumb}</HeroBreadcrumb>
                     )}
-                    {isMobile && showImageOnMobile && (
+                    {background && isMobile && showImageOnMobile && (
                         <MobileMediaContainer
                             maintainSquareAspectRatio={
                                 maintainSquareAspectRatio
