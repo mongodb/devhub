@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
 import CSSWrapper from './CSSWrapper';
-import { getNestedValue } from '../utils/get-nested-value';
+import { getNestedValue } from '~utils/get-nested-value';
 import styled from '@emotion/styled';
 import { colorMap, size } from '../components/dev-hub/theme';
 import { H5 } from './dev-hub/text';
