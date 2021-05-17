@@ -86,11 +86,11 @@ const FeedbackContainer = ({ starRatingFlow, articleMeta, closeModal }) => {
     const isLastModal = step === stepsCounter;
 
     useEffect(() => {
-        const { author, slug, title } = articleMeta;
+        const { authors, slug, title } = articleMeta;
         createFeedback({
-            authors: getAuthorsNames(author),
+            authors: getAuthorsNames(authors),
             slug,
-            title: title[0].value,
+            title,
             starRatingFlow,
         });
     }, [articleMeta, createFeedback, starRatingFlow]);

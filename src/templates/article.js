@@ -124,7 +124,7 @@ const Article = props => {
         },
         ...rest
     } = props;
-    const meta = { authors, slug, title };
+    const meta = { authors, slug: addTrailingSlashIfMissing(slug), title };
     const { siteUrl } = useSiteMetadata();
     const articleBreadcrumbs = [
         { label: 'Home', target: '/' },
