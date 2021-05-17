@@ -5,16 +5,24 @@ import Button from '~components/dev-hub/button';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import {
+    colorMap,
     fontSize,
     lineHeight,
+    screenSize,
     size,
-    colorMap,
 } from '~components/dev-hub/theme';
 import { FORUMS_URL } from '~src/constants';
 
 const changeColorOnHover = theme => css`
     &:hover {
         color: ${theme.colorMap.devWhite};
+    }
+`;
+
+const StyledContainer = styled('div')`
+    padding: 0 ${size.medium};
+    @media ${screenSize.upToMedium} {
+        padding: 0 40px;
     }
 `;
 
@@ -29,7 +37,16 @@ const StyledLink = styled(Link)`
 
 const StyledTitle = styled(H5)`
     margin-bottom: ${size.mediumLarge};
-    max-width: 50%;
+    /*
+        Hardcoding this in since 364px is the width with padding, we need more than
+        what 50% would give
+    */
+    max-width: 180px;
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.xsmall};
+        /* Font size decreases so we have to adjust max width */
+        max-width: 170px;
+    }
 `;
 
 const StyledDescription = styled(P)`
@@ -47,7 +64,7 @@ const StyledButtonContainer = styled('div')`
 `;
 
 const FeedbackFinalStep = ({ incrementStep }) => (
-    <>
+    <StyledContainer>
         <StyledTitle>We appreciate your feedback.</StyledTitle>
         <StyledDescription>
             We'd love to chat with you and answer your questions in our online{' '}
@@ -62,7 +79,7 @@ const FeedbackFinalStep = ({ incrementStep }) => (
                 Close
             </Button>
         </StyledButtonContainer>
-    </>
+    </StyledContainer>
 );
 
 export default memo(FeedbackFinalStep);
