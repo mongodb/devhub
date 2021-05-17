@@ -39,12 +39,12 @@ const modalStyles = css`
     min-width: ${MODAL_WIDTH};
 
     @media ${screenSize.upToMedium} {
+        border: none;
         height: 100%;
-        min-width: unset;
         max-width: unset;
-        width: 100%;
-        border-radius: 0;
+        min-width: unset;
         padding: 0;
+        width: 100%;
     }
 `;
 
