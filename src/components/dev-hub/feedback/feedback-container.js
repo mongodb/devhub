@@ -40,6 +40,7 @@ const modalStyles = css`
 
     @media ${screenSize.upToMedium} {
         border: none;
+        border-radius: 0;
         height: 100%;
         max-width: unset;
         min-width: unset;
