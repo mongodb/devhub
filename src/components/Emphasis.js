@@ -1,8 +1,12 @@
 import React from 'react';
-import { getNestedValue } from '../utils/get-nested-value';
+import ComponentFactory from './ComponentFactory';
 
 const Emphasis = ({ nodeData }) => (
-    <em>{getNestedValue(['children', 0, 'value'], nodeData)}</em>
+    <em>
+        {nodeData.children.map((child, index) => (
+            <ComponentFactory nodeData={child} key={index} />
+        ))}
+    </em>
 );
 
 export default Emphasis;
