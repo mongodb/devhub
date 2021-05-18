@@ -38,6 +38,13 @@ const DateTextContainer = styled('div')`
     display: flex;
 `;
 
+const StyledHeroBanner = styled(HeroBanner)`
+    a {
+        text-transform: capitalize;
+    }
+`;
+
+
 const BlogPostTitleArea = ({
     articleImage,
     authors,
@@ -49,7 +56,7 @@ const BlogPostTitleArea = ({
 }) => {
     const BlogTitle = H2.withComponent('h1');
     return (
-        <HeroBanner
+        <StyledHeroBanner
             background={articleImage}
             breadcrumb={breadcrumb}
             data-test="hero-banner"
@@ -73,7 +80,7 @@ const BlogPostTitleArea = ({
                 <BlogTagList tags={tags} />
             </PostMetaLine>
             <BylineBlock authors={authors} />
-        </HeroBanner>
+        </StyledHeroBanner>
     );
 };
 

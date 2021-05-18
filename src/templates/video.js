@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import ArticleSchema from '~components/dev-hub/article-schema';
+import BlogPostTitleArea from '~components/dev-hub/blog-post-title-area';
 import Layout from '~components/dev-hub/layout';
 import SEO from '~components/dev-hub/SEO';
 import ShareFooter from '~components/dev-hub/article-share-footer';
 import ShareMenu from '~components/dev-hub/share-menu';
 import VideoEmbed from '~components/dev-hub/video-embed';
-import VideoJumbotron from '~components/dev-hub/video-jumbotron';
 import { P } from '~components/dev-hub/text';
 
 import { toDateString } from '~utils/format-dates';
@@ -102,10 +102,10 @@ const Video = ({
             thumbnailUrl: image,
             title,
             videoId,
-            mediaType
+            mediaType,
         },
         slug,
-    } = { data, slug: '/test'},
+    } = { data, slug: '/test' },
 }) => {
     const { siteUrl } = useSiteMetadata();
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
@@ -145,9 +145,9 @@ const Video = ({
                 publishedDate={formattedPublishDate}
                 imageUrl={image}
             />
-            <VideoJumbotron
+            <BlogPostTitleArea
                 breadcrumb={videoBreadcrumb}
-                publishDate={formattedPublishDate}
+                originalDate={formattedPublishDate}
                 title={title}
             />
             <Container>
@@ -160,15 +160,13 @@ const Video = ({
                     />
                 </Icons>
                 <Content>
-                    <div>
-                        <VideoEmbed
-                            nodeData={{
-                                argument: [{ value: videoId }],
-                                name: mediaType,
-                            }}
-                            thumbnail={image}
-                        />
-                    </div>
+                    <VideoEmbed
+                        nodeData={{
+                            argument: [{ value: videoId }],
+                            name: mediaType,
+                        }}
+                        thumbnail={image}
+                    />
                     <StyledParagraph>{description}</StyledParagraph>
                     <ShareFooter
                         title={title}
