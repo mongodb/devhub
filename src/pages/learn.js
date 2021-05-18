@@ -13,9 +13,7 @@ import { screenSize, size } from '../components/dev-hub/theme';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
-import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { LearnPageTabs } from '../utils/learn-page-tabs';
-import useAllVideos from '../hooks/use-all-videos';
 import usePodcasts from '../hooks/use-podcasts';
 import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
@@ -195,7 +193,7 @@ export default ({
     pageContext: {
         allArticles,
         allPodcasts,
-        allVideos,
+        allVideos: videos,
         featuredArticles,
         filters,
     },
@@ -265,8 +263,6 @@ export default ({
             (!filterValue.products || filterValue.products === 'all'),
         [filterValue]
     );
-
-    const { videos } = useAllVideos(allVideos);
 
     const { podcasts } = usePodcasts(allPodcasts);
 
