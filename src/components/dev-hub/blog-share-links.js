@@ -1,14 +1,19 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import copy from 'copy-to-clipboard';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { getArticleShareLinks } from '../../utils/get-article-share-links';
 import { size } from './theme';
+import SuccessIcon from './icons/success';
 import LinkIcon from './icons/link-icon';
 import LinkedIn from './icons/linkedin';
 import FacebookIcon from './icons/facebook-icon';
 import TwitterIcon from './icons/twitter-icon';
 import Link from './link';
-import Tooltip from './tooltip';
+
+const hide = css`
+    display: none;
+`;
 
 const BlogShareContainer = styled('div')`
     display: flex;
@@ -19,10 +24,16 @@ const BlogShareLink = styled(Link)`
     height: ${size.default};
     line-height: ${size.default};
     width: ${size.default};
-`;
-
-const StyledTooltip = styled(Tooltip)`
-    line-height: ${size.default};
+    cursor: pointer;
+    path {
+        fill: ${({ theme }) => theme.colorMap.greyLightTwo};
+    }
+    &:hover {
+        path {
+            fill: ${({ consistentHoverColor, theme }) =>
+                !consistentHoverColor && theme.colorMap.devWhite};
+        }
+    }
 `;
 
 const BlogShareLinks = ({
@@ -39,21 +50,30 @@ const BlogShareLinks = ({
         linkedInUrl,
         twitterUrl,
     } = getArticleShareLinks(title, url);
-    const onCopyLink = useCallback(() => {
-        copy(articleUrl);
-    }, [articleUrl]);
+    const [showCopyMessage, setShowCopyMessage] = useState(false);
+    const onCopyLink = useCallback(
+        e => {
+            e.preventDefault();
+            copy(articleUrl);
+            setShowCopyMessage(true);
+            setTimeout(() => setShowCopyMessage(false), 2000);
+        },
+        [articleUrl]
+    );
+
     return (
         <BlogShareContainer {...props}>
-            <StyledTooltip
-                position="right"
-                trigger={
-                    <BlogShareLink onClick={onCopyLink}>
-                        <LinkIcon height={iconSize} width={iconSize} />
-                    </BlogShareLink>
-                }
+            <BlogShareLink onClick={onCopyLink} css={showCopyMessage && hide}>
+                <LinkIcon height={iconSize} width={iconSize} />
+            </BlogShareLink>
+
+            <BlogShareLink
+                onClick={onCopyLink}
+                css={!showCopyMessage && hide}
+                consistentHoverColor={true}
             >
-                {tooltipText || 'Article link copied to clipboard!'}
-            </StyledTooltip>
+                <SuccessIcon height={iconSize} width={iconSize} />
+            </BlogShareLink>
 
             <BlogShareLink target="_blank" href={linkedInUrl}>
                 <LinkedIn height={iconSize} width={iconSize} />
