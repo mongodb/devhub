@@ -21,6 +21,13 @@ const IconContainer = styled('div')`
     }
 `;
 
+const SpacedOutText = styled('div')`
+    margin-bottom: ${size.mediumLarge};
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.large};
+    }
+`;
+
 const StyledButtonContainer = styled('div')`
     display: flex;
     justify-content: center;
@@ -50,7 +57,6 @@ const StyledButton = styled(Button)`
 `;
 
 const StyledDescription = styled(P)`
-    display: inline-block;
     font-family: Akzidenz;
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
@@ -68,10 +74,14 @@ const FeedbackForm = ({ icon, ratingFlow = {}, onSubmit }) => {
             }}
         >
             {icon && <IconContainer>{icon}</IconContainer>}
-            {title && <StyledH5 collapse>{title}</StyledH5>}
-            {description && (
-                <StyledDescription>{description}</StyledDescription>
-            )}
+            <SpacedOutText>
+                {title && <StyledH5 collapse>{title}</StyledH5>}
+                {description && (
+                    <StyledDescription collapse>
+                        {description}
+                    </StyledDescription>
+                )}
+            </SpacedOutText>
 
             <CMSForm form={ratingFlow} />
 
