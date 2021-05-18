@@ -65,10 +65,12 @@ describe('Sample Article Page', () => {
     it('should have links to share content on social media', () => {
         cy.get('[data-test="article-share-links"]').within(() => {
             cy.get('a').each((link, index) => {
-                // Index 0 is the copy to clipboard functionality
+                // Index 0 is the copy to clipboard functionality and 1 is the
+                // check box
                 // TODO: UI test clipboard link copy
-                if (index !== 0) {
-                    const url = SOCIAL_URLS[index - 1];
+                const copyDOMOffset = 2;
+                if (index >= copyDOMOffset) {
+                    const url = SOCIAL_URLS[index - copyDOMOffset];
                     cy.wrap(link).should('have.prop', 'href', url);
                 }
             });
