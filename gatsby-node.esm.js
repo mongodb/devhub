@@ -21,6 +21,7 @@ import { createArticlePage } from './src/utils/setup/create-article-page';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
 import { schemaCustomization } from './src/utils/setup/schema-customization';
 import { SnootyArticle } from './src/classes/snooty-article';
+import { createVideoPages } from './src/utils/setup/create-video-pages';
 
 const pluralizeIfNeeded = {
     author: 'authors',
@@ -195,6 +196,8 @@ export const createPages = async ({ actions, graphql }) => {
         createTagPageType(type, createPage, tagPageDirectory, metadataDocument)
     );
     await Promise.all(tagPages);
+
+    await createVideoPages(createPage, metadataDocument);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
