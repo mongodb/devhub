@@ -18,6 +18,7 @@ module.exports = {
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
         'gatsby-plugin-force-trailing-slashes',
+        'gatsby-plugin-preload-fonts',
         {
             resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
             options: {
