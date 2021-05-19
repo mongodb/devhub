@@ -10,8 +10,9 @@ import ShareMenu from '~components/dev-hub/share-menu';
 import VideoEmbed from '~components/dev-hub/video-embed';
 import { P } from '~components/dev-hub/text';
 
-import { toDateString } from '~utils/format-dates';
+import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
+import { toDateString } from '~utils/format-dates';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 
 import { dateFormatOptions } from '~src/constants';
@@ -82,7 +83,7 @@ const Video = ({
             slug,
             description,
             publishDate,
-            thumbnailUrl: image,
+            thumbnailUrl,
             title,
             videoId,
             mediaType,
@@ -102,6 +103,14 @@ const Video = ({
             },
         ],
         [mediaType, slug]
+    );
+
+    const image = useMemo(
+        () =>
+            mediaType === 'twitch'
+                ? getTwitchThumbnail(thumbnailUrl)
+                : thumbnailUrl,
+        [mediaType, thumbnailUrl]
     );
 
     return (
