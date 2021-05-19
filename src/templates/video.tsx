@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import ArticleSchema from '~components/dev-hub/article-schema';
@@ -11,12 +10,14 @@ import ShareMenu from '~components/dev-hub/share-menu';
 import VideoEmbed from '~components/dev-hub/video-embed';
 import { P } from '~components/dev-hub/text';
 
-import { toDateString } from '~utils/format-dates';
+import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
+import { toDateString } from '~utils/format-dates';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 
 import { dateFormatOptions } from '~src/constants';
 import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
+import { Video as IVideo } from '~src/interfaces/video';
 
 const VIDEO_BREADCRUMB = [
     {
@@ -70,43 +71,25 @@ const StyledParagraph = styled(P)`
     line-height: ${lineHeight.default};
 `;
 
-//This is TEST DATA and will removed in DEVHUB-663. For test just add the component instead of article.
-//Youtube
-const data = {
-    description:
-        'Want to integrate MongoDB into your Phaser HTML5 games? Learn how in the first part of a multi-part Twitch series hosted by Nic Raboy and Adrienne Tacke.\n\nIn this part we explore how to draw lines with a mouse cursor or mobile device stylus on a Phaser canvas. We take time to understand how these lines are created and the data that can be potentially stored in MongoDB. After getting basic drawing down, we transition into configuring MongoDB Atlas and MongoDB Realm, components that will be made use of in the next part of the series.',
-    mediaType: 'youtube',
-    playlistId: 'PL4RCxklHWZ9sOT_iMTc3RKgSoVbQpe8aX',
-    publishDate: '2020-07-15T14:00:13Z',
-    thumbnailUrl: 'https://i.ytimg.com/vi/sx_hnMUhiHA/sddefault.jpg',
-    title:
-        'Creating a Multiplayer Drawing Game with Phaser and MongoDB, Part 1',
-    videoId: 'sx_hnMUhiHA',
+type VideoProps = {
+    pageContext: {
+        data: IVideo;
+    };
 };
-//
-//Twitch
-// const data = {
-//     description: "",
-//     mediaType: "twitch",
-//     publishDate: "2021-03-31T17:02:32Z",
-//     thumbnailUrl: "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/664c72cb8d59f8790fb0_mongodb_42167974830_1617210143//thumb/thumb0-%{width}x%{height}.jpg",
-//     title: "Creating a Pokémon Game with MongoDB Change Streams",
-//     videoId: "970171464",
-// }
 
 const Video = ({
     pageContext: {
         data: {
+            slug,
             description,
             publishDate,
-            thumbnailUrl: image,
+            thumbnailUrl,
             title,
             videoId,
             mediaType,
         },
-        slug,
-    } = { data, slug: '/test' },
-}) => {
+    },
+}: VideoProps) => {
     const { siteUrl } = useSiteMetadata();
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
     const formattedPublishDate = toDateString(publishDate, dateFormatOptions);
@@ -120,6 +103,14 @@ const Video = ({
             },
         ],
         [mediaType, slug]
+    );
+
+    const image = useMemo(
+        () =>
+            mediaType === 'twitch'
+                ? getTwitchThumbnail(thumbnailUrl)
+                : thumbnailUrl,
+        [mediaType, thumbnailUrl]
     );
 
     return (
@@ -178,19 +169,4 @@ const Video = ({
         </Layout>
     );
 };
-
-Video.propTypes = {
-    pageContext: PropTypes.shape({
-        data: PropTypes.shape({
-            description: PropTypes.string,
-            mediaType: PropTypes.string,
-            publishDate: PropTypes.string,
-            thumbnailUrl: PropTypes.string,
-            title: PropTypes.string,
-            videoId: PropTypes.string,
-        }),
-        slug: PropTypes.string,
-    }),
-};
-
 export default Video;

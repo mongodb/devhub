@@ -49,7 +49,7 @@ const renderVideo = video => (
         title={video.title}
         badge={video.mediaType}
         description={video.description}
-        video={video}
+        to={video.slug}
     />
 );
 

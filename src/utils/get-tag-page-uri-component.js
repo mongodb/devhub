@@ -5,7 +5,10 @@ const getTagPageUriComponent = tagPageUri => {
         case 'c#':
             return 'csharp';
         default:
-            return tagPageUri.toLowerCase().replace(/\W/g, '-');
+            return tagPageUri
+                .toLowerCase()
+                .replace(/\W/g, '-')
+                .replace(/[-_,]+/g, '-')
     }
 };
 
