@@ -7,7 +7,9 @@ import Layout from '~components/dev-hub/layout';
 import PodcastJumbotron from '~components/dev-hub/podcast-jumbotron';
 import SEO from '~components/dev-hub/SEO';
 import ShareFooter from '~components/dev-hub/article-share-footer';
-import BlogShareLinks from '../components/dev-hub/blog-share-links';
+import BlogShareLinks, {
+    BlogShareLink,
+} from '../components/dev-hub/blog-share-links';
 import { P } from '~components/dev-hub/text';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
@@ -98,7 +100,7 @@ const StyledBlogShareLinks = styled(BlogShareLinks)`
 
 const StyledFooter = styled(ShareFooter)`
     /* Target the copy link, although it is below some divs */
-    div > a:first-of-type {
+    ${BlogShareLink}:first-of-type {
         margin-left: 0;
     }
 `;

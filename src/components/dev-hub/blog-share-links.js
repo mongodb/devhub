@@ -19,7 +19,7 @@ const BlogShareContainer = styled('div')`
     display: flex;
 `;
 
-const BlogShareLink = styled(Link)`
+export const BlogShareLink = styled(Link)`
     display: inline-block;
     height: ${size.default};
     line-height: ${size.default};
