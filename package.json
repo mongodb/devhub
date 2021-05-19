@@ -9,6 +9,7 @@
     "develop": "gatsby develop",
     "format": "prettier --write",
     "lint": "eslint --fix",
+    "preload-fonts": "gatsby-preload-fonts",
     "preview": "webpack-dev-server --open --config ./webpack.config.js --env.PREVIEW_MODE='cli'",
     "serve": "gatsby serve --prefix-paths",
     "serveTest": "gatsby serve",
