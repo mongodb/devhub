@@ -8,7 +8,7 @@ const LinkIcon = ({ color, ...props }) => {
         <svg
             aria-label="Link"
             height="20"
-            viewBox="0 0 515 515"
+            viewBox="0 0 540 500"
             width="20"
             {...props}
         >

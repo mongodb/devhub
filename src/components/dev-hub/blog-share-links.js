@@ -1,0 +1,96 @@
+import React, { useCallback, useState } from 'react';
+import copy from 'copy-to-clipboard';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { getArticleShareLinks } from '../../utils/get-article-share-links';
+import { size } from './theme';
+import SuccessIcon from './icons/success';
+import LinkIcon from './icons/link-icon';
+import LinkedIn from './icons/linkedin';
+import FacebookIcon from './icons/facebook-icon';
+import TwitterIcon from './icons/twitter-icon';
+import Link from './link';
+
+const hide = css`
+    display: none;
+`;
+
+const BlogShareContainer = styled('div')`
+    display: flex;
+`;
+
+export const BlogShareLink = styled(Link)`
+    display: inline-block;
+    height: ${size.default};
+    line-height: ${size.default};
+    width: ${size.default};
+    cursor: pointer;
+    path {
+        fill: ${({ theme }) => theme.colorMap.greyLightTwo};
+    }
+    &:hover {
+        path {
+            fill: ${({ consistentHoverColor, theme }) =>
+                !consistentHoverColor && theme.colorMap.devWhite};
+        }
+    }
+`;
+
+const BlogShareLinks = ({
+    iconSize = size.default,
+    tags,
+    title,
+    tooltipText,
+    url,
+    ...props
+}) => {
+    const {
+        articleUrl,
+        facebookUrl,
+        linkedInUrl,
+        twitterUrl,
+    } = getArticleShareLinks(title, url);
+    const [showCopyMessage, setShowCopyMessage] = useState(false);
+    const onCopyLink = useCallback(
+        e => {
+            e.preventDefault();
+            copy(articleUrl);
+            setShowCopyMessage(true);
+            setTimeout(() => setShowCopyMessage(false), 2000);
+        },
+        [articleUrl]
+    );
+
+    return (
+        <BlogShareContainer {...props}>
+            <BlogShareLink
+                consistentHoverColor={showCopyMessage}
+                onClick={onCopyLink}
+            >
+                <LinkIcon
+                    css={showCopyMessage && hide}
+                    height={iconSize}
+                    width={iconSize}
+                />
+                <SuccessIcon
+                    css={!showCopyMessage && hide}
+                    height={iconSize}
+                    width={iconSize}
+                />
+            </BlogShareLink>
+
+            <BlogShareLink target="_blank" href={linkedInUrl}>
+                <LinkedIn height={iconSize} width={iconSize} />
+            </BlogShareLink>
+
+            <BlogShareLink target="_blank" href={twitterUrl}>
+                <TwitterIcon height={iconSize} width={iconSize} />
+            </BlogShareLink>
+            <BlogShareLink target="_blank" href={facebookUrl}>
+                <FacebookIcon height={iconSize} width={iconSize} />
+            </BlogShareLink>
+        </BlogShareContainer>
+    );
+};
+
+export default BlogShareLinks;

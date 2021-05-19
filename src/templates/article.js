@@ -51,6 +51,14 @@ const Container = styled('div')`
         justify-content: center;
     }
 `;
+const SpacedShareMenu = styled(ShareMenu)`
+    margin-left: ${size.default};
+    @media ${screenSize.largeAndUp} {
+        margin-left: 0;
+        margin-top: ${size.default};
+    }
+`;
+
 const Article = props => {
     const {
         pageContext: {
@@ -128,7 +136,7 @@ const Article = props => {
                         height={size.default}
                         width={size.default}
                     />
-                    <ShareMenu
+                    <SpacedShareMenu
                         title={title}
                         url={articleUrl}
                         height={size.default}

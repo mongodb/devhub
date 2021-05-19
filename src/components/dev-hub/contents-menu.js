@@ -79,7 +79,7 @@ const ContentsMenu = ({ title, headingNodes, ...props }) => {
             hasGradientBorder
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            position={'right'}
+            position="right"
             trigger={
                 <HoverTooltip
                     trigger={
