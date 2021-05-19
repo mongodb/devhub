@@ -81,17 +81,17 @@ const StyledPlayer = styled(AudioPlayer)`
 `;
 
 const StyledBlogShareLinks = styled(BlogShareLinks)`
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
     > :not(:first-child) {
         margin-top: ${size.medium};
     }
     @media ${screenSize.upToLarge} {
         display: inline-flex;
         flex-direction: row;
-        > * {
-            margin-top: 0;
+        > :not(:first-child) {
             margin-left: ${size.mediumLarge};
+            margin-top: 0;
         }
     }
 `;
