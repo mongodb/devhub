@@ -2,6 +2,19 @@
 
 exports[`renders correctly 1`] = `
 <strong>
-  first
+  <ComponentFactory
+    key="0"
+    nodeData={
+      Object {
+        "position": Object {
+          "start": Object {
+            "line": 0,
+          },
+        },
+        "type": "text",
+        "value": "first",
+      }
+    }
+  />
 </strong>
 `;

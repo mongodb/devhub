@@ -2,6 +2,19 @@
 
 exports[`renders correctly 1`] = `
 <em>
-  Step 3
+  <ComponentFactory
+    key="0"
+    nodeData={
+      Object {
+        "position": Object {
+          "start": Object {
+            "line": 2,
+          },
+        },
+        "type": "text",
+        "value": "Step 3",
+      }
+    }
+  />
 </em>
 `;

@@ -38,8 +38,7 @@ export class StrapiArticle implements Article {
             'type',
             'heading',
             2,
-            -1,
-            true
+            -1
         );
         this.image = mappedArticle.image;
         this.languages = mapTagTypeToUrl(
