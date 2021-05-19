@@ -30,7 +30,7 @@ const BlogShareLinks = styled('div')`
     }
 `;
 
-const ArticleShareFooter = ({ tags, title, url, ...props }) => {
+const ArticleShareFooter = ({ tags, title, url, tooltipText, ...props }) => {
     const {
         articleUrl,
         facebookUrl,
@@ -52,7 +52,7 @@ const ArticleShareFooter = ({ tags, title, url, ...props }) => {
                         </Link>
                     }
                 >
-                    Article link copied to clipboard!
+                    {tooltipText || 'Article link copied to clipboard!'}
                 </Tooltip>
 
                 <Link target="_blank" href={linkedInUrl}>
