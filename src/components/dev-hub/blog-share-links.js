@@ -63,16 +63,20 @@ const BlogShareLinks = ({
 
     return (
         <BlogShareContainer {...props}>
-            <BlogShareLink onClick={onCopyLink} css={showCopyMessage && hide}>
-                <LinkIcon height={iconSize} width={iconSize} />
-            </BlogShareLink>
-
             <BlogShareLink
+                consistentHoverColor={showCopyMessage}
                 onClick={onCopyLink}
-                css={!showCopyMessage && hide}
-                consistentHoverColor={true}
             >
-                <SuccessIcon height={iconSize} width={iconSize} />
+                <LinkIcon
+                    css={showCopyMessage && hide}
+                    height={iconSize}
+                    width={iconSize}
+                />
+                <SuccessIcon
+                    css={!showCopyMessage && hide}
+                    height={iconSize}
+                    width={iconSize}
+                />
             </BlogShareLink>
 
             <BlogShareLink target="_blank" href={linkedInUrl}>

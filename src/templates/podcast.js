@@ -98,7 +98,7 @@ const StyledBlogShareLinks = styled(BlogShareLinks)`
 
 const StyledFooter = styled(ShareFooter)`
     /* Target the copy link, although it is below some divs */
-    div > div > a {
+    div > a:first-of-type {
         margin-left: 0;
     }
 `;
