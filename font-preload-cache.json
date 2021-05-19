@@ -1,6 +1,6 @@
 {
-    "timestamp": 1621449629027,
-    "hash": "206c5e4901823dbc1bd52e1181605cdf",
+    "timestamp": 1621453857428,
+    "hash": "8a57eebbf740feba944f941253b603ba",
     "assets": {
         "/project/database-development-dcp/": {
             "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
@@ -47,7 +47,8 @@
             "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
             "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
             "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
-            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "https://charts.mongodb.com/assets/fonts/akzidgrostdreg.woff": true
         },
         "/article/active-active-application-architectures/": {
             "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
@@ -65,7 +66,9 @@
             "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
             "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
             "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
-            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "data:application/font-woff;charset=utf-8;base64,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": true,
+            "https://charts.mongodb.com/assets/fonts/akzidgrostdreg.woff": true
         },
         "/article/enterprise-operator-kubernetes-openshift/": {
             "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
@@ -79,7 +82,8 @@
             "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
             "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
             "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
-            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "https://charts.mongodb.com/assets/fonts/akzidgrostdreg.woff": true
         },
         "/article/map-terms-concepts-sql-mongodb/": {
             "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
@@ -855,6 +859,1385 @@
             "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
             "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
             "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/10-tips-making-remote-work-actually-work/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/7-things-learned-while-modeling-data-youtube-stats/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/atlas-multi-cloud-global-clusters/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/atlas-sample-datasets/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/beanie-odm-fastapi-cocktails/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/behind-scenes-mongodb-podcast/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/building-service-based-atlas-management/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/can-you-keep-a-secret/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/day-zero-glossary/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/everything-you-know-is-wrong/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/from-developer-to-sa-tosin-ajayi/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/getting-to-day-zero/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/johns-hopkins-university-covid-19-graphql-api/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/johns-hopkins-university-covid-19-rest-api/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/key-developer-takeaways-hacktoberfest-2020/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/learn-mongodb-university-online-free-mooc/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/lessons-learned-building-game-mongodb-unity/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/live2020-keynote-summary/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/mongodb-5-0-schema-validation/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/mongodb-automation-index-autopilot/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/mongodb-connectors-translators-interview/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/mongodb-schema-design-best-practices/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/multicloud-clusters-with-andrew-davidson/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/performance-tuning-tips/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/realm-cocoa-swiftui-combine/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/realm-database-and-frozen-objects/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/realm-database-cascading-deletes/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/realm-dotnet-for-xamarin-best-practices-meetup/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/realm-hackathon-experience/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/realm-javascript-nan-to-n-api/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/realm-jetpackcompose-emoji-android/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/realm-swiftui-property-wrappers-mvi-meetup/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/realm-sync-in-use-with-swiftui-chat-app-meetup/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/realm-with-no-code-platforms-appgyver/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/resumable-initial-sync/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/schema-design-anti-pattern-bloated-documents/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/schema-design-anti-pattern-case-insensitive-query-index/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/schema-design-anti-pattern-massive-arrays/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/schema-design-anti-pattern-massive-number-collections/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/schema-design-anti-pattern-separating-data/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/schema-design-anti-pattern-summary/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/schema-design-anti-pattern-unnecessary-indexes/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/serde-improvements/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/six-principles-building-robust-flexible-shared-data-applications/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/sizing-mongodb-with-jay-runkel/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/article/swift-ui-meetup/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/article/under-used-features/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/article/update-on-monogodb-and-swift/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/community/apply-to-speak/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/community/art-of-creating-talk/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/community/community-speaker-grant/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/community/creating-stunning-slides/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/community/speaker-program/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/community/surviving-the-stage/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/community/virtual-presentation/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/5-ways-reduce-costs-atlas/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/FARM-Stack-Authentication/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/FARM-Stack-FastAPI-React-MongoDB/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/Realm-AWS-Kinesis-Firehose-Destination/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/SQL-to-Aggregation-Pipeline/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/atlas-data-lake-federated-queries-out-aws-s3/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/atlas-data-lake-online-archive/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/build-animated-timeline-chart-embedding-sdk/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "https://charts.mongodb.com/assets/fonts/akzidgrostdreg.woff": true
+        },
+        "/how-to/build-command-line-swift-mongodb/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/build-infinite-runner-game-unity-realm-unity-sdk/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/build-movie-search-application/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/building-a-mobile-chat-app-using-realm/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/building-a-mobile-chat-app-using-realm-new-way/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/building-autocomplete-form-element-atlas-search-javascript/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/capturing-hacker-news-mentions-nodejs-mongodb/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/client-side-field-level-encryption-csfle-mongodb-node/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/client-side-field-level-encryption-mongodb-csharp/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/computed-pattern/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/connect-atlas-cloud-kubernetes-peering/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/create-contact-form-mongodb-stitch-webhooks-service-mailgun/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/create-data-api-10-min-realm/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/creating-multiplayer-drawing-game-phaser/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/creating-user-profile-store-game-nodejs-mongodb/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/designing-developing-2d-game-levels-unity-csharp/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/designing-strategy-develop-game-unity-mongodb/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/developing-side-scrolling-platformer-game-unity-mongodb-realm/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/end-to-end-test-realm-serverless-apps/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/field-level-encryption-fle-mongodb-golang/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/get-started-atlas-aws-cloudformation/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/getting-started-atlas-mongodb-query-language-mql/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/getting-started-realm-sdk-unity/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/getting-started-unity-creating-2d-game/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/global-read-write-concerns/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/graphql-easy/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/hidden-indexes/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/integration-test-realm-serverless-apps/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/internet-of-toilets/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/intro-to-realm-sdk-for-unity3d/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/introduction-to-linked-lists-and-mongodb/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/is-it-safe-covid/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/location-geofencing-stitch-mapbox/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/maintaining-geolocation-specific-game-leaderboard-phaser-mongodb/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/manage-data-at-scale-with-online-archive/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/manage-game-user-profiles-mongodb-phaser-javascript/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/mongodb-on-raspberry-pi/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/mongodb-visual-studio-code-plugin/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/mongoimport-guide/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/nextjs-with-mongodb/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/non-root-user-mongod-process/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/oauth-and-realm-serverless/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/pause-resume-atlas-clusters/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/query-multiple-databases-with-atlas-data-lake/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/querying-mongodb-browser-realm-react/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/real-time-chat-phaser-game-mongodb-socketio/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/real-time-location-updates-stitch-change-streams-mapbox/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/realm-data-architecture-ofish-app/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/realm-eventbridge-slack/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/realm-google-authentication-android/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/realm-ios-database-access-using-realm-studio/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/realm-swiftui-combine-first-app/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/realm-swiftui-ios-chat-app/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/realm-swiftui-scrumdinger-migration/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/searching-nearby-points-interest-mapbox/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/searching-on-your-location-atlas-search-geospatial-operators/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/seed-database-with-fake-data/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/sending-requesting-data-mongodb-unity-game/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/serverless-development-lambda-atlas/": {
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/setup-multi-cloud-cluster-mongodb-atlas/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/how-to/strapi-headless-cms-with-atlas/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/subscribing-changes-browser-websockets/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/how-to/subset-pattern/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/unit-test-realm-serverless-functions/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/update-array-elements-document-mql-positional-operators/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true
+        },
+        "/how-to/use-atlas-on-heroku/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/use-function-accumulator-operators/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/use-union-all-aggregation-pipeline-stage/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/visually-showing-atlas-search-highlights-javascript-html/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/how-to/zap-tweet-repeat-how-to-use-zapier-mongodb/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/bson-data-types-date/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/cheat-sheet/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/quickstart/introduction-aggregation-framework/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/java-client-side-field-level-encryption/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/node-aggregation-framework/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/node-aggregation-framework-3-3-2/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/node-connect-mongodb/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/blog/post/quick-start-nodejs-mongodb--how-to-get-connected-to-your-database": {
+            "https://static.mongodb.com/blog/fonts/akzidenzgroteskbq_light-webfont.woff2": true,
+            "https://static.mongodb.com/blog/fonts/akzidenzgroteskbq_medium-webfont.woff2": true,
+            "https://static.mongodb.com/blog/fonts/icons.woff2": true,
+            "https://static.mongodb.com/blog/fonts/DINWeb-Bold.woff": true,
+            "https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2": true
+        },
+        "/quickstart/node-connect-mongodb-3-3-2/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true
+        },
+        "/quickstart/node-crud-tutorial-3-3-2/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/node-transactions/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/node-transactions-3-3-2/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/nodejs-change-streams-triggers-3-3-2/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/php-crud/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/php-setup/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/python-quickstart-aggregation/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/python-quickstart-crud/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true
+        },
+        "/quickstart/python-quickstart-fastapi/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/quickstart/python-quickstart-fle/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/python-quickstart-sanic/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/quickstart/python-quickstart-starlette/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
+        },
+        "/quickstart/python-quickstart-tornado/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true
+        },
+        "/quickstart/rust-crud-tutorial/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/quickstart/rust-quickstart-aggregation/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdita-webfont-eec2e895534793aef835a947a678d2cc.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/pavel-duchovny/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/eoin-brazil/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/adrienne-tacke/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/katya-kamenieva/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/mongodb-inc-/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/thomas-goyne/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/shane-mcallister/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/katherine-maughan/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/ian-ward/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/nikola-irinchev/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/ferdinando-papale/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/lubo-blagoev/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/aniket-kadam/": {
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/jason-flax/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/harri-sarsa/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/nuno-costa/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/isabel-atkinson/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/paul-done/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/rachelle-palmer/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/kaitlin-mahar/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/sven-peters/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/kristina-stefanova/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/jason-mimick/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/brian-leonard/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/dominic-frei/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/ella-shurhavetsky/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/igor-alekseev/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/author/henna-singh/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/language/kotlin/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/language/swift/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/language/objective-c/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/language/rust/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/language/php/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/product/mobile/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/product/online-archive/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/product/bi-connector/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/product/atlas-search/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/product/realm-studio/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/remote-work/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/soft-skills/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/multi-cloud/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/devops/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/data/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/fastapi/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/podcast/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/public-speaking/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/mongodb-4-4/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/university/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/game-development/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/unity/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/mongodb-5-0/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/ios/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/mobile/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/data-structures/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/kafka/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/testing/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/speaker-program/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/farm-stack/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/aggregation-framework/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/mongodb-4-2/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/swiftui/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/field-level-encryption/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/-net-core/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/kubernetes/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/containers/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/raspberry-pi/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/jupyter-notebook/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/vs-code/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/android/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/cloud-development/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/websockets/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/tornado/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/tag/triggers/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/type/community/": {
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true,
+            "/static/akzidgrostdmed-webfont-1e75b4ce416b5ba50e7d09e27c6dc5b5.woff2": true
+        },
+        "/dev-404-page/": {
+            "/static/akzidgrostdreg-webfont-e97a728c185a051ccb560dee8eb3989e.woff2": true,
+            "/static/fira-mono-latin-700-88eb04d0e7cd2ef944219997d022085f.woff2": true,
             "/static/fira-mono-latin-400-e3ae866ff2823372c9e3aaadebbd8db2.woff2": true
         }
     }
