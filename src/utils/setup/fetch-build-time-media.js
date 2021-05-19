@@ -5,13 +5,11 @@ import { transformTwitchResponse } from '../transform-twitch-response';
 import { transformYoutubeResponse } from '../transform-youtube-response';
 import memoizerific from 'memoizerific';
 
-const MAX_RESULTS = 5;
-
 const fetchMedia = async () => {
     const client = await initStitch(STITCH_AUTH_APP_ID);
     const [youtubeVideos, twitchVideos, lybsinPodcasts] = await Promise.all([
-        client.callFunction('fetchYoutubeData', [MAX_RESULTS]),
-        client.callFunction('fetchMDBTwitchVideos', [MAX_RESULTS]),
+        client.callFunction('fetchYoutubeData', []),
+        client.callFunction('fetchMDBTwitchVideos', []),
         client.callFunction('fetchLybsinPodcasts', []),
     ]);
     const allTwitchVideos = twitchVideos.data.map(transformTwitchResponse);

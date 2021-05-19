@@ -8,7 +8,7 @@ const getTagPageUriComponent = tagPageUri => {
             return tagPageUri
                 .toLowerCase()
                 .replace(/\W/g, '-')
-                .replace(/--/g, '-');
+                .replace(/[-_,]+/g, '-')
     }
 };
 

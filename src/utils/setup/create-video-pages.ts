@@ -4,7 +4,7 @@ import { Video } from '../../interfaces/video';
 
 export const createVideoPages = async (
     createPage: Function,
-    metadataDocument: object
+    metadata: object
 ) => {
     const { allVideos } = await fetchBuildTimeMedia();
 
@@ -13,7 +13,7 @@ export const createVideoPages = async (
             path: video.slug,
             component: path.resolve('./src/templates/video.tsx'),
             context: {
-                metadata: metadataDocument,
+                metadata,
                 data: video,
             },
         });

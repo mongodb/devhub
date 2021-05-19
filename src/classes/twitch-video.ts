@@ -19,6 +19,6 @@ export class TwitchVideo implements Video {
         this.thumbnailUrl = video.thumbnail_url;
         this.title = video.title;
         this.videoId = video.id;
-        this.slug = `/video/${this.mediaType}/${getTagPageUriComponent(this.title)}`;
+        this.slug = `/videos/${this.mediaType}/${getTagPageUriComponent(this.title)}`;
     }
 }

@@ -19,6 +19,6 @@ export class YoutubeVideo implements Video {
         this.thumbnailUrl = video.thumbnails?.standard?.url;
         this.title = video.title;
         this.videoId = video.resourceId?.videoId;
-        this.slug = `/video/${this.mediaType}/${getTagPageUriComponent(this.title)}`;
+        this.slug = `/videos/${this.mediaType}/${getTagPageUriComponent(this.title)}`;
     }
 }
