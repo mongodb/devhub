@@ -76,6 +76,7 @@ const ArticleRating = ({ isTop, isBottom, className, articleMeta }) => {
                         () => setFlowHandler(STAR_ACTIONS.FOUR),
                         () => setFlowHandler(STAR_ACTIONS.FIVE),
                     ]}
+                    isTop={isTop}
                 />
             </Container>
         </>

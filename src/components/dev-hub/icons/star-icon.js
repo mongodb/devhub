@@ -4,6 +4,7 @@ import { useTheme } from '@emotion/react';
 import { size } from '~components/dev-hub/theme';
 
 const StarIcon = ({
+    ariaLabel = 'Star',
     color,
     isActive,
     name,
@@ -16,7 +17,7 @@ const StarIcon = ({
 
     return (
         <svg
-            aria-label="Star"
+            aria-label={ariaLabel}
             width={iconSize || size.default}
             height={iconSize || size.default}
             viewBox="0 0 576 512"

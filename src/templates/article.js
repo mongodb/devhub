@@ -185,6 +185,7 @@ const Article = props => {
                             width={size.default}
                         />
                         <StyledBlogShareLinks
+                            isTop
                             position="right"
                             title={title}
                             url={articleUrl}

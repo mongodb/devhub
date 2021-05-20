@@ -66,7 +66,7 @@ const StyledStarsContainer = styled('div')`
     }
 `;
 
-const StarRating = ({ clickHandlers }) => {
+const StarRating = ({ clickHandlers, isTop }) => {
     const { ratingState, ratingDispatch } = useContext(ArticleRatingContext);
 
     const onClickHandler = useCallback(
@@ -97,19 +97,23 @@ const StarRating = ({ clickHandlers }) => {
         [clickHandlers, onClickHandler, onHoverHandler]
     );
 
+    const uniqueStarSuffix = isTop ? '-top' : '-bottom';
+
     return (
         <StyledContainer>
             <StyledTitle>Rate this article</StyledTitle>
             <StyledStarsContainer onMouseLeave={onLeaveHandler}>
                 <StyledButton
+                    aria-label="One Star"
                     onClick={onOpenFeedback(0, STAR_ACTIONS.ONE)}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.ONE)}
                     onTouchEnd={onOpenFeedback(0, STAR_ACTIONS.ONE)}
                     isActive={ratingState.stars[0]}
                 >
                     <StarIcon
+                        ariaLabel="One Star"
                         isActive={ratingState.stars[0]}
-                        name="first-star"
+                        name={`first-star${uniqueStarSuffix}`}
                         size={ratingState.stars[0] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#D34F94" />
@@ -117,14 +121,16 @@ const StarRating = ({ clickHandlers }) => {
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
+                    aria-label="Two Stars"
                     isActive={ratingState.stars[1]}
                     onClick={onOpenFeedback(1, STAR_ACTIONS.TWO)}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.TWO)}
                     onTouchEnd={onOpenFeedback(1, STAR_ACTIONS.TWO)}
                 >
                     <StarIcon
+                        ariaLabel="Two Stars"
                         isActive={ratingState.stars[1]}
-                        name="second-star"
+                        name={`second-star${uniqueStarSuffix}`}
                         size={ratingState.stars[1] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#D95B8F" />
@@ -132,13 +138,15 @@ const StarRating = ({ clickHandlers }) => {
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
+                    aria-label="Three Stars"
                     isActive={ratingState.stars[2]}
                     onClick={onOpenFeedback(2, STAR_ACTIONS.THREE)}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.THREE)}
                     onTouchEnd={onOpenFeedback(2, STAR_ACTIONS.THREE)}
                 >
                     <StarIcon
-                        name="third-star"
+                        ariaLabel="Three Stars"
+                        name={`third-star${uniqueStarSuffix}`}
                         isActive={ratingState.stars[2]}
                         size={ratingState.stars[2] && size.mediumLarge}
                     >
@@ -147,14 +155,16 @@ const StarRating = ({ clickHandlers }) => {
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
+                    aria-label="Four Stars"
                     isActive={ratingState.stars[3]}
                     onClick={onOpenFeedback(3, STAR_ACTIONS.FOUR)}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FOUR)}
                     onTouchEnd={onOpenFeedback(3, STAR_ACTIONS.FOUR)}
                 >
                     <StarIcon
+                        ariaLabel="Four Stars"
                         isActive={ratingState.stars[3]}
-                        name="fourth-star"
+                        name={`fourth-star${uniqueStarSuffix}`}
                         size={ratingState.stars[3] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#E47983" />
@@ -162,14 +172,16 @@ const StarRating = ({ clickHandlers }) => {
                     </StarIcon>
                 </StyledButton>
                 <StyledButton
+                    aria-label="Five Stars"
                     isActive={ratingState.stars[4]}
                     onClick={onOpenFeedback(4, STAR_ACTIONS.FIVE)}
                     onMouseEnter={() => onHoverHandler(STAR_ACTIONS.FIVE)}
                     onTouchEnd={onOpenFeedback(4, STAR_ACTIONS.FIVE)}
                 >
                     <StarIcon
+                        ariaLabel="Five Stars"
                         isActive={ratingState.stars[4]}
-                        name="fifth-star"
+                        name={`fifth-star${uniqueStarSuffix}`}
                         size={ratingState.stars[4] && size.mediumLarge}
                     >
                         <stop offset="0%" stopColor="#F09677" />

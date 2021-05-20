@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import copy from 'copy-to-clipboard';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -37,6 +37,7 @@ const BlogShareLink = styled(Link)`
 `;
 
 const BlogShareLinks = ({
+    isTop,
     iconSize = size.default,
     tags,
     title,
@@ -59,6 +60,10 @@ const BlogShareLinks = ({
         },
         [articleUrl]
     );
+    const successIconId = useMemo(
+        () => (isTop ? 'success-icon-top' : 'success-icon-bottom'),
+        [isTop]
+    );
 
     return (
         <BlogShareContainer {...props}>
@@ -71,7 +76,11 @@ const BlogShareLinks = ({
                 css={!showCopyMessage && hide}
                 consistentHoverColor={true}
             >
-                <SuccessIcon height={iconSize} width={iconSize} />
+                <SuccessIcon
+                    id={successIconId}
+                    height={iconSize}
+                    width={iconSize}
+                />
             </BlogShareLink>
 
             <BlogShareLink target="_blank" href={linkedInUrl}>
