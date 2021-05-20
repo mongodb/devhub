@@ -23,6 +23,7 @@ import {
 } from '~components/ArticleRatingContext';
 import BalloonsIcon from '~components/dev-hub/icons/balloons-icon';
 import { screenSize, size } from '~components/dev-hub/theme';
+import useViewport from '~hooks/use-viewport';
 
 const feedbackItems = graphql`
     query FeedbackItems {
@@ -127,6 +128,8 @@ const FeedbackContainer = ({ starRatingFlow, articleMeta, closeModal }) => {
         closeModal();
     }, [closeModal, formState, isLastModal, ratingDispatch, updateFeedback]);
 
+    useViewport();
+
     return isActiveModal ? (
         <Modal
             onCloseModal={onCloseModalHandler}
@@ -135,7 +138,7 @@ const FeedbackContainer = ({ starRatingFlow, articleMeta, closeModal }) => {
             contentStyle={modalStyles}
             headingStyles={headingStyles}
             dialogMobileContainerStyle={{
-                height: '100%',
+                height: '100vh',
                 padding: 0,
                 width: '100%',
             }}
