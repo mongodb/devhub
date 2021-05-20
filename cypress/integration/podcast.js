@@ -46,7 +46,7 @@ describe('Sample Podcast Page', () => {
     });
 
     it('should have background image', () => {
-        cy.get('[class*="HeroBannerContainer"]')
+        cy.get('header > div')
             .should('have.css', 'background-image')
             .and('match', new RegExp(IMAGE));
     });
@@ -83,10 +83,8 @@ describe('Sample Podcast Page', () => {
     });
 
     it('should have breadcrumb', () => {
-        cy.get('div[class*="HeroBreadcrumb"').within(() => {
-            cy.get('a').each((el, index) => {
-                cy.wrap(el).contains(BREADCRUMBS[index]);
-            });
+        cy.get('header a').each((el, index) => {
+            cy.wrap(el).contains(BREADCRUMBS[index]);
         });
     });
 
@@ -95,22 +93,21 @@ describe('Sample Podcast Page', () => {
     });
 
     it('should have podcasts links', () => {
-        cy.get('[data-test="audio-player"]').within(() => {
-            cy.get('[class*="LogosContainer"]').within(() => {
-                cy.get('a').each(el => {
-                    cy.wrap(el)
-                        .should('exist')
-                        .and('have.attr', 'target', '_blank')
-                        .and('have.attr', 'href');
-                });
+        cy.get('[data-test="player-links"]').within(() => {
+            cy.get('a').each(el => {
+                cy.wrap(el)
+                    .should('exist')
+                    .and('have.attr', 'target', '_blank')
+                    .and('have.attr', 'href');
             });
         });
     });
 
     it('should fast forward and rewind audio player', () => {
         cy.get('[data-test="audio-player"]').within(() => {
+            // Needs for finish player's loading.
             // eslint-disable-next-line cypress/no-unnecessary-waiting
-            cy.wait(1000);
+            cy.wait(2000);
             cy.get('[aria-label="fast-forward"]').click();
             cy.contains('00:30');
             cy.get('[aria-label="rewind"]').click();
