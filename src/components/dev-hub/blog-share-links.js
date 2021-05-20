@@ -67,11 +67,16 @@ const BlogShareLinks = ({
 
     return (
         <BlogShareContainer {...props}>
-            <BlogShareLink onClick={onCopyLink} css={showCopyMessage && hide}>
+            <BlogShareLink
+                aria-label="Copy link"
+                onClick={onCopyLink}
+                css={showCopyMessage && hide}
+            >
                 <LinkIcon height={iconSize} width={iconSize} />
             </BlogShareLink>
 
             <BlogShareLink
+                aria-label="Success"
                 onClick={onCopyLink}
                 css={!showCopyMessage && hide}
                 consistentHoverColor={true}
