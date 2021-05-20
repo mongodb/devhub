@@ -161,7 +161,7 @@ const AudioPlayer = ({ className, podcast }) => {
 
     return podcast ? (
         <ContentContainer className={className}>
-            <PlayerContainer>
+            <PlayerContainer data-test="audio-player">
                 <AudioContainer>
                     <PlayerControls
                         isPlaying={isPlaying}
