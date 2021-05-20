@@ -88,10 +88,8 @@ describe('Sample Video Page', () => {
     });
 
     it('should have breadcrumb', () => {
-        cy.get('div[class*="HeroBreadcrumb"').within(() => {
-            cy.get('a').each((el, index) => {
-                cy.wrap(el).contains(BREADCRUMBS[index]);
-            });
+        cy.get('header a').each((el, index) => {
+            cy.wrap(el).contains(BREADCRUMBS[index]);
         });
     });
 });
