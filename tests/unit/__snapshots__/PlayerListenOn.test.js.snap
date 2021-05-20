@@ -3,6 +3,7 @@
 exports[`PlayerListenOn renders correctly 1`] = `
 <div
   class="css-16gyald-LogosContainer e1yciuf91"
+  data-test="player-links"
 >
   <a
     aria-label="google-podcasts"
