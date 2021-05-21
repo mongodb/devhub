@@ -42,7 +42,7 @@ const modalStyles = css`
     @media ${screenSize.upToMedium} {
         border: none;
         border-radius: 0;
-        height: 100%;
+        min-height: 100vh;
         max-width: unset;
         min-width: unset;
         padding: 0;
@@ -138,7 +138,8 @@ const FeedbackContainer = ({ starRatingFlow, articleMeta, closeModal }) => {
             contentStyle={modalStyles}
             headingStyles={headingStyles}
             dialogMobileContainerStyle={{
-                height: '100vh',
+                minHeight: '100vh',
+                height: 'fit-content',
                 padding: 0,
                 width: '100%',
             }}
