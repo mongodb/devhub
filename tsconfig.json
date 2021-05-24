@@ -14,6 +14,7 @@
         "skipLibCheck": true,
         "baseUrl": "./",
         "noImplicitAny": false,
+        "types": ["cypress", "cypress-axe"],
         "paths": {
             "~src/*": ["src/*"],
             "~components/*": ["src/components/*"],

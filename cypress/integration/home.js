@@ -5,7 +5,7 @@ const TWITCH = '[data-test="twitch"]';
 
 describe('Home Page', () => {
     it('should properly render the home page', () => {
-        cy.visit('/');
+        cy.visitWitAcceptabilityCheck('/')
         // Check the learn button correctly links out
         cy.get(FEATURED_ARTICLES).within(() => {
             cy.contains('Learn MongoDB')

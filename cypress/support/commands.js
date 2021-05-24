@@ -1,5 +1,26 @@
 const EXPAND_TAG_TEXT = '...';
 
+// The formatted log for accessibility checking.
+const terminalLog = violations => {
+    cy.task(
+        'log',
+        `${violations.length} accessibility violation${
+            violations.length === 1 ? '' : 's'
+        } ${violations.length === 1 ? 'was' : 'were'} detected`
+    );
+    // pluck specific keys to keep the table readable
+    const violationData = violations.map(
+        ({ id, impact, description, nodes }) => ({
+            id,
+            impact,
+            description,
+            nodes: nodes.length,
+        })
+    );
+
+    cy.task('table', violationData);
+};
+
 Cypress.Commands.add('closeModal', () => {
     cy.get('[data-test="modal-close"]').click();
 });
@@ -137,3 +158,19 @@ Cypress.Commands.add('visitWithoutFetch', path => {
         }
     );
 });
+
+// This command opens the page with accessibility checking.
+// path: page's path.
+// context (optional):
+// Defines the scope of the analysis - the part of the DOM that you would like to analyze.
+// This will typically be the document or a specific selector such as class name, ID, selector, etc.
+// options (optional):
+// Set of options passed into rules or checks, temporarily modifying them.
+Cypress.Commands.add(
+    'visitWitAcceptabilityCheck',
+    (path, context = null, options = null) => {
+        cy.visit(path);
+        cy.injectAxe();
+        cy.checkA11y(context, options, terminalLog);
+    }
+);
