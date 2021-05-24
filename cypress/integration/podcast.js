@@ -4,9 +4,6 @@ const PROD_PODCAST_URL = `https://developer.mongodb.com${PODCAST_SLUG}`;
 const PODCAST_TITLE = 'This is the MongoDB Podcast';
 const PODCAST_DESCRIPTION =
     "Meet the team behind the MongoDB Podcast - Nic Raboy and Mike Lynn. In this\npreview, get to know your co-hosts and hear what's to come from us. \n\nWe're creating this podcast to tell developers, startups, and large\norganizations stories about what it's like working in tech, what's new and\nemerging, get you familiar with what MongoDB offers, examples of how people are\ncurrently using MongoDB, and to provide overall ideas and knowledge into the\nNoSQL and MongoDB space.\n\nIf there's a subject you'd like to see covered on the show or know a company\nthat should be featured, drop us a suggestion in the MongoDB Community Forums\n[https://community.mongodb.com/].";
-//Need for check formatted description in <p> tag.
-const PODCAST_SHORT_DESCRIPTION =
-    'Meet the team behind the MongoDB Podcast - Nic Raboy and Mike Lynn.';
 // Images
 const IMAGE =
     'https://ssl-static.libsyn.com/p/assets/3/2/d/b/32dbb642e0f5c977/MDB_Podcast_Cover_Art_V2.png';
@@ -23,26 +20,28 @@ describe('Sample Podcast Page', () => {
     it('should have a descriptive header', () => {
         cy.visit(PODCAST_SLUG).then(() => {
             cy.get('header').within(() => {
-                cy.contains(PODCAST_TITLE);
+                cy.get('h1').contains(PODCAST_TITLE);
                 // Check pubdate
                 cy.contains(/Published: Feb 25, 2020|Published: 25 Feb 2020/);
             });
         });
     });
 
+    it('should have description', () => {
+        cy.get('article p').invoke('text')
+            .should('contain', PODCAST_DESCRIPTION)
+    })
+
     it('should have links to share content on social media', () => {
         cy.get('[data-test="article-share-links"]').within(() => {
             cy.get('a').each((link, index) => {
+                //Omitted first icon and test will be changed after new links logic.
                 if (index !== 0) {
                     const url = SOCIAL_URLS[index - 1];
                     cy.wrap(link).should('have.prop', 'href', url);
                 }
             });
         });
-    });
-
-    it('should have h1 title and description', () => {
-        cy.get('h1').contains(PODCAST_TITLE);
     });
 
     it('should have background image', () => {
@@ -88,38 +87,44 @@ describe('Sample Podcast Page', () => {
         });
     });
 
-    it('should have audio player', () => {
-        cy.get('[data-test="audio-player"]').should('exist');
-    });
+    describe('Audio Player', () => {
 
-    it('should have podcasts links', () => {
-        cy.get('[data-test="player-links"]').within(() => {
-            cy.get('a').each(el => {
-                cy.wrap(el)
-                    .should('exist')
-                    .and('have.attr', 'target', '_blank')
-                    .and('have.attr', 'href');
-            });
-        });
-    });
-
-    it('should fast forward and rewind audio player', () => {
-        cy.get('[data-test="audio-player"]').within(() => {
+        before(() => {
             // Needs for finish player's loading.
             // eslint-disable-next-line cypress/no-unnecessary-waiting
             cy.wait(2000);
-            cy.get('[aria-label="fast-forward"]').click();
-            cy.contains('00:30');
-            cy.get('[aria-label="rewind"]').click();
-            cy.contains('00:00');
-        });
-    });
+        })
 
-    it('should play audio player', () => {
-        cy.get('[data-test="audio-player"]').within(() => {
-            cy.get('[aria-label="pause"]').should('not.exist');
-            cy.get('[aria-label="play"]').click();
-            cy.get('[aria-label="pause"]').should('exist');
+        it('should exist', () => {
+            cy.get('[data-test="audio-player"]').should('exist');
         });
-    });
+
+        it('should have podcasts links', () => {
+            cy.get('[data-test="player-links"]').within(() => {
+                cy.get('a').each(el => {
+                    cy.wrap(el)
+                        .should('exist')
+                        .and('have.attr', 'target', '_blank')
+                        .and('have.attr', 'href');
+                });
+            });
+        });
+
+        it('should fast forward and rewind audio player', () => {
+            cy.get('[data-test="audio-player"]').within(() => {
+                cy.get('[aria-label="fast-forward"]').click();
+                cy.contains('00:30');
+                cy.get('[aria-label="rewind"]').click();
+                cy.contains('00:00');
+            });
+        });
+
+        it('should play audio player', () => {
+            cy.get('[data-test="audio-player"]').within(() => {
+                cy.get('[aria-label="pause"]').should('not.exist');
+                cy.get('[aria-label="play"]').click();
+                cy.get('[aria-label="pause"]').should('exist');
+            });
+        });
+    })
 });
