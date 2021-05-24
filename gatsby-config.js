@@ -29,7 +29,11 @@ module.exports = {
             options: {
                 apiURL: process.env.STRAPI_URL,
                 contentTypes: ['articles', 'client-side-redirects', 'projects'],
-                singleTypes: ['student-spotlight-featured', 'top-nav'],
+                singleTypes: [
+                    'feedback-rating-flow',
+                    'student-spotlight-featured',
+                    'top-nav',
+                ],
                 publicationState: process.env.STRAPI_PUBLICATION_STATE,
             },
         },

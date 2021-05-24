@@ -30,7 +30,9 @@ export const ADMONITIONS = [
     'warning',
 ];
 
+// Realm App IDs
 export const STITCH_AUTH_APP_ID = 'devhubauthentication-lidpq';
+export const FEEDBACK_APP_ID = 'feedback-ihion';
 
 export const SITE_URL = 'https://developer.mongodb.com';
 export const FORUMS_URL = `${SITE_URL}/community/forums`;
