@@ -159,6 +159,14 @@ Cypress.Commands.add('visitWithoutFetch', path => {
     );
 });
 
+Cypress.Commands.add(
+        'accessibilityCheck',
+    (context = null, options = null) => {
+        cy.injectAxe();
+        cy.checkA11y(context, options, terminalLog);
+    }
+);
+
 // This command opens the page with accessibility checking.
 // path: page's path.
 // context (optional):
@@ -167,10 +175,9 @@ Cypress.Commands.add('visitWithoutFetch', path => {
 // options (optional):
 // Set of options passed into rules or checks, temporarily modifying them.
 Cypress.Commands.add(
-    'visitWitAcceptabilityCheck',
+    'visitWitAccessibilityCheck',
     (path, context = null, options = null) => {
         cy.visit(path);
-        cy.injectAxe();
-        cy.checkA11y(context, options, terminalLog);
+        cy.accessibilityCheck(context, options)
     }
 );
