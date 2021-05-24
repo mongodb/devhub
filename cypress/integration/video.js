@@ -15,11 +15,14 @@ const SOCIAL_URLS = [LINKEDIN_SHARE_URL, TWITTER_SHARE_URL, FACEBOOK_SHARE_URL];
 
 const BREADCRUMBS = ['Home', 'Learn', 'youtube Video'];
 
+const VIDEO_IFRAME = '#widget2';
+const PLAYER_PREVIEW = '.react-player__preview';
+
 describe('Sample Video Page', () => {
     it('should have a descriptive header', () => {
         cy.visit(VIDEO_SLUG).then(() => {
             cy.get('header').within(() => {
-                cy.contains(VIDEO_TITLE);
+                cy.get('h1').contains(VIDEO_TITLE);
                 // Check pubdate
                 cy.contains(/Published: Jul 30, 2020|Published: 30 Jul 2020/);
             });
@@ -29,6 +32,7 @@ describe('Sample Video Page', () => {
     it('should have links to share content on social media', () => {
         cy.get('[data-test="article-share-links"]').within(() => {
             cy.get('a').each((link, index) => {
+                //Omitted first icon and test will be changed after new links logic.
                 if (index !== 0) {
                     const url = SOCIAL_URLS[index - 1];
                     cy.wrap(link).should('have.prop', 'href', url);
@@ -37,12 +41,14 @@ describe('Sample Video Page', () => {
         });
     });
 
-    it('should have h1 title', () => {
-        cy.get('h1').contains(VIDEO_TITLE);
+    it('should have description', () => {
+        cy.get('article p').invoke('text').should('contain', VIDEO_DESCRIPTION);
     });
 
-    it('should have description', () => {
-        cy.get('p').contains(VIDEO_DESCRIPTION);
+    it('should have breadcrumb', () => {
+        cy.get('header a').each((el, index) => {
+            cy.wrap(el).contains(BREADCRUMBS[index]);
+        });
     });
 
     it('should have proper SEO, open graph, and twitter tags', () => {
@@ -73,23 +79,25 @@ describe('Sample Video Page', () => {
         cy.checkMetaContentProperty('name="twitter:image"', IMAGE);
     });
 
-    it('should have video with image', () => {
-        cy.get('.react-player__preview')
-            .should('have.css', 'background-image')
-            .and('match', new RegExp(IMAGE));
-    });
-
-    it('should play video', () => {
-        cy.get('#widget2').should('not.exist');
-        cy.get('.react-player__preview').within(() => {
-            cy.get('button').click();
+    describe('Video Player', () => {
+        it('should have video with image', () => {
+            cy.get(PLAYER_PREVIEW)
+                .should('have.css', 'background-image')
+                .and('match', new RegExp(IMAGE));
         });
-        cy.get('#widget2').should('exist');
-    });
 
-    it('should have breadcrumb', () => {
-        cy.get('header a').each((el, index) => {
-            cy.wrap(el).contains(BREADCRUMBS[index]);
+        it('should play video', () => {
+            cy.get(VIDEO_IFRAME).should('not.exist');
+            cy.get(PLAYER_PREVIEW).within(() => {
+                cy.get('button').click();
+            });
+            cy.get(VIDEO_IFRAME).should('exist');
+        });
+
+        it('video has title', () => {
+            cy.get(VIDEO_IFRAME)
+                .should('exist')
+                .and('have.attr', 'title', 'YouTube video player');
         });
     });
 });
