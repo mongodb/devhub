@@ -8,13 +8,13 @@ import { size } from './theme';
  * @property {node} props.trigger
  * @property {string} props.text
  */
-const HoverTooltip = ({ trigger, text }) => (
+const HoverTooltip = ({ position = 'bottom', trigger, text }) => (
     <Tooltip
         contentStyle={css`
             padding: ${size.tiny};
         `}
         displayOnHover
-        position="bottom"
+        position={position}
         trigger={trigger}
     >
         <P4 collapse>{text}</P4>

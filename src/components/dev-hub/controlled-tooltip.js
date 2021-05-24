@@ -4,7 +4,10 @@ import { css } from '@emotion/react';
 import Popover from 'react-tiny-popover';
 import { animationSpeed, layer, size } from './theme';
 
-const ControlledTooltipWrapper = styled('span')`
+const ControlledTooltipWrapper = styled('div')`
+    display: inline-block;
+    line-height: ${size.default};
+    height: ${size.default};
     /* Article sets these values */
     padding: 0 !important;
 `;
@@ -211,8 +214,11 @@ const Content = styled('div')`
         getArrowStyles(hasGradientBorder, position, theme)}
 `;
 
-const Trigger = styled('span')`
+const Trigger = styled('div')`
     cursor: pointer;
+    line-height: ${size.default};
+    display: inline-block;
+    height: ${size.default};
 `;
 
 // This logic was pulled from 'react-tiny-popover' (see = https://github.com/alexkatz/react-tiny-popover/blob/3928cfa67a57676f32d5f04b3e1decb8c31db544/src/Popover.tsx#L316-L352)
@@ -279,6 +285,7 @@ const ControlledTooltip = ({
     contentStyle,
     isOpen,
     setIsOpen,
+    ...props
 }) => {
     const ref = useRef(null);
 
@@ -305,7 +312,7 @@ const ControlledTooltip = ({
           };
 
     return (
-        <ControlledTooltipWrapper ref={ref}>
+        <ControlledTooltipWrapper ref={ref} {...props}>
             <Popover
                 contentLocation={contentLocation(TOOLTIP_DISTANCE)}
                 content={

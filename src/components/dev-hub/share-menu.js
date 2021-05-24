@@ -52,6 +52,7 @@ const SocialIcon = ({ type, href, ...props }) => {
     };
     const Icon = iconMap[type];
     const isClickable = href || props.onClick;
+    const id = type === 'success' ? 'success' : undefined;
     return (
         <SocialLink
             onMouseEnter={() =>
@@ -65,7 +66,12 @@ const SocialIcon = ({ type, href, ...props }) => {
             isClickable={isClickable}
             {...props}
         >
-            <Icon color={color} width={size.default} height={size.default} />
+            <Icon
+                color={color}
+                width={size.default}
+                height={size.default}
+                id={id}
+            />
         </SocialLink>
     );
 };
