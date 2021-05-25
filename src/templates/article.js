@@ -18,6 +18,11 @@ import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import ArticleRating from '~components/ArticleRating';
 import { ArticleRatingProvider } from '~components/ArticleRatingContext';
 
+const ARTICLE_BREADCRUMB = [
+    { label: 'Home', target: '/' },
+    { label: 'Learn', target: '/learn' },
+];
+
 const StyledBlogShareLinks = styled(BlogShareLinks)`
     flex-direction: column;
     align-items: center;
@@ -130,16 +135,21 @@ const Article = props => {
     );
     const meta = { authors, slug: slugWithAllSlashes, title };
     const { siteUrl } = useSiteMetadata();
-    const articleBreadcrumbs = [
-        { label: 'Home', target: '/' },
-        { label: 'Learn', target: '/learn' },
-    ];
+    let breadcrumb = [...ARTICLE_BREADCRUMB];
     if (type && type.length) {
-        articleBreadcrumbs.push({
-            label: type[0].toUpperCase() + type.substring(1),
-            target: `/type/${getTagPageUriComponent(type)}`,
-        });
+        breadcrumb = [
+            ...breadcrumb,
+            {
+                label: type[0].toUpperCase() + type.substring(1),
+                target: `/type/${getTagPageUriComponent(type)}`,
+            },
+        ];
     }
+    breadcrumb = [...breadcrumb, {
+        label: title,
+        target: slug,
+    }]
+
     const tagList = [...products, ...languages, ...tags];
     const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
 
@@ -169,7 +179,7 @@ const Article = props => {
                 <BlogPostTitleArea
                     articleImage={image}
                     authors={authors}
-                    breadcrumb={articleBreadcrumbs}
+                    breadcrumb={breadcrumb}
                     originalDate={publishedDate}
                     tags={tagList}
                     title={title}

@@ -14,6 +14,12 @@ import {
     ShareProjectCTA,
 } from '~components/dev-hub/student-spotlight';
 
+const STUDENT_SPOTLIGHT_BREADCRUMBS = [
+    { label: 'Home', target: '/' },
+    { label: 'MongoDB for Academia', target: '/academia/' },
+    { label: 'Student Spotlights', target: '/academia/students' },
+];
+
 /**
  * search the ast for the few directives we need to display content
  * TODO this ignores some important meta like Twitter for now
@@ -89,6 +95,11 @@ const Project = props => {
     const childNodes = getContent(dlv(content, 'children', []));
     const { siteUrl } = useSiteMetadata();
     const projectUrl = `${siteUrl}${props.pageContext.slug}`;
+    const breadcrumb = [
+        ...STUDENT_SPOTLIGHT_BREADCRUMBS,
+        { label: name, target: slug },
+    ];
+
     return (
         <Layout>
             <SEO
@@ -105,6 +116,7 @@ const Project = props => {
                 ]}
                 title={name}
                 url={projectUrl}
+                breadcrumb={breadcrumb}
             />
             <Container>
                 <ArticleContent>

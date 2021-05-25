@@ -8,12 +8,6 @@ import ShareMenu from './share-menu';
 import { H2 } from './text';
 import { screenSize, size } from './theme';
 
-const STUDENT_SPOTLIGHT_BREADCRUMBS = [
-    { label: 'Home', target: '/' },
-    { label: 'MongoDB for Academia', target: '/academia/' },
-    { label: 'Student Spotlights', target: '/academia/students' },
-];
-
 const IncreasedMarginHeroBanner = styled(HeroBanner)`
     @media ${screenSize.upToLarge} {
         margin-bottom: 30px;
@@ -36,13 +30,13 @@ const TopRow = styled('div')`
     }
 `;
 
-const ProjectTitleArea = ({ description, images, title, url }) => {
+const ProjectTitleArea = ({ description, images, title, url, breadcrumb }) => {
     const BlogTitle = IncreasedMarginH2.withComponent('h1');
     const isMobile = useMedia(screenSize.upToMedium);
     return (
         <IncreasedMarginHeroBanner
             showImageOnMobile={false}
-            breadcrumb={STUDENT_SPOTLIGHT_BREADCRUMBS}
+            breadcrumb={breadcrumb}
             fullWidth
         >
             <TopRow>
