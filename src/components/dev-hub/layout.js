@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
+import TopBanner from './top-banner';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
@@ -99,6 +100,7 @@ export default ({ children, includeCanonical = true }) => {
                     )}
                 </Helmet>
                 <Global styles={style} />
+                <TopBanner />
                 <GlobalNav />
                 <TabProvider>
                     <Main>{children}</Main>
