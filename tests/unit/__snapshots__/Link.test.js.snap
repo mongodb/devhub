@@ -2,7 +2,7 @@
 
 exports[`Link component renders a variety of strings correctly empty string 1`] = `
 <a
-  class="css-y3u9nj-StyledLink-linkStyling eygprlc0"
+  class="css-19tmgc6-StyledLink-linkStyling eygprlc0"
   href=""
 >
   Empty string
@@ -11,7 +11,7 @@ exports[`Link component renders a variety of strings correctly empty string 1`] 
 
 exports[`Link component renders a variety of strings correctly external URL 1`] = `
 <a
-  class="css-y3u9nj-StyledLink-linkStyling eygprlc0"
+  class="css-19tmgc6-StyledLink-linkStyling eygprlc0"
   href="http://mongodb.com"
 >
   MongoDB Company
@@ -20,7 +20,7 @@ exports[`Link component renders a variety of strings correctly external URL 1`] 
 
 exports[`Link component renders a variety of strings correctly external mailto 1`] = `
 <a
-  class="css-y3u9nj-StyledLink-linkStyling eygprlc0"
+  class="css-19tmgc6-StyledLink-linkStyling eygprlc0"
   href="mailto:person@mail.com"
 >
   Jake Gyllenhaal
@@ -29,7 +29,7 @@ exports[`Link component renders a variety of strings correctly external mailto 1
 
 exports[`Link component renders a variety of strings correctly internal link 1`] = `
 <a
-  class="test-class css-1wc3uwb-AsInternalLink-StyledLink-linkStyling eygprlc1"
+  class="test-class css-19a3n6-AsInternalLink-StyledLink-linkStyling eygprlc1"
   href="/drivers/c/"
 >
   C Driver
