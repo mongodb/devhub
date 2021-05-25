@@ -159,6 +159,8 @@ Cypress.Commands.add('visitWithoutFetch', path => {
     );
 });
 
+// This command checks accessibility for the page.
+// Can be used after some changes or when needed.
 Cypress.Commands.add(
         'accessibilityCheck',
     (context = null, options = null) => {
@@ -175,7 +177,7 @@ Cypress.Commands.add(
 // options (optional):
 // Set of options passed into rules or checks, temporarily modifying them.
 Cypress.Commands.add(
-    'visitWitAccessibilityCheck',
+    'visitWithAccessibilityCheck',
     (path, context = null, options = null) => {
         cy.visit(path);
         cy.accessibilityCheck(context, options)
