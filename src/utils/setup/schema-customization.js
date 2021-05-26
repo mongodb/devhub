@@ -14,7 +14,10 @@ export const schemaCustomization = ({ actions }) => {
         tag: String
     }
     type CMSImage implements Node {
+        alternativeText: String
+        height: String
         url: String
+        width: String
     }
     type Related implements Node {
         label: String
@@ -61,6 +64,11 @@ export const schemaCustomization = ({ actions }) => {
     }
     type allStrapiClientSideRedirects implements Node {
         nodes: [StrapiClientSideRedirect]
+    }
+    type StrapiTopBanner implements Node {
+        desktopBanner: CMSImage
+        mobileBanner: CMSImage
+        targetUrl: String
     }
     `;
     createTypes(typeDefs);
