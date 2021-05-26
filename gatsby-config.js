@@ -32,6 +32,7 @@ module.exports = {
                 singleTypes: [
                     'feedback-rating-flow',
                     'student-spotlight-featured',
+                    'top-banner',
                     'top-nav',
                 ],
                 publicationState: process.env.STRAPI_PUBLICATION_STATE,
