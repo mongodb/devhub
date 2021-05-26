@@ -52,7 +52,11 @@ const TopBanner = () => {
         ? topBannerNode.mobileBanner
         : topBannerNode.desktopBanner;
     return (
-        <Link href={data.strapiTopBanner.target} target="_blank">
+        <Link
+            data-test="top-banner"
+            href={data.strapiTopBanner.targetUrl}
+            target="_blank"
+        >
             <LiveImage
                 alt={src.alternativeText}
                 src={src.url}
