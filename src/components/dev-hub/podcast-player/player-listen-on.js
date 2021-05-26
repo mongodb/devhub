@@ -62,7 +62,7 @@ const StyledButton = styled(Button)`
 `;
 
 const PlayerListenOn = ({ className }) => (
-    <LogosContainer className={className}>
+    <LogosContainer data-test="player-links" className={className}>
         <StyledButton
             aria-label="google-podcasts"
             href={GOOGLE_PODCASTS_URL}
