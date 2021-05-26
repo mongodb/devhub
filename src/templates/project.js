@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import DocumentBody from '~components/DocumentBody';
@@ -13,12 +13,6 @@ import {
     GithubStudentPack,
     ShareProjectCTA,
 } from '~components/dev-hub/student-spotlight';
-
-const STUDENT_SPOTLIGHT_BREADCRUMBS = [
-    { label: 'Home', target: '/' },
-    { label: 'MongoDB for Academia', target: '/academia/' },
-    { label: 'Student Spotlights', target: '/academia/students' },
-];
 
 /**
  * search the ast for the few directives we need to display content
@@ -95,10 +89,15 @@ const Project = props => {
     const childNodes = getContent(dlv(content, 'children', []));
     const { siteUrl } = useSiteMetadata();
     const projectUrl = `${siteUrl}${props.pageContext.slug}`;
-    const breadcrumb = [
-        ...STUDENT_SPOTLIGHT_BREADCRUMBS,
-        { label: name, target: slug },
-    ];
+    const projectBreadcrumb = useMemo(
+        () => [
+            { label: 'Home', target: '/' },
+            { label: 'MongoDB for Academia', target: '/academia/' },
+            { label: 'Student Spotlights', target: '/academia/students' },
+            { label: name, target: slug },
+        ],
+        [name, slug]
+    );
 
     return (
         <Layout>
@@ -116,7 +115,7 @@ const Project = props => {
                 ]}
                 title={name}
                 url={projectUrl}
-                breadcrumb={breadcrumb}
+                breadcrumb={projectBreadcrumb}
             />
             <Container>
                 <ArticleContent>

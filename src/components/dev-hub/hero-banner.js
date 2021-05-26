@@ -53,10 +53,10 @@ const HeroBannerContainer = styled('div')`
 `;
 
 const textTruncate = css`
-    white-space: nowrap;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 300px;
+    white-space: nowrap;
 `;
 
 const HeroBreadcrumb = styled(Breadcrumb)`

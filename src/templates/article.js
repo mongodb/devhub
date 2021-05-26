@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
 import ArticleShareFooter from '../components/dev-hub/article-share-footer';
@@ -17,11 +17,6 @@ import ArticleSchema from '../components/dev-hub/article-schema';
 import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import ArticleRating from '~components/ArticleRating';
 import { ArticleRatingProvider } from '~components/ArticleRatingContext';
-
-const ARTICLE_BREADCRUMB = [
-    { label: 'Home', target: '/' },
-    { label: 'Learn', target: '/learn' },
-];
 
 const StyledBlogShareLinks = styled(BlogShareLinks)`
     flex-direction: column;
@@ -135,20 +130,24 @@ const Article = props => {
     );
     const meta = { authors, slug: slugWithAllSlashes, title };
     const { siteUrl } = useSiteMetadata();
-    let breadcrumb = [...ARTICLE_BREADCRUMB];
-    if (type && type.length) {
-        breadcrumb = [
-            ...breadcrumb,
+    const articleBreadcrumb = useMemo(() => {
+        const breadcrumb = [
+            { label: 'Home', target: '/' },
+            { label: 'Learn', target: '/learn' },
             {
+                label: title,
+                target: slug,
+            }
+        ];
+        if (type && type.length) {
+            breadcrumb.splice(2, 0, {
                 label: type[0].toUpperCase() + type.substring(1),
                 target: `/type/${getTagPageUriComponent(type)}`,
-            },
-        ];
-    }
-    breadcrumb = [...breadcrumb, {
-        label: title,
-        target: slug,
-    }]
+            });
+        }
+
+        return breadcrumb;
+    }, [slug, title, type]);
 
     const tagList = [...products, ...languages, ...tags];
     const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
@@ -179,7 +178,7 @@ const Article = props => {
                 <BlogPostTitleArea
                     articleImage={image}
                     authors={authors}
-                    breadcrumb={breadcrumb}
+                    breadcrumb={articleBreadcrumb}
                     originalDate={publishedDate}
                     tags={tagList}
                     title={title}
