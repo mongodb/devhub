@@ -94,10 +94,12 @@ export default ({ children, includeCanonical = true }) => {
                         type="application/opensearchdescription+xml"
                         rel="search"
                         href="https://developer.mongodb.com/opensearch.xml"
+                        title="Search MongoDB Developer Hub"
                     />
                     <link
                         rel="shortcut icon"
                         href="https://www.mongodb.com/assets/images/global/favicon.ico"
+                        title="Search MongoDB Developer Hub"
                     />
                     {includeCanonical && (
                         <link rel="canonical" href={canonicalUrl} />

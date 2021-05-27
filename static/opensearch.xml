@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-    <ShortName>MongoDB Developer Hub</ShortName>
+    <ShortName>Search MongoDB Developer Hub</ShortName>
+    <LongName>Search of MongoDB Developer Hub Content</LongName>
     <Description>Code, content, tutorials, programs and community to enable developers of all skill levels on the MongoDB Data Platform which includes Atlas, Realm, Compass, Data Lake and more. Whether you're coding in Java, JavaScript, C#, Python, Node, Go or looking for how this fits with IOT, AI, ML - join or follow us here.</Description>
+    <Contact>sitesearch@mongodb.com</Contact>
+    <Developer>MongoDB, Inc.</Developer>
+    <Image height="32" width="32" type="image/x-icon">https://docs.mongodb.com/favicon.ico</Image>
+    <Url type="application/opensearchdescription+xml" rel="self" template="https://developer.mongodb.com/opensearch.xml"/>
     <Url type="text/html" method="get" template="https://developer.mongodb.com/learn/?text={searchTerms}"/>
 </OpenSearchDescription>
