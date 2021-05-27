@@ -11,7 +11,6 @@ import ArticleSeries from '../components/dev-hub/article-series';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import ContentsMenu from '../components/dev-hub/contents-menu';
-import { addLeadingSlashIfMissing } from '../utils/add-leading-slash-if-missing';
 import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
 import ArticleSchema from '../components/dev-hub/article-schema';
 import BlogShareLinks from '../components/dev-hub/blog-share-links';
@@ -125,10 +124,7 @@ const Article = props => {
         },
         ...rest
     } = props;
-    const slugWithAllSlashes = addLeadingSlashIfMissing(
-        addTrailingSlashIfMissing(slug)
-    );
-    const meta = { authors, slug: slugWithAllSlashes, title };
+    const meta = { authors, title };
     const { siteUrl } = useSiteMetadata();
     const articleBreadcrumb = useMemo(() => {
         const breadcrumb = [
