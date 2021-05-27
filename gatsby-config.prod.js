@@ -27,6 +27,7 @@ module.exports = {
                 apiURL: process.env.STRAPI_URL,
                 contentTypes: ['articles', 'client-side-redirects', 'projects'],
                 singleTypes: [
+                    'featured-home-page-articles',
                     'feedback-rating-flow',
                     'student-spotlight-featured',
                     'top-banner',

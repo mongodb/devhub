@@ -1,6 +1,15 @@
+import { addLeadingSlashIfMissing } from '../add-leading-slash-if-missing';
+import { addTrailingSlashIfMissing } from '../add-trailing-slash-if-missing';
+
 export const findArticleWithSlug = (allArticles, slug) => {
-    const targetSlug = new RegExp(`^/?${slug}$`);
-    const targetArticle = allArticles.find(x => x.slug.match(targetSlug));
+    const targetSlug = addLeadingSlashIfMissing(
+        addTrailingSlashIfMissing(slug)
+    );
+    const targetArticle = allArticles.find(
+        x =>
+            addLeadingSlashIfMissing(addTrailingSlashIfMissing(x.slug)) ===
+            targetSlug
+    );
     if (targetArticle) {
         return targetArticle;
     }
