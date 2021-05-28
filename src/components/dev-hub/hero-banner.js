@@ -52,11 +52,19 @@ const HeroBannerContainer = styled('div')`
     }
 `;
 
+const textTruncate = css`
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
+
 const HeroBreadcrumb = styled(Breadcrumb)`
     line-height: 1;
     margin-bottom: ${HERO_BOTTOM_MARGIN};
     > a {
         font-size: ${fontSize.xsmall};
+        ${textTruncate}
     }
 `;
 

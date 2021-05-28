@@ -92,6 +92,12 @@ export default ({ children, includeCanonical = true }) => {
                 <Helmet htmlAttributes={{ lang: 'en' }}>
                     <meta name="robots" content="index" />
                     <link
+                        type="application/opensearchdescription+xml"
+                        rel="search"
+                        href="https://developer.mongodb.com/opensearch.xml"
+                        title="Search MongoDB Developer Hub"
+                    />
+                    <link
                         rel="shortcut icon"
                         href="https://www.mongodb.com/assets/images/global/favicon.ico"
                     />
