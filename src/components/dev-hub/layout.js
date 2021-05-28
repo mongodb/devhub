@@ -99,7 +99,6 @@ export default ({ children, includeCanonical = true }) => {
                     <link
                         rel="shortcut icon"
                         href="https://www.mongodb.com/assets/images/global/favicon.ico"
-                        title="Search MongoDB Developer Hub"
                     />
                     {includeCanonical && (
                         <link rel="canonical" href={canonicalUrl} />
