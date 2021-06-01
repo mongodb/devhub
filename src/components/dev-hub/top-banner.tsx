@@ -10,11 +10,10 @@ const LiveImage = styled('img')`
     border-radius: 0;
     display: block;
     height: auto;
-    margin-bottom: 0;
+    margin: 0 auto;
     max-width: 100%;
     @media ${screenSize.mediumAndUp} {
         min-height: ${size.large};
-        object-fit: cover;
     }
 `;
 
