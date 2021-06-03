@@ -4,6 +4,7 @@ import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
 import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
+import { mapSnootySeries } from './src/utils/setup/map-snooty-series';
 import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
@@ -150,7 +151,11 @@ export const createPages = async ({ actions, graphql }) => {
         throw new Error(`Page build error: ${result.error}`);
     }
 
-    const allSeries = filteredPageGroups(metadataDocument.pageGroups);
+    let allSeries = filteredPageGroups(metadataDocument.pageGroups);
+
+    allSeries = mapSnootySeries(allSeries);
+
+    console.log(allSeries);
 
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
     allArticles = snootyArticles.concat(strapiArticleList);
