@@ -22,6 +22,9 @@ jobs:
             - name: Install Dependencies
               if: steps.cache.outputs.cache-hit != 'true'
               run: npm ci
+              env:
+                  NPM_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+                  NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Install Cypress
               if: steps.cache.outputs.cache-hit == 'true'
               run: ./node_modules/.bin/cypress install

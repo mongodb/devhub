@@ -7,10 +7,11 @@ import { addTrailingSlashIfMissing } from '../../utils/add-trailing-slash-if-mis
 import { removePathPrefixFromUrl } from '../../utils/remove-path-prefix-from-url';
 import { TabProvider } from './tab-context';
 import { Helmet } from 'react-helmet';
-import GlobalNav from './global-nav';
+// import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
-import TopBanner from './top-banner';
+// import TopBanner from './top-banner';
+import ConsistentNav from 'consistent-nav';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
@@ -106,8 +107,9 @@ export default ({ children, includeCanonical = true }) => {
                     )}
                 </Helmet>
                 <Global styles={style} />
-                <TopBanner />
-                <GlobalNav />
+                {/* <TopBanner />
+                <GlobalNav /> */}
+                <ConsistentNav onTrack={console.log} />;
                 <TabProvider>
                     <Main>{children}</Main>
                 </TabProvider>
