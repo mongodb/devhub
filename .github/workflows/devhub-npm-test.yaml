@@ -14,10 +14,6 @@ jobs:
               uses: actions/setup-node@v1
               with:
                   node-version: '14.x'
-                  registry-url: 'https://artifactory.corp.mongodb.com/artifactory/api/npm/npm-local/'
-              env:
-                  NPM_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
-                  NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Cache node modules
               uses: actions/cache@v2
               id: cache
