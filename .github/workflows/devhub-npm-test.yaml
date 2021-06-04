@@ -25,8 +25,8 @@ jobs:
                   key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
                   restore-keys: |
                       ${{ runner.os }}-node-
-            - name: npm 7
-              run: npm i -g npm@7 --registry=https://registry.npmjs.org
+            - name: npm 6.14.11
+              run: npm i -g npm@6.14.11 --registry=https://registry.npmjs.org
             - name: Install Dependencies
               if: steps.cache.outputs.cache-hit != 'true'
               run: npm ci
