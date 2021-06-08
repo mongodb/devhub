@@ -11,6 +11,7 @@ import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
 import TopBanner from './top-banner';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
@@ -79,6 +80,34 @@ export const StorybookLayout = ({ children }) => {
 };
 
 export default ({ children, includeCanonical = true }) => {
+    const authClient = new OktaAuth({
+        issuer: process.env.OKTA_URL,
+        clientId: process.env.OKTA_CLIENT_ID,
+        redirectUri: window.location.origin + '/login/callback',
+    });
+    if (authClient.isLoginRedirect()) {
+        // Parse token from redirect url
+        authClient.token.parseFromUrl().then(data => {
+            const { idToken } = data.tokens;
+            console.log(`Hi ${idToken.claims.email}!`);
+            // Store parsed token in Token Manager
+            authClient.tokenManager.add('idToken', idToken);
+            console.log(idToken);
+        });
+    } else {
+        // Attempt to retrieve ID Token from Token Manager
+        authClient.tokenManager.get('idToken').then(idToken => {
+            console.log(idToken);
+            if (idToken) {
+                console.log(`Hi ${idToken.claims.email}!`);
+            } else {
+                // You're not logged in, you need a sessionToken
+                authClient.token.getWithRedirect({
+                    responseType: 'id_token',
+                });
+            }
+        });
+    }
     const style = useMemo(() => globalStyles(darkTheme), []);
     const { siteUrl } = useSiteMetadata();
     const { pathname } = useLocation();
