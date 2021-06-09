@@ -50,7 +50,7 @@ jobs:
                   name: cypress-screenshots
                   path: cypress/screenshots
             - name: Run Lighthouse
-              uses: treosh/lighthouse-ci-action@v3
+              uses: treosh/lighthouse-ci-action@v7
               with:
                   configPath: './lighthouserc.json'
                   runs: 2
