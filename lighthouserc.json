@@ -3,7 +3,6 @@
         "collect": {
             "url": [
                 "http://localhost/",
-                "http://localhost/learn/",
                 "http://localhost/article/3-things-to-know-switch-from-sql-mongodb/"
             ],
             "staticDistDir": "./public"
