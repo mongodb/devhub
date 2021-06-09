@@ -14,9 +14,6 @@ jobs:
               uses: actions/setup-node@v1
               with:
                   node-version: '14.x'
-              env:
-                  NPM_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
-                  NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Cache node modules
               uses: actions/cache@v2
               id: cache
@@ -27,8 +24,11 @@ jobs:
                       ${{ runner.os }}-node-
             - name: Install Dependencies
               if: steps.cache.outputs.cache-hit != 'true'
-              run: npm ci --verbose
+              run: npm ci
               env:
                   NPM_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
                   NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - run: npm test
+              env:
+                  NPM_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+                  NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
