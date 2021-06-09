@@ -49,3 +49,10 @@ jobs:
               with:
                   name: cypress-screenshots
                   path: cypress/screenshots
+            - name: Run Lighthouse
+              uses: treosh/lighthouse-ci-action@v3
+              with:
+                  uploadArtifacts: false
+                  temporaryPublicStorage: true
+                  configPath: './lighthouserc.json'
+                  runs: 3
