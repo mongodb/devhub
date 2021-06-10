@@ -12,6 +12,7 @@ import { createClientSideRedirects } from './src/utils/setup/create-client-side-
 import { aggregateItemsWithTagType } from './src/utils/setup/aggregate-items-with-tag-type';
 import { aggregateAuthorInformation } from './src/utils/setup/aggregate-author-information';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
+import { removeDuplicatedArticles } from './src/utils/setup/remove-duplicated-articles';
 import { getMetadata } from './src/utils/get-metadata';
 import {
     DOCUMENTS_COLLECTION,
@@ -153,7 +154,7 @@ export const createPages = async ({ actions, graphql }) => {
     const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
-    allArticles = snootyArticles.concat(strapiArticleList);
+    allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);
 
     allArticles.forEach(article => {
         createArticlePage(
