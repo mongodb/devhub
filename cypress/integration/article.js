@@ -5,6 +5,7 @@ const ARTICLE_WITH_ATTRIBUTION_LINK_URL =
     '/article/build-newsletter-website-mongodb-data-platform/';
 const EXPECTED_ATTRIBUTION_LINK =
     'https://www.mongodb.com/cloud/atlas/signup?tck%3Ddevhub-build-newsletter-website-mongodb-data-platform';
+const ARTICLE_DUPLICATED_IN_STRAPI = '/how-to/hapijs-nodejs-driver';
 
 // Article with no og description or og type (test meta description fallback)
 const ARTICLE_WITH_MINIMAL_OG_URL =
@@ -249,7 +250,7 @@ describe('Sample Article Page', () => {
             });
         });
         it('should render Strapi content should it have the same slug as Snooty content', () => {
-            cy.visit('/how-to/hapijs-node-driver').then(() => {
+            cy.visit(ARTICLE_DUPLICATED_IN_STRAPI).then(() => {
                 cy.contains('Strapi HapiJS Article');
             });
         });
