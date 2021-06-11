@@ -248,5 +248,10 @@ describe('Sample Article Page', () => {
                 cy.contains('Some C++ code');
             });
         });
+        it('should render Strapi content should it have the same slug as Snooty content', () => {
+            cy.visit('/how-to/hapijs-node-driver').then(() => {
+                cy.contains('Strapi HapiJS Article');
+            });
+        });
     });
 });
