@@ -249,10 +249,10 @@ describe('Sample Article Page', () => {
                 cy.contains('Some C++ code');
             });
         });
-        it('should render Strapi content should it have the same slug as Snooty content', () => {
-            cy.visit(ARTICLE_DUPLICATED_IN_STRAPI).then(() => {
-                cy.contains('Strapi HapiJS Article');
-            });
+    });
+    it('should render Strapi content should it have the same slug as Snooty content', () => {
+        cy.visit(ARTICLE_DUPLICATED_IN_STRAPI).then(() => {
+            cy.contains('Strapi HapiJS Article');
         });
     });
 });
