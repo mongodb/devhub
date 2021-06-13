@@ -17,7 +17,7 @@ import { LearnPageTabs } from '../utils/learn-page-tabs';
 import useAllVideos from '../hooks/use-all-videos';
 import usePodcasts from '../hooks/use-podcasts';
 import useTextFilter from '../hooks/use-text-filter';
-import Tab from '../components/dev-hub/tab';
+import Tabs from '../components/dev-hub/learn-tabs';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
@@ -82,7 +82,7 @@ const StyledFilterBar = styled(FilterBar)`
     padding-bottom: ${size.large};
 `;
 
-const TabBar = styled(Tab)`
+const LearnTabs = styled(Tabs)`
     margin: 0 ${size.large};
 `;
 
@@ -296,8 +296,8 @@ export default ({
         [activeContentTab, textFilterQuery, textFilterResults]
     );
 
-    const leftTabs = [LearnPageTabs.all];
-    const rightTabs = [
+    const learnTabsList = [
+        LearnPageTabs.all,
         LearnPageTabs.articles,
         LearnPageTabs.videos,
         LearnPageTabs.podcasts,
@@ -339,12 +339,9 @@ export default ({
                 </HeaderContent>
             </Header>
 
-            <TabBar
-                // ID used specifically for anchor links
-                id="main"
+            <Tabs
+                tabsList={learnTabsList}
                 handleClick={updateActiveFilter}
-                leftTabs={leftTabs}
-                rightTabs={rightTabs}
                 activeItem={activeContentTab}
             />
 
