@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Tabs as LeafyTabs, Tab } from '@leafygreen-ui/tabs';
 import Button from './button';
 import { TabContext } from './tab-context';
+import { screenSize } from './theme';
 
 const TabButtonStyle = () => css`
     border-radius: 0;
@@ -21,14 +22,12 @@ const StyledTabButton = styled(Button)`
     ${TabButtonStyle}
 `;
 
-const hiddenTabStyling = () => css`
-    & > div:first-child {
-        display: none;
-    }
-`;
-
 const TabsStyle = () => css`
-    ${({ ishidden }) => ishidden && hiddenTabStyling};
+    @media ${screenSize.xlargeAndUp} {
+        button:first-child {
+            margin-right: 74%;
+        }
+    }
     button[aria-selected='true'] {
         color: ${({ theme }) => theme.colorMap.darkGreen};
         :after {
@@ -95,7 +94,7 @@ const Tabs = ({ tabsList, handleClick, activeItem }) => {
             <StyledTabs
                 as={TabButton}
                 darkMode
-                data-test="Tabs"
+                data-test="tabs"
                 selected={activeTabIndex}
                 setSelected={onClick}
             >
@@ -107,7 +106,7 @@ const Tabs = ({ tabsList, handleClick, activeItem }) => {
                             role="tab"
                             key={index}
                             name={tabId}
-                        ></Tab>
+                        />
                     );
                 })}
             </StyledTabs>
