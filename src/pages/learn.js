@@ -82,10 +82,6 @@ const StyledFilterBar = styled(FilterBar)`
     padding-bottom: ${size.large};
 `;
 
-const LearnTabs = styled(Tabs)`
-    margin: 0 ${size.large};
-`;
-
 // strip out the 'All' param from the url and the stitch function key
 const stripAllParam = filterValue => {
     const newFilter = {};
