@@ -81,7 +81,7 @@ const Container = styled('div')`
     padding: 0 ${size.default};
 
     @media ${screenSize.largeAndUp} {
-        grid-template-rows: auto;
+        grid-template-rows: unset;
         padding: 0;
         grid-template-areas:
             'rating rating rating'
@@ -138,7 +138,7 @@ const Article = props => {
             {
                 label: title,
                 target: slug,
-            },
+            }
         ];
         if (type && type.length) {
             breadcrumb.splice(2, 0, {
