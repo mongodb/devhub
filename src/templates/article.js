@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
 import ArticleShareFooter from '../components/dev-hub/article-share-footer';
@@ -66,6 +66,22 @@ const Icons = styled('div')`
 `;
 
 const Container = styled('div')`
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+
     display: grid;
     grid-auto-rows: auto;
     grid-template-columns: auto;
@@ -130,16 +146,25 @@ const Article = props => {
     );
     const meta = { authors, slug: slugWithAllSlashes, title };
     const { siteUrl } = useSiteMetadata();
-    const articleBreadcrumbs = [
-        { label: 'Home', target: '/' },
-        { label: 'Learn', target: '/learn' },
-    ];
-    if (type && type.length) {
-        articleBreadcrumbs.push({
-            label: type[0].toUpperCase() + type.substring(1),
-            target: `/type/${getTagPageUriComponent(type)}`,
-        });
-    }
+    const articleBreadcrumb = useMemo(() => {
+        const breadcrumb = [
+            { label: 'Home', target: '/' },
+            { label: 'Learn', target: '/learn' },
+            {
+                label: title,
+                target: slug,
+            },
+        ];
+        if (type && type.length) {
+            breadcrumb.splice(2, 0, {
+                label: type[0].toUpperCase() + type.substring(1),
+                target: `/type/${getTagPageUriComponent(type)}`,
+            });
+        }
+
+        return breadcrumb;
+    }, [slug, title, type]);
+
     const tagList = [...products, ...languages, ...tags];
     const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
 
@@ -169,7 +194,7 @@ const Article = props => {
                 <BlogPostTitleArea
                     articleImage={image}
                     authors={authors}
-                    breadcrumb={articleBreadcrumbs}
+                    breadcrumb={articleBreadcrumb}
                     originalDate={publishedDate}
                     tags={tagList}
                     title={title}
