@@ -97,7 +97,7 @@ const Container = styled('div')`
     padding: 0 ${size.default};
 
     @media ${screenSize.largeAndUp} {
-        grid-template-rows: unset;
+        grid-template-rows: auto;
         padding: 0;
         grid-template-areas:
             'rating rating rating'
@@ -144,6 +144,7 @@ const Article = props => {
     const slugWithAllSlashes = addLeadingSlashIfMissing(
         addTrailingSlashIfMissing(slug)
     );
+
     const meta = { authors, slug: slugWithAllSlashes, title };
     const { siteUrl } = useSiteMetadata();
     const articleBreadcrumb = useMemo(() => {

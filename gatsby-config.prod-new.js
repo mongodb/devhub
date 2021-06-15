@@ -1,19 +1,16 @@
 const { siteUrl } = require('./src/queries/site-url');
-const { generatePathPrefix } = require('./src/utils/generate-path-prefix');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { articleRssFeed } = require('./src/utils/setup/article-rss-feed');
 const { searchRssFeed } = require('./src/utils/setup/search-rss-feed');
 
-const runningEnv = process.env.NODE_ENV || 'production';
-
 require('dotenv').config({
-    path: `.env.${runningEnv}`,
+    path: '.env.production',
 });
 
 const metadata = getMetadata();
 
 module.exports = {
-    pathPrefix: generatePathPrefix(metadata),
+    pathPrefix: 'developer',
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
@@ -55,8 +52,8 @@ module.exports = {
         },
         {
             resolve: 'gatsby-plugin-sitemap',
+            output: '/sitemap-pages.xml',
             options: {
-                output: '/sitemap-pages.xml',
                 // Exclude paths we are using the noindex tag on
                 exclude: [
                     '/language/*',
@@ -81,12 +78,11 @@ module.exports = {
                 feeds: [articleRssFeed, searchRssFeed],
             },
         },
-        'gatsby-plugin-meta-redirect', // this must be last
+        `gatsby-plugin-meta-redirect`, // this must be last
     ],
     siteMetadata: {
         ...metadata,
         title: 'MongoDB Developer Hub',
-        // This value must start with `https://` or the build fails
-        siteUrl: 'https://developer.mongodb.com',
+        siteUrl: 'https://mongodb.com/developer',
     },
 };

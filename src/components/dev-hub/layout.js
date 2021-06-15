@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
+import TopBanner from './top-banner';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
@@ -91,6 +92,12 @@ export default ({ children, includeCanonical = true }) => {
                 <Helmet htmlAttributes={{ lang: 'en' }}>
                     <meta name="robots" content="index" />
                     <link
+                        type="application/opensearchdescription+xml"
+                        rel="search"
+                        href="https://developer.mongodb.com/opensearch.xml"
+                        title="MongoDB Developer Hub"
+                    />
+                    <link
                         rel="shortcut icon"
                         href="https://www.mongodb.com/assets/images/global/favicon.ico"
                     />
@@ -99,6 +106,7 @@ export default ({ children, includeCanonical = true }) => {
                     )}
                 </Helmet>
                 <Global styles={style} />
+                <TopBanner />
                 <GlobalNav />
                 <TabProvider>
                     <Main>{children}</Main>

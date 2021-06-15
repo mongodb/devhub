@@ -30,7 +30,9 @@ describe('BreadcrumbSchema', () => {
                 "@type": "BreadcrumbList",
                 itemListElement: [
                     { "@type": "ListItem", "position": 1, name: "Home", item: siteUrl },
-                    { "@type": "ListItem", "position": 2, name: "Learn", item: siteUrl + "/learn/" }]
+                    { "@type": "ListItem", "position": 2, name: "Learn", item: siteUrl + "/learn/" },
+                    { "@type": "ListItem", "position": 3, name: "Article", item: siteUrl + "/learn/article/" },
+                    { "@type": "ListItem", "position": 4, name: "Some article", item: siteUrl + "/article/some-article/" }]
             }
         ));
     });

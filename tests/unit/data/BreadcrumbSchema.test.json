@@ -6,5 +6,13 @@
     {
         "label": "Learn",
         "target": "/learn"
+    },
+    {
+        "label": "Article",
+        "target": "/learn/article"
+    },
+    {
+        "label": "Some article",
+        "target": "/article/some-article"
     }
 ]
