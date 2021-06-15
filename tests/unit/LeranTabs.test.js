@@ -18,8 +18,8 @@ describe('Learn Tabs Component', () => {
         wrapper = shallow(<Tabs {...props} />);
     });
 
-    test('renders component', () => {
-        expect(wrapper).not.toBe(null);
+    test('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
     });
 
     test('has child component styled tabs', () => {
@@ -27,7 +27,7 @@ describe('Learn Tabs Component', () => {
     });
 
     test('styled tabs has selected tab of 0 th element ', () => {
-        expect(wrapper.find('StyledTabs')).not.toBe(null);
+        expect(wrapper.find('StyledTabs').props().selected).toEqual(0);
     });
 
     test('number of Tabs equal the number of elements passed from the tab list', () => {
