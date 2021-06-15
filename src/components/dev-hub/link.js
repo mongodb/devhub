@@ -51,7 +51,6 @@ const tertiaryLinkStyling = theme => css`
 const linkStyling = theme => css`
     color: ${theme.colorMap.devWhite};
     font-size: inherit;
-    overflow-wrap: anywhere;
     text-decoration: underline;
     &:visited {
         color: ${theme.colorMap.devWhite};
