@@ -3,8 +3,6 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Tabs as LeafyTabs, Tab } from '@leafygreen-ui/tabs';
 import Button from './button';
-import { TabContext } from './tab-context';
-import { screenSize } from './theme';
 
 const TabButtonStyle = () => css`
     border-radius: 0;
@@ -23,9 +21,9 @@ const StyledTabButton = styled(Button)`
 `;
 
 const TabsStyle = () => css`
-    @media ${screenSize.xlargeAndUp} {
+    @media (min-width: 1048px) {
         button:first-child {
-            margin-right: 74%;
+            margin-right: 73%;
         }
     }
     button[aria-selected='true'] {
@@ -40,39 +38,25 @@ const StyledTabs = styled(LeafyTabs)`
     ${TabsStyle}
 `;
 
-// Name anonymous tabsets by alphabetizing their tabids and concatenating with a forward slash
-const generateAnonymousTabsetName = tabIds => [...tabIds].sort().join('/');
-
 const TabButton = ({ ...props }) => (
     <StyledTabButton renderAsButton {...props} />
 );
 
 const Tabs = ({ tabsList, handleClick, activeItem }) => {
-    const { activeTabs, setActiveTab } = useContext(TabContext);
-    const tabsetName = generateAnonymousTabsetName(tabsList);
     const [activeTabIndex, setActiveTabIndex] = useState(0);
+    const adjustTabIndex = activeTab => {
+        const index = tabsList.indexOf(activeTab);
+        if (index !== -1) {
+            setActiveTabIndex(index);
+        }
+    };
 
     /*
     to set the value from tab context in nav bar
     */
     useEffect(() => {
-        setActiveTab({
-            tabset: tabsetName,
-            value: activeItem,
-        });
+        adjustTabIndex(activeItem);
     }, [activeItem]);
-
-    /*
-    to set the active tab index if
-    1. setActiveTab triggered from context changes in the nav bar
-    2. setActiveTab triggered from using call back on click
-    */
-    useEffect(() => {
-        const index = tabsList.indexOf(activeTabs[tabsetName]);
-        if (index !== -1) {
-            setActiveTabIndex(index);
-        }
-    }, [activeTabs, tabsList]);
 
     /*
     to set the active item upon user click on any leafy tabs
@@ -80,10 +64,7 @@ const Tabs = ({ tabsList, handleClick, activeItem }) => {
     const onClick = useCallback(
         index => {
             const tabValue = tabsList[index];
-            setActiveTab({
-                tabset: tabsetName,
-                value: tabValue,
-            });
+            adjustTabIndex(tabValue);
             handleClick(tabValue);
         },
         [tabsList]
