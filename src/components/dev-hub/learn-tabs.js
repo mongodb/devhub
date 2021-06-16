@@ -1,10 +1,9 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Tabs as LeafyTabs, Tab } from '@leafygreen-ui/tabs';
 import Button from './button';
 
-const TabButtonStyle = () => css`
+const StyledTabButton = styled(Button)`
     border-radius: 0;
     :active,
     :hover,
@@ -16,26 +15,18 @@ const TabButtonStyle = () => css`
     }
 `;
 
-const StyledTabButton = styled(Button)`
-    ${TabButtonStyle}
-`;
-
-const TabsStyle = () => css`
-    @media (min-width: 1048px) {
-        button:first-child {
-            margin-right: 73%;
-        }
+const StyledTabs = styled(LeafyTabs)`
+    justify-items: flex-end;
+    button:first-of-type {
+        margin-right: auto;
     }
+
     button[aria-selected='true'] {
         color: ${({ theme }) => theme.colorMap.darkGreen};
         :after {
             background-color: ${({ theme }) => theme.colorMap.darkGreen};
         }
     }
-`;
-
-const StyledTabs = styled(LeafyTabs)`
-    ${TabsStyle}
 `;
 
 const TabButton = ({ ...props }) => (
@@ -80,14 +71,8 @@ const Tabs = ({ tabsList, handleClick, activeItem }) => {
                 setSelected={onClick}
             >
                 {tabsList.map((tab, index) => {
-                    const tabId = tab;
                     return (
-                        <Tab
-                            data-tabid={tabId}
-                            role="tab"
-                            key={index}
-                            name={tabId}
-                        />
+                        <Tab data-tabid={tab} role="tab" key={tab} name={tab} />
                     );
                 })}
             </StyledTabs>
