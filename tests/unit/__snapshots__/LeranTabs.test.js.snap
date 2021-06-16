@@ -1,32 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Learn Tabs Component renders correctly 1`] = `
-<Fragment>
-  <StyledTabs
-    as={[Function]}
-    darkMode={true}
-    data-test="tabs"
-    selected={0}
-    setSelected={[Function]}
-  >
-    <Tab
-      data-tabid="TabOne"
-      key="TabOne"
-      name="TabOne"
-      role="tab"
-    />
-    <Tab
-      data-tabid="TabTwo"
-      key="TabTwo"
-      name="TabTwo"
-      role="tab"
-    />
-    <Tab
-      data-tabid="TabThree"
-      key="TabThree"
-      name="TabThree"
-      role="tab"
-    />
-  </StyledTabs>
-</Fragment>
+<StyledTabs
+  as={[Function]}
+  darkMode={true}
+  data-test="tabs"
+  selected={0}
+  setSelected={[Function]}
+>
+  <Tab
+    data-tabid="TabOne"
+    key="TabOne"
+    name="TabOne"
+    role="tab"
+  />
+  <Tab
+    data-tabid="TabTwo"
+    key="TabTwo"
+    name="TabTwo"
+    role="tab"
+  />
+  <Tab
+    data-tabid="TabThree"
+    key="TabThree"
+    name="TabThree"
+    role="tab"
+  />
+</StyledTabs>
 `;
