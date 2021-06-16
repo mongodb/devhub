@@ -1,25 +1,33 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow, act } from 'enzyme';
 import Tabs from '../../src/components/dev-hub/learn-tabs';
 import { Tab } from '@leafygreen-ui/tabs';
+import { ThemeProvider } from '@emotion/react';
+import { darkTheme } from '../../src/components/dev-hub/theme';
 
 describe('Learn Tabs Component', () => {
     const mockTabsList = ['TabOne', 'TabTwo', 'TabThree'];
-    const mockActiveItem = jest.fn();
+    const mockActiveItem = 'TabOne';
     const mockHandleClick = jest.fn();
     const props = {
         tabsList: mockTabsList,
         handleClick: mockHandleClick,
         activeItem: mockActiveItem,
     };
+    let shallowWrapper;
     let wrapper;
 
-    beforeEach(() => {
-        wrapper = shallow(<Tabs {...props} />);
+    beforeAll(() => {
+        shallowWrapper = shallow(<Tabs {...props} />);
+        wrapper = mount(
+            <ThemeProvider theme={darkTheme}>
+                <Tabs {...props} />
+            </ThemeProvider>
+        );
     });
 
     test('renders correctly', () => {
-        expect(wrapper).toMatchSnapshot();
+        expect(shallowWrapper).toMatchSnapshot();
     });
 
     test('has child component styled tabs', () => {
@@ -38,5 +46,12 @@ describe('Learn Tabs Component', () => {
         expect(wrapper.find(Tab).at(0).props().name).toEqual('TabOne');
         expect(wrapper.find(Tab).at(1).props().name).toEqual('TabTwo');
         expect(wrapper.find(Tab).at(2).props().name).toEqual('TabThree');
+    });
+
+    test('triggers handleClick with accurate tab value', () => {
+        const tabTwo = wrapper.find('button').at(1);
+        tabTwo.simulate('click');
+        expect(props.handleClick).toHaveBeenCalled();
+        expect(props.handleClick).toHaveBeenCalledWith('TabTwo');
     });
 });
