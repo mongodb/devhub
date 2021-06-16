@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
 import ArticleShareFooter from '../components/dev-hub/article-share-footer';
@@ -17,6 +18,18 @@ import ArticleSchema from '../components/dev-hub/article-schema';
 import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import ArticleRating from '~components/ArticleRating';
 import { ArticleRatingProvider } from '~components/ArticleRatingContext';
+
+const allowTextWrapping = css`
+    /* Use hyphens where available on content */
+    -webkit-hyphens: auto;
+    hyphens: auto;
+
+    /* Wrap words/content across lines */
+    /* word-wrap and overflow-wrap are identical aside from CSS2/3 renaming */
+    overflow-wrap: break-word;
+    word-break: break-word;
+    word-wrap: break-word;
+`;
 
 const StyledBlogShareLinks = styled(BlogShareLinks)`
     flex-direction: column;
@@ -66,6 +79,8 @@ const Icons = styled('div')`
 `;
 
 const Container = styled('div')`
+    ${allowTextWrapping};
+
     display: grid;
     grid-auto-rows: auto;
     grid-template-columns: auto;
