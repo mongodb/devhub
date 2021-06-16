@@ -11,19 +11,19 @@ exports[`Learn Tabs Component renders correctly 1`] = `
   >
     <Tab
       data-tabid="TabOne"
-      key="0"
+      key="TabOne"
       name="TabOne"
       role="tab"
     />
     <Tab
       data-tabid="TabTwo"
-      key="1"
+      key="TabTwo"
       name="TabTwo"
       role="tab"
     />
     <Tab
       data-tabid="TabThree"
-      key="2"
+      key="TabThree"
       name="TabThree"
       role="tab"
     />
