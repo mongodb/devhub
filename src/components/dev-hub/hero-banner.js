@@ -40,8 +40,7 @@ const HeroBannerContainer = styled('div')`
     /* Send background to the right */
     background-position: ${({ backgroundPosition }) => backgroundPosition};
     background-repeat: no-repeat;
-    background-size: ${({ shouldContainBackground }) =>
-        shouldContainBackground ? 'contain' : 'cover'};
+    background-size: auto;
     height: 100%;
     padding: ${size.default} ${size.xxlarge} ${BANNER_BOTTOM_PADDING};
     @media ${screenSize.upToLarge} {
@@ -79,7 +78,7 @@ const MobileMediaContainer = styled('div')`
     }
     > img {
         border-radius: ${size.small};
-        width: inherit;
+        width: ${({ imageWidthOnMobile }) => imageWidthOnMobile || 'inherit'};
         @media ${screenSize.upToLarge} {
             ${({ maintainSquareAspectRatio }) =>
                 maintainSquareAspectRatio && positionAbsolutelyWithinContainer};
@@ -97,6 +96,7 @@ const HeroBanner = ({
     // Setting below to false would allow for bleed effect on bg
     shouldContainBackground = true,
     showImageOnMobile = true,
+    imageWidthOnMobile,
     fullWidth = false,
     ...props
 }) => {
@@ -117,6 +117,7 @@ const HeroBanner = ({
                             maintainSquareAspectRatio={
                                 maintainSquareAspectRatio
                             }
+                            imageWidthOnMobile={imageWidthOnMobile}
                         >
                             <img src={background} alt="" />
                         </MobileMediaContainer>
