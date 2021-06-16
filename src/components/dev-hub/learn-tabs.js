@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Tabs as LeafyTabs, Tab } from '@leafygreen-ui/tabs';
 import Button from './button';
+import { size } from './theme';
 
 const StyledTabButton = styled(Button)`
     border-radius: 0;
@@ -16,8 +17,9 @@ const StyledTabButton = styled(Button)`
 `;
 
 const StyledTabs = styled(LeafyTabs)`
-    margin: 0 32px;
+    margin: 0 ${size.large};
     justify-items: flex-end;
+
     button {
         :first-of-type {
             margin-right: auto;
