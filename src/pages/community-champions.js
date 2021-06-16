@@ -1,29 +1,41 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import Layout from '~components/dev-hub/layout.js';
 import HeroBanner from '~components/dev-hub/hero-banner';
-import { P, H2 } from '../components/dev-hub/text';
-import styled from '@emotion/styled';
+import { P, H2 } from '~components/dev-hub/text';
 import Button from '~components/dev-hub/button';
-import BannerImage from '../images/community-champions/community-champions-banner-icon.png';
+import { screenSize, size } from '~components/dev-hub/theme';
+import BannerImage from '~images/community-champions/community-champions-banner-icon.png';
 
-const StyledP = styled(P)`
+const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
+const APPLY_BUTTON_MOBILE_BOTTOM_MARGIN = '12px';
+
+const Subtitle = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    margin-top: ${size.mediumLarge};
+    @media ${screenSize.upToLarge} {
+        margin-top: ${size.default};
+    }
 `;
 
-const StyledButton = styled(Button)`
-    margin-top: 12px;
+const ApplyButton = styled(Button)`
+    margin-top: ${size.large};
+    margin-bottom: ${APPLY_BUTTON_BOTTOM_MARGIN};
+    @media ${screenSize.upToLarge} {
+        margin-top: ${size.default};
+        margin-bottom: ${APPLY_BUTTON_MOBILE_BOTTOM_MARGIN};
+    }
 `;
 
 const StyledHeroBanner = styled(HeroBanner)`
     > div {
-        background-size: 348px;
+        background-size: auto;
     }
 `;
 
 const CommunityChampions = () => {
     const communityChampionBreadcrumbs = [
         { label: 'Home', target: '/' },
-        { label: 'Community', target: '/community' },
         {
             label: 'MongoDB Community Champions',
             target: '/community-champions',
@@ -35,11 +47,11 @@ const CommunityChampions = () => {
                 breadcrumb={communityChampionBreadcrumbs}
                 background={BannerImage}
                 backgroundPosition="85% center"
-                imageWidthOnMobile="248px"
+                imageWidthOnMobile="auto"
                 maintainSquareAspectRatio={false}
             >
                 <H2>MongoDB Community Champions</H2>
-                <StyledP>
+                <Subtitle>
                     Champions are a group of passionate, dedicated advocates of
                     the MongoDB community. They keep the community informed and
                     excited about our latest developments and newest offerings.
@@ -51,8 +63,8 @@ const CommunityChampions = () => {
                     community team, these individuals represent the organizers,
                     contributors, and creators that are the backbone of our
                     community.
-                </StyledP>
-                <StyledButton primary>Apply to Become a Champion</StyledButton>
+                </Subtitle>
+                <ApplyButton primary>Apply to Become a Champion</ApplyButton>
             </StyledHeroBanner>
         </Layout>
     );
