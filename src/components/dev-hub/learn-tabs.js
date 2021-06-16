@@ -16,10 +16,9 @@ const StyledTabButton = styled(Button)`
 `;
 
 const StyledTabs = styled(LeafyTabs)`
+    margin: 0 32px;
     justify-items: flex-end;
-
     button {
-        margin: 5px;
         :first-of-type {
             margin-right: auto;
         }
