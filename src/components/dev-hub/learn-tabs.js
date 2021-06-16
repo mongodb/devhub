@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Tabs as LeafyTabs, Tab } from '@leafygreen-ui/tabs';
 import Button from './button';
@@ -17,8 +17,12 @@ const StyledTabButton = styled(Button)`
 
 const StyledTabs = styled(LeafyTabs)`
     justify-items: flex-end;
-    button:first-of-type {
-        margin-right: auto;
+
+    button {
+        margin: 5px;
+        :first-of-type {
+            margin-right: auto;
+        }
     }
 
     button[aria-selected='true'] {
@@ -62,21 +66,17 @@ const Tabs = ({ tabsList, handleClick, activeItem }) => {
     );
 
     return (
-        <>
-            <StyledTabs
-                as={TabButton}
-                darkMode
-                data-test="tabs"
-                selected={activeTabIndex}
-                setSelected={onClick}
-            >
-                {tabsList.map((tab, index) => {
-                    return (
-                        <Tab data-tabid={tab} role="tab" key={tab} name={tab} />
-                    );
-                })}
-            </StyledTabs>
-        </>
+        <StyledTabs
+            as={TabButton}
+            darkMode
+            data-test="tabs"
+            selected={activeTabIndex}
+            setSelected={onClick}
+        >
+            {tabsList.map(tab => {
+                return <Tab data-tabid={tab} role="tab" key={tab} name={tab} />;
+            })}
+        </StyledTabs>
     );
 };
 
