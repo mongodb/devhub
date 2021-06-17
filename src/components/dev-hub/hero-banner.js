@@ -40,7 +40,8 @@ const HeroBannerContainer = styled('div')`
     /* Send background to the right */
     background-position: ${({ backgroundPosition }) => backgroundPosition};
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: ${({ shouldContainBackground }) =>
+        shouldContainBackground ? 'contain' : 'cover'};
     height: 100%;
     padding: ${size.default} ${size.xxlarge} ${BANNER_BOTTOM_PADDING};
     @media ${screenSize.upToLarge} {
