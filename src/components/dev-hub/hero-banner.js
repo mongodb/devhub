@@ -97,7 +97,7 @@ const HeroBanner = ({
     // Setting below to false would allow for bleed effect on bg
     shouldContainBackground = true,
     showImageOnMobile = true,
-    imageWidthOnMobile,
+    imageWidthOnMobile = null,
     fullWidth = false,
     ...props
 }) => {

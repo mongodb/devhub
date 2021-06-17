@@ -29,18 +29,20 @@ const ApplyButton = styled(Button)`
 
 const StyledHeroBanner = styled(HeroBanner)`
     > div {
+        /* Overriding background-size here because the initial value was 'contain' which makes the banner image too big */
         background-size: auto;
     }
 `;
 
+const communityChampionBreadcrumbs = [
+    { label: 'Home', target: '/' },
+    {
+        label: 'MongoDB Community Champions',
+        target: '/community-champions',
+    },
+];
+
 const CommunityChampions = () => {
-    const communityChampionBreadcrumbs = [
-        { label: 'Home', target: '/' },
-        {
-            label: 'MongoDB Community Champions',
-            target: '/community-champions',
-        },
-    ];
     return (
         <Layout>
             <StyledHeroBanner
