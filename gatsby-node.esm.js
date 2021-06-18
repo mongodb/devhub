@@ -1,5 +1,8 @@
+import dlv from 'dlv';
 import path from 'path';
 import { articles } from './src/queries/articles';
+import { featuredHomePageArticles } from './src/queries/featured-home-page-articles';
+import { featuredLearnPageArticles } from './src/queries/featured-learn-page-articles';
 import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
@@ -118,9 +121,6 @@ export const onCreateNode = async ({ node }) => {
 };
 
 const filteredPageGroups = allSeries => {
-    // featured articles are in pageGroups but not series, so we remove them
-    homeFeaturedArticles = allSeries.home;
-    learnFeaturedArticles = allSeries.learn;
     // also remove a group of excluded articles
     excludedLearnPageArticles = allSeries.learnPageExclude;
     delete allSeries.home;
@@ -131,7 +131,13 @@ const filteredPageGroups = allSeries => {
 
 export const createPages = async ({ actions, graphql }) => {
     const { createPage, createRedirect } = actions;
-    const [, metadataDocument, result] = await Promise.all([
+    const [
+        ,
+        metadataDocument,
+        result,
+        homeFeaturedArticlesData,
+        learnFeaturedArticlesData,
+    ] = await Promise.all([
         saveAssetFiles(assets, stitchClient),
         stitchClient.callFunction('fetchDocument', [
             DB,
@@ -143,7 +149,34 @@ export const createPages = async ({ actions, graphql }) => {
             ),
         ]),
         graphql(articles),
+        graphql(featuredHomePageArticles),
+        graphql(featuredLearnPageArticles),
     ]);
+
+    const { firstArticle, secondArticle, thirdArticle, fourthArticle } = dlv(
+        homeFeaturedArticlesData,
+        'data.strapiFeaturedHomePageArticles',
+        {}
+    );
+
+    const { mainArticle, secondaryArticle, tertiaryArticle } = dlv(
+        learnFeaturedArticlesData,
+        'data.strapiFeaturedLearnPageArticles',
+        {}
+    );
+
+    homeFeaturedArticles = [
+        firstArticle,
+        secondArticle,
+        thirdArticle,
+        fourthArticle,
+    ].filter(x => !!x);
+
+    learnFeaturedArticles = [
+        mainArticle,
+        secondaryArticle,
+        tertiaryArticle,
+    ].filter(x => !!x);
 
     await createProjectPages(createPage, graphql);
 
