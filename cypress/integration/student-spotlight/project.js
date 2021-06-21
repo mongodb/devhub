@@ -64,12 +64,16 @@ describe('Project Page', () => {
     it('should feature some other projects', () => {
         cy.get('[data-test="additional-projects"]').within(() => {
             cy.contains('Explore more Student Spotlights');
-            cy.get('div a')
+            cy.get('[data-test="project-card"]')
                 .first()
                 .within(() => {
                     cy.contains('Go-FIFA');
                     cy.contains('Learn MongoDB from Go-FIFA!');
                 });
+            cy.get('[data-test="project-card"]')
+                .first()
+                .should('have.attr', 'href')
+                .and('eq', '/project/go-fifa/');
         });
     });
 });

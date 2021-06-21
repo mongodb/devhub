@@ -16,7 +16,12 @@ const CenteredAuthorImageList = styled(AuthorImageList)`
 `;
 
 const ProjectCard = ({ project, ...props }) => (
-    <HoverCard to={project.slug} image={project.image_url} {...props}>
+    <HoverCard
+        data-test="project-card"
+        to={project.slug}
+        image={project.image_url}
+        {...props}
+    >
         <H5>{project.name}</H5>
         <HideOnMobile>
             <P2>{project.description}</P2>
