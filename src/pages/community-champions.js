@@ -5,10 +5,18 @@ import HeroBanner from '~components/dev-hub/hero-banner';
 import { P, H2 } from '~components/dev-hub/text';
 import Button from '~components/dev-hub/button';
 import { screenSize, size } from '~components/dev-hub/theme';
-import BannerImage from '~images/community-champions/community-champions-banner-icon.png';
+import BannerImage from '~images/community-champions/champions-badge.svg';
+import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
+import useMedia from '~hooks/use-media';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
 const APPLY_BUTTON_MOBILE_BOTTOM_MARGIN = '12px';
+
+const Title = styled(H2)`
+    @media ${screenSize.upToLarge} {
+        padding-top: ${size.xsmall};
+    }
+`;
 
 const Subtitle = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
@@ -43,16 +51,20 @@ const communityChampionBreadcrumbs = [
 ];
 
 const CommunityChampions = () => {
+    /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
+    const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
     return (
         <Layout>
             <StyledHeroBanner
                 breadcrumb={communityChampionBreadcrumbs}
-                background={BannerImage}
+                background={
+                    useBannerImageWithSpace ? BannerImageWithSpace : BannerImage
+                }
                 backgroundPosition="85% center"
                 imageWidthOnMobile="auto"
                 maintainSquareAspectRatio={false}
             >
-                <H2>MongoDB Community Champions</H2>
+                <Title>MongoDB Community Champions</Title>
                 <Subtitle>
                     Champions are a group of passionate, dedicated advocates of
                     the MongoDB community. They keep the community informed and
