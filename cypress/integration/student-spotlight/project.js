@@ -53,15 +53,23 @@ describe('Project Page', () => {
                 .and('equal', 'http://project.link');
             // Author
             cy.get('[data-test="student"]').within(() => {
-                cy.contains('Test Student');
+                cy.contains('Test Student').click();
+                cy.contains('Student Bio');
+                cy.contains('http://linkedin.link');
+                cy.contains('http://youtube.link');
             });
         });
     });
 
     it('should feature some other projects', () => {
-        // Get other projects
         cy.get('[data-test="additional-projects"]').within(() => {
             cy.contains('Explore more Student Spotlights');
+            cy.get('div a')
+                .first()
+                .within(() => {
+                    cy.contains('Go-FIFA');
+                    cy.contains('Learn MongoDB from Go-FIFA!');
+                });
         });
     });
 });
