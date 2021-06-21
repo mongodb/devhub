@@ -70,7 +70,7 @@ const AdditionalProjects = ({ excludedProjectName }) => {
         [projects, excludedProjectName]
     );
     return (
-        <AdditionalProjectsContainer>
+        <AdditionalProjectsContainer data-test="additional-projects">
             <GridContainer>
                 <TitleWithBottomPadding collapse>
                     Explore more Student Spotlights

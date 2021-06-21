@@ -35,12 +35,33 @@ describe('Project Page', () => {
         });
         cy.get('[data-test="sidebar"]').within(() => {
             // Tags
+            cy.get('ul')
+                .first()
+                .within(() => {
+                    cy.get('li').first(() => {
+                        cy.contains('mongodb');
+                    });
+                });
             // Links
+            cy.get('a')
+                .first()
+                .should('have.attr', 'href')
+                .and('equal', 'http://github.url');
+            cy.get('a')
+                .eq(1)
+                .should('have.attr', 'href')
+                .and('equal', 'http://project.link');
             // Author
+            cy.get('[data-test="student"]').within(() => {
+                cy.contains('Test Student');
+            });
         });
     });
 
     it('should feature some other projects', () => {
         // Get other projects
+        cy.get('[data-test="additional-projects"]').within(() => {
+            cy.contains('Explore more Student Spotlights');
+        });
     });
 });
