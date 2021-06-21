@@ -1,15 +1,23 @@
+const FEATURED_PROJECT = '[data-test="featured-project"]';
+const FEATURED_PROJECT_DESCRIPTION =
+    'Learn MongoDB by creating a database for dog care providers!';
+const FEATURED_PROJECT_TITLE =
+    'Database Development for Dog Care Providers (DCP)';
+const FEATURED_PROJECT_URL = '/project/database-development-dcp/';
+const FIRST_PROJECT_DESCRIPTION = 'Learn MongoDB from Go-FIFA!';
+const FIRST_PROJECT_TITLE = 'Go-FIFA';
+const FIRST_PROJECT_URL = '/project/go-fifa/';
 const GALLERY_URL = '/academia/students/';
+const PROJECT_CARD = '[data-test="project-card"]';
 
 describe('Student Spotlight Gallery Page', () => {
     it('should render the gallery page', () => {
         cy.visit(GALLERY_URL);
     });
     it('should render a featured project', () => {
-        cy.get('[data-test="featured-project"]').within(() => {
-            cy.contains('Database Development for Dog Care Providers (DCP)');
-            cy.contains(
-                'Learn MongoDB by creating a database for dog care providers!'
-            );
+        cy.get(FEATURED_PROJECT).within(() => {
+            cy.contains(FEATURED_PROJECT_TITLE);
+            cy.contains(FEATURED_PROJECT_DESCRIPTION);
             cy.get('ul li')
                 .first()
                 .within($el => {
@@ -18,21 +26,21 @@ describe('Student Spotlight Gallery Page', () => {
             cy.get('a')
                 .last()
                 .should('have.attr', 'href')
-                .and('eq', '/project/database-development-dcp/');
+                .and('eq', FEATURED_PROJECT_URL);
         });
     });
     it('should have a grid of projects', () => {
         cy.contains('All Projects');
-        cy.get('[data-test="project-card"]').should('have.length', 7);
-        cy.get('[data-test="project-card"]')
+        cy.get(PROJECT_CARD).should('have.length', 7);
+        cy.get(PROJECT_CARD)
             .first()
             .within(() => {
-                cy.contains('Go-FIFA');
-                cy.contains('Learn MongoDB from Go-FIFA!');
+                cy.contains(FIRST_PROJECT_TITLE);
+                cy.contains(FIRST_PROJECT_DESCRIPTION);
             });
-        cy.get('[data-test="project-card"]')
+        cy.get(PROJECT_CARD)
             .first()
             .should('have.attr', 'href')
-            .and('eq', '/project/go-fifa/');
+            .and('eq', FIRST_PROJECT_URL);
     });
 });

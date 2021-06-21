@@ -1,4 +1,8 @@
 const ENTRY_URL = '/academia/';
+const FIRST_PROJECT_URL = '/project/go-fifa/';
+const GALLERY_PAGE_URL = '/academia/students/';
+const MONGODB_FOR_EDUCATORS_URL = '/academia/educators/';
+const MONGODB_FOR_STUDENTS_URL = 'https://www.mongodb.com/students';
 
 describe('Academia Entry Page', () => {
     it('should render the entry page', () => {
@@ -9,21 +13,21 @@ describe('Academia Entry Page', () => {
             cy.get('a')
                 .first()
                 .should('have.attr', 'href')
-                .and('equal', 'https://www.mongodb.com/students');
+                .and('equal', MONGODB_FOR_STUDENTS_URL);
             cy.get('a')
                 .eq(1)
                 .should('have.attr', 'href')
-                .and('equal', '/academia/educators/');
+                .and('equal', MONGODB_FOR_EDUCATORS_URL);
             cy.get('a')
                 .last()
                 .should('have.attr', 'href')
-                .and('equal', '/academia/students/');
+                .and('equal', GALLERY_PAGE_URL);
         });
     });
     it('should have a project grid', () => {
         cy.get('[data-test="project-card"]')
             .first()
             .should('have.attr', 'href')
-            .and('eq', '/project/go-fifa/');
+            .and('eq', FIRST_PROJECT_URL);
     });
 });
