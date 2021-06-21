@@ -51,12 +51,12 @@ const communityChampionBreadcrumbs = [
 ];
 
 const CommunityChampions = () => {
-    /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
     const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
     return (
         <Layout>
             <StyledHeroBanner
                 breadcrumb={communityChampionBreadcrumbs}
+                /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={
                     useBannerImageWithSpace ? BannerImageWithSpace : BannerImage
                 }
