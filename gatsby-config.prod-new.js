@@ -63,6 +63,8 @@ module.exports = {
                     '/type/*',
                 ],
             },
+            // This plugin uses the siteUrl AND prefix path, we only want one
+            resolvePagePath: () => '',
         },
         {
             resolve: 'gatsby-plugin-google-tagmanager',
