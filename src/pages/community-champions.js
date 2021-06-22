@@ -5,16 +5,24 @@ import HeroBanner from '~components/dev-hub/hero-banner';
 import { H1, H2, H4, P } from '~components/dev-hub/text';
 import Button from '~components/dev-hub/button';
 import { screenSize, size } from '~components/dev-hub/theme';
-import BannerImage from '~images/community-champions/community-champions-banner-icon.png';
+import BannerImage from '~images/community-champions/champions-badge.svg';
+import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
 import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.svg';
 import CollaborateWithCommunityImage from '~images/community-champions/collaborate-with-community.svg';
 import BecomeSpeakerImage from '~images/community-champions/become-speaker.svg';
+import useMedia from '~hooks/use-media';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
 const APPLY_BUTTON_MOBILE_BOTTOM_MARGIN = '12px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP = '96px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_MOBILE_ROW_GAP = '40px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_HORIZONTAL_MARGIN = '126px';
+
+const BannerTitle = styled(H2)`
+    @media ${screenSize.upToLarge} {
+        padding-top: ${size.xsmall};
+    }
+`;
 
 const BannerSubtitle = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
@@ -125,16 +133,20 @@ const communityChampionBreadcrumbs = [
 ];
 
 const CommunityChampions = () => {
+    const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
     return (
         <Layout>
             <StyledHeroBanner
                 breadcrumb={communityChampionBreadcrumbs}
-                background={BannerImage}
+                /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
+                background={
+                    useBannerImageWithSpace ? BannerImageWithSpace : BannerImage
+                }
                 backgroundPosition="85% center"
                 imageWidthOnMobile="auto"
                 maintainSquareAspectRatio={false}
             >
-                <H2>MongoDB Community Champions</H2>
+                <BannerTitle>MongoDB Community Champions</BannerTitle>
                 <BannerSubtitle>
                     Champions are a group of passionate, dedicated advocates of
                     the MongoDB community. They keep the community informed and
