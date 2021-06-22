@@ -49,14 +49,14 @@ const StyledHeroBanner = styled(HeroBanner)`
 `;
 
 const ContentContainer = styled('div')`
-    margin: 0px ${size.xxlarge};
+    margin: 0 ${size.xxlarge};
     @media ${screenSize.upToLarge} {
-        margin: 0px ${size.default};
+        margin: 0 ${size.default};
     }
 `;
 
 const Title = styled(H1)`
-    margin: ${size.xlarge} 0px;
+    margin: ${size.xlarge} 0;
     word-wrap: break-word;
     text-align: center;
     @media ${screenSize.upToLarge} {
@@ -67,6 +67,7 @@ const Title = styled(H1)`
 
 const Description = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    margin-bottom: 0;
 `;
 
 const WhatItMeansToBeAChampionRowTitle = styled(H4)`
@@ -91,7 +92,7 @@ const WhatItMeansToBeAChampionTextSection = styled('div')`
             ? `margin-left: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_HORIZONTAL_MARGIN}`
             : `margin-right: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_HORIZONTAL_MARGIN}`};
     @media ${screenSize.upToLarge} {
-        margin: 0px 0px;
+        margin: 0 0;
     }
 `;
 
