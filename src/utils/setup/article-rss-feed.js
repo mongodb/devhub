@@ -1,7 +1,7 @@
 const { rssFeedArticleData } = require('../../queries/rss-feed-article-data');
 const { serializeRssData } = require('./serialize-rss-data');
 
-const siteUrl = 'https://developer.mongodb.com';
+const siteUrl = 'https://mongodb.com/developer';
 
 const articleRssFeed = {
     serialize: serializeRssData,

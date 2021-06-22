@@ -3,7 +3,7 @@ const {
 } = require('../../queries/search-article-rss-data');
 const { serializeSearchRssData } = require('./serialize-search-rss-data');
 
-const siteUrl = 'https://developer.mongodb.com';
+const siteUrl = 'https://mongodb.com/developer';
 
 const searchRssFeed = {
     serialize: serializeSearchRssData,
