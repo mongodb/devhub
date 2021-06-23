@@ -1,5 +1,7 @@
 import { transformAuthorStrapiData } from './setup/transform-author-strapi-data';
 import { parseMarkdownToAST } from './setup/parse-markdown-to-ast';
+import { SITE_URL } from '../constants';
+import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
 
 const typeMap = {
     Article: 'article',
@@ -14,6 +16,7 @@ export const transformArticleStrapiData = article => {
     const transformedAuthors = authors.map(transformAuthorStrapiData);
     const parsedContent = parseMarkdownToAST(article.content);
     const SEOObject = article.SEO || {};
+    const fullSlug = `${typeMap[inferredType]}${article.slug}`;
     return {
         ...article,
         authors: transformedAuthors,
@@ -30,7 +33,9 @@ export const transformArticleStrapiData = article => {
               }))
             : [],
         SEO: {
-            canonicalUrl: SEOObject.canonical_url,
+            canonicalUrl:
+                SEOObject.canonical_url ||
+                addTrailingSlashIfMissing(`${SITE_URL}/${fullSlug}`),
             metaDescription: SEOObject.meta_description,
             og: {
                 description: SEOObject.og_description,
@@ -47,7 +52,7 @@ export const transformArticleStrapiData = article => {
                 title: SEOObject.twitter_title,
             },
         },
-        slug: `${typeMap[inferredType]}${article.slug}`,
+        slug: fullSlug,
         tags: article.tags.map(t => t.tag),
         type: typeMap[inferredType],
     };
