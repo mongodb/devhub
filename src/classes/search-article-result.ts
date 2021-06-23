@@ -3,6 +3,9 @@ import { Article } from '../interfaces/article';
 import { ArticleCategory } from '../types/article-category';
 import { ArticleSEO } from '../types/article-seo';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
+import { withPrefix } from 'gatsby';
+
+const isInternalFile = file => /^\//.test(file);
 
 export class SearchArticleResult implements Article {
     _id: String;
@@ -37,7 +40,8 @@ export class SearchArticleResult implements Article {
         // We don't need below for cards
         //@ts-ignore
         this.SEO = {};
-        this.image = result['atf-image'];
+        const image = result['atf-image'];
+        this.image = isInternalFile(image) ? withPrefix(image) : image;
         this.title = dlv(result.title, [0, 'value'], result.slug);
         this.tags = mapTagTypeToUrl(result.tags, 'tag');
         this.type = result.type;
