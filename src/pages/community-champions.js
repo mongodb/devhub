@@ -97,11 +97,8 @@ const WhatItMeansToBeAChampionRowTitle = styled(H4)`
 `;
 
 const StyledMediaBlock = styled(MediaBlock)`
+    > div,
     > span {
-        display: flex;
-        align-items: center;
-    }
-    > div {
         display: flex;
         align-items: center;
     }
