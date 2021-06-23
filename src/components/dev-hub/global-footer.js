@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { css, useTheme } from '@emotion/react';
 import { fontSize, lineHeight, screenSize, size } from './theme';
 import MongodbLogoIcon from './icons/mongodb-logo';
-import Link from './link';
+import Link from '../Link';
 import FacebookIcon from './icons/facebook-icon';
 import TwitterIcon from './icons/twitter-icon';
 import LinkedIn from './icons/linkedin';
@@ -202,7 +202,7 @@ const ListItem = styled('li')`
 `;
 const getLinksList = (link, isListType) => (
     <ListItem isListType={isListType} key={link.url}>
-        <FooterLink href={link.url}>{link.name}</FooterLink>
+        <FooterLink to={link.url}>{link.name}</FooterLink>
     </ListItem>
 );
 export default () => {
@@ -213,7 +213,7 @@ export default () => {
                 <LogoContainer>
                     <FooterLink
                         css={iconstyles(theme)}
-                        href="https://www.mongodb.com/"
+                        to="https://www.mongodb.com/"
                     >
                         <MongodbLogoIcon css={logoStyles} />
                     </FooterLink>
