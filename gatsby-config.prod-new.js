@@ -64,8 +64,9 @@ module.exports = {
                     '/tag/*',
                     '/type/*',
                 ],
+                // This plugin uses the siteUrl AND prefix path, will still apply the prefix
+                resolveSiteUrl: () => 'https://mongodb.com/',
             },
-            resolvePagePath: () => '',
         },
         {
             resolve: 'gatsby-plugin-google-tagmanager',
