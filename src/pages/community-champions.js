@@ -11,12 +11,13 @@ import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mo
 import CollaborateWithCommunityImage from '~images/community-champions/collaborate-with-community.svg';
 import BecomeSpeakerImage from '~images/community-champions/become-speaker.svg';
 import useMedia from '~hooks/use-media';
+import MediaBlock from '~components/dev-hub/media-block';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
 const APPLY_BUTTON_MOBILE_BOTTOM_MARGIN = '12px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP = '96px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_MOBILE_ROW_GAP = '40px';
-const WHAT_IT_MEANS_TO_BE_A_CHAMPION_HORIZONTAL_MARGIN = '126px';
+const WHAT_IT_MEANS_TO_BE_A_CHAMPION_TEXT_HORIZONTAL_MARGIN = '20%';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -70,14 +71,6 @@ const Description = styled(P)`
     margin-bottom: 0;
 `;
 
-const WhatItMeansToBeAChampionRowTitle = styled(H4)`
-    margin-bottom: ${size.mediumLarge};
-    @media ${screenSize.upToLarge} {
-        margin-top: ${size.default};
-        margin-bottom: ${size.xsmall};
-    }
-`;
-
 const WhatItMeansToBeAChampionContainer = styled('div')`
     display: grid;
     row-gap: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP};
@@ -87,41 +80,45 @@ const WhatItMeansToBeAChampionContainer = styled('div')`
 `;
 
 const WhatItMeansToBeAChampionTextSection = styled('div')`
-    ${({ isRowReverse }) =>
-        isRowReverse
-            ? `margin-left: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_HORIZONTAL_MARGIN}`
-            : `margin-right: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_HORIZONTAL_MARGIN}`};
+    ${({ reverse }) =>
+        reverse
+            ? `margin-right: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_TEXT_HORIZONTAL_MARGIN}`
+            : `margin-left: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_TEXT_HORIZONTAL_MARGIN}`};
     @media ${screenSize.upToLarge} {
-        margin: 0 0;
+        margin: ${size.default} 0 0 0;
     }
 `;
 
-const WhatItMeansToBeAChampionRowContainer = styled('div')`
-    display: flex;
-    flex-direction: ${({ isRowReverse }) =>
-        isRowReverse ? 'row-reverse' : 'row'};
-    align-items: center;
+const WhatItMeansToBeAChampionRowTitle = styled(H4)`
+    margin-bottom: ${size.mediumLarge};
     @media ${screenSize.upToLarge} {
-        flex-direction: column-reverse;
+        margin-bottom: ${size.xsmall};
     }
 `;
 
-const WhatItMeansToBeAChampionRow = ({
-    isRowReverse = false,
+const StyledMediaBlock = styled(MediaBlock)`
+    > span {
+        display: flex;
+        align-items: center;
+    }
+    > div {
+        display: flex;
+        align-items: center;
+    }
+`;
+
+const WhatItMeansToBeAChampionText = ({
+    reverse = false,
     title,
     description,
-    image,
 }) => {
     return (
-        <WhatItMeansToBeAChampionRowContainer isRowReverse={isRowReverse}>
-            <WhatItMeansToBeAChampionTextSection isRowReverse={isRowReverse}>
-                <WhatItMeansToBeAChampionRowTitle>
-                    {title}
-                </WhatItMeansToBeAChampionRowTitle>
-                <Description>{description}</Description>
-            </WhatItMeansToBeAChampionTextSection>
-            <img src={image} />
-        </WhatItMeansToBeAChampionRowContainer>
+        <WhatItMeansToBeAChampionTextSection reverse={reverse}>
+            <WhatItMeansToBeAChampionRowTitle>
+                {title}
+            </WhatItMeansToBeAChampionRowTitle>
+            <Description>{description}</Description>
+        </WhatItMeansToBeAChampionTextSection>
     );
 };
 
@@ -167,22 +164,38 @@ const CommunityChampions = () => {
                 <div>
                     <Title>What it Means to be a Champion</Title>
                     <WhatItMeansToBeAChampionContainer>
-                        <WhatItMeansToBeAChampionRow
-                            title="Partner with MongoDB on Product Development Strategy"
-                            description="Provide MongoDB with insights into the community’s wants, needs, complaints, and praises. Work closely with our leadership teams to ensure that the community is represented in our product development strategy."
-                            image={PartnerWithMongoDBImage}
-                        />
-                        <WhatItMeansToBeAChampionRow
-                            isRowReverse={true}
-                            title="Collaborate with Our Community"
-                            description="MongoDB Champions lead our community user groups, and create exciting new content about MongoDB technologies."
-                            image={CollaborateWithCommunityImage}
-                        />
-                        <WhatItMeansToBeAChampionRow
-                            title="Gain Exposure and Become a Featured Speaker at Events"
-                            description="Speak at MongoDB.live and other industry events. Increase your visibility through MongoDB social media channels, podcasts, and DevHub. We celebrate our Champions’ work and achievements throughout our social channels, our forums, and our events, and provide them access to a private forum group."
-                            image={BecomeSpeakerImage}
-                        />
+                        <StyledMediaBlock
+                            reverse
+                            mediaComponent={
+                                <img src={PartnerWithMongoDBImage} />
+                            }
+                        >
+                            <WhatItMeansToBeAChampionText
+                                reverse
+                                title="Partner with MongoDB on Product Development Strategy"
+                                description="Provide MongoDB with insights into the community’s wants, needs, complaints, and praises. Work closely with our leadership teams to ensure that the community is represented in our product development strategy."
+                            />
+                        </StyledMediaBlock>
+                        <StyledMediaBlock
+                            mediaComponent={
+                                <img src={CollaborateWithCommunityImage} />
+                            }
+                        >
+                            <WhatItMeansToBeAChampionText
+                                title="Collaborate with Our Community"
+                                description="MongoDB Champions lead our community user groups, and create exciting new content about MongoDB technologies."
+                            />
+                        </StyledMediaBlock>
+                        <StyledMediaBlock
+                            reverse
+                            mediaComponent={<img src={BecomeSpeakerImage} />}
+                        >
+                            <WhatItMeansToBeAChampionText
+                                reverse
+                                title="Gain Exposure and Become a Featured Speaker at Events"
+                                description="Speak at MongoDB.live and other industry events. Increase your visibility through MongoDB social media channels, podcasts, and DevHub. We celebrate our Champions’ work and achievements throughout our social channels, our forums, and our events, and provide them access to a private forum group."
+                            />
+                        </StyledMediaBlock>
                     </WhatItMeansToBeAChampionContainer>
                 </div>
             </ContentContainer>
