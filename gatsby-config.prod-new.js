@@ -10,7 +10,7 @@ require('dotenv').config({
 const metadata = getMetadata();
 
 module.exports = {
-    pathPrefix: 'developer',
+    pathPrefix: '/developer',
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
