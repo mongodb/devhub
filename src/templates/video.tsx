@@ -1,21 +1,17 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
-
 import ArticleSchema from '~components/dev-hub/article-schema';
 import BlogPostTitleArea from '~components/dev-hub/blog-post-title-area';
 import Layout from '~components/dev-hub/layout';
 import SEO from '~components/dev-hub/SEO';
 import ShareFooter from '~components/dev-hub/article-share-footer';
-import ShareMenu from '~components/dev-hub/share-menu';
 import VideoEmbed from '~components/dev-hub/video-embed';
 import { P } from '~components/dev-hub/text';
-
 import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
 import { toDateString } from '~utils/format-dates';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
-
-import { dateFormatOptions } from '~src/constants';
+import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
 import { Video as IVideo } from '~src/interfaces/video';
 
@@ -39,6 +35,22 @@ const Container = styled('div')`
         display: flex;
         justify-content: center;
         margin-top: ${size.xxlarge};
+    }
+`;
+
+const StyledBlogShareLinks = styled(BlogShareLinks)`
+    flex-direction: column;
+    align-items: center;
+    > * {
+        margin-top: ${size.medium};
+    }
+    @media ${screenSize.upToLarge} {
+        display: inline-flex;
+        flex-direction: row;
+        > * {
+            margin-top: 0;
+            margin-left: ${size.mediumLarge};
+        }
     }
 `;
 
@@ -75,6 +87,13 @@ const StyledParagraph = styled(P)`
     line-height: ${lineHeight.default};
 `;
 
+const dateFormatOptions = {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+    timeZone: 'UTC',
+};
+
 type VideoProps = {
     pageContext: {
         data: IVideo;
@@ -97,13 +116,14 @@ const Video = ({
     const { siteUrl } = useSiteMetadata();
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
     const formattedPublishDate = toDateString(publishDate, dateFormatOptions);
+    const capitalizedBreadcrumb = mediaType.charAt(0).toUpperCase() + mediaType.slice(1);
 
     const videoBreadcrumb = useMemo(
         () => {
             const videoBreadCrumb = [
             ...VIDEO_BREADCRUMB,
                 {
-                    label: `${mediaType} Video`,
+                    label: `${capitalizedBreadcrumb} Video`,
                     target: `/type/${mediaType}`,
                 },
                 {
@@ -154,11 +174,11 @@ const Video = ({
             />
             <Container>
                 <Icons>
-                    <ShareMenu
-                        height={size.default}
+                    <StyledBlogShareLinks
+                        isTop
+                        position="right"
                         title={title}
                         url={pageUrl}
-                        width={size.default}
                     />
                 </Icons>
                 <Content>
