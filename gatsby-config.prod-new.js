@@ -7,6 +7,8 @@ require('dotenv').config({
     path: '.env.production',
 });
 
+const SITE_URL = 'https://mongodb.com/developer';
+
 const metadata = getMetadata();
 
 module.exports = {
@@ -52,7 +54,7 @@ module.exports = {
         },
         {
             resolve: 'gatsby-plugin-sitemap',
-            output: '/sitemap-pages.xml',
+            output: '/sitemap.xml',
             options: {
                 // Exclude paths we are using the noindex tag on
                 exclude: [
@@ -63,6 +65,7 @@ module.exports = {
                     '/type/*',
                 ],
             },
+            resolvePagePath: () => '',
         },
         {
             resolve: 'gatsby-plugin-google-tagmanager',
@@ -75,7 +78,7 @@ module.exports = {
             resolve: 'gatsby-plugin-feed',
             options: {
                 query: siteUrl,
-                feeds: [articleRssFeed, searchRssFeed],
+                feeds: [articleRssFeed(SITE_URL), searchRssFeed(SITE_URL)],
             },
         },
         `gatsby-plugin-meta-redirect`, // this must be last
@@ -83,6 +86,6 @@ module.exports = {
     siteMetadata: {
         ...metadata,
         title: 'MongoDB Developer Hub',
-        siteUrl: 'https://mongodb.com/developer',
+        siteUrl: SITE_URL,
     },
 };
