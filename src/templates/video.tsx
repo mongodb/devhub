@@ -34,7 +34,7 @@ const Container = styled('div')`
     @media ${screenSize.largeAndUp} {
         display: flex;
         justify-content: center;
-        margin-top: ${size.xxlarge};
+        margin-top: 48px;
     }
 `;
 
@@ -124,7 +124,7 @@ const Video = ({
             ...VIDEO_BREADCRUMB,
                 {
                     label: `${capitalizedBreadcrumb} Video`,
-                    target: `/type/${mediaType}`,
+                    target: `/type/${mediaType}-video`,
                 },
                 {
                     label: title,
