@@ -1,5 +1,4 @@
 import path from 'path';
-import { fetchBuildTimeMedia } from './fetch-build-time-media';
 import { Video } from '../../interfaces/video';
 
 export const createVideoPages = async (

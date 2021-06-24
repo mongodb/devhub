@@ -11,6 +11,7 @@ export const aggregateItemsByVideoType = (
                 accumulator[v] = [currentItem];
             }
         };
-        addItemToAccumulator(currentItem.mediaType);
+        const tagType = currentItem.mediaType + ' Video';
+        addItemToAccumulator(tagType);
         return accumulator;
     },{});
