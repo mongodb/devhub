@@ -9,7 +9,6 @@ import VideoEmbed from '~components/dev-hub/video-embed';
 import { P } from '~components/dev-hub/text';
 import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
-import { toDateString } from '~utils/format-dates';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
@@ -34,7 +33,7 @@ const Container = styled('div')`
     @media ${screenSize.largeAndUp} {
         display: flex;
         justify-content: center;
-        margin-top: 48px;
+        margin-top: 50px;
     }
 `;
 
@@ -85,14 +84,9 @@ const Icons = styled('div')`
 
 const StyledParagraph = styled(P)`
     line-height: ${lineHeight.default};
+    white-space: pre-wrap;
 `;
 
-const dateFormatOptions = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC',
-};
 
 type VideoProps = {
     pageContext: {
@@ -115,12 +109,11 @@ const Video = ({
 }: VideoProps) => {
     const { siteUrl } = useSiteMetadata();
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
-    const formattedPublishDate = toDateString(publishDate, dateFormatOptions);
     const capitalizedBreadcrumb = mediaType.charAt(0).toUpperCase() + mediaType.slice(1);
 
     const videoBreadcrumb = useMemo(
         () => {
-            const videoBreadCrumb = [
+            return [
             ...VIDEO_BREADCRUMB,
                 {
                     label: `${capitalizedBreadcrumb} Video`,
@@ -131,9 +124,8 @@ const Video = ({
                     target: slug
                 }
                 ];
-            return videoBreadCrumb;
         },
-        [mediaType, slug]
+        [mediaType, slug, capitalizedBreadcrumb,title]
     );
 
     const image = useMemo(
@@ -164,13 +156,13 @@ const Video = ({
                 articleUrl={pageUrl}
                 title={title}
                 description={description}
-                publishedDate={formattedPublishDate}
-                imageUrl={image}
+                publishedDate={publishDate}
             />
             <BlogPostTitleArea
                 breadcrumb={videoBreadcrumb}
-                originalDate={formattedPublishDate}
+                originalDate={publishDate}
                 title={title}
+                maintainSquareAspectRatio={false}
             />
             <Container>
                 <Icons>

@@ -46,6 +46,7 @@ const BlogPostTitleArea = ({
     tags,
     title,
     updatedDate,
+    maintainSquareAspectRatio,
 }) => {
     const BlogTitle = H2.withComponent('h1');
     return (
@@ -53,6 +54,7 @@ const BlogPostTitleArea = ({
             background={articleImage}
             breadcrumb={breadcrumb}
             data-test="hero-banner"
+            maintainSquareAspectRatio={maintainSquareAspectRatio}
         >
             <BlogTitle collapse>{title}</BlogTitle>
             <PostMetaLine>
