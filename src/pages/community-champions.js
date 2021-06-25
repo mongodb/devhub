@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Layout from '~components/dev-hub/layout.js';
 import HeroBanner from '~components/dev-hub/hero-banner';
-import { H1, H2, H4, H5, P, P2 } from '~components/dev-hub/text';
+import { H1, H2, H4, P, P2 } from '~components/dev-hub/text';
 import Button from '~components/dev-hub/button';
 import {
     fontSize,
