@@ -114,7 +114,7 @@ const Student = ({ student }) => {
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
     const arrowDirection = useMemo(() => (isOpen ? 'up' : 'right'), [isOpen]);
     return (
-        <StudentLi>
+        <StudentLi data-test="student">
             <StudentToggle
                 onClick={toggleIsOpen}
                 onMouseEnter={() => setIsHover(true)}
