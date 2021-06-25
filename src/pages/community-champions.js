@@ -12,9 +12,9 @@ import {
 } from '~components/dev-hub/theme';
 import BannerImage from '~images/community-champions/champions-badge.svg';
 import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
-import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.svg';
-import CollaborateWithCommunityImage from '~images/community-champions/collaborate-with-community.svg';
-import BecomeSpeakerImage from '~images/community-champions/become-speaker.svg';
+import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.jpg';
+import CollaborateWithCommunityImage from '~images/community-champions/collaborate-with-community.jpg';
+import BecomeSpeakerImage from '~images/community-champions/become-speaker.jpg';
 import UpholdCommunityCodeOfConductIcon from '~images/community-champions/uphold-community-code-of-conduct.svg';
 import BeGuidingLightIcon from '~images/community-champions/be-guiding-light.svg';
 import ProtectAndFosterCommunityCultureIcon from '~images/community-champions/protect-and-foster-community-culture.svg';
@@ -73,7 +73,6 @@ const ContentContainer = styled('div')`
 
 const Title = styled(H1)`
     margin: ${size.xlarge} 0;
-    word-wrap: break-word;
     text-align: center;
     @media ${screenSize.upToLarge} {
         margin-top: ${size.large};
@@ -114,6 +113,10 @@ const WhatItMeansToBeAChampionRowTitle = styled(H4)`
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.xsmall};
     }
+`;
+
+const ImageWithRoundedCorners = styled('img')`
+    border-radius: ${size.xsmall};
 `;
 
 const StyledMediaBlock = styled(MediaBlock)`
@@ -249,7 +252,10 @@ const CommunityChampions = () => {
                         <StyledMediaBlock
                             reverse
                             mediaComponent={
-                                <img src={PartnerWithMongoDBImage} />
+                                <ImageWithRoundedCorners
+                                    src={PartnerWithMongoDBImage}
+                                    alt="MongoDB employees video conferencing with Community Champions and providing a product timeline update"
+                                />
                             }
                         >
                             <WhatItMeansToBeAChampionText
@@ -260,7 +266,10 @@ const CommunityChampions = () => {
                         </StyledMediaBlock>
                         <StyledMediaBlock
                             mediaComponent={
-                                <img src={CollaborateWithCommunityImage} />
+                                <ImageWithRoundedCorners
+                                    src={CollaborateWithCommunityImage}
+                                    alt="Group of community members sitting around a table and working on tablets at an event"
+                                />
                             }
                         >
                             <WhatItMeansToBeAChampionText
@@ -270,7 +279,12 @@ const CommunityChampions = () => {
                         </StyledMediaBlock>
                         <StyledMediaBlock
                             reverse
-                            mediaComponent={<img src={BecomeSpeakerImage} />}
+                            mediaComponent={
+                                <ImageWithRoundedCorners
+                                    src={BecomeSpeakerImage}
+                                    alt="Community Champion giving a presentation in front of an audience at a MongoDB event"
+                                />
+                            }
                         >
                             <WhatItMeansToBeAChampionText
                                 reverse
