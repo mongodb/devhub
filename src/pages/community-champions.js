@@ -67,7 +67,6 @@ const Title = styled(H1)`
 
 const Description = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
-    margin-bottom: 0;
 `;
 
 const WhatItMeansToBeAChampionContainer = styled('div')`
@@ -117,7 +116,7 @@ const WhatItMeansToBeAChampionText = ({
             <WhatItMeansToBeAChampionRowTitle>
                 {title}
             </WhatItMeansToBeAChampionRowTitle>
-            <Description>{description}</Description>
+            <Description collapse>{description}</Description>
         </WhatItMeansToBeAChampionTextSection>
     );
 };
