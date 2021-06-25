@@ -7,9 +7,9 @@ import Button from '~components/dev-hub/button';
 import { screenSize, size } from '~components/dev-hub/theme';
 import BannerImage from '~images/community-champions/champions-badge.svg';
 import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
-import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.png';
-import CollaborateWithCommunityImage from '~images/community-champions/collaborate-with-community.png';
-import BecomeSpeakerImage from '~images/community-champions/become-speaker.png';
+import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.jpg';
+import CollaborateWithCommunityImage from '~images/community-champions/collaborate-with-community.jpg';
+import BecomeSpeakerImage from '~images/community-champions/become-speaker.jpg';
 import useMedia from '~hooks/use-media';
 import MediaBlock from '~components/dev-hub/media-block';
 
@@ -95,6 +95,10 @@ const WhatItMeansToBeAChampionRowTitle = styled(H4)`
     }
 `;
 
+const ImageWithRoundedCorners = styled('img')`
+    border-radius: ${size.xsmall};
+`;
+
 const StyledMediaBlock = styled(MediaBlock)`
     > div,
     > span {
@@ -163,7 +167,7 @@ const CommunityChampions = () => {
                         <StyledMediaBlock
                             reverse
                             mediaComponent={
-                                <img
+                                <ImageWithRoundedCorners
                                     src={PartnerWithMongoDBImage}
                                     alt="MongoDB employees video conferencing with Community Champions and providing a product timeline update"
                                 />
@@ -177,9 +181,9 @@ const CommunityChampions = () => {
                         </StyledMediaBlock>
                         <StyledMediaBlock
                             mediaComponent={
-                                <img
+                                <ImageWithRoundedCorners
                                     src={CollaborateWithCommunityImage}
-                                    alt="Group of community members sitting around a table working on tablets at an event"
+                                    alt="Group of community members sitting around a table and working on tablets at an event"
                                 />
                             }
                         >
@@ -191,7 +195,7 @@ const CommunityChampions = () => {
                         <StyledMediaBlock
                             reverse
                             mediaComponent={
-                                <img
+                                <ImageWithRoundedCorners
                                     src={BecomeSpeakerImage}
                                     alt="Community Champion giving a presentation in front of an audience at a MongoDB event"
                                 />
