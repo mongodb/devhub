@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import BlogTagList from './blog-tag-list';
 import { H2, P } from './text';
-import { toDateString } from '../../utils/format-dates';
+import { toDateString } from '~utils/format-dates';
 import { screenSize, fontSize, size } from './theme';
 import BylineBlock from './byline-block';
 import HeroBanner from './hero-banner';
@@ -47,6 +47,7 @@ const BlogPostTitleArea = ({
     title,
     updatedDate,
     maintainSquareAspectRatio,
+    bannerType,
 }) => {
     const BlogTitle = H2.withComponent('h1');
     return (
@@ -55,6 +56,7 @@ const BlogPostTitleArea = ({
             breadcrumb={breadcrumb}
             data-test="hero-banner"
             maintainSquareAspectRatio={maintainSquareAspectRatio}
+            bannerType={bannerType}
         >
             <BlogTitle collapse>{title}</BlogTitle>
             <PostMetaLine>

@@ -13,6 +13,7 @@ import { useSiteMetadata } from '~hooks/use-site-metadata';
 import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
 import { Video as IVideo } from '~src/interfaces/video';
+import {BannerType} from "~src/types/banner-type";
 
 const VIDEO_BREADCRUMB = [
     {
@@ -163,6 +164,7 @@ const Video = ({
                 originalDate={publishDate}
                 title={title}
                 maintainSquareAspectRatio={false}
+                bannerType={BannerType.VIDEO}
             />
             <Container>
                 <Icons>
