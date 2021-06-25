@@ -2,14 +2,22 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Layout from '~components/dev-hub/layout.js';
 import HeroBanner from '~components/dev-hub/hero-banner';
-import { H1, H2, H4, P } from '~components/dev-hub/text';
+import { H1, H2, H4, H5, P, P2 } from '~components/dev-hub/text';
 import Button from '~components/dev-hub/button';
-import { screenSize, size } from '~components/dev-hub/theme';
+import {
+    fontSize,
+    lineHeight,
+    screenSize,
+    size,
+} from '~components/dev-hub/theme';
 import BannerImage from '~images/community-champions/champions-badge.svg';
 import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
 import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.svg';
 import CollaborateWithCommunityImage from '~images/community-champions/collaborate-with-community.svg';
 import BecomeSpeakerImage from '~images/community-champions/become-speaker.svg';
+import UpholdCommunityCodeOfConductIcon from '~images/community-champions/uphold-community-code-of-conduct.svg';
+import BeGuidingLightIcon from '~images/community-champions/be-guiding-light.svg';
+import ProtectAndFosterCommunityCultureIcon from '~images/community-champions/protect-and-foster-community-culture.svg';
 import useMedia from '~hooks/use-media';
 import MediaBlock from '~components/dev-hub/media-block';
 
@@ -18,6 +26,13 @@ const APPLY_BUTTON_MOBILE_BOTTOM_MARGIN = '12px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP = '96px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_MOBILE_ROW_GAP = '40px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_TEXT_HORIZONTAL_MARGIN = '20%';
+const LEAD_BY_EXAMPLE_CONTAINER_PADDING = '48px';
+const LEAD_BY_EXAMPLE_ICON_WIDTH = '44px';
+const LEAD_BY_EXAMPLE_ICON_MOBILE_WIDTH = '38px';
+const LEAD_BY_EXAMPLE_GRID_ROW_GAP = '29px';
+const LEAD_BY_EXAMPLE_GRID_COLUMN_GAP = '48px';
+const LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN = '40px';
+const LEAD_BY_EXAMPLE_TITLE_MOBILE_BOTTOM_MARGIN = '29px';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -71,6 +86,11 @@ const Description = styled(P)`
     margin-bottom: 0;
 `;
 
+const GreyP2 = styled(P2)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    margin-bottom: 0;
+`;
+
 const WhatItMeansToBeAChampionContainer = styled('div')`
     display: grid;
     row-gap: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP};
@@ -118,6 +138,71 @@ const WhatItMeansToBeAChampionText = ({
         </WhatItMeansToBeAChampionTextSection>
     );
 };
+
+const LeadByExampleContainer = styled('div')`
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    border-radius: ${size.xsmall};
+    padding: ${LEAD_BY_EXAMPLE_CONTAINER_PADDING};
+    margin: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP} 0 ${size.xlarge} 0;
+    @media ${screenSize.upToLarge} {
+        padding: ${size.mediumLarge};
+        margin: ${size.large} 0;
+    }
+`;
+
+const LeadByExampleItemContainer = styled('div')`
+    display: grid;
+    grid-column-gap: ${size.mediumLarge};
+    grid-template-columns: ${LEAD_BY_EXAMPLE_ICON_WIDTH} auto;
+    @media ${screenSize.upToLarge} {
+        grid-template-columns: ${LEAD_BY_EXAMPLE_ICON_MOBILE_WIDTH} auto;
+    }
+`;
+
+const LeadByExampleSectionTitle = styled('div')`
+    font-family: 'Fira Mono', monospace;
+    font-weight: bold;
+    margin-bottom: ${size.xsmall};
+    font-size: ${fontSize.small};
+    line-height: ${lineHeight.small};
+    @media ${screenSize.upToLarge} {
+        font-size: ${fontSize.tiny};
+        line-height: ${lineHeight.tiny};
+    }
+`;
+
+const LeadByExampleItem = ({ icon, title, description }) => {
+    return (
+        <LeadByExampleItemContainer>
+            <img src={icon} />
+            <div>
+                <LeadByExampleSectionTitle>{title}</LeadByExampleSectionTitle>
+                {description}
+            </div>
+        </LeadByExampleItemContainer>
+    );
+};
+
+const CodeOfConductLink = styled(`a`)`
+    color: ${({ theme }) => theme.colorMap.lightGreen};
+    text-decoration: none;
+`;
+
+const LeadByExampleGrid = styled('div')`
+    display: grid;
+    grid-row-gap: ${LEAD_BY_EXAMPLE_GRID_ROW_GAP};
+    @media ${screenSize.largeAndUp} {
+        grid-template-columns: repeat(3, 1fr);
+        grid-column-gap: ${LEAD_BY_EXAMPLE_GRID_COLUMN_GAP};
+    }
+`;
+
+const LeadByExampleTitle = styled(H4)`
+    margin-bottom: ${LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN};
+    @media ${screenSize.upToLarge} {
+        margin-bottom: ${LEAD_BY_EXAMPLE_TITLE_MOBILE_BOTTOM_MARGIN};
+    }
+`;
 
 const communityChampionBreadcrumbs = [
     { label: 'Home', target: '/' },
@@ -195,6 +280,52 @@ const CommunityChampions = () => {
                         </StyledMediaBlock>
                     </WhatItMeansToBeAChampionContainer>
                 </div>
+                <LeadByExampleContainer>
+                    <LeadByExampleTitle>
+                        Champions Lead by Example
+                    </LeadByExampleTitle>
+                    <LeadByExampleGrid>
+                        <LeadByExampleItem
+                            icon={UpholdCommunityCodeOfConductIcon}
+                            title="Uphold the Community Code of Conduct"
+                            description={
+                                <GreyP2>
+                                    The MongoDB Champion is a pillar of the
+                                    community, exemplifying the best behavior
+                                    and upholding the community{' '}
+                                    <CodeOfConductLink href="https://www.mongodb.com/community-code-of-conduct">
+                                        Code of Conduct
+                                    </CodeOfConductLink>
+                                    .
+                                </GreyP2>
+                            }
+                        />
+                        <LeadByExampleItem
+                            icon={BeGuidingLightIcon}
+                            title="Be a Guiding Light"
+                            description={
+                                <GreyP2>
+                                    Help new members become acclimated to the
+                                    norms of the community by helping them learn
+                                    how to ask questions, how to contribute, how
+                                    to participate in community events, and how
+                                    to upskill their knowledge.
+                                </GreyP2>
+                            }
+                        />
+                        <LeadByExampleItem
+                            icon={ProtectAndFosterCommunityCultureIcon}
+                            title="Protect and Foster Community Culture"
+                            description={
+                                <GreyP2>
+                                    Champions protect the culture of the
+                                    community and are the first to welcome new
+                                    members.
+                                </GreyP2>
+                            }
+                        />
+                    </LeadByExampleGrid>
+                </LeadByExampleContainer>
             </ContentContainer>
         </Layout>
     );
