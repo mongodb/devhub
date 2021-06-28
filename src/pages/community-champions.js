@@ -158,7 +158,7 @@ const LeadByExampleSectionTitle = styled(H6)`
 
 const LeadByExampleItem = ({ icon, title, description }) => (
     <LeadByExampleItemContainer>
-        <img src={icon} />
+        {icon}
         <div>
             <LeadByExampleSectionTitle>{title}</LeadByExampleSectionTitle>
             {description}
@@ -286,7 +286,12 @@ const CommunityChampions = () => {
                     </LeadByExampleTitle>
                     <LeadByExampleGrid>
                         <LeadByExampleItem
-                            icon={UpholdCommunityCodeOfConductIcon}
+                            icon={
+                                <img
+                                    src={UpholdCommunityCodeOfConductIcon}
+                                    alt="Shield with a heart in the middle"
+                                />
+                            }
                             title="Uphold the Community Code of Conduct"
                             description={
                                 <GreyP2 collapse>
@@ -301,7 +306,12 @@ const CommunityChampions = () => {
                             }
                         />
                         <LeadByExampleItem
-                            icon={BeGuidingLightIcon}
+                            icon={
+                                <img
+                                    src={BeGuidingLightIcon}
+                                    alt="Shooting star"
+                                />
+                            }
                             title="Be a Guiding Light"
                             description={
                                 <GreyP2 collapse>
@@ -314,7 +324,12 @@ const CommunityChampions = () => {
                             }
                         />
                         <LeadByExampleItem
-                            icon={ProtectAndFosterCommunityCultureIcon}
+                            icon={
+                                <img
+                                    src={ProtectAndFosterCommunityCultureIcon}
+                                    alt="Shield with a lightning bolt"
+                                />
+                            }
                             title="Protect and Foster Community Culture"
                             description={
                                 <GreyP2 collapse>
