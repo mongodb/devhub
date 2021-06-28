@@ -41,16 +41,26 @@ const Container = styled('div')`
 const StyledBlogShareLinks = styled(BlogShareLinks)`
     flex-direction: column;
     align-items: center;
-    > * {
-        margin-top: ${size.medium};
+    @media ${screenSize.largeAndUp} {
+        > * {
+            &:not(:first-of-type) {
+                margin-top: ${size.medium};
+            }
+        }
     }
+    
     @media ${screenSize.upToLarge} {
         display: inline-flex;
         flex-direction: row;
         > * {
+            &:first-of-type {
+                margin-left: 0;
+            }
+        }
+        > * {
             margin-top: 0;
             margin-left: ${size.mediumLarge};
-        }
+        }  
     }
 `;
 
@@ -87,6 +97,12 @@ const StyledParagraph = styled(P)`
     line-height: ${lineHeight.default};
     white-space: pre-wrap;
 `;
+
+const StyledShareFooter = styled(ShareFooter)`
+    a:first-of-type {
+        margin-left: 0;
+    }
+`
 
 
 type VideoProps = {
@@ -184,7 +200,7 @@ const Video = ({
                         thumbnail={image}
                     />
                     <StyledParagraph>{description}</StyledParagraph>
-                    <ShareFooter
+                    <StyledShareFooter
                         title={title}
                         tooltipText={TOOLTIP_TEXT}
                         url={pageUrl}
