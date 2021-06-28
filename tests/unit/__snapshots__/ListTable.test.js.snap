@@ -5,7 +5,7 @@ exports[`when rendering a list table with fixed widths renders correctly 1`] = `
   class="css-43thj7-TableContainer eb066o60"
 >
   <h5
-    class="css-s7wj1g-H5-commonHeading-bottomMargin e1top80012"
+    class="css-s7wj1g-H5-commonHeading-bottomMargin e1top80013"
   />
   <table
     class="docutils guide-tablenate-odd colwidths-given  css-1s1x578-Table eb066o61"
@@ -69,7 +69,7 @@ exports[`when rendering a list-table directive renders correctly 1`] = `
   class="css-43thj7-TableContainer eb066o60"
 >
   <h5
-    class="css-s7wj1g-H5-commonHeading-bottomMargin e1top80012"
+    class="css-s7wj1g-H5-commonHeading-bottomMargin e1top80013"
   />
   <table
     class="docutils guide-tablenate colwidths-auto  css-1s1x578-Table eb066o61"
