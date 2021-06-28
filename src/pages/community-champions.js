@@ -1,23 +1,32 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Layout from '~components/dev-hub/layout.js';
-import HeroBanner from '~components/dev-hub/hero-banner';
-import { H1, H2, H4, P } from '~components/dev-hub/text';
 import Button from '~components/dev-hub/button';
+import Layout from '~components/dev-hub/layout';
+import HeroBanner from '~components/dev-hub/hero-banner';
+import Link from '~components/dev-hub/link';
+import MediaBlock from '~components/dev-hub/media-block';
+import { H1, H2, H4, H6, P, P2 } from '~components/dev-hub/text';
 import { screenSize, size } from '~components/dev-hub/theme';
 import BannerImage from '~images/community-champions/champions-badge.svg';
 import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
 import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.jpg';
 import CollaborateWithCommunityImage from '~images/community-champions/collaborate-with-community.jpg';
 import BecomeSpeakerImage from '~images/community-champions/become-speaker.jpg';
+import UpholdCommunityCodeOfConductIcon from '~images/community-champions/uphold-community-code-of-conduct.svg';
+import BeGuidingLightIcon from '~images/community-champions/be-guiding-light.svg';
+import ProtectAndFosterCommunityCultureIcon from '~images/community-champions/protect-and-foster-community-culture.svg';
 import useMedia from '~hooks/use-media';
-import MediaBlock from '~components/dev-hub/media-block';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
 const APPLY_BUTTON_MOBILE_BOTTOM_MARGIN = '12px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP = '96px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_MOBILE_ROW_GAP = '40px';
 const WHAT_IT_MEANS_TO_BE_A_CHAMPION_TEXT_HORIZONTAL_MARGIN = '20%';
+const LEAD_BY_EXAMPLE_CONTAINER_PADDING = '48px';
+const LEAD_BY_EXAMPLE_ICON_WIDTH = '44px';
+const LEAD_BY_EXAMPLE_ICON_MOBILE_WIDTH = '38px';
+const LEAD_BY_EXAMPLE_GRID_COLUMN_GAP = '48px';
+const LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN = '40px';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -69,6 +78,10 @@ const Description = styled(P)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
+const GreyP2 = styled(P2)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+
 const WhatItMeansToBeAChampionContainer = styled('div')`
     display: grid;
     row-gap: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP};
@@ -110,16 +123,75 @@ const WhatItMeansToBeAChampionText = ({
     reverse = false,
     title,
     description,
-}) => {
-    return (
-        <WhatItMeansToBeAChampionTextSection reverse={reverse}>
-            <WhatItMeansToBeAChampionRowTitle>
-                {title}
-            </WhatItMeansToBeAChampionRowTitle>
-            <Description collapse>{description}</Description>
-        </WhatItMeansToBeAChampionTextSection>
-    );
-};
+}) => (
+    <WhatItMeansToBeAChampionTextSection reverse={reverse}>
+        <WhatItMeansToBeAChampionRowTitle>
+            {title}
+        </WhatItMeansToBeAChampionRowTitle>
+        <Description collapse>{description}</Description>
+    </WhatItMeansToBeAChampionTextSection>
+);
+
+const LeadByExampleContainer = styled('div')`
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    border-radius: ${size.xsmall};
+    margin: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP} 0 ${size.xlarge} 0;
+    padding: ${LEAD_BY_EXAMPLE_CONTAINER_PADDING};
+    @media ${screenSize.upToLarge} {
+        margin: ${size.large} 0;
+        padding: ${size.mediumLarge};
+    }
+`;
+
+const LeadByExampleItemContainer = styled('div')`
+    display: grid;
+    grid-column-gap: ${size.mediumLarge};
+    grid-template-columns: ${LEAD_BY_EXAMPLE_ICON_WIDTH} auto;
+    @media ${screenSize.upToLarge} {
+        grid-template-columns: ${LEAD_BY_EXAMPLE_ICON_MOBILE_WIDTH} auto;
+    }
+`;
+
+const LeadByExampleSectionTitle = styled(H6)`
+    margin-bottom: ${size.xsmall};
+`;
+
+const LeadByExampleItem = ({ icon, title, description }) => (
+    <LeadByExampleItemContainer>
+        {icon}
+        <div>
+            <LeadByExampleSectionTitle>{title}</LeadByExampleSectionTitle>
+            {description}
+        </div>
+    </LeadByExampleItemContainer>
+);
+
+const CodeOfConductLink = styled(Link)`
+    color: ${({ theme }) => theme.colorMap.lightGreen};
+    text-decoration: none;
+    &:visited {
+        color: ${({ theme }) => theme.colorMap.lightGreen};
+    }
+    &:hover {
+        color: ${({ theme }) => theme.colorMap.darkGreen};
+    }
+`;
+
+const LeadByExampleGrid = styled('div')`
+    display: grid;
+    grid-row-gap: ${size.mediumLarge};
+    @media ${screenSize.largeAndUp} {
+        grid-template-columns: repeat(3, 1fr);
+        grid-column-gap: ${LEAD_BY_EXAMPLE_GRID_COLUMN_GAP};
+    }
+`;
+
+const LeadByExampleTitle = styled(H4)`
+    margin-bottom: ${LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN};
+    @media ${screenSize.upToLarge} {
+        margin-bottom: ${size.mediumLarge};
+    }
+`;
 
 const communityChampionBreadcrumbs = [
     { label: 'Home', target: '/' },
@@ -208,6 +280,67 @@ const CommunityChampions = () => {
                         </StyledMediaBlock>
                     </WhatItMeansToBeAChampionContainer>
                 </div>
+                <LeadByExampleContainer>
+                    <LeadByExampleTitle>
+                        Champions Lead by Example
+                    </LeadByExampleTitle>
+                    <LeadByExampleGrid>
+                        <LeadByExampleItem
+                            icon={
+                                <img
+                                    src={UpholdCommunityCodeOfConductIcon}
+                                    alt="Shield with a heart in the middle"
+                                />
+                            }
+                            title="Uphold the Community Code of Conduct"
+                            description={
+                                <GreyP2 collapse>
+                                    The MongoDB Champion is a pillar of the
+                                    community, exemplifying the best behavior
+                                    and upholding the community{' '}
+                                    <CodeOfConductLink href="https://www.mongodb.com/community-code-of-conduct">
+                                        Code of Conduct
+                                    </CodeOfConductLink>
+                                    .
+                                </GreyP2>
+                            }
+                        />
+                        <LeadByExampleItem
+                            icon={
+                                <img
+                                    src={BeGuidingLightIcon}
+                                    alt="Shooting star"
+                                />
+                            }
+                            title="Be a Guiding Light"
+                            description={
+                                <GreyP2 collapse>
+                                    Help new members become acclimated to the
+                                    norms of the community by helping them learn
+                                    how to ask questions, how to contribute, how
+                                    to participate in community events, and how
+                                    to upskill their knowledge.
+                                </GreyP2>
+                            }
+                        />
+                        <LeadByExampleItem
+                            icon={
+                                <img
+                                    src={ProtectAndFosterCommunityCultureIcon}
+                                    alt="Shield with a lightning bolt"
+                                />
+                            }
+                            title="Protect and Foster Community Culture"
+                            description={
+                                <GreyP2 collapse>
+                                    Champions protect the culture of the
+                                    community and are the first to welcome new
+                                    members.
+                                </GreyP2>
+                            }
+                        />
+                    </LeadByExampleGrid>
+                </LeadByExampleContainer>
             </ContentContainer>
         </Layout>
     );
