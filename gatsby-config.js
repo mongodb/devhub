@@ -12,6 +12,8 @@ require('dotenv').config({
 
 const metadata = getMetadata();
 
+const SITE_URL = 'https://developer.mongodb.com';
+
 module.exports = {
     pathPrefix: generatePathPrefix(metadata),
     plugins: [
@@ -78,7 +80,7 @@ module.exports = {
             resolve: 'gatsby-plugin-feed',
             options: {
                 query: siteUrl,
-                feeds: [articleRssFeed, searchRssFeed],
+                feeds: [articleRssFeed(SITE_URL), searchRssFeed(SITE_URL)],
             },
         },
         'gatsby-plugin-meta-redirect', // this must be last
@@ -87,6 +89,6 @@ module.exports = {
         ...metadata,
         title: 'MongoDB Developer Hub',
         // This value must start with `https://` or the build fails
-        siteUrl: 'https://developer.mongodb.com',
+        siteUrl: SITE_URL,
     },
 };

@@ -44,14 +44,18 @@ const BreadcrumbList = styled('div')`
 const Breadcrumb = ({ children, ...props }) => {
     return (
         <>
-        <BreadcrumbSchema breadcrumb={children} />
-        <BreadcrumbList {...props}>
-            {children.map(c => (
-                <StyledBreadcrumb tertiary key={c.label} to={c.to || c.target}>
-                    {c.label}
-                </StyledBreadcrumb>
-            ))}
-        </BreadcrumbList>
+            <BreadcrumbSchema breadcrumb={children} />
+            <BreadcrumbList data-test="breadcrumbs" {...props}>
+                {children.map(c => (
+                    <StyledBreadcrumb
+                        tertiary
+                        key={c.label}
+                        to={c.to || c.target}
+                    >
+                        {c.label}
+                    </StyledBreadcrumb>
+                ))}
+            </BreadcrumbList>
         </>
     );
 };
