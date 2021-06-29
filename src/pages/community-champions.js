@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Button from '~components/dev-hub/button';
-import Layout from '~components/dev-hub/layout';
 import HeroBanner from '~components/dev-hub/hero-banner';
+import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
-import { H1, H2, H4, H6, P, P2 } from '~components/dev-hub/text';
+import { H1, H2, H4, H5, H6, P, P2 } from '~components/dev-hub/text';
 import { screenSize, size } from '~components/dev-hub/theme';
 import BannerImage from '~images/community-champions/champions-badge.svg';
 import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
@@ -15,6 +15,10 @@ import BecomeSpeakerImage from '~images/community-champions/become-speaker.jpg';
 import UpholdCommunityCodeOfConductIcon from '~images/community-champions/uphold-community-code-of-conduct.svg';
 import BeGuidingLightIcon from '~images/community-champions/be-guiding-light.svg';
 import ProtectAndFosterCommunityCultureIcon from '~images/community-champions/protect-and-foster-community-culture.svg';
+import BuildingBlocksImage from '~images/community-champions/3d-building-blocks.svg';
+import PeopleInCircleImage from '~images/community-champions/people-in-circle.svg';
+import EventAdmissionTicketImage from '~images/community-champions/event-admission-ticket.svg';
+import UpwardsArrowImage from '~images/community-champions/upwards-arrow.svg';
 import useMedia from '~hooks/use-media';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
@@ -27,6 +31,7 @@ const LEAD_BY_EXAMPLE_ICON_WIDTH = '44px';
 const LEAD_BY_EXAMPLE_ICON_MOBILE_WIDTH = '38px';
 const LEAD_BY_EXAMPLE_GRID_COLUMN_GAP = '48px';
 const LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN = '40px';
+const BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT = '170px';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -193,6 +198,87 @@ const LeadByExampleTitle = styled(H4)`
     }
 `;
 
+const BenefitsAndRewardsTitle = styled(Title)`
+    margin-top: 0;
+`;
+
+const BenefitsAndRewardsGrid = styled('div')`
+    display: grid;
+    grid-row-gap: ${size.large};
+    @media ${screenSize.mediumAndUp} {
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: ${size.mediumLarge};
+    }
+    @media ${screenSize.largeAndUp} {
+        grid-template-columns: repeat(4, 1fr);
+    }
+`;
+
+const BenefitsAndRewardsItemContainer = styled('div')`
+    display: flex;
+    flex-direction: column;
+`;
+
+const BenefitsAndRewardsSectionTitle = styled(H5)`
+    margin-bottom: ${size.default};
+    margin-top: ${size.mediumLarge};
+    text-align: center;
+    @media ${screenSize.upToLarge} {
+        margin-bottom: ${size.xsmall};
+    }
+`;
+
+const BenefitsAndRewardsContainer = styled('div')`
+    background-color: ${({ theme }) => theme.colorMap.devBlack};
+    margin: 0 -${size.xxlarge};
+    padding: ${size.xlarge} ${size.xxlarge};
+    @media ${screenSize.upToLarge} {
+        margin: 0 -${size.default};
+        padding: ${size.large} ${size.default};
+    }
+`;
+
+const BenefitsAndRewardsImageContainer = styled('div')`
+    display: flex;
+    height: ${BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT};
+    justify-content: center;
+    max-width: 100%;
+`;
+
+const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
+    <BenefitsAndRewardsItemContainer>
+        <BenefitsAndRewardsImageContainer>
+            {icon}
+        </BenefitsAndRewardsImageContainer>
+        <BenefitsAndRewardsSectionTitle>{title}</BenefitsAndRewardsSectionTitle>
+        <GreenBulletedList children={bullets} />
+    </BenefitsAndRewardsItemContainer>
+);
+
+const GreenBullet = styled('ul')`
+    color: ${({ theme }) => theme.colorMap.darkGreen};
+    list-style-type: circle;
+`;
+
+const ListItemWithSpacing = styled('li')`
+    margin-bottom: ${size.default};
+`;
+
+const BulletText = styled(P2)`
+    color: ${({ theme }) => theme.colorMap.devWhite};
+    margin-bottom: 0;
+`;
+
+const GreenBulletedList = ({ children, ...props }) => (
+    <GreenBullet {...props}>
+        {children.map(content => (
+            <ListItemWithSpacing key={content}>
+                <BulletText>{content}</BulletText>
+            </ListItemWithSpacing>
+        ))}
+    </GreenBullet>
+);
+
 const communityChampionBreadcrumbs = [
     { label: 'Home', target: '/' },
     {
@@ -341,6 +427,73 @@ const CommunityChampions = () => {
                         />
                     </LeadByExampleGrid>
                 </LeadByExampleContainer>
+                <BenefitsAndRewardsContainer>
+                    <BenefitsAndRewardsTitle>
+                        Benefits &amp; Rewards
+                    </BenefitsAndRewardsTitle>
+                    <BenefitsAndRewardsGrid>
+                        <BenefitsAndRewardsItem
+                            icon={
+                                <img
+                                    src={BuildingBlocksImage}
+                                    alt="3d isometric building blocks"
+                                />
+                            }
+                            title="Product"
+                            bullets={[
+                                'Participation in product beta testing, as available',
+                                'Product feedback sessions',
+                                'Product Early Access pilot',
+                                'Access to MongoDB product teams and executives',
+                            ]}
+                        />
+                        <BenefitsAndRewardsItem
+                            icon={
+                                <img
+                                    src={PeopleInCircleImage}
+                                    alt="People in a circle"
+                                />
+                            }
+                            title="Community"
+                            bullets={[
+                                'Access to private MongoDB Champion sub-forum on MongoDB Developer Forums',
+                                'Branded badges and ranks on Developer forums and social media',
+                                'Opportunities to mentor MongoDB newcomers',
+                            ]}
+                        />
+                        <BenefitsAndRewardsItem
+                            icon={
+                                <img
+                                    src={EventAdmissionTicketImage}
+                                    alt="Event admission ticket"
+                                />
+                            }
+                            title="Events &amp; Exposure"
+                            bullets={[
+                                'Full (free) access to MongoDB events',
+                                'Expense reimbursement for travel and accommodation for events, VIP seats, and VIP events',
+                                'Featured profile on MongoDB DevHub',
+                                'SWAG',
+                            ]}
+                        />
+                        <BenefitsAndRewardsItem
+                            icon={
+                                <img
+                                    src={UpwardsArrowImage}
+                                    alt="Arrow pointing upwards"
+                                />
+                            }
+                            title="Growth"
+                            bullets={[
+                                'Speaker training',
+                                'Social media training',
+                                'Public speaking and blog writing coaching',
+                                'Personal branding strategies',
+                                'Free MongoDB certification and University On Demand',
+                            ]}
+                        />
+                    </BenefitsAndRewardsGrid>
+                </BenefitsAndRewardsContainer>
             </ContentContainer>
         </Layout>
     );
