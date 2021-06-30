@@ -12,19 +12,26 @@ const ListItemWithSpacing = styled('li')`
     margin-bottom: ${size.default};
 `;
 
-export const BulletText = styled(P)`
+export const DefaultBulletText = styled(P)`
     color: ${({ theme }) => theme.colorMap.devWhite};
     margin-bottom: 0;
 `;
 
-const GreenBulletedList = ({ children, ...props }) => (
-    <GreenBullet {...props}>
-        {children.map(content => (
-            <ListItemWithSpacing key={content}>
-                <BulletText>{content}</BulletText>
-            </ListItemWithSpacing>
-        ))}
-    </GreenBullet>
-);
+const GreenBulletedList = ({
+    bulletTextComponent = DefaultBulletText,
+    children,
+    ...props
+}) => {
+    const BulletText = bulletTextComponent;
+    return (
+        <GreenBullet {...props}>
+            {children.map(content => (
+                <ListItemWithSpacing key={content}>
+                    <BulletText>{content}</BulletText>
+                </ListItemWithSpacing>
+            ))}
+        </GreenBullet>
+    );
+};
 
 export default GreenBulletedList;

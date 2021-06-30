@@ -20,6 +20,7 @@ import PeopleInCircleImage from '~images/community-champions/people-in-circle.sv
 import EventAdmissionTicketImage from '~images/community-champions/event-admission-ticket.svg';
 import UpwardsArrowImage from '~images/community-champions/upwards-arrow.svg';
 import useMedia from '~hooks/use-media';
+import GreenBulletedList from '~components/pages/educators/green-bulleted-list';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
 const APPLY_BUTTON_MOBILE_BOTTOM_MARGIN = '12px';
@@ -245,30 +246,14 @@ const BenefitsAndRewardsContainer = styled('div')`
     }
 `;
 
-const GreenBullet = styled('ul')`
-    color: ${({ theme }) => theme.colorMap.darkGreen};
-    list-style-type: circle;
-    margin: 0 0;
-`;
-
-const ListItemWithSpacing = styled('li')`
-    margin-bottom: ${size.default};
-`;
-
 const BulletText = styled(P2)`
     color: ${({ theme }) => theme.colorMap.devWhite};
     margin-bottom: 0;
 `;
 
-const GreenBulletedList = ({ children, ...props }) => (
-    <GreenBullet {...props}>
-        {children.map(content => (
-            <ListItemWithSpacing key={content}>
-                <BulletText>{content}</BulletText>
-            </ListItemWithSpacing>
-        ))}
-    </GreenBullet>
-);
+const GreenBulletedListWithNoMargin = styled(GreenBulletedList)`
+    margin: 0;
+`;
 
 const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
     <BenefitsAndRewardsItemContainer>
@@ -276,7 +261,10 @@ const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
             {icon}
         </BenefitsAndRewardsImageContainer>
         <BenefitsAndRewardsSectionTitle>{title}</BenefitsAndRewardsSectionTitle>
-        <GreenBulletedList children={bullets} />
+        <GreenBulletedListWithNoMargin
+            bulletTextComponent={BulletText}
+            children={bullets}
+        />
     </BenefitsAndRewardsItemContainer>
 );
 
