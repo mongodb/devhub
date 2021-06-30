@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Button from '~components/dev-hub/button';
+import GreenBulletedList from '~components/dev-hub/green-bulleted-list';
 import HeroBanner from '~components/dev-hub/hero-banner';
 import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
@@ -20,7 +21,6 @@ import PeopleInCircleImage from '~images/community-champions/people-in-circle.sv
 import EventAdmissionTicketImage from '~images/community-champions/event-admission-ticket.svg';
 import UpwardsArrowImage from '~images/community-champions/upwards-arrow.svg';
 import useMedia from '~hooks/use-media';
-import GreenBulletedList from '~components/pages/educators/green-bulleted-list';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
 const APPLY_BUTTON_MOBILE_BOTTOM_MARGIN = '12px';

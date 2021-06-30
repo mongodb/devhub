@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { P } from '../../dev-hub/text';
+import { P } from '~components/dev-hub/text';
 import { size } from '~components/dev-hub/theme';
 
 const GreenBullet = styled('ul')`
