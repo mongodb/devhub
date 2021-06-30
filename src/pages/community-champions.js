@@ -206,12 +206,13 @@ const CommunityChampions = () => {
     return (
         <Layout>
             <StyledHeroBanner
-                breadcrumb={communityChampionBreadcrumbs}
                 /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={
                     useBannerImageWithSpace ? BannerImageWithSpace : BannerImage
                 }
                 backgroundPosition="85% center"
+                breadcrumb={communityChampionBreadcrumbs}
+                imageAltText="Community Champions Badge - a dark grey circular ribbon with gold stars around a gold MongoDB leaf icon"
                 imageWidthOnMobile="auto"
                 maintainSquareAspectRatio={false}
             >
