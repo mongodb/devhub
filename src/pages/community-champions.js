@@ -240,7 +240,7 @@ const CommunityChampions = () => {
                             mediaComponent={
                                 <ImageWithRoundedCorners
                                     src={PartnerWithMongoDBImage}
-                                    alt="MongoDB employees video conferencing with Community Champions and providing a product timeline update"
+                                    alt='Close-up of a laptop video screen showing two MongoDB employees video conferencing with 7 Community Champions, with a slide entitled "Product Timeline Update"'
                                 />
                             }
                         >
@@ -254,7 +254,7 @@ const CommunityChampions = () => {
                             mediaComponent={
                                 <ImageWithRoundedCorners
                                     src={CollaborateWithCommunityImage}
-                                    alt="Group of community members sitting around a table and working on tablets at an event"
+                                    alt="Six community members sitting around a table using a stylus or their fingers to work on tablets at an event"
                                 />
                             }
                         >
