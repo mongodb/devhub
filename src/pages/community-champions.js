@@ -248,6 +248,7 @@ const BenefitsAndRewardsContainer = styled('div')`
 const GreenBullet = styled('ul')`
     color: ${({ theme }) => theme.colorMap.darkGreen};
     list-style-type: circle;
+    margin: 0 0;
 `;
 
 const ListItemWithSpacing = styled('li')`
