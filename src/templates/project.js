@@ -125,7 +125,7 @@ const Project = props => {
                         {...props}
                     />
                 </ArticleContent>
-                <InfoSidebar>
+                <InfoSidebar data-test="sidebar">
                     <SidebarContent
                         github_url={github_url}
                         project_link={project_link}

@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import Breadcrumb from './breadcrumb';
 import { fontSize, HERO_CONTENT_WIDTH, screenSize, size } from './theme';
 import useMedia from '../../hooks/use-media';
+import { BannerType } from '~src/types/banner-type';
 
 const HERO_BOTTOM_MARGIN = '30px';
 const BANNER_BOTTOM_PADDING = '50px';
@@ -43,7 +44,10 @@ const HeroBannerContainer = styled('div')`
     background-size: ${({ shouldContainBackground }) =>
         shouldContainBackground ? 'contain' : 'cover'};
     height: 100%;
-    padding: ${size.default} ${size.xxlarge} ${BANNER_BOTTOM_PADDING};
+    ${({ bannerType }) =>
+        bannerType === BannerType.VIDEO
+            ? `padding: ${size.default} ${size.xxlarge} ${size.small};`
+            : `padding: ${size.default} ${size.xxlarge} ${BANNER_BOTTOM_PADDING};`};
     @media ${screenSize.upToLarge} {
         /* Show image as child under breadcrumbs instead */
         background-image: none;
@@ -98,6 +102,7 @@ const HeroBanner = ({
     shouldContainBackground = true,
     showImageOnMobile = true,
     fullWidth = false,
+    bannerType = BannerType.ARTICLE,
     ...props
 }) => {
     const isMobile = useMedia(screenSize.upToLarge);
@@ -107,6 +112,7 @@ const HeroBanner = ({
                 background={background}
                 backgroundPosition={backgroundPosition}
                 shouldContainBackground={shouldContainBackground}
+                bannerType={bannerType}
             >
                 <ContentContainer fullWidth={fullWidth}>
                     {breadcrumb && (
