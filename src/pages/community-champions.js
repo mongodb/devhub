@@ -186,8 +186,8 @@ const LeadByExampleGrid = styled('div')`
     display: grid;
     grid-row-gap: ${size.mediumLarge};
     @media ${screenSize.largeAndUp} {
-        grid-template-columns: repeat(3, 1fr);
         grid-column-gap: ${LEAD_BY_EXAMPLE_GRID_COLUMN_GAP};
+        grid-template-columns: repeat(3, 1fr);
     }
 `;
 
@@ -206,8 +206,8 @@ const BenefitsAndRewardsGrid = styled('div')`
     display: grid;
     grid-row-gap: ${size.large};
     @media ${screenSize.mediumAndUp} {
-        grid-template-columns: repeat(2, 1fr);
         grid-column-gap: ${size.mediumLarge};
+        grid-template-columns: repeat(2, 1fr);
     }
     @media ${screenSize.largeAndUp} {
         grid-template-columns: repeat(4, 1fr);
@@ -228,6 +228,13 @@ const BenefitsAndRewardsSectionTitle = styled(H5)`
     }
 `;
 
+const BenefitsAndRewardsImageContainer = styled('div')`
+    display: flex;
+    height: ${BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT};
+    justify-content: center;
+    max-width: 100%;
+`;
+
 const BenefitsAndRewardsContainer = styled('div')`
     background-color: ${({ theme }) => theme.colorMap.devBlack};
     margin: 0 -${size.xxlarge};
@@ -237,23 +244,6 @@ const BenefitsAndRewardsContainer = styled('div')`
         padding: ${size.large} ${size.default};
     }
 `;
-
-const BenefitsAndRewardsImageContainer = styled('div')`
-    display: flex;
-    height: ${BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT};
-    justify-content: center;
-    max-width: 100%;
-`;
-
-const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
-    <BenefitsAndRewardsItemContainer>
-        <BenefitsAndRewardsImageContainer>
-            {icon}
-        </BenefitsAndRewardsImageContainer>
-        <BenefitsAndRewardsSectionTitle>{title}</BenefitsAndRewardsSectionTitle>
-        <GreenBulletedList children={bullets} />
-    </BenefitsAndRewardsItemContainer>
-);
 
 const GreenBullet = styled('ul')`
     color: ${({ theme }) => theme.colorMap.darkGreen};
@@ -277,6 +267,16 @@ const GreenBulletedList = ({ children, ...props }) => (
             </ListItemWithSpacing>
         ))}
     </GreenBullet>
+);
+
+const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
+    <BenefitsAndRewardsItemContainer>
+        <BenefitsAndRewardsImageContainer>
+            {icon}
+        </BenefitsAndRewardsImageContainer>
+        <BenefitsAndRewardsSectionTitle>{title}</BenefitsAndRewardsSectionTitle>
+        <GreenBulletedList children={bullets} />
+    </BenefitsAndRewardsItemContainer>
 );
 
 const communityChampionBreadcrumbs = [
