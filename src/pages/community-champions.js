@@ -255,6 +255,9 @@ const BulletText = styled(P2)`
 
 const GreenBulletedListWithNoMargin = styled(GreenBulletedList)`
     margin: 0;
+    li {
+        margin-bottom: ${size.xsmall};
+    }
 `;
 
 const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
