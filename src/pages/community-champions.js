@@ -26,6 +26,7 @@ import ChatBubblesImage from '~images/community-champions/chat-bubbles.svg';
 import GroupImage from '~images/community-champions/group.svg';
 import RocketShipImage from '~images/community-champions/rocket-ship.svg';
 import StackSquaresImage from '~images/community-champions/stack-squares.svg';
+import PaperAndPencilImage from '~images/community-champions/paper-and-pencil.svg';
 import useMedia from '~hooks/use-media';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
@@ -42,6 +43,11 @@ const BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT = '170px';
 const HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN = '56px';
 const HOW_TO_QUALIFY_CONTRIBUTE_SECTION_WIDTH = '54%';
 const HOW_TO_QUALIFY_CARD_CONTAINER_PADDING = '48px';
+const LINE_BOTTOM_MARGIN = '56px';
+const OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_SIZE = '30%';
+const OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_WIDTH = '70%';
+const OTHER_DETAILS_AND_REQUIREMENTS_DESCRIPTION_MAX_WIDTH = '690px';
+const OTHER_DETAILS_AND_REQUIREMENTS_LIST_MAX_WIDTH = '480px';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -347,6 +353,90 @@ const HowToQualifyCard = ({ icon, title, description }) => (
     </HowToQualifyCardContainer>
 );
 
+const Line = styled('hr')`
+    color: ${({ theme }) => theme.colorMap.greyDarkOne};
+    margin-bottom: ${LINE_BOTTOM_MARGIN};
+    @media ${screenSize.upToLarge} {
+        margin-bottom: ${size.large};
+    }
+`;
+
+const GreenBulletedListWithGreyText = styled(GreenBulletedList)`
+    li {
+        margin-bottom: ${size.xsmall};
+    }
+    p {
+        color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    }
+`;
+
+const OtherDetailsAndRequirementsContainer = styled('div')`
+    display: grid;
+    grid-template-columns: ${OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_SIZE} auto;
+    @media ${screenSize.upToMedium} {
+        ul {
+            /* Show list under image instead */
+            display: none;
+        }
+    }
+`;
+
+const OtherDetailsAndRequirementsTextSection = styled('div')`
+    h5 {
+        @media ${screenSize.upToMedium} {
+            margin-bottom: ${size.tiny};
+        }
+    }
+    p {
+        max-width: ${OTHER_DETAILS_AND_REQUIREMENTS_DESCRIPTION_MAX_WIDTH};
+    }
+    ul {
+        max-width: ${OTHER_DETAILS_AND_REQUIREMENTS_LIST_MAX_WIDTH};
+    }
+`;
+
+const OtherDetailsAndRequirementsImageContainer = styled('div')`
+    display: flex;
+    align-items: start;
+    justify-content: center;
+`;
+
+const OtherDetailsAndRequirementsImage = styled('img')`
+    width: ${OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_WIDTH};
+`;
+
+const OtherDetailsAndRequirementsBullets = () => (
+    <GreenBulletedListWithGreyText
+        children={[
+            'MongoDB Champions must (re)qualify every year, based on their contribution to the community',
+            'Champions program cohorts are intentionally limited to small, functional groups',
+            'Commitment of at least one full year',
+        ]}
+    />
+);
+
+const OtherDetailsAndRequirements = ({ isMobile = false }) => (
+    <div>
+        <OtherDetailsAndRequirementsContainer>
+            <OtherDetailsAndRequirementsImageContainer>
+                <OtherDetailsAndRequirementsImage
+                    src={PaperAndPencilImage}
+                    alt="Paper with a diagram drawn on it with a pencil next to it"
+                />
+            </OtherDetailsAndRequirementsImageContainer>
+            <OtherDetailsAndRequirementsTextSection>
+                <H5>Other Details &amp; Requirements</H5>
+                <Description collapse>
+                    We expect members to participate actively, collaborate
+                    closely, and work towards tangible outcomes together.
+                </Description>
+                <OtherDetailsAndRequirementsBullets />
+            </OtherDetailsAndRequirementsTextSection>
+        </OtherDetailsAndRequirementsContainer>
+        {isMobile && <OtherDetailsAndRequirementsBullets />}
+    </div>
+);
+
 const communityChampionBreadcrumbs = [
     { label: 'Home', target: '/' },
     {
@@ -357,6 +447,7 @@ const communityChampionBreadcrumbs = [
 
 const CommunityChampions = () => {
     const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
+    const isMobile = useMedia(screenSize.upToMedium);
     return (
         <Layout>
             <StyledHeroBanner
@@ -636,6 +727,8 @@ const CommunityChampions = () => {
                         />
                     </HowToQualifyGrid>
                 </HowToQualifyContainer>
+                <Line />
+                <OtherDetailsAndRequirements isMobile={isMobile} />
             </ContentContainer>
         </Layout>
     );
