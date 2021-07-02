@@ -306,7 +306,7 @@ const HowToQualifyGrid = styled('div')`
     grid-template-rows: repeat(2, 1fr);
     @media ${screenSize.upToLarge} {
         gap: ${size.default};
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-template-rows: repeat(3, 1fr);
     }
 `;
@@ -323,6 +323,7 @@ const HowToQualifyCardContainer = styled('div')`
 const HowToQualifyCardTitle = styled(H5)`
     margin-bottom: ${size.xsmall};
     margin-top: ${size.default};
+    word-wrap: break-word;
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.tiny};
     }
