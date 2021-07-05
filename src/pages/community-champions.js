@@ -81,10 +81,9 @@ const ContentContainer = styled('div')`
 `;
 
 const Title = styled(H1)`
-    margin: ${size.xlarge} 0;
+    margin-bottom: ${size.xlarge};
     text-align: center;
     @media ${screenSize.upToLarge} {
-        margin-top: ${size.large};
         margin-bottom: ${size.mediumLarge};
     }
 `;
@@ -98,6 +97,13 @@ const GreyP2 = styled(P2)`
 `;
 
 const WhatItMeansToBeAChampionContainer = styled('div')`
+    margin-top: ${size.xlarge};
+    @media ${screenSize.upToLarge} {
+        margin-top: ${size.large};
+    }
+`;
+
+const WhatItMeansToBeAChampionGrid = styled('div')`
     display: grid;
     row-gap: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP};
     @media ${screenSize.upToLarge} {
@@ -208,10 +214,6 @@ const LeadByExampleTitle = styled(H4)`
     }
 `;
 
-const BenefitsAndRewardsTitle = styled(Title)`
-    margin-top: 0;
-`;
-
 const BenefitsAndRewardsGrid = styled('div')`
     display: grid;
     grid-row-gap: ${size.large};
@@ -262,6 +264,9 @@ const BulletText = styled(P2)`
 
 const GreenBulletedListWithNoMargin = styled(GreenBulletedList)`
     margin: 0;
+    li {
+        margin-bottom: ${size.xsmall};
+    }
 `;
 
 const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
@@ -387,9 +392,9 @@ const CommunityChampions = () => {
                 <ApplyButton primary>Apply to Become a Champion</ApplyButton>
             </StyledHeroBanner>
             <ContentContainer>
-                <div>
+                <WhatItMeansToBeAChampionContainer>
                     <Title>What it Means to be a Champion</Title>
-                    <WhatItMeansToBeAChampionContainer>
+                    <WhatItMeansToBeAChampionGrid>
                         <StyledMediaBlock
                             reverse
                             mediaComponent={
@@ -433,8 +438,8 @@ const CommunityChampions = () => {
                                 description="Speak at MongoDB.live and other industry events. Increase your visibility through MongoDB social media channels, podcasts, and DevHub. We celebrate our Champions’ work and achievements throughout our social channels, our forums, and our events, and provide them access to a private forum group."
                             />
                         </StyledMediaBlock>
-                    </WhatItMeansToBeAChampionContainer>
-                </div>
+                    </WhatItMeansToBeAChampionGrid>
+                </WhatItMeansToBeAChampionContainer>
                 <LeadByExampleContainer>
                     <LeadByExampleTitle>
                         Champions Lead by Example
@@ -497,9 +502,7 @@ const CommunityChampions = () => {
                     </LeadByExampleGrid>
                 </LeadByExampleContainer>
                 <BenefitsAndRewardsContainer>
-                    <BenefitsAndRewardsTitle>
-                        Benefits &amp; Rewards
-                    </BenefitsAndRewardsTitle>
+                    <Title>Benefits &amp; Rewards</Title>
                     <BenefitsAndRewardsGrid>
                         <BenefitsAndRewardsItem
                             icon={
