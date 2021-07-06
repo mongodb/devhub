@@ -206,12 +206,13 @@ const CommunityChampions = () => {
     return (
         <Layout>
             <StyledHeroBanner
-                breadcrumb={communityChampionBreadcrumbs}
                 /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={
                     useBannerImageWithSpace ? BannerImageWithSpace : BannerImage
                 }
                 backgroundPosition="85% center"
+                breadcrumb={communityChampionBreadcrumbs}
+                imageAltText="Community Champions Badge - a dark grey circular ribbon with gold stars around a gold MongoDB leaf icon"
                 imageWidthOnMobile="auto"
                 maintainSquareAspectRatio={false}
             >
@@ -240,7 +241,7 @@ const CommunityChampions = () => {
                             mediaComponent={
                                 <ImageWithRoundedCorners
                                     src={PartnerWithMongoDBImage}
-                                    alt="MongoDB employees video conferencing with Community Champions and providing a product timeline update"
+                                    alt='Close-up of a laptop video screen showing two MongoDB employees video conferencing with 7 Community Champions, with a slide entitled "Product Timeline Update"'
                                 />
                             }
                         >
@@ -254,7 +255,7 @@ const CommunityChampions = () => {
                             mediaComponent={
                                 <ImageWithRoundedCorners
                                     src={CollaborateWithCommunityImage}
-                                    alt="Group of community members sitting around a table and working on tablets at an event"
+                                    alt="Six community members sitting around a table using a stylus or their fingers to work on tablets at an event"
                                 />
                             }
                         >
