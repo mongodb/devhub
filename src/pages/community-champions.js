@@ -7,7 +7,12 @@ import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
 import { H1, H2, H4, H5, H6, P, P2 } from '~components/dev-hub/text';
-import { screenSize, size } from '~components/dev-hub/theme';
+import {
+    fontSize,
+    lineHeight,
+    screenSize,
+    size,
+} from '~components/dev-hub/theme';
 import BannerImage from '~images/community-champions/champions-badge.svg';
 import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
 import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.jpg';
@@ -32,6 +37,7 @@ const LEAD_BY_EXAMPLE_ICON_WIDTH = '44px';
 const LEAD_BY_EXAMPLE_ICON_MOBILE_WIDTH = '38px';
 const LEAD_BY_EXAMPLE_GRID_COLUMN_GAP = '48px';
 const LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN = '40px';
+const BENEFITS_AND_REWARDS_GRID_ROW_GAP = '48px';
 const BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT = '170px';
 
 const BannerTitle = styled(H2)`
@@ -207,7 +213,7 @@ const LeadByExampleTitle = styled(H4)`
 
 const BenefitsAndRewardsGrid = styled('div')`
     display: grid;
-    grid-row-gap: ${size.large};
+    grid-row-gap: ${BENEFITS_AND_REWARDS_GRID_ROW_GAP};
     @media ${screenSize.mediumAndUp} {
         grid-column-gap: ${size.mediumLarge};
         grid-template-columns: repeat(2, 1fr);
@@ -226,6 +232,10 @@ const BenefitsAndRewardsSectionTitle = styled(H5)`
     margin-bottom: ${size.default};
     margin-top: ${size.mediumLarge};
     text-align: center;
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.medium};
+        line-height: ${lineHeight.medium};
+    }
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.xsmall};
     }
@@ -251,6 +261,10 @@ const BenefitsAndRewardsContainer = styled('div')`
 const BulletText = styled(P2)`
     color: ${({ theme }) => theme.colorMap.devWhite};
     margin-bottom: 0;
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.small};
+        line-height: ${lineHeight.small};
+    }
 `;
 
 const GreenBulletedListWithNoMargin = styled(GreenBulletedList)`
