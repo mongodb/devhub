@@ -6,10 +6,21 @@ import HeroBanner from '~components/dev-hub/hero-banner';
 import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
-import { H1, H2, H3, H4, H5, H6, P, P2 } from '~components/dev-hub/text';
-import { screenSize, size } from '~components/dev-hub/theme';
-import BannerImage from '~images/community-champions/champions-badge.svg';
-import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
+import {
+    H1,
+    H2,
+    H3,
+    H4,
+    H5,
+    H6,
+    P,
+    P2,
+    P3,
+    P4,
+} from '~components/dev-hub/text';
+import { colorMap, screenSize, size } from '~components/dev-hub/theme';
+import BadgeImage from '~images/community-champions/champions-badge.svg';
+import BadgeImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
 import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.jpg';
 import CollaborateWithCommunityImage from '~images/community-champions/collaborate-with-community.jpg';
 import BecomeSpeakerImage from '~images/community-champions/become-speaker.jpg';
@@ -27,6 +38,7 @@ import GroupImage from '~images/community-champions/group.svg';
 import RocketShipImage from '~images/community-champions/rocket-ship.svg';
 import StackSquaresImage from '~images/community-champions/stack-squares.svg';
 import PaperAndPencilImage from '~images/community-champions/paper-and-pencil.svg';
+import PinLocationIcon from '~images/community-champions/pin-location.svg';
 import useMedia from '~hooks/use-media';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
@@ -48,6 +60,11 @@ const OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_SIZE = '30%';
 const OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_WIDTH = '70%';
 const OTHER_DETAILS_AND_REQUIREMENTS_DESCRIPTION_MAX_WIDTH = '690px';
 const OTHER_DETAILS_AND_REQUIREMENTS_LIST_MAX_WIDTH = '480px';
+const CHAMPION_ITEM_CONTAINER_WIDTH = '200px';
+const CHAMPION_ITEM_CONTAINER_MOBILE_WIDTH = '170px';
+const CHAMPION_PROFILE_PICTURE_BORDER_WIDTH = '4px';
+const CHAMPION_PROFILE_PICTURE_BORDER_RADIUS = '360px';
+const CHAMPION_PROFILE_PICTURE_SIZE = '120px';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -443,6 +460,113 @@ const OtherDetailsAndRequirements = ({ isMobile = false }) => (
     </div>
 );
 
+const MeetTheChampionsContainer = styled('div')`
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    margin: ${size.xlarge} -${size.xxlarge};
+    padding: ${size.xlarge} ${size.xxlarge};
+    @media ${screenSize.upToLarge} {
+        margin: ${size.large} -${size.default};
+        padding: ${size.large} ${size.default};
+    }
+`;
+
+const ChampionsContainer = styled('div')`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: ${size.default};
+    @media ${screenSize.upToLarge} {
+        row-gap: ${size.xsmall};
+    } ;
+`;
+
+/* TODO: Replace dummy data and fetch champion data from Strapi */
+const communityChampions = Array(14).fill({
+    imageUrl: '',
+    fullName: 'Leandro Domingues',
+    title: 'Founder, CTO, Engineer',
+    location: 'Sao Paulo, Brazil',
+});
+
+const ChampionItemContainer = styled('div')`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: ${size.default};
+    text-align: center;
+    width: ${CHAMPION_ITEM_CONTAINER_WIDTH};
+    @media ${screenSize.upToMedium} {
+        padding: ${size.default} 0;
+        width: ${CHAMPION_ITEM_CONTAINER_MOBILE_WIDTH};
+    }
+`;
+
+const LocationContainer = styled('div')`
+    display: flex;
+    justify-content: center;
+    margin-top: ${size.tiny};
+`;
+
+const PinLocationImage = styled('img')`
+    margin-right: ${size.tiny};
+`;
+
+const LocationText = styled(P4)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+
+const ChampionLocation = ({ location }) => (
+    <LocationContainer>
+        <PinLocationImage src={PinLocationIcon} />
+        <LocationText collapse>{location}</LocationText>
+    </LocationContainer>
+);
+
+const ChampionTitleText = styled(P3)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+
+const ChampionProfilePictureWithGradientBorder = styled('div')`
+    background-clip: content-box, border-box;
+    background-image: url(${({ imageUrl }) =>
+            imageUrl ? `${imageUrl}` : `${BadgeImage}`}),
+        linear-gradient(
+            300deg,
+            #7acfdd,
+            ${colorMap.lightGreen},
+            ${colorMap.darkGreen}
+        );
+    background-origin: border-box;
+    background-size: cover;
+    border: ${CHAMPION_PROFILE_PICTURE_BORDER_WIDTH} solid transparent;
+    border-radius: ${CHAMPION_PROFILE_PICTURE_BORDER_RADIUS};
+    margin-bottom: ${size.default};
+    height: ${CHAMPION_PROFILE_PICTURE_SIZE};
+    width: ${CHAMPION_PROFILE_PICTURE_SIZE};
+`;
+
+const ChampionItem = ({ imageUrl, name, title, location }) => (
+    <ChampionItemContainer>
+        <ChampionProfilePictureWithGradientBorder imageUrl={imageUrl} />
+        <H6 collapse>{name}</H6>
+        <ChampionTitleText collapse>{title}</ChampionTitleText>
+        <ChampionLocation location={location} />
+    </ChampionItemContainer>
+);
+
+const ChampionList = ({ champions }) => (
+    <ChampionsContainer>
+        {champions.map(({ imageUrl, fullName, title, location }) => (
+            <ChampionItem
+                imageUrl={imageUrl}
+                name={fullName}
+                title={title}
+                location={location}
+            />
+        ))}
+    </ChampionsContainer>
+);
+
 const communityChampionBreadcrumbs = [
     { label: 'Home', target: '/' },
     {
@@ -460,7 +584,7 @@ const CommunityChampions = () => {
                 breadcrumb={communityChampionBreadcrumbs}
                 /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={
-                    useBannerImageWithSpace ? BannerImageWithSpace : BannerImage
+                    useBannerImageWithSpace ? BadgeImageWithSpace : BadgeImage
                 }
                 backgroundPosition="85% center"
                 imageWidthOnMobile="auto"
@@ -733,6 +857,10 @@ const CommunityChampions = () => {
                 </HowToQualifyContainer>
                 <Line />
                 <OtherDetailsAndRequirements isMobile={isMobile} />
+                <MeetTheChampionsContainer>
+                    <Title>Meet the Champions</Title>
+                    <ChampionList champions={communityChampions} />
+                </MeetTheChampionsContainer>
             </ContentContainer>
         </Layout>
     );
