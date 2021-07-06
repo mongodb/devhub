@@ -274,14 +274,14 @@ const GreenBulletedListWithNoMargin = styled(GreenBulletedList)`
     }
 `;
 
-const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
+const BenefitsAndRewardsItem = ({ bullets, icon, title }) => (
     <BenefitsAndRewardsItemContainer>
         <BenefitsAndRewardsImageContainer>
             {icon}
         </BenefitsAndRewardsImageContainer>
         <BenefitsAndRewardsSectionTitle>{title}</BenefitsAndRewardsSectionTitle>
         <GreenBulletedListWithNoMargin
-            bulletTextComponent={BulletText}
+            BulletText={BulletText}
             children={bullets}
         />
     </BenefitsAndRewardsItemContainer>
@@ -439,6 +439,12 @@ const CommunityChampions = () => {
                     <Title>Benefits &amp; Rewards</Title>
                     <BenefitsAndRewardsGrid>
                         <BenefitsAndRewardsItem
+                            bullets={[
+                                'Participation in product beta testing, as available',
+                                'Product feedback sessions',
+                                'Product Early Access pilot',
+                                'Access to MongoDB product teams and executives',
+                            ]}
                             icon={
                                 <img
                                     src={BuildingBlocksImage}
@@ -446,14 +452,13 @@ const CommunityChampions = () => {
                                 />
                             }
                             title="Product"
-                            bullets={[
-                                'Participation in product beta testing, as available',
-                                'Product feedback sessions',
-                                'Product Early Access pilot',
-                                'Access to MongoDB product teams and executives',
-                            ]}
                         />
                         <BenefitsAndRewardsItem
+                            bullets={[
+                                'Access to private MongoDB Champion sub-forum on MongoDB Developer Forums',
+                                'Branded badges and ranks on Developer forums and social media',
+                                'Opportunities to mentor MongoDB newcomers',
+                            ]}
                             icon={
                                 <img
                                     src={PeopleInCircleImage}
@@ -461,13 +466,14 @@ const CommunityChampions = () => {
                                 />
                             }
                             title="Community"
-                            bullets={[
-                                'Access to private MongoDB Champion sub-forum on MongoDB Developer Forums',
-                                'Branded badges and ranks on Developer forums and social media',
-                                'Opportunities to mentor MongoDB newcomers',
-                            ]}
                         />
                         <BenefitsAndRewardsItem
+                            bullets={[
+                                'Full (free) access to MongoDB events',
+                                'Expense reimbursement for travel and accommodation for events, VIP seats, and VIP events',
+                                'Featured profile on MongoDB DevHub',
+                                'SWAG',
+                            ]}
                             icon={
                                 <img
                                     src={EventAdmissionTicketImage}
@@ -475,21 +481,8 @@ const CommunityChampions = () => {
                                 />
                             }
                             title="Events &amp; Exposure"
-                            bullets={[
-                                'Full (free) access to MongoDB events',
-                                'Expense reimbursement for travel and accommodation for events, VIP seats, and VIP events',
-                                'Featured profile on MongoDB DevHub',
-                                'SWAG',
-                            ]}
                         />
                         <BenefitsAndRewardsItem
-                            icon={
-                                <img
-                                    src={UpwardsArrowImage}
-                                    alt="Arrow pointing upwards"
-                                />
-                            }
-                            title="Growth"
                             bullets={[
                                 'Speaker training',
                                 'Social media training',
@@ -497,6 +490,13 @@ const CommunityChampions = () => {
                                 'Personal branding strategies',
                                 'Free MongoDB certification and University On Demand',
                             ]}
+                            icon={
+                                <img
+                                    src={UpwardsArrowImage}
+                                    alt="Arrow pointing upwards"
+                                />
+                            }
+                            title="Growth"
                         />
                     </BenefitsAndRewardsGrid>
                 </BenefitsAndRewardsContainer>
