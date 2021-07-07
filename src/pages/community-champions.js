@@ -7,7 +7,12 @@ import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
 import { H1, H2, H3, H4, H5, H6, P, P2 } from '~components/dev-hub/text';
-import { screenSize, size } from '~components/dev-hub/theme';
+import {
+    fontSize,
+    lineHeight,
+    screenSize,
+    size,
+} from '~components/dev-hub/theme';
 import BannerImage from '~images/community-champions/champions-badge.svg';
 import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
 import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.jpg';
@@ -43,6 +48,7 @@ const BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT = '170px';
 const HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN = '56px';
 const HOW_TO_QUALIFY_CONTRIBUTE_SECTION_WIDTH = '54%';
 const HOW_TO_QUALIFY_CARD_CONTAINER_PADDING = '48px';
+const HOW_TO_QUALIFY_CARD_TITLE_BOTTOM_MARGIN = '4px';
 const LINE_BOTTOM_MARGIN = '56px';
 const OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_SIZE = '30%';
 const OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_WIDTH = '70%';
@@ -289,9 +295,9 @@ const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
 );
 
 const HowToQualifyContainer = styled('div')`
-    margin-bottom: ${HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN};
+    margin: ${size.xlarge} 0 ${HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN} 0;
     @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.large};
+        margin: ${size.large} 0;
     }
 `;
 
@@ -332,15 +338,15 @@ const HowToQualifyCardContainer = styled('div')`
 `;
 
 const HowToQualifyCardTitle = styled(H5)`
-    margin-bottom: ${size.xsmall};
-    margin-top: ${size.default};
+    margin: ${size.xsmall} 0;
     word-wrap: break-word;
     @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.tiny};
+        margin: ${size.default} 0 ${HOW_TO_QUALIFY_CARD_TITLE_BOTTOM_MARGIN} 0;
     }
 `;
 
 const HowToQualifyIconContainer = styled('div')`
+    display: flex;
     height: ${size.xlarge};
     @media ${screenSize.upToLarge} {
         height: ${size.large};
@@ -348,14 +354,25 @@ const HowToQualifyIconContainer = styled('div')`
 `;
 
 const HowToQualifyIcon = styled('img')`
+    align-self: center;
     max-height: 100%;
+`;
+
+const HowToQualifyCardDescription = styled(Description)`
+    line-height: ${lineHeight.default};
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.tiny};
+        line-height: ${lineHeight.tiny};
+    }
 `;
 
 const HowToQualifyCard = ({ icon, title, description }) => (
     <HowToQualifyCardContainer>
         <HowToQualifyIconContainer>{icon}</HowToQualifyIconContainer>
         <HowToQualifyCardTitle>{title}</HowToQualifyCardTitle>
-        <Description collapse>{description}</Description>
+        <HowToQualifyCardDescription collapse>
+            {description}
+        </HowToQualifyCardDescription>
     </HowToQualifyCardContainer>
 );
 
