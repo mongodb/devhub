@@ -360,7 +360,7 @@ const HowToQualifyCard = ({ icon, title, description }) => (
 );
 
 const Line = styled('hr')`
-    color: ${({ theme }) => theme.colorMap.greyDarkOne};
+    border-color: ${({ theme }) => theme.colorMap.greyDarkOne};
     margin-bottom: ${LINE_BOTTOM_MARGIN};
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.large};
@@ -368,11 +368,9 @@ const Line = styled('hr')`
 `;
 
 const GreenBulletedListWithGreyText = styled(GreenBulletedList)`
+    max-width: ${OTHER_DETAILS_AND_REQUIREMENTS_LIST_MAX_WIDTH};
     li {
         margin-bottom: ${size.xsmall};
-    }
-    p {
-        color: ${({ theme }) => theme.colorMap.greyLightTwo};
     }
 `;
 
@@ -387,23 +385,19 @@ const OtherDetailsAndRequirementsContainer = styled('div')`
     }
 `;
 
-const OtherDetailsAndRequirementsTextSection = styled('div')`
-    h5 {
-        @media ${screenSize.upToMedium} {
-            margin-bottom: ${size.tiny};
-        }
-    }
-    p {
-        max-width: ${OTHER_DETAILS_AND_REQUIREMENTS_DESCRIPTION_MAX_WIDTH};
-    }
-    ul {
-        max-width: ${OTHER_DETAILS_AND_REQUIREMENTS_LIST_MAX_WIDTH};
+const OtherDetailsAndRequirementsTitle = styled(H5)`
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.tiny};
     }
 `;
 
+const OtherDetailsAndRequirementsDescription = styled(Description)`
+    max-width: ${OTHER_DETAILS_AND_REQUIREMENTS_DESCRIPTION_MAX_WIDTH};
+`;
+
 const OtherDetailsAndRequirementsImageContainer = styled('div')`
-    display: flex;
     align-items: start;
+    display: flex;
     justify-content: center;
 `;
 
@@ -413,6 +407,7 @@ const OtherDetailsAndRequirementsImage = styled('img')`
 
 const OtherDetailsAndRequirementsBullets = () => (
     <GreenBulletedListWithGreyText
+        BulletText={Description}
         children={[
             'MongoDB Champions must (re)qualify every year, based on their contribution to the community',
             'Champions program cohorts are intentionally limited to small, functional groups',
@@ -430,14 +425,16 @@ const OtherDetailsAndRequirements = ({ isMobile = false }) => (
                     alt="Paper with a diagram drawn on it with a pencil next to it"
                 />
             </OtherDetailsAndRequirementsImageContainer>
-            <OtherDetailsAndRequirementsTextSection>
-                <H5>Other Details &amp; Requirements</H5>
-                <Description collapse>
+            <div>
+                <OtherDetailsAndRequirementsTitle>
+                    Other Details &amp; Requirements
+                </OtherDetailsAndRequirementsTitle>
+                <OtherDetailsAndRequirementsDescription collapse>
                     We expect members to participate actively, collaborate
                     closely, and work towards tangible outcomes together.
-                </Description>
+                </OtherDetailsAndRequirementsDescription>
                 <OtherDetailsAndRequirementsBullets />
-            </OtherDetailsAndRequirementsTextSection>
+            </div>
         </OtherDetailsAndRequirementsContainer>
         {isMobile && <OtherDetailsAndRequirementsBullets />}
     </div>
