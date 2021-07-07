@@ -46,7 +46,7 @@ const LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN = '40px';
 const BENEFITS_AND_REWARDS_GRID_ROW_GAP = '48px';
 const BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT = '170px';
 const HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN = '56px';
-const HOW_TO_QUALIFY_CONTRIBUTE_SECTION_WIDTH = '54%';
+const HOW_TO_QUALIFY_CONTRIBUTE_SECTION_MAX_WIDTH = '640px';
 const HOW_TO_QUALIFY_CARD_CONTAINER_PADDING = '48px';
 const HOW_TO_QUALIFY_CARD_TITLE_BOTTOM_MARGIN = '4px';
 
@@ -312,10 +312,9 @@ const HowToQualifyContributeTitle = styled(H3)`
 
 const HowToQualifyContributeSection = styled('div')`
     margin-bottom: ${size.large};
-    width: ${HOW_TO_QUALIFY_CONTRIBUTE_SECTION_WIDTH};
+    max-width: ${HOW_TO_QUALIFY_CONTRIBUTE_SECTION_MAX_WIDTH};
     @media ${screenSize.upToMedium} {
         margin-bottom: ${size.mediumLarge};
-        width: 100%;
     }
 `;
 
