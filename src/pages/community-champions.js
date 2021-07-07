@@ -385,6 +385,7 @@ const Line = styled('hr')`
 `;
 
 const GreenBulletedListWithGreyText = styled(GreenBulletedList)`
+    margin: ${size.default} 0 0;
     max-width: ${OTHER_DETAILS_AND_REQUIREMENTS_LIST_MAX_WIDTH};
     li {
         margin-bottom: ${size.xsmall};
@@ -422,9 +423,13 @@ const OtherDetailsAndRequirementsImage = styled('img')`
     width: ${OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_WIDTH};
 `;
 
+const OtherDetailsAndRequirementsBulletText = styled(Description)`
+    margin-bottom: 0;
+`;
+
 const OtherDetailsAndRequirementsBullets = () => (
     <GreenBulletedListWithGreyText
-        BulletText={Description}
+        BulletText={OtherDetailsAndRequirementsBulletText}
         children={[
             'MongoDB Champions must (re)qualify every year, based on their contribution to the community',
             'Champions program cohorts are intentionally limited to small, functional groups',
