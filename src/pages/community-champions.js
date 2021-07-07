@@ -379,7 +379,7 @@ const HowToQualifyCard = ({ icon, title, description }) => (
 const Line = styled('hr')`
     border-color: ${({ theme }) => theme.colorMap.greyDarkOne};
     margin-bottom: ${LINE_BOTTOM_MARGIN};
-    @media ${screenSize.upToLarge} {
+    @media ${screenSize.upToMedium} {
         margin-bottom: ${size.large};
     }
 `;
@@ -394,12 +394,17 @@ const GreenBulletedListWithGreyText = styled(GreenBulletedList)`
 
 const OtherDetailsAndRequirementsContainer = styled('div')`
     display: grid;
+    grid-template-areas:
+        'image text'
+        'image bullets';
     grid-template-columns: ${OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_SIZE} auto;
+    grid-template-rows: auto auto;
+    margin-bottom: ${size.xlarge};
     @media ${screenSize.upToMedium} {
-        ul {
-            /* Show list under image instead */
-            display: none;
-        }
+        grid-template-areas:
+            'image text'
+            'bullets bullets';
+        margin-bottom: ${size.large};
     }
 `;
 
@@ -416,6 +421,7 @@ const OtherDetailsAndRequirementsDescription = styled(Description)`
 const OtherDetailsAndRequirementsImageContainer = styled('div')`
     align-items: start;
     display: flex;
+    grid-area: image;
     justify-content: center;
 `;
 
@@ -438,28 +444,35 @@ const OtherDetailsAndRequirementsBullets = () => (
     />
 );
 
-const OtherDetailsAndRequirements = ({ isMobile = false }) => (
-    <div>
-        <OtherDetailsAndRequirementsContainer>
-            <OtherDetailsAndRequirementsImageContainer>
-                <OtherDetailsAndRequirementsImage
-                    src={PaperAndPencilImage}
-                    alt="Paper with a diagram drawn on it with a pencil next to it"
-                />
-            </OtherDetailsAndRequirementsImageContainer>
-            <div>
-                <OtherDetailsAndRequirementsTitle>
-                    Other Details &amp; Requirements
-                </OtherDetailsAndRequirementsTitle>
-                <OtherDetailsAndRequirementsDescription collapse>
-                    We expect members to participate actively, collaborate
-                    closely, and work towards tangible outcomes together.
-                </OtherDetailsAndRequirementsDescription>
-                <OtherDetailsAndRequirementsBullets />
-            </div>
-        </OtherDetailsAndRequirementsContainer>
-        {isMobile && <OtherDetailsAndRequirementsBullets />}
-    </div>
+const OtherDetailsAndRequirementsTextSection = styled('div')`
+    grid-area: text;
+`;
+
+const OtherDetailsAndRequirementsBulletsContainer = styled('div')`
+    grid-area: bullets;
+`;
+
+const OtherDetailsAndRequirements = () => (
+    <OtherDetailsAndRequirementsContainer>
+        <OtherDetailsAndRequirementsImageContainer>
+            <OtherDetailsAndRequirementsImage
+                src={PaperAndPencilImage}
+                alt="Paper with a diagram drawn on it with a pencil next to it"
+            />
+        </OtherDetailsAndRequirementsImageContainer>
+        <OtherDetailsAndRequirementsTextSection>
+            <OtherDetailsAndRequirementsTitle>
+                Other Details &amp; Requirements
+            </OtherDetailsAndRequirementsTitle>
+            <OtherDetailsAndRequirementsDescription collapse>
+                We expect members to participate actively, collaborate closely,
+                and work towards tangible outcomes together.
+            </OtherDetailsAndRequirementsDescription>
+        </OtherDetailsAndRequirementsTextSection>
+        <OtherDetailsAndRequirementsBulletsContainer>
+            <OtherDetailsAndRequirementsBullets />
+        </OtherDetailsAndRequirementsBulletsContainer>
+    </OtherDetailsAndRequirementsContainer>
 );
 
 const communityChampionBreadcrumbs = [
@@ -472,7 +485,6 @@ const communityChampionBreadcrumbs = [
 
 const CommunityChampions = () => {
     const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
-    const isMobile = useMedia(screenSize.upToMedium);
     return (
         <Layout>
             <StyledHeroBanner
@@ -751,7 +763,7 @@ const CommunityChampions = () => {
                     </HowToQualifyGrid>
                 </HowToQualifyContainer>
                 <Line />
-                <OtherDetailsAndRequirements isMobile={isMobile} />
+                <OtherDetailsAndRequirements />
             </ContentContainer>
         </Layout>
     );
