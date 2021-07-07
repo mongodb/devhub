@@ -385,6 +385,7 @@ const Line = styled('hr')`
 `;
 
 const GreenBulletedListWithGreyText = styled(GreenBulletedList)`
+    grid-area: bullets;
     margin: ${size.default} 0 0;
     max-width: ${OTHER_DETAILS_AND_REQUIREMENTS_LIST_MAX_WIDTH};
     li {
@@ -448,10 +449,6 @@ const OtherDetailsAndRequirementsTextSection = styled('div')`
     grid-area: text;
 `;
 
-const OtherDetailsAndRequirementsBulletsContainer = styled('div')`
-    grid-area: bullets;
-`;
-
 const OtherDetailsAndRequirements = () => (
     <OtherDetailsAndRequirementsContainer>
         <OtherDetailsAndRequirementsImageContainer>
@@ -469,9 +466,7 @@ const OtherDetailsAndRequirements = () => (
                 and work towards tangible outcomes together.
             </OtherDetailsAndRequirementsDescription>
         </OtherDetailsAndRequirementsTextSection>
-        <OtherDetailsAndRequirementsBulletsContainer>
-            <OtherDetailsAndRequirementsBullets />
-        </OtherDetailsAndRequirementsBulletsContainer>
+        <OtherDetailsAndRequirementsBullets />
     </OtherDetailsAndRequirementsContainer>
 );
 
