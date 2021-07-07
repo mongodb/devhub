@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Button from './button';
 import Icon from '@leafygreen-ui/icon';
 import { fontSize, screenSize, size, colorMap } from './theme';
 
 const Footer = styled('div')`
-    display: ${({ showSurvey }) => (showSurvey ? `block` : `none`)};
     background-color: ${colorMap.greyDarkTwo};
     position: fixed;
     left: 0;
@@ -60,13 +59,22 @@ const surveyLink =
 
 const SurveyBanner = () => {
     const [showSurveyBanner, setShowSurveyBanner] = useState(true);
-
     const closeSurveyBanner = () => {
+        localStorage.setItem('surveybanner', 'hide');
         setShowSurveyBanner(false);
     };
 
-    return (
-        <Footer showSurvey={showSurveyBanner}>
+    useEffect(() => {
+        const storedBannerDisplayInLocalStorage = localStorage.getItem(
+            'surveybanner'
+        );
+        if (storedBannerDisplayInLocalStorage === 'hide') {
+            setShowSurveyBanner(false);
+        }
+    }, []);
+
+    return showSurveyBanner === true ? (
+        <Footer>
             <FooterContent>
                 <SurveyContent>
                     <SurveyText>
@@ -97,6 +105,8 @@ const SurveyBanner = () => {
                 </CloseButtonContainer>
             </FooterContent>
         </Footer>
+    ) : (
+        <></>
     );
 };
 
