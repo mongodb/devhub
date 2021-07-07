@@ -6,7 +6,7 @@ import { H3, H5 } from '../../dev-hub/text';
 import ThumbnailConnect from '~images/student-spotlight/thumbnail-connect.svg';
 import ThumbnailCurriculum from '~images/student-spotlight/thumbnail-curriculum.svg';
 import ThumbnailUniversity from '~images/student-spotlight/thumbnail-university.svg';
-import GreenBulletedList from './green-bulleted-list';
+import GreenBulletedList from '~components/dev-hub/green-bulleted-list';
 
 const MAX_FEATURED_BENEFIT_WIDTH = '300px';
 const SECTION_HORIZONTAL_PADDING = '120px';

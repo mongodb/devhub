@@ -1,12 +1,18 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Button from '~components/dev-hub/button';
-import Layout from '~components/dev-hub/layout';
+import GreenBulletedList from '~components/dev-hub/green-bulleted-list';
 import HeroBanner from '~components/dev-hub/hero-banner';
+import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
-import { H1, H2, H4, H6, P, P2 } from '~components/dev-hub/text';
-import { screenSize, size } from '~components/dev-hub/theme';
+import { H1, H2, H4, H5, H6, P, P2 } from '~components/dev-hub/text';
+import {
+    fontSize,
+    lineHeight,
+    screenSize,
+    size,
+} from '~components/dev-hub/theme';
 import BannerImage from '~images/community-champions/champions-badge.svg';
 import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
 import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.jpg';
@@ -15,6 +21,10 @@ import BecomeSpeakerImage from '~images/community-champions/become-speaker.jpg';
 import UpholdCommunityCodeOfConductIcon from '~images/community-champions/uphold-community-code-of-conduct.svg';
 import BeGuidingLightIcon from '~images/community-champions/be-guiding-light.svg';
 import ProtectAndFosterCommunityCultureIcon from '~images/community-champions/protect-and-foster-community-culture.svg';
+import BuildingBlocksImage from '~images/community-champions/3d-building-blocks.svg';
+import PeopleInCircleImage from '~images/community-champions/people-in-circle.svg';
+import EventAdmissionTicketImage from '~images/community-champions/event-admission-ticket.svg';
+import UpwardsArrowImage from '~images/community-champions/upwards-arrow.svg';
 import useMedia from '~hooks/use-media';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
@@ -27,6 +37,8 @@ const LEAD_BY_EXAMPLE_ICON_WIDTH = '44px';
 const LEAD_BY_EXAMPLE_ICON_MOBILE_WIDTH = '38px';
 const LEAD_BY_EXAMPLE_GRID_COLUMN_GAP = '48px';
 const LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN = '40px';
+const BENEFITS_AND_REWARDS_GRID_ROW_GAP = '48px';
+const BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT = '170px';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -66,10 +78,9 @@ const ContentContainer = styled('div')`
 `;
 
 const Title = styled(H1)`
-    margin: ${size.xlarge} 0;
+    margin-bottom: ${size.xlarge};
     text-align: center;
     @media ${screenSize.upToLarge} {
-        margin-top: ${size.large};
         margin-bottom: ${size.mediumLarge};
     }
 `;
@@ -83,6 +94,13 @@ const GreyP2 = styled(P2)`
 `;
 
 const WhatItMeansToBeAChampionContainer = styled('div')`
+    margin-top: ${size.xlarge};
+    @media ${screenSize.upToLarge} {
+        margin-top: ${size.large};
+    }
+`;
+
+const WhatItMeansToBeAChampionGrid = styled('div')`
     display: grid;
     row-gap: ${WHAT_IT_MEANS_TO_BE_A_CHAMPION_ROW_GAP};
     @media ${screenSize.upToLarge} {
@@ -181,8 +199,8 @@ const LeadByExampleGrid = styled('div')`
     display: grid;
     grid-row-gap: ${size.mediumLarge};
     @media ${screenSize.largeAndUp} {
-        grid-template-columns: repeat(3, 1fr);
         grid-column-gap: ${LEAD_BY_EXAMPLE_GRID_COLUMN_GAP};
+        grid-template-columns: repeat(3, 1fr);
     }
 `;
 
@@ -192,6 +210,82 @@ const LeadByExampleTitle = styled(H4)`
         margin-bottom: ${size.mediumLarge};
     }
 `;
+
+const BenefitsAndRewardsGrid = styled('div')`
+    display: grid;
+    grid-row-gap: ${BENEFITS_AND_REWARDS_GRID_ROW_GAP};
+    @media ${screenSize.mediumAndUp} {
+        grid-column-gap: ${size.mediumLarge};
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media ${screenSize.largeAndUp} {
+        grid-template-columns: repeat(4, 1fr);
+    }
+`;
+
+const BenefitsAndRewardsItemContainer = styled('div')`
+    display: flex;
+    flex-direction: column;
+`;
+
+const BenefitsAndRewardsSectionTitle = styled(H5)`
+    margin-bottom: ${size.default};
+    margin-top: ${size.mediumLarge};
+    text-align: center;
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.medium};
+        line-height: ${lineHeight.medium};
+    }
+    @media ${screenSize.upToLarge} {
+        margin-bottom: ${size.xsmall};
+    }
+`;
+
+const BenefitsAndRewardsImageContainer = styled('div')`
+    display: flex;
+    height: ${BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT};
+    justify-content: center;
+    max-width: 100%;
+`;
+
+const BenefitsAndRewardsContainer = styled('div')`
+    background-color: ${({ theme }) => theme.colorMap.devBlack};
+    margin: 0 -${size.xxlarge};
+    padding: ${size.xlarge} ${size.xxlarge};
+    @media ${screenSize.upToLarge} {
+        margin: 0 -${size.default};
+        padding: ${size.large} ${size.default};
+    }
+`;
+
+const BulletText = styled(P2)`
+    color: ${({ theme }) => theme.colorMap.devWhite};
+    margin-bottom: 0;
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.small};
+        line-height: ${lineHeight.small};
+    }
+`;
+
+const GreenBulletedListWithNoMargin = styled(GreenBulletedList)`
+    margin: 0;
+    li {
+        margin-bottom: ${size.xsmall};
+    }
+`;
+
+const BenefitsAndRewardsItem = ({ bullets, icon, title }) => (
+    <BenefitsAndRewardsItemContainer>
+        <BenefitsAndRewardsImageContainer>
+            {icon}
+        </BenefitsAndRewardsImageContainer>
+        <BenefitsAndRewardsSectionTitle>{title}</BenefitsAndRewardsSectionTitle>
+        <GreenBulletedListWithNoMargin
+            BulletText={BulletText}
+            children={bullets}
+        />
+    </BenefitsAndRewardsItemContainer>
+);
 
 const communityChampionBreadcrumbs = [
     { label: 'Home', target: '/' },
@@ -233,9 +327,9 @@ const CommunityChampions = () => {
                 <ApplyButton primary>Apply to Become a Champion</ApplyButton>
             </StyledHeroBanner>
             <ContentContainer>
-                <div>
+                <WhatItMeansToBeAChampionContainer>
                     <Title>What it Means to be a Champion</Title>
-                    <WhatItMeansToBeAChampionContainer>
+                    <WhatItMeansToBeAChampionGrid>
                         <StyledMediaBlock
                             reverse
                             mediaComponent={
@@ -279,8 +373,8 @@ const CommunityChampions = () => {
                                 description="Speak at MongoDB.live and other industry events. Increase your visibility through MongoDB social media channels, podcasts, and DevHub. We celebrate our Champions’ work and achievements throughout our social channels, our forums, and our events, and provide them access to a private forum group."
                             />
                         </StyledMediaBlock>
-                    </WhatItMeansToBeAChampionContainer>
-                </div>
+                    </WhatItMeansToBeAChampionGrid>
+                </WhatItMeansToBeAChampionContainer>
                 <LeadByExampleContainer>
                     <LeadByExampleTitle>
                         Champions Lead by Example
@@ -342,6 +436,71 @@ const CommunityChampions = () => {
                         />
                     </LeadByExampleGrid>
                 </LeadByExampleContainer>
+                <BenefitsAndRewardsContainer>
+                    <Title>Benefits &amp; Rewards</Title>
+                    <BenefitsAndRewardsGrid>
+                        <BenefitsAndRewardsItem
+                            bullets={[
+                                'Participation in product beta testing, as available',
+                                'Product feedback sessions',
+                                'Product Early Access pilot',
+                                'Access to MongoDB product teams and executives',
+                            ]}
+                            icon={
+                                <img
+                                    src={BuildingBlocksImage}
+                                    alt="3d isometric building blocks"
+                                />
+                            }
+                            title="Product"
+                        />
+                        <BenefitsAndRewardsItem
+                            bullets={[
+                                'Access to private MongoDB Champion sub-forum on MongoDB Developer Forums',
+                                'Branded badges and ranks on Developer forums and social media',
+                                'Opportunities to mentor MongoDB newcomers',
+                            ]}
+                            icon={
+                                <img
+                                    src={PeopleInCircleImage}
+                                    alt="People in a circle"
+                                />
+                            }
+                            title="Community"
+                        />
+                        <BenefitsAndRewardsItem
+                            bullets={[
+                                'Full (free) access to MongoDB events',
+                                'Expense reimbursement for travel and accommodation for events, VIP seats, and VIP events',
+                                'Featured profile on MongoDB DevHub',
+                                'SWAG',
+                            ]}
+                            icon={
+                                <img
+                                    src={EventAdmissionTicketImage}
+                                    alt="Event admission ticket"
+                                />
+                            }
+                            title="Events &amp; Exposure"
+                        />
+                        <BenefitsAndRewardsItem
+                            bullets={[
+                                'Speaker training',
+                                'Social media training',
+                                'Public speaking and blog writing coaching',
+                                'Personal branding strategies',
+                                'Free MongoDB certification and University On Demand',
+                            ]}
+                            icon={
+                                <img
+                                    src={UpwardsArrowImage}
+                                    alt="Arrow pointing upwards"
+                                />
+                            }
+                            title="Growth"
+                        />
+                    </BenefitsAndRewardsGrid>
+                </BenefitsAndRewardsContainer>
             </ContentContainer>
         </Layout>
     );
