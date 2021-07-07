@@ -6,7 +6,7 @@ import HeroBanner from '~components/dev-hub/hero-banner';
 import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
-import { H1, H2, H4, H5, H6, P, P2 } from '~components/dev-hub/text';
+import { H1, H2, H3, H4, H5, H6, P, P2 } from '~components/dev-hub/text';
 import {
     fontSize,
     lineHeight,
@@ -25,6 +25,12 @@ import BuildingBlocksImage from '~images/community-champions/3d-building-blocks.
 import PeopleInCircleImage from '~images/community-champions/people-in-circle.svg';
 import EventAdmissionTicketImage from '~images/community-champions/event-admission-ticket.svg';
 import UpwardsArrowImage from '~images/community-champions/upwards-arrow.svg';
+import BrowserWindowWithStarImage from '~images/community-champions/browser-window-with-star.svg';
+import MicrophoneImage from '~images/community-champions/microphone.svg';
+import ChatBubblesImage from '~images/community-champions/chat-bubbles.svg';
+import GroupImage from '~images/community-champions/group.svg';
+import RocketShipImage from '~images/community-champions/rocket-ship.svg';
+import StackSquaresImage from '~images/community-champions/stack-squares.svg';
 import useMedia from '~hooks/use-media';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
@@ -39,6 +45,10 @@ const LEAD_BY_EXAMPLE_GRID_COLUMN_GAP = '48px';
 const LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN = '40px';
 const BENEFITS_AND_REWARDS_GRID_ROW_GAP = '48px';
 const BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT = '170px';
+const HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN = '56px';
+const HOW_TO_QUALIFY_CONTRIBUTE_SECTION_MAX_WIDTH = '640px';
+const HOW_TO_QUALIFY_CARD_CONTAINER_PADDING = '48px';
+const HOW_TO_QUALIFY_CARD_TITLE_BOTTOM_MARGIN = '4px';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -287,6 +297,87 @@ const BenefitsAndRewardsItem = ({ bullets, icon, title }) => (
     </BenefitsAndRewardsItemContainer>
 );
 
+const HowToQualifyContainer = styled('div')`
+    margin: ${size.xlarge} 0 ${HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN};
+    @media ${screenSize.upToLarge} {
+        margin: ${size.large} 0;
+    }
+`;
+
+const HowToQualifyContributeTitle = styled(H3)`
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.xsmall};
+    }
+`;
+
+const HowToQualifyContributeSection = styled('div')`
+    margin-bottom: ${size.large};
+    max-width: ${HOW_TO_QUALIFY_CONTRIBUTE_SECTION_MAX_WIDTH};
+    @media ${screenSize.upToMedium} {
+        margin-bottom: ${size.mediumLarge};
+    }
+`;
+
+const HowToQualifyGrid = styled('div')`
+    display: grid;
+    gap: ${size.mediumLarge};
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    @media ${screenSize.upToLarge} {
+        gap: ${size.default};
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(3, 1fr);
+    }
+`;
+
+const HowToQualifyCardContainer = styled('div')`
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    border-radius: ${size.xsmall};
+    padding: ${HOW_TO_QUALIFY_CARD_CONTAINER_PADDING};
+    @media ${screenSize.upToLarge} {
+        padding: ${size.mediumLarge};
+    }
+`;
+
+const HowToQualifyCardTitle = styled(H5)`
+    margin: ${size.xsmall} 0;
+    word-wrap: break-word;
+    @media ${screenSize.upToLarge} {
+        margin: ${size.default} 0 ${HOW_TO_QUALIFY_CARD_TITLE_BOTTOM_MARGIN} 0;
+    }
+`;
+
+const HowToQualifyIconContainer = styled('div')`
+    display: flex;
+    height: ${size.xlarge};
+    @media ${screenSize.upToLarge} {
+        height: ${size.large};
+    }
+`;
+
+const HowToQualifyIcon = styled('img')`
+    align-self: center;
+    max-height: 100%;
+`;
+
+const HowToQualifyCardDescription = styled(Description)`
+    line-height: ${lineHeight.default};
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.tiny};
+        line-height: ${lineHeight.tiny};
+    }
+`;
+
+const HowToQualifyCard = ({ icon, title, description }) => (
+    <HowToQualifyCardContainer>
+        <HowToQualifyIconContainer>{icon}</HowToQualifyIconContainer>
+        <HowToQualifyCardTitle>{title}</HowToQualifyCardTitle>
+        <HowToQualifyCardDescription collapse>
+            {description}
+        </HowToQualifyCardDescription>
+    </HowToQualifyCardContainer>
+);
+
 const communityChampionBreadcrumbs = [
     { label: 'Home', target: '/' },
     {
@@ -501,6 +592,80 @@ const CommunityChampions = () => {
                         />
                     </BenefitsAndRewardsGrid>
                 </BenefitsAndRewardsContainer>
+                <HowToQualifyContainer>
+                    <Title>How to Qualify</Title>
+                    <HowToQualifyContributeSection>
+                        <HowToQualifyContributeTitle>
+                            Contribute
+                        </HowToQualifyContributeTitle>
+                        <Description collapse>
+                            Our goal is to recognize our most invested community
+                            members for contributing in the ways that are the
+                            most meaningful to them.
+                        </Description>
+                    </HowToQualifyContributeSection>
+                    <HowToQualifyGrid>
+                        <HowToQualifyCard
+                            icon={
+                                <HowToQualifyIcon
+                                    src={BrowserWindowWithStarImage}
+                                    alt="Browser window with a star"
+                                />
+                            }
+                            title="Create"
+                            description="Create content such as blog posts, podcasts, videos, and more"
+                        />
+                        <HowToQualifyCard
+                            icon={
+                                <HowToQualifyIcon
+                                    src={MicrophoneImage}
+                                    alt="Microphone"
+                                />
+                            }
+                            title="Speak"
+                            description="Speak at MongoDB or related events"
+                        />
+                        <HowToQualifyCard
+                            icon={
+                                <HowToQualifyIcon
+                                    src={ChatBubblesImage}
+                                    alt="Two chat message bubbles"
+                                />
+                            }
+                            title="Participate"
+                            description="Participate in the community forums"
+                        />
+                        <HowToQualifyCard
+                            icon={
+                                <HowToQualifyIcon
+                                    src={GroupImage}
+                                    alt="Group leader with followers behind them"
+                                />
+                            }
+                            title="Lead"
+                            description="Lead user groups"
+                        />
+                        <HowToQualifyCard
+                            icon={
+                                <HowToQualifyIcon
+                                    src={RocketShipImage}
+                                    alt="Rocket ship taking off"
+                                />
+                            }
+                            title="Test"
+                            description="Provide user feedback and participate in beta testing programs"
+                        />
+                        <HowToQualifyCard
+                            icon={
+                                <HowToQualifyIcon
+                                    src={StackSquaresImage}
+                                    alt="Stack squares"
+                                />
+                            }
+                            title="And more!"
+                        />
+                    </HowToQualifyGrid>
+                </HowToQualifyContainer>
             </ContentContainer>
         </Layout>
     );
