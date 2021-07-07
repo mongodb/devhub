@@ -18,20 +18,17 @@ export const DefaultBulletText = styled(P)`
 `;
 
 const GreenBulletedList = ({
-    bulletTextComponent = DefaultBulletText,
+    BulletText = DefaultBulletText,
     children,
     ...props
-}) => {
-    const BulletText = bulletTextComponent;
-    return (
-        <GreenBullet {...props}>
-            {children.map(content => (
-                <ListItemWithSpacing key={content}>
-                    <BulletText>{content}</BulletText>
-                </ListItemWithSpacing>
-            ))}
-        </GreenBullet>
-    );
-};
+}) => (
+    <GreenBullet {...props}>
+        {children.map(content => (
+            <ListItemWithSpacing key={content}>
+                <BulletText>{content}</BulletText>
+            </ListItemWithSpacing>
+        ))}
+    </GreenBullet>
+);
 
 export default GreenBulletedList;

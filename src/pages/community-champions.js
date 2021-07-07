@@ -43,6 +43,7 @@ const LEAD_BY_EXAMPLE_ICON_WIDTH = '44px';
 const LEAD_BY_EXAMPLE_ICON_MOBILE_WIDTH = '38px';
 const LEAD_BY_EXAMPLE_GRID_COLUMN_GAP = '48px';
 const LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN = '40px';
+const BENEFITS_AND_REWARDS_GRID_ROW_GAP = '48px';
 const BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT = '170px';
 const HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN = '56px';
 const HOW_TO_QUALIFY_CONTRIBUTE_SECTION_WIDTH = '54%';
@@ -222,7 +223,7 @@ const LeadByExampleTitle = styled(H4)`
 
 const BenefitsAndRewardsGrid = styled('div')`
     display: grid;
-    grid-row-gap: ${size.large};
+    grid-row-gap: ${BENEFITS_AND_REWARDS_GRID_ROW_GAP};
     @media ${screenSize.mediumAndUp} {
         grid-column-gap: ${size.mediumLarge};
         grid-template-columns: repeat(2, 1fr);
@@ -241,6 +242,10 @@ const BenefitsAndRewardsSectionTitle = styled(H5)`
     margin-bottom: ${size.default};
     margin-top: ${size.mediumLarge};
     text-align: center;
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.medium};
+        line-height: ${lineHeight.medium};
+    }
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.xsmall};
     }
@@ -266,6 +271,10 @@ const BenefitsAndRewardsContainer = styled('div')`
 const BulletText = styled(P2)`
     color: ${({ theme }) => theme.colorMap.devWhite};
     margin-bottom: 0;
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.small};
+        line-height: ${lineHeight.small};
+    }
 `;
 
 const GreenBulletedListWithNoMargin = styled(GreenBulletedList)`
@@ -275,14 +284,14 @@ const GreenBulletedListWithNoMargin = styled(GreenBulletedList)`
     }
 `;
 
-const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
+const BenefitsAndRewardsItem = ({ bullets, icon, title }) => (
     <BenefitsAndRewardsItemContainer>
         <BenefitsAndRewardsImageContainer>
             {icon}
         </BenefitsAndRewardsImageContainer>
         <BenefitsAndRewardsSectionTitle>{title}</BenefitsAndRewardsSectionTitle>
         <GreenBulletedListWithNoMargin
-            bulletTextComponent={BulletText}
+            BulletText={BulletText}
             children={bullets}
         />
     </BenefitsAndRewardsItemContainer>
@@ -383,12 +392,13 @@ const CommunityChampions = () => {
     return (
         <Layout>
             <StyledHeroBanner
-                breadcrumb={communityChampionBreadcrumbs}
                 /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={
                     useBannerImageWithSpace ? BannerImageWithSpace : BannerImage
                 }
                 backgroundPosition="85% center"
+                breadcrumb={communityChampionBreadcrumbs}
+                imageAltText="Community Champions Badge - a dark grey circular ribbon with gold stars around a gold MongoDB leaf icon"
                 imageWidthOnMobile="auto"
                 maintainSquareAspectRatio={false}
             >
@@ -417,7 +427,7 @@ const CommunityChampions = () => {
                             mediaComponent={
                                 <ImageWithRoundedCorners
                                     src={PartnerWithMongoDBImage}
-                                    alt="MongoDB employees video conferencing with Community Champions and providing a product timeline update"
+                                    alt='Close-up of a laptop video screen showing two MongoDB employees video conferencing with 7 Community Champions, with a slide entitled "Product Timeline Update"'
                                 />
                             }
                         >
@@ -431,7 +441,7 @@ const CommunityChampions = () => {
                             mediaComponent={
                                 <ImageWithRoundedCorners
                                     src={CollaborateWithCommunityImage}
-                                    alt="Group of community members sitting around a table and working on tablets at an event"
+                                    alt="Six community members sitting around a table using a stylus or their fingers to work on tablets at an event"
                                 />
                             }
                         >
@@ -522,6 +532,12 @@ const CommunityChampions = () => {
                     <Title>Benefits &amp; Rewards</Title>
                     <BenefitsAndRewardsGrid>
                         <BenefitsAndRewardsItem
+                            bullets={[
+                                'Participation in product beta testing, as available',
+                                'Product feedback sessions',
+                                'Product Early Access pilot',
+                                'Access to MongoDB product teams and executives',
+                            ]}
                             icon={
                                 <img
                                     src={BuildingBlocksImage}
@@ -529,14 +545,13 @@ const CommunityChampions = () => {
                                 />
                             }
                             title="Product"
-                            bullets={[
-                                'Participation in product beta testing, as available',
-                                'Product feedback sessions',
-                                'Product Early Access pilot',
-                                'Access to MongoDB product teams and executives',
-                            ]}
                         />
                         <BenefitsAndRewardsItem
+                            bullets={[
+                                'Access to private MongoDB Champion sub-forum on MongoDB Developer Forums',
+                                'Branded badges and ranks on Developer forums and social media',
+                                'Opportunities to mentor MongoDB newcomers',
+                            ]}
                             icon={
                                 <img
                                     src={PeopleInCircleImage}
@@ -544,13 +559,14 @@ const CommunityChampions = () => {
                                 />
                             }
                             title="Community"
-                            bullets={[
-                                'Access to private MongoDB Champion sub-forum on MongoDB Developer Forums',
-                                'Branded badges and ranks on Developer forums and social media',
-                                'Opportunities to mentor MongoDB newcomers',
-                            ]}
                         />
                         <BenefitsAndRewardsItem
+                            bullets={[
+                                'Full (free) access to MongoDB events',
+                                'Expense reimbursement for travel and accommodation for events, VIP seats, and VIP events',
+                                'Featured profile on MongoDB DevHub',
+                                'SWAG',
+                            ]}
                             icon={
                                 <img
                                     src={EventAdmissionTicketImage}
@@ -558,21 +574,8 @@ const CommunityChampions = () => {
                                 />
                             }
                             title="Events &amp; Exposure"
-                            bullets={[
-                                'Full (free) access to MongoDB events',
-                                'Expense reimbursement for travel and accommodation for events, VIP seats, and VIP events',
-                                'Featured profile on MongoDB DevHub',
-                                'SWAG',
-                            ]}
                         />
                         <BenefitsAndRewardsItem
-                            icon={
-                                <img
-                                    src={UpwardsArrowImage}
-                                    alt="Arrow pointing upwards"
-                                />
-                            }
-                            title="Growth"
                             bullets={[
                                 'Speaker training',
                                 'Social media training',
@@ -580,6 +583,13 @@ const CommunityChampions = () => {
                                 'Personal branding strategies',
                                 'Free MongoDB certification and University On Demand',
                             ]}
+                            icon={
+                                <img
+                                    src={UpwardsArrowImage}
+                                    alt="Arrow pointing upwards"
+                                />
+                            }
+                            title="Growth"
                         />
                     </BenefitsAndRewardsGrid>
                 </BenefitsAndRewardsContainer>
