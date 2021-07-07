@@ -289,7 +289,7 @@ const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
 );
 
 const HowToQualifyContainer = styled('div')`
-    margin: ${size.xlarge} 0 ${HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN} 0;
+    margin: ${size.xlarge} 0 ${HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN};
     @media ${screenSize.upToLarge} {
         margin: ${size.large} 0;
     }
