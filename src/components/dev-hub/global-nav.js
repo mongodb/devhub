@@ -7,6 +7,7 @@ import LeafLogo from './icons/mdb-dev-logo-leaf';
 import Link from '../Link';
 import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
+import Button from './button';
 import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
 import Searchbar from './searchbar';
@@ -14,7 +15,7 @@ import Searchbar from './searchbar';
 const GREEN_BORDER_SIZE = '2px';
 // Account for bottom bar on mobile browsers
 const MOBILE_MENU_ADDITIONAL_PADDING = '256px';
-const MOBILE_NAV_BREAK = screenSize.upToLarge;
+const MOBILE_NAV_BREAK = screenSize.upToSmallDesktop;
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
 
@@ -53,6 +54,9 @@ const MobileNavMenu = styled('div')`
 `;
 
 const MaxWidthContainer = styled('div')`
+    align-items: center;
+    display: grid;
+    grid-template-columns: auto 32px max-content;
     margin: 0 auto;
     max-width: ${size.maxWidth};
     position: relative;
@@ -65,13 +69,10 @@ const NavContent = styled('div')`
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    @media ${screenSize.upToSmallDesktop} {
-        ${({ isExpanded }) => isExpanded && expandedState};
-    }
+    ${({ isExpanded }) => isExpanded && expandedState};
     @media ${MOBILE_NAV_BREAK} {
         display: grid;
         grid-template-columns: ${size.large} auto ${size.large};
-        justify-items: center;
         padding: 0;
     }
 `;
@@ -106,6 +107,18 @@ const HomeLink = styled(NavLink)`
     }
     @media ${screenSize.upToXlarge} {
         padding: ${LINK_VERTICAL_PADDING} ${size.medium};
+    }
+`;
+
+const SignInButton = styled(Button)`
+    align-self: center;
+    padding: ${size.xsmall} ${size.default};
+    white-space: nowrap;
+    :first-of-type {
+        margin-right: ${size.default};
+    }
+    @media ${screenSize.upToMedium} {
+        padding: ${size.xsmall} ${size.default};
     }
 `;
 
@@ -190,6 +203,14 @@ const GlobalNav = () => {
                     isExpanded={isSearchbarExpanded}
                     setIsExpanded={onSearchbarExpand}
                 />
+                <div>
+                    <SignInButton primary hasArrow={false}>
+                        Sign Up
+                    </SignInButton>
+                    <SignInButton secondary hasArrow={false}>
+                        Sign In
+                    </SignInButton>
+                </div>
             </MaxWidthContainer>
         </Nav>
     );
