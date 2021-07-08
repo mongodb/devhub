@@ -430,9 +430,9 @@ const OtherDetailsAndRequirementsImage = styled('img')`
     width: ${OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_WIDTH};
 `;
 
-const OtherDetailsAndRequirementsBulletText = styled(Description)`
-    margin-bottom: 0;
-`;
+const OtherDetailsAndRequirementsBulletText = ({ children }) => (
+    <Description collapse>{children}</Description>
+);
 
 const OtherDetailsAndRequirementsBullets = () => (
     <GreenBulletedListWithGreyText
