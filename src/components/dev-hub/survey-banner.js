@@ -53,7 +53,7 @@ const surveyLink =
     'https://mongodb.co1.qualtrics.com/jfe/form/SV_24x6XG9EVxE0dOm';
 
 const SurveyBanner = () => {
-    const [showSurveyBanner, setShowSurveyBanner] = useState(true);
+    const [showSurveyBanner, setShowSurveyBanner] = useState(false);
     const closeSurveyBanner = () => {
         localStorage.setItem('surveybanner', 'hide');
         setShowSurveyBanner(false);
@@ -65,6 +65,8 @@ const SurveyBanner = () => {
         );
         if (storedBannerDisplayInLocalStorage === 'hide') {
             setShowSurveyBanner(false);
+        } else {
+            setShowSurveyBanner(true);
         }
     }, []);
 
