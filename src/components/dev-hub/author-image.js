@@ -9,10 +9,10 @@ import DEFAULT_AUTHOR_IMAGE from '../../images/2x/Default-Profile@2x.png';
 const DEFAULT_GRADIENT_POSITION_OFFSET = 6;
 const DEFAULT_IMAGE_HEIGHT = 50;
 
-const imageStyles = (background, isInternalReference) => css`
+const imageStyles = (defaultImage, background, isInternalReference) => css`
     background-image: ${background
         ? `url(${isInternalReference ? withPrefix(background) : background})`
-        : `url(${DEFAULT_AUTHOR_IMAGE})`};
+        : `url(${defaultImage})`};
     background-position: center center;
     background-size: auto 100%;
 `;
@@ -31,7 +31,7 @@ const AuthorImageContainer = styled('div')`
         ${({ gradientOffset, theme }) =>
             createShadowElement(
                 theme.gradientMap.greenTealOffset,
-                size.large,
+                '50%',
                 0,
                 -gradientOffset
             )};
@@ -48,11 +48,12 @@ const CircularImage = styled('div')`
     margin-right: ${size.medium};
     position: relative;
     width: ${({ width }) => width}px;
-    ${({ image, isInternalReference }) =>
-        imageStyles(image, isInternalReference)};
+    ${({ defaultImage, image, isInternalReference }) =>
+        imageStyles(defaultImage, image, isInternalReference)};
 `;
 
 const AuthorImage = ({
+    defaultImage = DEFAULT_AUTHOR_IMAGE,
     image,
     isInternalReference = true,
     gradientOffset = DEFAULT_GRADIENT_POSITION_OFFSET,
@@ -70,6 +71,7 @@ const AuthorImage = ({
         {...props}
     >
         <CircularImage
+            defaultImage={defaultImage}
             isInternalReference={isInternalReference}
             height={height}
             width={width}

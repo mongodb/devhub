@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import AuthorImage from '~components/dev-hub/author-image';
 import Button from '~components/dev-hub/button';
 import GreenBulletedList from '~components/dev-hub/green-bulleted-list';
 import HeroBanner from '~components/dev-hub/hero-banner';
@@ -18,7 +19,7 @@ import {
     P3,
     P4,
 } from '~components/dev-hub/text';
-import { colorMap, screenSize, size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 import BadgeImage from '~images/community-champions/champions-badge.svg';
 import BadgeImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
 import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.jpg';
@@ -62,9 +63,8 @@ const OTHER_DETAILS_AND_REQUIREMENTS_DESCRIPTION_MAX_WIDTH = '690px';
 const OTHER_DETAILS_AND_REQUIREMENTS_LIST_MAX_WIDTH = '480px';
 const CHAMPION_ITEM_CONTAINER_WIDTH = '200px';
 const CHAMPION_ITEM_CONTAINER_MOBILE_WIDTH = '170px';
-const CHAMPION_PROFILE_PICTURE_BORDER_WIDTH = '4px';
-const CHAMPION_PROFILE_PICTURE_BORDER_RADIUS = '360px';
-const CHAMPION_PROFILE_PICTURE_SIZE = '120px';
+const CHAMPION_PROFILE_PICTURE_SIZE = 112;
+const CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET = 8;
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -483,7 +483,7 @@ const ChampionsContainer = styled('div')`
 /* TODO: Replace dummy data and fetch champion data from Strapi */
 const communityChampions = Array(14).fill({
     imageUrl: '',
-    fullName: 'Leandro Domingues',
+    name: 'Leandro Domingues',
     title: 'Founder, CTO, Engineer',
     location: 'Sao Paulo, Brazil',
 });
@@ -526,28 +526,21 @@ const ChampionTitleText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
-const ChampionProfilePictureWithGradientBorder = styled('div')`
-    background-clip: content-box, border-box;
-    background-image: url(${({ imageUrl }) =>
-            imageUrl ? `${imageUrl}` : `${BadgeImage}`}),
-        linear-gradient(
-            300deg,
-            #7acfdd,
-            ${colorMap.lightGreen},
-            ${colorMap.darkGreen}
-        );
-    background-origin: border-box;
-    background-size: cover;
-    border: ${CHAMPION_PROFILE_PICTURE_BORDER_WIDTH} solid transparent;
-    border-radius: ${CHAMPION_PROFILE_PICTURE_BORDER_RADIUS};
+const ChampionProfilePicture = styled(AuthorImage)`
     margin-bottom: ${size.default};
-    height: ${CHAMPION_PROFILE_PICTURE_SIZE};
-    width: ${CHAMPION_PROFILE_PICTURE_SIZE};
 `;
 
 const ChampionItem = ({ imageUrl, name, title, location }) => (
     <ChampionItemContainer>
-        <ChampionProfilePictureWithGradientBorder imageUrl={imageUrl} />
+        <ChampionProfilePicture
+            defaultImage={BadgeImage} // TODO: confirm/update placeholder image
+            gradientOffset={CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET}
+            hideOnMobile={false}
+            image={imageUrl}
+            key={name}
+            height={CHAMPION_PROFILE_PICTURE_SIZE}
+            width={CHAMPION_PROFILE_PICTURE_SIZE}
+        />
         <H6 collapse>{name}</H6>
         <ChampionTitleText collapse>{title}</ChampionTitleText>
         <ChampionLocation location={location} />
@@ -556,10 +549,10 @@ const ChampionItem = ({ imageUrl, name, title, location }) => (
 
 const ChampionList = ({ champions }) => (
     <ChampionsContainer>
-        {champions.map(({ imageUrl, fullName, title, location }) => (
+        {champions.map(({ imageUrl, name, title, location }) => (
             <ChampionItem
                 imageUrl={imageUrl}
-                name={fullName}
+                name={name}
                 title={title}
                 location={location}
             />
