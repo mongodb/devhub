@@ -67,7 +67,7 @@ const SearchbarContainer = styled('div')`
         isExpanded ? SEARCHBAR_HEIGHT : BUTTON_SIZE};
     position: ${({ isExpanded }) => (isExpanded ? 'absolute' : 'relative')};
     top: 0;
-    right: ${size.default};
+    right: 0;
     width: ${({ isExpanded }) =>
         isExpanded ? SEARCHBAR_DESKTOP_WIDTH : BUTTON_SIZE};
     z-index: ${layer.front};
@@ -92,9 +92,13 @@ const SearchbarContainer = styled('div')`
             isExpanded ? `right: ${size.default}` : 'right: 0'};
     }
     @media ${screenSize.upToSmall} {
-        top: ${SEARCHBAR_HEIGHT_OFFSET};
+        top: 0;
         height: ${({ isExpanded, isSearching }) =>
-            isExpanded && isSearching ? '100%' : SEARCHBAR_HEIGHT};
+            isExpanded && isSearching
+                ? '100%'
+                : isExpanded
+                ? SEARCHBAR_HEIGHT
+                : '20px'};
         width: ${({ isExpanded }) => (isExpanded ? '100%' : BUTTON_SIZE)};
         ${({ isExpanded }) => isExpanded && 'left: 0'};
         :focus,
