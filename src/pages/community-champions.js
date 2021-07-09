@@ -45,6 +45,7 @@ import RocketShipImage from '~images/community-champions/rocket-ship.svg';
 import StackSquaresImage from '~images/community-champions/stack-squares.svg';
 import PaperAndPencilImage from '~images/community-champions/paper-and-pencil.svg';
 import PinLocationIcon from '~images/community-champions/pin-location.svg';
+import ChampionPlaceholderImage from '~images/community-champions/champion-placeholder.svg';
 import useMedia from '~hooks/use-media';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
@@ -555,12 +556,15 @@ const ChampionTitleText = styled(P3)`
 
 const ChampionProfilePicture = styled(AuthorImage)`
     margin-bottom: ${size.default};
+    div {
+        background-size: cover;
+    }
 `;
 
 const ChampionItem = ({ imageUrl, name, title, location }) => (
     <ChampionItemContainer>
         <ChampionProfilePicture
-            defaultImage={BannerImage} // TODO: confirm/update placeholder image
+            defaultImage={ChampionPlaceholderImage}
             gradientOffset={CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET}
             hideOnMobile={false}
             image={imageUrl}
