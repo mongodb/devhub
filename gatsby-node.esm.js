@@ -252,6 +252,5 @@ export const onCreatePage = async ({ page, actions }) =>
         articlesWithoutContentAST,
         homeFeaturedArticles,
         learnFeaturedArticles,
-        excludedLearnPageArticles,
-        allPodcasts
+        excludedLearnPageArticles
     );
