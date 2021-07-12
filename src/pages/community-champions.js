@@ -234,7 +234,7 @@ const BenefitsAndRewardsGrid = styled('div')`
         grid-column-gap: ${size.mediumLarge};
         grid-template-columns: repeat(2, 1fr);
     }
-    @media ${screenSize.largeAndUp} {
+    @media ${screenSize.smallDesktopAndUp} {
         grid-template-columns: repeat(4, 1fr);
     }
 `;
@@ -356,7 +356,7 @@ const HowToQualifyCardTitle = styled(H5)`
 const HowToQualifyIconContainer = styled('div')`
     display: flex;
     height: ${size.xlarge};
-    @media ${screenSize.upToLarge} {
+    @media ${screenSize.upToMedium} {
         height: ${size.large};
     }
 `;
