@@ -168,7 +168,7 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
     );
 
     useEventListener('keydown', onKeyDown, {
-        dependencies: [searchTextbox.current],
+        dependencies: [isFocused, searchTextbox.current],
         element: searchTextbox.current,
         enabled: isFocused,
     });
