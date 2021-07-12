@@ -16,9 +16,9 @@ const ExpandButton = styled(IconButton)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
     height: 20px;
     position: absolute;
-    right: 20px;
+    left: 0;
     /* 20px button in a 36px container, 8px top gives equal spacing */
-    top: 8px;
+    top: 0;
     width: 20px;
     z-index: 1;
     :hover,
