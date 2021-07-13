@@ -608,17 +608,15 @@ const ChampionList = () => {
         <ChampionsContainer>
             {champions
                 .sort((a, b) => a.fullName.localeCompare(b.fullName))
-                .map(({ fullName, id, image, location, title }) => {
-                    return (
-                        <ChampionItem
-                            imageUrl={image ? image.url : null}
-                            key={id}
-                            location={location}
-                            name={fullName}
-                            title={title}
-                        />
-                    );
-                })}
+                .map(({ fullName, id, image, location, title }) => (
+                    <ChampionItem
+                        imageUrl={image ? image.url : null}
+                        key={id}
+                        location={location}
+                        name={fullName}
+                        title={title}
+                    />
+                ))}
         </ChampionsContainer>
     );
 };
