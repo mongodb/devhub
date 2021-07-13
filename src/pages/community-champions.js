@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import dlv from 'dlv';
+import { useStaticQuery, graphql } from 'gatsby';
 import AuthorImage from '~components/dev-hub/author-image';
 import Button from '~components/dev-hub/button';
 import GreenBulletedList from '~components/dev-hub/green-bulleted-list';
@@ -508,14 +510,6 @@ const ChampionsContainer = styled('div')`
     } ;
 `;
 
-/* TODO: Replace dummy data and fetch champion data from Strapi */
-const communityChampions = Array(14).fill({
-    imageUrl: '',
-    name: 'Leandro Domingues',
-    title: 'Founder, CTO, Engineer',
-    location: 'Sao Paulo, Brazil',
-});
-
 const ChampionItemContainer = styled('div')`
     align-items: center;
     display: flex;
@@ -561,7 +555,7 @@ const ChampionProfilePicture = styled(AuthorImage)`
     }
 `;
 
-const ChampionItem = ({ imageUrl, name, title, location }) => (
+const ChampionItem = ({ imageUrl, location, name, title }) => (
     <ChampionItemContainer>
         <ChampionProfilePicture
             defaultImage={ChampionPlaceholderImage}
@@ -578,18 +572,54 @@ const ChampionItem = ({ imageUrl, name, title, location }) => (
     </ChampionItemContainer>
 );
 
-const ChampionList = ({ champions }) => (
-    <ChampionsContainer>
-        {champions.map(({ imageUrl, name, title, location }) => (
-            <ChampionItem
-                imageUrl={imageUrl}
-                name={name}
-                title={title}
-                location={location}
-            />
-        ))}
-    </ChampionsContainer>
-);
+const communityChampions = graphql`
+    query CommunityChampions {
+        allStrapiCommunityChampions {
+            nodes {
+                firstName
+                middleName
+                lastName
+                location
+                title
+                image {
+                    url
+                }
+            }
+        }
+    }
+`;
+
+const ChampionList = () => {
+    const data = useStaticQuery(communityChampions);
+    const champions = dlv(
+        data,
+        ['allStrapiCommunityChampions', 'nodes'],
+        []
+    ).map(champion => {
+        champion.fullName = [
+            champion.firstName,
+            champion.middleName,
+            champion.lastName,
+        ].join(' ');
+        return champion;
+    });
+    return (
+        <ChampionsContainer>
+            {champions
+                .sort((a, b) => a.fullName.localeCompare(b.fullName))
+                .map(({ fullName, image, location, title }) => {
+                    return (
+                        <ChampionItem
+                            imageUrl={image ? image.url : null}
+                            location={location}
+                            name={fullName}
+                            title={title}
+                        />
+                    );
+                })}
+        </ChampionsContainer>
+    );
+};
 
 const communityChampionBreadcrumbs = [
     { label: 'Home', target: '/' },
@@ -882,7 +912,7 @@ const CommunityChampions = () => {
                 <OtherDetailsAndRequirements />
                 <MeetTheChampionsContainer>
                     <Title>Meet the Champions</Title>
-                    <ChampionList champions={communityChampions} />
+                    <ChampionList />
                 </MeetTheChampionsContainer>
             </ContentContainer>
         </Layout>
