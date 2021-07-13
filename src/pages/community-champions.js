@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import AuthorImage from '~components/dev-hub/author-image';
+import dlv from 'dlv';
+import { useStaticQuery, graphql } from 'gatsby';
 import Button from '~components/dev-hub/button';
 import GreenBulletedList from '~components/dev-hub/green-bulleted-list';
 import HeroBanner from '~components/dev-hub/hero-banner';
 import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
+import ProfileImage from '~components/dev-hub/profile-image';
 import {
     H1,
     H2,
@@ -510,14 +512,6 @@ const ChampionsContainer = styled('div')`
     } ;
 `;
 
-/* TODO: Replace dummy data and fetch champion data from Strapi */
-const communityChampions = Array(14).fill({
-    imageUrl: '',
-    name: 'Leandro Domingues',
-    title: 'Founder, CTO, Engineer',
-    location: 'Sao Paulo, Brazil',
-});
-
 const ChampionItemContainer = styled('div')`
     align-items: center;
     display: flex;
@@ -556,14 +550,14 @@ const ChampionTitleText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
-const ChampionProfilePicture = styled(AuthorImage)`
+const ChampionProfilePicture = styled(ProfileImage)`
     margin-bottom: ${size.default};
     div {
         background-size: cover;
     }
 `;
 
-const ChampionItem = ({ imageUrl, name, title, location }) => (
+const ChampionItem = ({ imageUrl, location, name, title }) => (
     <ChampionItemContainer>
         <ChampionProfilePicture
             defaultImage={ChampionPlaceholderImage}
@@ -580,18 +574,54 @@ const ChampionItem = ({ imageUrl, name, title, location }) => (
     </ChampionItemContainer>
 );
 
-const ChampionList = ({ champions }) => (
-    <ChampionsContainer>
-        {champions.map(({ imageUrl, name, title, location }) => (
-            <ChampionItem
-                imageUrl={imageUrl}
-                name={name}
-                title={title}
-                location={location}
-            />
-        ))}
-    </ChampionsContainer>
-);
+const communityChampions = graphql`
+    query CommunityChampions {
+        allStrapiCommunityChampions {
+            nodes {
+                id
+                firstName
+                middleName
+                lastName
+                location
+                title
+                image {
+                    url
+                }
+            }
+        }
+    }
+`;
+
+const ChampionList = () => {
+    const data = useStaticQuery(communityChampions);
+    const champions = dlv(
+        data,
+        ['allStrapiCommunityChampions', 'nodes'],
+        []
+    ).map(champion => {
+        champion.fullName = [
+            champion.firstName,
+            champion.middleName,
+            champion.lastName,
+        ].join(' ');
+        return champion;
+    });
+    return (
+        <ChampionsContainer>
+            {champions
+                .sort((a, b) => a.fullName.localeCompare(b.fullName))
+                .map(({ fullName, id, image, location, title }) => (
+                    <ChampionItem
+                        imageUrl={image ? image.url : null}
+                        key={id}
+                        location={location}
+                        name={fullName}
+                        title={title}
+                    />
+                ))}
+        </ChampionsContainer>
+    );
+};
 
 const ForTheFutureTitle = styled(H1)`
     margin-bottom: ${size.large};
@@ -910,7 +940,7 @@ const CommunityChampions = () => {
                 <OtherDetailsAndRequirements />
                 <MeetTheChampionsContainer>
                     <Title>Meet the Champions</Title>
-                    <ChampionList champions={communityChampions} />
+                    <ChampionList />
                 </MeetTheChampionsContainer>
                 <ForTheFutureContainer>
                     <ForTheFutureTitle>For the Future</ForTheFutureTitle>
