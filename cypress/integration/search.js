@@ -30,6 +30,8 @@ const checkSearchResults = page => {
 const checkCondensedSearchbar = () => {
     cy.get(SEARCHBAR).should('not.exist');
     cy.get("[data-test='Closed Searchbar Button']").should('exist').click();
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
     cy.get(SEARCHBAR).should('exist');
 };
 
