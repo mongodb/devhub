@@ -576,6 +576,7 @@ const communityChampions = graphql`
     query CommunityChampions {
         allStrapiCommunityChampions {
             nodes {
+                id
                 firstName
                 middleName
                 lastName
@@ -607,10 +608,11 @@ const ChampionList = () => {
         <ChampionsContainer>
             {champions
                 .sort((a, b) => a.fullName.localeCompare(b.fullName))
-                .map(({ fullName, image, location, title }) => {
+                .map(({ fullName, id, image, location, title }) => {
                     return (
                         <ChampionItem
                             imageUrl={image ? image.url : null}
+                            key={id}
                             location={location}
                             name={fullName}
                             title={title}
