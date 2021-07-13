@@ -2,13 +2,13 @@ import React from 'react';
 import styled from '@emotion/styled';
 import dlv from 'dlv';
 import { useStaticQuery, graphql } from 'gatsby';
-import AuthorImage from '~components/dev-hub/author-image';
 import Button from '~components/dev-hub/button';
 import GreenBulletedList from '~components/dev-hub/green-bulleted-list';
 import HeroBanner from '~components/dev-hub/hero-banner';
 import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
+import ProfileImage from '~components/dev-hub/profile-image';
 import {
     H1,
     H2,
@@ -548,7 +548,7 @@ const ChampionTitleText = styled(P3)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
-const ChampionProfilePicture = styled(AuthorImage)`
+const ChampionProfilePicture = styled(ProfileImage)`
     margin-bottom: ${size.default};
     div {
         background-size: cover;
