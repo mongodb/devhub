@@ -97,6 +97,7 @@ const HeroBanner = ({
     children,
     collapse,
     backgroundPosition = '100%',
+    imageAltText = '',
     maintainSquareAspectRatio = true,
     // Setting below to false would allow for bleed effect on bg
     shouldContainBackground = true,
@@ -126,7 +127,7 @@ const HeroBanner = ({
                             }
                             imageWidthOnMobile={imageWidthOnMobile}
                         >
-                            <img src={background} alt="" />
+                            <img src={background} alt={imageAltText} />
                         </MobileMediaContainer>
                     )}
                     {children}
