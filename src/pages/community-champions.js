@@ -74,6 +74,9 @@ const CHAMPION_ITEM_CONTAINER_WIDTH = '200px';
 const CHAMPION_ITEM_CONTAINER_MOBILE_WIDTH = '170px';
 const CHAMPION_PROFILE_PICTURE_SIZE = 112;
 const CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET = 8;
+const LOCATION_CONTAINER_TOP_MARGIN = '4px';
+const LOCATION_CONTAINER_MOBILE_TOP_MARGIN = '2px';
+const PIN_LOCATION_IMAGE_RIGHT_MARGIN = '4px';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -526,11 +529,14 @@ const ChampionItemContainer = styled('div')`
 const LocationContainer = styled('div')`
     display: flex;
     justify-content: center;
-    margin-top: ${size.tiny};
+    margin-top: ${LOCATION_CONTAINER_TOP_MARGIN};
+    @media ${screenSize.upToMedium} {
+        margin-top: ${LOCATION_CONTAINER_MOBILE_TOP_MARGIN};
+    }
 `;
 
 const PinLocationImage = styled('img')`
-    margin-right: ${size.tiny};
+    margin-right: ${PIN_LOCATION_IMAGE_RIGHT_MARGIN};
 `;
 
 const LocationText = styled(P4)`
@@ -574,7 +580,9 @@ const ChampionItem = ({ imageUrl, location, name, title }) => (
 
 const communityChampions = graphql`
     query CommunityChampions {
-        allStrapiCommunityChampions {
+        allStrapiCommunityChampions(
+            sort: { fields: [firstName, middleName, lastName] }
+        ) {
             nodes {
                 id
                 firstName
@@ -592,31 +600,28 @@ const communityChampions = graphql`
 
 const ChampionList = () => {
     const data = useStaticQuery(communityChampions);
-    const champions = dlv(
-        data,
-        ['allStrapiCommunityChampions', 'nodes'],
-        []
-    ).map(champion => {
-        champion.fullName = [
-            champion.firstName,
-            champion.middleName,
-            champion.lastName,
-        ].join(' ');
-        return champion;
-    });
+    const champions = dlv(data, ['allStrapiCommunityChampions', 'nodes'], []);
     return (
         <ChampionsContainer>
-            {champions
-                .sort((a, b) => a.fullName.localeCompare(b.fullName))
-                .map(({ fullName, id, image, location, title }) => (
+            {champions.map(
+                ({
+                    firstName,
+                    id,
+                    image,
+                    lastName,
+                    location,
+                    middleName,
+                    title,
+                }) => (
                     <ChampionItem
                         imageUrl={image ? image.url : null}
                         key={id}
                         location={location}
-                        name={fullName}
+                        name={[firstName, middleName, lastName].join(' ')}
                         title={title}
                     />
-                ))}
+                )
+            )}
         </ChampionsContainer>
     );
 };
