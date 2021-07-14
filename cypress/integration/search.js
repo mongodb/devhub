@@ -29,9 +29,9 @@ const checkSearchResults = page => {
 
 const checkCondensedSearchbar = () => {
     cy.get(SEARCHBAR).should('not.exist');
-    cy.get("[data-test='Closed Searchbar Button']").should('exist').click();
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000);
+    cy.get("[data-test='Closed Searchbar Button']")
+        .should('exist')
+        .click({ force: true });
     cy.get(SEARCHBAR).should('exist');
 };
 
@@ -50,7 +50,7 @@ const checkSearchPage = page =>
 
 const checkDisabled = el => el.should('have.attr', 'aria-disabled', 'true');
 
-describe('search', () => {
+describe('search', { retries: { runMode: 3, openMode: 3 } }, () => {
     it('should properly render a toggleable search', () => {
         // Change viewport, as here it is condensed by default
         cy.viewport(1040, 660);
