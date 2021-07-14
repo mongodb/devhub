@@ -541,6 +541,7 @@ const PinLocationImage = styled('img')`
 
 const LocationText = styled(P4)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    white-space: nowrap;
 `;
 
 const ChampionLocation = ({ location }) => (
