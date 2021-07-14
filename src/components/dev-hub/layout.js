@@ -9,6 +9,7 @@ import { TabProvider } from './tab-context';
 import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
+import { AuthenticationProvider } from './SSO';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
 import TopBanner from './top-banner';
 import '../../styles/font.css';
@@ -86,32 +87,34 @@ export default ({ children, includeCanonical = true }) => {
         `${siteUrl}${localPagePath}`
     );
     return (
-        <ThemeProvider theme={darkTheme}>
-            <GlobalWrapper>
-                <Helmet htmlAttributes={{ lang: 'en' }}>
-                    <meta name="robots" content="index" />
-                    <link
-                        type="application/opensearchdescription+xml"
-                        rel="search"
-                        href="https://developer.mongodb.com/opensearch.xml"
-                        title="MongoDB Developer Hub"
-                    />
-                    <link
-                        rel="shortcut icon"
-                        href="https://www.mongodb.com/assets/images/global/favicon.ico"
-                    />
-                    {includeCanonical && (
-                        <link rel="canonical" href={canonicalUrl} />
-                    )}
-                </Helmet>
-                <Global styles={style} />
-                <TopBanner />
-                <GlobalNav />
-                <TabProvider>
-                    <Main>{children}</Main>
-                </TabProvider>
-                <GlobalFooter />
-            </GlobalWrapper>
-        </ThemeProvider>
+        <AuthenticationProvider>
+            <ThemeProvider theme={darkTheme}>
+                <GlobalWrapper>
+                    <Helmet htmlAttributes={{ lang: 'en' }}>
+                        <meta name="robots" content="index" />
+                        <link
+                            type="application/opensearchdescription+xml"
+                            rel="search"
+                            href="https://developer.mongodb.com/opensearch.xml"
+                            title="MongoDB Developer Hub"
+                        />
+                        <link
+                            rel="shortcut icon"
+                            href="https://www.mongodb.com/assets/images/global/favicon.ico"
+                        />
+                        {includeCanonical && (
+                            <link rel="canonical" href={canonicalUrl} />
+                        )}
+                    </Helmet>
+                    <Global styles={style} />
+                    <TopBanner />
+                    <GlobalNav />
+                    <TabProvider>
+                        <Main>{children}</Main>
+                    </TabProvider>
+                    <GlobalFooter />
+                </GlobalWrapper>
+            </ThemeProvider>
+        </AuthenticationProvider>
     );
 };
