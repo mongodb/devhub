@@ -60,9 +60,10 @@ const LEAD_BY_EXAMPLE_ICON_WIDTH = '44px';
 const LEAD_BY_EXAMPLE_ICON_MOBILE_WIDTH = '38px';
 const LEAD_BY_EXAMPLE_GRID_COLUMN_GAP = '48px';
 const LEAD_BY_EXAMPLE_TITLE_BOTTOM_MARGIN = '40px';
+const BENEFITS_AND_REWARDS_GRID_ROW_GAP = '48px';
 const BENEFITS_AND_REWARDS_IMAGE_CONTAINER_HEIGHT = '170px';
 const HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN = '56px';
-const HOW_TO_QUALIFY_CONTRIBUTE_SECTION_WIDTH = '54%';
+const HOW_TO_QUALIFY_CONTRIBUTE_SECTION_MAX_WIDTH = '640px';
 const HOW_TO_QUALIFY_CARD_CONTAINER_PADDING = '48px';
 const HOW_TO_QUALIFY_CARD_TITLE_BOTTOM_MARGIN = '4px';
 const LINE_BOTTOM_MARGIN = '56px';
@@ -74,6 +75,9 @@ const CHAMPION_ITEM_CONTAINER_WIDTH = '200px';
 const CHAMPION_ITEM_CONTAINER_MOBILE_WIDTH = '170px';
 const CHAMPION_PROFILE_PICTURE_SIZE = 112;
 const CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET = 8;
+const LOCATION_CONTAINER_TOP_MARGIN = '4px';
+const LOCATION_CONTAINER_MOBILE_TOP_MARGIN = '2px';
+const PIN_LOCATION_IMAGE_RIGHT_MARGIN = '4px';
 const FOR_THE_FUTURE_APPLY_BUTTON_TOP_MARGIN = '48px';
 const FOR_THE_FUTURE_DESCRIPTION_MAX_WIDTH = '760px';
 
@@ -250,12 +254,12 @@ const LeadByExampleTitle = styled(H4)`
 
 const BenefitsAndRewardsGrid = styled('div')`
     display: grid;
-    grid-row-gap: ${size.large};
+    grid-row-gap: ${BENEFITS_AND_REWARDS_GRID_ROW_GAP};
     @media ${screenSize.mediumAndUp} {
         grid-column-gap: ${size.mediumLarge};
         grid-template-columns: repeat(2, 1fr);
     }
-    @media ${screenSize.largeAndUp} {
+    @media ${screenSize.smallDesktopAndUp} {
         grid-template-columns: repeat(4, 1fr);
     }
 `;
@@ -269,6 +273,10 @@ const BenefitsAndRewardsSectionTitle = styled(H5)`
     margin-bottom: ${size.default};
     margin-top: ${size.mediumLarge};
     text-align: center;
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.medium};
+        line-height: ${lineHeight.medium};
+    }
     @media ${screenSize.upToLarge} {
         margin-bottom: ${size.xsmall};
     }
@@ -294,6 +302,10 @@ const BenefitsAndRewardsContainer = styled('div')`
 const BulletText = styled(P2)`
     color: ${({ theme }) => theme.colorMap.devWhite};
     margin-bottom: 0;
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.small};
+        line-height: ${lineHeight.small};
+    }
 `;
 
 const GreenBulletedListWithNoMargin = styled(GreenBulletedList)`
@@ -303,21 +315,21 @@ const GreenBulletedListWithNoMargin = styled(GreenBulletedList)`
     }
 `;
 
-const BenefitsAndRewardsItem = ({ icon, title, bullets }) => (
+const BenefitsAndRewardsItem = ({ bullets, icon, title }) => (
     <BenefitsAndRewardsItemContainer>
         <BenefitsAndRewardsImageContainer>
             {icon}
         </BenefitsAndRewardsImageContainer>
         <BenefitsAndRewardsSectionTitle>{title}</BenefitsAndRewardsSectionTitle>
         <GreenBulletedListWithNoMargin
-            bulletTextComponent={BulletText}
+            BulletText={BulletText}
             children={bullets}
         />
     </BenefitsAndRewardsItemContainer>
 );
 
 const HowToQualifyContainer = styled('div')`
-    margin: ${size.xlarge} 0 ${HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN} 0;
+    margin: ${size.xlarge} 0 ${HOW_TO_QUALIFY_CONTAINER_BOTTOM_MARGIN};
     @media ${screenSize.upToLarge} {
         margin: ${size.large} 0;
     }
@@ -331,10 +343,9 @@ const HowToQualifyContributeTitle = styled(H3)`
 
 const HowToQualifyContributeSection = styled('div')`
     margin-bottom: ${size.large};
-    width: ${HOW_TO_QUALIFY_CONTRIBUTE_SECTION_WIDTH};
+    max-width: ${HOW_TO_QUALIFY_CONTRIBUTE_SECTION_MAX_WIDTH};
     @media ${screenSize.upToMedium} {
         margin-bottom: ${size.mediumLarge};
-        width: 100%;
     }
 `;
 
@@ -370,7 +381,7 @@ const HowToQualifyCardTitle = styled(H5)`
 const HowToQualifyIconContainer = styled('div')`
     display: flex;
     height: ${size.xlarge};
-    @media ${screenSize.upToLarge} {
+    @media ${screenSize.upToMedium} {
         height: ${size.large};
     }
 `;
@@ -452,9 +463,9 @@ const OtherDetailsAndRequirementsImage = styled('img')`
     width: ${OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_WIDTH};
 `;
 
-const OtherDetailsAndRequirementsBulletText = styled(Description)`
-    margin-bottom: 0;
-`;
+const OtherDetailsAndRequirementsBulletText = ({ children }) => (
+    <Description collapse>{children}</Description>
+);
 
 const OtherDetailsAndRequirementsBullets = () => (
     <GreenBulletedListWithGreyText
@@ -528,15 +539,19 @@ const ChampionItemContainer = styled('div')`
 const LocationContainer = styled('div')`
     display: flex;
     justify-content: center;
-    margin-top: ${size.tiny};
+    margin-top: ${LOCATION_CONTAINER_TOP_MARGIN};
+    @media ${screenSize.upToMedium} {
+        margin-top: ${LOCATION_CONTAINER_MOBILE_TOP_MARGIN};
+    }
 `;
 
 const PinLocationImage = styled('img')`
-    margin-right: ${size.tiny};
+    margin-right: ${PIN_LOCATION_IMAGE_RIGHT_MARGIN};
 `;
 
 const LocationText = styled(P4)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    white-space: nowrap;
 `;
 
 const ChampionLocation = ({ location }) => (
@@ -576,7 +591,9 @@ const ChampionItem = ({ imageUrl, location, name, title }) => (
 
 const communityChampions = graphql`
     query CommunityChampions {
-        allStrapiCommunityChampions {
+        allStrapiCommunityChampions(
+            sort: { fields: [firstName, middleName, lastName] }
+        ) {
             nodes {
                 id
                 firstName
@@ -594,31 +611,28 @@ const communityChampions = graphql`
 
 const ChampionList = () => {
     const data = useStaticQuery(communityChampions);
-    const champions = dlv(
-        data,
-        ['allStrapiCommunityChampions', 'nodes'],
-        []
-    ).map(champion => {
-        champion.fullName = [
-            champion.firstName,
-            champion.middleName,
-            champion.lastName,
-        ].join(' ');
-        return champion;
-    });
+    const champions = dlv(data, ['allStrapiCommunityChampions', 'nodes'], []);
     return (
         <ChampionsContainer>
-            {champions
-                .sort((a, b) => a.fullName.localeCompare(b.fullName))
-                .map(({ fullName, id, image, location, title }) => (
+            {champions.map(
+                ({
+                    firstName,
+                    id,
+                    image,
+                    lastName,
+                    location,
+                    middleName,
+                    title,
+                }) => (
                     <ChampionItem
                         imageUrl={image ? image.url : null}
                         key={id}
                         location={location}
-                        name={fullName}
+                        name={[firstName, middleName, lastName].join(' ')}
                         title={title}
                     />
-                ))}
+                )
+            )}
         </ChampionsContainer>
     );
 };
@@ -662,12 +676,13 @@ const CommunityChampions = () => {
     return (
         <Layout>
             <StyledHeroBanner
-                breadcrumb={communityChampionBreadcrumbs}
                 /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={
                     useBannerImageWithSpace ? BannerImageWithSpace : BannerImage
                 }
                 backgroundPosition="85% center"
+                breadcrumb={communityChampionBreadcrumbs}
+                imageAltText="Community Champions Badge - a dark grey circular ribbon with gold stars around a gold MongoDB leaf icon"
                 imageWidthOnMobile="auto"
                 maintainSquareAspectRatio={false}
             >
@@ -696,7 +711,7 @@ const CommunityChampions = () => {
                             mediaComponent={
                                 <ImageWithRoundedCorners
                                     src={PartnerWithMongoDBImage}
-                                    alt="MongoDB employees video conferencing with Community Champions and providing a product timeline update"
+                                    alt='Close-up of a laptop video screen showing two MongoDB employees video conferencing with 7 Community Champions, with a slide entitled "Product Timeline Update"'
                                 />
                             }
                         >
@@ -710,7 +725,7 @@ const CommunityChampions = () => {
                             mediaComponent={
                                 <ImageWithRoundedCorners
                                     src={CollaborateWithCommunityImage}
-                                    alt="Group of community members sitting around a table and working on tablets at an event"
+                                    alt="Six community members sitting around a table using a stylus or their fingers to work on tablets at an event"
                                 />
                             }
                         >
@@ -801,6 +816,12 @@ const CommunityChampions = () => {
                     <Title>Benefits &amp; Rewards</Title>
                     <BenefitsAndRewardsGrid>
                         <BenefitsAndRewardsItem
+                            bullets={[
+                                'Participation in product beta testing, as available',
+                                'Product feedback sessions',
+                                'Product Early Access pilot',
+                                'Access to MongoDB product teams and executives',
+                            ]}
                             icon={
                                 <img
                                     src={BuildingBlocksImage}
@@ -808,14 +829,13 @@ const CommunityChampions = () => {
                                 />
                             }
                             title="Product"
-                            bullets={[
-                                'Participation in product beta testing, as available',
-                                'Product feedback sessions',
-                                'Product Early Access pilot',
-                                'Access to MongoDB product teams and executives',
-                            ]}
                         />
                         <BenefitsAndRewardsItem
+                            bullets={[
+                                'Access to private MongoDB Champion sub-forum on MongoDB Developer Forums',
+                                'Branded badges and ranks on Developer forums and social media',
+                                'Opportunities to mentor MongoDB newcomers',
+                            ]}
                             icon={
                                 <img
                                     src={PeopleInCircleImage}
@@ -823,13 +843,14 @@ const CommunityChampions = () => {
                                 />
                             }
                             title="Community"
-                            bullets={[
-                                'Access to private MongoDB Champion sub-forum on MongoDB Developer Forums',
-                                'Branded badges and ranks on Developer forums and social media',
-                                'Opportunities to mentor MongoDB newcomers',
-                            ]}
                         />
                         <BenefitsAndRewardsItem
+                            bullets={[
+                                'Full (free) access to MongoDB events',
+                                'Expense reimbursement for travel and accommodation for events, VIP seats, and VIP events',
+                                'Featured profile on MongoDB DevHub',
+                                'SWAG',
+                            ]}
                             icon={
                                 <img
                                     src={EventAdmissionTicketImage}
@@ -837,21 +858,8 @@ const CommunityChampions = () => {
                                 />
                             }
                             title="Events &amp; Exposure"
-                            bullets={[
-                                'Full (free) access to MongoDB events',
-                                'Expense reimbursement for travel and accommodation for events, VIP seats, and VIP events',
-                                'Featured profile on MongoDB DevHub',
-                                'SWAG',
-                            ]}
                         />
                         <BenefitsAndRewardsItem
-                            icon={
-                                <img
-                                    src={UpwardsArrowImage}
-                                    alt="Arrow pointing upwards"
-                                />
-                            }
-                            title="Growth"
                             bullets={[
                                 'Speaker training',
                                 'Social media training',
@@ -859,6 +867,13 @@ const CommunityChampions = () => {
                                 'Personal branding strategies',
                                 'Free MongoDB certification and University On Demand',
                             ]}
+                            icon={
+                                <img
+                                    src={UpwardsArrowImage}
+                                    alt="Arrow pointing upwards"
+                                />
+                            }
+                            title="Growth"
                         />
                     </BenefitsAndRewardsGrid>
                 </BenefitsAndRewardsContainer>
