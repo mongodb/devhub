@@ -37,6 +37,7 @@ const checkCondensedSearchbar = () => {
 
 const mockJavaSearch = () => {
     cy.mockTextFilterResponse();
+    cy.get(SEARCH_INPUT).clear();
     cy.get(SEARCH_INPUT).type('java');
     cy.wait('@filterJavaArticles');
     // Make sure state updates properly
