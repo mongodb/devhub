@@ -29,12 +29,15 @@ const checkSearchResults = page => {
 
 const checkCondensedSearchbar = () => {
     cy.get(SEARCHBAR).should('not.exist');
-    cy.get("[data-test='Closed Searchbar Button']").should('exist').click();
+    cy.get("[data-test='Closed Searchbar Button']")
+        .should('exist')
+        .click({ force: true });
     cy.get(SEARCHBAR).should('exist');
 };
 
 const mockJavaSearch = () => {
     cy.mockTextFilterResponse();
+    cy.get(SEARCH_INPUT).clear();
     cy.get(SEARCH_INPUT).type('java');
     cy.wait('@filterJavaArticles');
     // Make sure state updates properly
@@ -48,7 +51,7 @@ const checkSearchPage = page =>
 
 const checkDisabled = el => el.should('have.attr', 'aria-disabled', 'true');
 
-describe('search', () => {
+describe('search', { retries: { runMode: 3, openMode: 3 } }, () => {
     it('should properly render a toggleable search', () => {
         // Change viewport, as here it is condensed by default
         cy.viewport(1040, 660);
