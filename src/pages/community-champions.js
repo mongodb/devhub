@@ -78,6 +78,8 @@ const CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET = 8;
 const LOCATION_CONTAINER_TOP_MARGIN = '4px';
 const LOCATION_CONTAINER_MOBILE_TOP_MARGIN = '2px';
 const PIN_LOCATION_IMAGE_RIGHT_MARGIN = '4px';
+const FOR_THE_FUTURE_APPLY_BUTTON_TOP_MARGIN = '48px';
+const FOR_THE_FUTURE_DESCRIPTION_MAX_WIDTH = '760px';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -635,6 +637,32 @@ const ChampionList = () => {
     );
 };
 
+const ForTheFutureTitle = styled(H1)`
+    margin-bottom: ${size.large};
+    text-align: center;
+    @media ${screenSize.upToLarge} {
+        margin-bottom: ${size.mediumLarge};
+    }
+`;
+
+const ForTheFutureApplyButton = styled(Button)`
+    margin-bottom: ${size.xlarge};
+    margin-top: ${FOR_THE_FUTURE_APPLY_BUTTON_TOP_MARGIN};
+    @media ${screenSize.upToLarge} {
+        margin-top: ${size.large};
+    }
+`;
+
+const ForTheFutureDescription = styled(Description)`
+    max-width: ${FOR_THE_FUTURE_DESCRIPTION_MAX_WIDTH};
+`;
+
+const ForTheFutureContainer = styled('div')`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+`;
+
 const communityChampionBreadcrumbs = [
     { label: 'Home', target: '/' },
     {
@@ -929,6 +957,29 @@ const CommunityChampions = () => {
                     <Title>Meet the Champions</Title>
                     <ChampionList />
                 </MeetTheChampionsContainer>
+                <ForTheFutureContainer>
+                    <ForTheFutureTitle>For the Future</ForTheFutureTitle>
+                    <ForTheFutureDescription collapse>
+                        2021 is a special year for the MongoDB Champions. As the
+                        inaugural year of the program, we are working closely
+                        with our first group of Champions to further refine and
+                        define this program. We want to ensure that we are
+                        providing the resources and benefits that our Champions
+                        find the most valuable.
+                        <br />
+                        <br />
+                        Because our community program is quite new, this first
+                        cohort was selected based on their contributions to our
+                        user groups program, our forums, our events, and past
+                        MongoDB programs. Future cohorts will likely be a
+                        combination of these factors of contribution to the
+                        community and community peer recommendations. More
+                        details will be provided in the future.
+                    </ForTheFutureDescription>
+                    <ForTheFutureApplyButton primary>
+                        Apply to Become a Champion
+                    </ForTheFutureApplyButton>
+                </ForTheFutureContainer>
             </ContentContainer>
         </Layout>
     );
