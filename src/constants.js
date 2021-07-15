@@ -35,5 +35,4 @@ export const STITCH_AUTH_APP_ID = 'devhubauthentication-lidpq';
 export const FEEDBACK_APP_ID = 'feedback-ihion';
 
 export const SITE_URL = 'https://developer.mongodb.com';
-export const OLD_SUBDOMAIN_FORUMS_URL = `${SITE_URL}/community/forums/`;
-export const FORUMS_URL = `https://www.mongodb.com/community/forums/`;
+export const FORUMS_URL = `${SITE_URL}/community/forums`;
