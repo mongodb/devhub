@@ -10,19 +10,25 @@ const authClient = new OktaAuth({
 const AuthenticationContext = createContext<{
     authClient: any;
     isSignedIn: boolean;
+    onToken: (x: string) => void;
     setUser: (x: any) => void;
     user: any;
-}>({ authClient, isSignedIn: false, setUser: () => null, user: null });
+}>({
+    authClient,
+    isSignedIn: false,
+    onToken: () => null,
+    setUser: () => null,
+    user: null,
+});
 const { Provider } = AuthenticationContext;
 
 const AuthenticationProvider = ({ children }) => {
     const [user, setUser] = useState<User | object>({});
     const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-    const parseClaimsFromToken = useCallback(idToken => {
+    const onToken = useCallback(idToken => {
         if (idToken) {
             const claims = idToken.claims || {};
             const { email, firstName, lastName } = claims;
-            console.log(`Hi ${idToken.claims.email}!`);
             setUser({
                 email,
                 firstName,
@@ -34,11 +40,11 @@ const AuthenticationProvider = ({ children }) => {
     useEffect(() => {
         if (authClient) {
             // Attempt to retrieve ID Token from Token Manager
-            authClient.tokenManager.get('idToken').then(parseClaimsFromToken);
+            authClient.tokenManager.get('idToken').then(onToken);
         }
-    }, [parseClaimsFromToken]);
+    }, [onToken]);
     return (
-        <Provider value={{ authClient, isSignedIn, user, setUser }}>
+        <Provider value={{ authClient, isSignedIn, onToken, user, setUser }}>
             {children}
         </Provider>
     );
