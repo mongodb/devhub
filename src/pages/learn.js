@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { withPrefix } from 'gatsby';
-import { Helmet } from 'react-helmet';
 import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
@@ -17,6 +16,7 @@ import { LearnPageTabs } from '../utils/learn-page-tabs';
 import usePodcasts from '../hooks/use-podcasts';
 import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
+import PageHelmet from '~components/dev-hub/page-helmet';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
@@ -197,8 +197,9 @@ export default ({
         featuredArticles,
         filters,
     },
+    path,
 }) => {
-    const metadata = useSiteMetadata();
+    const { title } = useSiteMetadata();
     const [articles, setArticles] = useState(allArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
@@ -321,14 +322,11 @@ export default ({
 
     const { page } = filterValue;
 
+    const pageTitle = `Learn - ${page ? `Page ${page} - ` : ''}${title}`;
+
     return (
         <Layout>
-            <Helmet>
-                <title>
-                    Learn - {page ? `Page ${page} - ` : ''}
-                    {metadata.title}
-                </title>
-            </Helmet>
+            <PageHelmet pagePath={path} title={pageTitle} />
             <Header>
                 <HeaderContent>
                     <Title>Make better, faster applications</Title>
