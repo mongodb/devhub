@@ -1,10 +1,10 @@
 import React, { useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
-import AuthorImage from '~components/dev-hub/author-image';
 import Button from '~components/dev-hub/button';
 import Folder from '~components/dev-hub/icons/folder';
 import Input from '~components/dev-hub/input';
+import ProfileImage from '~components/dev-hub/profile-image';
 import { P3 } from '~components/dev-hub/text';
 import TextArea from '~components/dev-hub/text-area';
 import { layer, screenSize, size } from '~components/dev-hub/theme';
@@ -121,7 +121,7 @@ const NewStudentFieldset = ({
                 <ButtonWithImage onClick={openFileSelector}>
                     <ButtonImage>
                         {hasActivePicture ? (
-                            <AuthorImage
+                            <ProfileImage
                                 hideOnMobile={false}
                                 isInternalReference={false}
                                 height={IMAGE_PREVIEW_SIZE}

@@ -1,12 +1,26 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import dlv from 'dlv';
+import { useStaticQuery, graphql } from 'gatsby';
 import Button from '~components/dev-hub/button';
 import GreenBulletedList from '~components/dev-hub/green-bulleted-list';
 import HeroBanner from '~components/dev-hub/hero-banner';
 import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
-import { H1, H2, H3, H4, H5, H6, P, P2 } from '~components/dev-hub/text';
+import ProfileImage from '~components/dev-hub/profile-image';
+import {
+    H1,
+    H2,
+    H3,
+    H4,
+    H5,
+    H6,
+    P,
+    P2,
+    P3,
+    P4,
+} from '~components/dev-hub/text';
 import {
     fontSize,
     lineHeight,
@@ -32,6 +46,8 @@ import GroupImage from '~images/community-champions/group.svg';
 import RocketShipImage from '~images/community-champions/rocket-ship.svg';
 import StackSquaresImage from '~images/community-champions/stack-squares.svg';
 import PaperAndPencilImage from '~images/community-champions/paper-and-pencil.svg';
+import PinLocationIcon from '~images/community-champions/pin-location.svg';
+import ChampionPlaceholderImage from '~images/community-champions/champion-placeholder.svg';
 import useMedia from '~hooks/use-media';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
@@ -55,6 +71,15 @@ const OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_SIZE = '30%';
 const OTHER_DETAILS_AND_REQUIREMENTS_IMAGE_WIDTH = '70%';
 const OTHER_DETAILS_AND_REQUIREMENTS_DESCRIPTION_MAX_WIDTH = '690px';
 const OTHER_DETAILS_AND_REQUIREMENTS_LIST_MAX_WIDTH = '480px';
+const CHAMPION_ITEM_CONTAINER_WIDTH = '200px';
+const CHAMPION_ITEM_CONTAINER_MOBILE_WIDTH = '170px';
+const CHAMPION_PROFILE_PICTURE_SIZE = 112;
+const CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET = 8;
+const LOCATION_CONTAINER_TOP_MARGIN = '4px';
+const LOCATION_CONTAINER_MOBILE_TOP_MARGIN = '2px';
+const PIN_LOCATION_IMAGE_RIGHT_MARGIN = '4px';
+const FOR_THE_FUTURE_APPLY_BUTTON_TOP_MARGIN = '48px';
+const FOR_THE_FUTURE_DESCRIPTION_MAX_WIDTH = '760px';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -234,7 +259,7 @@ const BenefitsAndRewardsGrid = styled('div')`
         grid-column-gap: ${size.mediumLarge};
         grid-template-columns: repeat(2, 1fr);
     }
-    @media ${screenSize.largeAndUp} {
+    @media ${screenSize.smallDesktopAndUp} {
         grid-template-columns: repeat(4, 1fr);
     }
 `;
@@ -356,7 +381,7 @@ const HowToQualifyCardTitle = styled(H5)`
 const HowToQualifyIconContainer = styled('div')`
     display: flex;
     height: ${size.xlarge};
-    @media ${screenSize.upToLarge} {
+    @media ${screenSize.upToMedium} {
         height: ${size.large};
     }
 `;
@@ -477,6 +502,166 @@ const OtherDetailsAndRequirements = () => (
         <OtherDetailsAndRequirementsBullets />
     </OtherDetailsAndRequirementsContainer>
 );
+
+const MeetTheChampionsContainer = styled('div')`
+    background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+    margin: ${size.xlarge} -${size.xxlarge};
+    padding: ${size.xlarge} ${size.xxlarge};
+    @media ${screenSize.upToLarge} {
+        margin: ${size.large} -${size.default};
+        padding: ${size.large} ${size.default};
+    }
+`;
+
+const ChampionsContainer = styled('div')`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: ${size.default};
+    @media ${screenSize.upToLarge} {
+        row-gap: ${size.xsmall};
+    } ;
+`;
+
+const ChampionItemContainer = styled('div')`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: ${size.default};
+    text-align: center;
+    width: ${CHAMPION_ITEM_CONTAINER_WIDTH};
+    @media ${screenSize.upToMedium} {
+        padding: ${size.default} 0;
+        width: ${CHAMPION_ITEM_CONTAINER_MOBILE_WIDTH};
+    }
+`;
+
+const LocationContainer = styled('div')`
+    display: flex;
+    justify-content: center;
+    margin-top: ${LOCATION_CONTAINER_TOP_MARGIN};
+    @media ${screenSize.upToMedium} {
+        margin-top: ${LOCATION_CONTAINER_MOBILE_TOP_MARGIN};
+    }
+`;
+
+const PinLocationImage = styled('img')`
+    margin-right: ${PIN_LOCATION_IMAGE_RIGHT_MARGIN};
+`;
+
+const LocationText = styled(P4)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+    white-space: nowrap;
+`;
+
+const ChampionLocation = ({ location }) => (
+    <LocationContainer>
+        <PinLocationImage src={PinLocationIcon} />
+        <LocationText collapse>{location}</LocationText>
+    </LocationContainer>
+);
+
+const ChampionTitleText = styled(P3)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
+`;
+
+const ChampionProfilePicture = styled(ProfileImage)`
+    margin-bottom: ${size.default};
+    div {
+        background-size: cover;
+    }
+`;
+
+const ChampionItem = ({ imageUrl, location, name, title }) => (
+    <ChampionItemContainer>
+        <ChampionProfilePicture
+            defaultImage={ChampionPlaceholderImage}
+            gradientOffset={CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET}
+            hideOnMobile={false}
+            image={imageUrl}
+            key={name}
+            height={CHAMPION_PROFILE_PICTURE_SIZE}
+            width={CHAMPION_PROFILE_PICTURE_SIZE}
+        />
+        <H6 collapse>{name}</H6>
+        <ChampionTitleText collapse>{title}</ChampionTitleText>
+        <ChampionLocation location={location} />
+    </ChampionItemContainer>
+);
+
+const communityChampions = graphql`
+    query CommunityChampions {
+        allStrapiCommunityChampions(
+            sort: { fields: [firstName, middleName, lastName] }
+        ) {
+            nodes {
+                id
+                firstName
+                middleName
+                lastName
+                location
+                title
+                image {
+                    url
+                }
+            }
+        }
+    }
+`;
+
+const ChampionList = () => {
+    const data = useStaticQuery(communityChampions);
+    const champions = dlv(data, ['allStrapiCommunityChampions', 'nodes'], []);
+    return (
+        <ChampionsContainer>
+            {champions.map(
+                ({
+                    firstName,
+                    id,
+                    image,
+                    lastName,
+                    location,
+                    middleName,
+                    title,
+                }) => (
+                    <ChampionItem
+                        imageUrl={image ? image.url : null}
+                        key={id}
+                        location={location}
+                        name={[firstName, middleName, lastName].join(' ')}
+                        title={title}
+                    />
+                )
+            )}
+        </ChampionsContainer>
+    );
+};
+
+const ForTheFutureTitle = styled(H1)`
+    margin-bottom: ${size.large};
+    text-align: center;
+    @media ${screenSize.upToLarge} {
+        margin-bottom: ${size.mediumLarge};
+    }
+`;
+
+const ForTheFutureApplyButton = styled(Button)`
+    margin-bottom: ${size.xlarge};
+    margin-top: ${FOR_THE_FUTURE_APPLY_BUTTON_TOP_MARGIN};
+    @media ${screenSize.upToLarge} {
+        margin-top: ${size.large};
+    }
+`;
+
+const ForTheFutureDescription = styled(Description)`
+    max-width: ${FOR_THE_FUTURE_DESCRIPTION_MAX_WIDTH};
+`;
+
+const ForTheFutureContainer = styled('div')`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+`;
 
 const communityChampionBreadcrumbs = [
     { label: 'Home', target: '/' },
@@ -768,6 +953,33 @@ const CommunityChampions = () => {
                 </HowToQualifyContainer>
                 <Line />
                 <OtherDetailsAndRequirements />
+                <MeetTheChampionsContainer>
+                    <Title>Meet the Champions</Title>
+                    <ChampionList />
+                </MeetTheChampionsContainer>
+                <ForTheFutureContainer>
+                    <ForTheFutureTitle>For the Future</ForTheFutureTitle>
+                    <ForTheFutureDescription collapse>
+                        2021 is a special year for the MongoDB Champions. As the
+                        inaugural year of the program, we are working closely
+                        with our first group of Champions to further refine and
+                        define this program. We want to ensure that we are
+                        providing the resources and benefits that our Champions
+                        find the most valuable.
+                        <br />
+                        <br />
+                        Because our community program is quite new, this first
+                        cohort was selected based on their contributions to our
+                        user groups program, our forums, our events, and past
+                        MongoDB programs. Future cohorts will likely be a
+                        combination of these factors of contribution to the
+                        community and community peer recommendations. More
+                        details will be provided in the future.
+                    </ForTheFutureDescription>
+                    <ForTheFutureApplyButton primary>
+                        Apply to Become a Champion
+                    </ForTheFutureApplyButton>
+                </ForTheFutureContainer>
             </ContentContainer>
         </Layout>
     );
