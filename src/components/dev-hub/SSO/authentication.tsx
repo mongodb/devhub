@@ -9,13 +9,15 @@ const authClient = new OktaAuth({
 });
 const AuthenticationContext = createContext<{
     authClient: any;
+    isSignedIn: boolean;
     setUser: (x: any) => void;
     user: any;
-}>({ authClient, setUser: () => null, user: null });
+}>({ authClient, isSignedIn: false, setUser: () => null, user: null });
 const { Provider } = AuthenticationContext;
 
 const AuthenticationProvider = ({ children }) => {
     const [user, setUser] = useState<User | object>({});
+    const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
     const parseClaimsFromToken = useCallback(idToken => {
         if (idToken) {
             const claims = idToken.claims || {};
@@ -26,6 +28,7 @@ const AuthenticationProvider = ({ children }) => {
                 firstName,
                 lastName,
             });
+            setIsSignedIn(true);
         }
     }, []);
     useEffect(() => {
@@ -35,7 +38,9 @@ const AuthenticationProvider = ({ children }) => {
         }
     }, [parseClaimsFromToken]);
     return (
-        <Provider value={{ authClient, user, setUser }}>{children}</Provider>
+        <Provider value={{ authClient, isSignedIn, user, setUser }}>
+            {children}
+        </Provider>
     );
 };
 

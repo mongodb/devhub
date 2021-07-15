@@ -151,7 +151,7 @@ const topNavItems = graphql`
     }
 `;
 
-const MobileItems = ({ isSearchbarExpanded, items, onLogin }) => {
+const MobileItems = ({ isSearchbarExpanded, isSignedIn, items, onLogin }) => {
     const [isOpen, setIsOpen] = useState(false);
     const closeMenu = useCallback(() => setIsOpen(false), []);
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
@@ -178,16 +178,18 @@ const MobileItems = ({ isSearchbarExpanded, items, onLogin }) => {
                             item={item}
                         />
                     ))}
-                    <MobileLoginButtonContainer>
-                        <SignInButton
-                            onClick={onLogin}
-                            secondary
-                            hasArrow={false}
-                            css={center}
-                        >
-                            Sign In
-                        </SignInButton>
-                    </MobileLoginButtonContainer>
+                    {isSignedIn ? null : (
+                        <MobileLoginButtonContainer>
+                            <SignInButton
+                                onClick={onLogin}
+                                secondary
+                                hasArrow={false}
+                                css={center}
+                            >
+                                Sign In
+                            </SignInButton>
+                        </MobileLoginButtonContainer>
+                    )}
                 </MobileNavMenu>
             )}
         </>
@@ -195,7 +197,7 @@ const MobileItems = ({ isSearchbarExpanded, items, onLogin }) => {
 };
 
 const GlobalNav = () => {
-    const { authClient } = useContext(AuthenticationContext);
+    const { authClient, isSignedIn } = useContext(AuthenticationContext);
     const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(false);
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
@@ -216,6 +218,7 @@ const GlobalNav = () => {
                             <MobileItems
                                 isSearchbarExpanded={isSearchbarExpanded}
                                 items={items}
+                                isSignedIn={isSignedIn}
                                 onLogin={onLogin}
                             />
                             <HomeLink aria-label="Home" to="/">
@@ -237,17 +240,22 @@ const GlobalNav = () => {
                     isExpanded={isSearchbarExpanded}
                     setIsExpanded={onSearchbarExpand}
                 />
-                <SignInButton primary hasArrow={false}>
-                    Sign Up
-                </SignInButton>
-                <SignInButton
-                    secondary
-                    hasArrow={false}
-                    css={showOnDesktopOnly}
-                    onClick={onLogin}
-                >
-                    Sign In
-                </SignInButton>
+                {/* TODO: Add MongoMenu */}
+                {isSignedIn ? null : (
+                    <>
+                        <SignInButton primary hasArrow={false}>
+                            Sign Up
+                        </SignInButton>
+                        <SignInButton
+                            secondary
+                            hasArrow={false}
+                            css={showOnDesktopOnly}
+                            onClick={onLogin}
+                        >
+                            Sign In
+                        </SignInButton>
+                    </>
+                )}
             </MaxWidthContainer>
         </Nav>
     );
