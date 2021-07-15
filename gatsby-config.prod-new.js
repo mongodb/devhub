@@ -27,7 +27,12 @@ module.exports = {
             resolve: `gatsby-source-strapi`,
             options: {
                 apiURL: process.env.STRAPI_URL,
-                contentTypes: ['articles', 'client-side-redirects', 'projects'],
+                contentTypes: [
+                    'articles',
+                    'client-side-redirects',
+                    'community-champions',
+                    'projects',
+                ],
                 singleTypes: [
                     'feedback-rating-flow',
                     'student-spotlight-featured',
