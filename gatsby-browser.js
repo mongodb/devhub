@@ -13,13 +13,11 @@ export const shouldUpdateScroll = ({ prevRouterProps, routerProps }) => {
     return isNewPage(prevLocation, newLocation) || hasAnchorLink(newLocation);
 };
 
-export const wrapPageElement = ({ element }) => {
-    return (
-        <AuthenticationProvider>
-            <ThemeProvider theme={darkTheme}>
-                {element}
-                <SurveyBanner></SurveyBanner>
-            </ThemeProvider>
-        </AuthenticationProvider>
-    );
-};
+export const wrapPageElement = ({ element }) => (
+    <AuthenticationProvider>
+        <ThemeProvider theme={darkTheme}>
+            {element}
+            <SurveyBanner></SurveyBanner>
+        </ThemeProvider>
+    </AuthenticationProvider>
+);

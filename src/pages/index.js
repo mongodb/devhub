@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet';
 import Layout from '~components/dev-hub/layout';
@@ -14,7 +14,6 @@ import {
     TwitchFeature,
 } from '~components/pages/home';
 import { SITE_URL } from '~src/constants';
-import { AuthenticationContext } from '~components/dev-hub/SSO';
 
 const BackgroundImage = styled('div')`
     background-image: url(${homepageBackground});
@@ -22,8 +21,6 @@ const BackgroundImage = styled('div')`
 `;
 
 const Index = ({ pageContext: { fallbackTwitchVideo, featuredItems } }) => {
-    const { user } = useContext(AuthenticationContext);
-    console.log(user);
     const { stream, videos } = useTwitchApi();
     const { title } = useSiteMetadata();
     const twitchVideo = useMemo(() => {

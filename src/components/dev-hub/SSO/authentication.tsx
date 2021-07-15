@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { User } from '~src/interfaces/user';
 import { OktaAuth } from '@okta/okta-auth-js';
 
@@ -16,6 +16,24 @@ const { Provider } = AuthenticationContext;
 
 const AuthenticationProvider = ({ children }) => {
     const [user, setUser] = useState<User | object>({});
+    const parseClaimsFromToken = useCallback(idToken => {
+        if (idToken) {
+            const claims = idToken.claims || {};
+            const { email, firstName, lastName } = claims;
+            console.log(`Hi ${idToken.claims.email}!`);
+            setUser({
+                email,
+                firstName,
+                lastName,
+            });
+        }
+    }, []);
+    useEffect(() => {
+        if (authClient) {
+            // Attempt to retrieve ID Token from Token Manager
+            authClient.tokenManager.get('idToken').then(parseClaimsFromToken);
+        }
+    }, [parseClaimsFromToken]);
     return (
         <Provider value={{ authClient, user, setUser }}>{children}</Provider>
     );

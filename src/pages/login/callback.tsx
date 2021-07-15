@@ -1,53 +1,44 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import Layout from '~components/dev-hub/layout';
 import { AuthenticationContext } from '~components/dev-hub/SSO';
-const ActualCallback = () => {
-    // console.log(location);
 
-    return <div />;
-};
-
-const Callback = ({ location }) => {
+const Callback = () => {
     const { authClient, setUser, user } = useContext(AuthenticationContext);
     console.log(authClient, setUser);
+    const parseClaimsFromToken = useCallback(
+        idToken => {
+            if (idToken) {
+                const claims = idToken.claims || {};
+                const { email, firstName, lastName } = claims;
+                console.log(`Hi ${idToken.claims.email}!`);
+                setUser({
+                    email,
+                    firstName,
+                    lastName,
+                });
+            }
+        },
+        [setUser]
+    );
     useEffect(() => {
         if (authClient && authClient.isLoginRedirect()) {
             // Parse token from redirect url
-            authClient.token.parseFromUrl().then(data => {
-                const { idToken } = data.tokens;
-                console.log(`Hi ${idToken.claims.email}!`);
-                setUser({
-                    email: idToken.claims.email,
-                    firstName: idToken.claims.firstName,
-                    lastName: idToken.claims.lastName,
-                });
-                // Store parsed token in Token Manager
-                authClient.tokenManager.add('idToken', idToken);
-                console.log(idToken);
+            authClient.token.parseFromUrl().then(({ tokens }) => {
+                const { idToken } = tokens;
+                parseClaimsFromToken(idToken);
+                if (idToken) {
+                    // Store parsed token in Token Manager
+                    authClient.tokenManager.add('idToken', idToken);
+                }
             });
         } else if (authClient) {
             // Attempt to retrieve ID Token from Token Manager
-            authClient.tokenManager.get('idToken').then(idToken => {
-                console.log('in manager', idToken);
-                if (idToken) {
-                    console.log(`Hi ${idToken.claims.email}!`);
-                    setUser({
-                        email: idToken.claims.email,
-                        firstName: idToken.claims.firstName,
-                        lastName: idToken.claims.lastName,
-                    });
-                } else {
-                    // You're not logged in, you need a sessionToken
-                    authClient.token.getWithRedirect({
-                        responseType: 'id_token',
-                    });
-                }
-            });
+            authClient.tokenManager.get('idToken').then(parseClaimsFromToken);
         }
-    }, [authClient, setUser]);
+    }, [authClient, parseClaimsFromToken]);
 
     console.log(user);
-    return <Layout></Layout>;
+    return <Layout />;
 };
 
 export default Callback;
