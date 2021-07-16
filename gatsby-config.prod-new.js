@@ -7,7 +7,7 @@ require('dotenv').config({
     path: '.env.production',
 });
 
-const SITE_URL = 'https://mongodb.com/developer';
+const SITE_URL = 'https://www.mongodb.com/developer';
 
 const metadata = getMetadata();
 
@@ -65,7 +65,7 @@ module.exports = {
                     '/type/*',
                 ],
                 // This plugin uses the siteUrl AND prefix path, will still apply the prefix
-                resolveSiteUrl: () => 'https://mongodb.com/',
+                resolveSiteUrl: () => 'https://www.mongodb.com/',
             },
         },
         {

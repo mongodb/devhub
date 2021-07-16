@@ -9,7 +9,7 @@ require('dotenv').config({
 
 const metadata = getMetadata();
 
-const SITE_URL = 'https://developer.mongodb.com';
+const SITE_URL = 'https://www.mongodb.com/developer';
 
 module.exports = {
     pathPrefix: '',
@@ -64,6 +64,8 @@ module.exports = {
                     '/tag/*',
                     '/type/*',
                 ],
+                // We don't want the old sitemap pointing to the new domain yet, remove this when implementing 301 redirects.
+                resolveSiteUrl: () => 'https://developer.mongodb.com/',
             },
         },
         {

@@ -93,7 +93,7 @@ export default ({ children, includeCanonical = true }) => {
                     <link
                         type="application/opensearchdescription+xml"
                         rel="search"
-                        href="https://developer.mongodb.com/opensearch.xml"
+                        href="https://www.mongodb.com/developer/opensearch.xml"
                         title="MongoDB Developer Hub"
                     />
                     <link
