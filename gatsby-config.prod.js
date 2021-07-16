@@ -9,7 +9,7 @@ require('dotenv').config({
 
 const metadata = getMetadata();
 
-const SITE_URL = 'https://developer.mongodb.com';
+const SITE_URL = 'https://www.mongodb.com/developer';
 
 module.exports = {
     pathPrefix: '',
