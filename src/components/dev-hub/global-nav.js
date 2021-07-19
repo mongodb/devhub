@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import dlv from 'dlv';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -13,6 +13,7 @@ import Button from './button';
 import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
 import Searchbar from './searchbar';
+import { AuthenticationContext } from './SSO';
 
 const GREEN_BORDER_SIZE = '2px';
 // Account for bottom bar on mobile browsers
@@ -150,7 +151,7 @@ const topNavItems = graphql`
     }
 `;
 
-const MobileItems = ({ isSearchbarExpanded, items }) => {
+const MobileItems = ({ isSearchbarExpanded, isSignedIn, items, onLogin }) => {
     const [isOpen, setIsOpen] = useState(false);
     const closeMenu = useCallback(() => setIsOpen(false), []);
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
@@ -177,11 +178,18 @@ const MobileItems = ({ isSearchbarExpanded, items }) => {
                             item={item}
                         />
                     ))}
-                    <MobileLoginButtonContainer>
-                        <SignInButton secondary hasArrow={false} css={center}>
-                            Sign In
-                        </SignInButton>
-                    </MobileLoginButtonContainer>
+                    {isSignedIn ? null : (
+                        <MobileLoginButtonContainer>
+                            <SignInButton
+                                onClick={onLogin}
+                                secondary
+                                hasArrow={false}
+                                css={center}
+                            >
+                                Sign In
+                            </SignInButton>
+                        </MobileLoginButtonContainer>
+                    )}
                 </MobileNavMenu>
             )}
         </>
@@ -189,6 +197,7 @@ const MobileItems = ({ isSearchbarExpanded, items }) => {
 };
 
 const GlobalNav = () => {
+    const { authClient, isSignedIn } = useContext(AuthenticationContext);
     const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(false);
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
@@ -197,6 +206,9 @@ const GlobalNav = () => {
         // On certain screens the searchbar is never collapsed
         setIsSearchbarExpanded(isExpanded);
     }, []);
+    const onLogin = useCallback(() => authClient.signInWithRedirect(), [
+        authClient,
+    ]);
     return (
         <Nav>
             <MaxWidthContainer>
@@ -206,6 +218,8 @@ const GlobalNav = () => {
                             <MobileItems
                                 isSearchbarExpanded={isSearchbarExpanded}
                                 items={items}
+                                isSignedIn={isSignedIn}
+                                onLogin={onLogin}
                             />
                             <HomeLink aria-label="Home" to="/">
                                 <MobileLeafLogo />
@@ -226,16 +240,22 @@ const GlobalNav = () => {
                     isExpanded={isSearchbarExpanded}
                     setIsExpanded={onSearchbarExpand}
                 />
-                <SignInButton primary hasArrow={false}>
-                    Sign Up
-                </SignInButton>
-                <SignInButton
-                    secondary
-                    hasArrow={false}
-                    css={showOnDesktopOnly}
-                >
-                    Sign In
-                </SignInButton>
+                {/* TODO: Add MongoMenu */}
+                {isSignedIn ? null : (
+                    <>
+                        <SignInButton primary hasArrow={false}>
+                            Sign Up
+                        </SignInButton>
+                        <SignInButton
+                            secondary
+                            hasArrow={false}
+                            css={showOnDesktopOnly}
+                            onClick={onLogin}
+                        >
+                            Sign In
+                        </SignInButton>
+                    </>
+                )}
             </MaxWidthContainer>
         </Nav>
     );
