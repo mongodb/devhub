@@ -5,6 +5,7 @@ import React, {
     useMemo,
     useState,
 } from 'react';
+import { isBrowser } from '~utils/is-browser';
 import { User } from '~src/interfaces/user';
 import { OktaAuth } from '@okta/okta-auth-js';
 
@@ -26,11 +27,13 @@ const { Provider } = AuthenticationContext;
 const AuthenticationProvider = ({ children }) => {
     const authClient = useMemo(
         () =>
-            new OktaAuth({
-                issuer: process.env.OKTA_URL,
-                clientId: process.env.OKTA_CLIENT_ID,
-                redirectUri: window.location.origin + '/login/callback',
-            }),
+            isBrowser()
+                ? new OktaAuth({
+                      issuer: process.env.OKTA_URL,
+                      clientId: process.env.OKTA_CLIENT_ID,
+                      redirectUri: window.location.origin + '/login/callback',
+                  })
+                : null,
         []
     );
     const [user, setUser] = useState<User | object>({});
