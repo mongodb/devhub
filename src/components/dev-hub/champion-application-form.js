@@ -134,10 +134,6 @@ const Form = React.memo(({ setSuccess, success }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [experience, setExperience] = useState('0-6 months');
-    const [bio, setBio] = useState('');
-    const [agreeToEmail, setAgreeToEmail] = useState(false);
-    const [canSubmit, setCanSubmit] = useState(true);
     const experienceOptions = [
         '0-6 months',
         '6 months - 1 year',
@@ -145,6 +141,10 @@ const Form = React.memo(({ setSuccess, success }) => {
         '2-5 years',
         '5+ years',
     ];
+    const [experience, setExperience] = useState(experienceOptions[0]);
+    const [bio, setBio] = useState('');
+    const [agreeToEmail, setAgreeToEmail] = useState(false);
+    const [canSubmit, setCanSubmit] = useState(true);
     const handleSubmit = async e => {
         // TODO: implement this
     };
@@ -217,15 +217,11 @@ const Form = React.memo(({ setSuccess, success }) => {
                 darkMode={true}
                 name="experience-input-group"
                 onChange={e => setExperience(e.target.value)}
-                value="option-0"
+                value={experience}
                 variant="default"
             >
-                {experienceOptions.map((option, index) => (
-                    <Radio
-                        className="experience-radio"
-                        name="experience-input-group"
-                        value={`option-${index}`}
-                    >
+                {experienceOptions.map(option => (
+                    <Radio className="experience-radio" value={option}>
                         {option}
                     </Radio>
                 ))}
