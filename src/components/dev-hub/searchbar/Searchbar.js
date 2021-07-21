@@ -22,13 +22,12 @@ import { requestTextFilterResults } from '~utils/devhub-api-stitch';
 import { reportAnalytics } from '~utils/report-analytics';
 import SearchDropdown from './SearchDropdown';
 
-const BUTTON_SIZE = '20px';
+const BUTTON_SIZE = size.medium;
 const NUMBER_SEARCH_RESULTS = 9;
 const REPORT_SEARCH_DELAY_TIME = 1000;
 const SEARCH_DELAY_TIME = 200;
 const SEARCHBAR_DESKTOP_WIDTH = '372px';
 const SEARCHBAR_HEIGHT = '36px';
-const SEARCHBAR_HEIGHT_OFFSET = '11px';
 const TRANSITION_SPEED = '150ms';
 const SLASH_KEY = 47;
 
@@ -98,7 +97,7 @@ const SearchbarContainer = styled('div')`
                 ? '100%'
                 : isExpanded
                 ? SEARCHBAR_HEIGHT
-                : '20px'};
+                : size.medium};
         width: ${({ isExpanded }) => (isExpanded ? '100%' : BUTTON_SIZE)};
         ${({ isExpanded }) => isExpanded && 'left: 0'};
         :focus,

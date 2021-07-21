@@ -4,6 +4,7 @@ import Icon from '@leafygreen-ui/icon';
 import IconButton from '@leafygreen-ui/icon-button';
 import { screenSize, size } from '~components/dev-hub/theme';
 
+const BUTTON_SIZE = size.medium;
 // Defining as a styled component allows us to use as a selector in ExpandButton
 const ExpandMagnifyingGlass = styled(Icon)``;
 
@@ -14,12 +15,11 @@ const ExpandButton = styled(IconButton)`
     border-radius: ${size.medium};
     box-shadow: none;
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
-    height: 20px;
+    height: ${BUTTON_SIZE};
     position: absolute;
     left: 0;
-    /* 20px button in a 36px container, 8px top gives equal spacing */
     top: 0;
-    width: 20px;
+    width: ${BUTTON_SIZE};
     z-index: 1;
     :hover,
     :focus {
