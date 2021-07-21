@@ -5,8 +5,8 @@ import React, {
     useMemo,
     useState,
 } from 'react';
-import { isBrowser } from '~utils/is-browser';
 import { User } from '~src/interfaces/user';
+import { isBrowser } from '~utils/is-browser';
 import { OktaAuth } from '@okta/okta-auth-js';
 
 const AuthenticationContext = createContext<{
@@ -22,6 +22,7 @@ const AuthenticationContext = createContext<{
     setUser: () => null,
     user: null,
 });
+
 const { Provider } = AuthenticationContext;
 
 const AuthenticationProvider = ({ children }) => {
