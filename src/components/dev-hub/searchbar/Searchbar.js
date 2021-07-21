@@ -226,6 +226,7 @@ const Searchbar = ({ isExpanded, setIsExpanded }) => {
                         }}
                     >
                         <ExpandedSearchbar
+                            isFocused={isFocused}
                             onMobileClose={onClose}
                             onChange={onSearchChange}
                         />

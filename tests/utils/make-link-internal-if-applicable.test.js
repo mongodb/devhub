@@ -1,5 +1,5 @@
 import { makeLinkInternalIfApplicable } from '~utils/make-link-internal-if-applicable';
-import { FORUMS_URL, SITE_URL } from '~src/constants';
+import { OLD_SUBDOMAIN_FORUMS_URL, SITE_URL } from '~src/constants';
 
 it('should parse internal links and add a trailing slash if needed', () => {
     expect(makeLinkInternalIfApplicable(null)).toBe(null);
@@ -9,7 +9,7 @@ it('should parse internal links and add a trailing slash if needed', () => {
     const internalArticleSlugTrailingSlash = `${internalArticleSlug}/`;
     const fullArticleLink = `${SITE_URL}${internalArticleSlug}`;
 
-    const forumsLink = `${FORUMS_URL}/u/foo`;
+    const forumsLink = `${OLD_SUBDOMAIN_FORUMS_URL}/u/foo`;
     const externalLink = 'https://google.com';
 
     // Check common case
