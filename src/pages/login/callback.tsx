@@ -9,10 +9,10 @@ const Callback = () => {
             // Parse token from redirect url
             authClient.token.parseFromUrl().then(({ tokens }) => {
                 const { idToken } = tokens;
-                onToken(idToken);
                 if (idToken) {
                     // Store parsed token in Token Manager
                     authClient.tokenManager.add('idToken', idToken);
+                    onToken(idToken);
                 }
             });
         } else if (authClient) {
@@ -20,7 +20,7 @@ const Callback = () => {
             authClient.tokenManager.get('idToken').then(onToken);
         }
     }, [authClient, onToken]);
-
+    // TODO: Build out login page UX, redirect
     return <Layout />;
 };
 
