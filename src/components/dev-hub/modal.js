@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import AriaModal from 'react-aria-modal';
 import useMedia from '../../hooks/use-media';
 import { fontSize, screenSize, size } from './theme';
+import Button from './button';
 
 const transparentModalStyling = css`
     background-color: transparent;
@@ -16,6 +17,11 @@ const transparentModalStyling = css`
     @media ${screenSize.mediumAndUp} {
         padding: none;
     }
+`;
+
+const ButtonContainer = styled('div')`
+    display: flex;
+    justify-content: center;
 `;
 
 const StyledIcon = styled(Icon)`
@@ -95,6 +101,7 @@ export const Modal = ({
     dialogMobileContainerStyle,
     headingStyles,
     onCloseModal,
+    showCloseButton = false,
     title,
     triggerComponent,
     isOpenToStart = false,
@@ -164,6 +171,17 @@ export const Modal = ({
                         headingStyles={headingStyles}
                     />
                     {children}
+                    {showCloseButton && (
+                        <ButtonContainer>
+                            <Button
+                                hasArrow={false}
+                                onClick={deactivateModal}
+                                primary
+                            >
+                                Close
+                            </Button>
+                        </ButtonContainer>
+                    )}
                 </ModalDialog>
             </AriaModal>
         );
