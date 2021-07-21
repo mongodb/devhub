@@ -65,7 +65,18 @@ module.exports = {
                     '/type/*',
                 ],
                 // This plugin uses the siteUrl AND prefix path, will still apply the prefix
-                resolveSiteUrl: () => 'https://www.mongodb.com/',
+                // Uncomment below when sitemap is to point to the correct domain and remove
+                // the serialize command
+                // resolveSiteUrl: () => 'https://www.mongodb.com/',
+                serialize: ({ allSitePage }) =>
+                    allSitePage.edges.map(({ node }) => ({
+                        url: `https://developer.mongodb.com/${node.path.replace(
+                            /^\/developer\//,
+                            ''
+                        )}`,
+                        changefreq: `daily`,
+                        priority: 0.7,
+                    })),
             },
         },
         {
