@@ -12,12 +12,14 @@ import { OktaAuth } from '@okta/okta-auth-js';
 const AuthenticationContext = createContext<{
     authClient: any;
     isSignedIn: boolean;
+    onLogout: () => void;
     onToken: (x: string) => void;
     setUser: (x: any) => void;
     user: any;
 }>({
     authClient: null,
     isSignedIn: false,
+    onLogout: () => null,
     onToken: () => null,
     setUser: () => null,
     user: null,
@@ -51,6 +53,11 @@ const AuthenticationProvider = ({ children }) => {
             setIsSignedIn(true);
         }
     }, []);
+    const onLogout = useCallback(() => {
+        if (authClient) {
+            authClient.signOut();
+        }
+    }, [authClient]);
     useEffect(() => {
         if (authClient) {
             // Attempt to retrieve ID Token from Token Manager
@@ -58,7 +65,9 @@ const AuthenticationProvider = ({ children }) => {
         }
     }, [authClient, onToken]);
     return (
-        <Provider value={{ authClient, isSignedIn, onToken, user, setUser }}>
+        <Provider
+            value={{ authClient, isSignedIn, onLogout, onToken, user, setUser }}
+        >
             {children}
         </Provider>
     );

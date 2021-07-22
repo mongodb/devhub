@@ -198,7 +198,9 @@ const MobileItems = ({ isSearchbarExpanded, isSignedIn, items, onLogin }) => {
 };
 
 const GlobalNav = () => {
-    const { authClient, isSignedIn, user } = useContext(AuthenticationContext);
+    const { authClient, isSignedIn, onLogout, user } = useContext(
+        AuthenticationContext
+    );
     const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(false);
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
@@ -243,7 +245,11 @@ const GlobalNav = () => {
                 />
                 {/* TODO: Add MongoMenu */}
                 {isSignedIn ? (
-                    <UserMenu account={user} />
+                    <UserMenu
+                        account={user}
+                        activeProduct="developer"
+                        onLogout={onLogout}
+                    />
                 ) : (
                     <>
                         <SignInButton primary hasArrow={false}>
