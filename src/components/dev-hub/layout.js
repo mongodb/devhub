@@ -1,17 +1,16 @@
 import React, { useMemo } from 'react';
+import { Helmet } from 'react-helmet';
 import { Global, ThemeProvider, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useLocation } from '@reach/router';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import { addTrailingSlashIfMissing } from '../../utils/add-trailing-slash-if-missing';
 import { removePathPrefixFromUrl } from '../../utils/remove-path-prefix-from-url';
+import ConsistentNav from './consistent-nav';
 import { TabProvider } from './tab-context';
-import { Helmet } from 'react-helmet';
-// import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
-// import TopBanner from './top-banner';
-import ConsistentNav from '@mdb/consistent-nav';
+import TopBanner from './top-banner';
 
 import '../../styles/font.css';
 import 'typeface-fira-mono';
@@ -107,9 +106,8 @@ export default ({ children, includeCanonical = true }) => {
                     )}
                 </Helmet>
                 <Global styles={style} />
-                {/* <TopBanner />
-                <GlobalNav /> */}
-                <ConsistentNav onTrack={console.log} />
+                <TopBanner />
+                <ConsistentNav />
                 <TabProvider>
                     <Main>{children}</Main>
                 </TabProvider>

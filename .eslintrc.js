@@ -42,7 +42,7 @@ module.exports = {
                     ['~utils', './src/utils'],
                     ['~tests', './tests'],
                 ],
-                extensions: ['.js', '.ts'],
+                extensions: ['.js', '.ts', '.tsx'],
             },
             node: {
                 moduleDirectory: ['node_modules', '.'],
