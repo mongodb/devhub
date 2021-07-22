@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import styled from '@emotion/styled';
 import dlv from 'dlv';
 import { useStaticQuery, graphql } from 'gatsby';
@@ -27,6 +28,7 @@ import {
     screenSize,
     size,
 } from '~components/dev-hub/theme';
+import { useSiteMetadata } from '~hooks/use-site-metadata';
 import BannerImage from '~images/community-champions/champions-badge.svg';
 import BannerImageWithSpace from '~images/community-champions/champions-badge-w-space.svg';
 import PartnerWithMongoDBImage from '~images/community-champions/partner-with-mongodb.jpg';
@@ -673,9 +675,13 @@ const communityChampionBreadcrumbs = [
 ];
 
 const CommunityChampions = () => {
+    const metadata = useSiteMetadata();
     const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
     return (
         <Layout>
+            <Helmet>
+                <title>Community Champions - {metadata.title}</title>
+            </Helmet>
             <StyledHeroBanner
                 /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={
