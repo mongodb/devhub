@@ -37,6 +37,9 @@ jobs:
                   echo "STRAPI_URL=http://18.144.177.6:1337" >> .env.production
             - name: Build Gatsby
               run: npm run buildTest
+              env:
+                  OKTA_URL: ${{ secrets.OKTA_QA_URL }}
+                  OKTA_CLIENT_ID: ${{ secrets.OKTA_QA_CLIENT_ID }}
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
