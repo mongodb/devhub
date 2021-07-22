@@ -12,6 +12,7 @@ import { createClientSideRedirects } from './src/utils/setup/create-client-side-
 import { aggregateItemsWithTagType } from './src/utils/setup/aggregate-items-with-tag-type';
 import { aggregateAuthorInformation } from './src/utils/setup/aggregate-author-information';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
+import { removeDuplicatedArticles } from './src/utils/setup/remove-duplicated-articles';
 import { getMetadata } from './src/utils/get-metadata';
 import {
     DOCUMENTS_COLLECTION,
@@ -21,6 +22,9 @@ import { createArticlePage } from './src/utils/setup/create-article-page';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
 import { schemaCustomization } from './src/utils/setup/schema-customization';
 import { SnootyArticle } from './src/classes/snooty-article';
+import { createVideoPages } from './src/utils/setup/create-video-pages';
+import { fetchBuildTimeMedia } from './src/utils/setup/fetch-build-time-media';
+import { aggregateItemsByVideoType } from './src/utils/setup/aggregate-items-by-video-type';
 
 const pluralizeIfNeeded = {
     author: 'authors',
@@ -153,7 +157,7 @@ export const createPages = async ({ actions, graphql }) => {
     const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
-    allArticles = snootyArticles.concat(strapiArticleList);
+    allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);
 
     allArticles.forEach(article => {
         createArticlePage(
@@ -172,6 +176,7 @@ export const createPages = async ({ actions, graphql }) => {
     }));
 
     await createClientSideRedirects(graphql, createRedirect);
+    const { allVideos } = await fetchBuildTimeMedia();
 
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
@@ -191,10 +196,17 @@ export const createPages = async ({ actions, graphql }) => {
         }
     });
 
-    const tagPages = tagTypes.map(type =>
-        createTagPageType(type, createPage, tagPageDirectory, metadataDocument)
-    );
+    const aggregateVideoItems = aggregateItemsByVideoType(allVideos);
+    Object.keys(aggregateVideoItems).forEach(key => {
+        tagPageDirectory['type'][key] = aggregateVideoItems[key];
+    });
+
+    const tagPages = tagTypes.map(type => {
+        createTagPageType(type, createPage, tagPageDirectory, metadataDocument);
+    });
     await Promise.all(tagPages);
+
+    await createVideoPages(createPage, allVideos, metadataDocument);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
