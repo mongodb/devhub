@@ -3,6 +3,7 @@ import dlv from 'dlv';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
+import { UserMenu } from '@leafygreen-ui/mongo-nav';
 import LeafLogo from './icons/mdb-dev-logo-leaf';
 import MobileLeafLogo from './icons/mdb-dev-logo-leaf-mobile';
 import { showOnDeviceSize } from '~utils/show-on-device-size';
@@ -197,7 +198,7 @@ const MobileItems = ({ isSearchbarExpanded, isSignedIn, items, onLogin }) => {
 };
 
 const GlobalNav = () => {
-    const { authClient, isSignedIn } = useContext(AuthenticationContext);
+    const { authClient, isSignedIn, user } = useContext(AuthenticationContext);
     const [isSearchbarExpanded, setIsSearchbarExpanded] = useState(false);
     const data = useStaticQuery(topNavItems);
     const items = dlv(data, ['strapiTopNav', 'items'], []);
@@ -241,7 +242,9 @@ const GlobalNav = () => {
                     setIsExpanded={onSearchbarExpand}
                 />
                 {/* TODO: Add MongoMenu */}
-                {isSignedIn ? null : (
+                {isSignedIn ? (
+                    <UserMenu account={user} />
+                ) : (
                     <>
                         <SignInButton primary hasArrow={false}>
                             Sign Up

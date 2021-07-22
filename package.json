@@ -37,6 +37,7 @@
     "@leafygreen-ui/icon": "^9.0.0",
     "@leafygreen-ui/icon-button": "^9.1.2",
     "@leafygreen-ui/leafygreen-provider": "^2.0.2",
+    "@leafygreen-ui/mongo-nav": "^7.2.1",
     "@leafygreen-ui/tabs": "^3.0.1",
     "@leafygreen-ui/text-input": "^5.0.10",
     "@okta/okta-auth-js": "^5.2.1",
