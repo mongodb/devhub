@@ -142,6 +142,10 @@ const SignInButton = styled(Button)`
     }
 `;
 
+const UserMenuWrapper = styled('span')`
+    z-index: ${layer.superFront};
+`;
+
 const topNavItems = graphql`
     query TopNavItems {
         strapiTopNav {
@@ -245,11 +249,13 @@ const GlobalNav = () => {
                 />
                 {/* TODO: Add MongoMenu */}
                 {isSignedIn ? (
-                    <UserMenu
-                        account={user}
-                        activeProduct="developer"
-                        onLogout={onLogout}
-                    />
+                    <UserMenuWrapper>
+                        <UserMenu
+                            account={user}
+                            activeProduct="developer"
+                            onLogout={onLogout}
+                        />
+                    </UserMenuWrapper>
                 ) : (
                     <>
                         <SignInButton primary hasArrow={false}>

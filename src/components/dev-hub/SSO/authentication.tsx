@@ -5,9 +5,10 @@ import React, {
     useMemo,
     useState,
 } from 'react';
+import { navigate } from 'gatsby';
+import { OktaAuth } from '@okta/okta-auth-js';
 import { User } from '~src/interfaces/user';
 import { isBrowser } from '~utils/is-browser';
-import { OktaAuth } from '@okta/okta-auth-js';
 
 const AuthenticationContext = createContext<{
     authClient: any;
@@ -51,6 +52,7 @@ const AuthenticationProvider = ({ children }) => {
                 lastName,
             });
             setIsSignedIn(true);
+            navigate('/');
         }
     }, []);
     const onLogout = useCallback(() => {
