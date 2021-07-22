@@ -26,9 +26,9 @@ jobs:
               if: steps.cache.outputs.cache-hit != 'true'
               run: npm ci
               env:
-                  NPM_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+                  NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
                   NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - run: npm test
               env:
-                  NPM_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+                  NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
                   NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}

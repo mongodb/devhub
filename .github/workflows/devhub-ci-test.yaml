@@ -23,7 +23,7 @@ jobs:
               if: steps.cache.outputs.cache-hit != 'true'
               run: npm ci
               env:
-                  NPM_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+                  NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
                   NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Install Cypress
               if: steps.cache.outputs.cache-hit == 'true'
@@ -41,7 +41,7 @@ jobs:
             - name: Build Gatsby
               run: npm run buildTest
               env:
-                  NPM_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+                  NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
                   NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Cypress run
               uses: cypress-io/github-action@v2
@@ -50,7 +50,7 @@ jobs:
                   start: npm run serveTest
                   wait-on: 'http://localhost:9000'
               env:
-                  NPM_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+                  NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
                   NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Generate artifacts on failure
               uses: actions/upload-artifact@v2
