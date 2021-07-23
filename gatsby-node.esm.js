@@ -155,11 +155,8 @@ export const createPages = async ({ actions, graphql }) => {
         throw new Error(`Page build error: ${result.error}`);
     }
 
-    let allSeries = filteredPageGroups(metadataDocument.pageGroups);
-
-    allSeries = mapSnootySeries(allSeries, slugContentMapping);
-
-    console.log(allSeries);
+    const snootySeries = filteredPageGroups(metadataDocument.pageGroups);
+    const allSeries = mapSnootySeries(snootySeries, slugContentMapping);
 
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
     allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);

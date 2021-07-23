@@ -11,8 +11,7 @@ export class SnootyArticleSeries implements ArticleSeries {
     constructor(title, slugs, slugTitleMapping) {
         const getMappedSeries = seriesSlugs => {
             if (!seriesSlugs || !seriesSlugs.length) return null;
-
-            const mappedSeries = seriesSlugs.map(slug => {
+            return seriesSlugs.map(slug => {
                 const articleTitle = dlv(
                     slugTitleMapping,
                     [slug, 'query_fields', 'title', 0, 'value'],
@@ -23,10 +22,8 @@ export class SnootyArticleSeries implements ArticleSeries {
                     title: articleTitle,
                 };
             });
-            return mappedSeries;
         };
         this.articles = getMappedSeries(slugs);
-        console.log(this.articles);
         this.title = title;
     }
 }
