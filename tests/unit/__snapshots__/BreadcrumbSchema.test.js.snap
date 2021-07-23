@@ -8,7 +8,7 @@ exports[`BreadcrumbSchema renders correctly 1`] = `
   <script
     type="application/ld+json"
   >
-    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://developer.mongodb.com"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://developer.mongodb.com/learn/"},{"@type":"ListItem","position":3,"name":"Article","item":"https://developer.mongodb.com/learn/article/"},{"@type":"ListItem","position":4,"name":"Some article","item":"https://developer.mongodb.com/article/some-article/"}]}
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.mongodb.com/developer"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://www.mongodb.com/developer/learn/"},{"@type":"ListItem","position":3,"name":"Article","item":"https://www.mongodb.com/developer/learn/article/"},{"@type":"ListItem","position":4,"name":"Some article","item":"https://www.mongodb.com/developer/article/some-article/"}]}
   </script>
 </HelmetWrapper>
 `;
