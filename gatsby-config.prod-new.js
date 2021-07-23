@@ -63,6 +63,9 @@ module.exports = {
                     '/storybook ',
                     '/tag/*',
                     '/type/*',
+                    // The below two are current 301 redirects that should be ignored
+                    '/quickstart/node-connect-mongodb/',
+                    '/quickstart/node-connect-mongodb-3-3-2/',
                 ],
                 // This plugin uses the siteUrl AND prefix path, will still apply the prefix
                 // Uncomment below when sitemap is to point to the correct domain and remove

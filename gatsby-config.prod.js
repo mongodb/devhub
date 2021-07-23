@@ -63,6 +63,9 @@ module.exports = {
                     '/storybook ',
                     '/tag/*',
                     '/type/*',
+                    // The below two are current 301 redirects that should be ignored
+                    '/quickstart/node-connect-mongodb/',
+                    '/quickstart/node-connect-mongodb-3-3-2/',
                 ],
                 // We don't want the old sitemap pointing to the new domain yet, remove this when implementing 301 redirects.
                 resolveSiteUrl: () => 'https://developer.mongodb.com/',
