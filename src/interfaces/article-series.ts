@@ -1,10 +1,9 @@
 export interface SeriesArticle {
-    position: 'upcoming' | 'active' | 'past';
     slug: String;
     title: String;
 }
 
 export interface ArticleSeries {
-    articles: object[];
+    articles: SeriesArticle[];
     title: String;
 }

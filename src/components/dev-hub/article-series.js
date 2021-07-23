@@ -1,12 +1,11 @@
 import React from 'react';
-import dlv from 'dlv';
 import Series from './series';
 
-const ArticleSeries = ({ allSeriesForArticle, slugTitleMapping, title }) => {
+const ArticleSeries = ({ allSeriesForArticle, title }) => {
     // Handle if this article is not in a series or no series are defined
     if (!allSeriesForArticle) return null;
-    const getMappedSeries = seriesSlugs => {
-        if (!seriesSlugs || !seriesSlugs.length) return null;
+    const getMappedSeries = articles => {
+        if (!articles || !articles.length) return null;
 
         let hasSeenActiveSlug = false;
         const getSeriesArticlePosition = articleTitle => {
@@ -19,9 +18,7 @@ const ArticleSeries = ({ allSeriesForArticle, slugTitleMapping, title }) => {
             }
             return 'past';
         };
-
-        const mappedSeries = seriesSlugs.map(slug => {
-            const title = dlv(slugTitleMapping, [slug, 0, 'value'], slug);
+        const mappedSeries = articles.map(({ slug, title }) => {
             const position = getSeriesArticlePosition(title);
             return {
                 position,
@@ -29,12 +26,13 @@ const ArticleSeries = ({ allSeriesForArticle, slugTitleMapping, title }) => {
                 title,
             };
         });
+
         return mappedSeries;
     };
 
-    return Object.keys(allSeriesForArticle).map(series => {
-        const seriesItems = getMappedSeries(allSeriesForArticle[series]);
-        return <Series name={series}>{seriesItems}</Series>;
+    return allSeriesForArticle.map(({ articles, title }) => {
+        const seriesItems = getMappedSeries(articles);
+        return <Series name={title}>{seriesItems}</Series>;
     });
 };
 

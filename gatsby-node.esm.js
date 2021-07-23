@@ -157,7 +157,7 @@ export const createPages = async ({ actions, graphql }) => {
 
     let allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
-    allSeries = mapSnootySeries(allSeries);
+    allSeries = mapSnootySeries(allSeries, slugContentMapping);
 
     console.log(allSeries);
 
