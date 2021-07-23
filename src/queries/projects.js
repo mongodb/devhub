@@ -13,6 +13,7 @@ query Projects {
     allStrapiProjects {
       nodes {
         students {
+          name
           bio {
             name
             bio

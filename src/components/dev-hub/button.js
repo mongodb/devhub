@@ -22,17 +22,6 @@ const buttonHoverStyles = theme => css`
     &:hover,
     &:focus {
         color: ${theme.colorMap.devWhite};
-        &:before {
-            ${createShadowElement(theme.gradientMap.green, size.large, 10, 0)}
-        }
-        &:after {
-            ${createShadowElement(
-                theme.colorMap.greyDarkThree,
-                size.large,
-                10,
-                4
-            )}
-        }
     }
 `;
 

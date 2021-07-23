@@ -17,6 +17,7 @@ const generatePathPrefix = ({
         return `/${pathPrefix}`;
     }
 
+    const userForPathPrefix = process.env.GATSBY_STAGING_USER || user;
     let prefix = '';
     if (commitHash) prefix += `${commitHash}`;
     if (patchId) prefix += `/${patchId}`;
@@ -26,7 +27,7 @@ const generatePathPrefix = ({
     // be present in the URL's path prefix in order to be mut-compatible.
     //
     // TODO: Simplify this logic when Snooty development is staged in integration environment
-    const base = `${project}/${user}`;
+    const base = `${project}/${userForPathPrefix}`;
     const path = process.env.GATSBY_SNOOTY_DEV
         ? `/${prefix}/${parserBranch}/${base}/${snootyBranch}`
         : `/${prefix}/${base}/${parserBranch}`;
