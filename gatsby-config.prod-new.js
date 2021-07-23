@@ -66,20 +66,16 @@ module.exports = {
                     // The below two are current 301 redirects that should be ignored
                     '/quickstart/node-connect-mongodb/',
                     '/quickstart/node-connect-mongodb-3-3-2/',
+                    // There are several URLs which canonicalize elsewhere
+                    // For now, just enumerate them but we should implement a more proper fix
+                    '/quickstart/node-aggregation-framework-3-3-2/',
+                    '/quickstart/node-crud-tutorial-3-3-2/',
+                    '/quickstart/node-transactions-3-3-2/',
+                    '/quickstart/nodejs-change-streams-triggers/',
+                    '/quickstart/nodejs-change-streams-triggers-3-3-2/',
                 ],
                 // This plugin uses the siteUrl AND prefix path, will still apply the prefix
-                // Uncomment below when sitemap is to point to the correct domain and remove
-                // the serialize command
-                // resolveSiteUrl: () => 'https://www.mongodb.com/',
-                serialize: ({ allSitePage }) =>
-                    allSitePage.edges.map(({ node }) => ({
-                        url: `https://developer.mongodb.com/${node.path.replace(
-                            /^\/developer\//,
-                            ''
-                        )}`,
-                        changefreq: `daily`,
-                        priority: 0.7,
-                    })),
+                resolveSiteUrl: () => 'https://www.mongodb.com/',
             },
         },
         {
