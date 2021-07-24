@@ -1,65 +1,23 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import { fontSize, lineHeight, screenSize, size } from './theme';
-import { H5, P, P3 } from './text';
+import { P, P3 } from './text';
 import Button from './button';
 import Checkbox from '@leafygreen-ui/checkbox';
 import Input from './input';
-import Modal from './modal';
 import { Radio, RadioGroup } from '@leafygreen-ui/radio-group';
-import SuccessState from './success-state';
 import TextArea from './text-area';
 import {
     nameInvalidMessage,
     emailInvalidMessage,
 } from '~utils/invalid-form-input-messages';
 
-const CONTENT_STYLE_MOBILE_BOTTOM_PADDING = '48px';
-const CONTENT_STYLE_BOTTOM_PADDING = '40px';
-const TITLE_MOBILE_LINE_HEIGHT = '30px';
-const DESCRIPTION_BOTTOM_MARGIN = '40px';
 const NAME_INPUT_FIELD_WIDTH = '248px';
 const CHECKBOX_MOBILE_BOTTOM_MARGIN = '40px';
-const SUCCESS_STATE_BOTTOM_MARGIN = '40px';
-const SUCCESS_STATE_HEADING_MOBILE_FONT_SIZE = '28px';
-const SUCCESS_STATE_HEADING_MOBILE_LINE_HEIGHT = '38px';
-const MODAL_DIALOG_CONTAINER_STYLE_WIDTH = '664px';
-
-const ModalContainer = styled('div')`
-    @media ${screenSize.mediumAndUp} {
-        padding: 0 ${size.mediumLarge};
-    }
-`;
-
-const contentStyle = css`
-    @media ${screenSize.upToMedium} {
-        padding: ${size.default} ${size.default}
-            ${CONTENT_STYLE_MOBILE_BOTTOM_PADDING};
-    }
-    @media ${screenSize.mediumAndUp} {
-        padding: ${size.default} ${size.default} ${CONTENT_STYLE_BOTTOM_PADDING};
-    }
-`;
 
 const ButtonContainer = styled('div')`
     display: flex;
     justify-content: center;
-`;
-
-const Title = styled(H5)`
-    margin-bottom: ${size.mediumLarge};
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.medium};
-        line-height: ${TITLE_MOBILE_LINE_HEIGHT};
-    }
-`;
-
-const Description = styled(P)`
-    margin-bottom: ${DESCRIPTION_BOTTOM_MARGIN};
-    @media ${screenSize.upToMedium} {
-        margin-bottom: ${size.large};
-    }
 `;
 
 const StyledInput = styled(Input)`
@@ -84,6 +42,9 @@ const StyledCheckbox = styled(Checkbox)`
     > input {
         height: ${size.medium};
         width: ${size.medium};
+    }
+    > span {
+        line-height: ${lineHeight.tiny};
     }
     margin-bottom: ${size.large};
     @media ${screenSize.upToMedium} {
@@ -120,27 +81,18 @@ const StyledTextArea = styled(TextArea)`
     }
 `;
 
-const StyledSuccessState = styled(SuccessState)`
-    margin-bottom: ${SUCCESS_STATE_BOTTOM_MARGIN};
-    h3 {
-        @media ${screenSize.upToMedium} {
-            font-size: ${SUCCESS_STATE_HEADING_MOBILE_FONT_SIZE};
-            line-height: ${SUCCESS_STATE_HEADING_MOBILE_LINE_HEIGHT};
-        }
-    }
-`;
+const experienceOptions = [
+    '0-6 months',
+    '6 months - 1 year',
+    '1-2 years',
+    '2-5 years',
+    '5+ years',
+];
 
 const Form = React.memo(({ setSuccess, success }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
-    const experienceOptions = [
-        '0-6 months',
-        '6 months - 1 year',
-        '1-2 years',
-        '2-5 years',
-        '5+ years',
-    ];
     const [experience, setExperience] = useState(experienceOptions[0]);
     const [bio, setBio] = useState('');
     const [agreeToEmail, setAgreeToEmail] = useState(false);
@@ -183,6 +135,7 @@ const Form = React.memo(({ setSuccess, success }) => {
             <NameSection>
                 <StyledInput
                     maxLength="25"
+                    narrow
                     onChange={e => setFirstName(e.target.value)}
                     onInput={e => e.target.setCustomValidity('')}
                     onInvalid={onFirstNameInvalid}
@@ -193,6 +146,7 @@ const Form = React.memo(({ setSuccess, success }) => {
                 />
                 <StyledInput
                     maxLength="25"
+                    narrow
                     onChange={e => setLastName(e.target.value)}
                     onInput={e => e.target.setCustomValidity('')}
                     onInvalid={onLastNameInvalid}
@@ -203,6 +157,7 @@ const Form = React.memo(({ setSuccess, success }) => {
                 />
             </NameSection>
             <StyledInput
+                narrow
                 onChange={e => setEmail(e.target.value)}
                 onInput={e => e.target.setCustomValidity('')}
                 onInvalid={onEmailInvalid}
@@ -213,20 +168,20 @@ const Form = React.memo(({ setSuccess, success }) => {
             />
             <RadioGroupTitle>Experience with MongoDB</RadioGroupTitle>
             <StyledRadioGroup
-                className="experience-radio-group"
                 darkMode={true}
                 name="experience-input-group"
                 onChange={e => setExperience(e.target.value)}
                 value={experience}
                 variant="default"
             >
-                {experienceOptions.map(option => (
-                    <Radio className="experience-radio" value={option}>
+                {experienceOptions.map((option, index) => (
+                    <Radio key={index} value={option}>
                         {option}
                     </Radio>
                 ))}
             </StyledRadioGroup>
             <StyledTextArea
+                collapse
                 onChange={e => setBio(e.target.value)}
                 placeholder="Why are you interested in becoming a champion?"
                 required
@@ -237,8 +192,9 @@ const Form = React.memo(({ setSuccess, success }) => {
                 darkMode={true}
                 label="I agree to receive emails from MongoDB, Inc. After submitting, a MongoDB
                 representative will reach out within five business days."
-                onChange={e => setAgreeToEmail(e.target.value)}
+                onChange={e => setAgreeToEmail(e.target.checked)}
                 required
+                value={agreeToEmail}
             />
             <ButtonContainer>
                 <Button
@@ -254,40 +210,4 @@ const Form = React.memo(({ setSuccess, success }) => {
     );
 });
 
-const ChampionApplicationForm = ({ triggerComponent }) => {
-    const [success, setSuccess] = useState(null);
-    return (
-        <Modal
-            contentStyle={contentStyle}
-            dialogContainerStyle={{
-                width: MODAL_DIALOG_CONTAINER_STYLE_WIDTH,
-            }}
-            dialogMobileContainerStyle={{
-                width: '100%',
-            }}
-            showCloseButton={success}
-            triggerComponent={triggerComponent}
-        >
-            <ModalContainer>
-                {success ? (
-                    <StyledSuccessState>
-                        Thank you for applying!
-                    </StyledSuccessState>
-                ) : (
-                    <>
-                        <Title collapse>Become a Champion</Title>
-                        <Description collapse>
-                            If you’re interested in becoming a MongoDB champion,
-                            please let us know by submitting the form and
-                            someone from our community team will get back to you
-                            within 5 business days.
-                        </Description>
-                        <Form setSuccess={setSuccess} success={success} />
-                    </>
-                )}
-            </ModalContainer>
-        </Modal>
-    );
-};
-
-export default ChampionApplicationForm;
+export default Form;

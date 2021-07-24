@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import dlv from 'dlv';
 import { useStaticQuery, graphql } from 'gatsby';
 import Button from '~components/dev-hub/button';
-import ChampionApplicationForm from '~components/dev-hub/champion-application-form';
+import CommunityChampionApplication from '~components/dev-hub/community-champion-application';
 import GreenBulletedList from '~components/dev-hub/green-bulleted-list';
 import HeroBanner from '~components/dev-hub/hero-banner';
 import Layout from '~components/dev-hub/layout';
@@ -702,7 +702,7 @@ const CommunityChampions = () => {
                     contributors, and creators that are the backbone of our
                     community.
                 </BannerSubtitle>
-                <ChampionApplicationForm
+                <CommunityChampionApplication
                     triggerComponent={
                         <ApplyButton primary>
                             Apply to Become a Champion
@@ -984,7 +984,7 @@ const CommunityChampions = () => {
                         community and community peer recommendations. More
                         details will be provided in the future.
                     </ForTheFutureDescription>
-                    <ChampionApplicationForm
+                    <CommunityChampionApplication
                         triggerComponent={
                             <ForTheFutureApplyButton primary>
                                 Apply to Become a Champion

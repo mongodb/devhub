@@ -19,9 +19,9 @@ const transparentModalStyling = css`
     }
 `;
 
-const ButtonContainer = styled('div')`
-    display: flex;
-    justify-content: center;
+const CloseButtonContainer = styled('div')`
+    margin-top: ${size.xsmall};
+    ${({ closeButtonContainerStyle }) => closeButtonContainerStyle};
 `;
 
 const StyledIcon = styled(Icon)`
@@ -95,13 +95,14 @@ export const Modal = ({
     // Backdrop Style must be an object because of the react-aria-modal library styling
     backdropStyle,
     children,
+    closeButtonContainerStyle,
+    CloseTriggerComponent,
     contentStyle,
     // Dialog Container Style must be an object because of the react-aria-modal library styling
     dialogContainerStyle,
     dialogMobileContainerStyle,
     headingStyles,
     onCloseModal,
-    showCloseButton = false,
     title,
     triggerComponent,
     isOpenToStart = false,
@@ -171,16 +172,14 @@ export const Modal = ({
                         headingStyles={headingStyles}
                     />
                     {children}
-                    {showCloseButton && (
-                        <ButtonContainer>
-                            <Button
-                                hasArrow={false}
-                                onClick={deactivateModal}
-                                primary
-                            >
-                                Close
-                            </Button>
-                        </ButtonContainer>
+                    {CloseTriggerComponent && (
+                        <CloseButtonContainer
+                            closeButtonContainerStyle={
+                                closeButtonContainerStyle
+                            }
+                        >
+                            <CloseTriggerComponent onClick={deactivateModal} />
+                        </CloseButtonContainer>
                     )}
                 </ModalDialog>
             </AriaModal>
