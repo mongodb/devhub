@@ -6,7 +6,6 @@ import styled from '@emotion/styled';
 import AriaModal from 'react-aria-modal';
 import useMedia from '../../hooks/use-media';
 import { fontSize, screenSize, size } from './theme';
-import Button from './button';
 
 const transparentModalStyling = css`
     background-color: transparent;
