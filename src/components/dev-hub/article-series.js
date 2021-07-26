@@ -32,7 +32,11 @@ const ArticleSeries = ({ allSeriesForArticle, title }) => {
 
     return allSeriesForArticle.map(({ articles, title }) => {
         const seriesItems = getMappedSeries(articles);
-        return <Series name={title}>{seriesItems}</Series>;
+        return (
+            <Series key={title} name={title}>
+                {seriesItems}
+            </Series>
+        );
     });
 };
 
