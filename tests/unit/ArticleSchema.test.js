@@ -46,6 +46,7 @@ describe('ArticleSchema', () => {
                         name: mockData.authors[0].name,
                     },
                 ],
+                tags: ['atlas', 'mongodb'],
                 inLanguage: 'English',
             })
         );
@@ -95,6 +96,7 @@ describe('ArticleSchema', () => {
                         name: mockData.authors[0].name,
                     },
                 ],
+                tags: ['atlas', 'mongodb'],
                 inLanguage: 'Test',
             })
         );
