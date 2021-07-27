@@ -8,6 +8,10 @@ import Button from './button';
 import Select from './select';
 import Checkbox from '@leafygreen-ui/checkbox';
 import SectionHeader from './section-header';
+import {
+    nameInvalidMessage,
+    emailInvalidMessage,
+} from '~utils/invalid-form-input-messages';
 
 const INPUT_BOX_WIDTH = '100%';
 
@@ -94,32 +98,27 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
         setCanSubmit(!response.success);
     };
 
-    const onNameInvalid = (name, nameType) =>
-        name === ''
-            ? `${nameType} cannot be blank`
-            : `${nameType} should only contain letters. e.g. John`;
-
     const onEmailInvalid = useCallback(
         e => {
-            e.target.setCustomValidity(
-                email === ''
-                    ? 'Email cannot be blank'
-                    : 'Please enter a valid email address. e.g. example@email.com'
-            );
+            e.target.setCustomValidity(emailInvalidMessage(email));
         },
         [email]
     );
 
     const onFirstNameInvalid = useCallback(
         e => {
-            e.target.setCustomValidity(onNameInvalid(firstName, 'First name'));
+            e.target.setCustomValidity(
+                nameInvalidMessage(firstName, 'First name')
+            );
         },
         [firstName]
     );
 
     const onLastNameInvalid = useCallback(
         e => {
-            e.target.setCustomValidity(onNameInvalid(lastName, 'Last name'));
+            e.target.setCustomValidity(
+                nameInvalidMessage(lastName, 'Last name')
+            );
         },
         [lastName]
     );
