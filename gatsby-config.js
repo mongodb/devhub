@@ -35,6 +35,7 @@ module.exports = {
                 apiURL: process.env.STRAPI_URL,
                 collectionTypes: mapPublicationStateToArray([
                     'articles',
+                    'article-series',
                     'client-side-redirects',
                     'projects',
                 ]),

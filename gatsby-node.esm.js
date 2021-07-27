@@ -1,5 +1,6 @@
 import path from 'path';
 import { articles } from './src/queries/articles';
+import { getStrapiArticleSeriesFromGraphql } from './src/utils/setup/get-strapi-article-series-from-graphql';
 import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
@@ -156,8 +157,13 @@ export const createPages = async ({ actions, graphql }) => {
     }
 
     const snootySeries = filteredPageGroups(metadataDocument.pageGroups);
-    const allSeries = mapSnootySeries(snootySeries, slugContentMapping);
-
+    const strapiSeries = await getStrapiArticleSeriesFromGraphql(
+        graphql,
+        slugContentMapping
+    );
+    const allSeries = mapSnootySeries(snootySeries, slugContentMapping).concat(
+        strapiSeries
+    );
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
     allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);
 
