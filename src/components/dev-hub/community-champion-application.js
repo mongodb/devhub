@@ -27,12 +27,9 @@ const contentStyle = css`
     @media ${screenSize.upToMedium} {
         border: none;
         border-radius: 0;
-        max-width: unset;
         min-height: 100vh;
-        min-width: unset;
         padding: ${size.default} ${size.default}
             ${CONTENT_STYLE_MOBILE_BOTTOM_PADDING};
-        width: 100%;
     }
     @media ${screenSize.mediumAndUp} {
         padding: ${size.default} ${size.default} ${CONTENT_STYLE_BOTTOM_PADDING};
@@ -90,8 +87,6 @@ const ChampionApplicationForm = ({ triggerComponent }) => {
                 width: MODAL_DIALOG_CONTAINER_STYLE_WIDTH,
             }}
             dialogMobileContainerStyle={{
-                height: '100%',
-                minHeight: '100vh',
                 padding: 0,
                 width: '100%',
             }}
