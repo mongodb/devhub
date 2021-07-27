@@ -1,4 +1,7 @@
 const { siteUrl } = require('./src/queries/site-url');
+const {
+    mapPublicationStateToArray,
+} = require('./src/utils/setup/map-publication-state-to-array');
 const { generatePathPrefix } = require('./src/utils/generate-path-prefix');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { articleRssFeed } = require('./src/utils/setup/article-rss-feed');
@@ -30,14 +33,17 @@ module.exports = {
             resolve: `gatsby-source-strapi`,
             options: {
                 apiURL: process.env.STRAPI_URL,
-                contentTypes: ['articles', 'client-side-redirects', 'projects'],
-                singleTypes: [
+                collectionTypes: mapPublicationStateToArray([
+                    'articles',
+                    'client-side-redirects',
+                    'projects',
+                ]),
+                singleTypes: mapPublicationStateToArray([
                     'feedback-rating-flow',
                     'student-spotlight-featured',
                     'top-banner',
                     'top-nav',
-                ],
-                publicationState: process.env.STRAPI_PUBLICATION_STATE,
+                ]),
             },
         },
         {
