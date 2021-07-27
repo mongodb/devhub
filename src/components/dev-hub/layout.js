@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import { Global, ThemeProvider, css } from '@emotion/react';
+import { UnifiedFooter } from '@mdb/consistent-nav';
 import styled from '@emotion/styled';
 import { useLocation } from '@reach/router';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
@@ -8,7 +9,6 @@ import { addTrailingSlashIfMissing } from '../../utils/add-trailing-slash-if-mis
 import { removePathPrefixFromUrl } from '../../utils/remove-path-prefix-from-url';
 import ConsistentNav from './consistent-nav';
 import { TabProvider } from './tab-context';
-import GlobalFooter from './global-footer';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
 import TopBanner from './top-banner';
 import '../../styles/font.css';
@@ -110,7 +110,7 @@ export default ({ children, includeCanonical = true }) => {
                 <TabProvider>
                     <Main>{children}</Main>
                 </TabProvider>
-                <GlobalFooter />
+                <UnifiedFooter />
             </GlobalWrapper>
         </ThemeProvider>
     );
