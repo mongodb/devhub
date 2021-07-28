@@ -119,8 +119,8 @@ const Form = React.memo(({ setSuccess, success }) => {
             agree_to_email: agreeToEmail,
         };
         const callback = hasSuccess => {
-            setSuccess(hasSuccess);
             setCanSubmit(!hasSuccess);
+            setSuccess(hasSuccess);
         };
         callRealm(data, callback);
     };

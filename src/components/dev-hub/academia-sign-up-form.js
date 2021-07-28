@@ -102,8 +102,8 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
             agree_to_email: agreeToEmail,
         };
         const callback = hasSuccess => {
-            setSuccess(hasSuccess);
             setCanSubmit(!hasSuccess);
+            setSuccess(hasSuccess);
         };
         callRealm(data, callback);
     };
