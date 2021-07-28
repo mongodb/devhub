@@ -5,7 +5,10 @@ const mapPublicationStateToArray = arr =>
     arr.map(name => ({
         name,
         api: {
-            qs: { _publicationState: process.env.STRAPI_PUBLICATION_STATE },
+            qs: {
+                _publicationState:
+                    process.env.STRAPI_PUBLICATION_STATE || 'live',
+            },
         },
     }));
 
