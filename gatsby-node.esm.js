@@ -5,7 +5,6 @@ import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
 import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
-import { mapSnootySeries } from './src/utils/setup/map-snooty-series';
 import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
@@ -122,16 +121,12 @@ export const onCreateNode = async ({ node }) => {
     }
 };
 
-const filteredPageGroups = allSeries => {
+const filterPageGroups = allSeries => {
     // featured articles are in pageGroups but not series, so we remove them
     homeFeaturedArticles = allSeries.home;
     learnFeaturedArticles = allSeries.learn;
     // also remove a group of excluded articles
     excludedLearnPageArticles = allSeries.learnPageExclude;
-    delete allSeries.home;
-    delete allSeries.learn;
-    delete allSeries.learnPageExclude;
-    return allSeries;
 };
 
 export const createPages = async ({ actions, graphql }) => {
@@ -156,13 +151,10 @@ export const createPages = async ({ actions, graphql }) => {
         throw new Error(`Page build error: ${result.error}`);
     }
 
-    const snootySeries = filteredPageGroups(metadataDocument.pageGroups);
-    const strapiSeries = await getStrapiArticleSeriesFromGraphql(
+    filterPageGroups(metadataDocument.pageGroups);
+    const articleSeries = await getStrapiArticleSeriesFromGraphql(
         graphql,
         slugContentMapping
-    );
-    const allSeries = mapSnootySeries(snootySeries, slugContentMapping).concat(
-        strapiSeries
     );
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
     allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);
@@ -171,7 +163,7 @@ export const createPages = async ({ actions, graphql }) => {
         createArticlePage(
             article,
             slugContentMapping,
-            allSeries,
+            articleSeries,
             metadataDocument,
             createPage
         );
