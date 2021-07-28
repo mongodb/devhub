@@ -14,7 +14,7 @@ export class StrapiArticleSeries implements ArticleSeries {
             const isStrapi = !!article.article;
             // Strapi's API for articles is different from what Snooty provides
             return isStrapi
-                ? this.handleStrapiArticle(article)
+                ? this.handleStrapiArticle(article.article)
                 : this.handleSnootyArticle(article, snootyTitleMapping);
         });
         this.title = title;

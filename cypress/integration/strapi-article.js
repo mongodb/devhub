@@ -1,7 +1,7 @@
 const STRAPI_SERIES_TITLE = 'Strapi Series';
 const STRAPI_ARTICLE = '/how-to/hapijs-nodejs-driver/';
 const PROD_STRAPI_ARTICLE_URL = `https://www.mongodb.com/developer${STRAPI_ARTICLE}`;
-const SERIES_SECOND_ARTICLE = '/how-to/hapijs-nodejs-driver/';
+const SERIES_SECOND_ARTICLE = '/article/map-terms-concepts-sql-mongodb/';
 
 describe('Sample Strapi Article', () => {
     it('should have a default canonical URL', () => {
