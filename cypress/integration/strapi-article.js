@@ -15,7 +15,7 @@ describe('Sample Strapi Article', () => {
         // Check series title
         cy.get('[data-test="series"]').within(() => {
             cy.contains(STRAPI_SERIES_TITLE);
-            cy.get('a').should('have.length', 3);
+            cy.get('a').should('have.length', 2);
             // Check other one goes to article
             cy.get('a')
                 .first()
