@@ -74,6 +74,14 @@ export const submitStudentSpotlightProject = async projectData => {
     return result;
 };
 
+export const submitCommunityChampionApplication = async communityChampionData => {
+    const result = await callDevhubAPIStitchFunction(
+        'submitCommunityChampionApplication',
+        communityChampionData
+    );
+    return result;
+};
+
 // DevHub Feedback App Functions
 
 // Call as the feedback modal is opened

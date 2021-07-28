@@ -11,6 +11,7 @@ import {
     nameInvalidMessage,
     emailInvalidMessage,
 } from '~utils/invalid-form-input-messages';
+import { submitCommunityChampionApplication } from '~utils/devhub-api-stitch';
 
 const NAME_INPUT_FIELD_WIDTH = '248px';
 const CHECKBOX_MOBILE_BOTTOM_MARGIN = '40px';
@@ -89,6 +90,15 @@ const experienceOptions = [
     '5+ years',
 ];
 
+const callRealm = async (data, callback) => {
+    try {
+        const res = await submitCommunityChampionApplication(data);
+        res && callback(true);
+    } catch {
+        callback(false);
+    }
+};
+
 const Form = React.memo(({ setSuccess, success }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -98,7 +108,21 @@ const Form = React.memo(({ setSuccess, success }) => {
     const [agreeToEmail, setAgreeToEmail] = useState(false);
     const [canSubmit, setCanSubmit] = useState(true);
     const handleSubmit = async e => {
-        // TODO: implement this
+        e.preventDefault();
+        setCanSubmit(false);
+        const data = {
+            first_name: firstName,
+            last_name: lastName,
+            email,
+            experience,
+            bio,
+            agree_to_email: agreeToEmail,
+        };
+        const callback = hasSuccess => {
+            setSuccess(hasSuccess);
+            setCanSubmit(!hasSuccess);
+        };
+        callRealm(data, callback);
     };
 
     const onFirstNameInvalid = useCallback(
@@ -175,7 +199,11 @@ const Form = React.memo(({ setSuccess, success }) => {
                 variant="default"
             >
                 {experienceOptions.map((option, index) => (
-                    <Radio key={index} value={option}>
+                    <Radio
+                        checked={experience == option}
+                        key={index}
+                        value={option}
+                    >
                         {option}
                     </Radio>
                 ))}
