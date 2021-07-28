@@ -12,7 +12,7 @@ const typeMap = {
 // This will get more complicated as we build the pipeline out
 export const transformArticleStrapiData = article => {
     const inferredType = article.type || 'Article';
-    const authors = article.authors;
+    const authors = article.authors || [];
     const transformedAuthors = authors.map(transformAuthorStrapiData);
     const parsedContent = parseMarkdownToAST(article.content);
     const SEOObject = article.SEO || {};
