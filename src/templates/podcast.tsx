@@ -12,6 +12,7 @@ import BlogShareLinks from '~components/dev-hub/blog-share-links';
 import ShareFooter from '~components/dev-hub/article-share-footer';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
+import parse from 'html-react-parser';
 
 
 const PODCAST_BREADCRUMB = [
@@ -70,8 +71,11 @@ const Content = styled('article')`
     }
 `;
 
-const StyledParagraph = styled(P)`
+const StyledParagraph = styled('p')`
     line-height: ${lineHeight.default};
+    a {
+           color: white;
+      }
 `;
 
 const StyledPlayer = styled(AudioPlayer)`
@@ -120,6 +124,7 @@ const Podcast = ({
         data: {
             slug,
             description,
+            rawDescription,
             publishDate,
             thumbnailUrl: image,
             title,
@@ -129,7 +134,7 @@ const Podcast = ({
 }) => {
     const { siteUrl } = useSiteMetadata();
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
-    const parsedDescription = description.split(/\n\s*\n/);
+    const parsedDescription = parse(rawDescription);
 
     const podcastBreadcrumb = useMemo(
         () => [
@@ -185,9 +190,7 @@ const Podcast = ({
                 </Icons>
                 <Content>
                     <StyledPlayer podcast={podcastUrl} />
-                    {parsedDescription.map((paragraph,index) => {
-                        return <StyledParagraph>{paragraph}</StyledParagraph>
-                    })}
+                    <StyledParagraph>{parsedDescription}</StyledParagraph>
                     <StyledFooter
                         title={title}
                         tooltipText={TOOLTIP_TEXT}
@@ -203,6 +206,7 @@ Podcast.propTypes = {
     pageContext: PropTypes.shape({
         data: PropTypes.shape({
             description: PropTypes.string,
+            rawDescription: PropTypes.string,
             publishDate: PropTypes.string,
             thumbnailUrl: PropTypes.string,
             title: PropTypes.string,

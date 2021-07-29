@@ -9,9 +9,10 @@ export const createPodcastPages = async (
     metadata: object
 ) => {
     allPodcasts.map((podcast: Podcast) => {
+        const publishDate = new Date(podcast.publishDate).toDateString();
         const slug = `/podcasts/${getTagPageUriComponent(podcast.title)}`;
         podcast.slug = slug;
-        podcast.publishDate = new Date(podcast.publishDate).toDateString();
+        podcast.publishDate = publishDate.substr(publishDate.indexOf(' ') + 1);
         createPage({
             path: slug,
             component: path.resolve(`./src/templates/podcast.tsx`),

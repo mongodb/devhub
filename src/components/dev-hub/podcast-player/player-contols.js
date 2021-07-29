@@ -23,6 +23,7 @@ const buttonStyles = css`
 
 const mainButtonHover = css`
     svg {
+        transform: scale(1.25);
         circle {
             stroke-width: 3;
             r: 38;
@@ -43,7 +44,9 @@ const StyledTimeControlButton = styled(Button)`
     ${buttonStyles},
     &:hover {
         svg {
-            transform: scale(1.15);
+            path:first-of-type {
+                transform: scale(1.15);
+            }
         }
     }
 `;
