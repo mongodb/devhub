@@ -66,15 +66,6 @@ const InstitutionSection = styled('div')`
     }
 `;
 
-const callRealm = async (data, callback) => {
-    try {
-        const res = await submitAcademiaForm(data);
-        res && callback(true);
-    } catch {
-        callback(false);
-    }
-};
-
 const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -101,11 +92,10 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
             institution_type: institutionType,
             agree_to_email: agreeToEmail,
         };
-        const callback = hasSuccess => {
-            setCanSubmit(!hasSuccess);
-            setSuccess(hasSuccess);
-        };
-        callRealm(data, callback);
+        const response = await submitAcademiaForm(data);
+
+        setSuccess(response.success);
+        setCanSubmit(!response.success);
     };
 
     const onEmailInvalid = useCallback(

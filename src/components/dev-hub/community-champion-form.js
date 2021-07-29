@@ -90,15 +90,6 @@ const experienceOptions = [
     '5+ years',
 ];
 
-const callRealm = async (data, callback) => {
-    try {
-        const res = await submitCommunityChampionApplication(data);
-        res && callback(true);
-    } catch {
-        callback(false);
-    }
-};
-
 const Form = React.memo(({ setSuccess, success }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -118,11 +109,12 @@ const Form = React.memo(({ setSuccess, success }) => {
             bio,
             agree_to_email: agreeToEmail,
         };
-        const callback = hasSuccess => {
-            setCanSubmit(!hasSuccess);
-            setSuccess(hasSuccess);
+        const onSuccess = () => setSuccess(true);
+        const onFailure = () => {
+            setSuccess(false);
+            setCanSubmit(true);
         };
-        callRealm(data, callback);
+        submitCommunityChampionApplication(data, onSuccess, onFailure);
     };
 
     const onFirstNameInvalid = useCallback(
@@ -200,8 +192,8 @@ const Form = React.memo(({ setSuccess, success }) => {
             >
                 {experienceOptions.map((option, index) => (
                     <Radio
-                        checked={experience == option}
-                        key={index}
+                        checked={experience === option}
+                        key={option}
                         value={option}
                     >
                         {option}
