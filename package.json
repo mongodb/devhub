@@ -60,6 +60,7 @@
     "gatsby-plugin-sitemap": "^2.12.0",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.21",
     "gatsby-source-filesystem": "^3.4.0",
+    "html-react-parser": "^1.2.7",
     "html-to-text": "^7.1.1",
     "lodash": "^4.17.21",
     "memoizerific": "^1.11.3",
