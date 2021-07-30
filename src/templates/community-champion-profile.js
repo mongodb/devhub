@@ -6,6 +6,14 @@ import { fontSize, screenSize, size } from '~components/dev-hub/theme';
 
 const BREADCRUMB_BOTTOM_MARGIN = '40px';
 
+const CHAMPION_PROFILE_BREADCRUMBS_PREFIX = [
+    { label: 'Home', target: '/' },
+    {
+        label: 'MongoDB Community Champions',
+        target: '/community-champions',
+    },
+];
+
 const ContentContainer = styled('div')`
     padding: ${size.default} ${size.xxlarge};
     @media ${screenSize.upToLarge} {
@@ -30,17 +38,12 @@ const CommunityChampionProfile = props => {
     } = props;
     const { firstName, middleName, lastName } = champion;
     const fullName = [firstName, middleName, lastName].join(' ');
-    const championProfileBreadcrumbs = [
-        { label: 'Home', target: '/' },
-        {
-            label: 'MongoDB Community Champions',
-            target: '/community-champions',
-        },
+    const championProfileBreadcrumbs = CHAMPION_PROFILE_BREADCRUMBS_PREFIX.push(
         {
             label: `${fullName}`,
             target: slug,
-        },
-    ];
+        }
+    );
     return (
         <Layout>
             <ContentContainer>

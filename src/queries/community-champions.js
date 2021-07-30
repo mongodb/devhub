@@ -1,10 +1,7 @@
 export const communityChampions = `
     query CommunityChampions {
-        allStrapiCommunityChampions(
-            sort: { fields: [firstName, middleName, lastName] }
-        ) {
+        allStrapiCommunityChampions {
             nodes {
-                id
                 firstName
                 middleName
                 lastName

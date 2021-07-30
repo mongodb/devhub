@@ -1,9 +1,12 @@
 import path from 'path';
 import { communityChampions } from '../../queries/community-champions';
 
-const createCommunityChampionProfilePage = async (champion, createPage) => {
+const createCommunityChampionProfilePage = (champion, createPage) => {
     const { firstName, lastName } = champion;
-    const slug = `/community-champions/${firstName.toLowerCase()}-${lastName.toLowerCase()}`;
+    const encodedNameURIComponent = encodeURIComponent(
+        `${firstName.toLowerCase()}-${lastName.toLowerCase()}`
+    );
+    const slug = `/community-champions/${encodedNameURIComponent}`;
     createPage({
         path: slug,
         component: path.resolve(
@@ -27,8 +30,7 @@ export const createCommunityChampionProfilePages = async (
     graphql
 ) => {
     const championList = await getChampionListFromGraphql(graphql);
-    championList.forEach(
-        async champion =>
-            await createCommunityChampionProfilePage(champion, createPage)
+    championList.forEach(champion =>
+        createCommunityChampionProfilePage(champion, createPage)
     );
 };
