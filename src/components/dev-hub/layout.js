@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
-import { ThemeProvider } from 'emotion-theming';
-import { Global, css } from '@emotion/core';
+import { Global, ThemeProvider, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useLocation } from '@reach/router';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
@@ -11,7 +10,7 @@ import { Helmet } from 'react-helmet';
 import GlobalNav from './global-nav';
 import GlobalFooter from './global-footer';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
-
+import TopBanner from './top-banner';
 import '../../styles/font.css';
 import 'typeface-fira-mono';
 
@@ -92,6 +91,12 @@ export default ({ children, includeCanonical = true }) => {
                 <Helmet htmlAttributes={{ lang: 'en' }}>
                     <meta name="robots" content="index" />
                     <link
+                        type="application/opensearchdescription+xml"
+                        rel="search"
+                        href="https://www.mongodb.com/developer/opensearch.xml"
+                        title="MongoDB Developer Hub"
+                    />
+                    <link
                         rel="shortcut icon"
                         href="https://www.mongodb.com/assets/images/global/favicon.ico"
                     />
@@ -100,6 +105,7 @@ export default ({ children, includeCanonical = true }) => {
                     )}
                 </Helmet>
                 <Global styles={style} />
+                <TopBanner />
                 <GlobalNav />
                 <TabProvider>
                     <Main>{children}</Main>

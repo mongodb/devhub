@@ -6,14 +6,14 @@ exports[`DefinitionList renders correctly 1`] = `
 >
   <dt>
     <code
-      css="You have tried to stringify object returned from \`css\` function. It isn't supposed to be used directly (e.g. as value of the \`className\` prop), but rather handed to emotion so it can handle it (e.g. as value of \`css\` prop)."
+      class="css-f3yzc6-StyledLiteral-tabletPadding-desktopPadding es3mzt60"
     >
       MongoDefaultPartitioner
     </code>
   </dt>
   <dd>
     <p
-      class="css-kht07m-PStyles-bottomMargin-P e1top80010"
+      class="css-17umfgb-PStyles-bottomMargin-P e1top8006"
     >
       <strong>
         Default

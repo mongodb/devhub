@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import dlv from 'dlv';
 import { useStaticQuery, graphql } from 'gatsby';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import BlogTagList from '~components/dev-hub/blog-tag-list';
 import Link from '~components/dev-hub/link';
@@ -109,7 +109,7 @@ const FeaturedProject = () => {
     } = transformProjectStrapiData(project);
     const isMobile = useMedia(screenSize.upToLarge);
     const ProjectDetails = () => (
-        <div>
+        <div data-test="featured-project-details">
             <RelativePositionedBadge contentType="featured" />
             <ProjectName>{name}</ProjectName>
             <DescriptionText>{description}</DescriptionText>
@@ -121,7 +121,7 @@ const FeaturedProject = () => {
         </div>
     );
     return (
-        <BottomBorderOnMobile>
+        <BottomBorderOnMobile data-test="featured-project">
             <GridWithBottomBorder
                 mobileLayout={{ rowSpan: [1], colSpan: [1] }}
                 layout={gridLayout}

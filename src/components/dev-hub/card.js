@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Button from './button';
 import { animationSpeed, lineHeight, size, fontSize } from './theme';
@@ -50,13 +50,15 @@ const hoverStyles = theme => css`
         }
     }
 `;
-const Wrapper = styled('div')`
+const Wrapper = styled('div', {
+    shouldForwardProp: prop => prop !== 'maxWidth',
+})`
     background-color: transparent;
     border-radius: ${size.small};
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: ${({ maxwidth }) => `${maxwidth}px`};
+    max-width: ${({ maxWidth }) => `${maxWidth}px`};
     padding: ${size.medium};
     text-decoration: none;
     transition: background-color ${animationSpeed.medium};
@@ -123,7 +125,7 @@ const Card = ({
             data-test="card"
             onClick={onClick}
             {...linkAttrs}
-            maxwidth={maxWidth}
+            maxWidth={maxWidth}
             isclickable={isClickable}
             className={className}
             {...props}

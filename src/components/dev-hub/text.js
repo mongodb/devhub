@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { lineHeight, fontSize, screenSize, size } from './theme';
 
@@ -55,7 +55,7 @@ export const H4 = styled('h4')`
     font-size: ${fontSize.large};
     line-height: ${lineHeight.large};
     ${handleCollapse}
-        @media ${screenSize.upToMedium} {
+    @media ${screenSize.upToMedium} {
         font-size: ${fontSize.default};
         line-height: 26px;
     }

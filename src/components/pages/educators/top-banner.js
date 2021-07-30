@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { screenSize, size, lineHeight } from '../../dev-hub/theme';
 import { H2, P } from '../../dev-hub/text';
@@ -10,6 +10,7 @@ import SignUpModal from './sign-up-modal';
 const ACADEMIA_BREADCRUMBS = [
     { label: 'Home', target: '/' },
     { label: 'MongoDB for Academia', target: '/academia' },
+    { label: 'Educators', target: '/academia/educators' },
 ];
 
 /* TODO: Update text styles to give this line height to all P on desktop */

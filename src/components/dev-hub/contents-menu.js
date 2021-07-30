@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import ControlledTooltip from './controlled-tooltip';
 import ListIcon from './icons/list-icon';
 import { H5, P } from './text';
@@ -79,7 +79,7 @@ const ContentsMenu = ({ title, headingNodes, ...props }) => {
             hasGradientBorder
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            position={'right'}
+            position="right"
             trigger={
                 <HoverTooltip
                     trigger={

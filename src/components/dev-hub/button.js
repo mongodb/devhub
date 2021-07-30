@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import {
     animationSpeed,
@@ -22,17 +22,6 @@ const buttonHoverStyles = theme => css`
     &:hover,
     &:focus {
         color: ${theme.colorMap.devWhite};
-        &:before {
-            ${createShadowElement(theme.gradientMap.green, size.large, 10, 0)}
-        }
-        &:after {
-            ${createShadowElement(
-                theme.colorMap.greyDarkThree,
-                size.large,
-                10,
-                4
-            )}
-        }
     }
 `;
 
@@ -154,20 +143,9 @@ const StyledButton = styled('button')`
 
     ${({ primary, theme }) => primary && primaryStyles(theme)}
     ${({ secondary, theme }) => secondary && secondaryStyles(theme)}
-    ${({
-        play,
-        theme,
-    }) => play && playStyles(theme)}
-    ${({
-        play,
-        primary,
-        secondary,
-        theme,
-    }) =>
-        !primary &&
-        !secondary &&
-        !play &&
-        tertiaryStyles(theme)}
+    ${({ play, theme }) => play && playStyles(theme)}
+    ${({ play, primary, secondary, theme }) =>
+        !primary && !secondary && !play && tertiaryStyles(theme)}
     &[disabled],
     &[disabled]:hover {
         background: ${({ theme }) => theme.colorMap.greyLightThree};

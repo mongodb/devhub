@@ -1,10 +1,15 @@
 import React from 'react';
 import { render } from 'enzyme';
 import Link from '../../src/components/Link';
-import { ThemeProvider } from 'emotion-theming';
-import { darkTheme} from '../../src/components/dev-hub/theme';
+import { ThemeProvider } from '@emotion/react';
+import { darkTheme } from '../../src/components/dev-hub/theme';
 
-const setup = ({ text, ...rest }) => render(<ThemeProvider theme={darkTheme}><Link {...rest}>{text}</Link></ThemeProvider>);
+const setup = ({ text, ...rest }) =>
+    render(
+        <ThemeProvider theme={darkTheme}>
+            <Link {...rest}>{text}</Link>
+        </ThemeProvider>
+    );
 
 describe('Link component renders a variety of strings correctly', () => {
     it('empty string', () => {

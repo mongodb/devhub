@@ -1,10 +1,17 @@
-export const findSectionHeadings = (nodes, key, value, maxDepth) => {
+export const findSectionHeadings = (
+    nodes,
+    key,
+    value,
+    maxDepth,
+    minDepth = 1,
+    minHeadingSize = 2
+) => {
     const results = [];
     const searchNode = (node, sectionDepth) => {
         if (
             node[key] === value &&
             sectionDepth - 1 <= maxDepth &&
-            sectionDepth > 1
+            sectionDepth > minDepth
         ) {
             const nodeTitle = node.children;
             const newNode = {
@@ -15,7 +22,12 @@ export const findSectionHeadings = (nodes, key, value, maxDepth) => {
             };
             const lastElement = results[results.length - 1];
             if (!lastElement || sectionDepth <= lastElement.depth) {
-                results.push(newNode);
+                // Strapi includes a field called `depth` for a heading
+                // i.e. depth = 2 --> H2, etc.
+                // For TOC we only want H2 and above by default
+                if (!node.depth || node.depth <= minHeadingSize) {
+                    results.push(newNode);
+                }
             } else {
                 lastElement.children.push(newNode);
             }

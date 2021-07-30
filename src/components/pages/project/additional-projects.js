@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import dlv from 'dlv';
 import { useStaticQuery, graphql } from 'gatsby';
@@ -70,7 +70,7 @@ const AdditionalProjects = ({ excludedProjectName }) => {
         [projects, excludedProjectName]
     );
     return (
-        <AdditionalProjectsContainer>
+        <AdditionalProjectsContainer data-test="additional-projects">
             <GridContainer>
                 <TitleWithBottomPadding collapse>
                     Explore more Student Spotlights

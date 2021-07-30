@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withPrefix } from 'gatsby';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { getImageAlignmentStyle } from '../utils/get-image-alignment-style';
 import { getNestedValue } from '../utils/get-nested-value';
 import { size } from './dev-hub/theme';
@@ -72,7 +72,10 @@ export default class Image extends Component {
             nodeData.url ||
             getNestedValue(['argument', 0, 'value'], nodeData);
         const altText =
-            alt || getNestedValue(['options', 'alt'], nodeData) || imgSrc;
+            alt ||
+            nodeData.alt ||
+            getNestedValue(['options', 'alt'], nodeData) ||
+            imgSrc;
         const customAlign = getNestedValue(['options', 'align'], nodeData);
         const scale = getNestedValue(['options', 'scale'], nodeData);
 

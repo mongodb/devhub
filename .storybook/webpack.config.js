@@ -26,6 +26,12 @@ module.exports = ({ config }) => {
         // Alias preview for Image component loading
         alias: {
             previewSetup: path.resolve(__dirname, '../preview/noop.js'),
+            '~src': path.resolve(__dirname, '../src'),
+            '~components': path.resolve(__dirname, '../src/components'),
+            '~hooks': path.resolve(__dirname, '../src/hooks'),
+            '~images': path.resolve(__dirname, '../src/images'),
+            '~pages': path.resolve(__dirname, '../src/pages'),
+            '~utils': path.resolve(__dirname, '../src/utils'),
         },
         // Prefer Gatsby ES6 entrypoint (module) over commonjs (main) entrypoint
         mainFields: ['browser', 'module', 'main'],

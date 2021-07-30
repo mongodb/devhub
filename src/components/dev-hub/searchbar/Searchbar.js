@@ -5,7 +5,7 @@ import React, {
     useState,
     useRef,
 } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEventListener } from '@leafygreen-ui/hooks';
 import CondensedSearchbar from './CondensedSearchbar';
@@ -253,6 +253,7 @@ const Searchbar = ({ isExpanded, setIsExpanded }) => {
                         }}
                     >
                         <ExpandedSearchbar
+                            isFocused={isFocused}
                             onMobileClose={onClose}
                             onChange={onSearchChange}
                         />

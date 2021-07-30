@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import Button from '~components/dev-hub/button';
 import ArrowheadIcon from '~components/dev-hub/icons/arrowhead-icon';
 import GithubIcon from '~components/dev-hub/icons/github';
@@ -114,7 +114,7 @@ const Student = ({ student }) => {
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
     const arrowDirection = useMemo(() => (isOpen ? 'up' : 'right'), [isOpen]);
     return (
-        <StudentLi>
+        <StudentLi data-test="student">
             <StudentToggle
                 onClick={toggleIsOpen}
                 onMouseEnter={() => setIsHover(true)}

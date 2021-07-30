@@ -2,9 +2,17 @@ import React from 'react';
 import styled from '@emotion/styled';
 import BlogTagList from './blog-tag-list';
 import { H2, P } from './text';
+import { toDateString } from '~utils/format-dates';
 import { screenSize, fontSize, size } from './theme';
 import BylineBlock from './byline-block';
 import HeroBanner from './hero-banner';
+
+const dateFormatOptions = {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+    timeZone: 'UTC',
+};
 
 const PostMetaLine = styled('div')`
     color: ${({ theme }) => theme.colorMap.greyLightThree};
@@ -38,6 +46,8 @@ const BlogPostTitleArea = ({
     tags,
     title,
     updatedDate,
+    maintainSquareAspectRatio,
+    bannerType,
 }) => {
     const BlogTitle = H2.withComponent('h1');
     return (
@@ -45,15 +55,23 @@ const BlogPostTitleArea = ({
             background={articleImage}
             breadcrumb={breadcrumb}
             data-test="hero-banner"
+            maintainSquareAspectRatio={maintainSquareAspectRatio}
+            bannerType={bannerType}
         >
             <BlogTitle collapse>{title}</BlogTitle>
             <PostMetaLine>
                 <DateTextContainer>
                     {updatedDate && (
-                        <DateText collapse>Updated: {updatedDate} | </DateText>
+                        <DateText collapse>
+                            Updated:{' '}
+                            {toDateString(updatedDate, dateFormatOptions)} |{' '}
+                        </DateText>
                     )}
                     {originalDate && (
-                        <DateText collapse>Published: {originalDate}</DateText>
+                        <DateText collapse>
+                            Published:{' '}
+                            {toDateString(originalDate, dateFormatOptions)}
+                        </DateText>
                     )}
                 </DateTextContainer>
                 <BlogTagList tags={tags} />

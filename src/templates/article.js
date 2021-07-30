@@ -1,7 +1,5 @@
-import React from 'react';
-import dlv from 'dlv';
-import { withPrefix } from 'gatsby';
-import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
 import ArticleShareFooter from '../components/dev-hub/article-share-footer';
@@ -11,76 +9,56 @@ import RelatedArticles from '../components/dev-hub/related-articles';
 import { screenSize, size } from '../components/dev-hub/theme';
 import SEO from '../components/dev-hub/SEO';
 import ArticleSeries from '../components/dev-hub/article-series';
-import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
-import { toDateString } from '../utils/format-dates';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-import ShareMenu from '../components/dev-hub/share-menu';
 import ContentsMenu from '../components/dev-hub/contents-menu';
+import { addLeadingSlashIfMissing } from '../utils/add-leading-slash-if-missing';
 import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missing';
-import { getNestedValue } from '../utils/get-nested-value';
-import { findSectionHeadings } from '../utils/find-section-headings';
-import { getNestedText } from '../utils/get-nested-text';
 import ArticleSchema from '../components/dev-hub/article-schema';
+import BlogShareLinks from '../components/dev-hub/blog-share-links';
+import ArticleRating from '~components/ArticleRating';
+import { ArticleRatingProvider } from '~components/ArticleRatingContext';
 
-/**
- * Name map of directives we want to display in an article
- */
-const contentNodesMap = {
-    introduction: true,
-    prerequisites: true,
-    content: true,
-    summary: true,
-};
+const allowTextWrapping = css`
+    /* Use hyphens where available on content */
+    -webkit-hyphens: auto;
+    hyphens: auto;
 
-const dateFormatOptions = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC',
-};
+    /* Wrap words/content across lines */
+    /* word-wrap and overflow-wrap are identical aside from CSS2/3 renaming */
+    overflow-wrap: break-word;
+    word-break: break-word;
+    word-wrap: break-word;
+`;
 
-/**
- * search the ast for the few directives we need to display content
- * TODO this ignores some important meta like Twitter for now
- * @param {array} nodes
- * @returns {array} array of childNodes with our main content
- */
-const getContent = nodes => {
-    const nodesWeActuallyWant = [];
-    for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
-        const childNode = nodes[nodeIndex];
-        // check top level directives first
-        if (contentNodesMap[childNode.name]) {
-            nodesWeActuallyWant.push(childNode);
-        }
-        // Some content nodes will be children of section nodes
-        else if (childNode.type === 'section') {
-            for (
-                let childIndex = 0;
-                childIndex < childNode.children.length;
-                childIndex++
-            ) {
-                const grandChildNode = childNode.children[childIndex];
-                if (contentNodesMap[grandChildNode.name]) {
-                    nodesWeActuallyWant.push(grandChildNode);
-                }
-            }
-        }
+const StyledBlogShareLinks = styled(BlogShareLinks)`
+    flex-direction: column;
+    align-items: center;
+    > * {
+        margin-top: ${size.medium};
     }
-
-    return nodesWeActuallyWant;
-};
-
-const ArticleContent = styled('article')`
-    max-width: ${size.maxContentWidth};
-    padding-left: ${size.small};
-    padding-right: ${size.small};
     @media ${screenSize.upToLarge} {
-        margin: 0 auto;
+        display: inline-flex;
+        flex-direction: row;
+        > * {
+            margin-top: 0;
+            margin-left: ${size.mediumLarge};
+        }
     }
 `;
+
+const ArticleContent = styled('article')`
+    grid-area: article;
+    max-width: ${size.maxContentWidth};
+    padding: 0 ${size.small};
+    @media ${screenSize.upToLarge} {
+        margin: 0 auto;
+        padding: 0;
+    }
+`;
+
 const Icons = styled('div')`
+    grid-area: icons;
     margin: ${size.tiny} ${size.default};
     span {
         padding: 0 ${size.tiny};
@@ -93,161 +71,181 @@ const Icons = styled('div')`
         }
     }
     @media ${screenSize.upToLarge} {
-        margin: 0 ${size.small};
+        margin: 0;
         span:not(:first-of-type) {
             margin-left: ${size.small};
         }
     }
 `;
+
 const Container = styled('div')`
-    margin: 0 auto;
+    ${allowTextWrapping};
+
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-columns: auto;
+    justify-content: center;
+    grid-template-rows: ${size.medium} auto;
+    grid-template-areas:
+        'icons icons icons'
+        'rating rating rating'
+        'article article article'
+        'article article article'
+        'article article article';
+
+    padding: 0 ${size.default};
+
     @media ${screenSize.largeAndUp} {
-        display: flex;
-        justify-content: center;
+        grid-template-rows: auto;
+        padding: 0;
+        grid-template-areas:
+            'rating rating rating'
+            'icons article article'
+            'icons article article'
+            'icons article article';
     }
 `;
+
+const StyledRating = styled(ArticleRating)`
+    grid-area: rating;
+    margin: 0 ${size.default} ${size.large} 0;
+
+    @media ${screenSize.largeAndUp} {
+        margin: 0 6px ${size.large} 6px;
+        justify-self: end;
+    }
+`;
+
 const Article = props => {
     const {
         pageContext: {
-            __refDocMapping,
             seriesArticles,
-            slug: thisPage,
             metadata: { slugToTitle: slugTitleMapping },
+            article: {
+                authors,
+                contentAST,
+                headingNodes,
+                image,
+                languages,
+                products,
+                publishedDate,
+                related,
+                SEO: { canonicalUrl, metaDescription, og, twitter },
+                slug,
+                tags,
+                title,
+                type,
+                updatedDate,
+            },
         },
         ...rest
     } = props;
-    const { siteUrl } = useSiteMetadata();
-    const childNodes = dlv(__refDocMapping, 'ast.children', []);
-    const contentNodes = getContent(childNodes);
-    const meta = dlv(__refDocMapping, 'query_fields');
-    const og = meta.og || {};
-    const ogDescription =
-        og.children && og.children.length ? getNestedText(og.children) : null;
-    const twitterNode = childNodes.find(node => node.name === 'twitter');
-    const metaDescriptionNode = childNodes.find(
-        node => node.name === 'meta-description'
-    );
-    const metaDescription =
-        metaDescriptionNode && getNestedText(metaDescriptionNode.children);
-    const articleBreadcrumbs = [
-        { label: 'Home', target: '/' },
-        { label: 'Learn', target: '/learn' },
-    ];
-    if (meta.type && meta.type.length) {
-        articleBreadcrumbs.push({
-            label: meta.type[0].toUpperCase() + meta.type.substring(1),
-            target: `/type/${getTagPageUriComponent(meta.type)}`,
-        });
-    }
-    const tagList = getTagLinksFromMeta(meta);
-    const articleTitle = dlv(meta.title, [0, 'value'], thisPage);
-    const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${thisPage}`);
-    const headingNodes = findSectionHeadings(
-        getNestedValue(['ast', 'children'], __refDocMapping),
-        'type',
-        'heading',
-        1
-    );
-    const formattedPublishedDate = toDateString(
-        meta.pubdate,
-        dateFormatOptions
-    );
-    const formattedUpdatedDate = toDateString(
-        meta['updated-date'],
-        dateFormatOptions
-    );
-    const canonicalUrl = dlv(
-        __refDocMapping,
-        'ast.options.canonical-href',
-        articleUrl
+    const slugWithAllSlashes = addLeadingSlashIfMissing(
+        addTrailingSlashIfMissing(slug)
     );
 
-    const articleImage = withPrefix(meta['atf-image']);
+    const meta = { authors, slug: slugWithAllSlashes, title };
+    const { siteUrl } = useSiteMetadata();
+    const articleBreadcrumb = useMemo(() => {
+        const breadcrumb = [
+            { label: 'Home', target: '/' },
+            { label: 'Learn', target: '/learn' },
+            {
+                label: title,
+                target: slug,
+            },
+        ];
+        if (type && type.length) {
+            breadcrumb.splice(2, 0, {
+                label: type[0].toUpperCase() + type.substring(1),
+                target: `/type/${getTagPageUriComponent(type)}`,
+            });
+        }
+
+        return breadcrumb;
+    }, [slug, title, type]);
+
+    const tagList = [...products, ...languages, ...tags];
+    // For structured data, we would like a list of the tags to include
+    const tagLabels = tagList.map(({ label }) => label);
+    const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
 
     return (
-        <Layout includeCanonical={false}>
-            <SEO
-                articleTitle={articleTitle}
-                canonicalUrl={canonicalUrl}
-                image={og.image}
-                metaDescription={metaDescription}
-                ogDescription={ogDescription}
-                ogTitle={og.title || articleTitle}
-                ogUrl={og.url || articleUrl}
-                twitterNode={twitterNode}
-                type={og.type}
-            />
-            <ArticleSchema
-                articleUrl={articleUrl}
-                title={articleTitle}
-                description={metaDescription}
-                publishedDate={meta.pubdate}
-                modifiedDate={meta['updated-date']}
-                imageUrl={articleImage}
-                authors={meta.author}
-            />
-            <BlogPostTitleArea
-                articleImage={articleImage}
-                authors={meta.author}
-                breadcrumb={articleBreadcrumbs}
-                originalDate={formattedPublishedDate}
-                tags={tagList}
-                title={articleTitle}
-                updatedDate={formattedUpdatedDate}
-            />
-            <Container>
-                <Icons>
-                    <ContentsMenu
-                        title="Contents"
-                        headingNodes={headingNodes}
-                        height={size.default}
-                        width={size.default}
-                    />
-                    <ShareMenu
-                        title={articleTitle}
-                        url={articleUrl}
-                        height={size.default}
-                        width={size.default}
-                    />
-                </Icons>
-                <ArticleContent>
-                    <DocumentBody
-                        pageNodes={contentNodes}
-                        slugTitleMapping={slugTitleMapping}
-                        slug={thisPage}
-                        {...rest}
-                    />
-                    <ArticleShareFooter
-                        title={articleTitle}
-                        url={articleUrl}
-                        tags={tagList}
-                    />
-                    <ArticleSeries
-                        allSeriesForArticle={seriesArticles}
-                        slugTitleMapping={slugTitleMapping}
-                        title={articleTitle}
-                    />
-                </ArticleContent>
-            </Container>
-            <RelatedArticles
-                related={meta.related}
-                slugTitleMapping={slugTitleMapping}
-            />
-        </Layout>
+        <ArticleRatingProvider>
+            <Layout includeCanonical={false}>
+                <SEO
+                    articleTitle={title}
+                    canonicalUrl={canonicalUrl}
+                    image={og.image}
+                    metaDescription={metaDescription}
+                    ogDescription={og.description}
+                    ogTitle={og.title || title}
+                    ogUrl={og.url || articleUrl}
+                    twitter={twitter}
+                    type={og.type}
+                />
+                <ArticleSchema
+                    authors={authors}
+                    articleUrl={articleUrl}
+                    description={metaDescription}
+                    imageUrl={image}
+                    modifiedDate={updatedDate}
+                    publishedDate={publishedDate}
+                    tags={tagLabels}
+                    title={title}
+                />
+                <BlogPostTitleArea
+                    articleImage={image}
+                    authors={authors}
+                    breadcrumb={articleBreadcrumb}
+                    originalDate={publishedDate}
+                    tags={tagList}
+                    title={title}
+                    updatedDate={updatedDate}
+                />
+                <Container>
+                    <StyledRating articleMeta={meta} isTop />
+                    <Icons>
+                        <ContentsMenu
+                            title="Contents"
+                            headingNodes={headingNodes}
+                            height={size.default}
+                            width={size.default}
+                        />
+                        <StyledBlogShareLinks
+                            isTop
+                            position="right"
+                            title={title}
+                            url={articleUrl}
+                        />
+                    </Icons>
+                    <ArticleContent>
+                        <DocumentBody
+                            pageNodes={contentAST}
+                            slugTitleMapping={slugTitleMapping}
+                            slug={slug}
+                            {...rest}
+                        />
+                        <ArticleRating isBottom articleMeta={meta} />
+                        <ArticleShareFooter
+                            title={title}
+                            url={articleUrl}
+                            tags={tagList}
+                        />
+                        <ArticleSeries
+                            allSeriesForArticle={seriesArticles}
+                            slugTitleMapping={slugTitleMapping}
+                            title={title}
+                        />
+                    </ArticleContent>
+                </Container>
+                <RelatedArticles
+                    related={related}
+                    slugTitleMapping={slugTitleMapping}
+                />
+            </Layout>
+        </ArticleRatingProvider>
     );
-};
-
-Article.propTypes = {
-    pageContext: PropTypes.shape({
-        __refDocMapping: PropTypes.shape({
-            ast: PropTypes.shape({
-                children: PropTypes.array,
-            }).isRequired,
-        }).isRequired,
-        slugTitleMapping: PropTypes.shape({
-            [PropTypes.string]: PropTypes.string,
-        }),
-    }).isRequired,
 };
 
 export default Article;

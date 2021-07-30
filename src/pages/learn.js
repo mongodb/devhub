@@ -13,9 +13,7 @@ import { screenSize, size } from '../components/dev-hub/theme';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
-import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { LearnPageTabs } from '../utils/learn-page-tabs';
-import useAllVideos from '../hooks/use-all-videos';
 import usePodcasts from '../hooks/use-podcasts';
 import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
@@ -87,11 +85,6 @@ const TabBar = styled(Tab)`
     margin: 0 ${size.large};
 `;
 
-const parseArticles = arr =>
-    arr.map(({ _id, query_fields }) => {
-        return { _id, ...query_fields };
-    });
-
 // strip out the 'All' param from the url and the stitch function key
 const stripAllParam = filterValue => {
     const newFilter = {};
@@ -117,7 +110,9 @@ const filterArticles = (filter, initialArticles) => {
             if (
                 !(
                     filterValuesForArticle &&
-                    filterValuesForArticle.includes(filterValueRequired)
+                    filterValuesForArticle.find(
+                        ({ label }) => label === filterValueRequired
+                    )
                 )
             ) {
                 return acc;
@@ -142,7 +137,7 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
                 to={slug}
                 title={title}
                 description={description}
-                tags={getTagLinksFromMeta(tags)}
+                tags={tags}
             />
         );
     } catch {
@@ -176,7 +171,7 @@ const FeaturedArticles = ({ articles }) => {
                         to={slug}
                         title={title}
                         description={description}
-                        tags={getTagLinksFromMeta(tags)}
+                        tags={tags}
                     />
                 </MediaBlock>
             </PrimarySection>
@@ -198,23 +193,20 @@ export default ({
     pageContext: {
         allArticles,
         allPodcasts,
-        allVideos,
+        allVideos: videos,
         featuredArticles,
         filters,
     },
 }) => {
     const metadata = useSiteMetadata();
-    const initialArticles = useMemo(() => parseArticles(allArticles), [
-        allArticles,
-    ]);
-    const [articles, setArticles] = useState(initialArticles);
+    const [articles, setArticles] = useState(allArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
     const [textFilterQuery, setTextFilterQuery] = useState(filterValue['text']);
     const { results: textFilterResults } = useTextFilter(textFilterQuery);
     const filterActiveArticles = useCallback(
-        filter => filterArticles(filter, initialArticles),
-        [initialArticles]
+        filter => filterArticles(filter, allArticles),
+        [allArticles]
     );
     // Update the filter value for page so it behaves nicely with query params
     const updateAllPageFilters = useCallback(search => {
@@ -271,8 +263,6 @@ export default ({
             (!filterValue.products || filterValue.products === 'all'),
         [filterValue]
     );
-
-    const { videos } = useAllVideos(allVideos);
 
     const { podcasts } = usePodcasts(allPodcasts);
 
@@ -369,7 +359,7 @@ export default ({
 
                 {showTextFilterResults ? (
                     textFilterResults.length ? (
-                        <CardList articles={textFilterResults} />
+                        <CardList all={textFilterResults} />
                     ) : (
                         <EmptyTextFilterResults />
                     )

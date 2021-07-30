@@ -1,6 +1,6 @@
 const CARDS = '[data-test="card"]';
 const FEATURED_ARTICLES = 'header';
-const PROD_SITE = 'https://developer.mongodb.com/';
+const PROD_SITE = 'https://www.mongodb.com/developer/';
 const TWITCH = '[data-test="twitch"]';
 
 describe('Home Page', () => {

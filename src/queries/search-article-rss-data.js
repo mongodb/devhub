@@ -1,6 +1,6 @@
 const searchArticleRSSData = `
     query searchArticleRSSData {
-        allArticle(sort: {fields: pubdate, order: DESC}) {
+        allArticle {
             nodes {
               authors {
                 name
@@ -16,6 +16,29 @@ const searchArticleRSSData = `
                 title
                 type
             }
+        }
+        allStrapiArticles {
+          nodes {
+            image {
+              url
+            }
+            authors {
+              name
+            }
+            languages {
+              language
+            }
+            description
+            content
+            slug
+            type
+            updatedAt
+            published_at
+            products {
+              product
+            }
+            name
+          }
         }
     }
 `;

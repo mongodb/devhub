@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css, useTheme } from '@emotion/react';
 import { fontSize, lineHeight, screenSize, size } from './theme';
 import MongodbLogoIcon from './icons/mongodb-logo';
-import Link from './link';
+import Link from '../Link';
 import FacebookIcon from './icons/facebook-icon';
 import TwitterIcon from './icons/twitter-icon';
 import LinkedIn from './icons/linkedin';
@@ -11,7 +11,6 @@ import Github from './icons/github';
 import Youtube from './icons/youtube';
 import Twitch from './icons/twitch';
 import { P } from './text';
-import { useTheme } from 'emotion-theming';
 import { FORUMS_URL } from '~src/constants';
 
 // Logo size 150px + 64px padding right
@@ -203,7 +202,7 @@ const ListItem = styled('li')`
 `;
 const getLinksList = (link, isListType) => (
     <ListItem isListType={isListType} key={link.url}>
-        <FooterLink href={link.url}>{link.name}</FooterLink>
+        <FooterLink to={link.url}>{link.name}</FooterLink>
     </ListItem>
 );
 export default () => {
@@ -214,7 +213,7 @@ export default () => {
                 <LogoContainer>
                     <FooterLink
                         css={iconstyles(theme)}
-                        href="https://www.mongodb.com/"
+                        to="https://www.mongodb.com/"
                     >
                         <MongodbLogoIcon css={logoStyles} />
                     </FooterLink>

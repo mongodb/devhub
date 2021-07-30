@@ -1,19 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { getNestedValue } from '../utils/get-nested-value';
+import ComponentFactory from './ComponentFactory';
 
 const Emphasis = ({ nodeData }) => (
-    <em>{getNestedValue(['children', 0, 'value'], nodeData)}</em>
+    <em>
+        {nodeData.children.map((child, index) => (
+            <ComponentFactory nodeData={child} key={index} />
+        ))}
+    </em>
 );
-
-Emphasis.propTypes = {
-    nodeData: PropTypes.shape({
-        children: PropTypes.arrayOf(
-            PropTypes.shape({
-                value: PropTypes.string.isRequired,
-            })
-        ).isRequired,
-    }).isRequired,
-};
 
 export default Emphasis;

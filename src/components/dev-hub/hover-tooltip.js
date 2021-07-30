@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import Tooltip from './tooltip';
 import { P4 } from './text';
 import { size } from './theme';
@@ -8,13 +8,13 @@ import { size } from './theme';
  * @property {node} props.trigger
  * @property {string} props.text
  */
-const HoverTooltip = ({ trigger, text }) => (
+const HoverTooltip = ({ position = 'bottom', trigger, text }) => (
     <Tooltip
         contentStyle={css`
             padding: ${size.tiny};
         `}
         displayOnHover
-        position="bottom"
+        position={position}
         trigger={trigger}
     >
         <P4 collapse>{text}</P4>

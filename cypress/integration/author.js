@@ -42,6 +42,6 @@ describe('Author Page', () => {
         });
     });
     it('should have a uniq h1 tag', () => {
-        cy.get('h1').should('have.length', 1)
+        cy.get('h1').should('have.length', 1);
     });
 });

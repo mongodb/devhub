@@ -2,10 +2,7 @@ import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import Audio from './audio';
 import Card from './card';
-import { withPrefix } from 'gatsby';
 import Paginate from './paginate';
-import { getNestedText } from '~utils/get-nested-text';
-import { getTagLinksFromMeta } from '~utils/get-tag-links-from-meta';
 import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
 
 const CARD_LIST_LIMIT = 12;
@@ -24,26 +21,23 @@ const getThumbnailUrl = media => {
         : media.thumbnailUrl;
 };
 
-/* Different content types currently have different APIs for accessing dates.
- * Articles support `pubdate` and `updated-date` while Podcasts and Videos have publishDate
- * a TODO is to reconsile these APIs
- */
+// publishDate is for videos. TODO is to have this follow articles
 const sortCardsByDate = contentList =>
     contentList.sort(
         (a, b) =>
-            new Date(b['updated-date'] || b.publishDate || b.pubdate) -
-            new Date(a['updated-date'] || a.publishDate || a.pubdate)
+            new Date(b.updatedDate || b.publishedDate || b.publishDate) -
+            new Date(a.updatedDate || a.publishedDate || a.publishDate)
     );
 
 const renderArticle = article => (
     <ArticleCard
-        to={article['slug']}
-        key={article['_id']}
-        image={withPrefix(article['atf-image'])}
-        tags={getTagLinksFromMeta(article)}
-        title={getNestedText(article['title'])}
+        to={article.slug}
+        key={article._id}
+        image={article.image}
+        tags={[...article.products, ...article.languages, ...article.tags]}
+        title={article.title}
         badge="article"
-        description={getNestedText(article['meta-description'])}
+        description={article.description}
     />
 );
 
@@ -55,7 +49,7 @@ const renderVideo = video => (
         title={video.title}
         badge={video.mediaType}
         description={video.description}
-        video={video}
+        to={video.slug}
     />
 );
 
@@ -81,19 +75,19 @@ const renderContentTypeCard = (item, openAudio) => {
             default:
                 return;
         }
-
     return renderArticle(item);
 };
 
 export default React.memo(
-    ({ videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
+    ({ all, videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
         videos = videos || [];
         articles = articles || [];
         podcasts = podcasts || [];
 
-        const fullContentList = sortCardsByDate(
-            videos.concat(articles, podcasts)
-        );
+        // If we provide "all", we don't need to sort. We can assume any sorting
+        // has been done
+        const fullContentList =
+            all || sortCardsByDate(videos.concat(articles, podcasts));
 
         const [activePodcast, setActivePodcast] = useState(false);
 

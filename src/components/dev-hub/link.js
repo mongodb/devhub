@@ -1,9 +1,9 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'gatsby';
 import { addTrailingSlashBeforeParams } from '../../utils/add-trailing-slash-if-missing';
-import { animationSpeed, fontSize } from './theme';
+import { fontSize } from './theme';
 
 // Takes an event handler, and wraps it to call preventDefault.
 // If the handler is falsey, it is returned unchanged.

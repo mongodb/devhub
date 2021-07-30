@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 
 const LinkedIn = ({ color, ...props }) => {
     const theme = useTheme();
@@ -7,8 +7,8 @@ const LinkedIn = ({ color, ...props }) => {
     return (
         <svg
             aria-label="LinkedIn"
-            width="20"
-            height="20"
+            width="16"
+            height="16"
             viewBox="0 0 635 540"
             {...props}
         >

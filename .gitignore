@@ -6,7 +6,7 @@ public/
 static/*
 # Assets we can add manually into the static folder
 !static/public
-!static/sitemap.xml
+!static/legacy-url-sitemap.xml
 coverage/
 .coverage
 .env.*
@@ -18,3 +18,5 @@ cypress/screenshots
 
 preview/page-ast.json
 preview/bundle.js
+
+.idea/
