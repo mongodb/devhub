@@ -38,11 +38,13 @@ const CommunityChampionProfile = props => {
     } = props;
     const { firstName, middleName, lastName } = champion;
     const fullName = [firstName, middleName, lastName].join(' ');
-    const championProfileBreadcrumbs = CHAMPION_PROFILE_BREADCRUMBS_PREFIX.push(
-        {
-            label: `${fullName}`,
-            target: slug,
-        }
+    const championProfileBreadcrumbs = CHAMPION_PROFILE_BREADCRUMBS_PREFIX.concat(
+        [
+            {
+                label: `${fullName}`,
+                target: slug,
+            },
+        ]
     );
     return (
         <Layout>
