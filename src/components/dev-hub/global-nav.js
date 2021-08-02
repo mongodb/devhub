@@ -13,7 +13,7 @@ import Button from './button';
 import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
 import Searchbar from './searchbar';
-import { AuthenticationContext } from './SSO';
+import { AuthenticationContext, REGISTER_LINK } from './SSO';
 
 // The searchbar expand button is 20px with 4px padding on each side
 const EXPAND_BUTTON_GRID_WIDTH = '28px';
@@ -246,7 +246,11 @@ const GlobalNav = () => {
                 {/* TODO: Add MongoMenu */}
                 {isSignedIn ? null : (
                     <>
-                        <SignInButton primary hasArrow={false}>
+                        <SignInButton
+                            href={REGISTER_LINK}
+                            primary
+                            hasArrow={false}
+                        >
                             Sign Up
                         </SignInButton>
                         <SignInButton

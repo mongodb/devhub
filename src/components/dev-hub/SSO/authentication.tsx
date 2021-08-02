@@ -9,6 +9,9 @@ import { User } from '~src/interfaces/user';
 import { isBrowser } from '~utils/is-browser';
 import { OktaAuth } from '@okta/okta-auth-js';
 
+export const REGISTER_LINK =
+    'https://account.mongodb.com/account/login?fromURI=https%3A%2F%2Fdeveloper.mongodb.com%2Flogin%2Fcallback';
+
 const AuthenticationContext = createContext<{
     authClient: any;
     isSignedIn: boolean;
@@ -52,11 +55,11 @@ const AuthenticationProvider = ({ children }) => {
         }
     }, []);
     useEffect(() => {
-        if (authClient) {
+        if (!isSignedIn && authClient) {
             // Attempt to retrieve ID Token from Token Manager
             authClient.tokenManager.get('idToken').then(onToken);
         }
-    }, [authClient, onToken]);
+    }, [authClient, isSignedIn, onToken]);
     return (
         <Provider value={{ authClient, isSignedIn, onToken, user, setUser }}>
             {children}
