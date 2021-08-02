@@ -1,7 +1,7 @@
 const { siteUrl } = require('./src/queries/site-url');
 const {
     mapPublicationStateToArray,
-} = require('./src/utils/setup/map-publication-state-to-array-array');
+} = require('./src/utils/setup/map-publication-state-to-array');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { articleRssFeed } = require('./src/utils/setup/article-rss-feed');
 const { searchRssFeed } = require('./src/utils/setup/search-rss-feed');
