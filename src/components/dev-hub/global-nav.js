@@ -4,23 +4,36 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import LeafLogo from './icons/mdb-dev-logo-leaf';
+import MobileLeafLogo from './icons/mdb-dev-logo-leaf-mobile';
+import { showOnDeviceSize } from '~utils/show-on-device-size';
 import Link from '../Link';
 import { fontSize, layer, lineHeight, screenSize, size } from './theme';
 import useMedia from '~hooks/use-media';
+import Button from './button';
 import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
 import Searchbar from './searchbar';
 
+// The searchbar expand button is 20px with 4px padding on each side
+const EXPAND_BUTTON_GRID_WIDTH = '28px';
 const GREEN_BORDER_SIZE = '2px';
 // Account for bottom bar on mobile browsers
 const MOBILE_MENU_ADDITIONAL_PADDING = '256px';
-const MOBILE_NAV_BREAK = screenSize.upToLarge;
+const MOBILE_NAV_BREAK = screenSize.upToSmallDesktop;
 // nav height is 58px: 24px line height + 2 * 17px vertical padding
 const LINK_VERTICAL_PADDING = '17px';
+
+const center = css`
+    margin: 0 auto;
+`;
 
 const expandedState = css`
     opacity: 0.2;
     pointer-events: none;
+`;
+
+const showOnDesktopOnly = css`
+    ${showOnDeviceSize(screenSize.smallDesktopAndUp)};
 `;
 
 const Nav = styled('nav')`
@@ -35,6 +48,12 @@ const Nav = styled('nav')`
         height: ${GREEN_BORDER_SIZE};
         width: 100%;
     }
+`;
+
+const MobileLoginButtonContainer = styled('div')`
+    display: flex;
+    margin-top: ${size.mediumLarge};
+    width: 100%;
 `;
 
 const MobileNavMenu = styled('div')`
@@ -53,10 +72,18 @@ const MobileNavMenu = styled('div')`
 `;
 
 const MaxWidthContainer = styled('div')`
+    align-items: center;
+    column-gap: ${size.default};
+    display: grid;
+    grid-template-columns: auto ${EXPAND_BUTTON_GRID_WIDTH} max-content max-content;
     margin: 0 auto;
+    padding-right: ${size.default};
     max-width: ${size.maxWidth};
     position: relative;
     width: 100%;
+    @media ${MOBILE_NAV_BREAK} {
+        grid-template-columns: auto ${EXPAND_BUTTON_GRID_WIDTH} max-content;
+    }
 `;
 
 const NavContent = styled('div')`
@@ -65,13 +92,11 @@ const NavContent = styled('div')`
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    @media ${screenSize.upToSmallDesktop} {
-        ${({ isExpanded }) => isExpanded && expandedState};
-    }
+    ${({ isExpanded }) => isExpanded && expandedState};
     @media ${MOBILE_NAV_BREAK} {
         display: grid;
-        grid-template-columns: ${size.large} auto ${size.large};
-        justify-items: center;
+        /* Using 36px here as the menu is 20px with 16px margin to the left */
+        grid-template-columns: 36px auto;
         padding: 0;
     }
 `;
@@ -105,7 +130,16 @@ const HomeLink = styled(NavLink)`
         transform: translate(0, -1px);
     }
     @media ${screenSize.upToXlarge} {
-        padding: ${LINK_VERTICAL_PADDING} ${size.medium};
+        padding: ${LINK_VERTICAL_PADDING} ${size.default};
+    }
+`;
+
+const SignInButton = styled(Button)`
+    align-self: center;
+    padding: ${size.xsmall} ${size.default};
+    white-space: nowrap;
+    @media ${screenSize.upToMedium} {
+        padding: ${size.xsmall} ${size.default};
     }
 `;
 
@@ -146,6 +180,11 @@ const MobileItems = ({ isSearchbarExpanded, items }) => {
                             item={item}
                         />
                     ))}
+                    <MobileLoginButtonContainer>
+                        <SignInButton secondary hasArrow={false} css={center}>
+                            Sign In
+                        </SignInButton>
+                    </MobileLoginButtonContainer>
                 </MobileNavMenu>
             )}
         </>
@@ -172,7 +211,7 @@ const GlobalNav = () => {
                                 items={items}
                             />
                             <HomeLink aria-label="Home" to="/">
-                                <LeafLogo />
+                                <MobileLeafLogo />
                             </HomeLink>
                         </>
                     ) : (
@@ -190,6 +229,16 @@ const GlobalNav = () => {
                     isExpanded={isSearchbarExpanded}
                     setIsExpanded={onSearchbarExpand}
                 />
+                <SignInButton primary hasArrow={false}>
+                    Sign Up
+                </SignInButton>
+                <SignInButton
+                    secondary
+                    hasArrow={false}
+                    css={showOnDesktopOnly}
+                >
+                    Sign In
+                </SignInButton>
             </MaxWidthContainer>
         </Nav>
     );
