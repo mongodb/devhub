@@ -66,7 +66,7 @@ module.exports = {
             options: {
                 output: '/sitemap.xml',
                 // Exclude paths we are using the noindex tag on
-                exclude: [
+                excludes: [
                     '/language/*',
                     '/product/*',
                     '/storybook ',

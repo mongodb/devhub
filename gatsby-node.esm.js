@@ -26,6 +26,7 @@ import { SnootyArticle } from './src/classes/snooty-article';
 import { createVideoPages } from './src/utils/setup/create-video-pages';
 import { fetchBuildTimeMedia } from './src/utils/setup/fetch-build-time-media';
 import { aggregateItemsByVideoType } from './src/utils/setup/aggregate-items-by-video-type';
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 
 const pluralizeIfNeeded = {
     author: 'authors',
@@ -226,6 +227,7 @@ export const onCreateWebpackConfig = ({ stage, loaders, actions }) => {
         });
     }
     actions.setWebpackConfig({
+        plugins: [new NodePolyfillPlugin()],
         resolve: {
             alias: {
                 // Use noop file to prevent any preview-setup errors
