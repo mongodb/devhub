@@ -22,6 +22,9 @@ jobs:
             - name: Install Dependencies
               if: steps.cache.outputs.cache-hit != 'true'
               run: npm ci
+              env:
+                  OKTA_CLIENT_ID: ${{ secrets.OKTA_QA_CLIENT_ID }}
+                  OKTA_URL: ${{ secrets.OKTA_QA_URL }}
             - name: Install Cypress
               if: steps.cache.outputs.cache-hit == 'true'
               run: ./node_modules/.bin/cypress install
@@ -38,14 +41,17 @@ jobs:
             - name: Build Gatsby
               run: npm run buildTest
               env:
-                  OKTA_URL: ${{ secrets.OKTA_QA_URL }}
                   OKTA_CLIENT_ID: ${{ secrets.OKTA_QA_CLIENT_ID }}
+                  OKTA_URL: ${{ secrets.OKTA_QA_URL }}
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
                   install: false
                   start: npm run serveTest
                   wait-on: 'http://localhost:9000'
+              env:
+                  OKTA_CLIENT_ID: ${{ secrets.OKTA_QA_CLIENT_ID }}
+                  OKTA_URL: ${{ secrets.OKTA_QA_URL }}
             - name: Generate artifacts on failure
               uses: actions/upload-artifact@v2
               if: failure()
