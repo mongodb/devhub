@@ -3,10 +3,7 @@ import { communityChampions } from '../../queries/community-champions';
 
 const createCommunityChampionProfilePage = (champion, createPage) => {
     const { firstName, lastName } = champion;
-    const encodedNameURIComponent = encodeURIComponent(
-        `${firstName.toLowerCase()}-${lastName.toLowerCase()}`
-    );
-    const slug = `/community-champions/${encodedNameURIComponent}`;
+    const slug = `/community-champions/${firstName.toLowerCase()}-${lastName.toLowerCase()}`;
     createPage({
         path: slug,
         component: path.resolve(
