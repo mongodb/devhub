@@ -13,6 +13,9 @@ import {
 
 import { screenSize, size } from '~components/dev-hub/theme';
 
+const MOBILE_MAIN_BUTTON_HEIGHT = '100px';
+const MOBILE_MAIN_BUTTON_WIDTH = '110px;';
+
 const buttonStyles = css`
     margin-right: 12px;
     padding: ${size.tiny};
@@ -58,10 +61,9 @@ const StyledMainButton = styled(Button)`
     @media ${screenSize.upToSmall} {
         align-items: center;
         display: inline-flex;
-        height: 100px;
+        height: ${MOBILE_MAIN_BUTTON_HEIGHT};
         justify-content: center;
-        width: 110px;
-
+        width: ${MOBILE_MAIN_BUTTON_WIDTH};
         svg {
             transform: scale(1.25);
         }

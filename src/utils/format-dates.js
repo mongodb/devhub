@@ -40,3 +40,27 @@ export const toDateString = (date, options = defaultOptions) => {
     }
     return newDate.toLocaleString(undefined, options);
 };
+
+export const formatDateToPublishDateFormat = date => {
+    const months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+    ];
+    return (
+        months[date.getMonth() - 1] +
+        ' ' +
+        date.getDate() +
+        ', ' +
+        date.getFullYear()
+    );
+};

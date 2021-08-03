@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FastForwardIcon = ({ width = '35px', height = '40px', ...props }) => (
+const FastForwardIcon = ({ width = '31px', height = '35px', ...props }) => (
     <svg width={width} height={height} fill="none" {...props}>
         <title>Fast forward</title>
         <path

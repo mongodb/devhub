@@ -1,7 +1,7 @@
 import path from 'path';
 import { getTagPageUriComponent } from '../get-tag-page-uri-component';
-import { fetchBuildTimeMedia } from '../../utils/setup/fetch-build-time-media';
 import { Podcast } from '../../interfaces/podcast';
+import formatDateToPublishDateFormat from '../format-dates';
 
 export const createPodcastPages = async (
     createPage: Function,
@@ -9,11 +9,9 @@ export const createPodcastPages = async (
     metadata: object
 ) => {
     allPodcasts.forEach((podcast: Podcast) => {
-        const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const publishDate = new Date(podcast.publishDate);
         const slug = `/podcasts/${getTagPageUriComponent(podcast.title)}`;
         podcast.slug = slug;
-        podcast.publishDate = months[publishDate.getMonth()+1] + " " + publishDate.getDate() + ", " + publishDate.getFullYear();
+        podcast.publishDate = formatDateToPublishDateFormat(new Date(podcast.publishDate));
         createPage({
             path: slug,
             component: path.resolve(`./src/templates/podcast.tsx`),
