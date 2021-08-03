@@ -26,7 +26,6 @@ const INFO_GRID_BOTTOM_MARGIN = '48px';
 const INFO_GRID_ROW_GAP = '4px';
 const TEXT_COLUMN_WIDTH = '248px';
 const ICON_MOBILE_WIDTH = '12px';
-const ICON_TOP_PADDING = '4px';
 const NAME_FONT_SIZE = '28px';
 const NAME_LINE_HEIGHT = '38px';
 const BIO_MOBILE_BOTTOM_MARGIN = '40px';
@@ -168,8 +167,8 @@ const IconWithTextContainer = styled('div')`
     ${({ gridArea }) => (gridArea ? `grid-area: ${gridArea}` : '')};
     grid-template-columns: ${size.default} ${TEXT_COLUMN_WIDTH};
     @media ${screenSize.upToSmallDesktop} {
-        align-items: center;
         grid-template-columns: ${size.default} auto;
+        text-align: center;
     }
     @media ${screenSize.upToMedium} {
         grid-template-columns: ${ICON_MOBILE_WIDTH} auto;
@@ -177,10 +176,8 @@ const IconWithTextContainer = styled('div')`
 `;
 
 const Icon = styled('img')`
+    padding-top: ${size.tiny};
     width: 100%;
-    @media ${screenSize.smallDesktopAndUp} {
-        padding-top: ${ICON_TOP_PADDING};
-    }
 `;
 
 const IconWithText = ({ gridArea, icon, iconAltText, text }) => (
