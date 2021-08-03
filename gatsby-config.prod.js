@@ -60,10 +60,9 @@ module.exports = {
         },
         {
             resolve: 'gatsby-plugin-sitemap',
-            output: '/sitemap.xml',
             options: {
                 // Exclude paths we are using the noindex tag on
-                exclude: [
+                excludes: [
                     '/language/*',
                     '/product/*',
                     '/storybook ',

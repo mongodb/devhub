@@ -92,7 +92,7 @@ const SurveyBanner = () => {
                 </SurveyButtonContainer>
             </SurveyContent>
             <CloseButtonContainer>
-                <IconButton onClick={closeSurveyBanner}>
+                <IconButton aria-label="Close" onClick={closeSurveyBanner}>
                     <XWithCircleIcon fill="#f9fbfa" />
                 </IconButton>
             </CloseButtonContainer>
