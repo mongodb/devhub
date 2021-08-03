@@ -30,7 +30,6 @@ import { aggregateItemsByAudioType } from './src/utils/setup/aggregate-items-by-
 import { createPodcastPages } from './src/utils/setup/create-podcast-pages';
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 
-
 const pluralizeIfNeeded = {
     author: 'authors',
     language: 'languages',
@@ -53,7 +52,6 @@ const slugContentMapping = {};
 
 let snootyArticles = [];
 let allArticles = [];
-let allPodcasts = [];
 // Create slimmer articles for tag pages
 let articlesWithoutContentAST = [];
 

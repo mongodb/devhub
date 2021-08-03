@@ -9,10 +9,11 @@ export const createPodcastPages = async (
     metadata: object
 ) => {
     allPodcasts.map((podcast: Podcast) => {
-        const publishDate = new Date(podcast.publishDate).toDateString();
+        const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const publishDate = new Date(podcast.publishDate);
         const slug = `/podcasts/${getTagPageUriComponent(podcast.title)}`;
         podcast.slug = slug;
-        podcast.publishDate = publishDate.substr(publishDate.indexOf(' ') + 1);
+        podcast.publishDate = months[publishDate.getMonth()+1] + " " + publishDate.getDate() + ", " + publishDate.getFullYear();
         createPage({
             path: slug,
             component: path.resolve(`./src/templates/podcast.tsx`),

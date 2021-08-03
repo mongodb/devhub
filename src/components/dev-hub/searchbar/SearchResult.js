@@ -6,7 +6,7 @@ import Link from '~components/Link';
 import { getNestedValue } from '~utils/get-nested-value';
 import SearchContext from './SearchContext';
 import { StyledTextInput } from './SearchTextInput';
-import Badge from './../badge';
+import Badge from '~components/dev-hub/badge';
 
 const ABOVE_MOBILE = screenSize.smallAndUp;
 const ARROW_DOWN_KEY = 40;
@@ -86,7 +86,7 @@ const StyledResultTitle = styled('p')`
 `;
 
 const StyledBadge = styled(Badge)`
-    margin: 0px 0px ${size.xsmall} 0px;
+    margin: 0px 0px ${size.xsmall};
     position: static;
     color: white;
     max-width: fit-content;
@@ -117,9 +117,10 @@ const SearchResult = React.memo(
                 } else {
                     // This is the last result, so let's loop back to the top
                     if (searchContainerRef && searchContainerRef.current) {
-                        const firstLink = searchContainerRef.current.querySelector(
-                            `${SearchResultLink}`
-                        );
+                        const firstLink =
+                            searchContainerRef.current.querySelector(
+                                `${SearchResultLink}`
+                            );
                         if (firstLink) {
                             firstLink.focus();
                         }
