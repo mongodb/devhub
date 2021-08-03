@@ -63,6 +63,7 @@ const GlobalWrapper = styled('div')`
     min-height: 100vh;
     width: 100%;
 `;
+
 export const StorybookLayout = ({ children }) => {
     const style = useMemo(() => globalStyles(darkTheme), []);
     return (
@@ -77,7 +78,7 @@ export const StorybookLayout = ({ children }) => {
     );
 };
 
-export default ({ children, includeCanonical = true }) => {
+const Layout = ({ children, includeCanonical = true }) => {
     const style = useMemo(() => globalStyles(darkTheme), []);
     const { siteUrl } = useSiteMetadata();
     const { pathname } = useLocation();
@@ -110,8 +111,10 @@ export default ({ children, includeCanonical = true }) => {
                 <TabProvider>
                     <Main>{children}</Main>
                 </TabProvider>
-                <UnifiedFooter />
+                <UnifiedFooter hideLocale />
             </GlobalWrapper>
         </ThemeProvider>
     );
 };
+
+export default Layout;

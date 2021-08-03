@@ -16,7 +16,11 @@ const NavWrapper = styled('div')`
 
 const ConsistentNav = () => (
     <NavWrapper>
-        <UnifiedNav position="relative" onTrack={console.log} />
+        <UnifiedNav
+            position="relative"
+            property="DEVHUB"
+            onTrack={console.log}
+        />
     </NavWrapper>
 );
 
