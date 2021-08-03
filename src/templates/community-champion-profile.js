@@ -91,7 +91,7 @@ const Quote = styled(P)`
     background: ${({ theme }) => theme.gradientMap.magentaSalmonSherbet};
     background-clip: text;
     font-family: 'Fira Mono';
-    font-size: 20px;
+    font-size: ${fontSize.medium};
     font-weight: 500;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -208,6 +208,8 @@ const Location = ({ location }) => (
 const LanguagesTitle = styled(H6)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
     font-size: ${fontSize.tiny};
+    font-weight: 500;
+    letter-spacing: 0.1em;
     line-height: ${lineHeight.tiny};
 `;
 
