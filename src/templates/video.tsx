@@ -36,30 +36,25 @@ const Container = styled('div')`
         margin-top: 50px;
     }
 `;
-
 const StyledBlogShareLinks = styled(BlogShareLinks)`
     flex-direction: column;
     align-items: center;
     @media ${screenSize.largeAndUp} {
         > * {
-            &:not(:first-of-type) {
-                margin-top: ${size.medium};
-            }
+            
+                margin-bottom: ${size.medium};
+            
         }
     }
-
+    
     @media ${screenSize.upToLarge} {
         display: inline-flex;
         flex-direction: row;
-        > * {
-            &:first-of-type {
-                margin-left: 0;
-            }
-        }
+       
         > * {
             margin-top: 0;
-            margin-left: ${size.mediumLarge};
-        }
+            margin-right: ${size.mediumLarge};
+        }  
     }
 `;
 
@@ -98,9 +93,10 @@ const StyledParagraph = styled(P)`
 `;
 
 const StyledShareFooter = styled(ShareFooter)`
-    a:first-of-type {
-        margin-left: 0;
-    }
+     a {
+        margin-left: 0 !important;
+        margin-right: ${size.medium};
+    } 
 `;
 
 type VideoProps = {

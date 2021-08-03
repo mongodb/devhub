@@ -1,8 +1,8 @@
 import path from 'path';
 import { getTagPageUriComponent } from '../get-tag-page-uri-component';
 import { Podcast } from '../../interfaces/podcast';
-import formatDateToPublishDateFormat from '../format-dates';
-
+import { formatDateToPublishDateFormat } from '../format-dates';
+       
 export const createPodcastPages = async (
     createPage: Function,
     allPodcasts: Podcast[],

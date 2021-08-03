@@ -91,32 +91,28 @@ const StyledBlogShareLinks = styled(BlogShareLinks)`
     align-items: center;
     @media ${screenSize.largeAndUp} {
         > * {
-            &:not(:first-of-type) {
-                margin-top: ${size.medium};
-            }
+                margin-bottom: ${size.medium};
+            
         }
     }
     
     @media ${screenSize.upToLarge} {
         display: inline-flex;
         flex-direction: row;
-        > * {
-            &:first-of-type {
-                margin-left: 0;
-            }
-        }
+       
         > * {
             margin-top: 0;
-            margin-left: ${size.mediumLarge};
+            margin-right: ${size.mediumLarge};
         }  
     }
 `;
 
-const StyledFooter = styled(ShareFooter)`
-    /* Target the copy link, although it is below some divs */
-    a:first-of-type {
-        margin-left: 0;
+const StyledShareFooter = styled(ShareFooter)`
+    a{
+        margin-left: 0 !important;
+        margin-right: ${size.medium};
     }
+    
 `;
 
 const Podcast = ({
@@ -191,7 +187,7 @@ const Podcast = ({
                 <Content>
                     <StyledPlayer podcast={podcastUrl} />
                     <StyledParagraph>{parsedDescription}</StyledParagraph>
-                    <StyledFooter
+                    <StyledShareFooter
                         title={title}
                         tooltipText={TOOLTIP_TEXT}
                         url={pageUrl}
