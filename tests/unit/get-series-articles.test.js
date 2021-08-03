@@ -1,27 +1,29 @@
 import { getSeriesArticles } from '../../src/utils/get-series-articles';
 
 it('should correctly determine which series an article belongs to', () => {
-    const allSeries = {
-        seriesABC: ['slugA', 'slugB', 'slugC'],
-        seriesAC: ['slugA', 'slugC'],
-        seriesB: ['slugB'],
-        seriesD: [],
+    const seriesABC = {
+        title: 'seriesABC',
+        articles: [{ slug: 'slugA' }, { slug: 'slugB' }, { slug: 'slugC' }],
     };
-    expect(Object.keys(getSeriesArticles(allSeries, 'slugA'))).toEqual([
-        'seriesABC',
-        'seriesAC',
+    const seriesAC = {
+        title: 'seriesAC',
+        articles: [{ slug: 'slugA' }, { slug: 'slugC' }],
+    };
+    const seriesB = {
+        title: 'seriesB',
+        articles: [{ slug: 'slugB' }],
+    };
+    const seriesD = { title: 'seriesD', articles: [] };
+    const allSeries = [seriesABC, seriesAC, seriesB, seriesD];
+    expect(getSeriesArticles(allSeries, 'slugA')).toEqual([
+        seriesABC,
+        seriesAC,
     ]);
-    expect(getSeriesArticles(allSeries, 'slugA')['seriesAC']).toEqual(
-        allSeries['seriesAC']
-    );
-    expect(Object.keys(getSeriesArticles(allSeries, 'slugB'))).toEqual([
-        'seriesABC',
-        'seriesB',
+    expect(getSeriesArticles(allSeries, 'slugB')).toEqual([seriesABC, seriesB]);
+    expect(getSeriesArticles(allSeries, 'slugC')).toEqual([
+        seriesABC,
+        seriesAC,
     ]);
-    expect(Object.keys(getSeriesArticles(allSeries, 'slugC'))).toEqual([
-        'seriesABC',
-        'seriesAC',
-    ]);
-    expect(Object.keys(getSeriesArticles(allSeries, 'slugD'))).toEqual([]);
-    expect(Object.keys(getSeriesArticles(allSeries, ''))).toEqual([]);
+    expect(getSeriesArticles(allSeries, 'slugD')).toEqual([]);
+    expect(getSeriesArticles(allSeries, '')).toEqual([]);
 });
