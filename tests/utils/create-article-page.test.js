@@ -13,16 +13,22 @@ describe('creating an article page', () => {
     });
 
     it('should create a page at the correct slug', () => {
-        createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);
+        createArticlePage(articleOne, slugContentMapping, [], {}, createPage);
         expect(createPage.mock.calls.length).toBe(1);
         expect(createPage.mock.calls[0][0].path).toBe(articleOneSlug);
     });
 
     it('should properly tag series for a page', () => {
-        const series = {
-            seriesWithArticleOne: [articleOneSlug],
-            seriesWithoutArticleOne: [],
+        const seriesWithArticleOne = {
+            title: 'seriesWithArticleOne',
+            articles: [articleOne],
         };
+        const seriesWithoutArticleOne = {
+            title: 'seriesWithoutArticleOne',
+            articles: [],
+        };
+        const series = [seriesWithArticleOne, seriesWithoutArticleOne];
+
         createArticlePage(
             articleOne,
             slugContentMapping,
@@ -31,16 +37,15 @@ describe('creating an article page', () => {
             createPage
         );
         expect(createPage.mock.calls.length).toBe(1);
+        expect(createPage.mock.calls[0][0].context.seriesArticles).toContain(
+            seriesWithArticleOne
+        );
         expect(
             createPage.mock.calls[0][0].context.seriesArticles
-        ).toHaveProperty('seriesWithArticleOne');
+        ).not.toContain(seriesWithoutArticleOne);
         expect(
-            createPage.mock.calls[0][0].context.seriesArticles
-        ).not.toHaveProperty('seriesWithoutArticleOne');
-        expect(
-            createPage.mock.calls[0][0].context.seriesArticles
-                .seriesWithArticleOne
-        ).toStrictEqual(series.seriesWithArticleOne);
+            createPage.mock.calls[0][0].context.seriesArticles[0]
+        ).toStrictEqual(seriesWithArticleOne);
     });
 
     it('should get the correct template for a page', () => {
@@ -50,7 +55,7 @@ describe('creating an article page', () => {
                 template: 'devhub-article',
             },
         };
-        createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);
+        createArticlePage(articleOne, slugContentMapping, [], {}, createPage);
         expect(createPage.mock.calls[0][0].component).toContain('article.js');
     });
 
@@ -60,7 +65,7 @@ describe('creating an article page', () => {
             ast: {},
         };
         articleOne.related = [{ refuri: articleTwoSlug }];
-        createArticlePage(articleOne, slugContentMapping, {}, {}, createPage);
+        createArticlePage(articleOne, slugContentMapping, [], {}, createPage);
         expect(createPage.mock.calls[0][0].context.article.related.length).toBe(
             1
         );
