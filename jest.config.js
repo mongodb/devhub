@@ -22,6 +22,7 @@ module.exports = {
             },
             setupFilesAfterEnv: ['<rootDir>/tests/testSetup.js'],
             snapshotSerializers: ['enzyme-to-json/serializer'],
+            testEnvironment: 'jsdom',
             testMatch: ['<rootDir>/tests/unit/*.test.js'],
             transform: {
                 '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,
@@ -42,6 +43,7 @@ module.exports = {
                 '\\~src(.*)$': '<rootDir>/src$1',
                 '\\~utils(.*)$': '<rootDir>/src/utils$1',
             },
+            testEnvironment: 'jsdom',
             testMatch: ['<rootDir>/tests/utils/*.test.js'],
             transform: {
                 '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,
@@ -53,6 +55,7 @@ module.exports = {
             globals: {
                 __PATH_PREFIX__: '',
             },
+            testEnvironment: 'jsdom',
             testMatch: ['<rootDir>/tests/hooks/*.test.js'],
             transform: {
                 '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,

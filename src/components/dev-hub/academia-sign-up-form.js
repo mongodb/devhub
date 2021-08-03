@@ -193,8 +193,9 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
 
             <StyledCheckbox
                 bold
+                value={agreeToEmail}
                 darkMode={true}
-                onChange={e => setAgreeToEmail(e.target.value)}
+                onChange={e => setAgreeToEmail(e.target.checked)}
                 required
                 label="I agree to receive emails from MongoDB, Inc. After submitting, 
                 a MongoDB representative will reach out within five business days."
