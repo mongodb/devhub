@@ -25,6 +25,7 @@ import { SnootyArticle } from './src/classes/snooty-article';
 import { createVideoPages } from './src/utils/setup/create-video-pages';
 import { fetchBuildTimeMedia } from './src/utils/setup/fetch-build-time-media';
 import { aggregateItemsByVideoType } from './src/utils/setup/aggregate-items-by-video-type';
+import { createCommunityChampionProfilePages } from './src/utils/setup/create-community-champion-profile-pages';
 
 const pluralizeIfNeeded = {
     author: 'authors',
@@ -207,6 +208,8 @@ export const createPages = async ({ actions, graphql }) => {
     await Promise.all(tagPages);
 
     await createVideoPages(createPage, allVideos, metadataDocument);
+
+    await createCommunityChampionProfilePages(createPage, graphql);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
