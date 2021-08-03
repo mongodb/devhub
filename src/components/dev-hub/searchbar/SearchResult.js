@@ -6,7 +6,7 @@ import Link from '~components/Link';
 import { getNestedValue } from '~utils/get-nested-value';
 import SearchContext from './SearchContext';
 import { StyledTextInput } from './SearchTextInput';
-import Badge from '~components/dev-hub/badge';
+import Badge from '../badge';
 
 const ABOVE_MOBILE = screenSize.smallAndUp;
 const ARROW_DOWN_KEY = 40;
