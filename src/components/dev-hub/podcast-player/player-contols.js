@@ -44,9 +44,7 @@ const StyledTimeControlButton = styled(Button)`
     ${buttonStyles},
     &:hover {
         svg {
-            path:first-of-type {
-                transform: scale(1.15);
-            }
+            transform: scale(1.15);
         }
     }
 `;

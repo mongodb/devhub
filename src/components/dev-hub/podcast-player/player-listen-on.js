@@ -9,7 +9,7 @@ import {
     SpotifyLogo,
 } from '~components/dev-hub/icons/audio-player';
 
-import { colorMap, screenSize, size } from '~components/dev-hub/theme';
+import { screenSize, size } from '~components/dev-hub/theme';
 
 const APPLE_PODCASTS_URL =
     'https://podcasts.apple.com/us/podcast/the-mongodb-podcast/id1500452446';
@@ -37,7 +37,7 @@ const StyledButton = styled(Button)`
 
     &:hover {
         svg > path {
-            fill: ${colorMap.greyLightOne};
+            fill: ${({ theme }) => theme.colorMap.greyLightThree};
         }
     }
 

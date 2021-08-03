@@ -8,7 +8,7 @@ export const createPodcastPages = async (
     allPodcasts: Podcast[],
     metadata: object
 ) => {
-    allPodcasts.map((podcast: Podcast) => {
+    allPodcasts.forEach((podcast: Podcast) => {
         const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const publishDate = new Date(podcast.publishDate);
         const slug = `/podcasts/${getTagPageUriComponent(podcast.title)}`;
@@ -18,7 +18,7 @@ export const createPodcastPages = async (
             path: slug,
             component: path.resolve(`./src/templates/podcast.tsx`),
             context: {
-                metadata: metadata,
+                metadata,
                 data: podcast,
             },
         });
