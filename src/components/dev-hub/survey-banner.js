@@ -60,9 +60,8 @@ const SurveyBanner = () => {
     };
 
     useEffect(() => {
-        const storedBannerDisplayInLocalStorage = localStorage.getItem(
-            'surveybanner'
-        );
+        const storedBannerDisplayInLocalStorage =
+            localStorage.getItem('surveybanner');
         if (storedBannerDisplayInLocalStorage === 'hide') {
             setShowSurveyBanner(false);
         } else {
@@ -92,7 +91,7 @@ const SurveyBanner = () => {
                 </SurveyButtonContainer>
             </SurveyContent>
             <CloseButtonContainer>
-                <IconButton onClick={closeSurveyBanner}>
+                <IconButton aria-label="Close" onClick={closeSurveyBanner}>
                     <XWithCircleIcon fill="#f9fbfa" />
                 </IconButton>
             </CloseButtonContainer>
