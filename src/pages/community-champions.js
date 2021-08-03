@@ -49,7 +49,7 @@ import GroupImage from '~images/community-champions/group.svg';
 import RocketShipImage from '~images/community-champions/rocket-ship.svg';
 import StackSquaresImage from '~images/community-champions/stack-squares.svg';
 import PaperAndPencilImage from '~images/community-champions/paper-and-pencil.svg';
-import PinLocationIcon from '~images/community-champions/pin-location.svg';
+import LocationPinIcon from '~images/community-champions/location-pin-grey.svg';
 import ChampionPlaceholderImage from '~images/community-champions/champion-placeholder.svg';
 import useMedia from '~hooks/use-media';
 
@@ -548,7 +548,7 @@ const LocationContainer = styled('div')`
     }
 `;
 
-const PinLocationImage = styled('img')`
+const LocationPinImage = styled('img')`
     margin-right: ${PIN_LOCATION_IMAGE_RIGHT_MARGIN};
 `;
 
@@ -559,7 +559,7 @@ const LocationText = styled(P4)`
 
 const ChampionLocation = ({ location }) => (
     <LocationContainer>
-        <PinLocationImage src={PinLocationIcon} />
+        <LocationPinImage src={LocationPinIcon} alt="Location pin" />
         <LocationText collapse>{location}</LocationText>
     </LocationContainer>
 );
