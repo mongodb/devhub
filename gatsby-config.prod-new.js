@@ -1,4 +1,7 @@
 const { siteUrl } = require('./src/queries/site-url');
+const {
+    mapPublicationStateToArray,
+} = require('./src/utils/setup/map-publication-state-to-array');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { articleRssFeed } = require('./src/utils/setup/article-rss-feed');
 const { searchRssFeed } = require('./src/utils/setup/search-rss-feed');
@@ -7,7 +10,7 @@ require('dotenv').config({
     path: '.env.production',
 });
 
-const SITE_URL = 'https://mongodb.com/developer';
+const SITE_URL = 'https://www.mongodb.com/developer';
 
 const metadata = getMetadata();
 
@@ -27,14 +30,17 @@ module.exports = {
             resolve: `gatsby-source-strapi`,
             options: {
                 apiURL: process.env.STRAPI_URL,
-                contentTypes: ['articles', 'client-side-redirects', 'projects'],
-                singleTypes: [
+                collectionTypes: mapPublicationStateToArray([
+                    'articles',
+                    'client-side-redirects',
+                    'projects',
+                ]),
+                singleTypes: mapPublicationStateToArray([
                     'feedback-rating-flow',
                     'student-spotlight-featured',
                     'top-banner',
                     'top-nav',
-                ],
-                publicationState: process.env.STRAPI_PUBLICATION_STATE,
+                ]),
             },
         },
         {
@@ -57,15 +63,25 @@ module.exports = {
             output: '/sitemap.xml',
             options: {
                 // Exclude paths we are using the noindex tag on
-                exclude: [
+                excludes: [
                     '/language/*',
                     '/product/*',
                     '/storybook ',
                     '/tag/*',
                     '/type/*',
+                    // The below two are current 301 redirects that should be ignored
+                    '/quickstart/node-connect-mongodb/',
+                    '/quickstart/node-connect-mongodb-3-3-2/',
+                    // There are several URLs which canonicalize elsewhere
+                    // For now, just enumerate them but we should implement a more proper fix
+                    '/quickstart/node-aggregation-framework-3-3-2/',
+                    '/quickstart/node-crud-tutorial-3-3-2/',
+                    '/quickstart/node-transactions-3-3-2/',
+                    '/quickstart/nodejs-change-streams-triggers/',
+                    '/quickstart/nodejs-change-streams-triggers-3-3-2/',
                 ],
                 // This plugin uses the siteUrl AND prefix path, will still apply the prefix
-                resolveSiteUrl: () => 'https://mongodb.com/',
+                resolveSiteUrl: () => 'https://www.mongodb.com/',
             },
         },
         {

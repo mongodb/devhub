@@ -166,6 +166,8 @@ const Article = props => {
     }, [slug, title, type]);
 
     const tagList = [...products, ...languages, ...tags];
+    // For structured data, we would like a list of the tags to include
+    const tagLabels = tagList.map(({ label }) => label);
     const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
 
     return (
@@ -183,13 +185,14 @@ const Article = props => {
                     type={og.type}
                 />
                 <ArticleSchema
-                    articleUrl={articleUrl}
-                    title={title}
-                    description={metaDescription}
-                    publishedDate={publishedDate}
-                    modifiedDate={updatedDate}
-                    imageUrl={image}
                     authors={authors}
+                    articleUrl={articleUrl}
+                    description={metaDescription}
+                    imageUrl={image}
+                    modifiedDate={updatedDate}
+                    publishedDate={publishedDate}
+                    tags={tagLabels}
+                    title={title}
                 />
                 <BlogPostTitleArea
                     articleImage={image}
