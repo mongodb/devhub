@@ -4,7 +4,6 @@ import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
 import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
-import { mapSnootySeries } from './src/utils/setup/map-snooty-series';
 import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
@@ -26,7 +25,6 @@ import { SnootyArticle } from './src/classes/snooty-article';
 import { createVideoPages } from './src/utils/setup/create-video-pages';
 import { fetchBuildTimeMedia } from './src/utils/setup/fetch-build-time-media';
 import { aggregateItemsByVideoType } from './src/utils/setup/aggregate-items-by-video-type';
-import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 
 const pluralizeIfNeeded = {
     author: 'authors',
@@ -156,8 +154,7 @@ export const createPages = async ({ actions, graphql }) => {
         throw new Error(`Page build error: ${result.error}`);
     }
 
-    const snootySeries = filteredPageGroups(metadataDocument.pageGroups);
-    const allSeries = mapSnootySeries(snootySeries, slugContentMapping);
+    const allSeries = filteredPageGroups(metadataDocument.pageGroups);
 
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
     allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);
@@ -227,7 +224,6 @@ export const onCreateWebpackConfig = ({ stage, loaders, actions }) => {
         });
     }
     actions.setWebpackConfig({
-        plugins: [new NodePolyfillPlugin()],
         resolve: {
             alias: {
                 // Use noop file to prevent any preview-setup errors
