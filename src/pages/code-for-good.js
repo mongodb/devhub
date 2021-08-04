@@ -190,7 +190,7 @@ const HeaderActionsContainer = styled('div')`
     padding-top: ${size.large};
 `;
 
-export default () => {
+const OFishPage = () => {
     const metadata = useSiteMetadata();
     const codeForGoodBreadcrumbs = [
         { label: 'Home', target: '/' },
@@ -341,3 +341,5 @@ export default () => {
         </Layout>
     );
 };
+
+export default OFishPage;
