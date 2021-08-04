@@ -8,7 +8,7 @@ import {
     ProgramBenefits,
 } from '../../components/pages/educators';
 
-export default () => {
+const EducatorsPage = () => {
     const metadata = useSiteMetadata();
     return (
         <Layout>
@@ -21,3 +21,5 @@ export default () => {
         </Layout>
     );
 };
+
+export default EducatorsPage;
