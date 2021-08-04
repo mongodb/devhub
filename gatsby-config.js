@@ -41,6 +41,7 @@ module.exports = {
                 ]),
                 singleTypes: mapPublicationStateToArray([
                     'feedback-rating-flow',
+                    'home-page-featured-articles',
                     'student-spotlight-featured',
                     'top-banner',
                     'top-nav',
