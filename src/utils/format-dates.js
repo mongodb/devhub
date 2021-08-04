@@ -57,9 +57,9 @@ export const formatDateToPublishDateFormat = date => {
         'Dec',
     ];
     return (
-        months[date.getMonth() - 1] +
+        months[date.getMonth()] +
         ' ' +
-        date.getDate() +
+        String(date.getDate()).padStart(2, '0') +
         ', ' +
         date.getFullYear()
     );
