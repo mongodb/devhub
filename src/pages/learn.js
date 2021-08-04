@@ -186,7 +186,7 @@ const FeaturedArticles = ({ articles }) => {
     );
 };
 
-export default ({
+const LearnPage = ({
     location,
     navigate,
     pageContext: {
@@ -367,3 +367,5 @@ export default ({
         </Layout>
     );
 };
+
+export default LearnPage;
