@@ -51,9 +51,9 @@ const ContentContainer = styled('div')`
 const ChampionImage = styled(ProfileImage)`
     div {
         ${props =>
-            props.default
-                ? ''
-                : `background-color: ${props.theme.colorMap.devWhite};`}
+            props.image
+                ? `background-color: ${props.theme.colorMap.devWhite};`
+                : ''}
         background-size: cover;
     }
 `;
@@ -65,14 +65,12 @@ const GridContainer = styled('div')`
         'image text'
         'quote text';
     grid-template-columns: ${CHAMPION_IMAGE_WIDTH} auto;
-    grid-template-rows: auto auto;
     @media ${screenSize.upToSmallDesktop} {
         grid-template-areas:
             'image'
             'text'
             'quote';
         grid-template-columns: auto;
-        grid-template-rows: auto;
     }
 `;
 
@@ -180,9 +178,9 @@ const Icon = styled('img')`
     width: 100%;
 `;
 
-const IconWithText = ({ gridArea, icon, iconAltText, text }) => (
+const IconWithText = ({ alt, gridArea, src, text }) => (
     <IconWithTextContainer gridArea={gridArea}>
-        <Icon src={icon} alt={iconAltText} />
+        <Icon src={src} alt={alt} />
         <P2 collapse>{text}</P2>
     </IconWithTextContainer>
 );
@@ -190,8 +188,8 @@ const IconWithText = ({ gridArea, icon, iconAltText, text }) => (
 const Occupation = ({ occupation }) => (
     <IconWithText
         gridArea="occupation"
-        icon={BriefcaseIcon}
-        iconAltText="Briefcase"
+        src={BriefcaseIcon}
+        alt="Briefcase"
         text={occupation}
     />
 );
@@ -199,8 +197,8 @@ const Occupation = ({ occupation }) => (
 const Location = ({ location }) => (
     <IconWithText
         gridArea="location"
-        icon={LocationPinIcon}
-        iconAltText="Location pin"
+        src={LocationPinIcon}
+        alt="Location pin"
         text={location}
     />
 );
@@ -211,33 +209,32 @@ const LanguagesTitle = styled(H6)`
     font-weight: 500;
     letter-spacing: 0.1em;
     line-height: ${lineHeight.tiny};
+    text-transform: uppercase;
+    @media ${screenSize.upToSmallDesktop} {
+        display: none;
+    }
 `;
 
 const LanguagesContainer = styled('div')`
     grid-area: languages;
 `;
 
-const Languages = ({ languages, showTitle = true }) => (
+const Languages = ({ languages }) => (
     <LanguagesContainer>
-        {showTitle && <LanguagesTitle collapse>LANGUAGES</LanguagesTitle>}
+        <LanguagesTitle collapse>Languages</LanguagesTitle>
         <IconWithText
-            icon={SpeechBubbleIcon}
-            iconAltText="Speech bubble"
+            src={SpeechBubbleIcon}
+            alt="Speech bubble"
             text={languages}
         />
     </LanguagesContainer>
 );
 
-const InfoSection = ({
-    location,
-    occupation,
-    languages,
-    showLanguagesTitle = true,
-}) => (
+const InfoSection = ({ location, occupation, languages }) => (
     <InfoGrid>
         <Occupation occupation={occupation} />
         <Location location={location} />
-        <Languages languages={languages} showTitle={showLanguagesTitle} />
+        <Languages languages={languages} />
     </InfoGrid>
 );
 
@@ -292,7 +289,6 @@ const CommunityChampionProfile = props => {
                 <GridContainer>
                     <ImageContainer>
                         <ChampionImage
-                            default={imageUrl == null}
                             defaultImage={ChampionPlaceholderImage}
                             gradientOffset={PROFILE_PICTURE_GRADIENT_OFFSET}
                             hideOnMobile={false}
@@ -316,7 +312,6 @@ const CommunityChampionProfile = props => {
                             occupation={title}
                             location={location}
                             languages={languagesSpoken}
-                            showLanguagesTitle={!useMobileLayout}
                         />
                         <Bio>{bio}</Bio>
                     </TextContainer>
