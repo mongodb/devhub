@@ -36,7 +36,7 @@ jobs:
                   echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
                   echo "STRAPI_URL=http://18.144.177.6:1337" >> .env.production
             - name: Build Gatsby
-              run: npm run buildTest OKTA_CLIENT_ID=$OKTA_CLIENT_ID OKTA_URL=$OKTA_URL
+              run: OKTA_CLIENT_ID=$OKTA_CLIENT_ID OKTA_URL=$OKTA_URL npm run buildTest
               env:
                   OKTA_CLIENT_ID: ${{ secrets.OKTA_QA_CLIENT_ID }}
                   OKTA_URL: ${{ secrets.OKTA_QA_URL }}
@@ -44,7 +44,7 @@ jobs:
               uses: cypress-io/github-action@v2
               with:
                   install: false
-                  start: npm run serveTest OKTA_CLIENT_ID=$OKTA_CLIENT_ID OKTA_URL=$OKTA_URL
+                  start: OKTA_CLIENT_ID=$OKTA_CLIENT_ID OKTA_URL=$OKTA_URL npm run serveTest
                   wait-on: 'http://localhost:9000'
               env:
                   OKTA_CLIENT_ID: ${{ secrets.OKTA_QA_CLIENT_ID }}
