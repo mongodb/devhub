@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import Code from '@leafygreen-ui/code';
+import { determineCorrectLeafygreenLanguage } from '~utils/determine-correct-leafygreen-language';
 import { lineHeight, size } from './theme';
 import CopyButton, { COPY_BUTTON_WIDTH } from './copy-button';
 
@@ -82,8 +83,7 @@ const CodeBlock = ({
     const numDigits = useMemo(() => Math.floor(Math.log10(numLines) + 1), [
         numLines,
     ]);
-    // Leafy expects 'csp' as 'cs'
-    const language = lang === 'csp' ? 'cs' : lang || 'none';
+    const language = determineCorrectLeafygreenLanguage(lang);
     return (
         <CodeContainer>
             <StyledCode
