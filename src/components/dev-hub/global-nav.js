@@ -251,7 +251,6 @@ const GlobalNav = () => {
                     isExpanded={isSearchbarExpanded}
                     setIsExpanded={onSearchbarExpand}
                 />
-                {/* TODO: Add MongoMenu */}
                 {isSignedIn ? (
                     <UserMenuWrapper>
                         <UserMenu
