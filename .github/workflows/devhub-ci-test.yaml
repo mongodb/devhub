@@ -44,7 +44,7 @@ jobs:
               uses: cypress-io/github-action@v2
               with:
                   install: false
-                  start: OKTA_CLIENT_ID=$OKTA_CLIENT_ID OKTA_URL=$OKTA_URL npm run serveTest
+                  start: npm run serveTest
                   wait-on: 'http://localhost:9000'
               env:
                   OKTA_CLIENT_ID: ${{ secrets.OKTA_QA_CLIENT_ID }}
