@@ -1,6 +1,7 @@
 import {
     AuthenticationContext,
     AuthenticationProvider,
+    REGISTER_LINK,
 } from './authentication';
 
-export { AuthenticationProvider, AuthenticationContext };
+export { AuthenticationContext, AuthenticationProvider, REGISTER_LINK };

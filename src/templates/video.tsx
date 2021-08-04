@@ -13,7 +13,7 @@ import { useSiteMetadata } from '~hooks/use-site-metadata';
 import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
 import { Video as IVideo } from '~src/interfaces/video';
-import {BannerType} from "~src/types/banner-type";
+import { BannerType } from '~src/types/banner-type';
 
 const VIDEO_BREADCRUMB = [
     {
@@ -22,9 +22,8 @@ const VIDEO_BREADCRUMB = [
     },
     {
         label: 'Learn',
-        target: '/learn'
+        target: '/learn',
     },
-
 ];
 
 const TOOLTIP_TEXT = 'Video link copied to clipboard!';
@@ -48,7 +47,7 @@ const StyledBlogShareLinks = styled(BlogShareLinks)`
             }
         }
     }
-    
+
     @media ${screenSize.upToLarge} {
         display: inline-flex;
         flex-direction: row;
@@ -60,7 +59,7 @@ const StyledBlogShareLinks = styled(BlogShareLinks)`
         > * {
             margin-top: 0;
             margin-left: ${size.mediumLarge};
-        }  
+        }
     }
 `;
 
@@ -102,8 +101,7 @@ const StyledShareFooter = styled(ShareFooter)`
     a:first-of-type {
         margin-left: 0;
     }
-`
-
+`;
 
 type VideoProps = {
     pageContext: {
@@ -126,24 +124,22 @@ const Video = ({
 }: VideoProps) => {
     const { siteUrl } = useSiteMetadata();
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
-    const capitalizedBreadcrumb = mediaType.charAt(0).toUpperCase() + mediaType.slice(1);
+    const capitalizedBreadcrumb =
+        mediaType.charAt(0).toUpperCase() + mediaType.slice(1);
 
-    const videoBreadcrumb = useMemo(
-        () => {
-            return [
+    const videoBreadcrumb = useMemo(() => {
+        return [
             ...VIDEO_BREADCRUMB,
-                {
-                    label: `${capitalizedBreadcrumb} Video`,
-                    target: `/type/${mediaType}-video`,
-                },
-                {
-                    label: title,
-                    target: slug
-                }
-                ];
-        },
-        [mediaType, slug, capitalizedBreadcrumb,title]
-    );
+            {
+                label: `${capitalizedBreadcrumb} Video`,
+                target: `/type/${mediaType}-video`,
+            },
+            {
+                label: title,
+                target: slug,
+            },
+        ];
+    }, [mediaType, slug, capitalizedBreadcrumb, title]);
 
     const image = useMemo(
         () =>
@@ -171,9 +167,10 @@ const Video = ({
             />
             <ArticleSchema
                 articleUrl={pageUrl}
-                title={title}
                 description={description}
                 publishedDate={publishDate}
+                tags={[]}
+                title={title}
             />
             <BlogPostTitleArea
                 breadcrumb={videoBreadcrumb}

@@ -9,13 +9,14 @@ const getAuthorsList = authors =>
     }));
 
 const ArticleSchema = ({
-    articleUrl,
-    title,
-    description,
-    publishedDate,
-    modifiedDate,
-    imageUrl,
     authors,
+    articleUrl,
+    description,
+    imageUrl,
+    modifiedDate,
+    publishedDate,
+    tags,
+    title,
     language = 'English',
 }) => (
     <Helmet>
@@ -41,29 +42,15 @@ const ArticleSchema = ({
                     name: 'MongoDB',
                     logo: {
                         '@type': 'imageObject',
-                        url:
-                            'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
+                        url: 'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
                     },
                 },
                 author: getAuthorsList(authors),
+                tags,
                 inLanguage: language,
             })}
         </script>
     </Helmet>
 );
-
-ArticleSchema.propTypes = {
-    articleUrl: PropTypes.string,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    publishedDate: PropTypes.string,
-    modifiedDate: PropTypes.string,
-    imageUrl: PropTypes.string,
-    authors: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string,
-        })
-    ),
-};
 
 export default ArticleSchema;

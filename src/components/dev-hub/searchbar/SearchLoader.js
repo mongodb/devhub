@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { fontSize, size } from '~components/dev-hub/theme';
 import { P } from '~components/dev-hub/text';
 
-const MAX_WIDTH = '20px';
+const MAX_WIDTH = size.medium;
 const TRANSITION_SPEED = '900ms';
 
 const ellipsis = keyframes`

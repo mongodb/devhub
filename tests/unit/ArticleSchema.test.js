@@ -36,8 +36,7 @@ describe('ArticleSchema', () => {
                     name: 'MongoDB',
                     logo: {
                         '@type': 'imageObject',
-                        url:
-                            'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
+                        url: 'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
                     },
                 },
                 author: [
@@ -46,6 +45,7 @@ describe('ArticleSchema', () => {
                         name: mockData.authors[0].name,
                     },
                 ],
+                tags: ['atlas', 'mongodb'],
                 inLanguage: 'English',
             })
         );
@@ -85,8 +85,7 @@ describe('ArticleSchema', () => {
                     name: 'MongoDB',
                     logo: {
                         '@type': 'imageObject',
-                        url:
-                            'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
+                        url: 'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
                     },
                 },
                 author: [
@@ -95,6 +94,7 @@ describe('ArticleSchema', () => {
                         name: mockData.authors[0].name,
                     },
                 ],
+                tags: ['atlas', 'mongodb'],
                 inLanguage: 'Test',
             })
         );

@@ -113,14 +113,14 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
     const theme = useTheme();
     const isMobile = useMedia(screenSize.upToSmall);
     const { searchContainerRef, searchTerm } = useContext(SearchContext);
-    const isSearching = useMemo(() => !!searchTerm && isFocused, [
-        isFocused,
-        searchTerm,
-    ]);
-    const shouldShowGoButton = useMemo(() => !!searchTerm && !isMobile, [
-        isMobile,
-        searchTerm,
-    ]);
+    const isSearching = useMemo(
+        () => !!searchTerm && isFocused,
+        [isFocused, searchTerm]
+    );
+    const shouldShowGoButton = useMemo(
+        () => !!searchTerm && !isMobile,
+        [isMobile, searchTerm]
+    );
 
     const onSearchChange = useCallback(
         e => {
@@ -168,8 +168,9 @@ const ExpandedSearchbar = ({ isFocused, onChange, onMobileClose }) => {
     );
 
     useEventListener('keydown', onKeyDown, {
-        dependencies: [searchTextbox.current],
+        dependencies: [isFocused, searchTextbox.current],
         element: searchTextbox.current,
+        enabled: isFocused,
     });
 
     const searchUrl = useMemo(

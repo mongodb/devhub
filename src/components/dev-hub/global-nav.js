@@ -14,8 +14,10 @@ import Button from './button';
 import NavItem, { MobileNavItem } from './nav-item';
 import MenuToggle from './menu-toggle';
 import Searchbar from './searchbar';
-import { AuthenticationContext } from './SSO';
+import { AuthenticationContext, REGISTER_LINK } from './SSO';
 
+// The searchbar expand button is 20px with 4px padding on each side
+const EXPAND_BUTTON_GRID_WIDTH = '28px';
 const GREEN_BORDER_SIZE = '2px';
 // Account for bottom bar on mobile browsers
 const MOBILE_MENU_ADDITIONAL_PADDING = '256px';
@@ -75,14 +77,14 @@ const MaxWidthContainer = styled('div')`
     align-items: center;
     column-gap: ${size.default};
     display: grid;
-    grid-template-columns: auto 28px max-content max-content;
+    grid-template-columns: auto ${EXPAND_BUTTON_GRID_WIDTH} max-content max-content;
     margin: 0 auto;
     padding-right: ${size.default};
     max-width: ${size.maxWidth};
     position: relative;
     width: 100%;
     @media ${MOBILE_NAV_BREAK} {
-        grid-template-columns: auto 28px max-content;
+        grid-template-columns: auto ${EXPAND_BUTTON_GRID_WIDTH} max-content;
     }
 `;
 
@@ -95,7 +97,8 @@ const NavContent = styled('div')`
     ${({ isExpanded }) => isExpanded && expandedState};
     @media ${MOBILE_NAV_BREAK} {
         display: grid;
-        grid-template-columns: 40px auto;
+        /* Using 36px here as the menu is 20px with 16px margin to the left */
+        grid-template-columns: 36px auto;
         padding: 0;
     }
 `;
@@ -129,7 +132,7 @@ const HomeLink = styled(NavLink)`
         transform: translate(0, -1px);
     }
     @media ${screenSize.upToXlarge} {
-        padding: ${LINK_VERTICAL_PADDING} ${size.medium};
+        padding: ${LINK_VERTICAL_PADDING} ${size.default};
     }
 `;
 
@@ -213,9 +216,10 @@ const GlobalNav = () => {
         // On certain screens the searchbar is never collapsed
         setIsSearchbarExpanded(isExpanded);
     }, []);
-    const onLogin = useCallback(() => authClient.signInWithRedirect(), [
-        authClient,
-    ]);
+    const onLogin = useCallback(
+        () => authClient.signInWithRedirect(),
+        [authClient]
+    );
     return (
         <Nav>
             <MaxWidthContainer>
@@ -258,7 +262,11 @@ const GlobalNav = () => {
                     </UserMenuWrapper>
                 ) : (
                     <>
-                        <SignInButton primary hasArrow={false}>
+                        <SignInButton
+                            href={REGISTER_LINK}
+                            primary
+                            hasArrow={false}
+                        >
                             Sign Up
                         </SignInButton>
                         <SignInButton
