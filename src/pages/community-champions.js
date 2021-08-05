@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import styled from '@emotion/styled';
 import dlv from 'dlv';
 import { useStaticQuery, graphql } from 'gatsby';
@@ -11,6 +10,7 @@ import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
 import ProfileImage from '~components/dev-hub/profile-image';
+import SEO from '~components/dev-hub/SEO';
 import {
     H1,
     H2,
@@ -49,7 +49,7 @@ import GroupImage from '~images/community-champions/group.svg';
 import RocketShipImage from '~images/community-champions/rocket-ship.svg';
 import StackSquaresImage from '~images/community-champions/stack-squares.svg';
 import PaperAndPencilImage from '~images/community-champions/paper-and-pencil.svg';
-import PinLocationIcon from '~images/community-champions/pin-location.svg';
+import LocationPinIcon from '~images/community-champions/location-pin-grey.svg';
 import ChampionPlaceholderImage from '~images/community-champions/champion-placeholder.svg';
 import useMedia from '~hooks/use-media';
 
@@ -548,7 +548,7 @@ const LocationContainer = styled('div')`
     }
 `;
 
-const PinLocationImage = styled('img')`
+const LocationPinImage = styled('img')`
     margin-right: ${PIN_LOCATION_IMAGE_RIGHT_MARGIN};
 `;
 
@@ -559,7 +559,7 @@ const LocationText = styled(P4)`
 
 const ChampionLocation = ({ location }) => (
     <LocationContainer>
-        <PinLocationImage src={PinLocationIcon} />
+        <LocationPinImage src={LocationPinIcon} alt="Location pin" />
         <LocationText collapse>{location}</LocationText>
     </LocationContainer>
 );
@@ -571,7 +571,10 @@ const ChampionTitleText = styled(P3)`
 const ChampionProfilePicture = styled(ProfileImage)`
     margin-bottom: ${size.default};
     div {
-        background-color: ${({ theme }) => theme.colorMap.devWhite};
+        ${props =>
+            props.image
+                ? `background-color: ${props.theme.colorMap.devWhite};`
+                : ''}
         background-size: cover;
     }
 `;
@@ -680,9 +683,7 @@ const CommunityChampions = () => {
     const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
     return (
         <Layout>
-            <Helmet>
-                <title>Community Champions - {metadata.title}</title>
-            </Helmet>
+            <SEO title={`Community Champions - ${metadata.title}`} />
             <StyledHeroBanner
                 /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={

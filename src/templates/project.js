@@ -102,7 +102,7 @@ const Project = props => {
     return (
         <Layout>
             <SEO
-                articleTitle={name}
+                title={name}
                 metaDescription={description}
                 ogUrl={projectUrl}
             />
