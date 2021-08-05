@@ -14,8 +14,17 @@ export const communityChampions = `
                 languagesSpoken
                 bio
                 BlogsAndPublications {
+                  id
                   link
                   title
+                }
+                Socials {
+                    facebookUrl
+                    githubUrl
+                    linkedinUrl
+                    twitterUrl
+                    youtubeUrl
+                    twitchUrl
                 }
                 Certifications {
                   isDBAAssociateCertified
