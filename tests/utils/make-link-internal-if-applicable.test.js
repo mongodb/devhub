@@ -1,5 +1,5 @@
 import { makeLinkInternalIfApplicable } from '~utils/make-link-internal-if-applicable';
-import { OLD_SUBDOMAIN_FORUMS_URL, SITE_URL } from '~src/constants';
+import { SITE_URL } from '~src/constants';
 
 it('should parse internal links and add a trailing slash if needed', () => {
     expect(makeLinkInternalIfApplicable(null)).toBe(null);
