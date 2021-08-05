@@ -80,9 +80,10 @@ const CodeBlock = ({
 }) => {
     // We wish to up padding based on the number of lines based on the size of the max number length
     const numLines = useMemo(() => value.split(/\r|\n/).length, [value]);
-    const numDigits = useMemo(() => Math.floor(Math.log10(numLines) + 1), [
-        numLines,
-    ]);
+    const numDigits = useMemo(
+        () => Math.floor(Math.log10(numLines) + 1),
+        [numLines]
+    );
     const language = determineCorrectLeafygreenLanguage(lang);
     return (
         <CodeContainer>
