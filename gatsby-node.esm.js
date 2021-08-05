@@ -1,5 +1,6 @@
 import path from 'path';
 import { articles } from './src/queries/articles';
+import { getStrapiArticleSeriesFromGraphql } from './src/utils/setup/get-strapi-article-series-from-graphql';
 import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
@@ -124,16 +125,12 @@ export const onCreateNode = async ({ node }) => {
     }
 };
 
-const filteredPageGroups = allSeries => {
+const filterPageGroups = allSeries => {
     // featured articles are in pageGroups but not series, so we remove them
     homeFeaturedArticles = allSeries.home;
     learnFeaturedArticles = allSeries.learn;
     // also remove a group of excluded articles
     excludedLearnPageArticles = allSeries.learnPageExclude;
-    delete allSeries.home;
-    delete allSeries.learn;
-    delete allSeries.learnPageExclude;
-    return allSeries;
 };
 
 export const createPages = async ({ actions, graphql }) => {
@@ -158,9 +155,11 @@ export const createPages = async ({ actions, graphql }) => {
         throw new Error(`Page build error: ${result.error}`);
     }
 
-    const snootySeries = filteredPageGroups(metadataDocument.pageGroups);
-    const allSeries = mapSnootySeries(snootySeries, slugContentMapping);
-
+    filterPageGroups(metadataDocument.pageGroups);
+    const articleSeries = await getStrapiArticleSeriesFromGraphql(
+        graphql,
+        slugContentMapping
+    );
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
     allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);
 
@@ -168,7 +167,7 @@ export const createPages = async ({ actions, graphql }) => {
         createArticlePage(
             article,
             slugContentMapping,
-            allSeries,
+            articleSeries,
             metadataDocument,
             createPage
         );

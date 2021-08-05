@@ -12,7 +12,7 @@ const typeMap = {
 // This will get more complicated as we build the pipeline out
 export const transformArticleStrapiData = article => {
     const inferredType = article.type || 'Article';
-    const authors = article.authors;
+    const authors = article.authors || [];
     const transformedAuthors = authors.map(transformAuthorStrapiData);
     const parsedContent = parseMarkdownToAST(article.content);
     const SEOObject = article.SEO || {};
@@ -23,8 +23,10 @@ export const transformArticleStrapiData = article => {
         contentAST: parsedContent,
         image: article.image ? article.image.url : null,
         isFromStrapi: true,
-        languages: article.languages.map(l => l.language),
-        products: article.products.map(p => p.product),
+        languages: article.languages
+            ? article.languages.map(l => l.language)
+            : [],
+        products: article.products ? article.products.map(p => p.product) : [],
         related: article.related_content
             ? article.related_content.map(({ label, url }) => ({
                   name: 'reference',
@@ -53,7 +55,7 @@ export const transformArticleStrapiData = article => {
             },
         },
         slug: fullSlug,
-        tags: article.tags.map(t => t.tag),
+        tags: article.tags ? article.tags.map(t => t.tag) : [],
         type: typeMap[inferredType],
     };
 };
