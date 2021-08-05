@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import styled from '@emotion/styled';
 import dlv from 'dlv';
 import { useStaticQuery, graphql } from 'gatsby';
@@ -11,6 +10,7 @@ import Layout from '~components/dev-hub/layout';
 import Link from '~components/dev-hub/link';
 import MediaBlock from '~components/dev-hub/media-block';
 import ProfileImage from '~components/dev-hub/profile-image';
+import SEO from '~components/dev-hub/SEO';
 import {
     H1,
     H2,
@@ -683,9 +683,7 @@ const CommunityChampions = () => {
     const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
     return (
         <Layout>
-            <Helmet>
-                <title>Community Champions - {metadata.title}</title>
-            </Helmet>
+            <SEO title={`Community Champions - ${metadata.title}`} />
             <StyledHeroBanner
                 /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={
