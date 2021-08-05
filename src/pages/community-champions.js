@@ -571,7 +571,10 @@ const ChampionTitleText = styled(P3)`
 const ChampionProfilePicture = styled(ProfileImage)`
     margin-bottom: ${size.default};
     div {
-        background-color: ${({ theme }) => theme.colorMap.devWhite};
+        ${props =>
+            props.image
+                ? `background-color: ${props.theme.colorMap.devWhite};`
+                : ''}
         background-size: cover;
     }
 `;
