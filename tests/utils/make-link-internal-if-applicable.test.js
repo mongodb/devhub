@@ -9,7 +9,8 @@ it('should parse internal links and add a trailing slash if needed', () => {
     const internalArticleSlugTrailingSlash = `${internalArticleSlug}/`;
     const fullArticleLink = `${SITE_URL}${internalArticleSlug}`;
 
-    const forumsLink = `${OLD_SUBDOMAIN_FORUMS_URL}/u/foo`;
+    const forumsLink = `https://developer.mongodb.com/community/forums/u/foo`;
+    const newForumsLink = `https://www.mongodb.com/community/forums/u/foo`;
     const externalLink = 'https://google.com';
 
     // Check common case
@@ -29,6 +30,7 @@ it('should parse internal links and add a trailing slash if needed', () => {
 
     // Check the forums are not internal
     expect(makeLinkInternalIfApplicable(forumsLink)).toBe(forumsLink);
+    expect(makeLinkInternalIfApplicable(newForumsLink)).toBe(newForumsLink);
 
     // Check a random outside link that it is untouched
     expect(makeLinkInternalIfApplicable(externalLink)).toBe(externalLink);
