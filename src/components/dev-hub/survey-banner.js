@@ -60,9 +60,8 @@ const SurveyBanner = () => {
     };
 
     useEffect(() => {
-        const storedBannerDisplayInLocalStorage = localStorage.getItem(
-            'surveybanner'
-        );
+        const storedBannerDisplayInLocalStorage =
+            localStorage.getItem('surveybanner');
         if (storedBannerDisplayInLocalStorage === 'hide') {
             setShowSurveyBanner(false);
         } else {

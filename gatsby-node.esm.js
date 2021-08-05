@@ -26,6 +26,8 @@ import { SnootyArticle } from './src/classes/snooty-article';
 import { createVideoPages } from './src/utils/setup/create-video-pages';
 import { fetchBuildTimeMedia } from './src/utils/setup/fetch-build-time-media';
 import { aggregateItemsByVideoType } from './src/utils/setup/aggregate-items-by-video-type';
+import { aggregateItemsByAudioType } from './src/utils/setup/aggregate-items-by-audio-type';
+import { createPodcastPages } from './src/utils/setup/create-podcast-pages';
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 
 const pluralizeIfNeeded = {
@@ -179,8 +181,7 @@ export const createPages = async ({ actions, graphql }) => {
     }));
 
     await createClientSideRedirects(graphql, createRedirect);
-    const { allVideos } = await fetchBuildTimeMedia();
-
+    const { allVideos, allPodcasts } = await fetchBuildTimeMedia();
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
     tagTypes.forEach(type => {
@@ -204,12 +205,18 @@ export const createPages = async ({ actions, graphql }) => {
         tagPageDirectory['type'][key] = aggregateVideoItems[key];
     });
 
+    const aggregateAudioItems = aggregateItemsByAudioType(allPodcasts);
+    Object.keys(aggregateAudioItems).forEach(key => {
+        tagPageDirectory['type'][key] = aggregateAudioItems[key];
+    });
+
     const tagPages = tagTypes.map(type => {
         createTagPageType(type, createPage, tagPageDirectory, metadataDocument);
     });
     await Promise.all(tagPages);
 
     await createVideoPages(createPage, allVideos, metadataDocument);
+    await createPodcastPages(createPage, allPodcasts, metadataDocument);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.

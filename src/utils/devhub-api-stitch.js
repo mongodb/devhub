@@ -34,7 +34,7 @@ export const requestMDBTwitchVideos = async videoLimit => {
 
 export const requestTextFilterResults = async query => {
     const result = await callDevhubAPIStitchFunction(
-        'fetchTextFilterResults',
+        'fetchDevhubSearchResults',
         query
     );
     return result;
