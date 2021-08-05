@@ -10,12 +10,14 @@ import {
 } from '~components/dev-hub/theme';
 import { H1, H6, P, P2 } from '~components/dev-hub/text';
 import ProfileImage from '~components/dev-hub/profile-image';
+import SEO from '~components/dev-hub/SEO';
 import ChampionPlaceholderImage from '~images/community-champions/champion-placeholder.svg';
 import QuotationMarksIcon from '~images/community-champions/quotation-marks.svg';
 import LocationPinIcon from '~images/community-champions/location-pin-white.svg';
 import BriefcaseIcon from '~images/community-champions/briefcase.svg';
 import SpeechBubbleIcon from '~images/community-champions/speech-bubble.svg';
 import useMedia from '~hooks/use-media';
+import { useSiteMetadata } from '~hooks/use-site-metadata';
 
 const BREADCRUMB_BOTTOM_MARGIN = '40px';
 const GRID_COLUMN_GAP = '104px';
@@ -280,8 +282,10 @@ const CommunityChampionProfile = props => {
     );
     const imageUrl = champion.image ? champion.image.url : null;
     const useMobileLayout = useMedia(screenSize.upToSmallDesktop);
+    const metadata = useSiteMetadata();
     return (
         <Layout>
+            <SEO title={`${fullName} - ${metadata.title}`} />
             <ContentContainer>
                 <StyledBreadcrumb>
                     {championProfileBreadcrumbs}

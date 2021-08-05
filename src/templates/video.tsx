@@ -156,7 +156,7 @@ const Video = ({
     return (
         <Layout includeCanonical={false}>
             <SEO
-                articleTitle={title}
+                title={title}
                 canonicalUrl={pageUrl}
                 image={image}
                 metaDescription={description}

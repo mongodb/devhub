@@ -172,7 +172,7 @@ const Article = props => {
         <ArticleRatingProvider>
             <Layout includeCanonical={false}>
                 <SEO
-                    articleTitle={title}
+                    title={title}
                     canonicalUrl={canonicalUrl}
                     image={og.image}
                     metaDescription={metaDescription}
