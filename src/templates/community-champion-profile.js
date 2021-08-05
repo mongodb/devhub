@@ -566,9 +566,11 @@ const CommunityChampionProfile = props => {
                             blogsAndPublications={BlogsAndPublications}
                             socials={Socials}
                         />
-                        <CertificationsSection
-                            certifications={Certifications}
-                        />
+                        {Certifications && (
+                            <CertificationsSection
+                                certifications={Certifications}
+                            />
+                        )}
                     </TextContainer>
                 </GridContainer>
             </ContentContainer>
