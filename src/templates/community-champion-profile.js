@@ -17,6 +17,8 @@ import QuotationMarksIcon from '~images/community-champions/quotation-marks.svg'
 import LocationPinIcon from '~images/community-champions/location-pin-white.svg';
 import BriefcaseIcon from '~images/community-champions/briefcase.svg';
 import SpeechBubbleIcon from '~images/community-champions/speech-bubble.svg';
+import DBAAssociateBadge from '~images/community-champions/dba-associate-badge.svg';
+import DeveloperAssociateBadge from '~images/community-champions/developer-associate-badge.svg';
 import LinkedinIcon from '~components/dev-hub/icons/linkedin';
 import FacebookIcon from '~components/dev-hub/icons/facebook-icon';
 import TwitterIcon from '~components/dev-hub/icons/twitter-icon';
@@ -47,6 +49,7 @@ const LINKS_GRID_COLUMN_GAP = '86px';
 const LINKS_SECTION_MOBILE_BOTTOM_MARGIN = '48px';
 const SOCIAL_LINKS_GRID_COLUMN_GAP = '48px';
 const SOCIAL_LINK_MAX_WIDTH = '86px';
+const CERTIFICATIONS_CONTAINER_COLUMN_GAP = '48px';
 
 const CHAMPION_PROFILE_BREADCRUMBS_PREFIX = [
     { label: 'Home', target: '/' },
@@ -332,7 +335,7 @@ const LinksSectionContainer = styled('div')`
     }
 `;
 
-const FollowTitle = styled(H4)`
+const Title = styled(H4)`
     margin-bottom: ${size.mediumLarge};
     @media ${screenSize.upToSmallDesktop} {
         margin-bottom: ${size.default};
@@ -345,7 +348,7 @@ const FollowTitle = styled(H4)`
 
 const LinksSection = ({ blogsAndPublications, firstName, socials }) => (
     <LinksSectionContainer>
-        <FollowTitle>Follow {firstName}</FollowTitle>
+        <Title>Follow {firstName}</Title>
         <LinksGrid>
             <BlogsAndPublications blogsAndPublications={blogsAndPublications} />
             <Socials socials={socials} />
@@ -465,6 +468,35 @@ const SocialLink = ({ icon, link, type }) => (
     </SocialLinkItemContainer>
 );
 
+const CertificationsContainer = styled('div')`
+    column-gap: ${CERTIFICATIONS_CONTAINER_COLUMN_GAP};
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: ${size.default};
+    @media ${screenSize.upToSmallDesktop} {
+        column-gap: ${size.large};
+        margin-bottom: ${size.xlarge};
+    }
+`;
+
+const CertificationsSection = ({ certifications }) => (
+    <div>
+        <Title>MongoDB Certifications</Title>
+        <CertificationsContainer>
+            {certifications.isDBAAssociateCertified && (
+                <Link href="https://mongodb.com">
+                    <img src={DBAAssociateBadge} />
+                </Link>
+            )}
+            {certifications.isDeveloperAssociateCertified && (
+                <Link href="https://mongodb.com">
+                    <img src={DeveloperAssociateBadge} />
+                </Link>
+            )}
+        </CertificationsContainer>
+    </div>
+);
+
 const CommunityChampionProfile = props => {
     const {
         pageContext: { champion, slug },
@@ -480,6 +512,7 @@ const CommunityChampionProfile = props => {
         bio,
         BlogsAndPublications,
         Socials,
+        Certifications,
     } = champion;
     const fullName = [firstName, middleName, lastName].join(' ');
     const championProfileBreadcrumbs = CHAMPION_PROFILE_BREADCRUMBS_PREFIX.concat(
@@ -532,6 +565,9 @@ const CommunityChampionProfile = props => {
                             firstName={firstName}
                             blogsAndPublications={BlogsAndPublications}
                             socials={Socials}
+                        />
+                        <CertificationsSection
+                            certifications={Certifications}
                         />
                     </TextContainer>
                 </GridContainer>
