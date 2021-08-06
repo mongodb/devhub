@@ -216,10 +216,10 @@ const GlobalNav = () => {
         // On certain screens the searchbar is never collapsed
         setIsSearchbarExpanded(isExpanded);
     }, []);
-    const onLogin = useCallback(
-        () => authClient.signInWithRedirect(),
-        [authClient]
-    );
+    const onLogin = useCallback(() => {
+        authClient.setOriginalUri(window.location.href);
+        authClient.signInWithRedirect();
+    }, [authClient]);
     return (
         <Nav>
             <MaxWidthContainer>

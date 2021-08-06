@@ -13,6 +13,10 @@ const Callback = () => {
                     // Store parsed token in Token Manager
                     authClient.tokenManager.add('idToken', idToken);
                     onToken(idToken);
+                    // Redirect the user back to an originalUri
+                    if (authClient.getOriginalUri()) {
+                        authClient.handleLoginRedirect({ idToken });
+                    }
                 }
             });
         } else if (authClient) {
