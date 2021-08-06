@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-import Layout from '~components/dev-hub/layout';
+import { useContext, useEffect } from 'react';
 import { AuthenticationContext } from '~components/dev-hub/SSO';
 
 const Callback = () => {
@@ -25,7 +24,7 @@ const Callback = () => {
         }
     }, [authClient, onToken]);
     // TODO: Build out login page UX, redirect
-    return <Layout />;
+    return null;
 };
 
 export default Callback;
