@@ -15,7 +15,7 @@ const Callback = () => {
                     onToken(idToken);
                     // Redirect the user back to an originalUri
                     if (authClient.getOriginalUri()) {
-                        authClient.handleLoginRedirect(tokens);
+                        authClient.handleLoginRedirect({ idToken });
                     }
                 }
             });

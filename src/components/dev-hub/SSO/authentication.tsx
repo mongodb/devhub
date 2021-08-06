@@ -35,10 +35,10 @@ const AuthenticationProvider = ({ children }) => {
                 ? new OktaAuth({
                       issuer: process.env.OKTA_URL,
                       clientId: process.env.OKTA_CLIENT_ID,
-                      redirectUri: window.location.origin + '/login/callback',
-                      tokenManager: {
-                          storage: 'cookie',
-                      },
+                      redirectUri:
+                          window.location.origin +
+                          __PATH_PREFIX__ +
+                          '/login/callback',
                   })
                 : null,
         []
