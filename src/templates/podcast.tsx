@@ -5,7 +5,7 @@ import Layout from '~components/dev-hub/layout';
 import PodcastJumbotron from '~components/dev-hub/podcast-jumbotron';
 import SEO from '~components/dev-hub/SEO';
 import styled from '@emotion/styled';
-import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
+import { colorMap, lineHeight, screenSize, size } from '../components/dev-hub/theme';
 import { P } from '~components/dev-hub/text';
 import AudioPlayer from '~components/dev-hub/podcast-player/audio-player';
 import BlogShareLinks from '~components/dev-hub/blog-share-links';
@@ -74,7 +74,13 @@ const Content = styled('article')`
 const StyledParagraph = styled('p')`
     line-height: ${lineHeight.default};
     a {
-           color: white;
+            color: ${({ theme }) => theme.colorMap.devWhite};
+            &:visited {
+                color: ${({ theme }) => theme.colorMap.devWhite};
+            }
+            &:hover {
+                color: ${({ theme }) => theme.colorMap.darkGreen};
+            }
       }
 `;
 

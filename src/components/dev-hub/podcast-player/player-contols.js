@@ -26,13 +26,13 @@ const buttonStyles = css`
 
 const mainButtonHover = css`
     svg {
-        transform: scale(1.25);
+        transform: scale(1.075);
         circle {
-            stroke-width: 3;
+            stroke-width: 2;
             r: 38;
         }
         path {
-            stroke-width: 3;
+            stroke-width: 2;
         }
     }
 `;
