@@ -255,7 +255,7 @@ const GlobalNav = () => {
                     <UserMenuWrapper>
                         <UserMenu
                             account={user}
-                            activeProduct="developer"
+                            activePlatform="devHub"
                             onLogout={onLogout}
                         />
                     </UserMenuWrapper>
