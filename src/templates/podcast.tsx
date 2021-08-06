@@ -74,7 +74,13 @@ const Content = styled('article')`
 const StyledParagraph = styled('p')`
     line-height: ${lineHeight.default};
     a {
-           color: white;
+            color: ${({ theme }) => theme.colorMap.devWhite};
+            &:visited {
+                color: ${({ theme }) => theme.colorMap.devWhite};
+            }
+            &:hover {
+                color: ${({ theme }) => theme.colorMap.darkGreen};
+            }
       }
 `;
 
