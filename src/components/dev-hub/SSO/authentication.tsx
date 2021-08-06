@@ -36,6 +36,9 @@ const AuthenticationProvider = ({ children }) => {
                       issuer: process.env.OKTA_URL,
                       clientId: process.env.OKTA_CLIENT_ID,
                       redirectUri: window.location.origin + '/login/callback',
+                      tokenManager: {
+                          storage: 'cookie',
+                      },
                   })
                 : null,
         []
