@@ -2,10 +2,15 @@ import { findArticleWithSlug } from './find-articles-from-slugs';
 
 const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
 
+const fallbackFeaturedItem = slug => ({
+    slug,
+    title: slug,
+});
+
 const findFeaturedItemDetails = (item, allArticles) => {
     // Currently, only articles are supported here
     // TODO: Support items of all content types
-    return findArticleWithSlug(allArticles, item);
+    return findArticleWithSlug(allArticles, item) || fallbackFeaturedItem(item);
 };
 
 const getFeaturedItems = (homeFeaturedArticles, allArticles) => {
@@ -13,10 +18,7 @@ const getFeaturedItems = (homeFeaturedArticles, allArticles) => {
     homeFeaturedArticles
         .slice(0, MAX_HOME_PAGE_FEATURED_ARTICLES)
         .forEach(item => {
-            const featuredItem = findFeaturedItemDetails(item, allArticles);
-            if (featuredItem) {
-                featuredItems.push(featuredItem);
-            }
+            featuredItems.push(findFeaturedItemDetails(item, allArticles));
         });
     return featuredItems;
 };
