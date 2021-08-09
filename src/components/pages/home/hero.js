@@ -59,7 +59,7 @@ const Hero = ({ featuredItems }) => (
         <Sub>What will you create today?</Sub>
         <CardGallery>
             {featuredItems.map(item => (
-                <FeaturedHomePageItem key={item._id} item={item} />
+                <FeaturedHomePageItem key={item.slug} item={item} />
             ))}
         </CardGallery>
         <div>

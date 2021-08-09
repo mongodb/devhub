@@ -5,12 +5,7 @@ const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
 const findFeaturedItemDetails = (item, allArticles) => {
     // Currently, only articles are supported here
     // TODO: Support items of all content types
-    const article = findArticleWithSlug(allArticles, item);
-    if (article) {
-        return article;
-    } else {
-        throw new Error(`Featured article not found: ${item}`);
-    }
+    return findArticleWithSlug(allArticles, item);
 };
 
 const getFeaturedItems = (homeFeaturedArticles, allArticles) => {
