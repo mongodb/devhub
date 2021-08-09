@@ -1,10 +1,7 @@
-export const findArticleWithSlug = (allArticles, slug) => {
-    const targetSlug = new RegExp(`^/?${slug}$`);
-    const targetArticle = allArticles.find(x => x.slug.match(targetSlug));
-    if (targetArticle) {
-        return targetArticle;
-    }
-};
+import { fuzzySlugMatch } from '../fuzzy-slug-match';
+
+export const findArticleWithSlug = (allArticles, slug) =>
+    allArticles.find(x => fuzzySlugMatch(x.slug, slug));
 
 export const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     const result = [];

@@ -209,7 +209,10 @@ export const createPages = async ({ actions, graphql }) => {
 
     await createVideoPages(createPage, allVideos, metadataDocument);
 
-    await getFeaturedArticlesFromGraphql(graphql);
+    const { homePageFeaturedArticles, learnPageFeaturedArticles } =
+        await getFeaturedArticlesFromGraphql(graphql);
+    homeFeaturedArticles = homePageFeaturedArticles;
+    learnFeaturedArticles = learnPageFeaturedArticles;
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
