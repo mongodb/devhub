@@ -9,7 +9,6 @@ import SearchResults from './SearchResults';
 const MOBILE_HEIGHT_OFFSET = '256px';
 const RESULTS_PER_PAGE = 3;
 const SEARCH_FOOTER_DESKTOP_HEIGHT = size.xlarge;
-const SEARCH_RESULTS_DESKTOP_HEIGHT = '392px';
 
 const animationKeyframe = startingOpacity => keyframes`
     0% {
@@ -28,7 +27,6 @@ const fadeInAnimation = (startingOpacity, seconds) => css`
 `;
 
 const FixedHeightSearchResults = styled(SearchResults)`
-    height: ${SEARCH_RESULTS_DESKTOP_HEIGHT};
     @media ${screenSize.upToSmall} {
         background-color: ${({ theme }) => theme.colorMap.pageBackground};
         border: none;

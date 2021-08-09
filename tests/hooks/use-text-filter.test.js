@@ -59,7 +59,7 @@ describe('Use Text Filter', () => {
             await jest.runAllTimers();
         });
         expect(window.fetch).toHaveBeenCalledTimes(1);
-        expect(window.fetch).toBeCalledWith('fetchTextFilterResults', [
+        expect(window.fetch).toBeCalledWith('fetchDevhubSearchResults', [
             targetQuery,
         ]);
         cleanup();

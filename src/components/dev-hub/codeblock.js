@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import Code from '@leafygreen-ui/code';
+import { determineCorrectLeafygreenLanguage } from '~utils/determine-correct-leafygreen-language';
 import { lineHeight, size } from './theme';
 import CopyButton, { COPY_BUTTON_WIDTH } from './copy-button';
 
@@ -79,11 +80,11 @@ const CodeBlock = ({
 }) => {
     // We wish to up padding based on the number of lines based on the size of the max number length
     const numLines = useMemo(() => value.split(/\r|\n/).length, [value]);
-    const numDigits = useMemo(() => Math.floor(Math.log10(numLines) + 1), [
-        numLines,
-    ]);
-    // Leafy expects 'csp' as 'cs'
-    const language = lang === 'csp' ? 'cs' : lang || 'none';
+    const numDigits = useMemo(
+        () => Math.floor(Math.log10(numLines) + 1),
+        [numLines]
+    );
+    const language = determineCorrectLeafygreenLanguage(lang);
     return (
         <CodeContainer>
             <StyledCode
