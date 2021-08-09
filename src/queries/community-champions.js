@@ -27,8 +27,8 @@ export const communityChampions = `
                     twitchUrl
                 }
                 Certifications {
-                  isDBAAssociateCertified
-                  isDeveloperAssociateCertified
+                  dbaAssociateUrl
+                  developerAssociateUrl
                 }
             }
         }

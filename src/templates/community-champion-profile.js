@@ -48,7 +48,7 @@ const LINK_ROW_GAP = '4px';
 const LINKS_GRID_COLUMN_GAP = '86px';
 const LINKS_SECTION_MOBILE_BOTTOM_MARGIN = '48px';
 const SOCIAL_LINKS_GRID_COLUMN_GAP = '48px';
-const SOCIAL_LINK_MAX_WIDTH = '86px';
+const SOCIAL_LINK_MIN_WIDTH = '86px';
 const CERTIFICATIONS_CONTAINER_COLUMN_GAP = '48px';
 
 const CHAMPION_PROFILE_BREADCRUMBS_PREFIX = [
@@ -83,12 +83,14 @@ const GridContainer = styled('div')`
         'image text'
         'quote text';
     grid-template-columns: ${CHAMPION_IMAGE_WIDTH} auto;
+    grid-template-rows: max-content auto;
     @media ${screenSize.upToSmallDesktop} {
         grid-template-areas:
             'image'
             'text'
             'quote';
         grid-template-columns: auto;
+        grid-template-rows: repeat(3, auto);
     }
 `;
 
@@ -298,11 +300,7 @@ const BlogsAndPublicationsLinksContainer = styled('div')`
 const BlogsAndPublicationsLink = styled(Link)`
     font-size: ${fontSize.small};
     line-height: ${lineHeight.small};
-    max-width: 100%;
-    width: max-content;
-    @media ${screenSize.upToSmallDesktop} {
-        width: 100%;
-    }
+    max-width: max-content;
 `;
 
 const BlogsAndPublications = ({ blogsAndPublications }) => (
@@ -310,7 +308,7 @@ const BlogsAndPublications = ({ blogsAndPublications }) => (
         <LinksTitle collapse>Blogs &amp; Publications</LinksTitle>
         <BlogsAndPublicationsLinksContainer>
             {blogsAndPublications.map(({ id, title, link }) => (
-                <BlogsAndPublicationsLink key={id} href={link}>
+                <BlogsAndPublicationsLink key={id} href={link} target="_blank">
                     {title}
                 </BlogsAndPublicationsLink>
             ))}
@@ -350,47 +348,49 @@ const LinksSection = ({ blogsAndPublications, firstName, socials }) => (
     <LinksSectionContainer>
         <Title>Follow {firstName}</Title>
         <LinksGrid>
-            <BlogsAndPublications blogsAndPublications={blogsAndPublications} />
-            <Socials socials={socials} />
+            {blogsAndPublications && (
+                <BlogsAndPublications
+                    blogsAndPublications={blogsAndPublications}
+                />
+            )}
+            {socials && <Socials socials={socials} />}
         </LinksGrid>
     </LinksSectionContainer>
 );
 
 const Socials = ({ socials }) => {
-    const links = socials
-        ? [
-              {
-                  type: 'LinkedIn',
-                  url: socials.linkedinUrl,
-                  Icon: LinkedinIcon,
-              },
-              {
-                  type: 'GitHub',
-                  url: socials.githubUrl,
-                  Icon: GithubIcon,
-              },
-              {
-                  type: 'Twitch',
-                  url: socials.twitchUrl,
-                  Icon: TwitchIcon,
-              },
-              {
-                  type: 'YouTube',
-                  url: socials.youtubeUrl,
-                  Icon: YoutubeIcon,
-              },
-              {
-                  type: 'Facebook',
-                  url: socials.facebookUrl,
-                  Icon: FacebookIcon,
-              },
-              {
-                  type: 'Twitter',
-                  url: socials.twitterUrl,
-                  Icon: TwitterIcon,
-              },
-          ]
-        : [];
+    const links = [
+        {
+            type: 'LinkedIn',
+            url: socials.linkedinUrl,
+            Icon: LinkedinIcon,
+        },
+        {
+            type: 'GitHub',
+            url: socials.githubUrl,
+            Icon: GithubIcon,
+        },
+        {
+            type: 'Twitch',
+            url: socials.twitchUrl,
+            Icon: TwitchIcon,
+        },
+        {
+            type: 'YouTube',
+            url: socials.youtubeUrl,
+            Icon: YoutubeIcon,
+        },
+        {
+            type: 'Facebook',
+            url: socials.facebookUrl,
+            Icon: FacebookIcon,
+        },
+        {
+            type: 'Twitter',
+            url: socials.twitterUrl,
+            Icon: TwitterIcon,
+        },
+    ];
     return (
         <div>
             <LinksTitle collapse>Social</LinksTitle>
@@ -448,7 +448,7 @@ const SocialLinksContainer = styled('div')`
     @media ${screenSize.upToSmall} {
         grid-template-columns: repeat(
             auto-fill,
-            minmax(${SOCIAL_LINK_MAX_WIDTH}, 1fr)
+            minmax(${SOCIAL_LINK_MIN_WIDTH}, 1fr)
         );
         grid-template-rows: none;
     }
@@ -462,7 +462,7 @@ const SocialLinkText = styled(P2)`
 `;
 
 const SocialLink = ({ icon, link, type }) => (
-    <SocialLinkItemContainer href={link}>
+    <SocialLinkItemContainer href={link} target="_blank">
         {icon}
         <SocialLinkText collapse>{type}</SocialLinkText>
     </SocialLinkItemContainer>
@@ -479,23 +479,35 @@ const CertificationsContainer = styled('div')`
     }
 `;
 
-const CertificationsSection = ({ certifications }) => (
-    <div>
-        <Title>MongoDB Certifications</Title>
-        <CertificationsContainer>
-            {certifications.isDBAAssociateCertified && (
-                <Link href="https://mongodb.com">
-                    <img src={DBAAssociateBadge} />
-                </Link>
-            )}
-            {certifications.isDeveloperAssociateCertified && (
-                <Link href="https://mongodb.com">
-                    <img src={DeveloperAssociateBadge} />
-                </Link>
-            )}
-        </CertificationsContainer>
-    </div>
-);
+const CertificationsSection = ({ certifications }) => {
+    const badges = [
+        {
+            alt: 'DBA Associate badge',
+            src: DBAAssociateBadge,
+            url: certifications.dbaAssociateUrl,
+        },
+        {
+            alt: 'Developer Associate badge',
+            src: DeveloperAssociateBadge,
+            url: certifications.developerAssociateUrl,
+        },
+    ];
+    return (
+        <div>
+            <Title>MongoDB Certifications</Title>
+            <CertificationsContainer>
+                {badges.map(
+                    ({ alt, src, url }) =>
+                        url && (
+                            <Link key={alt} href={url} target="_blank">
+                                <img alt={alt} src={src} />
+                            </Link>
+                        )
+                )}
+            </CertificationsContainer>
+        </div>
+    );
+};
 
 const CommunityChampionProfile = props => {
     const {
@@ -552,7 +564,7 @@ const CommunityChampionProfile = props => {
                             }
                         />
                     </ImageContainer>
-                    <QuoteSection quote={quote} />
+                    {quote && <QuoteSection quote={quote} />}
                     <TextContainer>
                         <Name>{fullName}</Name>
                         <InfoSection
