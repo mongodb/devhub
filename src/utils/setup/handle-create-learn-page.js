@@ -18,7 +18,6 @@ export const handleCreateLearnPage = (
         excludedLearnPageArticles
     );
     const filters = getLearnPageFilters(learnPageArticles);
-    console.log(learnFeaturedArticles);
     const featuredLearnArticles = findArticlesFromSlugs(
         learnPageArticles,
         learnFeaturedArticles,
