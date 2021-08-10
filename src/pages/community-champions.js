@@ -526,16 +526,24 @@ const ChampionsContainer = styled('div')`
     } ;
 `;
 
-const ChampionItemContainer = styled('div')`
+const ChampionLink = styled(Link)`
     align-items: center;
+    border-radius: ${size.xsmall};
     display: flex;
     flex-direction: column;
     padding: ${size.default};
     text-align: center;
+    text-decoration: none;
     width: ${CHAMPION_ITEM_CONTAINER_WIDTH};
     @media ${screenSize.upToMedium} {
         padding: ${size.default} 0;
         width: ${CHAMPION_ITEM_CONTAINER_MOBILE_WIDTH};
+    }
+    &:hover,
+    &:active {
+        background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
+        color: inherit;
+        cursor: pointer;
     }
 `;
 
@@ -579,8 +587,8 @@ const ChampionProfilePicture = styled(ProfileImage)`
     }
 `;
 
-const ChampionItem = ({ imageUrl, location, name, title }) => (
-    <ChampionItemContainer>
+const ChampionItem = ({ href, imageUrl, location, name, title }) => (
+    <ChampionLink href={href}>
         <ChampionProfilePicture
             defaultImage={ChampionPlaceholderImage}
             gradientOffset={CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET}
@@ -593,7 +601,7 @@ const ChampionItem = ({ imageUrl, location, name, title }) => (
         <H6 collapse>{name}</H6>
         <ChampionTitleText collapse>{title}</ChampionTitleText>
         <ChampionLocation location={location} />
-    </ChampionItemContainer>
+    </ChampionLink>
 );
 
 const communityChampions = graphql`
@@ -632,6 +640,7 @@ const ChampionList = () => {
                     title,
                 }) => (
                     <ChampionItem
+                        href={`/community-champions/${firstName.toLowerCase()}-${lastName.toLowerCase()}`}
                         imageUrl={image ? image.url : null}
                         key={id}
                         location={location}
