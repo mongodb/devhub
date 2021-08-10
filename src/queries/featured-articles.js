@@ -3,5 +3,8 @@ export const featuredArticles = `
     strapiHomePageFeaturedArticles {
       articles
     }
+    strapiLearnPageFeaturedArticles {
+      articles
+    }
   }
 `;
