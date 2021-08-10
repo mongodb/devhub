@@ -52,6 +52,7 @@ import PaperAndPencilImage from '~images/community-champions/paper-and-pencil.sv
 import LocationPinIcon from '~images/community-champions/location-pin-grey.svg';
 import ChampionPlaceholderImage from '~images/community-champions/champion-placeholder.svg';
 import useMedia from '~hooks/use-media';
+import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
 const APPLY_BUTTON_MOBILE_BOTTOM_MARGIN = '12px';
@@ -540,36 +541,31 @@ const ChampionLink = styled(Link)`
         width: ${CHAMPION_ITEM_CONTAINER_MOBILE_WIDTH};
     }
     &:hover,
-    &:active {
+    &:focus {
         background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
         color: inherit;
         cursor: pointer;
     }
 `;
 
-const LocationContainer = styled('div')`
-    display: flex;
-    justify-content: center;
+const LocationPinImage = styled('img')`
+    margin-right: ${PIN_LOCATION_IMAGE_RIGHT_MARGIN};
+    vertical-align: text-top;
+`;
+
+const LocationText = styled(P4)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     margin-top: ${LOCATION_CONTAINER_TOP_MARGIN};
     @media ${screenSize.upToMedium} {
         margin-top: ${LOCATION_CONTAINER_MOBILE_TOP_MARGIN};
     }
 `;
 
-const LocationPinImage = styled('img')`
-    margin-right: ${PIN_LOCATION_IMAGE_RIGHT_MARGIN};
-`;
-
-const LocationText = styled(P4)`
-    color: ${({ theme }) => theme.colorMap.greyLightTwo};
-    white-space: nowrap;
-`;
-
 const ChampionLocation = ({ location }) => (
-    <LocationContainer>
+    <LocationText collapse>
         <LocationPinImage src={LocationPinIcon} alt="Location pin" />
-        <LocationText collapse>{location}</LocationText>
-    </LocationContainer>
+        {location}
+    </LocationText>
 );
 
 const ChampionTitleText = styled(P3)`
@@ -690,9 +686,28 @@ const communityChampionBreadcrumbs = [
 const CommunityChampions = () => {
     const metadata = useSiteMetadata();
     const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
+    const fullUrl = removePathPrefixFromUrl(
+        `${metadata.siteUrl}/community-champions`
+    );
+    const title = `Community Champions - ${metadata.title}`;
+    const description =
+        'Champions are a group of passionate, dedicated advocates of the MongoDB community. They keep the community informed and excited about our latest developments and newest offerings. They are the trusted bridge between MongoDB and our community.';
     return (
         <Layout>
-            <SEO title={`Community Champions - ${metadata.title}`} />
+            <SEO
+                title={title}
+                image={BannerImage}
+                metaDescription={description}
+                ogDescription={description}
+                ogTitle={title}
+                ogUrl={fullUrl}
+                twitter={{
+                    description: description,
+                    image: BannerImage,
+                    title: title,
+                    creator: '@mongodb',
+                }}
+            />
             <StyledHeroBanner
                 /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={
