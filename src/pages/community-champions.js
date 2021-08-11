@@ -52,6 +52,7 @@ import PaperAndPencilImage from '~images/community-champions/paper-and-pencil.sv
 import LocationPinIcon from '~images/community-champions/location-pin-grey.svg';
 import ChampionPlaceholderImage from '~images/community-champions/champion-placeholder.svg';
 import useMedia from '~hooks/use-media';
+import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
 
 const APPLY_BUTTON_BOTTOM_MARGIN = '14px';
 const APPLY_BUTTON_MOBILE_BOTTOM_MARGIN = '12px';
@@ -83,6 +84,9 @@ const LOCATION_CONTAINER_MOBILE_TOP_MARGIN = '2px';
 const PIN_LOCATION_IMAGE_RIGHT_MARGIN = '4px';
 const FOR_THE_FUTURE_APPLY_BUTTON_TOP_MARGIN = '48px';
 const FOR_THE_FUTURE_DESCRIPTION_MAX_WIDTH = '760px';
+const OG_IMAGE = '/public/images/champions-badge.svg';
+const OG_DESCRIPTION =
+    'Champions are a group of passionate, dedicated advocates of the MongoDB community. They keep the community informed and excited about our latest developments and newest offerings. They are the trusted bridge between MongoDB and our community.';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -526,42 +530,45 @@ const ChampionsContainer = styled('div')`
     } ;
 `;
 
-const ChampionItemContainer = styled('div')`
+const ChampionLink = styled(Link)`
     align-items: center;
+    border-radius: ${size.xsmall};
     display: flex;
     flex-direction: column;
     padding: ${size.default};
     text-align: center;
+    text-decoration: none;
     width: ${CHAMPION_ITEM_CONTAINER_WIDTH};
     @media ${screenSize.upToMedium} {
         padding: ${size.default} 0;
         width: ${CHAMPION_ITEM_CONTAINER_MOBILE_WIDTH};
     }
+    &:hover,
+    &:focus {
+        background-color: ${({ theme }) => theme.colorMap.greyDarkTwo};
+        color: inherit;
+        cursor: pointer;
+    }
 `;
 
-const LocationContainer = styled('div')`
-    display: flex;
-    justify-content: center;
+const LocationPinImage = styled('img')`
+    margin-right: ${PIN_LOCATION_IMAGE_RIGHT_MARGIN};
+    vertical-align: text-top;
+`;
+
+const LocationText = styled(P4)`
+    color: ${({ theme }) => theme.colorMap.greyLightTwo};
     margin-top: ${LOCATION_CONTAINER_TOP_MARGIN};
     @media ${screenSize.upToMedium} {
         margin-top: ${LOCATION_CONTAINER_MOBILE_TOP_MARGIN};
     }
 `;
 
-const LocationPinImage = styled('img')`
-    margin-right: ${PIN_LOCATION_IMAGE_RIGHT_MARGIN};
-`;
-
-const LocationText = styled(P4)`
-    color: ${({ theme }) => theme.colorMap.greyLightTwo};
-    white-space: nowrap;
-`;
-
 const ChampionLocation = ({ location }) => (
-    <LocationContainer>
+    <LocationText collapse>
         <LocationPinImage src={LocationPinIcon} alt="Location pin" />
-        <LocationText collapse>{location}</LocationText>
-    </LocationContainer>
+        {location}
+    </LocationText>
 );
 
 const ChampionTitleText = styled(P3)`
@@ -579,8 +586,8 @@ const ChampionProfilePicture = styled(ProfileImage)`
     }
 `;
 
-const ChampionItem = ({ imageUrl, location, name, title }) => (
-    <ChampionItemContainer>
+const ChampionItem = ({ imageUrl, location, name, title, to }) => (
+    <ChampionLink to={to}>
         <ChampionProfilePicture
             defaultImage={ChampionPlaceholderImage}
             gradientOffset={CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET}
@@ -593,7 +600,7 @@ const ChampionItem = ({ imageUrl, location, name, title }) => (
         <H6 collapse>{name}</H6>
         <ChampionTitleText collapse>{title}</ChampionTitleText>
         <ChampionLocation location={location} />
-    </ChampionItemContainer>
+    </ChampionLink>
 );
 
 const communityChampions = graphql`
@@ -637,6 +644,7 @@ const ChampionList = () => {
                         location={location}
                         name={[firstName, middleName, lastName].join(' ')}
                         title={title}
+                        to={`/community-champions/${firstName.toLowerCase()}-${lastName.toLowerCase()}`}
                     />
                 )
             )}
@@ -679,11 +687,26 @@ const communityChampionBreadcrumbs = [
 ];
 
 const CommunityChampions = () => {
-    const metadata = useSiteMetadata();
     const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
+    const { siteUrl, title } = useSiteMetadata();
+    const fullUrl = removePathPrefixFromUrl(`${siteUrl}/community-champions`);
+    const ogTitle = `Community Champions - ${title}`;
     return (
         <Layout>
-            <SEO title={`Community Champions - ${metadata.title}`} />
+            <SEO
+                title={ogTitle}
+                image={OG_IMAGE}
+                metaDescription={OG_DESCRIPTION}
+                ogDescription={OG_DESCRIPTION}
+                ogTitle={ogTitle}
+                ogUrl={fullUrl}
+                twitter={{
+                    description: OG_DESCRIPTION,
+                    image: OG_IMAGE,
+                    title: ogTitle,
+                    creator: '@mongodb',
+                }}
+            />
             <StyledHeroBanner
                 /* On phones, we will use the banner image with space on the sides so it doesn't appear too big */
                 background={

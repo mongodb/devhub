@@ -20,6 +20,7 @@ import DBAAssociateBadge from '~images/community-champions/dba-associate-badge.s
 import DeveloperAssociateBadge from '~images/community-champions/developer-associate-badge.svg';
 import useMedia from '~hooks/use-media';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
+import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
 
 const BREADCRUMB_BOTTOM_MARGIN = '40px';
 const GRID_COLUMN_GAP = '104px';
@@ -241,10 +242,25 @@ const CommunityChampionProfile = props => {
     );
     const imageUrl = champion.image ? champion.image.url : null;
     const useMobileLayout = useMedia(screenSize.upToSmallDesktop);
-    const metadata = useSiteMetadata();
+    const { siteUrl } = useSiteMetadata();
+    const fullUrl = removePathPrefixFromUrl(`${siteUrl}${slug}`);
+    const seoTitle = `${fullName} - MongoDB Community Champion`;
     return (
         <Layout>
-            <SEO title={`${fullName} - ${metadata.title}`} />
+            <SEO
+                title={seoTitle}
+                image={imageUrl}
+                metaDescription={bio}
+                ogDescription={bio}
+                ogTitle={seoTitle}
+                ogUrl={fullUrl}
+                twitter={{
+                    description: bio,
+                    image: imageUrl,
+                    title: seoTitle,
+                    creator: '@mongodb',
+                }}
+            />
             <ContentContainer>
                 <StyledBreadcrumb>
                     {championProfileBreadcrumbs}
