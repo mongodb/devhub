@@ -21,35 +21,20 @@ describe('Home Page', () => {
             // These cards should be links to articles
             cy.get(CARDS)
                 .first()
-                .should('have.prop', 'href')
+                .should('contain', 'Test Strapi Article')
+                .and('have.prop', 'href')
                 .should('contain', '/how-to/realm-test/?tck=feathome');
             cy.get(CARDS)
                 .last()
-                .should('have.prop', 'href')
+                .should(
+                    'contain',
+                    'Multi-Document ACID Transactions in MongoDB with Go'
+                )
+                .and('have.prop', 'href')
                 .should(
                     'contain',
                     '/quickstart/golang-multi-document-acid-transactions/?tck=feathome'
                 );
-            // From the CMS
-            cy.get(CARDS)
-                .first()
-                .within(() => {
-                    cy.get('img')
-                        .should('have.prop', 'src')
-                        .should('not.be.empty');
-                    cy.get('h5').should('eq', 'Test Strapi Article');
-                });
-            cy.get(CARDS)
-                .last()
-                .within(() => {
-                    cy.get('img')
-                        .should('have.prop', 'src')
-                        .should('not.be.empty');
-                    cy.get('h5').should(
-                        'eq',
-                        'Multi-Document ACID Transactions in MongoDB with Go'
-                    );
-                });
         });
     });
     // TODO: Fix twitch API
