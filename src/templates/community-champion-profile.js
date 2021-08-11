@@ -241,9 +241,9 @@ const CommunityChampionProfile = props => {
     );
     const imageUrl = champion.image ? champion.image.url : null;
     const useMobileLayout = useMedia(screenSize.upToSmallDesktop);
-    const metadata = useSiteMetadata();
-    const fullUrl = removePathPrefixFromUrl(`${metadata.siteUrl}${slug}`);
-    const seoTitle = `${fullName} - ${metadata.title}`;
+    const { siteUrl } = useSiteMetadata();
+    const fullUrl = removePathPrefixFromUrl(`${siteUrl}${slug}`);
+    const seoTitle = `${fullName} - MongoDB Community Champion`;
     return (
         <Layout>
             <SEO

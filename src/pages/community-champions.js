@@ -84,6 +84,9 @@ const LOCATION_CONTAINER_MOBILE_TOP_MARGIN = '2px';
 const PIN_LOCATION_IMAGE_RIGHT_MARGIN = '4px';
 const FOR_THE_FUTURE_APPLY_BUTTON_TOP_MARGIN = '48px';
 const FOR_THE_FUTURE_DESCRIPTION_MAX_WIDTH = '760px';
+const OG_IMAGE = '/public/images/champions-badge.svg';
+const OG_DESCRIPTION =
+    'Champions are a group of passionate, dedicated advocates of the MongoDB community. They keep the community informed and excited about our latest developments and newest offerings. They are the trusted bridge between MongoDB and our community.';
 
 const BannerTitle = styled(H2)`
     @media ${screenSize.upToLarge} {
@@ -683,30 +686,24 @@ const communityChampionBreadcrumbs = [
     },
 ];
 
-const ogImage = '/public/images/champions-badge.svg';
-const ogDescription =
-    'Champions are a group of passionate, dedicated advocates of the MongoDB community. They keep the community informed and excited about our latest developments and newest offerings. They are the trusted bridge between MongoDB and our community.';
-
 const CommunityChampions = () => {
     const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
-    const metadata = useSiteMetadata();
-    const fullUrl = removePathPrefixFromUrl(
-        `${metadata.siteUrl}/community-champions`
-    );
-    const title = `Community Champions - ${metadata.title}`;
+    const { siteUrl, title } = useSiteMetadata();
+    const fullUrl = removePathPrefixFromUrl(`${siteUrl}/community-champions`);
+    const ogTitle = `Community Champions - ${title}`;
     return (
         <Layout>
             <SEO
-                title={title}
-                image={ogImage}
-                metaDescription={ogDescription}
-                ogDescription={ogDescription}
-                ogTitle={title}
+                title={ogTitle}
+                image={OG_IMAGE}
+                metaDescription={OG_DESCRIPTION}
+                ogDescription={OG_DESCRIPTION}
+                ogTitle={ogTitle}
                 ogUrl={fullUrl}
                 twitter={{
-                    description: ogDescription,
-                    image: ogImage,
-                    title: title,
+                    description: OG_DESCRIPTION,
+                    image: OG_IMAGE,
+                    title: ogTitle,
                     creator: '@mongodb',
                 }}
             />
