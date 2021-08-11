@@ -683,27 +683,29 @@ const communityChampionBreadcrumbs = [
     },
 ];
 
+const ogImage = '/public/images/champions-badge.svg';
+const ogDescription =
+    'Champions are a group of passionate, dedicated advocates of the MongoDB community. They keep the community informed and excited about our latest developments and newest offerings. They are the trusted bridge between MongoDB and our community.';
+
 const CommunityChampions = () => {
-    const metadata = useSiteMetadata();
     const useBannerImageWithSpace = useMedia(screenSize.upToSmall);
+    const metadata = useSiteMetadata();
     const fullUrl = removePathPrefixFromUrl(
         `${metadata.siteUrl}/community-champions`
     );
     const title = `Community Champions - ${metadata.title}`;
-    const description =
-        'Champions are a group of passionate, dedicated advocates of the MongoDB community. They keep the community informed and excited about our latest developments and newest offerings. They are the trusted bridge between MongoDB and our community.';
     return (
         <Layout>
             <SEO
                 title={title}
-                image={BannerImage}
-                metaDescription={description}
-                ogDescription={description}
+                image={ogImage}
+                metaDescription={ogDescription}
+                ogDescription={ogDescription}
                 ogTitle={title}
                 ogUrl={fullUrl}
                 twitter={{
-                    description: description,
-                    image: BannerImage,
+                    description: ogDescription,
+                    image: ogImage,
                     title: title,
                     creator: '@mongodb',
                 }}
