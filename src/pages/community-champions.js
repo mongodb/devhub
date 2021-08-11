@@ -583,8 +583,8 @@ const ChampionProfilePicture = styled(ProfileImage)`
     }
 `;
 
-const ChampionItem = ({ href, imageUrl, location, name, title }) => (
-    <ChampionLink href={href}>
+const ChampionItem = ({ imageUrl, location, name, title, to }) => (
+    <ChampionLink to={to}>
         <ChampionProfilePicture
             defaultImage={ChampionPlaceholderImage}
             gradientOffset={CHAMPION_PROFILE_PICTURE_GRADIENT_OFFSET}
@@ -636,12 +636,12 @@ const ChampionList = () => {
                     title,
                 }) => (
                     <ChampionItem
-                        href={`/community-champions/${firstName.toLowerCase()}-${lastName.toLowerCase()}`}
                         imageUrl={image ? image.url : null}
                         key={id}
                         location={location}
                         name={[firstName, middleName, lastName].join(' ')}
                         title={title}
+                        to={`/community-champions/${firstName.toLowerCase()}-${lastName.toLowerCase()}`}
                     />
                 )
             )}
