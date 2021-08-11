@@ -34,7 +34,8 @@ const PROFILE_PICTURE_GRADIENT_OFFSET = 8;
 const PROFILE_PICTURE_SIZE = 348;
 const PROFILE_PICTURE_MOBILE_SIZE = 156;
 const CERTIFICATIONS_CONTAINER_COLUMN_GAP = '48px';
-const CERTIFICATE_BADGE_WIDTH = '131px';
+const CERTIFICATE_BADGE_WIDTH = '131';
+const CERTIFICATE_BADGE_HEIGHT = '134';
 
 const CHAMPION_PROFILE_BREADCRUMBS_PREFIX = [
     { label: 'Home', target: '/' },
@@ -176,7 +177,7 @@ const Title = styled(H4)`
 const CertificationsContainer = styled('div')`
     column-gap: ${CERTIFICATIONS_CONTAINER_COLUMN_GAP};
     display: grid;
-    grid-template-columns: repeat(auto-fill, ${CERTIFICATE_BADGE_WIDTH});
+    grid-template-columns: repeat(auto-fill, ${CERTIFICATE_BADGE_WIDTH}px);
     row-gap: ${size.default};
     @media ${screenSize.upToSmallDesktop} {
         column-gap: ${size.large};
@@ -205,7 +206,12 @@ const CertificationsSection = ({ certifications }) => {
                     ({ alt, src, url }) =>
                         url && (
                             <Link key={alt} href={url} target="_blank">
-                                <img alt={alt} src={src} />
+                                <img
+                                    alt={alt}
+                                    src={src}
+                                    width={CERTIFICATE_BADGE_WIDTH}
+                                    height={CERTIFICATE_BADGE_HEIGHT}
+                                />
                             </Link>
                         )
                 )}
@@ -232,14 +238,13 @@ const CommunityChampionProfile = props => {
         Certifications,
     } = champion;
     const fullName = [firstName, middleName, lastName].join(' ');
-    const championProfileBreadcrumbs = CHAMPION_PROFILE_BREADCRUMBS_PREFIX.concat(
-        [
+    const championProfileBreadcrumbs =
+        CHAMPION_PROFILE_BREADCRUMBS_PREFIX.concat([
             {
                 label: `${fullName}`,
                 target: slug,
             },
-        ]
-    );
+        ]);
     const imageUrl = champion.image ? champion.image.url : null;
     const useMobileLayout = useMedia(screenSize.upToSmallDesktop);
     const { siteUrl } = useSiteMetadata();
