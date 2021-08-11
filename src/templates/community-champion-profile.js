@@ -33,6 +33,7 @@ const PROFILE_PICTURE_GRADIENT_OFFSET = 8;
 const PROFILE_PICTURE_SIZE = 348;
 const PROFILE_PICTURE_MOBILE_SIZE = 156;
 const CERTIFICATIONS_CONTAINER_COLUMN_GAP = '48px';
+const CERTIFICATE_BADGE_WIDTH = '131px';
 
 const CHAMPION_PROFILE_BREADCRUMBS_PREFIX = [
     { label: 'Home', target: '/' },
@@ -173,8 +174,8 @@ const Title = styled(H4)`
 
 const CertificationsContainer = styled('div')`
     column-gap: ${CERTIFICATIONS_CONTAINER_COLUMN_GAP};
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, ${CERTIFICATE_BADGE_WIDTH});
     row-gap: ${size.default};
     @media ${screenSize.upToSmallDesktop} {
         column-gap: ${size.large};
