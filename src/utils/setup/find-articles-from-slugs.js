@@ -1,7 +1,7 @@
 import { fuzzySlugMatch } from '../fuzzy-slug-match';
 
 export const findArticleWithSlug = (allArticles, slug) =>
-    allArticles.find(x => fuzzySlugMatch(x.slug, slug));
+    allArticles.find(article => fuzzySlugMatch(article.slug, slug));
 
 export const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
     const result = [];

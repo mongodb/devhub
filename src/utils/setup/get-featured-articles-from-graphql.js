@@ -8,12 +8,18 @@ export const getFeaturedArticlesFromGraphql = async graphql => {
         data,
         'data.strapiHomePageFeaturedArticles.articles',
         []
+        // This isn't quite polymorphic, since for Strapi a slug by default excludes the
+        // type since it is redundant with the type field
+        // The case is snooty first and then Strapi second
     ).map(a => a.slug || transformArticleStrapiData(a.article).slug);
 
     const learnPageFeaturedArticles = dlv(
         data,
         'data.strapiLearnPageFeaturedArticles.articles',
         []
+        // This isn't quite polymorphic, since for Strapi a slug by default excludes the
+        // type since it is redundant with the type field
+        // The case is snooty first and then Strapi second
     ).map(a => a.slug || transformArticleStrapiData(a.article).slug);
     return { homePageFeaturedArticles, learnPageFeaturedArticles };
 };
