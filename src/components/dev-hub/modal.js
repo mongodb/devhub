@@ -183,10 +183,6 @@ export const Modal = ({
                 </ModalDialog>
             </AriaModal>
         );
-    // The below line is due to SSR/Weird Media Query use
-    // Since this requires a re-render, we delay any rendering until this is done
-    // This prevents a jarring mobile experience
-    if (!canDecideIfIsMobile) return null;
     if (triggerComponent) {
         return (
             <>
@@ -195,6 +191,10 @@ export const Modal = ({
             </>
         );
     }
+    // The below line is due to SSR/Weird Media Query use
+    // Since this requires a re-render, we delay any rendering until this is done
+    // This prevents a jarring mobile experience
+    if (!canDecideIfIsMobile) return null;
     return responsiveModal();
 };
 
