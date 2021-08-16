@@ -7,7 +7,7 @@ const DEFAULT_OG_TYPE = 'article';
 const DEFAULT_TWITTER_SITE = '@mongodb';
 
 const SEO = ({
-    articleTitle,
+    title,
     canonicalUrl,
     image,
     metaDescription,
@@ -43,7 +43,7 @@ const SEO = ({
             {ogImgSrc && <meta property="og:image" content={ogImgSrc} />}
 
             {/* Title Tags */}
-            {articleTitle && <title>{articleTitle}</title>}
+            {title && <title>{title}</title>}
             {ogTitle && <meta property="og:title" content={ogTitle} />}
 
             {/* Twitter Tags */}

@@ -7,7 +7,7 @@ import { screenSize, size } from '../../dev-hub/theme';
 import { H4, P, P2 } from '../../dev-hub/text';
 import MediaBlock from '../../dev-hub/media-block';
 import SignUpModal from './sign-up-modal';
-import GreenBulletedList from './green-bulleted-list';
+import GreenBulletedList from '~components/dev-hub/green-bulleted-list';
 
 const CUSTOM_BULLET_SIZE = '24px';
 const SECTION_HORIZONTAL_PADDING = '120px';

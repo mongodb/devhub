@@ -66,10 +66,10 @@ const SliderLabelText = styled(P3)`
 `;
 
 const Slider = ({ current, currentLabel, onChange, total, totalLabel }) => {
-    const sliderPercentage = useMemo(() => Math.ceil((current / total) * 100), [
-        current,
-        total,
-    ]);
+    const sliderPercentage = useMemo(
+        () => Math.ceil((current / total) * 100),
+        [current, total]
+    );
     return (
         <SliderContainer>
             <SliderLabelText>{currentLabel || current}</SliderLabelText>

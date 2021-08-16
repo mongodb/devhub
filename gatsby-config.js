@@ -37,6 +37,7 @@ module.exports = {
                     'articles',
                     'article-series',
                     'client-side-redirects',
+                    'community-champions',
                     'projects',
                 ]),
                 singleTypes: mapPublicationStateToArray([
