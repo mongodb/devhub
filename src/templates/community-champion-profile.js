@@ -33,9 +33,9 @@ const BIO_MOBILE_BOTTOM_MARGIN = '40px';
 const PROFILE_PICTURE_GRADIENT_OFFSET = 8;
 const PROFILE_PICTURE_SIZE = 348;
 const PROFILE_PICTURE_MOBILE_SIZE = 156;
-const CERTIFICATIONS_CONTAINER_COLUMN_GAP = '48px';
-const CERTIFICATE_BADGE_WIDTH = '131';
-const CERTIFICATE_BADGE_HEIGHT = '134';
+const CERTIFICATE_BADGE_WIDTH = '129';
+const CERTIFICATE_BADGE_HEIGHT = '132';
+const CERTIFICATE_CONTAINER_WIDTH = '162px';
 
 const CHAMPION_PROFILE_BREADCRUMBS_PREFIX = [
     { label: 'Home', target: '/' },
@@ -175,13 +175,24 @@ const Title = styled(H4)`
 `;
 
 const CertificationsContainer = styled('div')`
-    column-gap: ${CERTIFICATIONS_CONTAINER_COLUMN_GAP};
+    column-gap: ${size.xsmall};
     display: grid;
-    grid-template-columns: repeat(auto-fill, ${CERTIFICATE_BADGE_WIDTH}px);
-    row-gap: ${size.default};
+    grid-template-columns: repeat(auto-fill, ${CERTIFICATE_CONTAINER_WIDTH});
+    row-gap: ${size.tiny};
     @media ${screenSize.upToSmallDesktop} {
-        column-gap: ${size.large};
+        column-gap: ${size.default};
         margin-bottom: ${size.xlarge};
+    }
+`;
+
+const CertificationLink = styled(Link)`
+    border-radius: ${size.xsmall};
+    padding: ${size.default};
+    &:hover,
+    &:focus {
+        background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
+        color: inherit;
+        cursor: pointer;
     }
 `;
 
@@ -205,14 +216,18 @@ const CertificationsSection = ({ certifications }) => {
                 {badges.map(
                     ({ alt, src, url }) =>
                         url && (
-                            <Link key={alt} href={url} target="_blank">
+                            <CertificationLink
+                                key={alt}
+                                href={url}
+                                target="_blank"
+                            >
                                 <img
                                     alt={alt}
                                     src={src}
                                     width={CERTIFICATE_BADGE_WIDTH}
                                     height={CERTIFICATE_BADGE_HEIGHT}
                                 />
-                            </Link>
+                            </CertificationLink>
                         )
                 )}
             </CertificationsContainer>
