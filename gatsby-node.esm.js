@@ -27,6 +27,7 @@ import { SnootyArticle } from './src/classes/snooty-article';
 import { createVideoPages } from './src/utils/setup/create-video-pages';
 import { fetchBuildTimeMedia } from './src/utils/setup/fetch-build-time-media';
 import { aggregateItemsByVideoType } from './src/utils/setup/aggregate-items-by-video-type';
+import { createCommunityChampionProfilePages } from './src/utils/setup/create-community-champion-profile-pages';
 import { aggregateItemsByAudioType } from './src/utils/setup/aggregate-items-by-audio-type';
 import { createPodcastPages } from './src/utils/setup/create-podcast-pages';
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
@@ -215,6 +216,9 @@ export const createPages = async ({ actions, graphql }) => {
     await Promise.all(tagPages);
 
     await createVideoPages(createPage, allVideos, metadataDocument);
+
+    await createCommunityChampionProfilePages(createPage, graphql);
+
     await createPodcastPages(createPage, allPodcasts, metadataDocument);
 };
 

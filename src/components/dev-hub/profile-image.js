@@ -4,15 +4,15 @@ import styled from '@emotion/styled';
 import { withPrefix } from 'gatsby';
 import { screenSize, size } from './theme';
 import { createShadowElement } from './utils';
-import DEFAULT_AUTHOR_IMAGE from '../../images/2x/Default-Profile@2x.png';
+import DEFAULT_PROFILE_IMAGE from '../../images/2x/Default-Profile@2x.png';
 
 const DEFAULT_GRADIENT_POSITION_OFFSET = 6;
 const DEFAULT_IMAGE_HEIGHT = 50;
 
-const imageStyles = (background, isInternalReference) => css`
+const imageStyles = (defaultImage, background, isInternalReference) => css`
     background-image: ${background
         ? `url(${isInternalReference ? withPrefix(background) : background})`
-        : `url(${DEFAULT_AUTHOR_IMAGE})`};
+        : `url(${defaultImage})`};
     background-position: center center;
     background-size: auto 100%;
 `;
@@ -23,7 +23,7 @@ const hideImageOnMobile = css`
     }
 `;
 
-const AuthorImageContainer = styled('div')`
+const ProfileImageContainer = styled('div')`
     height: ${({ height, gradientOffset }) => height + gradientOffset}px;
     position: relative;
     width: ${({ width, gradientOffset }) => width + gradientOffset}px;
@@ -31,7 +31,7 @@ const AuthorImageContainer = styled('div')`
         ${({ gradientOffset, theme }) =>
             createShadowElement(
                 theme.gradientMap.greenTealOffset,
-                size.large,
+                '50%',
                 0,
                 -gradientOffset
             )};
@@ -48,11 +48,12 @@ const CircularImage = styled('div')`
     margin-right: ${size.medium};
     position: relative;
     width: ${({ width }) => width}px;
-    ${({ image, isInternalReference }) =>
-        imageStyles(image, isInternalReference)};
+    ${({ defaultImage, image, isInternalReference }) =>
+        imageStyles(defaultImage, image, isInternalReference)};
 `;
 
-const AuthorImage = ({
+const ProfileImage = ({
+    defaultImage = DEFAULT_PROFILE_IMAGE,
     image,
     isInternalReference = true,
     gradientOffset = DEFAULT_GRADIENT_POSITION_OFFSET,
@@ -61,8 +62,8 @@ const AuthorImage = ({
     width = DEFAULT_IMAGE_HEIGHT,
     ...props
 }) => (
-    <AuthorImageContainer
-        data-test="author-image"
+    <ProfileImageContainer
+        data-test="profile-image"
         hideOnMobile={hideOnMobile}
         gradientOffset={gradientOffset}
         height={height}
@@ -70,12 +71,13 @@ const AuthorImage = ({
         {...props}
     >
         <CircularImage
+            defaultImage={defaultImage}
             isInternalReference={isInternalReference}
             height={height}
             width={width}
             image={image}
         />
-    </AuthorImageContainer>
+    </ProfileImageContainer>
 );
 
-export default AuthorImage;
+export default ProfileImage;

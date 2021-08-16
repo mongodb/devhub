@@ -40,6 +40,7 @@ const StyledTextArea = styled('textarea')`
     }
 `;
 const InputContainer = styled('div')`
+    line-height: ${({ collapse }) => (collapse ? '0px' : 'inherit')};
     position: relative;
     :focus-within {
         label {
@@ -79,10 +80,10 @@ const InputContainer = styled('div')`
         }
     }
 `;
-const TextArea = ({ value, ...props }) => {
+const TextArea = ({ collapse, value, ...props }) => {
     const isEmpty = !value;
     return (
-        <InputContainer isEmpty={isEmpty}>
+        <InputContainer collapse={collapse} isEmpty={isEmpty}>
             <Label
                 labelAbsoluteLeft={LABEL_ABSOLUTE_LEFT}
                 labelStartTop={LABEL_START_TOP}
