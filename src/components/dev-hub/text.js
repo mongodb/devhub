@@ -72,6 +72,17 @@ export const H5 = styled('h5')`
     }
 `;
 
+export const H6 = styled('h6')`
+    ${commonHeading}
+    font-size: ${fontSize.small};
+    line-height: ${lineHeight.small};
+    ${handleCollapse}
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.tiny};
+        line-height: ${lineHeight.tiny};
+    }
+`;
+
 export const ArticleH2 = styled('h2')`
     ${commonHeading}
     font-size: ${fontSize.medium};

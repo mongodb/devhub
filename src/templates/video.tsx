@@ -46,7 +46,7 @@ const StyledBlogShareLinks = styled(BlogShareLinks)`
             
         }
     }
-    
+
     @media ${screenSize.upToLarge} {
         display: inline-flex;
         flex-direction: row;
@@ -93,7 +93,7 @@ const StyledParagraph = styled(P)`
 `;
 
 const StyledShareFooter = styled(ShareFooter)`
-     a {
+    a {
         margin-left: 0 !important;
         margin-right: ${size.medium};
     } 
@@ -148,7 +148,7 @@ const Video = ({
     return (
         <Layout includeCanonical={false}>
             <SEO
-                articleTitle={title}
+                title={title}
                 canonicalUrl={pageUrl}
                 image={image}
                 metaDescription={description}

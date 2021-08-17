@@ -15,7 +15,7 @@ const AcademiaLandingPage = ({ location }) => {
     return (
         <Layout>
             <SEO
-                articleTitle="MongoDB for Academia"
+                title="MongoDB for Academia"
                 ogUrl={fullUrl}
                 metaDescription="MongoDB for Academia is your home for resources, tools, and community support while you learn or teach MongoDB!"
             />
