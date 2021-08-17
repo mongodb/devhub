@@ -5,8 +5,7 @@
 import dlv from 'dlv';
 import { ArticleSeries, SeriesArticle } from '../interfaces/article-series';
 import { transformArticleStrapiData } from '../utils/transform-article-strapi-data';
-
-const STRAPI_COMPONENT_TYPE = 'article-info.strapi-article';
+import { isStrapiArticle } from '../utils/setup/is-strapi-article';
 
 export class StrapiArticleSeries implements ArticleSeries {
     articles: SeriesArticle[];
@@ -15,8 +14,7 @@ export class StrapiArticleSeries implements ArticleSeries {
         this.articles = entries
             .map(article => {
                 if (!article) return null;
-                const isStrapi =
-                    article.strapi_component === STRAPI_COMPONENT_TYPE;
+                const isStrapi = isStrapiArticle(article);
                 // Strapi's API for articles is different from what Snooty provides
                 return isStrapi
                     ? this.handleStrapiArticle(article.article)
@@ -47,7 +45,7 @@ export class StrapiArticleSeries implements ArticleSeries {
     };
 
     handleStrapiArticle = article => {
-        if (!article.article) return null;
+        if (!article) return null;
         const { name, slug } = transformArticleStrapiData(article);
         return { slug, title: name };
     };
