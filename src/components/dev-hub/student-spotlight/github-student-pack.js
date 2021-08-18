@@ -60,7 +60,7 @@ const GithubBackpackImg = () => (
 const GithubStudentContent = () => (
     <Centered>
         <H4>
-            Get excusive student access to MongoDB Atlas, University on-demand
+            Get exclusive student access to MongoDB Atlas, University on-demand
             content and certifications.
         </H4>
         <LightText>
