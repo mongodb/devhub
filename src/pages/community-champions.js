@@ -84,7 +84,7 @@ const LOCATION_CONTAINER_MOBILE_TOP_MARGIN = '2px';
 const PIN_LOCATION_IMAGE_RIGHT_MARGIN = '4px';
 const FOR_THE_FUTURE_APPLY_BUTTON_TOP_MARGIN = '48px';
 const FOR_THE_FUTURE_DESCRIPTION_MAX_WIDTH = '760px';
-const OG_IMAGE = '/public/images/champions-badge.svg';
+const OG_IMAGE = '/public/images/champions-badge.jpg';
 const OG_DESCRIPTION =
     'Champions are a group of passionate, dedicated advocates of the MongoDB community. They keep the community informed and excited about our latest developments and newest offerings. They are the trusted bridge between MongoDB and our community.';
 
