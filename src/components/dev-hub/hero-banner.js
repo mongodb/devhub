@@ -83,7 +83,7 @@ const MobileMediaContainer = styled('div')`
     }
     > img {
         border-radius: ${size.small};
-        width: inherit;
+        width: ${({ imageWidthOnMobile }) => imageWidthOnMobile || 'inherit'};
         @media ${screenSize.upToLarge} {
             ${({ maintainSquareAspectRatio }) =>
                 maintainSquareAspectRatio && positionAbsolutelyWithinContainer};
@@ -97,10 +97,12 @@ const HeroBanner = ({
     children,
     collapse,
     backgroundPosition = '100%',
+    imageAltText = '',
     maintainSquareAspectRatio = true,
     // Setting below to false would allow for bleed effect on bg
     shouldContainBackground = true,
     showImageOnMobile = true,
+    imageWidthOnMobile = null,
     fullWidth = false,
     bannerType = BannerType.ARTICLE,
     ...props
@@ -123,8 +125,9 @@ const HeroBanner = ({
                             maintainSquareAspectRatio={
                                 maintainSquareAspectRatio
                             }
+                            imageWidthOnMobile={imageWidthOnMobile}
                         >
-                            <img src={background} alt="" />
+                            <img src={background} alt={imageAltText} />
                         </MobileMediaContainer>
                     )}
                     {children}

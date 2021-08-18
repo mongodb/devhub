@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import AuthorImage from '~components/dev-hub/author-image';
+import ProfileImage from '~components/dev-hub/profile-image';
 import { screenSize, size } from '~components/dev-hub/theme';
 import Button from '~components/dev-hub/button';
 import { P3 } from '~components/dev-hub/text';
@@ -59,7 +59,7 @@ const ButtonContainer = styled('div')`
 
 const CondensedStudentEntry = ({ authorImage, onEdit, onRemove, state }) => (
     <CondensedContainer>
-        <AuthorImage
+        <ProfileImage
             hideOnMobile={false}
             isInternalReference={false}
             height={IMAGE_PREVIEW_SIZE}

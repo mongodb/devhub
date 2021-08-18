@@ -38,7 +38,7 @@ const Students = ({ location }) => {
     return (
         <Layout>
             <SEO
-                articleTitle="Student Spotlights"
+                title="Student Spotlights"
                 ogUrl={fullUrl}
                 metaDescription="MongoDB projects created by students, for students!"
             />

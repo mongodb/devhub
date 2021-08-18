@@ -14,7 +14,6 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { LearnPageTabs } from '../utils/learn-page-tabs';
-import usePodcasts from '../hooks/use-podcasts';
 import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
 
@@ -187,12 +186,12 @@ const FeaturedArticles = ({ articles }) => {
     );
 };
 
-export default ({
+const LearnPage = ({
     location,
     navigate,
     pageContext: {
         allArticles,
-        allPodcasts,
+        allPodcasts: podcasts,
         allVideos: videos,
         featuredArticles,
         filters,
@@ -263,8 +262,6 @@ export default ({
             (!filterValue.products || filterValue.products === 'all'),
         [filterValue]
     );
-
-    const { podcasts } = usePodcasts(allPodcasts);
 
     const updateActiveFilter = useCallback(
         newTab => {
@@ -370,3 +367,5 @@ export default ({
         </Layout>
     );
 };
+
+export default LearnPage;

@@ -23,7 +23,7 @@ const breadcrumbs = [
     { label: 'Events', target: '/community/events' },
 ];
 
-export default () => {
+const CommunityEvents = () => {
     const [events, error, isLoading] = useEventData();
 
     const metadata = useSiteMetadata();
@@ -56,3 +56,5 @@ export default () => {
         </Layout>
     );
 };
+
+export default CommunityEvents;

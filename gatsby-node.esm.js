@@ -1,5 +1,6 @@
 import path from 'path';
 import { articles } from './src/queries/articles';
+import { getStrapiArticleSeriesFromGraphql } from './src/utils/setup/get-strapi-article-series-from-graphql';
 import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
@@ -26,6 +27,9 @@ import { SnootyArticle } from './src/classes/snooty-article';
 import { createVideoPages } from './src/utils/setup/create-video-pages';
 import { fetchBuildTimeMedia } from './src/utils/setup/fetch-build-time-media';
 import { aggregateItemsByVideoType } from './src/utils/setup/aggregate-items-by-video-type';
+import { createCommunityChampionProfilePages } from './src/utils/setup/create-community-champion-profile-pages';
+import { aggregateItemsByAudioType } from './src/utils/setup/aggregate-items-by-audio-type';
+import { createPodcastPages } from './src/utils/setup/create-podcast-pages';
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 
 const pluralizeIfNeeded = {
@@ -122,16 +126,12 @@ export const onCreateNode = async ({ node }) => {
     }
 };
 
-const filteredPageGroups = allSeries => {
+const filterPageGroups = allSeries => {
     // featured articles are in pageGroups but not series, so we remove them
     homeFeaturedArticles = allSeries.home;
     learnFeaturedArticles = allSeries.learn;
     // also remove a group of excluded articles
     excludedLearnPageArticles = allSeries.learnPageExclude;
-    delete allSeries.home;
-    delete allSeries.learn;
-    delete allSeries.learnPageExclude;
-    return allSeries;
 };
 
 export const createPages = async ({ actions, graphql }) => {
@@ -156,9 +156,11 @@ export const createPages = async ({ actions, graphql }) => {
         throw new Error(`Page build error: ${result.error}`);
     }
 
-    const snootySeries = filteredPageGroups(metadataDocument.pageGroups);
-    const allSeries = mapSnootySeries(snootySeries, slugContentMapping);
-
+    filterPageGroups(metadataDocument.pageGroups);
+    const articleSeries = await getStrapiArticleSeriesFromGraphql(
+        graphql,
+        slugContentMapping
+    );
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
     allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);
 
@@ -166,7 +168,7 @@ export const createPages = async ({ actions, graphql }) => {
         createArticlePage(
             article,
             slugContentMapping,
-            allSeries,
+            articleSeries,
             metadataDocument,
             createPage
         );
@@ -179,8 +181,7 @@ export const createPages = async ({ actions, graphql }) => {
     }));
 
     await createClientSideRedirects(graphql, createRedirect);
-    const { allVideos } = await fetchBuildTimeMedia();
-
+    const { allVideos, allPodcasts } = await fetchBuildTimeMedia();
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
     tagTypes.forEach(type => {
@@ -204,12 +205,21 @@ export const createPages = async ({ actions, graphql }) => {
         tagPageDirectory['type'][key] = aggregateVideoItems[key];
     });
 
+    const aggregateAudioItems = aggregateItemsByAudioType(allPodcasts);
+    Object.keys(aggregateAudioItems).forEach(key => {
+        tagPageDirectory['type'][key] = aggregateAudioItems[key];
+    });
+
     const tagPages = tagTypes.map(type => {
         createTagPageType(type, createPage, tagPageDirectory, metadataDocument);
     });
     await Promise.all(tagPages);
 
     await createVideoPages(createPage, allVideos, metadataDocument);
+
+    await createCommunityChampionProfilePages(createPage, graphql);
+
+    await createPodcastPages(createPage, allPodcasts, metadataDocument);
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
