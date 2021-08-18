@@ -16,22 +16,25 @@ const PROFILE_PICTURE_GRADIENT_OFFSET = 8;
 const LOCATION_CONTAINER_TOP_MARGIN = '4px';
 const LOCATION_CONTAINER_MOBILE_TOP_MARGIN = '2px';
 const PIN_LOCATION_IMAGE_RIGHT_MARGIN = '4px';
+const CHAMPION_MOBILE_VERTICAL_MARGIN = '4px';
 
 const Title = styled(H1)`
-    margin-bottom: ${size.xlarge};
+    margin-bottom: calc(${size.xlarge} - ${size.xsmall});
     text-align: center;
     @media ${screenSize.upToLarge} {
-        margin-bottom: ${size.mediumLarge};
+        margin-bottom: ${size.medium};
     }
 `;
 
 const Container = styled('div')`
     background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
     margin: ${size.xlarge} -${size.xxlarge};
-    padding: ${size.xlarge} ${size.xxlarge};
+    padding: ${size.xlarge} ${size.xxlarge}
+        calc(${size.xlarge} - ${size.xsmall});
     @media ${screenSize.upToLarge} {
         margin: ${size.large} -${size.default};
-        padding: ${size.large} ${size.default};
+        padding: ${size.large} ${size.default}
+            calc(${size.large} - ${CHAMPION_MOBILE_VERTICAL_MARGIN});
     }
 `;
 
@@ -39,10 +42,6 @@ const ChampionsContainer = styled('div')`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    row-gap: ${size.default};
-    @media ${screenSize.upToLarge} {
-        row-gap: ${size.xsmall};
-    }
 `;
 
 const ChampionLink = styled(Link)`
@@ -50,10 +49,14 @@ const ChampionLink = styled(Link)`
     border-radius: ${size.xsmall};
     display: flex;
     flex-direction: column;
+    margin: ${size.xsmall} 0;
     padding: ${size.default};
     text-align: center;
     text-decoration: none;
     width: ${CHAMPION_CONTAINER_WIDTH};
+    @media ${screenSize.upToLarge} {
+        margin: ${CHAMPION_MOBILE_VERTICAL_MARGIN} 0;
+    }
     @media ${screenSize.upToMedium} {
         padding: ${size.default} 0;
         width: ${CHAMPION_CONTAINER_MOBILE_WIDTH};
