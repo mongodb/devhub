@@ -97,7 +97,7 @@ const ProfilePicture = styled(ProfileImage)`
     margin-bottom: ${size.default};
     div {
         ${({ image, theme }) =>
-            image ? `background-color: ${theme.colorMap.devWhite};` : ''};
+            image ? `background-color: ${theme.colorMap.devWhite};` : ''}
         background-size: cover;
     }
 `;
