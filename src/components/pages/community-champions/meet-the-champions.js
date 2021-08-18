@@ -96,10 +96,8 @@ const Occupation = styled(P3)`
 const ProfilePicture = styled(ProfileImage)`
     margin-bottom: ${size.default};
     div {
-        ${props =>
-            props.image
-                ? `background-color: ${props.theme.colorMap.devWhite};`
-                : ''}
+        ${({ image, theme }) =>
+            image ? `background-color: ${theme.colorMap.devWhite};` : ''};
         background-size: cover;
     }
 `;
