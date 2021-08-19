@@ -89,15 +89,17 @@ module.exports = {
                 resolveSiteUrl: () => 'https://developer.mongodb.com/',
             },
         },
-        process.env.DISABLE_GTM
-            ? null
-            : {
-                  resolve: 'gatsby-plugin-google-tagmanager',
-                  options: {
-                      id: 'GTM-GDFN',
-                      includeInDevelopment: false,
+        ...(process.env.DISABLE_GTM
+            ? []
+            : [
+                  {
+                      resolve: 'gatsby-plugin-google-tagmanager',
+                      options: {
+                          id: 'GTM-GDFN',
+                          includeInDevelopment: false,
+                      },
                   },
-              },
+              ]),
         {
             resolve: 'gatsby-plugin-feed',
             options: {
