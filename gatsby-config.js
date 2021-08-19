@@ -37,6 +37,7 @@ module.exports = {
                     'articles',
                     'article-series',
                     'client-side-redirects',
+                    'community-champions',
                     'projects',
                 ]),
                 singleTypes: mapPublicationStateToArray([
@@ -65,6 +66,7 @@ module.exports = {
         {
             resolve: 'gatsby-plugin-sitemap',
             options: {
+                output: '/sitemap',
                 // Exclude paths we are using the noindex tag on
                 excludes: [
                     '/language/*',

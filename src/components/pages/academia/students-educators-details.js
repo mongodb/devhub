@@ -2,8 +2,8 @@ import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import GreenBulletedList, {
-    BulletText,
-} from '../educators/green-bulleted-list';
+    DefaultBulletText as BulletText,
+} from '~components/dev-hub/green-bulleted-list';
 import AcademiaEducators from '~images/student-spotlight/academia-educators.svg';
 import AcademiaStudents from '~images/student-spotlight/academia-students.svg';
 import Card from '~components/dev-hub/card';

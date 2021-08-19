@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { size } from './theme';
-import AuthorImage from './author-image';
+import ProfileImage from './profile-image';
 
 const AUTHOR_IMAGE_HEIGHT = 24;
 
@@ -9,7 +9,7 @@ const AuthorImageContainer = styled('div')`
     display: flex;
 `;
 
-const StyledAuthorImage = styled(AuthorImage)`
+const StyledAuthorImage = styled(ProfileImage)`
     margin-right: ${size.small};
     :not(:last-of-type) {
         margin-right: -${size.small};

@@ -5,7 +5,7 @@ import { P } from './text';
 import { fontSize, screenSize, size } from './theme';
 import { getAuthorPrefix } from '../../utils/get-author-prefix';
 import { getTagPageUriComponent } from '../../utils/get-tag-page-uri-component';
-import AuthorImage from './author-image';
+import ProfileImage from './profile-image';
 
 const AuthorImageContainer = styled('div')`
     display: flex;
@@ -38,7 +38,7 @@ const ByLine = styled('div')`
     }
 `;
 
-const StyledAuthorImage = styled(AuthorImage)`
+const StyledAuthorImage = styled(ProfileImage)`
     margin-right: ${size.small};
     :not(:last-of-type) {
         margin-right: -${size.small};
