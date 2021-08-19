@@ -89,6 +89,9 @@ module.exports = {
                 resolveSiteUrl: () => 'https://developer.mongodb.com/',
             },
         },
+        // We want to omit GTM for testing purposes (not on any production builds)
+        // This process of using the spread operator lets us simply add nothing to the
+        // plugins array if we don't want to use this plugin
         ...(process.env.DISABLE_GTM
             ? []
             : [
