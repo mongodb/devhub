@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from '@reach/router';
 import { buildQueryString, parseQueryString } from '~utils/query-string';
 
-const COMPOSITESEARCHURL = `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/devhub-search-service-dxfcg/service/devhub_export/incoming_webhook/compositesearch`;
+const COMPOSITESEARCHURL = `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/devhub-search-service-eybnu/service/devhub_export/incoming_webhook/compositesearch`;
 
 const ContentCatalogue = () => {
     const { search } = useLocation();
