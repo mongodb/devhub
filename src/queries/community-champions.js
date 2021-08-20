@@ -35,6 +35,7 @@ export const communityChampions = `
                       url
                     }
                     name
+                    url
                 }
             }
         }

@@ -50,7 +50,7 @@ const ContentContainer = styled('div')`
 const ChampionImage = styled(ProfileImage)`
     div {
         ${({ image, theme }) =>
-            image ? `background-color: ${theme.colorMap.devWhite};` : ''}
+            image ? `background-color: ${theme.colorMap.devWhite}` : ''};
         background-size: cover;
     }
 `;
@@ -188,6 +188,7 @@ const CommunityChampionProfile = props => {
     const { siteUrl } = useSiteMetadata();
     const fullUrl = removePathPrefixFromUrl(`${siteUrl}${slug}`);
     const seoTitle = `${fullName} - MongoDB Community Champion`;
+    const hasAwards = awards.length > 0;
     return (
         <Layout>
             <SEO
@@ -243,7 +244,7 @@ const CommunityChampionProfile = props => {
                                 socials={Socials}
                             />
                         )}
-                        {(Certifications || awards.length > 0) && (
+                        {(Certifications || hasAwards) && (
                             <CertificationsAndAwards
                                 certifications={Certifications}
                                 awards={awards}

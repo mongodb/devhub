@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import Link from '~components/dev-hub/link';
 import { fontSize, screenSize, size } from '~components/dev-hub/theme';
 import { H4 } from '~components/dev-hub/text';
-import Link from '~components/dev-hub/link';
 import DBAAssociateBadge from '~images/community-champions/dba-associate-badge.svg';
 import DeveloperAssociateBadge from '~images/community-champions/developer-associate-badge.svg';
-import { css } from '@emotion/react';
 
 const CERTIFICATE_BADGE_WIDTH = '129';
 const CERTIFICATE_BADGE_HEIGHT = '132';
 const BADGE_CONTAINER_WIDTH = '162px';
 
-const Title = styled(H4)`
-    margin-bottom: ${size.mediumLarge};
-    @media ${screenSize.upToSmallDesktop} {
-        margin-bottom: ${size.default};
+const hoverStyles = theme => css`
+    &:hover,
+    &:focus {
+        background-color: ${theme.colorMap.greyDarkThree};
+        color: inherit;
+        cursor: pointer;
     }
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.medium};
-        line-height: 30px;
-    }
+`;
+
+const AccoladeLink = styled(Link)`
+    border-radius: ${size.xsmall};
+    padding: ${size.default};
+    ${({ href, theme }) => (href ? hoverStyles(theme) : '')};
 `;
 
 const Grid = styled('div')`
@@ -33,74 +37,72 @@ const Grid = styled('div')`
     }
 `;
 
-const hoverStyles = theme => css`
-    &:hover,
-    &:focus {
-        background-color: ${theme.colorMap.greyDarkThree};
-        color: inherit;
-        cursor: pointer;
+const Title = styled(H4)`
+    margin-bottom: ${size.mediumLarge};
+    @media ${screenSize.upToSmallDesktop} {
+        margin-bottom: ${size.default};
+    }
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.medium};
+        line-height: 30px;
     }
 `;
 
-const CertificationLink = styled(Link)`
-    border-radius: ${size.xsmall};
-    padding: ${size.default};
-    ${({ theme }) => hoverStyles(theme)}
-`;
-
-const AwardLink = styled(Link)`
-    align-self: center;
-    border-radius: ${size.xsmall};
-    justify-self: center;
-    ${({ href, theme }) => (href ? hoverStyles(theme) : '')}
-`;
+// Awards and Certifications have differing APIs, we also want them to match here
+const transformCertificationsToAwardsStructure = certifications => {
+    const certificates = [];
+    if (certifications) {
+        const { dbaAssociateUrl, developerAssociateUrl } = certifications;
+        const hasDba = !!dbaAssociateUrl;
+        const hasDev = !!developerAssociateUrl;
+        if (hasDba) {
+            certificates.push({
+                name: 'DBA Associate badge',
+                image: {
+                    url: DBAAssociateBadge,
+                },
+                url: dbaAssociateUrl,
+            });
+        }
+        if (hasDev) {
+            certificates.push({
+                name: 'Developer Associate badge',
+                image: { url: DeveloperAssociateBadge },
+                url: developerAssociateUrl,
+            });
+        }
+    }
+    return certificates;
+};
 
 const CertificationsAndAwards = ({ awards, certifications }) => {
-    const certificates = certifications
-        ? [
-              {
-                  alt: 'DBA Associate badge',
-                  src: DBAAssociateBadge,
-                  url: certifications.dbaAssociateUrl,
-              },
-              {
-                  alt: 'Developer Associate badge',
-                  src: DeveloperAssociateBadge,
-                  url: certifications.developerAssociateUrl,
-              },
-          ]
-        : [];
-    const title =
-        certifications && awards.length
-            ? 'MongoDB Certifications & Awards'
-            : awards.length
-            ? 'MongoDB Awards'
-            : 'MongoDB Certifications';
+    const mappedCertifications =
+        transformCertificationsToAwardsStructure(certifications);
+    const title = useMemo(() => {
+        const hasAwards = !!awards.length;
+        const hasCertificates = !!mappedCertifications.length;
+        if (hasAwards) {
+            if (hasCertificates) {
+                return 'MongoDB Certifications & Awards';
+            }
+            return 'MongoDB Awards';
+        }
+        return 'MongoDB Certifications';
+    }, [awards.length, mappedCertifications.length]);
+    const allAccolades = mappedCertifications.concat(awards);
     return (
         <div>
             <Title>{title}</Title>
             <Grid>
-                {certificates.map(
-                    ({ alt, src, url }) =>
-                        url && (
-                            <CertificationLink
-                                key={alt}
-                                href={url}
-                                target="_blank"
-                            >
-                                <img
-                                    alt={alt}
-                                    src={src}
-                                    width={CERTIFICATE_BADGE_WIDTH}
-                                    height={CERTIFICATE_BADGE_HEIGHT}
-                                />
-                            </CertificationLink>
-                        )
-                )}
-                {awards.map(({ image, name, url }) => (
-                    <AwardLink key={name} href={url} target="_blank">
-                        <img alt={name} src={image.url} />
-                    </AwardLink>
+                {allAccolades.map(({ image, name, url }) => (
+                    <AccoladeLink key={name} href={url} target="_blank">
+                        <img
+                            alt={name}
+                            src={image.url}
+                            width={CERTIFICATE_BADGE_WIDTH}
+                            height={CERTIFICATE_BADGE_HEIGHT}
+                        />
+                    </AccoladeLink>
                 ))}
             </Grid>
         </div>
