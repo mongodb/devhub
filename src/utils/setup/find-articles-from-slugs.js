@@ -5,26 +5,46 @@ export const findArticleWithSlug = (allArticles, slug) =>
         article => !!article && fuzzySlugMatch(article.slug, slug)
     );
 
-export const findArticlesFromSlugs = (allArticles, articleSlugs, maxSize) => {
-    const result = [];
-    if (maxSize) {
-        articleSlugs.length = maxSize;
-    }
-    const articleIterator = allArticles
-        .sort((a, b) => new Date(b.publishedDate) - new Date(a.publishedDate))
-        [Symbol.iterator]();
-    // If maxSize is undefined, this will return a shallow copy of articleSlugs
-    articleSlugs.forEach(featuredSlug => {
-        const targetArticle = findArticleWithSlug(allArticles, featuredSlug);
-        if (targetArticle) {
-            result.push(targetArticle);
-        } else {
-            // This article was not found. pick an existing article and add it instead.
-            const mostRecentUnfeaturedArticle = articleIterator.next().value;
-            // We should check this is not yet featured
-            result.push(mostRecentUnfeaturedArticle);
+export const findAndFillArticlesFromSlugs = (
+    allArticles,
+    articleSlugs,
+    size,
+    sortFn
+) => {
+    if (size && size !== articleSlugs.length) {
+        const result = [];
+        for (let i = 0; i < size; i++) {
+            result.push(articleSlugs[i] || null);
         }
-    });
-    // Fill result with the rest
+        articleSlugs = result;
+    }
+    if (sortFn) {
+        allArticles = allArticles.sort(sortFn);
+    }
+    return findArticlesFromSlugs(allArticles, articleSlugs);
+};
+
+export const findArticlesFromSlugs = (allArticles, articleSlugs) => {
+    const articleIterator = allArticles[Symbol.iterator]();
+    const articleObjects = articleSlugs.map(slug =>
+        findArticleWithSlug(allArticles, slug)
+    );
+    // Recursive function to get the next article and check if it is already on this
+    // page, if so let's pick the next one
+    const findOrFillArticleFromSlug = () => {
+        // This article was not found. pick an existing article and add it instead.
+        const { done, value } = articleIterator.next();
+        if (done) return null;
+        // We should check this is not yet featured
+        else if (!articleObjects.includes(value)) {
+            return value;
+        }
+        return findOrFillArticleFromSlug();
+    };
+    const result = articleObjects
+        // If we didn't find an article object for that slug, pull the next article
+        .map(article => article || findOrFillArticleFromSlug())
+        // Handle the case there were not enough articles to feature, remove nulls
+        .filter(a => !!a);
     return result;
 };
