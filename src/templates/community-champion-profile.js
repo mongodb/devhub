@@ -8,16 +8,14 @@ import {
     screenSize,
     size,
 } from '~components/dev-hub/theme';
-import { H1, H4, P } from '~components/dev-hub/text';
+import { H1, P } from '~components/dev-hub/text';
 import ProfileImage from '~components/dev-hub/profile-image';
-import Link from '~components/dev-hub/link';
 import SEO from '~components/dev-hub/SEO';
 import BioHeader from '~components/pages/community-champions/profile/bio-header';
+import CertificationsAndAwards from '~components/pages/community-champions/profile/certifications-and-awards';
 import LinksSection from '~components/pages/community-champions/profile/links-section';
 import ChampionPlaceholderImage from '~images/community-champions/champion-placeholder.svg';
 import QuotationMarksIcon from '~images/community-champions/quotation-marks.svg';
-import DBAAssociateBadge from '~images/community-champions/dba-associate-badge.svg';
-import DeveloperAssociateBadge from '~images/community-champions/developer-associate-badge.svg';
 import useMedia from '~hooks/use-media';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
@@ -33,9 +31,6 @@ const BIO_MOBILE_BOTTOM_MARGIN = '40px';
 const PROFILE_PICTURE_GRADIENT_OFFSET = 8;
 const PROFILE_PICTURE_SIZE = 348;
 const PROFILE_PICTURE_MOBILE_SIZE = 156;
-const CERTIFICATE_BADGE_WIDTH = '129';
-const CERTIFICATE_BADGE_HEIGHT = '132';
-const CERTIFICATE_CONTAINER_WIDTH = '162px';
 
 const CHAMPION_PROFILE_BREADCRUMBS_PREFIX = [
     { label: 'Home', target: '/' },
@@ -54,10 +49,8 @@ const ContentContainer = styled('div')`
 
 const ChampionImage = styled(ProfileImage)`
     div {
-        ${props =>
-            props.image
-                ? `background-color: ${props.theme.colorMap.devWhite};`
-                : ''}
+        ${({ image, theme }) =>
+            image ? `background-color: ${theme.colorMap.devWhite};` : ''}
         background-size: cover;
     }
 `;
@@ -158,82 +151,11 @@ const Name = styled(H1)`
 
 const Bio = styled(P)`
     margin-bottom: ${size.xlarge};
+    word-break: break-word;
     @media ${screenSize.upToSmallDesktop} {
         margin-bottom: ${BIO_MOBILE_BOTTOM_MARGIN};
     }
 `;
-
-const Title = styled(H4)`
-    margin-bottom: ${size.mediumLarge};
-    @media ${screenSize.upToSmallDesktop} {
-        margin-bottom: ${size.default};
-    }
-    @media ${screenSize.upToMedium} {
-        font-size: ${fontSize.medium};
-        line-height: 30px;
-    }
-`;
-
-const CertificationsContainer = styled('div')`
-    column-gap: ${size.xsmall};
-    display: grid;
-    grid-template-columns: repeat(auto-fill, ${CERTIFICATE_CONTAINER_WIDTH});
-    row-gap: ${size.tiny};
-    @media ${screenSize.upToSmallDesktop} {
-        column-gap: ${size.default};
-        margin-bottom: ${size.xlarge};
-    }
-`;
-
-const CertificationLink = styled(Link)`
-    border-radius: ${size.xsmall};
-    padding: ${size.default};
-    &:hover,
-    &:focus {
-        background-color: ${({ theme }) => theme.colorMap.greyDarkThree};
-        color: inherit;
-        cursor: pointer;
-    }
-`;
-
-const CertificationsSection = ({ certifications }) => {
-    const badges = [
-        {
-            alt: 'DBA Associate badge',
-            src: DBAAssociateBadge,
-            url: certifications.dbaAssociateUrl,
-        },
-        {
-            alt: 'Developer Associate badge',
-            src: DeveloperAssociateBadge,
-            url: certifications.developerAssociateUrl,
-        },
-    ];
-    return (
-        <div>
-            <Title>MongoDB Certifications</Title>
-            <CertificationsContainer>
-                {badges.map(
-                    ({ alt, src, url }) =>
-                        url && (
-                            <CertificationLink
-                                key={alt}
-                                href={url}
-                                target="_blank"
-                            >
-                                <img
-                                    alt={alt}
-                                    src={src}
-                                    width={CERTIFICATE_BADGE_WIDTH}
-                                    height={CERTIFICATE_BADGE_HEIGHT}
-                                />
-                            </CertificationLink>
-                        )
-                )}
-            </CertificationsContainer>
-        </div>
-    );
-};
 
 const CommunityChampionProfile = props => {
     const {
@@ -251,6 +173,7 @@ const CommunityChampionProfile = props => {
         BlogsAndPublications,
         Socials,
         Certifications,
+        awards,
     } = champion;
     const fullName = [firstName, middleName, lastName].join(' ');
     const championProfileBreadcrumbs =
@@ -314,17 +237,16 @@ const CommunityChampionProfile = props => {
                         />
                         <Bio>{bio}</Bio>
                         {(BlogsAndPublications || Socials) && (
-                            <div>
-                                <Title>Follow {firstName}</Title>
-                                <LinksSection
-                                    blogsAndPublications={BlogsAndPublications}
-                                    socials={Socials}
-                                />
-                            </div>
+                            <LinksSection
+                                blogsAndPublications={BlogsAndPublications}
+                                firstName={firstName}
+                                socials={Socials}
+                            />
                         )}
-                        {Certifications && (
-                            <CertificationsSection
+                        {(Certifications || awards.length > 0) && (
+                            <CertificationsAndAwards
                                 certifications={Certifications}
+                                awards={awards}
                             />
                         )}
                     </TextContainer>
