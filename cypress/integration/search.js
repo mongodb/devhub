@@ -29,6 +29,9 @@ const checkSearchResults = page => {
 };
 
 const checkCondensedSearchbar = () => {
+    // TODO: Fix potential re-render on this button causing cypress to have issues
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
     cy.get(SEARCHBAR).should('not.exist');
     cy.get("[data-test='Closed Searchbar Button']")
         .should('exist')

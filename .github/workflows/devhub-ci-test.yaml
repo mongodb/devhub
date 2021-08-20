@@ -34,6 +34,7 @@ jobs:
                   echo "GATSBY_PARSER_USER=jordanstapinski" >> .env.production; \
                   echo "GATSBY_PARSER_BRANCH=CI" >> .env.production; \
                   echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
+                  echo "DISABLE_GTM=true" >> .env.production; \
                   echo "STRAPI_URL=http://18.144.177.6:1337" >> .env.production
             - name: Build Gatsby
               run: npm run buildTest
