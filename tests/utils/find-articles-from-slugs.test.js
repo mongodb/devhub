@@ -1,4 +1,4 @@
-import { findArticlesFromSlugs } from '../../src/utils/setup/find-articles-from-slugs';
+import { findArticlesFromSlugs } from '../../src/utils/setup/find-and-fill-articles-from-slugs';
 
 it('should correctly find featured articles given a set of requested articles', () => {
     let requestedFeaturedSlugs = [

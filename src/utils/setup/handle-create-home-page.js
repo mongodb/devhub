@@ -1,4 +1,4 @@
-import { findAndFillArticlesFromSlugs } from './find-articles-from-slugs';
+import { findAndFillArticlesFromSlugs } from './find-and-fill-articles-from-slugs';
 
 const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
 

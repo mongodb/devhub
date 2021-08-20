@@ -1,4 +1,4 @@
-import { findAndFillArticlesFromSlugs } from './find-articles-from-slugs';
+import { findAndFillArticlesFromSlugs } from './find-and-fill-articles-from-slugs';
 import { getLearnPageFilters } from './get-learn-page-filters';
 import { removeExcludedArticles } from './remove-excluded-articles';
 

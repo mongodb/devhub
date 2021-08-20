@@ -5,25 +5,6 @@ export const findArticleWithSlug = (allArticles, slug) =>
         article => !!article && fuzzySlugMatch(article.slug, slug)
     );
 
-export const findAndFillArticlesFromSlugs = (
-    allArticles,
-    articleSlugs,
-    size,
-    sortFn
-) => {
-    if (size && size !== articleSlugs.length) {
-        const result = [];
-        for (let i = 0; i < size; i++) {
-            result.push(articleSlugs[i] || null);
-        }
-        articleSlugs = result;
-    }
-    if (sortFn) {
-        allArticles = allArticles.sort(sortFn);
-    }
-    return findArticlesFromSlugs(allArticles, articleSlugs);
-};
-
 export const findArticlesFromSlugs = (allArticles, articleSlugs) => {
     const articleIterator = allArticles[Symbol.iterator]();
     const articleObjects = articleSlugs.map(slug =>
@@ -47,4 +28,23 @@ export const findArticlesFromSlugs = (allArticles, articleSlugs) => {
         // Handle the case there were not enough articles to feature, remove nulls
         .filter(a => !!a);
     return result;
+};
+
+export const findAndFillArticlesFromSlugs = (
+    allArticles,
+    articleSlugs,
+    size,
+    sortFn
+) => {
+    if (size && size !== articleSlugs.length) {
+        const result = [];
+        for (let i = 0; i < size; i++) {
+            result.push(articleSlugs[i] || null);
+        }
+        articleSlugs = result;
+    }
+    if (sortFn) {
+        allArticles = allArticles.sort(sortFn);
+    }
+    return findArticlesFromSlugs(allArticles, articleSlugs);
 };
