@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ADMONITIONS } from '../constants';
 import Admonition from './Admonition';
 import BlockQuote from './dev-hub/blockquote';
+import Break from './Break';
 import CardGroup from './CardGroup';
 import CodeBlock from './dev-hub/codeblock';
 import Chart from './dev-hub/chart';
@@ -77,6 +78,7 @@ export default class ComponentFactory extends Component {
         this.componentMap = {
             admonition: Admonition,
             blockquote: BlockQuote,
+            break: Break,
             'card-group': CardGroup,
             chart: Chart,
             charts: Chart,
