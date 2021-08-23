@@ -91,11 +91,16 @@ const CertificationsAndAwards = ({ awards, certifications }) => {
     }, [awards.length, mappedCertifications.length]);
     const allAccolades = mappedCertifications.concat(awards);
     return (
-        <div>
+        <div data-test="accolades">
             <Title>{title}</Title>
             <Grid>
                 {allAccolades.map(({ image, name, url }) => (
-                    <AccoladeLink key={name} href={url} target="_blank">
+                    <AccoladeLink
+                        data-test="accolade"
+                        key={name}
+                        href={url}
+                        target="_blank"
+                    >
                         <img
                             alt={name}
                             src={image.url}
