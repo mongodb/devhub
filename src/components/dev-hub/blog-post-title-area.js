@@ -36,6 +36,10 @@ const DateText = styled(P)`
 const DateTextContainer = styled('div')`
     margin-right: ${size.medium};
     display: flex;
+    flex-shrink: 0;
+    @media ${screenSize.upToLarge} {
+        margin-right: 0;
+    }
 `;
 
 const BlogPostTitleArea = ({
