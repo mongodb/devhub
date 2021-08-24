@@ -64,6 +64,16 @@ const GlobalWrapper = styled('div')`
     width: 100%;
 `;
 
+const MaxWidthFooterContainer = styled('div')`
+    border-top: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
+    margin: 0 auto;
+    max-width: ${size.maxWidth};
+    width: 100%;
+    div:first-of-type {
+        max-width: unset;
+    }
+`;
+
 export const StorybookLayout = ({ children }) => {
     const style = useMemo(() => globalStyles(darkTheme), []);
     return (
@@ -111,7 +121,9 @@ const Layout = ({ children, includeCanonical = true }) => {
                 <TabProvider>
                     <Main>{children}</Main>
                 </TabProvider>
-                <UnifiedFooter hideLocale />
+                <MaxWidthFooterContainer>
+                    <UnifiedFooter hideLocale />
+                </MaxWidthFooterContainer>
             </GlobalWrapper>
         </ThemeProvider>
     );
