@@ -15,6 +15,7 @@ const RawHTML = ({ nodeData }) => {
                     'img',
                     'script',
                 ]),
+                // Need to lock script srcs to include tiktok, spotify, twitter
                 allowedAttributes: false,
                 allowVulnerableTags: true,
             }),
@@ -27,7 +28,7 @@ const RawHTML = ({ nodeData }) => {
                 .createContextualFragment(sanitizedHTML);
             contentRef.current.appendChild(fragment);
             setHasRenderedScript(true);
-            // Need to prevent double-addition of the script tags
+            // Need to prevent double-addition of the script tags globally
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
