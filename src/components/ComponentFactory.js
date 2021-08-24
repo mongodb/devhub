@@ -13,6 +13,7 @@ import Container from './Container';
 import CSSClass from './CSSClass';
 import DefinitionList from './DefinitionList';
 import DefinitionListItem from './DefinitionListItem';
+import Delete from './Delete';
 import Deprecated from './Deprecated';
 import Emphasis from './Emphasis';
 import Extract from './Extract';
@@ -90,6 +91,7 @@ export default class ComponentFactory extends Component {
             cssclass: CSSClass,
             definitionList: DefinitionList,
             definitionListItem: DefinitionListItem,
+            delete: Delete,
             deprecated: Deprecated,
             emphasis: Emphasis,
             extract: Extract,
