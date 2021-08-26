@@ -6,7 +6,7 @@ import {
     screenSize,
     size,
 } from '~components/dev-hub/theme';
-import { H6, P2 } from '~components/dev-hub/text';
+import { H4, H6, P2 } from '~components/dev-hub/text';
 import Link from '~components/dev-hub/link';
 import LinkedinIcon from '~components/dev-hub/icons/linkedin';
 import FacebookIcon from '~components/dev-hub/icons/facebook-icon';
@@ -22,7 +22,18 @@ const MOBILE_BOTTOM_MARGIN = '48px';
 const SOCIAL_LINKS_GRID_COLUMN_GAP = '48px';
 const SOCIAL_LINK_MIN_WIDTH = '86px';
 
-const Title = styled(H6)`
+const Title = styled(H4)`
+    margin-bottom: ${size.mediumLarge};
+    @media ${screenSize.upToSmallDesktop} {
+        margin-bottom: ${size.default};
+    }
+    @media ${screenSize.upToMedium} {
+        font-size: ${fontSize.medium};
+        line-height: 30px;
+    }
+`;
+
+const Subtitle = styled(H6)`
     color: ${({ theme }) => theme.colorMap.greyLightThree};
     font-weight: bold;
     letter-spacing: 0.1em;
@@ -64,7 +75,7 @@ const BlogsAndPublicationsLink = styled(Link)`
 
 const BlogsAndPublications = ({ blogsAndPublications }) => (
     <div>
-        <Title collapse>Blogs &amp; Publications</Title>
+        <Subtitle collapse>Blogs &amp; Publications</Subtitle>
         <BlogsAndPublicationsLinksContainer>
             {blogsAndPublications.map(({ id, title, link }) => (
                 <BlogsAndPublicationsLink key={id} href={link} target="_blank">
@@ -162,7 +173,7 @@ const Socials = ({ socials }) => {
     ];
     return (
         <div>
-            <Title collapse>Social</Title>
+            <Subtitle collapse>Social</Subtitle>
             <SocialLinksContainer>
                 {links.map(
                     ({ type, url, Icon }) =>
@@ -185,13 +196,18 @@ const Socials = ({ socials }) => {
     );
 };
 
-const LinksSection = ({ blogsAndPublications, socials }) => (
-    <Grid>
-        {blogsAndPublications && (
-            <BlogsAndPublications blogsAndPublications={blogsAndPublications} />
-        )}
-        {socials && <Socials socials={socials} />}
-    </Grid>
+const LinksSection = ({ blogsAndPublications, firstName, socials }) => (
+    <div>
+        <Title>Follow {firstName}</Title>
+        <Grid>
+            {blogsAndPublications && (
+                <BlogsAndPublications
+                    blogsAndPublications={blogsAndPublications}
+                />
+            )}
+            {socials && <Socials socials={socials} />}
+        </Grid>
+    </div>
 );
 
 export default LinksSection;
