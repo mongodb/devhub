@@ -1,5 +1,6 @@
 import { requestYoutubePlaylist } from './devhub-api-stitch';
 import { simplifyYoutubeResponse } from './simplify-youtube-response';
+import { BuildError } from '../classes/build-error';
 // Fetches data from youtube api
 
 const fetchYoutubeData = async (maxResults = 5) => {
@@ -10,7 +11,7 @@ const fetchYoutubeData = async (maxResults = 5) => {
             return videoList;
         }
     } catch (e) {
-        console.error(e);
+        new BuildError(e);
     }
     return [];
 };

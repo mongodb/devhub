@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { requestMDBTwitchStream } from '../utils/devhub-api-stitch';
 import fetchTwitchVideos from '../utils/fetch-twitch-videos';
+import { RuntimeError } from '../classes/runtime-error';
 
 /**
  * @param {Object} config
@@ -8,7 +9,7 @@ import fetchTwitchVideos from '../utils/fetch-twitch-videos';
  * @param {number=} config.videoLimit number of previous videos to return
  * @returns {Object} {error, stream, pending, videos}
  */
-export default ({ getStream = true, videoLimit = 1 } = {}) => {
+const useTwitchApi = ({ getStream = true, videoLimit = 1 } = {}) => {
     const [error, setError] = useState(null);
     const [stream, setStream] = useState(null);
     const [pending, setPending] = useState(true);
@@ -34,7 +35,7 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
                 setVideos(videoRespData);
             }
         } catch (error) {
-            console.error(error);
+            new RuntimeError(error);
             setError(error);
         }
         setPending(false);
@@ -46,3 +47,5 @@ export default ({ getStream = true, videoLimit = 1 } = {}) => {
 
     return { error, stream, pending, videos };
 };
+
+export default useTwitchApi;

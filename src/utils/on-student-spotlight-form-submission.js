@@ -1,5 +1,6 @@
 import { submitStudentSpotlightProject } from './devhub-api-stitch';
 import { uploadImagesToStrapi } from './upload-images-to-strapi';
+import { RuntimeError } from '../classes/runtime-error';
 
 export const onStudentSpotlightFormSubmission = async (
     state,
@@ -12,10 +13,8 @@ export const onStudentSpotlightFormSubmission = async (
     setIsSubmitting(true);
 
     // Try project image upload
-    const {
-        success: projImageSuccess,
-        data: projImageData,
-    } = await uploadImagesToStrapi(newState.image);
+    const { success: projImageSuccess, data: projImageData } =
+        await uploadImagesToStrapi(newState.image);
     if (!projImageSuccess) {
         setError(projImageData);
         setIsSubmitting(false);
@@ -24,10 +23,8 @@ export const onStudentSpotlightFormSubmission = async (
     newState.image = projImageData;
 
     // Try project additional image upload
-    const {
-        success: addtlImageSuccess,
-        data: addtlImageData,
-    } = await uploadImagesToStrapi(newState.additional_images);
+    const { success: addtlImageSuccess, data: addtlImageData } =
+        await uploadImagesToStrapi(newState.additional_images);
     if (!addtlImageSuccess) {
         setError(addtlImageData);
         setIsSubmitting(false);
@@ -37,10 +34,8 @@ export const onStudentSpotlightFormSubmission = async (
 
     // Try student images upload
     const studentImages = newState.students.map(s => s.image);
-    const {
-        success: studentImageSuccess,
-        data: studentImageData,
-    } = await uploadImagesToStrapi(studentImages);
+    const { success: studentImageSuccess, data: studentImageData } =
+        await uploadImagesToStrapi(studentImages);
     if (!studentImageSuccess) {
         setError(studentImageData);
         setIsSubmitting(false);
@@ -57,6 +52,6 @@ export const onStudentSpotlightFormSubmission = async (
         setSuccess(true);
     } else {
         setError(message);
-        console.error(message);
+        new RuntimeError(message);
     }
 };

@@ -1,5 +1,6 @@
 import { Stitch, AnonymousCredential } from 'mongodb-stitch-server-sdk';
 import { SNOOTY_STITCH_ID } from '../../build-constants';
+import { RealmError } from '../../classes/realm-error';
 
 export const initStitch = async (id = SNOOTY_STITCH_ID) => {
     const stitchClient = Stitch.hasAppClient(id)
@@ -7,6 +8,6 @@ export const initStitch = async (id = SNOOTY_STITCH_ID) => {
         : Stitch.initializeAppClient(id);
     await stitchClient.auth
         .loginWithCredential(new AnonymousCredential())
-        .catch(console.error);
+        .catch(e => new RealmError(e));
     return stitchClient;
 };

@@ -1,3 +1,5 @@
+import { RuntimeError } from '../classes/runtime-error';
+
 const LIVE_EVENTS_URL = 'https://live.mongodb.com/api/event?status=Live';
 
 // Fetches data from live.mongodb.com events api
@@ -22,7 +24,7 @@ const fetchLiveEventData = async () => {
             }));
         }
     } catch (e) {
-        console.error(e);
+        new RuntimeError(e);
     }
 
     return [];

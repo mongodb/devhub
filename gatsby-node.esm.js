@@ -5,7 +5,6 @@ import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
 import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
-import { mapSnootySeries } from './src/utils/setup/map-snooty-series';
 import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
@@ -15,6 +14,7 @@ import { aggregateItemsWithTagType } from './src/utils/setup/aggregate-items-wit
 import { aggregateAuthorInformation } from './src/utils/setup/aggregate-author-information';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
 import { removeDuplicatedArticles } from './src/utils/setup/remove-duplicated-articles';
+import { BuildError } from './src/classes/build-error';
 import { getMetadata } from './src/utils/get-metadata';
 import {
     DOCUMENTS_COLLECTION,
@@ -90,7 +90,7 @@ export const sourceNodes = async ({
         query,
     ]);
     if (documents.length === 0) {
-        console.error('No documents matched your query.');
+        new BuildError('No documents matched your query.');
     }
 
     documents.forEach(doc => {

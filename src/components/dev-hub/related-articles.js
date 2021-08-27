@@ -8,6 +8,7 @@ import { H4 } from './text';
 import { screenSize, size } from './theme';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
 import { makeLinkInternalIfApplicable } from '~utils/make-link-internal-if-applicable';
+import { BuildError } from '../../classes/build-error';
 
 const MAX_CARD_WIDTH = 270;
 
@@ -59,7 +60,7 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
                 : ARTICLE_PLACEHOLDER;
             const title = dlv(slugTitleMapping, [slug, 0, 'value'], '');
             if (title === '') {
-                console.error(
+                console.log(
                     `No title found for this internal article ${slug}`,
                     slugTitleMapping
                 );
@@ -85,7 +86,7 @@ const getCardParamsFromRelatedType = (relatedArticle, slugTitleMapping) => {
                 title: dlv(relatedArticle, ['children', 0, 'value'], ''),
             };
         default:
-            console.error(`Related article type not implemented: ${name}`);
+            new BuildError(`Related article type not implemented: ${name}`);
             return { title: null, image: null, target: null };
     }
 };
@@ -97,11 +98,8 @@ const RelatedArticles = ({ related, slugTitleMapping }) => {
             <RelatedHeaderText>Related</RelatedHeaderText>
             <RelatedCards>
                 {related.map((r, i) => {
-                    const {
-                        image,
-                        target,
-                        title,
-                    } = getCardParamsFromRelatedType(r, slugTitleMapping);
+                    const { image, target, title } =
+                        getCardParamsFromRelatedType(r, slugTitleMapping);
 
                     /* TODO: Case on doc to link internal vs external */
                     return (

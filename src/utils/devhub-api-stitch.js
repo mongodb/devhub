@@ -1,5 +1,6 @@
 import { FEEDBACK_APP_ID, STITCH_AUTH_APP_ID } from '../constants';
 import { callStitchFunction } from './stitch-common';
+import { RealmError } from '../classes/build-error';
 
 const callRealmFunction =
     appId =>
@@ -7,7 +8,7 @@ const callRealmFunction =
         try {
             return callStitchFunction(fnName, appId, [...fnArgs]);
         } catch (error) {
-            console.error(error);
+            new RealmError(error);
         }
     };
 

@@ -1,3 +1,5 @@
+import { RuntimeError } from '../classes/runtime-error';
+
 const EVENTS_API_URL =
     'https://www.mongodb.com/api/event/all/1?sort=-node_type_attributes.event_start';
 const EVENTS_BASE_URL = 'http://www.mongodb.com/';
@@ -37,7 +39,7 @@ const fetchEventData = async () => {
             return eventsWithUpdatedUrls;
         }
     } catch (e) {
-        console.error(e);
+        new RuntimeError(e);
     }
     return [];
 };

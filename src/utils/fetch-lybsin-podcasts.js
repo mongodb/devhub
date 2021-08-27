@@ -1,6 +1,6 @@
 import { requestLybsinPodcasts } from './devhub-api-stitch';
 import { parsePodcasts } from './parse-podcasts';
-
+import { BuildError } from '../classes/build-error';
 // Fetches and parses podcast info from https://mongodb.libsyn.com/rss
 
 const fetchLybsinPodcasts = async () => {
@@ -11,7 +11,7 @@ const fetchLybsinPodcasts = async () => {
             return podcastList;
         }
     } catch (e) {
-        console.error(e);
+        new BuildError(e);
     }
     return [];
 };

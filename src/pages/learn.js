@@ -16,6 +16,7 @@ import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
 import { LearnPageTabs } from '../utils/learn-page-tabs';
 import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
+import { BuildError } from '../classes/build-error';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
@@ -146,7 +147,7 @@ const SecondaryFeaturedArticle = ({ article, Wrapper }) => {
 
 const FeaturedArticles = ({ articles }) => {
     if (articles.length < 3) {
-        console.error(
+        new BuildError(
             `Expected three articles for featured section, got ${
                 articles && articles.length
             }`

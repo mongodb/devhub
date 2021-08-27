@@ -5,6 +5,7 @@ import {
     submitDevhubFeedback,
     updateDevhubFeedback,
 } from '~utils/devhub-api-stitch';
+import { RuntimeError } from '../classes/runtime-error';
 
 const useFeedback = () => {
     const [feedbackId, setFeedbackId] = useState(null);
@@ -22,7 +23,7 @@ const useFeedback = () => {
                 });
                 setFeedbackId(feedbackId);
             } catch (error) {
-                console.error(error);
+                new RuntimeError(error);
             }
         },
         [segmentAnonymousId]
@@ -39,7 +40,7 @@ const useFeedback = () => {
                         email,
                     });
                 } catch (error) {
-                    console.error(error);
+                    new RuntimeError(error);
                 }
             }
         },
@@ -51,7 +52,7 @@ const useFeedback = () => {
             try {
                 return await submitDevhubFeedback(feedbackId);
             } catch (error) {
-                console.error(error);
+                new RuntimeError(error);
             }
         }
     }, [feedbackId]);

@@ -1,5 +1,6 @@
 import { AnonymousCredential, Stitch } from 'mongodb-stitch-browser-sdk';
 import { isBrowser } from './is-browser';
+import { RealmError } from '../classes/realm-error';
 
 const initializeApp = appId =>
     Stitch.hasAppClient(appId)
@@ -14,7 +15,7 @@ export const authenticate = async appId => {
             new AnonymousCredential()
         );
     } catch (error) {
-        console.error(error);
+        new RealmError(error);
     }
 };
 
@@ -35,6 +36,6 @@ export const callStitchFunction = async (fnName, appId, fnArgs) => {
         await authenticate(appId);
         return stitchClient(appId).callFunction(fnName, fnArgs);
     } catch (error) {
-        console.error(error);
+        new RealmError(error);
     }
 };
