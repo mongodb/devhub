@@ -2,9 +2,10 @@ import React from 'react';
 import dlv from 'dlv';
 import { hasAnchorLink } from '~utils/has-anchor-link';
 import { isNewPage } from '~utils/is-new-page';
-import { ThemeProvider } from "@emotion/react";
-import {darkTheme} from "~components/dev-hub/theme";
-import SurveyBanner from "~components/dev-hub/survey-banner";
+import { ThemeProvider } from '@emotion/react';
+import ErrorBoundary from '~components/dev-hub/error-boundary';
+import { darkTheme } from '~components/dev-hub/theme';
+import SurveyBanner from '~components/dev-hub/survey-banner';
 
 export const shouldUpdateScroll = ({ prevRouterProps, routerProps }) => {
     const prevLocation = dlv(prevRouterProps, ['location'], {});
@@ -14,12 +15,11 @@ export const shouldUpdateScroll = ({ prevRouterProps, routerProps }) => {
 
 export const wrapPageElement = ({ element }) => {
     return (
-
-        <ThemeProvider theme={darkTheme}>
-            {element}
-            <SurveyBanner></SurveyBanner>
-        </ThemeProvider>
-
-       );
+        <ErrorBoundary>
+            <ThemeProvider theme={darkTheme}>
+                {element}
+                <SurveyBanner></SurveyBanner>
+            </ThemeProvider>
+        </ErrorBoundary>
+    );
 };
-
