@@ -1,8 +1,17 @@
-GATSBY_SITE=devhub
-GATSBY_PARSER_USER=jordanstapinski
-GATSBY_PARSER_CI_USER=jordanstapinski
-GATSBY_PARSER_BRANCH=CI
-GATSBY_SNOOTY_DEV=true
-PREVIEW_MODE=true
-STRAPI_URL=http://18.144.177.6:1337
-STRAPI_PUBLICATION_STATE=live
+service:
+  type: ClusterIP
+  targetPort: 8000
+env:
+  URL: https://devhub-ui.devrel.staging.corp.mongodb.com/
+  SSL: true
+  SRV: true
+envSecrets:
+  GATSBY_SITE: devhub-gatsby-prod-secrets
+  GATSBY_PARSER_USER: devhub-gatsby-prod-secrets
+  GATSBY_PARSER_CI_USER: devhub-gatsby-prod-secrets
+  GATSBY_PARSER_BRANCH: devhub-gatsby-prod-secrets
+  GATSBY_SNOOTY_DEV: devhub-gatsby-prod-secrets
+  PREVIEW_MODE: devhub-gatsby-prod-secrets
+  STRAPI_URL: devhub-gatsby-prod-secrets
+  STRAPI_PUBLICATION_STATE: devhub-gatsby-prod-secrets
+  ENABLE_GATSBY_REFRESH_ENDPOINT: devhub-gatsby-prod-secrets
