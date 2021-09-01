@@ -136,8 +136,11 @@ const filterPageGroups = allSeries => {
 
 export const createPages = async ({ actions, graphql }) => {
     const { createPage, createRedirect } = actions;
-    const [, metadataDocument, result] = await Promise.all([
-        saveAssetFiles(assets, stitchClient),
+    console.log(metadata.previewMode);
+    if (metadata.previewMode === false) {
+        saveAssetFiles(assets, stitchClient);
+    }
+    const [metadataDocument, result] = await Promise.all([
         stitchClient.callFunction('fetchDocument', [
             DB,
             METADATA_COLLECTION,
