@@ -12,8 +12,6 @@ trigger:
 steps:
   - name: publish
     image: plugins/ecr
-
-    # Configuration for the drone-ecr plugin.
     settings:
       create_repository: true
       registry: 795250896452.dkr.ecr.us-east-1.amazonaws.com
