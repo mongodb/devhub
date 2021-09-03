@@ -18,10 +18,7 @@ const metadata = getMetadata();
 const SITE_URL = 'https://www.mongodb.com/developer';
 
 module.exports = {
-    pathPrefix:
-        process.env.SNOOTY_ENV === 'production'
-            ? '/developer'
-            : generatePathPrefix(metadata),
+    pathPrefix: generatePathPrefix(metadata),
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
