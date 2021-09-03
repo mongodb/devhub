@@ -17,6 +17,10 @@ const metadata = getMetadata();
 
 const SITE_URL = 'https://www.mongodb.com/developer';
 
+console.log(process.env.PATH_PREFIX || 'no path prefix');
+console.log(process.env.pathPrefix || 'no path prefix');
+console.log(process.env);
+
 module.exports = {
     pathPrefix: process.env.PATH_PREFIX || generatePathPrefix(metadata),
     plugins: [
