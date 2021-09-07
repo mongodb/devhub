@@ -102,8 +102,8 @@ const ProfilePicture = styled(ProfileImage)`
     }
 `;
 
-const Champion = ({ imageUrl, location, name, title, to }) => (
-    <ChampionLink to={to}>
+const Champion = ({ imageUrl, location, name, title, to, ...props }) => (
+    <ChampionLink to={to} {...props}>
         <ProfilePicture
             defaultImage={ChampionPlaceholderImage}
             gradientOffset={PROFILE_PICTURE_GRADIENT_OFFSET}
@@ -143,7 +143,7 @@ const List = () => {
     const data = useStaticQuery(communityChampions);
     const champions = dlv(data, ['allStrapiCommunityChampions', 'nodes'], []);
     return (
-        <ChampionsContainer>
+        <ChampionsContainer data-test="champion-grid">
             {champions.map(
                 ({
                     firstName,
@@ -155,6 +155,7 @@ const List = () => {
                     title,
                 }) => (
                     <Champion
+                        data-test="champion-grid-entry"
                         imageUrl={image ? image.url : null}
                         key={id}
                         location={location}
