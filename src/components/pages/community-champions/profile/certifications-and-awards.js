@@ -20,6 +20,10 @@ const hoverStyles = theme => css`
     }
 `;
 
+const FillImg = styled('img')`
+    object-fit: cover;
+`;
+
 const AccoladeLink = styled(Link)`
     border-radius: ${size.xsmall};
     padding: ${size.default};
@@ -101,7 +105,7 @@ const CertificationsAndAwards = ({ awards, certifications }) => {
                         href={url}
                         target="_blank"
                     >
-                        <img
+                        <FillImg
                             alt={name}
                             src={image.url}
                             width={CERTIFICATE_BADGE_WIDTH}
