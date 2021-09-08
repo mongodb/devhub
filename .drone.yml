@@ -51,9 +51,10 @@ type: kubernetes
 name: deploy
 
 trigger:
-  branch:
-    # ToDo replace with master
-    - DEVHUB-819-prod
+  event:
+    - promote
+  target:
+    - production
 
 steps:
   - name: deploy-prod
