@@ -2,7 +2,7 @@ service:
   type: ClusterIP
   targetPort: 8000
 env:
-  URL: https://devhub-ui.devrel.staging.corp.mongodb.com/
+  URL: https://devhub-ui.devrel.prod.corp.mongodb.com/
   SSL: true
   SRV: true
 envSecrets:
