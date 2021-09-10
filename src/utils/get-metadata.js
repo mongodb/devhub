@@ -29,6 +29,7 @@ const getMetadata = () => ({
     project: process.env.GATSBY_SITE,
     snootyBranch: gitBranch,
     user: process.env.GATSBY_PARSER_CI_USER || userInfo().username,
+    previewMode: process.env.PREVIEW_MODE,
 });
 
 module.exports.getMetadata = getMetadata;
