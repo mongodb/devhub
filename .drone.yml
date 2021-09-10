@@ -51,10 +51,9 @@ type: kubernetes
 name: deploy
 
 trigger:
-  event:
-    - promote
-  target:
-    - production
+  branch:
+    # ToDo replace with master
+    - DEVHUB-819-prod
 
 steps:
   - name: deploy-prod
@@ -70,4 +69,6 @@ steps:
       kubernetes_token:
         from_secret: prod_kubernetes_token
       values_files: ["environments/prod.yaml"]
-
+    when:
+      event:
+        - push
