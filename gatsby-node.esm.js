@@ -109,10 +109,10 @@ export const sourceNodes = async ({
         );
     });
     // This must be done after so all author bios exist
-    snootyArticles = snootyArticles.map(
-        ({ slug, doc }) =>
-            new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
-    );
+    // snootyArticles = snootyArticles.map(
+    //     ({ slug, doc }) =>
+    //         new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
+    // );
 };
 
 // Snooty Parser v0.7.0 introduced a fileid keyword that is passed as a string for the includes directive
@@ -165,7 +165,7 @@ export const createPages = async ({ actions, graphql }) => {
         slugContentMapping
     );
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
-    allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);
+    allArticles = strapiArticleList;
 
     allArticles.forEach(article => {
         createArticlePage(

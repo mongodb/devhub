@@ -32,18 +32,18 @@ const TwitchFeature = ({ twitchVideo }) => {
         <FeatureSection altBackground data-test="twitch">
             <MediaBlock
                 mediaWidth={MEDIA_WIDTH}
-                mediaComponent={
-                    <Card
-                        image={getTwitchThumbnail(twitchVideo.thumbnailUrl)}
-                        maxWidth={MEDIA_WIDTH}
-                        title={twitchVideo.title}
-                        videoModalThumbnail={getTwitchThumbnail(
-                            twitchVideo.thumbnailUrl,
-                            1200
-                        )}
-                        video={twitchVideo}
-                    />
-                }
+                // mediaComponent={
+                //     <Card
+                //         image={getTwitchThumbnail(twitchVideo.thumbnailUrl)}
+                //         maxWidth={MEDIA_WIDTH}
+                //         title={twitchVideo.title}
+                //         videoModalThumbnail={getTwitchThumbnail(
+                //             twitchVideo.thumbnailUrl,
+                //             1200
+                //         )}
+                //         video={twitchVideo}
+                //     />
+                // }
             >
                 <SectionContent>
                     <H2>
