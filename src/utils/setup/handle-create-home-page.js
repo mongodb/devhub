@@ -41,7 +41,8 @@ export const handleCreateHomePage = async (
     fallbackTwitchVideo
 ) => {
     const { createPage, deletePage } = actions;
-    const featuredItems = getFeaturedItems(homeFeaturedArticles, allArticles);
+    //const featuredItems = getFeaturedItems(homeFeaturedArticles, allArticles);
+    const featuredItems = [];
     deletePage(page);
     createPage({
         ...page,

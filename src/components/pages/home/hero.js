@@ -58,9 +58,9 @@ const Hero = ({ featuredItems }) => (
         </TitleText>
         <Sub>What will you create today?</Sub>
         <CardGallery>
-            {featuredItems.map(item => (
-                <FeaturedHomePageItem key={item._id} item={item} />
-            ))}
+            {/*{featuredItems.map(item => (*/}
+            {/*    <FeaturedHomePageItem key={item._id} item={item} />*/}
+            {/*))}*/}
         </CardGallery>
         <div>
             <Button to="/learn" primary>
