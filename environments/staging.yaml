@@ -1,10 +1,6 @@
 service:
   type: ClusterIP
   targetPort: 8000
-env:
-  URL: https://devhub-ui.devrel.staging.corp.mongodb.com/
-  SSL: true
-  SRV: true
 envSecrets:
   GATSBY_SITE: devhub-gatsby-secrets
   GATSBY_PARSER_USER: devhub-gatsby-secrets
