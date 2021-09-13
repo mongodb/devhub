@@ -6,7 +6,7 @@ name: devhub-frontend
 trigger:
   branch:
     # TODO replace with staging
-    - DEVHUB-819
+    - staging
 
 # List of pipeline steps.
 steps:
