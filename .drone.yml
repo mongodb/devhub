@@ -21,7 +21,8 @@ steps:
       values_files: [ "environments/prod.yaml" ]
     when:
       branch:
-        - DEVHUB-819
+        - DEVHUB-819-stg
+        - DEVHUB-819-prod
       event:
         - push
 
@@ -40,7 +41,7 @@ steps:
       values_files: [ "environments/staging.yaml" ]
     when:
       branch:
-        - DEVHUB-819
+        - DEVHUB-819-stg
       event:
         - push
 
