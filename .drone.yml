@@ -15,7 +15,7 @@ steps:
     settings:
       create_repository: true
       registry: 795250896452.dkr.ecr.us-east-1.amazonaws.com
-      repo: devrel/${DRONE_REPO_NAME}
+      repo: 795250896452.dkr.ecr.us-east-1.amazonaws.com/devrel/${DRONE_REPO_NAME}
       tags:
         - git-${DRONE_COMMIT_SHA:0:7}
         - latest
@@ -52,9 +52,8 @@ name: deploy
 
 trigger:
   branch:
-    # ToDo replace with master
+    # TODO replace with staging
     - DEVHUB-819-prod
-
 steps:
   - name: deploy-prod
     image: quay.io/mongodb/drone-helm:v3
@@ -71,6 +70,4 @@ steps:
       values_files: ["environments/prod.yaml"]
     when:
       event:
-        include:
-          - push
-          - pull_request
+        - push
