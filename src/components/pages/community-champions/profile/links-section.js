@@ -74,7 +74,7 @@ const BlogsAndPublicationsLink = styled(Link)`
 `;
 
 const BlogsAndPublications = ({ blogsAndPublications }) => (
-    <div>
+    <div data-test="blogs-publications">
         <Subtitle collapse>Blogs &amp; Publications</Subtitle>
         <BlogsAndPublicationsLinksContainer>
             {blogsAndPublications.map(({ id, title, link }) => (
@@ -172,7 +172,7 @@ const Socials = ({ socials }) => {
         },
     ];
     return (
-        <div>
+        <div data-test="social-links">
             <Subtitle collapse>Social</Subtitle>
             <SocialLinksContainer>
                 {links.map(
