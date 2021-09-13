@@ -109,7 +109,7 @@ export const sourceNodes = async ({
         );
     });
     // This must be done after so all author bios exist
-    if (process.env.PREVIEW_MODE === false) {
+    if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
         snootyArticles = snootyArticles.map(
             ({ slug, doc }) =>
                 new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
@@ -138,7 +138,7 @@ const filterPageGroups = allSeries => {
 
 export const createPages = async ({ actions, graphql }) => {
     const { createPage, createRedirect } = actions;
-    if (process.env.PREVIEW_MODE === false) {
+    if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
         saveAssetFiles(assets, stitchClient);
     }
     const [metadataDocument, result] = await Promise.all([
@@ -166,10 +166,9 @@ export const createPages = async ({ actions, graphql }) => {
         slugContentMapping
     );
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
-    allArticles =
-        process.env.PREVIEW_MODE === false
-            ? removeDuplicatedArticles(snootyArticles, strapiArticleList)
-            : strapiArticleList;
+    allArticles = !Boolean(process.env.GATSBY_PREVIEW_MODE)
+        ? removeDuplicatedArticles(snootyArticles, strapiArticleList)
+        : strapiArticleList;
 
     allArticles.forEach(article => {
         createArticlePage(
