@@ -3,11 +3,6 @@ kind: pipeline
 type: kubernetes
 name: devhub-frontend
 
-trigger:
-  branch:
-    # TODO replace with staging
-    - staging
-
 # List of pipeline steps.
 steps:
   - name: publish
@@ -25,6 +20,8 @@ steps:
         from_secret: ecr_secret_key
       values_files: [ "environments/prod.yaml" ]
     when:
+      branch:
+        - DEVHUB-819
       event:
         - push
 
@@ -42,19 +39,11 @@ steps:
         from_secret: staging_kubernetes_token
       values_files: [ "environments/staging.yaml" ]
     when:
+      branch:
+        - DEVHUB-819
       event:
         - push
 
----
-kind: pipeline
-type: kubernetes
-name: deploy
-
-trigger:
-  branch:
-    # TODO replace with staging
-    - DEVHUB-819-prod
-steps:
   - name: deploy-prod
     image: quay.io/mongodb/drone-helm:v3
     settings:
@@ -69,5 +58,7 @@ steps:
         from_secret: prod_kubernetes_token
       values_files: ["environments/prod.yaml"]
     when:
+      branch:
+        - DEVHUB-819-prod
       event:
         - push
