@@ -7,6 +7,8 @@ trigger:
   branch:
     # TODO replace with staging
     - DEVHUB-819
+  event:
+    - push
 
 # List of pipeline steps.
 steps:
@@ -50,10 +52,6 @@ kind: pipeline
 type: kubernetes
 name: deploy
 
-trigger:
-  branch:
-    # ToDo replace with master
-    - DEVHUB-819-prod
 
 steps:
   - name: deploy-prod
@@ -69,8 +67,9 @@ steps:
       kubernetes_token:
         from_secret: prod_kubernetes_token
       values_files: ["environments/prod.yaml"]
-    when:
-      event:
-        include:
-          - push
-          - pull_request
+
+trigger:
+  event:
+    - promote
+  target:
+    - production
