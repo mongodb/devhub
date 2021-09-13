@@ -71,4 +71,6 @@ steps:
       values_files: ["environments/prod.yaml"]
     when:
       event:
-        - push
+        include:
+          - push
+          - pull_request
