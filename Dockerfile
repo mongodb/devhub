@@ -2,13 +2,11 @@
 FROM node:14 AS builder
 # Set working directory
 WORKDIR /devhub
-# Copy all files from current directory to working dir in image
 COPY package.json ./
 # install node modules
 RUN npm install
 RUN npm install -g gatsby-cli
-
-WORKDIR /devhub
+# Copy all files from current directory to working dir in image
 COPY . .
 
 # expose port
