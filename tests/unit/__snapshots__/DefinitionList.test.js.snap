@@ -6,7 +6,7 @@ exports[`DefinitionList renders correctly 1`] = `
 >
   <dt>
     <code
-      class="css-f3yzc6-StyledLiteral-tabletPadding-desktopPadding es3mzt60"
+      class="css-1xbrcdo-StyledLiteral-tabletPadding-desktopPadding es3mzt60"
     >
       MongoDefaultPartitioner
     </code>

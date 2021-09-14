@@ -16,10 +16,6 @@ const StyledLiteral = styled('code')`
     background: ${({ theme }) => theme.colorMap.greyDarkThree};
     border-radius: 4px;
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
-    overflow-wrap: break-word;
-    /* Disable hyphens for code */
-    --webkit-hyphens: none;
-    hyphens: none;
     ${tabletPadding};
     @media ${screenSize.mediumAndUp} {
         ${desktopPadding};

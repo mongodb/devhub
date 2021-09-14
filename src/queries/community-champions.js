@@ -30,6 +30,13 @@ export const communityChampions = `
                   dbaAssociateUrl
                   developerAssociateUrl
                 }
+                awards {
+                    image {
+                      url
+                    }
+                    name
+                    url
+                }
             }
         }
     }
