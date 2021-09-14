@@ -5,7 +5,6 @@ name: devhub-frontend
 
 trigger:
   branch:
-    # TODO replace with staging
     - staging
   event:
     - push
