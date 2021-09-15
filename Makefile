@@ -1,7 +1,7 @@
 GIT_BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 USER=$(shell whoami)
-STAGING_URL="https://docs-mongodborg-staging.corp.mongodb.com"
-STAGING_BUCKET=docs-mongodb-org-staging
+STAGING_URL="http://developer-hub-staging.s3-website-us-east-1.amazonaws.com"
+STAGING_BUCKET=developer-hub-staging
 include .env.production
 
 .PHONY: stage static
@@ -21,6 +21,6 @@ stage: prefix
 	@if [ -z "${GATSBY_SNOOTY_DEV}" ]; then \
 		echo "To stage changes to the Snooty frontend, ensure that GATSBY_SNOOTY_DEV=true in your production environment."; exit 1; \
 	else \
-		mut-publish public ${STAGING_BUCKET} --prefix=${PREFIX} --stage ${ARGS}; \
+		AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} mut-publish public ${STAGING_BUCKET} --prefix=${PREFIX} --stage  ${ARGS}; \
 		echo "Hosted at ${STAGING_URL}/${PREFIX}/${USER}/${GIT_BRANCH}/"; \
 	fi
