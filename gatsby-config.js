@@ -40,6 +40,7 @@ module.exports = {
                     'community-champions',
                     'projects',
                 ]),
+                queryLimit: 0,
                 singleTypes: mapPublicationStateToArray([
                     'feedback-rating-flow',
                     'student-spotlight-featured',
