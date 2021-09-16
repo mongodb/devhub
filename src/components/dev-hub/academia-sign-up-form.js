@@ -5,13 +5,15 @@ import { fontSize, size, screenSize } from './theme';
 import { P, ArticleH3 } from './text';
 import Input from './input';
 import Button from './button';
-import Select from './select';
+import FormSelect from './select';
+import TextArea from './text-area';
 import Checkbox from '@leafygreen-ui/checkbox';
 import SectionHeader from './section-header';
 import {
     nameInvalidMessage,
     emailInvalidMessage,
 } from '~utils/invalid-form-input-messages';
+import countryList from 'react-select-country-list';
 
 const INPUT_BOX_WIDTH = '100%';
 
@@ -31,7 +33,7 @@ const StyledCheckbox = styled(Checkbox)`
     }
 `;
 
-const StyledSelect = styled(Select)`
+const StyledSelect = styled(FormSelect)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
@@ -72,6 +74,12 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
     const [email, setEmail] = useState('');
     const [institutionName, setInstitutionName] = useState('');
     const [institutionType, setInstitutionType] = useState('');
+    const [instructorType, setInstructorType] = useState('');
+    const [instructorTypeDesc, setInstructorTypeDesc] = useState('');
+    const [country, setCountry] = useState('');
+    const [courseName, setCourseName] = useState('');
+    const [courseSyllabus, setCourseSyllabus] = useState('');
+    const [instructorInterest, setInstructorInterest] = useState('');
     const [agreeToEmail, setAgreeToEmail] = useState(false);
     const [canSubmit, setCanSubmit] = useState(true);
     const institutionTypes = [
@@ -80,6 +88,21 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
         ['high_school', 'High School'],
         ['university_college', 'University / College'],
     ];
+    const instructorTypes = [
+        ['professor', 'Professor'],
+        ['teaching_assistant', 'Teaching Assistant'],
+        ['bootcamp_instructor', 'Bootcamp instructor'],
+        ['other', 'Other'],
+    ];
+    const instructorInterests = [
+        ['currently_teaching_mongodb', 'Currently Teaching MongoDB'],
+        ['interested_in_teaching_mongodb', 'Interested In Teaching MongoDB'],
+        ['just_curious', 'Just Curious'],
+    ];
+
+    const countries = countryList()
+        .getData()
+        .map(e => [e.label, e.label]);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -91,11 +114,20 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
             institution_name: institutionName,
             institution_type: institutionType,
             agree_to_email: agreeToEmail,
+            instructor_type:
+                instructorType === 'other'
+                    ? instructorTypeDesc
+                    : instructorType,
+            instructor_interests: instructorInterest,
+            country: country,
+            course_name: courseName,
+            course_syllabus: courseSyllabus,
         };
-        const response = await submitAcademiaForm(data);
-
-        setSuccess(response.success);
-        setCanSubmit(!response.success);
+        console.log(data);
+        // const response = await submitAcademiaForm(data);
+        //
+        // setSuccess(response.success);
+        // setCanSubmit(!response.success);
     };
 
     const onEmailInvalid = useCallback(
@@ -167,6 +199,31 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                     onInput={e => e.target.setCustomValidity('')}
                     onInvalid={onEmailInvalid}
                 />
+                <StyledSelect
+                    narrow
+                    required
+                    value={instructorType}
+                    defaultText="I am a"
+                    choices={instructorTypes}
+                    onChange={e => setInstructorType(e)}
+                />
+                {instructorType === 'other' ? (
+                    <Input
+                        narrow
+                        required
+                        value={instructorTypeDesc}
+                        placeholder="please specify your profession"
+                        onChange={e => setInstructorTypeDesc(e.target.value)}
+                    />
+                ) : null}
+                <StyledSelect
+                    narrow
+                    required
+                    value={instructorInterest}
+                    defaultText="I am"
+                    choices={instructorInterests}
+                    onChange={e => setInstructorInterest(e)}
+                />
             </InstructorSection>
 
             <SectionHeader>
@@ -189,8 +246,37 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                     choices={institutionTypes}
                     onChange={e => setInstitutionType(e)}
                 />
+                <StyledSelect
+                    narrow
+                    value={country}
+                    defaultText="Country"
+                    choices={countries}
+                    onChange={e => setCountry(e)}
+                />
+                <select required onChange={e => setCountry(e.target.value)}>
+                    <option value="">None</option>
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                </select>
+                <Input
+                    narrow
+                    required
+                    value={courseName}
+                    required
+                    maxLength="75"
+                    placeholder="Course Name"
+                    onChange={e => setCourseName(e.target.value)}
+                />
+                <TextArea
+                    bold
+                    darkMode={true}
+                    placeholder="Course Syllabus"
+                    value={courseSyllabus}
+                    onChange={e => setCourseSyllabus(e.target.value)}
+                />
             </InstitutionSection>
-
             <StyledCheckbox
                 bold
                 value={agreeToEmail}
@@ -208,7 +294,7 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                 primary
                 hasArrow={false}
             >
-                Join MongoDB for Academia
+                Join the MongoDB for Academia Educator Community
             </StyledButton>
         </form>
     );
