@@ -5,7 +5,7 @@ import { fontSize, size, screenSize } from './theme';
 import { P, ArticleH3 } from './text';
 import Input from './input';
 import Button from './button';
-import FormSelect from './select';
+import Select from './select';
 import TextArea from './text-area';
 import Checkbox from '@leafygreen-ui/checkbox';
 import SectionHeader from './section-header';
@@ -33,27 +33,8 @@ const StyledCheckbox = styled(Checkbox)`
     }
 `;
 
-const StyledSelect = styled(FormSelect)`
+const StyledSelect = styled(Select)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
-`;
-
-const StyledSelect2 = styled('select')`
-    padding: 1em;
-    width: 130%;
-    border-radius: 0.2em;
-    border: 1px solid #acacac;
-    color: #181820;
-
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-
-    background: url('https://cdn1.iconfinder.com/data/icons/arrows-vol-1-4/24/dropdown_arrow-512.png');
-    background-repeat: no-repeat;
-    background-size: 15px 15px;
-    background-position: right;
-    background-origin: content-box;
 `;
 
 const ErrorMessage = styled(P)`
