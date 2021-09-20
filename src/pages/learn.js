@@ -275,10 +275,15 @@ const LearnPage = ({
         [filterValue]
     );
 
-    const activeContentTab = useMemo(
-        () => filterValue['content'] || LearnPageTabs.all,
-        [filterValue]
-    );
+    const activeContentTab = useMemo(() => {
+        const currentContentFilter = filterValue['content'];
+        if (currentContentFilter) {
+            return (
+                LearnPageTabs[filterValue['content']] || filterValue['content']
+            );
+        }
+        return LearnPageTabs.all;
+    }, [filterValue]);
 
     // If the user is on a tab not supporting the text filter, ignore the filter
     const showTextFilterResults = useMemo(
