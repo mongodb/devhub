@@ -31,7 +31,12 @@ const StyledSuccessState = styled(SuccessState)`
 const SignUpModal = () => {
     const [success, setSuccess] = useState(null);
     if (success) {
-        return <StyledSuccessState>Thank you for joining!</StyledSuccessState>;
+        return (
+            <StyledSuccessState>
+                Thank you for your interest in MongoDB for Academia! We will get
+                back to you soon.
+            </StyledSuccessState>
+        );
     }
     return (
         <Modal

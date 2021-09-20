@@ -37,6 +37,25 @@ const StyledSelect = styled(FormSelect)`
     color: ${({ theme }) => theme.colorMap.greyLightTwo};
 `;
 
+const StyledSelect2 = styled('select')`
+    padding: 1em;
+    width: 130%;
+    border-radius: 0.2em;
+    border: 1px solid #acacac;
+    color: #181820;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+
+    background: url('https://cdn1.iconfinder.com/data/icons/arrows-vol-1-4/24/dropdown_arrow-512.png');
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    background-position: right;
+    background-origin: content-box;
+`;
+
 const ErrorMessage = styled(P)`
     color: ${({ theme }) => theme.colorMap.salmon};
 `;
@@ -82,6 +101,7 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
     const [instructorInterest, setInstructorInterest] = useState('');
     const [agreeToEmail, setAgreeToEmail] = useState(false);
     const [canSubmit, setCanSubmit] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('');
     const institutionTypes = [
         ['bootcamp', 'Bootcamp'],
         ['online_course', 'Online Course'],
@@ -99,10 +119,31 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
         ['interested_in_teaching_mongodb', 'Interested In Teaching MongoDB'],
         ['just_curious', 'Just Curious'],
     ];
-
     const countries = countryList()
         .getData()
         .map(e => [e.label, e.label]);
+
+    const validateDropdowns = data => {
+        const filloutMessage = 'Please fill out the field: ';
+        if (data.instructor_type === '') {
+            setErrorMessage(`${filloutMessage} I am a`);
+            return false;
+        }
+        if (data.instructor_interests === '') {
+            setErrorMessage(`${filloutMessage} I am`);
+            return false;
+        }
+        if (data.institution_type === '') {
+            setErrorMessage(`${filloutMessage} Institution Type`);
+            return false;
+        }
+        if (data.country === '') {
+            setErrorMessage(`${filloutMessage} Country`);
+            return false;
+        }
+        setErrorMessage('Your submission failed. Please try again.');
+        return true;
+    };
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -123,11 +164,11 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
             course_name: courseName,
             course_syllabus: courseSyllabus,
         };
-        console.log(data);
-        // const response = await submitAcademiaForm(data);
-        //
-        // setSuccess(response.success);
-        // setCanSubmit(!response.success);
+        const response = validateDropdowns(data)
+            ? await submitAcademiaForm(data)
+            : { success: false };
+        setSuccess(response.success);
+        setCanSubmit(!response.success);
     };
 
     const onEmailInvalid = useCallback(
@@ -157,11 +198,7 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
 
     return (
         <form onSubmit={handleSubmit} {...props}>
-            <ErrorMessage>
-                {success === false &&
-                    'Your submission failed. Please try again.'}
-            </ErrorMessage>
-
+            <ErrorMessage>{success === false && errorMessage}</ErrorMessage>
             <SectionHeader>
                 <StyledSectionText>Instructor</StyledSectionText>
             </SectionHeader>
@@ -253,13 +290,6 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                     choices={countries}
                     onChange={e => setCountry(e)}
                 />
-                <select required onChange={e => setCountry(e.target.value)}>
-                    <option value="">None</option>
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                </select>
                 <Input
                     narrow
                     required
