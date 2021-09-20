@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ADMONITIONS } from '../constants';
 import Admonition from './Admonition';
 import BlockQuote from './dev-hub/blockquote';
+import Break from './Break';
 import CardGroup from './CardGroup';
 import CodeBlock from './dev-hub/codeblock';
 import Chart from './dev-hub/chart';
@@ -12,6 +13,7 @@ import Container from './Container';
 import CSSClass from './CSSClass';
 import DefinitionList from './DefinitionList';
 import DefinitionListItem from './DefinitionListItem';
+import Delete from './Delete';
 import Deprecated from './Deprecated';
 import Emphasis from './Emphasis';
 import Extract from './Extract';
@@ -77,6 +79,7 @@ export default class ComponentFactory extends Component {
         this.componentMap = {
             admonition: Admonition,
             blockquote: BlockQuote,
+            break: Break,
             'card-group': CardGroup,
             chart: Chart,
             charts: Chart,
@@ -88,6 +91,7 @@ export default class ComponentFactory extends Component {
             cssclass: CSSClass,
             definitionList: DefinitionList,
             definitionListItem: DefinitionListItem,
+            delete: Delete,
             deprecated: Deprecated,
             emphasis: Emphasis,
             extract: Extract,
