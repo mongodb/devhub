@@ -127,15 +127,6 @@ Cypress.Commands.add('mockTextFilterResponse', () => {
     }).as('filterJavaArticles');
 });
 
-Cypress.Commands.add('mockEmptySearchResponse', () => {
-    cy.server();
-    cy.route({
-        method: 'POST',
-        url: '**/api/client/v2.0/app/devhubauthentication-lidpq/functions/call',
-        response: [],
-    }).as('searchEmptyArticles');
-});
-
 Cypress.Commands.add('toggleLearnPageTab', tabName => {
     cy.get('[data-test="tabs"]').within(() => {
         cy.contains(tabName).should('exist').click({ force: true });
@@ -161,13 +152,10 @@ Cypress.Commands.add('visitWithoutFetch', path => {
 
 // This command checks accessibility for the page.
 // Can be used after some changes or when needed.
-Cypress.Commands.add(
-        'accessibilityCheck',
-    (context = null, options = null) => {
-        cy.injectAxe();
-        cy.checkA11y(context, options, terminalLog);
-    }
-);
+Cypress.Commands.add('accessibilityCheck', (context = null, options = null) => {
+    cy.injectAxe();
+    cy.checkA11y(context, options, terminalLog);
+});
 
 // This command opens the page with accessibility checking.
 // path: page's path.
@@ -180,6 +168,6 @@ Cypress.Commands.add(
     'visitWithAccessibilityCheck',
     (path, context = null, options = null) => {
         cy.visit(path);
-        cy.accessibilityCheck(context, options)
+        cy.accessibilityCheck(context, options);
     }
 );
