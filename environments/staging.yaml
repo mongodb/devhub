@@ -13,5 +13,5 @@ envSecrets:
   OKTA_URL: devhub-gatsby-secrets
   OKTA_CLIENT_ID: devhub-gatsby-secrets
   ENABLE_GATSBY_REFRESH_ENDPOINT: devhub-gatsby-secrets
-  NPM_BASE_64_AUTH: devhub-gatsby-prod-secrets
-  NPM_EMAIL: devhub-gatsby-prod-secrets
+  NPM_BASE_64_AUTH: devhub-gatsby-secrets
+  NPM_EMAIL: devhub-gatsby-secrets
