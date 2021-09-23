@@ -3,6 +3,7 @@ FROM node:14 AS builder
 # Set working directory
 WORKDIR /devhub
 COPY package.json ./
+COPY .npmrc ./
 # install node modules
 RUN npm install
 RUN npm install -g gatsby-cli
