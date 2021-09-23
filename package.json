@@ -82,6 +82,7 @@
     "react-loadable": "^5.5.0",
     "react-player": "^2.9.0",
     "react-refresh": "^0.10.0",
+    "react-select-country-list": "^2.2.3",
     "react-tiny-popover": "^5.1.0",
     "remark": "^13.0.0",
     "remark-directive": "^1.0.1",

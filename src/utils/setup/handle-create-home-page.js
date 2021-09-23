@@ -41,7 +41,10 @@ export const handleCreateHomePage = async (
     fallbackTwitchVideo
 ) => {
     const { createPage, deletePage } = actions;
-    const featuredItems = getFeaturedItems(homeFeaturedArticles, allArticles);
+    // Featured items are not needed for preview mode.
+    const featuredItems = Boolean(process.env.GATSBY_PREVIEW_MODE)
+        ? []
+        : getFeaturedItems(homeFeaturedArticles, allArticles);
     deletePage(page);
     createPage({
         ...page,

@@ -109,10 +109,12 @@ export const sourceNodes = async ({
         );
     });
     // This must be done after so all author bios exist
-    snootyArticles = snootyArticles.map(
-        ({ slug, doc }) =>
-            new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
-    );
+    if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
+        snootyArticles = snootyArticles.map(
+            ({ slug, doc }) =>
+                new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
+        );
+    }
 };
 
 // Snooty Parser v0.7.0 introduced a fileid keyword that is passed as a string for the includes directive
@@ -136,8 +138,10 @@ const filterPageGroups = allSeries => {
 
 export const createPages = async ({ actions, graphql }) => {
     const { createPage, createRedirect } = actions;
-    const [, metadataDocument, result] = await Promise.all([
-        saveAssetFiles(assets, stitchClient),
+    if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
+        saveAssetFiles(assets, stitchClient);
+    }
+    const [metadataDocument, result] = await Promise.all([
         stitchClient.callFunction('fetchDocument', [
             DB,
             METADATA_COLLECTION,
@@ -162,7 +166,9 @@ export const createPages = async ({ actions, graphql }) => {
         slugContentMapping
     );
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
-    allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);
+    allArticles = !Boolean(process.env.GATSBY_PREVIEW_MODE)
+        ? removeDuplicatedArticles(snootyArticles, strapiArticleList)
+        : strapiArticleList;
 
     allArticles.forEach(article => {
         createArticlePage(
