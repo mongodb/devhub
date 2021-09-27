@@ -5,7 +5,7 @@ name: devhub-frontend
 
 trigger:
   branch:
-    - staging
+    - DEVHUB-819
   event:
     - push
 
@@ -13,16 +13,13 @@ trigger:
 steps:
   - name: publish
     image: plugins/ecr
+    environment:
+      NPM_BASE_64_AUTH:
+        from_secret: NPM_BASE_64_AUTH
+      NPM_EMAIL:
+        from_secret: NPM_EMAIL
     settings:
-      build_args_from_env:
-        - NPM_BASE_64_AUTH
-        - NPM_EMAIL
       create_repository: true
-      environment:
-        NPM_BASE_64_AUTH:
-          from_secret: NPM_BASE_64_AUTH
-        NPM_EMAIL:
-          from_secret: NPM_EMAIL
       registry: 795250896452.dkr.ecr.us-east-1.amazonaws.com
       repo: 795250896452.dkr.ecr.us-east-1.amazonaws.com/devrel/${DRONE_REPO_NAME}
       tags:
@@ -39,16 +36,13 @@ steps:
 
   - name: deploy-staging
     image: quay.io/mongodb/drone-helm:v3
+    environment:
+      NPM_BASE_64_AUTH:
+        from_secret: NPM_BASE_64_AUTH
+      NPM_EMAIL:
+        from_secret: NPM_EMAIL
     settings:
-      build_args_from_env:
-        - NPM_BASE_64_AUTH
-        - NPM_EMAIL
       chart: mongodb/web-app
-      environment:
-        NPM_BASE_64_AUTH:
-          from_secret: NPM_BASE_64_AUTH
-        NPM_EMAIL:
-          from_secret: NPM_EMAIL
       chart_version: 4.7.3
       add_repos: [mongodb=https://10gen.github.io/helm-charts]
       namespace: devrel

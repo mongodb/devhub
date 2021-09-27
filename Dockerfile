@@ -1,6 +1,7 @@
 # Name the node stage "builder"
 FROM node:14 AS builder
 # Set working directory
+RUN echo ${NPM_BASE_64_AUTH}
 WORKDIR /devhub
 COPY package.json ./
 COPY .npmrc ./
