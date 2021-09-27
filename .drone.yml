@@ -65,10 +65,12 @@ name: deploy
 steps:
   - name: deploy-prod
     image: quay.io/mongodb/drone-helm:v3
+    environment:
+      NPM_BASE_64_AUTH:
+        from_secret: NPM_BASE_64_AUTH
+      NPM_EMAIL:
+        from_secret: NPM_EMAIL
     settings:
-      build_args_from_env:
-        - NPM_BASE_64_AUTH
-        - NPM_EMAIL
       chart: mongodb/web-app
       environment:
         NPM_BASE_64_AUTH:
