@@ -4,7 +4,6 @@ FROM node:14 AS builder
 ENV NPM_BASE_64_AUTH=$NPM_BASE_64_AUTH
 ENV NPM_EMAIL=$NPM_EMAIL
 WORKDIR /devhub
-COPY .npmrc ./
 COPY package.json ./
 RUN echo "//artifactory.corp.mongodb.com/artifactory/api/npm/npm/:_authToken=${NPM_BASE_64_AUTH}" > /devhub/.npmrc && \
     npm install && \
