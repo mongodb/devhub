@@ -22,6 +22,9 @@ steps:
       create_repository: true
       registry: 795250896452.dkr.ecr.us-east-1.amazonaws.com
       repo: 795250896452.dkr.ecr.us-east-1.amazonaws.com/devrel/${DRONE_REPO_NAME}
+      build_args_from_env:
+        - NPM_BASE_64_AUTH
+        - NPM_EMAIL
       tags:
         - git-${DRONE_COMMIT_SHA:0:7}
         - latest
@@ -49,6 +52,9 @@ steps:
       release: devhub-ui
       values: image.tag=git-${DRONE_COMMIT_SHA:0:7},image.repository=795250896452.dkr.ecr.us-east-1.amazonaws.com/devrel/${DRONE_REPO_NAME},ingress.enabled=true,ingress.hosts[0]=devhub-ui.devrel.staging.corp.mongodb.com
       api_server: https://api.staging.corp.mongodb.com
+      build_args_from_env:
+        - NPM_BASE_64_AUTH
+        - NPM_EMAIL
       kubernetes_token:
         from_secret: staging_kubernetes_token
       values_files: [ "environments/staging.yaml" ]
@@ -83,6 +89,9 @@ steps:
       release: devhub-ui
       values: image.tag=git-${DRONE_COMMIT_SHA:0:7},image.repository=795250896452.dkr.ecr.us-east-1.amazonaws.com/devrel/${DRONE_REPO_NAME},ingress.enabled=true,ingress.hosts[0]=devhub-ui.devrel.prod.corp.mongodb.com
       api_server: https://api.prod.corp.mongodb.com
+      build_args_from_env:
+        - NPM_BASE_64_AUTH
+        - NPM_EMAIL
       kubernetes_token:
         from_secret: prod_kubernetes_token
       values_files: ["environments/prod.yaml"]

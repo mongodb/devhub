@@ -1,7 +1,7 @@
 # Name the node stage "builder"
 FROM node:14 AS builder
 # Set working directory
-ENV NPM_BASE_64_AUTH=$NPM_BASE_64_AUTH
+ARG NPM_BASE_64_AUTH=$NPM_BASE_64_AUTH
 ENV NPM_EMAIL=$NPM_EMAIL
 WORKDIR /devhub
 COPY package.json ./
