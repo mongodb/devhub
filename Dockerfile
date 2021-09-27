@@ -5,11 +5,10 @@ ENV NPM_BASE_64_AUTH=$NPM_BASE_64_AUTH
 ENV NPM_EMAIL=$NPM_EMAIL
 WORKDIR /devhub
 COPY package.json ./
-RUN echo "//artifactory.corp.mongodb.com/artifactory/api/npm/npm/:_authToken=${NPM_BASE_64_AUTH}" > /devhub/.npmrc && \
-    npm install && \
-    npm install -g gatsby-cli && \
-    rm -f /app/.npmrc
+COPY .npmrc ./
 # install node modules
+RUN npm install
+RUN npm install -g gatsby-cli
 # Copy all files from current directory to working dir in image
 COPY . .
 
