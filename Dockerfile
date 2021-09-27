@@ -2,7 +2,7 @@
 FROM node:14 AS builder
 # Set working directory
 ARG NPM_BASE_64_AUTH=$NPM_BASE_64_AUTH
-ENV NPM_EMAIL=$NPM_EMAIL
+ARG NPM_EMAIL=$NPM_EMAIL
 WORKDIR /devhub
 COPY package.json ./
 COPY .npmrc ./
