@@ -4,8 +4,8 @@ FROM node:14 AS builder
 ENV NPM_BASE_64_AUTH=$NPM_BASE_64_AUTH
 ENV NPM_EMAIL=$NPM_EMAIL
 WORKDIR /devhub
-COPY package.json ./
 COPY .npmrc ./
+COPY package.json ./
 # install node modules
 RUN npm install
 RUN npm install -g gatsby-cli
