@@ -13,18 +13,18 @@ trigger:
 steps:
   - name: publish
     image: plugins/ecr
+    environment:
+      NPM_BASE_64_AUTH:
+        from_secret: NPM_BASE_64_AUTH
+      NPM_EMAIL:
+        from_secret: NPM_EMAIL
     settings:
+      create_repository: true
+      registry: 795250896452.dkr.ecr.us-east-1.amazonaws.com
+      repo: 795250896452.dkr.ecr.us-east-1.amazonaws.com/devrel/${DRONE_REPO_NAME}
       build_args_from_env:
         - NPM_BASE_64_AUTH
         - NPM_EMAIL
-      create_repository: true
-      environment:
-        NPM_BASE_64_AUTH:
-          from_secret: NPM_BASE_64_AUTH
-        NPM_EMAIL:
-          from_secret: NPM_EMAIL
-      registry: 795250896452.dkr.ecr.us-east-1.amazonaws.com
-      repo: 795250896452.dkr.ecr.us-east-1.amazonaws.com/devrel/${DRONE_REPO_NAME}
       tags:
         - git-${DRONE_COMMIT_SHA:0:7}
         - latest
@@ -39,22 +39,22 @@ steps:
 
   - name: deploy-staging
     image: quay.io/mongodb/drone-helm:v3
+    environment:
+      NPM_BASE_64_AUTH:
+        from_secret: NPM_BASE_64_AUTH
+      NPM_EMAIL:
+        from_secret: NPM_EMAIL
     settings:
-      build_args_from_env:
-        - NPM_BASE_64_AUTH
-        - NPM_EMAIL
       chart: mongodb/web-app
-      environment:
-        NPM_BASE_64_AUTH:
-          from_secret: NPM_BASE_64_AUTH
-        NPM_EMAIL:
-          from_secret: NPM_EMAIL
       chart_version: 4.7.3
       add_repos: [mongodb=https://10gen.github.io/helm-charts]
       namespace: devrel
       release: devhub-ui
       values: image.tag=git-${DRONE_COMMIT_SHA:0:7},image.repository=795250896452.dkr.ecr.us-east-1.amazonaws.com/devrel/${DRONE_REPO_NAME},ingress.enabled=true,ingress.hosts[0]=devhub-ui.devrel.staging.corp.mongodb.com
       api_server: https://api.staging.corp.mongodb.com
+      build_args_from_env:
+        - NPM_BASE_64_AUTH
+        - NPM_EMAIL
       kubernetes_token:
         from_secret: staging_kubernetes_token
       values_files: [ "environments/staging.yaml" ]
@@ -71,10 +71,12 @@ name: deploy
 steps:
   - name: deploy-prod
     image: quay.io/mongodb/drone-helm:v3
+    environment:
+      NPM_BASE_64_AUTH:
+        from_secret: NPM_BASE_64_AUTH
+      NPM_EMAIL:
+        from_secret: NPM_EMAIL
     settings:
-      build_args_from_env:
-        - NPM_BASE_64_AUTH
-        - NPM_EMAIL
       chart: mongodb/web-app
       environment:
         NPM_BASE_64_AUTH:
@@ -87,6 +89,9 @@ steps:
       release: devhub-ui
       values: image.tag=git-${DRONE_COMMIT_SHA:0:7},image.repository=795250896452.dkr.ecr.us-east-1.amazonaws.com/devrel/${DRONE_REPO_NAME},ingress.enabled=true,ingress.hosts[0]=devhub-ui.devrel.prod.corp.mongodb.com
       api_server: https://api.prod.corp.mongodb.com
+      build_args_from_env:
+        - NPM_BASE_64_AUTH
+        - NPM_EMAIL
       kubernetes_token:
         from_secret: prod_kubernetes_token
       values_files: ["environments/prod.yaml"]
