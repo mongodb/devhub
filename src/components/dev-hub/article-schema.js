@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
 const getAuthorsList = authors =>
@@ -42,8 +41,7 @@ const ArticleSchema = ({
                     name: 'MongoDB',
                     logo: {
                         '@type': 'imageObject',
-                        url:
-                            'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
+                        url: 'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
                     },
                 },
                 author: getAuthorsList(authors),
