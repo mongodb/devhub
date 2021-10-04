@@ -1,4 +1,5 @@
 import React from 'react';
+import dlv from 'dlv';
 import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
 
@@ -6,17 +7,23 @@ const ListItem = ({ nodeData, ...rest }) => (
     <li>
         {/* div provides flex alignment with preceding bullet */}
         <div>
-            {nodeData.children.map((child, index) => (
-                <ComponentFactory
-                    {...rest}
-                    nodeData={child}
-                    key={index}
-                    // Include <p> tags in <li> if there is more than one paragraph
-                    parentNode={
-                        nodeData.children.length === 1 ? 'listItem' : undefined
-                    }
-                />
-            ))}
+            {nodeData.children.map((child, index) => {
+                const hasSublist =
+                    dlv(nodeData, 'children.1.type', '') === 'list';
+                const parentNode =
+                    nodeData.children.length === 1 || hasSublist
+                        ? 'listItem'
+                        : undefined;
+                return (
+                    <ComponentFactory
+                        {...rest}
+                        nodeData={child}
+                        key={index}
+                        // Include <p> tags in <li> if there is more than one paragraph
+                        parentNode={parentNode}
+                    />
+                );
+            })}
         </div>
     </li>
 );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import ComponentFactory from './ComponentFactory';
 import { colorMap, size } from './dev-hub/theme';
@@ -11,10 +12,14 @@ const enumtypeMap = {
     upperroman: 'I',
 };
 
+const removeBottomMargin = css`
+    margin-bottom: 0;
+`;
+
 const UnorderedList = styled('ul')`
     list-style: none;
     margin-bottom: ${size.articleContent};
-    margin-top: -${size.xsmall};
+    margin-top: 0;
     padding-left: ${size.medium};
     li:before {
         content: '○';
@@ -27,10 +32,12 @@ const UnorderedList = styled('ul')`
     li {
         display: flex;
     }
+    ${({ isSublist }) => isSublist && removeBottomMargin};
 `;
 
 const List = ({
     nodeData: { children, enumtype, ordered, startat },
+    parentNode,
     ...rest
 }) => {
     const isUnorderedInSnooty = enumtype === 'unordered';
@@ -45,8 +52,12 @@ const List = ({
     if (startat) {
         attributes.start = startat;
     }
+    let isSublist = false;
+    if (parentNode && parentNode === 'listItem') {
+        isSublist = true;
+    }
     return (
-        <ListTag {...attributes}>
+        <ListTag isSublist={isSublist} {...attributes}>
             {children.map((listChild, index) => (
                 <ComponentFactory {...rest} nodeData={listChild} key={index} />
             ))}
