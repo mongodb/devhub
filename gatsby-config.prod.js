@@ -82,8 +82,6 @@ module.exports = {
                     '/quickstart/nodejs-change-streams-triggers/',
                     '/quickstart/nodejs-change-streams-triggers-3-3-2/',
                 ],
-                // We don't want the old sitemap pointing to the new domain yet, remove this when implementing 301 redirects.
-                resolveSiteUrl: () => 'https://developer.mongodb.com/',
             },
         },
         {
