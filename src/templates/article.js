@@ -170,7 +170,7 @@ const Article = props => {
         window.DiscourseEmbed = {
             discourseUrl:
                 'https://mongodbcom-cdn.website.staging.corp.mongodb.com/community/forums/',
-            topicId: 13892,
+            discourseEmbedUrl: canonicalUrl,
         };
 
         (function () {
