@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import DocumentBody from '../components/DocumentBody';
@@ -166,6 +166,25 @@ const Article = props => {
     const tagLabels = tagList.map(({ label }) => label);
     const articleUrl = addTrailingSlashIfMissing(`${siteUrl}/${slug}`);
 
+    useEffect(() => {
+        window.DiscourseEmbed = {
+            discourseUrl:
+                'https://mongodbcom-cdn.website.staging.corp.mongodb.com/community/forums/',
+            topicId: 13892,
+        };
+
+        (function () {
+            var d = document.createElement('script');
+            d.type = 'text/javascript';
+            d.async = true;
+            d.src = window.DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+            (
+                document.getElementsByTagName('head')[0] ||
+                document.getElementsByTagName('body')[0]
+            ).appendChild(d);
+        })();
+    }, []);
+
     return (
         <ArticleRatingProvider>
             <Layout includeCanonical={false}>
@@ -239,6 +258,7 @@ const Article = props => {
                     related={related}
                     slugTitleMapping={slugTitleMapping}
                 />
+                <div id="discourse-comments"></div>
             </Layout>
         </ArticleRatingProvider>
     );
