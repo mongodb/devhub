@@ -150,9 +150,9 @@ const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
             image={AcademiaEducators}
             to="/academia/educators/"
             bullets={[
-                'Access MongoDB course material & content support',
-                'On-demand access to MongoDB University, cohort tracking and usage analytics',
-                'Access our MongoDB for Academia community to collaborate, share tips and get inspired',
+                'Access to MongoDB teaching materials',
+                'On-demand access to MongoDB University',
+                'Invitations to exclusive educator events',
             ]}
         />
     </BenefitsLayout>
