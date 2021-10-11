@@ -109,10 +109,12 @@ export const sourceNodes = async ({
         );
     });
     // This must be done after so all author bios exist
-    snootyArticles = snootyArticles.map(
-        ({ slug, doc }) =>
-            new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
-    );
+    if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
+        snootyArticles = snootyArticles.map(
+            ({ slug, doc }) =>
+                new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
+        );
+    }
 };
 
 // Snooty Parser v0.7.0 introduced a fileid keyword that is passed as a string for the includes directive
@@ -127,16 +129,18 @@ export const onCreateNode = async ({ node }) => {
 };
 
 const filterPageGroups = allSeries => {
-    // featured articles are in pageGroups but not series, so we remove them
-    learnFeaturedArticles = allSeries.learn;
     // also remove a group of excluded articles
     excludedLearnPageArticles = allSeries.learnPageExclude;
 };
 
 export const createPages = async ({ actions, graphql }) => {
     const { createPage, createRedirect } = actions;
+    let saveImages = () => {};
+    if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
+        saveImages = async () => saveAssetFiles(assets, stitchClient);
+    }
     const [, metadataDocument, result] = await Promise.all([
-        saveAssetFiles(assets, stitchClient),
+        saveImages(),
         stitchClient.callFunction('fetchDocument', [
             DB,
             METADATA_COLLECTION,
@@ -161,7 +165,9 @@ export const createPages = async ({ actions, graphql }) => {
         slugContentMapping
     );
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
-    allArticles = removeDuplicatedArticles(snootyArticles, strapiArticleList);
+    allArticles = !Boolean(process.env.GATSBY_PREVIEW_MODE)
+        ? removeDuplicatedArticles(snootyArticles, strapiArticleList)
+        : strapiArticleList;
 
     allArticles.forEach(article => {
         createArticlePage(
@@ -209,9 +215,9 @@ export const createPages = async ({ actions, graphql }) => {
         tagPageDirectory['type'][key] = aggregateAudioItems[key];
     });
 
-    const tagPages = tagTypes.map(type => {
-        createTagPageType(type, createPage, tagPageDirectory, metadataDocument);
-    });
+    const tagPages = tagTypes.map(type =>
+        createTagPageType(type, createPage, tagPageDirectory, metadataDocument)
+    );
     await Promise.all(tagPages);
 
     await createVideoPages(createPage, allVideos, metadataDocument);

@@ -9,6 +9,7 @@ import { fontSize, lineHeight, layer, size } from './theme';
 const BORDER_SIZE = 2;
 const OPTIONS_POSITION_OFFSET = 58;
 const OPTIONS_POSITION_OFFSET_NARROW = 38;
+const OPTIONS_MAX_HEIGHT = 175;
 
 const activeSelectStyles = theme => css`
     border: ${BORDER_SIZE}px solid;
@@ -47,6 +48,9 @@ const Options = styled('ul')`
             : `${OPTIONS_POSITION_OFFSET}px`};
     width: calc(100% + ${2 * BORDER_SIZE}px);
     z-index: ${layer.middle};
+    max-height: ${OPTIONS_MAX_HEIGHT}px;
+    overflow: auto;
+    scrollbar-width: auto;
 `;
 
 const StyledCustomSelect = styled('div')`

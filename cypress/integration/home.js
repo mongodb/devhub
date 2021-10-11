@@ -28,12 +28,12 @@ describe('Home Page', () => {
                 .last()
                 .should(
                     'contain',
-                    'Multi-Document ACID Transactions in MongoDB with Go'
+                    'Build a Newsletter Website With the MongoDB Data Platform'
                 )
                 .and('have.prop', 'href')
                 .should(
                     'contain',
-                    '/quickstart/golang-multi-document-acid-transactions/?tck=feathome'
+                    '/article/build-newsletter-website-mongodb-data-platform/?tck=feathome'
                 );
         });
     });

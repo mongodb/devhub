@@ -31,25 +31,32 @@ const StyledSuccessState = styled(SuccessState)`
 const SignUpModal = () => {
     const [success, setSuccess] = useState(null);
     if (success) {
-        return <StyledSuccessState>Thank you for joining!</StyledSuccessState>;
+        return (
+            <StyledSuccessState>
+                Thank you for your interest in MongoDB for Academia! We will get
+                back to you soon.
+            </StyledSuccessState>
+        );
     }
     return (
         <Modal
             triggerComponent={
                 <ButtonWithAdditionalTopMargin primary hasArrow={false}>
-                    Join MongoDB for Academia
+                    Join the MongoDB for Academia Educator Community
                 </ButtonWithAdditionalTopMargin>
             }
             dialogContainerStyle={{ maxWidth: MAX_SIGN_UP_WIDTH, padding: 0 }}
             verticallyCenter
         >
-            <H5>Join MongoDB for Academia</H5>
+            <H5>Join the MongoDB for Academia Educator Community</H5>
             <P css={defaultLineHeight}>
-                If you’re interested in receiving MongoDB course materials or if
-                you like us to review your current content, please let us know
-                by submitting the form and we’ll get back to you within five
-                business days.
+                Please share additional information about your institution and
+                course(s) taught. Our team will review your submission and reach
+                out within five business days to share relevant resources. You
+                will also be added to the mailing list and receive regular
+                updates about new courses and exclusive events.
             </P>
+
             <StyledAcademiaSignUpForm
                 setSuccess={setSuccess}
                 success={success}
