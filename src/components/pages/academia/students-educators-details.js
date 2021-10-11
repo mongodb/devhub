@@ -140,8 +140,8 @@ const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
             image={AcademiaStudents}
             bullets={[
                 'Join our GitHub Student Developer Pack offer',
-                'MongoDB Atlas: create a free Tier, or use $200 in Credits',
-                'MongoDB University On-Demand and Free Certification',
+                'MongoDB Atlas: create a free Tier, or use $50 in Credits',
+                'MongoDB University On-Demand and Free Certification (value $150)',
             ]}
         />
         <BenefitTypeCard
