@@ -129,8 +129,6 @@ export const onCreateNode = async ({ node }) => {
 };
 
 const filterPageGroups = allSeries => {
-    // featured articles are in pageGroups but not series, so we remove them
-    learnFeaturedArticles = allSeries.learn;
     // also remove a group of excluded articles
     excludedLearnPageArticles = allSeries.learnPageExclude;
 };
