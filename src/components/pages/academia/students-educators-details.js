@@ -2,8 +2,8 @@ import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import GreenBulletedList, {
-    BulletText,
-} from '../educators/green-bulleted-list';
+    DefaultBulletText as BulletText,
+} from '~components/dev-hub/green-bulleted-list';
 import AcademiaEducators from '~images/student-spotlight/academia-educators.svg';
 import AcademiaStudents from '~images/student-spotlight/academia-students.svg';
 import Card from '~components/dev-hub/card';
@@ -140,8 +140,8 @@ const StudentsEducatorsDetails = ({ maxWidth = '1200px' }) => (
             image={AcademiaStudents}
             bullets={[
                 'Join our GitHub Student Developer Pack offer',
-                'MongoDB Atlas: create a free Tier, or use $200 in Credits',
-                'MongoDB University On-Demand and Free Certification',
+                'MongoDB Atlas: create a free Tier, or use $50 in Credits',
+                'MongoDB University On-Demand and Free Certification (value $150)',
             ]}
         />
         <BenefitTypeCard

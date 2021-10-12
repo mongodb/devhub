@@ -29,7 +29,7 @@ const inputTrackStyle = (percentage, theme) => css`
     margin-top: ${RANGE_BUFFER_SIZE};
 `;
 
-const SliderContainer = styled('div')`
+export const SliderContainer = styled('div')`
     align-items: center;
     display: flex;
     width: 100%;
@@ -39,6 +39,7 @@ const StyledInput = styled('input')`
     -webkit-appearance: none;
     background: none;
     width: 100%;
+    padding: ${size.tiny};
     /* Style the input "thumb" */
     ::-webkit-slider-thumb {
         ${({ theme }) => inputThumbStyle(theme)};
@@ -65,10 +66,10 @@ const SliderLabelText = styled(P3)`
 `;
 
 const Slider = ({ current, currentLabel, onChange, total, totalLabel }) => {
-    const sliderPercentage = useMemo(() => Math.ceil((current / total) * 100), [
-        current,
-        total,
-    ]);
+    const sliderPercentage = useMemo(
+        () => Math.ceil((current / total) * 100),
+        [current, total]
+    );
     return (
         <SliderContainer>
             <SliderLabelText>{currentLabel || current}</SliderLabelText>

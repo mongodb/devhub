@@ -11,7 +11,7 @@ const Submit = ({ location }) => {
     return (
         <Layout>
             <SEO
-                articleTitle="Project Submission"
+                title="Project Submission"
                 ogUrl={fullUrl}
                 metaDescription="MongoDB Student Spotlight submission form"
             />

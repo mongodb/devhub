@@ -70,6 +70,14 @@ export const schemaCustomization = ({ actions }) => {
         mobileBanner: CMSImage
         targetUrl: String
     }
+    type StrapiCommunityChampionsSocials implements Node {
+        facebookUrl: String
+        githubUrl: String
+        linkedinUrl: String
+        twitterUrl: String
+        youtubeUrl: String
+        twitchUrl: String
+    }
     `;
     createTypes(typeDefs);
 };
