@@ -1,4 +1,7 @@
-import { findArticlesFromSlugs } from '../../src/utils/setup/find-and-fill-articles-from-slugs';
+import {
+    findAndFillArticlesFromSlugs,
+    findArticlesFromSlugs,
+} from '../../src/utils/setup/find-and-fill-articles-from-slugs';
 
 it('should correctly find featured articles given a set of requested articles', () => {
     let requestedFeaturedSlugs = [
@@ -46,5 +49,37 @@ it('should correctly find featured articles given a set of requested articles', 
         '/foo',
         '/how-to/golang-alexa-skills',
         '/how-to/polymorphic-pattern',
+    ]);
+});
+
+it('should properly fill in missing articles where needed', () => {
+    let requestedFeaturedSlugs = [
+        '/quickstart/java-setup-crud-operations',
+        '/how-to/golang-alexa-skills',
+        '/how-to/polymorphic-pattern',
+    ];
+
+    const allArticles = [
+        '/foo',
+        '/how-to/golang-alexa-skills',
+        '/how-to/polymorphic-pattern',
+        '/quickstart/java-setup-crud-operations',
+        '/quickstart/csharp',
+    ].map(slug => ({
+        slug,
+    }));
+
+    const returnedArticles = findAndFillArticlesFromSlugs(
+        allArticles,
+        requestedFeaturedSlugs,
+        4,
+        null
+    ).map(a => a.slug);
+
+    expect(returnedArticles).toStrictEqual([
+        '/quickstart/java-setup-crud-operations',
+        '/how-to/golang-alexa-skills',
+        '/how-to/polymorphic-pattern',
+        '/foo',
     ]);
 });
