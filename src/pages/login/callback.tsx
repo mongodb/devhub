@@ -1,7 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { AuthenticationContext } from '~components/dev-hub/SSO';
 
-const Callback = () => {
+const Callback = props => {
+    console.log(props);
     const { authClient, onToken } = useContext(AuthenticationContext);
     useEffect(() => {
         if (authClient && authClient.isLoginRedirect()) {
