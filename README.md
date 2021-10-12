@@ -7,6 +7,8 @@ Uses [Gatsby](https://www.gatsbyjs.org/) to build static site.
 
 ## Installation
 
+Starting in September 2021, we use Artifactory (MongoDB's internal package repository) as our primary source of dependencies. With this comes the requirement to login to Artifactory using some credentials. At the time of updating this guide, we are working out our service account on artifactory and getting our API key, but for now you will need to set the following ENV variables in `~/.bash_profile` (which can be 0bined from a team member) `NPM_AUTH` and `NPM_EMAIL`.
+
 ```shell
 npm ci
 ```

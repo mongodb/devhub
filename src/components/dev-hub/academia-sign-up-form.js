@@ -6,8 +6,14 @@ import { P, ArticleH3 } from './text';
 import Input from './input';
 import Button from './button';
 import Select from './select';
+import TextArea from './text-area';
 import Checkbox from '@leafygreen-ui/checkbox';
 import SectionHeader from './section-header';
+import {
+    nameInvalidMessage,
+    emailInvalidMessage,
+} from '~utils/invalid-form-input-messages';
+import countryList from 'react-select-country-list';
 
 const INPUT_BOX_WIDTH = '100%';
 
@@ -68,14 +74,57 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
     const [email, setEmail] = useState('');
     const [institutionName, setInstitutionName] = useState('');
     const [institutionType, setInstitutionType] = useState('');
+    const [instructorType, setInstructorType] = useState('');
+    const [instructorTypeDesc, setInstructorTypeDesc] = useState('');
+    const [country, setCountry] = useState('');
+    const [courseName, setCourseName] = useState('');
+    const [courseSyllabus, setCourseSyllabus] = useState('');
+    const [instructorInterest, setInstructorInterest] = useState('');
     const [agreeToEmail, setAgreeToEmail] = useState(false);
     const [canSubmit, setCanSubmit] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('');
     const institutionTypes = [
         ['bootcamp', 'Bootcamp'],
         ['online_course', 'Online Course'],
         ['high_school', 'High School'],
         ['university_college', 'University / College'],
     ];
+    const instructorTypes = [
+        ['professor', 'Professor'],
+        ['teaching_assistant', 'Teaching Assistant'],
+        ['bootcamp_instructor', 'Bootcamp instructor'],
+        ['other', 'Other'],
+    ];
+    const instructorInterests = [
+        ['currently_teaching_mongodb', 'Currently Teaching MongoDB'],
+        ['interested_in_teaching_mongodb', 'Interested In Teaching MongoDB'],
+        ['just_curious', 'Just Curious'],
+    ];
+    const countries = countryList()
+        .getData()
+        .map(e => [e.label, e.label]);
+
+    const validateDropdowns = data => {
+        const filloutMessage = 'Please fill out the field: ';
+        if (data.instructor_type === '') {
+            setErrorMessage(`${filloutMessage} I am a`);
+            return false;
+        }
+        if (data.instructor_interests === '') {
+            setErrorMessage(`${filloutMessage} I am`);
+            return false;
+        }
+        if (data.institution_type === '') {
+            setErrorMessage(`${filloutMessage} Institution Type`);
+            return false;
+        }
+        if (data.country === '') {
+            setErrorMessage(`${filloutMessage} Country`);
+            return false;
+        }
+        setErrorMessage('Your submission failed. Please try again.');
+        return true;
+    };
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -87,50 +136,50 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
             institution_name: institutionName,
             institution_type: institutionType,
             agree_to_email: agreeToEmail,
+            instructor_type:
+                instructorType === 'other'
+                    ? instructorTypeDesc
+                    : instructorType,
+            instructor_interests: instructorInterest,
+            country: country,
+            course_name: courseName,
+            course_syllabus: courseSyllabus,
         };
-        const response = await submitAcademiaForm(data);
-
+        const response = validateDropdowns(data)
+            ? await submitAcademiaForm(data)
+            : { success: false };
         setSuccess(response.success);
         setCanSubmit(!response.success);
     };
 
-    const onNameInvalid = (name, nameType) =>
-        name === ''
-            ? `${nameType} cannot be blank`
-            : `${nameType} should only contain letters. e.g. John`;
-
     const onEmailInvalid = useCallback(
         e => {
-            e.target.setCustomValidity(
-                email === ''
-                    ? 'Email cannot be blank'
-                    : 'Please enter a valid email address. e.g. example@email.com'
-            );
+            e.target.setCustomValidity(emailInvalidMessage(email));
         },
         [email]
     );
 
     const onFirstNameInvalid = useCallback(
         e => {
-            e.target.setCustomValidity(onNameInvalid(firstName, 'First name'));
+            e.target.setCustomValidity(
+                nameInvalidMessage(firstName, 'First name')
+            );
         },
         [firstName]
     );
 
     const onLastNameInvalid = useCallback(
         e => {
-            e.target.setCustomValidity(onNameInvalid(lastName, 'Last name'));
+            e.target.setCustomValidity(
+                nameInvalidMessage(lastName, 'Last name')
+            );
         },
         [lastName]
     );
 
     return (
         <form onSubmit={handleSubmit} {...props}>
-            <ErrorMessage>
-                {success === false &&
-                    'Your submission failed. Please try again.'}
-            </ErrorMessage>
-
+            <ErrorMessage>{success === false && errorMessage}</ErrorMessage>
             <SectionHeader>
                 <StyledSectionText>Instructor</StyledSectionText>
             </SectionHeader>
@@ -168,6 +217,31 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                     onInput={e => e.target.setCustomValidity('')}
                     onInvalid={onEmailInvalid}
                 />
+                <StyledSelect
+                    narrow
+                    required
+                    value={instructorType}
+                    defaultText="I am a"
+                    choices={instructorTypes}
+                    onChange={e => setInstructorType(e)}
+                />
+                {instructorType === 'other' ? (
+                    <Input
+                        narrow
+                        required
+                        value={instructorTypeDesc}
+                        placeholder="please specify your profession"
+                        onChange={e => setInstructorTypeDesc(e.target.value)}
+                    />
+                ) : null}
+                <StyledSelect
+                    narrow
+                    required
+                    value={instructorInterest}
+                    defaultText="I am"
+                    choices={instructorInterests}
+                    onChange={e => setInstructorInterest(e)}
+                />
             </InstructorSection>
 
             <SectionHeader>
@@ -190,8 +264,30 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                     choices={institutionTypes}
                     onChange={e => setInstitutionType(e)}
                 />
+                <StyledSelect
+                    narrow
+                    value={country}
+                    defaultText="Country"
+                    choices={countries}
+                    onChange={e => setCountry(e)}
+                />
+                <Input
+                    narrow
+                    required
+                    value={courseName}
+                    required
+                    maxLength="75"
+                    placeholder="Course Name"
+                    onChange={e => setCourseName(e.target.value)}
+                />
+                <TextArea
+                    bold
+                    darkMode={true}
+                    placeholder="Course Syllabus"
+                    value={courseSyllabus}
+                    onChange={e => setCourseSyllabus(e.target.value)}
+                />
             </InstitutionSection>
-
             <StyledCheckbox
                 bold
                 value={agreeToEmail}
@@ -209,7 +305,7 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                 primary
                 hasArrow={false}
             >
-                Join MongoDB for Academia
+                Join the MongoDB for Academia Educator Community
             </StyledButton>
         </form>
     );

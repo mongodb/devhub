@@ -22,6 +22,9 @@ jobs:
             - name: Install Dependencies
               if: steps.cache.outputs.cache-hit != 'true'
               run: npm ci
+              env:
+                  NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+                  NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Install Cypress
               if: steps.cache.outputs.cache-hit == 'true'
               run: ./node_modules/.bin/cypress install
@@ -34,15 +37,22 @@ jobs:
                   echo "GATSBY_PARSER_USER=jordanstapinski" >> .env.production; \
                   echo "GATSBY_PARSER_BRANCH=CI" >> .env.production; \
                   echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
+                  echo "DISABLE_GTM=true" >> .env.production; \
                   echo "STRAPI_URL=http://18.144.177.6:1337" >> .env.production
             - name: Build Gatsby
               run: npm run buildTest
+              env:
+                  NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+                  NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
                   install: false
                   start: npm run serveTest
                   wait-on: 'http://localhost:9000'
+              env:
+                  NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+                  NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Generate artifacts on failure
               uses: actions/upload-artifact@v2
               if: failure()

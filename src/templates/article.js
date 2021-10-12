@@ -20,10 +20,6 @@ import ArticleRating from '~components/ArticleRating';
 import { ArticleRatingProvider } from '~components/ArticleRatingContext';
 
 const allowTextWrapping = css`
-    /* Use hyphens where available on content */
-    -webkit-hyphens: auto;
-    hyphens: auto;
-
     /* Wrap words/content across lines */
     /* word-wrap and overflow-wrap are identical aside from CSS2/3 renaming */
     overflow-wrap: break-word;
@@ -174,7 +170,7 @@ const Article = props => {
         <ArticleRatingProvider>
             <Layout includeCanonical={false}>
                 <SEO
-                    articleTitle={title}
+                    title={title}
                     canonicalUrl={canonicalUrl}
                     image={og.image}
                     metaDescription={metaDescription}

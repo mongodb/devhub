@@ -12,6 +12,8 @@ export const determineCorrectLeafygreenLanguage = inputLang => {
         language = 'cs';
     } else if (language === 'sh') {
         language = 'shell';
+    } else if (language === 'golang') {
+        language = 'go';
     } else if (!SUPPORTED_LANGUAGES.has(language)) {
         // Language is not supported formally by LG, set to none to avoid errors
         const warningMessage = `Warning: Language ${language} is not supported. Defaulting to "none"`;

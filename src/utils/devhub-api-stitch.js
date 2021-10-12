@@ -1,13 +1,15 @@
 import { FEEDBACK_APP_ID, STITCH_AUTH_APP_ID } from '../constants';
 import { callStitchFunction } from './stitch-common';
 
-const callRealmFunction = appId => async (fnName, ...fnArgs) => {
-    try {
-        return callStitchFunction(fnName, appId, [...fnArgs]);
-    } catch (error) {
-        console.error(error);
-    }
-};
+const callRealmFunction =
+    appId =>
+    async (fnName, ...fnArgs) => {
+        try {
+            return callStitchFunction(fnName, appId, [...fnArgs]);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
 const callDevhubAPIStitchFunction = callRealmFunction(STITCH_AUTH_APP_ID);
 const callDevhubFeedbackFunction = callRealmFunction(FEEDBACK_APP_ID);
@@ -34,7 +36,7 @@ export const requestMDBTwitchVideos = async videoLimit => {
 
 export const requestTextFilterResults = async query => {
     const result = await callDevhubAPIStitchFunction(
-        'fetchTextFilterResults',
+        'fetchDevhubSearchResults',
         query
     );
     return result;
@@ -72,6 +74,22 @@ export const submitStudentSpotlightProject = async projectData => {
         projectData
     );
     return result;
+};
+
+export const submitCommunityChampionApplication = async (
+    communityChampionData,
+    onSuccess,
+    onFailure
+) => {
+    try {
+        const result = await callDevhubAPIStitchFunction(
+            'submitCommunityChampionApplication',
+            communityChampionData
+        );
+        result && onSuccess();
+    } catch {
+        onFailure();
+    }
 };
 
 // DevHub Feedback App Functions

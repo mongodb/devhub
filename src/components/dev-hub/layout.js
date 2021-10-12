@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
+import { Helmet } from 'react-helmet';
 import { Global, ThemeProvider, css } from '@emotion/react';
+import { UnifiedFooter } from '@mdb/consistent-nav';
 import styled from '@emotion/styled';
 import { useLocation } from '@reach/router';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import { addTrailingSlashIfMissing } from '../../utils/add-trailing-slash-if-missing';
 import { removePathPrefixFromUrl } from '../../utils/remove-path-prefix-from-url';
+import ConsistentNav from './consistent-nav';
 import { TabProvider } from './tab-context';
-import { Helmet } from 'react-helmet';
-import GlobalNav from './global-nav';
-import GlobalFooter from './global-footer';
 import { darkTheme, fontSize, lineHeight, screenSize, size } from './theme';
 import TopBanner from './top-banner';
 import '../../styles/font.css';
@@ -63,6 +63,17 @@ const GlobalWrapper = styled('div')`
     min-height: 100vh;
     width: 100%;
 `;
+
+const MaxWidthFooterContainer = styled('div')`
+    border-top: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
+    margin: 0 auto;
+    max-width: ${size.maxWidth};
+    width: 100%;
+    div:first-of-type {
+        max-width: unset;
+    }
+`;
+
 export const StorybookLayout = ({ children }) => {
     const style = useMemo(() => globalStyles(darkTheme), []);
     return (
@@ -77,7 +88,7 @@ export const StorybookLayout = ({ children }) => {
     );
 };
 
-export default ({ children, includeCanonical = true }) => {
+const Layout = ({ children, includeCanonical = true }) => {
     const style = useMemo(() => globalStyles(darkTheme), []);
     const { siteUrl } = useSiteMetadata();
     const { pathname } = useLocation();
@@ -106,12 +117,16 @@ export default ({ children, includeCanonical = true }) => {
                 </Helmet>
                 <Global styles={style} />
                 <TopBanner />
-                <GlobalNav />
+                <ConsistentNav />
                 <TabProvider>
                     <Main>{children}</Main>
                 </TabProvider>
-                <GlobalFooter />
+                <MaxWidthFooterContainer>
+                    <UnifiedFooter hideLocale />
+                </MaxWidthFooterContainer>
             </GlobalWrapper>
         </ThemeProvider>
     );
 };
+
+export default Layout;

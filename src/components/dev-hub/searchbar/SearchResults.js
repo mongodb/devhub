@@ -9,8 +9,8 @@ import SearchLoader from './SearchLoader';
 import { P } from '~components/dev-hub/text';
 
 const SEARCHBAR_HEIGHT = '36px';
-const SEARCH_RESULT_HEIGHT = '112px';
-const SEARCH_RESULT_MOBILE_HEIGHT = '136px';
+const SEARCH_RESULT_HEIGHT = '148px';
+const SEARCH_RESULT_MOBILE_HEIGHT = '172px';
 
 const StyledResultText = styled(P)`
     align-self: flex-start;
@@ -126,7 +126,15 @@ const SearchResults = ({
                     </StyledResultText>
                     {hasResults ? (
                         visibleResults.map(
-                            ({ title, description: preview, slug }, index) => (
+                            (
+                                {
+                                    title,
+                                    description: preview,
+                                    slug,
+                                    mediaType,
+                                },
+                                index
+                            ) => (
                                 <StyledSearchResult
                                     // Have to use index because multiple results can show with same url
                                     key={`${slug}${index}`}
@@ -140,6 +148,7 @@ const SearchResults = ({
                                     title={title[0].value}
                                     preview={preview}
                                     url={slug}
+                                    badge={mediaType}
                                 />
                             )
                         )

@@ -7,7 +7,11 @@ const simplifyPodcast = podcast => {
         mediaType: 'podcast',
         title: podcast['title'],
         publishDate: podcast['pubDate'],
-        description: htmlToText(podcast['description']),
+        description: podcast['description'].replace(/<[^>]+>/g, ''),
+        rawDescription: podcast['description'].replace(
+            /a href/g,
+            'a target="_blank" href'
+        ),
         url: podcast['enclosure'] && podcast['enclosure']['url'],
         thumbnailUrl:
             podcast['itunes:image'] && podcast['itunes:image']['href'],
