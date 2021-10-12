@@ -44,7 +44,8 @@ export const findAndFillArticlesFromSlugs = (
         articleSlugs = result;
     }
     if (sortFn) {
-        allArticles = allArticles.sort(sortFn);
+        // Have to make a copy to not modify the original array passed
+        allArticles = [...allArticles].sort(sortFn);
     }
     return findArticlesFromSlugs(allArticles, articleSlugs);
 };
