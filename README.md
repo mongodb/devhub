@@ -67,7 +67,9 @@ $ npm run buildTest
 $ npm run serveTest
 ```
 
-This will then serve the site at `localhost:9000`
+This will then serve the site at `localhost:9000`.
+
+For using `developWithHostname`, see the [wiki](https://wiki.corp.mongodb.com/display/DEVREL/DevHub+Front-End+Guide) for more instructions.
 
 ## Staging
 
