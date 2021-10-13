@@ -11,7 +11,7 @@ import { OktaAuth } from '@okta/okta-auth-js';
 
 export const REGISTER_LINK =
     'https://account-dev.mongodb.com/account/login?fromURI=https%3A%2F%2Fdevhub-local.mongodb.com%3A8000%2Flogin%2Fcallback';
-//%2Flogin%2Fcallback
+
 const AuthenticationContext = createContext<{
     authClient: any;
     isSignedIn: boolean;
