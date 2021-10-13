@@ -1,12 +1,13 @@
-import { findArticlesFromSlugs } from './find-articles-from-slugs';
+import { findAndFillArticlesFromSlugs } from './find-and-fill-articles-from-slugs';
 
 const MAX_HOME_PAGE_FEATURED_ARTICLES = 4;
 
 const getFeaturedItems = (homeFeaturedArticles, allArticles) =>
-    findArticlesFromSlugs(
+    findAndFillArticlesFromSlugs(
         allArticles,
         homeFeaturedArticles,
-        MAX_HOME_PAGE_FEATURED_ARTICLES
+        MAX_HOME_PAGE_FEATURED_ARTICLES,
+        (a, b) => new Date(b.publishedDate) - new Date(a.publishedDate)
     );
 
 export const handleCreateHomePage = async (
