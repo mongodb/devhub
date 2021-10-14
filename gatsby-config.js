@@ -43,6 +43,8 @@ module.exports = {
                 queryLimit: 0,
                 singleTypes: mapPublicationStateToArray([
                     'feedback-rating-flow',
+                    'home-page-featured-articles',
+                    'learn-page-featured-articles',
                     'student-spotlight-featured',
                     'top-banner',
                     'top-nav',

@@ -5,7 +5,6 @@ import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
 import { validateEnvVariables } from './src/utils/setup/validate-env-variables';
-import { mapSnootySeries } from './src/utils/setup/map-snooty-series';
 import { handleCreatePage } from './src/utils/setup/handle-create-page';
 import { createArticleNode } from './src/utils/setup/create-article-node';
 import { createAssetNodes } from './src/utils/setup/create-asset-nodes';
@@ -21,6 +20,7 @@ import {
     METADATA_COLLECTION,
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
+import { getFeaturedArticlesFromGraphql } from './src/utils/setup/get-featured-articles-from-graphql';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
 import { schemaCustomization } from './src/utils/setup/schema-customization';
 import { SnootyArticle } from './src/classes/snooty-article';
@@ -129,9 +129,6 @@ export const onCreateNode = async ({ node }) => {
 };
 
 const filterPageGroups = allSeries => {
-    // featured articles are in pageGroups but not series, so we remove them
-    homeFeaturedArticles = allSeries.home;
-    learnFeaturedArticles = allSeries.learn;
     // also remove a group of excluded articles
     excludedLearnPageArticles = allSeries.learnPageExclude;
 };
@@ -218,9 +215,9 @@ export const createPages = async ({ actions, graphql }) => {
         tagPageDirectory['type'][key] = aggregateAudioItems[key];
     });
 
-    const tagPages = tagTypes.map(type => {
-        createTagPageType(type, createPage, tagPageDirectory, metadataDocument);
-    });
+    const tagPages = tagTypes.map(type =>
+        createTagPageType(type, createPage, tagPageDirectory, metadataDocument)
+    );
     await Promise.all(tagPages);
 
     await createVideoPages(createPage, allVideos, metadataDocument);
@@ -228,6 +225,11 @@ export const createPages = async ({ actions, graphql }) => {
     await createCommunityChampionProfilePages(createPage, graphql);
 
     await createPodcastPages(createPage, allPodcasts, metadataDocument);
+
+    const { homePageFeaturedArticles, learnPageFeaturedArticles } =
+        await getFeaturedArticlesFromGraphql(graphql);
+    homeFeaturedArticles = homePageFeaturedArticles;
+    learnFeaturedArticles = learnPageFeaturedArticles;
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.

@@ -78,6 +78,12 @@ export const schemaCustomization = ({ actions }) => {
         youtubeUrl: String
         twitchUrl: String
     }
+    type StrapiHomePageFeaturedArticles implements Node {
+        articles: JSON
+    }
+    type StrapiLearnPageFeaturedArticles implements Node {
+        articles: JSON
+    }
     `;
     createTypes(typeDefs);
 };
