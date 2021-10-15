@@ -31,6 +31,9 @@ const Callback = ({ location }) => {
             // Attempt to retrieve ID Token from Token Manager
             authClient.tokenManager
                 .get('idToken')
+                .then(token =>
+                    token ? token : authClient.signInWithRedirect()
+                )
                 .then(onToken)
                 .then(() => parsedSearchParam && navigate(parsedSearchParam));
         }
