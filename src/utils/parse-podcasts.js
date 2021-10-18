@@ -1,39 +1,42 @@
-import { htmlToText } from 'html-to-text';
-import parser from 'fast-xml-parser';
-import dlv from 'dlv';
+import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 
 const simplifyPodcast = podcast => {
     const podcastJSON = {
         mediaType: 'podcast',
         title: podcast['title'],
-        publishDate: podcast['pubDate'],
-        description: podcast['description'].replace(/<[^>]+>/g, ''),
+        publishDate: podcast['originalPublishDate'],
+        description: podcast['description'],
         rawDescription: podcast['description'].replace(
             /a href/g,
             'a target="_blank" href'
         ),
-        url: podcast['enclosure'] && podcast['enclosure']['url'],
-        thumbnailUrl:
-            podcast['itunes:image'] && podcast['itunes:image']['href'],
+        url: podcast['url'],
+        thumbnailUrl: podcast['thumbnailUrl'],
+        slug: podcast['slug'],
+        tags: mapTagTypeToUrl(
+            podcast['tags'].map(item => item['tag']),
+            'tag',
+            true
+        ),
+        products: mapTagTypeToUrl(
+            podcast['products'].map(item => item['product']),
+            'product',
+            true
+        ),
+        languages: mapTagTypeToUrl(
+            podcast['languages'].map(item => item['language']),
+            'language',
+            true
+        ),
     };
     return podcastJSON;
 };
-
-export const parsePodcasts = podcastXML => {
-    const options = {
-        attributeNamePrefix: '',
-        ignoreAttributes: false,
-        parseAttributeValue: true,
-    };
-
+export const parsePodcasts = podcasts => {
     try {
-        const jsonObj = parser.parse(podcastXML, options, true);
-        const podcasts = dlv(jsonObj, 'rss.channel.item', []);
         const parsedPodcasts = podcasts.map(simplifyPodcast);
         return parsedPodcasts;
     } catch (error) {
-        console.log(error.message);
+        console.log('Error parsing podcasts', error.message);
     }
-
     return [];
 };

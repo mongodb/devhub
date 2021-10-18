@@ -7,4 +7,7 @@ export interface Podcast {
     thumbnailUrl: string;
     title: string;
     url: string;
+    tags: object[];
+    products: object[];
+    languages: object[];
 }

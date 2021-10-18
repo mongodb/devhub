@@ -10,7 +10,7 @@ const fetchMedia = async () => {
     const [youtubeVideos, twitchVideos, lybsinPodcasts] = await Promise.all([
         client.callFunction('fetchYoutubeData', []),
         client.callFunction('fetchMDBTwitchVideos', []),
-        client.callFunction('fetchLybsinPodcasts', []),
+        client.callFunction('fetchStrapiPodcasts'),
     ]);
     const allTwitchVideos = twitchVideos.data.map(transformTwitchResponse);
     return {

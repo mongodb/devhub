@@ -131,13 +131,18 @@ const Podcast = ({
             thumbnailUrl: image,
             title,
             url: podcastUrl,
+            tags,
+            products,
+            languages
         }
     },
 }) => {
     const { siteUrl } = useSiteMetadata();
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
     const parsedDescription = parse(rawDescription);
-
+    const tagList = [...products, ...languages, ...tags];
+    // For structured data, we would like a list of the tags to include
+    const tagLabels = tagList.map(({ label }) => label);
     const podcastBreadcrumb = useMemo(
         () => [
             ...PODCAST_BREADCRUMB,
@@ -180,6 +185,7 @@ const Podcast = ({
                 image={image}
                 publishDate={publishDate}
                 title={title}
+                tags={tagList}
             />
             <Container>
                 <Icons>
@@ -195,8 +201,8 @@ const Podcast = ({
                     <StyledParagraph>{parsedDescription}</StyledParagraph>
                     <StyledShareFooter
                         title={title}
-                        tooltipText={TOOLTIP_TEXT}
                         url={pageUrl}
+                        tags={tagList}
                     />
                 </Content>
             </Container>
@@ -212,7 +218,7 @@ Podcast.propTypes = {
             publishDate: PropTypes.string,
             thumbnailUrl: PropTypes.string,
             title: PropTypes.string,
-            url: PropTypes.string,
+            url: PropTypes.string
         }),
         slug: PropTypes.string,
     }),

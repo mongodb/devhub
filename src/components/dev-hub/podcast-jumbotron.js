@@ -47,7 +47,7 @@ const PodcastJumbotron = ({
     image,
     publishDate,
     title,
-    tags, //TODO: In Progress
+    tags,
     authors, //TODO: In Progress
 }) => (
     <HeroBanner background={image} breadcrumb={breadcrumb}>

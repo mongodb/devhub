@@ -9,11 +9,11 @@ export const createPodcastPages = async (
     metadata: object
 ) => {
     allPodcasts.forEach((podcast: Podcast) => {
-        const slug = `/podcasts/${getTagPageUriComponent(podcast.title)}`;
-        podcast.slug = slug;
+        console.log(podcast['tags']);
+        console.log(podcast['products']);
         podcast.publishDate = formatDateToPublishDateFormat(new Date(podcast.publishDate));
         createPage({
-            path: slug,
+            path: podcast['slug'],
             component: path.resolve(`./src/templates/podcast.tsx`),
             context: {
                 metadata,
