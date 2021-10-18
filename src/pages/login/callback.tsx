@@ -13,16 +13,21 @@ const Callback = ({ location }) => {
     );
     useEffect(() => {
         const handleLoginRedirect = async () => {
+            // If we are redirected here with a `code` from Okta, we have the claims needed to properly identify the user
+            // This function is called if and only if this code exists
             authClient.token.parseFromUrl().then(({ tokens }) => {
                 const { idToken } = tokens;
                 if (idToken) {
-                    // Store parsed token in Token Manager
+                    // Store parsed token in Token Manager for later re-use
                     authClient.tokenManager.add('idToken', idToken);
                     onToken(idToken);
-                    // Redirect the user back to an originalUri
+                    // Redirect the user back to an originalUri, or where they wanted to go
+                    // This is not defined if the token in token manager is valid since we didn't have to
+                    // re-invoke the OIDC flow
                     if (authClient.getOriginalUri()) {
                         authClient.handleLoginRedirect({ idToken });
                     } else {
+                        // If a token already exists, we can just use the returned_to query param
                         navigate(parsedSearchParam);
                     }
                 }
