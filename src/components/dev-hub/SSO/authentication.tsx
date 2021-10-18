@@ -44,6 +44,7 @@ const AuthenticationProvider = ({ children }) => {
         []
     );
     const [user, setUser] = useState<User | object>({});
+    console.log(user);
     const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
     const onToken = useCallback(idToken => {
         if (idToken) {
