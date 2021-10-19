@@ -12,6 +12,13 @@ import { OktaAuth } from '@okta/okta-auth-js';
 export const REGISTER_LINK =
     'https://account-qa.mongodb.com/account/login?fromURI=https%3A%2F%2Fdevhub-local.mongodb.com%3A8000%2Flogin%2Fcallback';
 
+const fetchAuid = async () => {
+    return fetch(`https://account-qa.mongodb.com/account/profile/userAuid`, {
+        credentials: 'include',
+        method: 'GET',
+    }).then(r => r.json());
+};
+
 const AuthenticationContext = createContext<{
     authClient: any;
     isSignedIn: boolean;
@@ -46,7 +53,7 @@ const AuthenticationProvider = ({ children }) => {
     const [user, setUser] = useState<User | object>({});
     console.log(user);
     const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-    const onToken = useCallback(idToken => {
+    const onToken = useCallback(async idToken => {
         if (idToken) {
             const claims = idToken.claims || {};
             const { email, firstName, lastName } = claims;
@@ -64,6 +71,15 @@ const AuthenticationProvider = ({ children }) => {
             authClient.tokenManager.get('idToken').then(onToken);
         }
     }, [authClient, isSignedIn, onToken]);
+    useEffect(() => {
+        if (user && !user.auid) {
+            // Blocked by CORS right now
+            // const auid = await fetchAuid();
+            // console.log(auid);
+            // setUser({...user, auid})
+            // window.analytics.identify(auid)
+        }
+    }, [user]);
     return (
         <Provider value={{ authClient, isSignedIn, onToken, user, setUser }}>
             {children}
