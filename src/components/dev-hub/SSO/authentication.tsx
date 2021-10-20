@@ -49,11 +49,10 @@ const AuthenticationProvider = ({ children }) => {
     const onToken = useCallback(idToken => {
         if (idToken) {
             const claims = idToken.claims || {};
-            const { email, firstName, lastName } = claims;
+            const { email, name } = claims;
             setUser({
                 email,
-                firstName,
-                lastName,
+                name,
             });
             setIsSignedIn(true);
         }
