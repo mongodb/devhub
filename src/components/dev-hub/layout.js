@@ -69,8 +69,11 @@ const MaxWidthFooterContainer = styled('div')`
     margin: 0 auto;
     max-width: ${size.maxWidth};
     width: 100%;
-    div:first-of-type {
-        max-width: unset;
+    div {
+        max-width: 100%;
+        > a {
+            max-width: unset;
+        }
     }
 `;
 
