@@ -186,7 +186,8 @@ export const createPages = async ({ actions, graphql }) => {
     }));
 
     await createClientSideRedirects(graphql, createRedirect);
-    const { allVideos, allPodcasts } = await fetchBuildTimeMedia();
+    const { allVideos, allPodcasts, podcastSeries } =
+        await fetchBuildTimeMedia();
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
     tagTypes.forEach(type => {
@@ -224,7 +225,12 @@ export const createPages = async ({ actions, graphql }) => {
 
     await createCommunityChampionProfilePages(createPage, graphql);
 
-    await createPodcastPages(createPage, allPodcasts, metadataDocument);
+    await createPodcastPages(
+        createPage,
+        allPodcasts,
+        podcastSeries,
+        metadataDocument
+    );
 
     const { homePageFeaturedArticles, learnPageFeaturedArticles } =
         await getFeaturedArticlesFromGraphql(graphql);

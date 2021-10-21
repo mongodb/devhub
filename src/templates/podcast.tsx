@@ -13,6 +13,7 @@ import ShareFooter from '~components/dev-hub/article-share-footer';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
 import parse from 'html-react-parser';
+import ArticleSeries from '../components/dev-hub/article-series';
 
 
 const PODCAST_BREADCRUMB = [
@@ -123,6 +124,7 @@ const StyledShareFooter = styled(ShareFooter)`
 
 const Podcast = ({
     pageContext: {
+        seriesPodcasts,
         data: {
             slug,
             description,
@@ -203,6 +205,10 @@ const Podcast = ({
                         title={title}
                         url={pageUrl}
                         tags={tagList}
+                    />
+                    <ArticleSeries
+                        allSeriesForArticle={seriesPodcasts}
+                        title={title}
                     />
                 </Content>
             </Container>

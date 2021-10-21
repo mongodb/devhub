@@ -7,19 +7,24 @@ import memoizerific from 'memoizerific';
 
 const fetchMedia = async () => {
     const client = await initStitch(STITCH_AUTH_APP_ID);
-    const [youtubeVideos, twitchVideos, lybsinPodcasts] = await Promise.all([
+    const [youtubeVideos, twitchVideos, strapiPodcasts] = await Promise.all([
         client.callFunction('fetchYoutubeData', []),
         client.callFunction('fetchMDBTwitchVideos', []),
         client.callFunction('fetchStrapiPodcasts'),
     ]);
+    const [podcastSeriesMapping] = await Promise.all([
+        client.callFunction('fetchPodcastSeriesMapping'),
+    ]);
+
     const allTwitchVideos = twitchVideos.data.map(transformTwitchResponse);
     return {
         allVideos: [
             youtubeVideos.items.map(transformYoutubeResponse),
             allTwitchVideos,
         ].flat(),
-        allPodcasts: parsePodcasts(lybsinPodcasts),
+        allPodcasts: parsePodcasts(strapiPodcasts),
         fallbackTwitchVideo: allTwitchVideos[0],
+        podcastSeries: podcastSeriesMapping,
     };
 };
 export const fetchBuildTimeMedia = memoizerific(1)(
