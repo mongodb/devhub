@@ -47,6 +47,7 @@ export const transformArticleStrapiData = article => {
                 url: SEOObject.og_url,
             },
             twitter: {
+                card: SEOObject.twitter_card,
                 creator: SEOObject.twitter_creator,
                 description: SEOObject.twitter_description,
                 image: SEOObject.twitter_image && SEOObject.twitter_image.url,

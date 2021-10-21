@@ -54,6 +54,7 @@ query Articles {
           }
           og_type
           og_url
+          twitter_card
           twitter_creator
           twitter_description
           twitter_image {
