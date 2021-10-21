@@ -109,7 +109,7 @@ const Layout = ({ children, includeCanonical = true }) => {
                     />
                     <link
                         rel="shortcut icon"
-                        href="https://www.mongodb.com/assets/images/global/favicon.ico"
+                        href="https://www.mongodb.com/developer/public/images/favicon.ico"
                     />
                     {includeCanonical && (
                         <link rel="canonical" href={canonicalUrl} />

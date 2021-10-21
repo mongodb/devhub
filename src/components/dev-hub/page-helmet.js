@@ -12,7 +12,8 @@ const PageHelmet = ({ description, image, pagePath, title, ...props }) => {
     const { title: standardTitle, siteUrl } = useSiteMetadata();
 
     const metaDescription = description || STANDARD_DESCRIPTION;
-    const ogImage = image || `${siteUrl}/public/images/MongoDB_Leaf.svg`;
+    const ogImage =
+        image || `${siteUrl}/public/images/social_share_generic.png`;
     const metaTitle = title || standardTitle;
     const canonicalUrl = pagePath
         ? addTrailingSlashIfMissing(`${siteUrl}${pagePath}`)
