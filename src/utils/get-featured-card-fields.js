@@ -10,11 +10,14 @@ export const getFeaturedCardFields = (article, page) => {
             tags: null,
         };
     }
+    const allProducts = article.products || [];
+    const allLanguages = article.languages || [];
+    const allTags = article.tags || [];
     return {
         image: article.image,
         slug: article.slug + generateTrackingParam(page),
         title: article.title,
         description: article.description,
-        tags: [...article.products, ...article.languages, ...article.tags],
+        tags: [...allProducts, ...allLanguages, ...allTags],
     };
 };

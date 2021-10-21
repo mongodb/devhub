@@ -1,5 +1,6 @@
 import path from 'path';
 import { articles } from './src/queries/articles';
+import { getStrapiArticleSeriesFromGraphql } from './src/utils/setup/get-strapi-article-series-from-graphql';
 import { constructDbFilter } from './src/utils/setup/construct-db-filter';
 import { initStitch } from './src/utils/setup/init-stitch';
 import { saveAssetFiles } from './src/utils/setup/save-asset-files';
@@ -12,15 +13,24 @@ import { createClientSideRedirects } from './src/utils/setup/create-client-side-
 import { aggregateItemsWithTagType } from './src/utils/setup/aggregate-items-with-tag-type';
 import { aggregateAuthorInformation } from './src/utils/setup/aggregate-author-information';
 import { createTagPageType } from './src/utils/setup/create-tag-page-type';
+import { removeDuplicatedArticles } from './src/utils/setup/remove-duplicated-articles';
 import { getMetadata } from './src/utils/get-metadata';
 import {
     DOCUMENTS_COLLECTION,
     METADATA_COLLECTION,
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
+import { getFeaturedArticlesFromGraphql } from './src/utils/setup/get-featured-articles-from-graphql';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
 import { schemaCustomization } from './src/utils/setup/schema-customization';
 import { SnootyArticle } from './src/classes/snooty-article';
+import { createVideoPages } from './src/utils/setup/create-video-pages';
+import { fetchBuildTimeMedia } from './src/utils/setup/fetch-build-time-media';
+import { aggregateItemsByVideoType } from './src/utils/setup/aggregate-items-by-video-type';
+import { createCommunityChampionProfilePages } from './src/utils/setup/create-community-champion-profile-pages';
+import { aggregateItemsByAudioType } from './src/utils/setup/aggregate-items-by-audio-type';
+import { createPodcastPages } from './src/utils/setup/create-podcast-pages';
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 
 const pluralizeIfNeeded = {
     author: 'authors',
@@ -44,6 +54,8 @@ const slugContentMapping = {};
 
 let snootyArticles = [];
 let allArticles = [];
+// Create slimmer articles for tag pages
+let articlesWithoutContentAST = [];
 
 // stich client connection
 let stitchClient;
@@ -97,10 +109,12 @@ export const sourceNodes = async ({
         );
     });
     // This must be done after so all author bios exist
-    snootyArticles = snootyArticles.map(
-        ({ slug, doc }) =>
-            new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
-    );
+    if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
+        snootyArticles = snootyArticles.map(
+            ({ slug, doc }) =>
+                new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
+        );
+    }
 };
 
 // Snooty Parser v0.7.0 introduced a fileid keyword that is passed as a string for the includes directive
@@ -114,22 +128,19 @@ export const onCreateNode = async ({ node }) => {
     }
 };
 
-const filteredPageGroups = allSeries => {
-    // featured articles are in pageGroups but not series, so we remove them
-    homeFeaturedArticles = allSeries.home;
-    learnFeaturedArticles = allSeries.learn;
+const filterPageGroups = allSeries => {
     // also remove a group of excluded articles
     excludedLearnPageArticles = allSeries.learnPageExclude;
-    delete allSeries.home;
-    delete allSeries.learn;
-    delete allSeries.learnPageExclude;
-    return allSeries;
 };
 
 export const createPages = async ({ actions, graphql }) => {
     const { createPage, createRedirect } = actions;
+    let saveImages = () => {};
+    if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
+        saveImages = async () => saveAssetFiles(assets, stitchClient);
+    }
     const [, metadataDocument, result] = await Promise.all([
-        saveAssetFiles(assets, stitchClient),
+        saveImages(),
         stitchClient.callFunction('fetchDocument', [
             DB,
             METADATA_COLLECTION,
@@ -148,43 +159,77 @@ export const createPages = async ({ actions, graphql }) => {
         throw new Error(`Page build error: ${result.error}`);
     }
 
-    const allSeries = filteredPageGroups(metadataDocument.pageGroups);
-
+    filterPageGroups(metadataDocument.pageGroups);
+    const articleSeries = await getStrapiArticleSeriesFromGraphql(
+        graphql,
+        slugContentMapping
+    );
     const strapiArticleList = await getStrapiArticleListFromGraphql(graphql);
-    allArticles = snootyArticles.concat(strapiArticleList);
+    allArticles = !Boolean(process.env.GATSBY_PREVIEW_MODE)
+        ? removeDuplicatedArticles(snootyArticles, strapiArticleList)
+        : strapiArticleList;
 
     allArticles.forEach(article => {
         createArticlePage(
             article,
             slugContentMapping,
-            allSeries,
+            articleSeries,
             metadataDocument,
             createPage
         );
     });
 
-    await createClientSideRedirects(graphql, createRedirect);
+    articlesWithoutContentAST = allArticles.map(a => ({
+        ...a,
+        contentAST: [],
+        SEO: {},
+    }));
 
+    await createClientSideRedirects(graphql, createRedirect);
+    const { allVideos, allPodcasts } = await fetchBuildTimeMedia();
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
     tagTypes.forEach(type => {
         const isAuthorType = type === 'author';
         if (isAuthorType) {
-            tagPageDirectory[type] = aggregateAuthorInformation(allArticles);
+            tagPageDirectory[type] = aggregateAuthorInformation(
+                articlesWithoutContentAST
+            );
         } else {
             const mappedType = pluralizeIfNeeded[type];
             tagPageDirectory[type] = aggregateItemsWithTagType(
-                allArticles,
+                articlesWithoutContentAST,
                 mappedType,
                 type !== mappedType
             );
         }
     });
 
+    const aggregateVideoItems = aggregateItemsByVideoType(allVideos);
+    Object.keys(aggregateVideoItems).forEach(key => {
+        tagPageDirectory['type'][key] = aggregateVideoItems[key];
+    });
+
+    const aggregateAudioItems = aggregateItemsByAudioType(allPodcasts);
+    Object.keys(aggregateAudioItems).forEach(key => {
+        tagPageDirectory['type'][key] = aggregateAudioItems[key];
+    });
+
     const tagPages = tagTypes.map(type =>
         createTagPageType(type, createPage, tagPageDirectory, metadataDocument)
     );
     await Promise.all(tagPages);
+
+    await createVideoPages(createPage, allVideos, metadataDocument);
+
+    await createCommunityChampionProfilePages(createPage, graphql);
+
+    await createPodcastPages(createPage, allPodcasts, metadataDocument);
+
+    const { homePageFeaturedArticles, learnPageFeaturedArticles } =
+        await getFeaturedArticlesFromGraphql(graphql);
+    homeFeaturedArticles = homePageFeaturedArticles;
+    learnFeaturedArticles = learnPageFeaturedArticles;
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
@@ -202,6 +247,7 @@ export const onCreateWebpackConfig = ({ stage, loaders, actions }) => {
         });
     }
     actions.setWebpackConfig({
+        plugins: [new NodePolyfillPlugin()],
         resolve: {
             alias: {
                 // Use noop file to prevent any preview-setup errors
@@ -219,7 +265,7 @@ export const onCreatePage = async ({ page, actions }) =>
     handleCreatePage(
         page,
         actions,
-        allArticles,
+        articlesWithoutContentAST,
         homeFeaturedArticles,
         learnFeaturedArticles,
         excludedLearnPageArticles

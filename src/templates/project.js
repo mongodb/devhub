@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import dlv from 'dlv';
 import styled from '@emotion/styled';
 import DocumentBody from '~components/DocumentBody';
@@ -89,10 +89,20 @@ const Project = props => {
     const childNodes = getContent(dlv(content, 'children', []));
     const { siteUrl } = useSiteMetadata();
     const projectUrl = `${siteUrl}${props.pageContext.slug}`;
+    const projectBreadcrumb = useMemo(
+        () => [
+            { label: 'Home', target: '/' },
+            { label: 'MongoDB for Academia', target: '/academia/' },
+            { label: 'Student Spotlights', target: '/academia/students' },
+            { label: name, target: slug },
+        ],
+        [name, slug]
+    );
+
     return (
         <Layout>
             <SEO
-                articleTitle={name}
+                title={name}
                 metaDescription={description}
                 ogUrl={projectUrl}
             />
@@ -105,6 +115,7 @@ const Project = props => {
                 ]}
                 title={name}
                 url={projectUrl}
+                breadcrumb={projectBreadcrumb}
             />
             <Container>
                 <ArticleContent>
@@ -114,7 +125,7 @@ const Project = props => {
                         {...props}
                     />
                 </ArticleContent>
-                <InfoSidebar>
+                <InfoSidebar data-test="sidebar">
                     <SidebarContent
                         github_url={github_url}
                         project_link={project_link}

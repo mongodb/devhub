@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Icon from '@leafygreen-ui/icon';
 import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import AriaModal from 'react-aria-modal';
@@ -17,9 +18,24 @@ const transparentModalStyling = css`
     }
 `;
 
+const CloseButtonContainer = styled('div')`
+    margin-top: ${size.xsmall};
+    ${({ closeButtonContainerStyle }) => closeButtonContainerStyle};
+`;
+
+const StyledIcon = styled(Icon)`
+    @media ${screenSize.upToMedium} {
+        height: ${size.mediumLarge};
+        width: ${size.mediumLarge};
+    }
+`;
+
 const Heading = styled('header')`
     display: flex;
     justify-content: flex-end;
+    line-height: ${size.xsmall};
+    margin-bottom: ${size.xsmall};
+    ${({ headingStyles }) => headingStyles};
 `;
 
 const ModalDialog = styled('div')`
@@ -30,28 +46,27 @@ const ModalDialog = styled('div')`
         padding: ${size.small};
     }
     @media ${screenSize.mediumAndUp} {
-        padding: ${size.medium};
+        padding: ${size.default};
     }
     ${props => props.contentStyle};
     ${({ transparent }) => transparent && transparentModalStyling};
 `;
 const CloseButtonWrapper = styled('div')`
-    color: ${({ theme }) => theme.colorMap.greyLightThree};
+    color: ${({ theme }) => theme.colorMap.devWhite};
     cursor: pointer;
     font-size: ${fontSize.medium};
     font-weight: bold;
-    padding: ${size.tiny};
 `;
 
-const ModalClose = ({ closeModalOnEnter, deactivateModal }) => (
-    <Heading aria-label="close">
+const ModalClose = ({ closeModalOnEnter, deactivateModal, headingStyles }) => (
+    <Heading aria-label="close" headingStyles={headingStyles}>
         <CloseButtonWrapper
             tabIndex="0"
             onClick={deactivateModal}
             onKeyUp={closeModalOnEnter}
             data-test="modal-close"
         >
-            &times;
+            <StyledIcon glyph="X" />
         </CloseButtonWrapper>
     </Heading>
 );
@@ -66,6 +81,7 @@ const getApplicationNode = () => document.getElementById('root');
  * @property {Object | String} props.contentStyle
  * @property {Object} props.dialogContainerStyle
  * @property {Object} props.dialogMobileContainerStyle
+ * @property {Function} props.onCloseModal
  * @property {String=} props.title
  * @property {JSX.Element[]= | JSX.Element=} props.triggerComponent
  * @property {Bool=} props.isOpenToStart
@@ -78,10 +94,14 @@ export const Modal = ({
     // Backdrop Style must be an object because of the react-aria-modal library styling
     backdropStyle,
     children,
+    closeButtonContainerStyle,
+    CloseTriggerComponent,
     contentStyle,
     // Dialog Container Style must be an object because of the react-aria-modal library styling
     dialogContainerStyle,
     dialogMobileContainerStyle,
+    headingStyles,
+    onCloseModal,
     title,
     triggerComponent,
     isOpenToStart = false,
@@ -110,9 +130,14 @@ export const Modal = ({
         ...dialogMobileContainerStyle,
     };
     const [isActive, setIsActive] = useState(isOpenToStart);
-    const isMobile = useMedia(screenSize.upToMedium);
+    const defaultMobileState = null;
+    const isMobile = useMedia(screenSize.upToMedium, defaultMobileState);
+    const canDecideIfIsMobile = isMobile !== defaultMobileState;
     const activateModal = () => setIsActive(true);
-    const deactivateModal = () => setIsActive(false);
+    const deactivateModal = () => {
+        onCloseModal && onCloseModal();
+        setIsActive(false);
+    };
     const closeModalOnEnter = e => {
         const enterKey = 13;
         if (e.keyCode === enterKey) {
@@ -120,7 +145,7 @@ export const Modal = ({
         }
     };
     const theme = useTheme();
-    const ResponsiveModal = () =>
+    const responsiveModal = () =>
         isActive && (
             <AriaModal
                 data-test="modal"
@@ -143,21 +168,34 @@ export const Modal = ({
                     <ModalClose
                         closeModalOnEnter={closeModalOnEnter}
                         deactivateModal={deactivateModal}
+                        headingStyles={headingStyles}
                     />
                     {children}
+                    {CloseTriggerComponent && (
+                        <CloseButtonContainer
+                            closeButtonContainerStyle={
+                                closeButtonContainerStyle
+                            }
+                        >
+                            <CloseTriggerComponent onClick={deactivateModal} />
+                        </CloseButtonContainer>
+                    )}
                 </ModalDialog>
             </AriaModal>
         );
-
+    // The below line is due to SSR/Weird Media Query use
+    // Since this requires a re-render, we delay any rendering until this is done
+    // This prevents a jarring mobile experience
+    if (!canDecideIfIsMobile) return null;
     if (triggerComponent) {
         return (
             <>
                 <span onClick={activateModal}>{triggerComponent}</span>
-                <ResponsiveModal />
+                {responsiveModal()}
             </>
         );
     }
-    return <ResponsiveModal />;
+    return responsiveModal();
 };
 
 Modal.propTypes = {
@@ -166,6 +204,7 @@ Modal.propTypes = {
     contentStyle: PropTypes.object,
     dialogContainerStyle: PropTypes.object,
     dialogMobileContainerStyle: PropTypes.object,
+    onCloseModal: PropTypes.func,
     isOpenToStart: PropTypes.bool,
     isMounted: PropTypes.bool,
     title: PropTypes.string,

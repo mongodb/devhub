@@ -1,0 +1,21 @@
+{
+    "ci": {
+        "collect": {
+            "url": [
+                "http://localhost/",
+                "http://localhost/article/3-things-to-know-switch-from-sql-mongodb/"
+            ],
+            "staticDistDir": "./public"
+        },
+        "assert": {
+            "assertions": {
+                "categories:accessibility": ["warn", { "minScore": 0.85 }],
+                "categories:best-practices": ["warn", { "minScore": 0.75 }],
+                "categories:performance": ["warn", { "minScore": 0.75 }],
+                "categories:seo": ["warn", { "minScore": 0.8 }],
+                "dom-size": ["warn", { "maxNumericValue": 1000 }],
+                "first-contentful-paint": ["error", { "maxNumericValue": 4500 }]
+            }
+        }
+    }
+}

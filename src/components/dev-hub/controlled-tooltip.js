@@ -4,7 +4,10 @@ import { css } from '@emotion/react';
 import Popover from 'react-tiny-popover';
 import { animationSpeed, layer, size } from './theme';
 
-const ControlledTooltipWrapper = styled('span')`
+const ControlledTooltipWrapper = styled('div')`
+    display: inline-block;
+    line-height: ${size.default};
+    height: ${size.default};
     /* Article sets these values */
     padding: 0 !important;
 `;
@@ -211,53 +214,58 @@ const Content = styled('div')`
         getArrowStyles(hasGradientBorder, position, theme)}
 `;
 
-const Trigger = styled('span')`
+const Trigger = styled('div')`
     cursor: pointer;
+    line-height: ${size.default};
+    display: inline-block;
+    height: ${size.default};
 `;
 
 // This logic was pulled from 'react-tiny-popover' (see = https://github.com/alexkatz/react-tiny-popover/blob/3928cfa67a57676f32d5f04b3e1decb8c31db544/src/Popover.tsx#L316-L352)
 // In order to provide custom positioning of right/left tooltips
 // we must hook into the logic of the library and add the
 // adjustments needed
-const contentLocation = padding => ({ position, popoverRect, targetRect }) => {
-    const targetMidX = targetRect.left + targetRect.width / 2;
-    let top;
-    let left;
-    let topAdjustment = 0; // this is our 'top' adjustment
+const contentLocation =
+    padding =>
+    ({ position, popoverRect, targetRect }) => {
+        const targetMidX = targetRect.left + targetRect.width / 2;
+        let top;
+        let left;
+        let topAdjustment = 0; // this is our 'top' adjustment
 
-    switch (position) {
-        case 'top':
-            // taken from library
-            top = targetRect.top - popoverRect.height - padding;
-            left = targetMidX - popoverRect.width / 2;
-            break;
-        case 'left':
-            // taken from library
-            left = targetRect.left - padding - popoverRect.width;
-            top = targetRect.top;
-            // our adjustment
-            topAdjustment = -20;
-            break;
-        case 'bottom':
-            // taken from library
-            top = targetRect.bottom + padding;
-            left = targetMidX - popoverRect.width / 2;
-            break;
-        case 'right':
-            // taken from library
-            top = targetRect.top;
-            left = targetRect.right + padding;
-            // our adjustment
-            topAdjustment = -20;
-            break;
-        default:
-            break;
-    }
-    const finalTop = top + window.pageYOffset + topAdjustment;
-    const finalLeft = left + window.pageXOffset;
+        switch (position) {
+            case 'top':
+                // taken from library
+                top = targetRect.top - popoverRect.height - padding;
+                left = targetMidX - popoverRect.width / 2;
+                break;
+            case 'left':
+                // taken from library
+                left = targetRect.left - padding - popoverRect.width;
+                top = targetRect.top;
+                // our adjustment
+                topAdjustment = -20;
+                break;
+            case 'bottom':
+                // taken from library
+                top = targetRect.bottom + padding;
+                left = targetMidX - popoverRect.width / 2;
+                break;
+            case 'right':
+                // taken from library
+                top = targetRect.top;
+                left = targetRect.right + padding;
+                // our adjustment
+                topAdjustment = -20;
+                break;
+            default:
+                break;
+        }
+        const finalTop = top + window.pageYOffset + topAdjustment;
+        const finalLeft = left + window.pageXOffset;
 
-    return { top: finalTop, left: finalLeft };
-};
+        return { top: finalTop, left: finalLeft };
+    };
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children
@@ -279,6 +287,7 @@ const ControlledTooltip = ({
     contentStyle,
     isOpen,
     setIsOpen,
+    ...props
 }) => {
     const ref = useRef(null);
 
@@ -305,7 +314,7 @@ const ControlledTooltip = ({
           };
 
     return (
-        <ControlledTooltipWrapper ref={ref}>
+        <ControlledTooltipWrapper ref={ref} {...props}>
             <Popover
                 contentLocation={contentLocation(TOOLTIP_DISTANCE)}
                 content={

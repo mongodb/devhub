@@ -5,6 +5,10 @@ import Layout from '../components/dev-hub/layout';
 import { H2 } from '../components/dev-hub/text';
 import MediaBlock from '../components/dev-hub/media-block';
 import Card from '../components/dev-hub/card';
+import {
+    NAV_DESKTOP_HEIGHT,
+    NAV_MOBILE_HEIGHT,
+} from '../components/dev-hub/consistent-nav';
 import CardList from '../components/dev-hub/card-list';
 import EmptyTextFilterResults from '../components/dev-hub/empty-text-filter-results';
 import FilterBar from '../components/dev-hub/filter-bar';
@@ -12,10 +16,7 @@ import { screenSize, size } from '../components/dev-hub/theme';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { buildQueryString, parseQueryString } from '../utils/query-string';
 import { getFeaturedCardFields } from '../utils/get-featured-card-fields';
-import { getTagLinksFromMeta } from '../utils/get-tag-links-from-meta';
 import { LearnPageTabs } from '../utils/learn-page-tabs';
-import useAllVideos from '../hooks/use-all-videos';
-import usePodcasts from '../hooks/use-podcasts';
 import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
 import PageHelmet from '~components/dev-hub/page-helmet';
@@ -24,6 +25,26 @@ const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
 
 const Title = H2.withComponent('h1');
+
+const PrimaryMediaBlock = styled(MediaBlock)`
+    @media ${screenSize.upToMedium} {
+        /*
+        To prevent CLS on the anchor tag, we want to specify a 1:1 aspect
+        ratio by way of vw - padding on either side
+        */
+        grid-template-rows: calc(100vw - ${size.medium} - ${size.medium}) auto;
+    }
+`;
+
+const MainAnchor = styled('div')`
+    display: block;
+    position: relative;
+    top: -${NAV_DESKTOP_HEIGHT};
+    visibility: hidden;
+    @media ${screenSize.upToMedium} {
+        top: -${NAV_MOBILE_HEIGHT};
+    }
+`;
 
 const MainFeatureGrid = styled('div')`
     @media ${screenSize.mediumAndUp} {
@@ -49,6 +70,8 @@ const PrimarySection = styled('div')`
 
 const PrimaryImage = styled('img')`
     border-radius: ${size.small};
+    height: 100%;
+    width: 100%;
 `;
 
 const SecondArticle = styled(Card)`
@@ -163,9 +186,20 @@ const FeaturedArticles = ({ articles }) => {
     );
     return (
         <MainFeatureGrid data-test="featured-articles">
-            <PrimarySection data-test="primary-featured-article">
-                <MediaBlock
-                    mediaComponent={<PrimaryImage src={image} alt="" />}
+            <PrimarySection
+                data-test="primary-featured-article"
+                height="100%"
+                width="100%"
+            >
+                <PrimaryMediaBlock
+                    mediaComponent={
+                        <PrimaryImage
+                            height="100%"
+                            width="100%"
+                            src={image}
+                            alt=""
+                        />
+                    }
                     mediaWidth="360px"
                 >
                     <Card
@@ -175,7 +209,7 @@ const FeaturedArticles = ({ articles }) => {
                         description={description}
                         tags={tags}
                     />
-                </MediaBlock>
+                </PrimaryMediaBlock>
             </PrimarySection>
             <SecondaryFeaturedArticle
                 article={articles[1]}
@@ -189,13 +223,13 @@ const FeaturedArticles = ({ articles }) => {
     );
 };
 
-export default ({
+const LearnPage = ({
     location,
     navigate,
     pageContext: {
         allArticles,
-        allPodcasts,
-        allVideos,
+        allPodcasts: podcasts,
+        allVideos: videos,
         featuredArticles,
         filters,
     },
@@ -267,10 +301,6 @@ export default ({
         [filterValue]
     );
 
-    const { videos } = useAllVideos(allVideos);
-
-    const { podcasts } = usePodcasts(allPodcasts);
-
     const updateActiveFilter = useCallback(
         newTab => {
             if (newTab !== LearnPageTabs.all) {
@@ -283,10 +313,15 @@ export default ({
         [filterValue]
     );
 
-    const activeContentTab = useMemo(
-        () => filterValue['content'] || LearnPageTabs.all,
-        [filterValue]
-    );
+    const activeContentTab = useMemo(() => {
+        const currentContentFilter = filterValue['content'];
+        if (currentContentFilter) {
+            return (
+                LearnPageTabs[filterValue['content']] || filterValue['content']
+            );
+        }
+        return LearnPageTabs.all;
+    }, [filterValue]);
 
     // If the user is on a tab not supporting the text filter, ignore the filter
     const showTextFilterResults = useMemo(
@@ -338,9 +373,10 @@ export default ({
                 </HeaderContent>
             </Header>
 
+            {/* ID used specifically for anchor links */}
+            <MainAnchor id="main" />
+
             <TabBar
-                // ID used specifically for anchor links
-                id="main"
                 handleClick={updateActiveFilter}
                 leftTabs={leftTabs}
                 rightTabs={rightTabs}
@@ -361,7 +397,7 @@ export default ({
 
                 {showTextFilterResults ? (
                     textFilterResults.length ? (
-                        <CardList articles={textFilterResults} />
+                        <CardList all={textFilterResults} />
                     ) : (
                         <EmptyTextFilterResults />
                     )
@@ -372,3 +408,5 @@ export default ({
         </Layout>
     );
 };
+
+export default LearnPage;

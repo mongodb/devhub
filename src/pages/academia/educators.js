@@ -11,7 +11,7 @@ import PageHelmet from '~components/dev-hub/page-helmet';
 const PAGE_DESCRIPTION =
     'MongoDB for Academia is for educators who want to prepare students for careers that require in-demand database skills that power modern applications.';
 
-export default ({ path }) => {
+const EducatorsPage = ({ path }) => {
     const { title } = useSiteMetadata();
     return (
         <Layout>
@@ -26,3 +26,5 @@ export default ({ path }) => {
         </Layout>
     );
 };
+
+export default EducatorsPage;

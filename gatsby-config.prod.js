@@ -1,4 +1,7 @@
 const { siteUrl } = require('./src/queries/site-url');
+const {
+    mapPublicationStateToArray,
+} = require('./src/utils/setup/map-publication-state-to-array');
 const { getMetadata } = require('./src/utils/get-metadata');
 const { articleRssFeed } = require('./src/utils/setup/article-rss-feed');
 const { searchRssFeed } = require('./src/utils/setup/search-rss-feed');
@@ -8,6 +11,8 @@ require('dotenv').config({
 });
 
 const metadata = getMetadata();
+
+const SITE_URL = 'https://www.mongodb.com/developer';
 
 module.exports = {
     pathPrefix: '',
@@ -25,9 +30,22 @@ module.exports = {
             resolve: `gatsby-source-strapi`,
             options: {
                 apiURL: process.env.STRAPI_URL,
-                contentTypes: ['articles', 'client-side-redirects', 'projects'],
-                singleTypes: ['student-spotlight-featured', 'top-nav'],
-                publicationState: process.env.STRAPI_PUBLICATION_STATE,
+                collectionTypes: mapPublicationStateToArray([
+                    'articles',
+                    'article-series',
+                    'client-side-redirects',
+                    'community-champions',
+                    'projects',
+                ]),
+                queryLimit: 0,
+                singleTypes: mapPublicationStateToArray([
+                    'feedback-rating-flow',
+                    'home-page-featured-articles',
+                    'learn-page-featured-articles',
+                    'student-spotlight-featured',
+                    'top-banner',
+                    'top-nav',
+                ]),
             },
         },
         {
@@ -47,15 +65,25 @@ module.exports = {
         },
         {
             resolve: 'gatsby-plugin-sitemap',
-            output: '/sitemap-pages.xml',
             options: {
+                output: '/sitemap',
                 // Exclude paths we are using the noindex tag on
-                exclude: [
+                excludes: [
                     '/language/*',
                     '/product/*',
                     '/storybook ',
                     '/tag/*',
                     '/type/*',
+                    // The below two are current 301 redirects that should be ignored
+                    '/quickstart/node-connect-mongodb/',
+                    '/quickstart/node-connect-mongodb-3-3-2/',
+                    // There are several URLs which canonicalize elsewhere
+                    // For now, just enumerate them but we should implement a more proper fix
+                    '/quickstart/node-aggregation-framework-3-3-2/',
+                    '/quickstart/node-crud-tutorial-3-3-2/',
+                    '/quickstart/node-transactions-3-3-2/',
+                    '/quickstart/nodejs-change-streams-triggers/',
+                    '/quickstart/nodejs-change-streams-triggers-3-3-2/',
                 ],
             },
         },
@@ -70,7 +98,7 @@ module.exports = {
             resolve: 'gatsby-plugin-feed',
             options: {
                 query: siteUrl,
-                feeds: [articleRssFeed, searchRssFeed],
+                feeds: [articleRssFeed(SITE_URL), searchRssFeed(SITE_URL)],
             },
         },
         `gatsby-plugin-meta-redirect`, // this must be last
@@ -78,6 +106,6 @@ module.exports = {
     siteMetadata: {
         ...metadata,
         title: 'MongoDB Developer Hub',
-        siteUrl: 'https://developer.mongodb.com',
+        siteUrl: SITE_URL,
     },
 };

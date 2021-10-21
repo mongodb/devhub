@@ -1,15 +1,16 @@
 const ARTICLE_WITH_SERIES_URL =
     '/article/3-things-to-know-switch-from-sql-mongodb';
-const PROD_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_SERIES_URL}`;
+const PROD_ARTICLE_URL = `https://www.mongodb.com/developer${ARTICLE_WITH_SERIES_URL}`;
 const ARTICLE_WITH_ATTRIBUTION_LINK_URL =
     '/article/build-newsletter-website-mongodb-data-platform/';
 const EXPECTED_ATTRIBUTION_LINK =
     'https://www.mongodb.com/cloud/atlas/signup?tck%3Ddevhub-build-newsletter-website-mongodb-data-platform';
+const ARTICLE_DUPLICATED_IN_STRAPI = '/how-to/hapijs-nodejs-driver';
 
 // Article with no og description or og type (test meta description fallback)
 const ARTICLE_WITH_MINIMAL_OG_URL =
     '/article/active-active-application-architectures';
-const PROD_MINIMAL_ARTICLE_URL = `https://developer.mongodb.com${ARTICLE_WITH_MINIMAL_OG_URL}/`;
+const PROD_MINIMAL_ARTICLE_URL = `https://www.mongodb.com/developer${ARTICLE_WITH_MINIMAL_OG_URL}/`;
 const ARTICLE_WITHOUT_OG_META_DESCRIPTION =
     'This post will begin by describing the database capabilities required by modern multi-data center applications.';
 const DEFAULT_OG_TYPE = 'article';
@@ -24,9 +25,9 @@ const SERIES_TITLE = 'SQL to MongoDB';
 // Images
 const ATF_IMAGE = '/images/atf-images/illustrations/sql-mdb.png';
 const TWITTER_IMAGE =
-    'https://developer.mongodb.com/images/social/twitter/twitter-sql-mdb.png';
+    'https://www.mongodb.com/developer/images/social/twitter/twitter-sql-mdb.png';
 const OG_IMAGE =
-    'https://developer.mongodb.com/images/social/open-graph/og-sql-mdb.png';
+    'https://www.mongodb.com/developer/images/social/open-graph/og-sql-mdb.png';
 
 // Social Media Links
 const FACEBOOK_SHARE_URL = `https://www.facebook.com/sharer/sharer.php?u=${PROD_ARTICLE_URL}`;
@@ -65,10 +66,12 @@ describe('Sample Article Page', () => {
     it('should have links to share content on social media', () => {
         cy.get('[data-test="article-share-links"]').within(() => {
             cy.get('a').each((link, index) => {
-                // Index 0 is the copy to clipboard functionality
+                // Index 0 is the copy to clipboard functionality and 1 is the
+                // check box
                 // TODO: UI test clipboard link copy
-                if (index !== 0) {
-                    const url = SOCIAL_URLS[index - 1];
+                const copyDOMOffset = 2;
+                if (index >= copyDOMOffset) {
+                    const url = SOCIAL_URLS[index - copyDOMOffset];
                     cy.wrap(link).should('have.prop', 'href', url);
                 }
             });
@@ -245,6 +248,11 @@ describe('Sample Article Page', () => {
                 cy.contains('mongoexport').should('not.exist');
                 cy.contains('Some C++ code');
             });
+        });
+    });
+    it('should render Strapi content should it have the same slug as Snooty content', () => {
+        cy.visit(ARTICLE_DUPLICATED_IN_STRAPI).then(() => {
+            cy.contains('Strapi HapiJS Article');
         });
     });
 });

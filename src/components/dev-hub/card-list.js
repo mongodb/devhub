@@ -49,29 +49,29 @@ const renderVideo = video => (
         title={video.title}
         badge={video.mediaType}
         description={video.description}
-        video={video}
+        to={video.slug}
     />
 );
 
-const renderPodcast = (podcast, openAudio) => (
+const renderPodcast = podcast => (
     <Card
         key={podcast.mediaType + podcast.title}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
         badge={podcast.mediaType}
         description={podcast.description}
-        onClick={() => openAudio(podcast)}
+        to={podcast.slug}
     />
 );
 
-const renderContentTypeCard = (item, openAudio) => {
+const renderContentTypeCard = item => {
     if (item.mediaType)
         switch (item.mediaType) {
             case 'youtube':
             case 'twitch':
                 return renderVideo(item);
             case 'podcast':
-                return renderPodcast(item, openAudio);
+                return renderPodcast(item);
             default:
                 return;
         }
@@ -79,35 +79,23 @@ const renderContentTypeCard = (item, openAudio) => {
 };
 
 export default React.memo(
-    ({ videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
+    ({ all, videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
         videos = videos || [];
         articles = articles || [];
         podcasts = podcasts || [];
 
-        const fullContentList = sortCardsByDate(
-            videos.concat(articles, podcasts)
-        );
-
-        const [activePodcast, setActivePodcast] = useState(false);
-
-        const openAudio = useCallback(podcast => {
-            setActivePodcast(podcast);
-        }, []);
-        const closeAudio = useCallback(e => {
-            e.stopPropagation();
-            setActivePodcast(null);
-        }, []);
+        // If we provide "all", we don't need to sort. We can assume any sorting
+        // has been done
+        const fullContentList =
+            all || sortCardsByDate(videos.concat(articles, podcasts));
 
         return (
             <>
                 <Paginate limit={limit} data-test="card-list">
                     {fullContentList.map(contentType =>
-                        renderContentTypeCard(contentType, openAudio)
+                        renderContentTypeCard(contentType)
                     )}
                 </Paginate>
-                {podcasts.length ? (
-                    <Audio onClose={closeAudio} podcast={activePodcast} />
-                ) : null}
             </>
         );
     }

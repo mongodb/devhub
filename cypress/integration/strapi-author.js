@@ -6,8 +6,8 @@ const AUTHOR_URL = '/author/lauren-schaefer/';
 describe('Author Page', () => {
     it('should show an image for the author', () => {
         cy.visit(AUTHOR_URL);
-        cy.get('[data-test="author-image"]').should('exist');
-        cy.get('[data-test="author-image"]').within(() => {
+        cy.get('[data-test="profile-image"]').should('exist');
+        cy.get('[data-test="profile-image"]').within(() => {
             cy.get('div')
                 .should('have.css', 'background-image')
                 .should('not.be.empty');

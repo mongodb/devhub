@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import BlogTagList from './blog-tag-list';
 import { H2, P } from './text';
-import { toDateString } from '../../utils/format-dates';
+import { toDateString } from '~utils/format-dates';
 import { screenSize, fontSize, size } from './theme';
 import BylineBlock from './byline-block';
 import HeroBanner from './hero-banner';
@@ -36,6 +36,10 @@ const DateText = styled(P)`
 const DateTextContainer = styled('div')`
     margin-right: ${size.medium};
     display: flex;
+    flex-shrink: 0;
+    @media ${screenSize.upToLarge} {
+        margin-right: 0;
+    }
 `;
 
 const BlogPostTitleArea = ({
@@ -46,6 +50,8 @@ const BlogPostTitleArea = ({
     tags,
     title,
     updatedDate,
+    maintainSquareAspectRatio,
+    bannerType,
 }) => {
     const BlogTitle = H2.withComponent('h1');
     return (
@@ -53,6 +59,8 @@ const BlogPostTitleArea = ({
             background={articleImage}
             breadcrumb={breadcrumb}
             data-test="hero-banner"
+            maintainSquareAspectRatio={maintainSquareAspectRatio}
+            bannerType={bannerType}
         >
             <BlogTitle collapse>{title}</BlogTitle>
             <PostMetaLine>

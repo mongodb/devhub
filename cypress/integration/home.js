@@ -1,6 +1,6 @@
 const CARDS = '[data-test="card"]';
 const FEATURED_ARTICLES = 'header';
-const PROD_SITE = 'https://developer.mongodb.com/';
+const PROD_SITE = 'https://www.mongodb.com/developer/';
 const TWITCH = '[data-test="twitch"]';
 
 describe('Home Page', () => {
@@ -21,16 +21,20 @@ describe('Home Page', () => {
             // These cards should be links to articles
             cy.get(CARDS)
                 .first()
-                .should('have.prop', 'href')
-                .should('not.be.empty');
+                .should('contain', 'Test Strapi Article')
+                .and('have.prop', 'href')
+                .should('contain', '/how-to/realm-test/?tck=feathome');
             cy.get(CARDS)
-                .first()
-                .within(() => {
-                    cy.get('img')
-                        .should('have.prop', 'src')
-                        .should('not.be.empty');
-                    cy.get('h5').should('not.be.empty');
-                });
+                .last()
+                .should(
+                    'contain',
+                    'Build a Newsletter Website With the MongoDB Data Platform'
+                )
+                .and('have.prop', 'href')
+                .should(
+                    'contain',
+                    '/article/build-newsletter-website-mongodb-data-platform/?tck=feathome'
+                );
         });
     });
     // TODO: Fix twitch API

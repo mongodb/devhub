@@ -72,7 +72,7 @@ const CommunityHeroBanner = styled(HeroBanner)`
     }
 `;
 
-export default ({ path }) => {
+const CommunityPage = ({ path }) => {
     const { title } = useSiteMetadata();
     return (
         <Layout>
@@ -107,3 +107,5 @@ export default ({ path }) => {
         </Layout>
     );
 };
+
+export default CommunityPage;

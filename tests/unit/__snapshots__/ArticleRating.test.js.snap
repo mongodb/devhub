@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleRating renders bottom variant correctly 1`] = `
+<ArticleRatingProvider
+  value={
+    Object {
+      "ratingState": Object {
+        "isClicked": false,
+        "starRatingFlow": null,
+        "starts": Array [
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+      },
+    }
+  }
+>
+  <Memo(ArticleRating)
+    isBottom={true}
+  />
+</ArticleRatingProvider>
+`;
+
+exports[`ArticleRating renders top variant correctly 1`] = `
+<ArticleRatingProvider
+  value={
+    Object {
+      "ratingState": Object {
+        "isClicked": false,
+        "starRatingFlow": null,
+        "starts": Array [
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+      },
+    }
+  }
+>
+  <Memo(ArticleRating)
+    isTop={true}
+  />
+</ArticleRatingProvider>
+`;

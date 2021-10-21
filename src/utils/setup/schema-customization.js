@@ -14,6 +14,13 @@ export const schemaCustomization = ({ actions }) => {
         tag: String
     }
     type CMSImage implements Node {
+        alternativeText: String
+        height: String
+        url: String
+        width: String
+    }
+    type Related implements Node {
+        label: String
         url: String
     }
     type SEO implements Node {
@@ -43,6 +50,7 @@ export const schemaCustomization = ({ actions }) => {
         products: [Product]
         tags: [Tag]
         slug: String
+        related_content: [Related]
         image: CMSImage
         name: String
         published_at: Date @dateformat
@@ -56,6 +64,25 @@ export const schemaCustomization = ({ actions }) => {
     }
     type allStrapiClientSideRedirects implements Node {
         nodes: [StrapiClientSideRedirect]
+    }
+    type StrapiTopBanner implements Node {
+        desktopBanner: CMSImage
+        mobileBanner: CMSImage
+        targetUrl: String
+    }
+    type StrapiCommunityChampionsSocials implements Node {
+        facebookUrl: String
+        githubUrl: String
+        linkedinUrl: String
+        twitterUrl: String
+        youtubeUrl: String
+        twitchUrl: String
+    }
+    type StrapiHomePageFeaturedArticles implements Node {
+        articles: JSON
+    }
+    type StrapiLearnPageFeaturedArticles implements Node {
+        articles: JSON
     }
     `;
     createTypes(typeDefs);

@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import Breadcrumb from './breadcrumb';
 import { fontSize, HERO_CONTENT_WIDTH, screenSize, size } from './theme';
 import useMedia from '../../hooks/use-media';
+import { BannerType } from '~src/types/banner-type';
 
 const HERO_BOTTOM_MARGIN = '30px';
 const BANNER_BOTTOM_PADDING = '50px';
@@ -43,7 +44,10 @@ const HeroBannerContainer = styled('div')`
     background-size: ${({ shouldContainBackground }) =>
         shouldContainBackground ? 'contain' : 'cover'};
     height: 100%;
-    padding: ${size.default} ${size.xxlarge} ${BANNER_BOTTOM_PADDING};
+    ${({ bannerType }) =>
+        bannerType === BannerType.VIDEO
+            ? `padding: ${size.default} ${size.xxlarge} ${size.small};`
+            : `padding: ${size.default} ${size.xxlarge} ${BANNER_BOTTOM_PADDING};`};
     @media ${screenSize.upToLarge} {
         /* Show image as child under breadcrumbs instead */
         background-image: none;
@@ -52,11 +56,19 @@ const HeroBannerContainer = styled('div')`
     }
 `;
 
+const textTruncate = css`
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
+
 const HeroBreadcrumb = styled(Breadcrumb)`
     line-height: 1;
     margin-bottom: ${HERO_BOTTOM_MARGIN};
     > a {
         font-size: ${fontSize.xsmall};
+        ${textTruncate}
     }
 `;
 
@@ -71,7 +83,7 @@ const MobileMediaContainer = styled('div')`
     }
     > img {
         border-radius: ${size.small};
-        width: inherit;
+        width: ${({ imageWidthOnMobile }) => imageWidthOnMobile || 'inherit'};
         @media ${screenSize.upToLarge} {
             ${({ maintainSquareAspectRatio }) =>
                 maintainSquareAspectRatio && positionAbsolutelyWithinContainer};
@@ -85,11 +97,14 @@ const HeroBanner = ({
     children,
     collapse,
     backgroundPosition = '100%',
+    imageAltText = '',
     maintainSquareAspectRatio = true,
     // Setting below to false would allow for bleed effect on bg
     shouldContainBackground = true,
     showImageOnMobile = true,
+    imageWidthOnMobile = null,
     fullWidth = false,
+    bannerType = BannerType.ARTICLE,
     ...props
 }) => {
     const isMobile = useMedia(screenSize.upToLarge);
@@ -99,6 +114,7 @@ const HeroBanner = ({
                 background={background}
                 backgroundPosition={backgroundPosition}
                 shouldContainBackground={shouldContainBackground}
+                bannerType={bannerType}
             >
                 <ContentContainer fullWidth={fullWidth}>
                     {breadcrumb && (
@@ -109,8 +125,9 @@ const HeroBanner = ({
                             maintainSquareAspectRatio={
                                 maintainSquareAspectRatio
                             }
+                            imageWidthOnMobile={imageWidthOnMobile}
                         >
-                            <img src={background} alt="" />
+                            <img src={background} alt={imageAltText} />
                         </MobileMediaContainer>
                     )}
                     {children}

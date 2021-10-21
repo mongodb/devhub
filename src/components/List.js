@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
 import ComponentFactory from './ComponentFactory';
 import { colorMap, size } from './dev-hub/theme';
 
@@ -53,14 +52,6 @@ const List = ({
             ))}
         </ListTag>
     );
-};
-
-List.propTypes = {
-    nodeData: PropTypes.shape({
-        children: PropTypes.array.isRequired,
-        enumtype: PropTypes.string.isRequired,
-        startat: PropTypes.number,
-    }).isRequired,
 };
 
 export default List;

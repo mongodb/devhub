@@ -7,10 +7,10 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import AuthorHeroBackground from '../images/1x/author-hero-background.png';
 import TagBackground from '../images/1x/tag-background.png';
 import ComponentFactory from '../components/ComponentFactory';
-import AuthorImage from '../components/dev-hub/author-image';
 import CardList from '../components/dev-hub/card-list';
 import HeroBanner from '../components/dev-hub/hero-banner';
 import Layout from '../components/dev-hub/layout';
+import ProfileImage from '../components/dev-hub/profile-image';
 import { H2, H3, P, P3 } from '../components/dev-hub/text';
 import { screenSize, size } from '../components/dev-hub/theme';
 import { parseQueryString } from '~utils/query-string';
@@ -53,7 +53,7 @@ const ArticleContent = styled('article')`
     }
 `;
 
-const SyledAuthorImage = styled(AuthorImage)`
+const StyledAuthorImage = styled(ProfileImage)`
     margin-right: ${size.medium};
 `;
 
@@ -112,7 +112,7 @@ const Tag = props => {
                     <div>
                         <AuthorHero>
                             <AuthorByline>
-                                <SyledAuthorImage
+                                <StyledAuthorImage
                                     isInternalImage={isInternalImage}
                                     image={image}
                                 />

@@ -1,4 +1,4 @@
-import { findArticlesFromSlugs } from './find-articles-from-slugs';
+import { findAndFillArticlesFromSlugs } from './find-and-fill-articles-from-slugs';
 import { getLearnPageFilters } from './get-learn-page-filters';
 import { removeExcludedArticles } from './remove-excluded-articles';
 
@@ -18,10 +18,11 @@ export const handleCreateLearnPage = (
         excludedLearnPageArticles
     );
     const filters = getLearnPageFilters(learnPageArticles);
-    const featuredLearnArticles = findArticlesFromSlugs(
+    const featuredLearnArticles = findAndFillArticlesFromSlugs(
         learnPageArticles,
         learnFeaturedArticles,
-        MAX_LEARN_PAGE_FEATURED_ARTICLES
+        MAX_LEARN_PAGE_FEATURED_ARTICLES,
+        (a, b) => new Date(b.publishedDate) - new Date(a.publishedDate)
     );
     const { allPodcasts, allVideos } = allMedia;
     deletePage(page);

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
+import { addLeadingSlashIfMissing } from '~utils/add-leading-slash-if-missing';
 
 const getBreadcrumbList = (breadcrumb, siteUrl) =>
     breadcrumb.map(({ label, target, to }, index) => {
@@ -12,7 +13,12 @@ const getBreadcrumbList = (breadcrumb, siteUrl) =>
             '@type': 'ListItem',
             position: index + 1,
             name: label,
-            item: path === '/' ? siteUrl : addTrailingSlashIfMissing(siteUrl + path),
+            item:
+                path === '/'
+                    ? siteUrl
+                    : addTrailingSlashIfMissing(
+                          siteUrl + addLeadingSlashIfMissing(path)
+                      ),
         };
     });
 

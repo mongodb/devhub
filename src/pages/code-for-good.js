@@ -192,8 +192,7 @@ const HeaderActionsContainer = styled('div')`
 
 const PAGE_DESCRIPTION =
     'Use your current MongoDB skills and pick up new ones. Contribute back to O-FISH and help protect our oceans.';
-
-export default ({ path }) => {
+const OFishPage = ({ path }) => {
     const { title } = useSiteMetadata();
     const codeForGoodBreadcrumbs = [
         { label: 'Home', target: '/' },
@@ -342,3 +341,5 @@ export default ({ path }) => {
         </Layout>
     );
 };
+
+export default OFishPage;

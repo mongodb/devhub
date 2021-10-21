@@ -1,0 +1,17 @@
+service:
+  type: ClusterIP
+  targetPort: 8000
+envSecrets:
+  GATSBY_SITE: devhub-gatsby-secrets
+  GATSBY_PARSER_USER: devhub-gatsby-secrets
+  GATSBY_PARSER_CI_USER: devhub-gatsby-secrets
+  GATSBY_PARSER_BRANCH: devhub-gatsby-secrets
+  GATSBY_SNOOTY_DEV: devhub-gatsby-secrets
+  GATSBY_PREVIEW_MODE: devhub-gatsby-secrets
+  STRAPI_URL: devhub-gatsby-secrets
+  STRAPI_PUBLICATION_STATE: devhub-gatsby-secrets
+  OKTA_URL: devhub-gatsby-secrets
+  OKTA_CLIENT_ID: devhub-gatsby-secrets
+  ENABLE_GATSBY_REFRESH_ENDPOINT: devhub-gatsby-secrets
+  NPM_BASE_64_AUTH: devhub-gatsby-secrets
+  NPM_EMAIL: devhub-gatsby-secrets

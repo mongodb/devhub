@@ -99,17 +99,11 @@ const FeaturedProject = () => {
         ['strapiStudentSpotlightFeatured', 'FeaturedGalleryProject'],
         []
     );
-    const {
-        image_url,
-        description,
-        name,
-        slug,
-        students,
-        tags,
-    } = transformProjectStrapiData(project);
+    const { image_url, description, name, slug, students, tags } =
+        transformProjectStrapiData(project);
     const isMobile = useMedia(screenSize.upToLarge);
     const ProjectDetails = () => (
-        <div>
+        <div data-test="featured-project-details">
             <RelativePositionedBadge contentType="featured" />
             <ProjectName>{name}</ProjectName>
             <DescriptionText>{description}</DescriptionText>
@@ -121,7 +115,7 @@ const FeaturedProject = () => {
         </div>
     );
     return (
-        <BottomBorderOnMobile>
+        <BottomBorderOnMobile data-test="featured-project">
             <GridWithBottomBorder
                 mobileLayout={{ rowSpan: [1], colSpan: [1] }}
                 layout={gridLayout}

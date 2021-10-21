@@ -52,6 +52,7 @@ const SocialIcon = ({ type, href, ...props }) => {
     };
     const Icon = iconMap[type];
     const isClickable = href || props.onClick;
+    const id = type === 'success' ? 'success' : undefined;
     return (
         <SocialLink
             onMouseEnter={() =>
@@ -65,7 +66,12 @@ const SocialIcon = ({ type, href, ...props }) => {
             isClickable={isClickable}
             {...props}
         >
-            <Icon color={color} width={size.default} height={size.default} />
+            <Icon
+                color={color}
+                width={size.default}
+                height={size.default}
+                id={id}
+            />
         </SocialLink>
     );
 };
@@ -75,12 +81,8 @@ const SocialIcon = ({ type, href, ...props }) => {
  */
 const ShareMenu = ({ title, Trigger, url, position = 'right', ...props }) => {
     const [showCopyMessage, setShowCopyMessage] = useState(false);
-    const {
-        articleUrl,
-        facebookUrl,
-        linkedInUrl,
-        twitterUrl,
-    } = getArticleShareLinks(title, url);
+    const { articleUrl, facebookUrl, linkedInUrl, twitterUrl } =
+        getArticleShareLinks(title, url);
     const onCopyLink = useCallback(
         e => {
             e.preventDefault();

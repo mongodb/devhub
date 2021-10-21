@@ -11,7 +11,8 @@ const Container = styled('div')`
     margin: ${size.xlarge} auto;
     text-align: center;
 `;
-export default () => (
+
+const FourZeroFour = () => (
     <Layout includeCanonical={false}>
         <Helmet>
             <title>404 | MongoDB Developer Hub</title>
@@ -25,3 +26,5 @@ export default () => (
         </Container>
     </Layout>
 );
+
+export default FourZeroFour;

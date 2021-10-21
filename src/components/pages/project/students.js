@@ -6,7 +6,7 @@ import ArrowheadIcon from '~components/dev-hub/icons/arrowhead-icon';
 import GithubIcon from '~components/dev-hub/icons/github';
 import LinkedinIcon from '~components/dev-hub/icons/linkedin';
 import YoutubeIcon from '~components/dev-hub/icons/youtube';
-import AuthorImage from '~components/dev-hub/author-image';
+import ProfileImage from '~components/dev-hub/profile-image';
 import { P3, H5 } from '~components/dev-hub/text';
 import { screenSize, size } from '~components/dev-hub/theme';
 import Link from '~components/Link';
@@ -114,13 +114,13 @@ const Student = ({ student }) => {
     const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
     const arrowDirection = useMemo(() => (isOpen ? 'up' : 'right'), [isOpen]);
     return (
-        <StudentLi>
+        <StudentLi data-test="student">
             <StudentToggle
                 onClick={toggleIsOpen}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
-                <AuthorImage
+                <ProfileImage
                     gradientOffset={AUTHOR_IMAGE_GRADIENT_WIDTH}
                     hideOnMobile={false}
                     height={AUTHOR_IMAGE_SIZE}
