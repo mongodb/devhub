@@ -28,6 +28,7 @@ const PageHelmet = ({ description, image, pagePath, title, ...props }) => {
             ogDescription={metaDescription}
             ogTitle={metaTitle}
             ogUrl={canonicalUrl}
+            title={metaTitle}
             type="website"
             twitter={{
                 description: metaDescription,
