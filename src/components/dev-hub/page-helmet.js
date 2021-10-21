@@ -17,7 +17,7 @@ const PageHelmet = ({ description, image, pagePath, title, ...props }) => {
     const metaTitle = title || standardTitle;
     const canonicalUrl = pagePath
         ? addTrailingSlashIfMissing(`${siteUrl}${pagePath}`)
-        : siteUrl;
+        : addTrailingSlashIfMissing(siteUrl);
 
     return (
         <SEO

@@ -3,12 +3,12 @@
 exports[`PageHelmet renders standard correctly 1`] = `
 <SEO
   articleTitle="Standard title"
-  canonicalUrl="https://developer.mongodb.com"
+  canonicalUrl="https://developer.mongodb.com/"
   image="https://developer.mongodb.com/public/images/social_share_generic.png"
   metaDescription="Code, content, tutorials, programs and community to enable developers of all skill levels on the MongoDB Data Platform which includes Atlas, Realm, Compass, Data Lake and more. Whether you're coding in Java, JavaScript, C#, Python, Node, Go or looking for how this fits with IOT, AI, ML - join or follow us here."
   ogDescription="Code, content, tutorials, programs and community to enable developers of all skill levels on the MongoDB Data Platform which includes Atlas, Realm, Compass, Data Lake and more. Whether you're coding in Java, JavaScript, C#, Python, Node, Go or looking for how this fits with IOT, AI, ML - join or follow us here."
   ogTitle="Standard title"
-  ogUrl="https://developer.mongodb.com"
+  ogUrl="https://developer.mongodb.com/"
   title="Standard title"
   twitter={
     Object {
