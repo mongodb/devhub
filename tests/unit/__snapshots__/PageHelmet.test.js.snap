@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageHelmet renders standard correctly 1`] = `
+<SEO
+  articleTitle="Standard title"
+  canonicalUrl="https://developer.mongodb.com/"
+  image="https://developer.mongodb.com/public/images/social_share_generic.png"
+  metaDescription="Code, content, tutorials, programs and community to enable developers of all skill levels on the MongoDB Data Platform which includes Atlas, Realm, Compass, Data Lake and more. Whether you're coding in Java, JavaScript, C#, Python, Node, Go or looking for how this fits with IOT, AI, ML - join or follow us here."
+  ogDescription="Code, content, tutorials, programs and community to enable developers of all skill levels on the MongoDB Data Platform which includes Atlas, Realm, Compass, Data Lake and more. Whether you're coding in Java, JavaScript, C#, Python, Node, Go or looking for how this fits with IOT, AI, ML - join or follow us here."
+  ogTitle="Standard title"
+  ogUrl="https://developer.mongodb.com/"
+  title="Standard title"
+  twitter={
+    Object {
+      "description": "Code, content, tutorials, programs and community to enable developers of all skill levels on the MongoDB Data Platform which includes Atlas, Realm, Compass, Data Lake and more. Whether you're coding in Java, JavaScript, C#, Python, Node, Go or looking for how this fits with IOT, AI, ML - join or follow us here.",
+      "image": "https://developer.mongodb.com/public/images/social_share_generic.png",
+      "title": "Standard title",
+    }
+  }
+  type="website"
+/>
+`;
+
+exports[`PageHelmet renders with custom props correctly 1`] = `
+<SEO
+  articleTitle="Test Title"
+  canonicalUrl="https://developer.mongodb.com/test-url.com/"
+  image="https://developer.mongodb.com/public/images/social_share_generic.png"
+  metaDescription="test description"
+  ogDescription="test description"
+  ogTitle="Test Title"
+  ogUrl="https://developer.mongodb.com/test-url.com/"
+  title="Test Title"
+  twitter={
+    Object {
+      "description": "test description",
+      "image": "https://developer.mongodb.com/public/images/social_share_generic.png",
+      "title": "Test Title",
+    }
+  }
+  type="test prop"
+/>
+`;
