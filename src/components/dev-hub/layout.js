@@ -14,6 +14,8 @@ import TopBanner from './top-banner';
 import '../../styles/font.css';
 import 'typeface-fira-mono';
 
+const FOOTER_LOGO_WIDTH = '152px';
+
 const globalStyles = theme => css`
     html {
         box-sizing: border-box;
@@ -68,10 +70,14 @@ const MaxWidthFooterContainer = styled('div')`
     border-top: 1px solid ${({ theme }) => theme.colorMap.greyDarkTwo};
     margin: 0 auto;
     max-width: ${size.maxWidth};
-    width: 100%;
-    div:first-of-type {
-        max-width: unset;
+    div {
+        max-width: 100%;
+        /* We expand the nav but want the logo to remain at a fixed width */
+        & > a > img {
+            max-width: ${FOOTER_LOGO_WIDTH};
+        }
     }
+    width: 100%;
 `;
 
 export const StorybookLayout = ({ children }) => {
