@@ -1,6 +1,5 @@
 import React from 'react';
 import Layout from '../components/dev-hub/layout';
-import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import { fontSize, screenSize, size } from '../components/dev-hub/theme';
 import { H3, ArticleH2, ArticleH4, P, P3 } from '../components/dev-hub/text';
@@ -13,6 +12,7 @@ import WildAidDashboard from '../images/code-for-good/wild-aid-dashboard.png';
 import VesselRecord from '../images/code-for-good/vessel-record.png';
 import Link from '../components/dev-hub/link';
 import { FORUMS_URL } from '~src/constants';
+import PageHelmet from '~components/dev-hub/page-helmet';
 
 const CAPTION_MAX_WIDTH = '345px';
 const BODY_TEXT_MAX_WIDTH = '320px';
@@ -190,8 +190,10 @@ const HeaderActionsContainer = styled('div')`
     padding-top: ${size.large};
 `;
 
-const OFishPage = () => {
-    const metadata = useSiteMetadata();
+const PAGE_DESCRIPTION =
+    'Use your current MongoDB skills and pick up new ones. Contribute back to O-FISH and help protect our oceans.';
+const OFishPage = ({ path }) => {
+    const { title } = useSiteMetadata();
     const codeForGoodBreadcrumbs = [
         { label: 'Home', target: '/' },
         { label: 'Code for Good', target: '/code-for-good' },
@@ -199,9 +201,11 @@ const OFishPage = () => {
 
     return (
         <Layout>
-            <Helmet>
-                <title>Code for Good - {metadata.title}</title>
-            </Helmet>
+            <PageHelmet
+                description={PAGE_DESCRIPTION}
+                title={`Code for Good - ${title}`}
+                pagePath={path}
+            />
             <StyledHeroBanner
                 breadcrumb={codeForGoodBreadcrumbs}
                 background={BackgroundWaves}
@@ -216,11 +220,7 @@ const OFishPage = () => {
 
                             <H3>Make a difference with MongoDB</H3>
 
-                            <StyledP>
-                                Use your current MongoDB skills and pick up new
-                                ones. Contribute back to O-FISH and help protect
-                                our oceans.
-                            </StyledP>
+                            <StyledP>{PAGE_DESCRIPTION}</StyledP>
                         </HeaderText>
                         <HeaderActionsContainer>
                             <StyledButton

@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '~components/dev-hub/layout';
-import SEO from '~components/dev-hub/SEO';
+import PageHelmet from '~components/dev-hub/page-helmet';
 import {
     ProjectGrid,
     TopBanner,
@@ -14,7 +14,7 @@ const AcademiaLandingPage = ({ location }) => {
     const fullUrl = removePathPrefixFromUrl(`${siteUrl}${location.pathname}`);
     return (
         <Layout>
-            <SEO
+            <PageHelmet
                 title="MongoDB for Academia"
                 ogUrl={fullUrl}
                 metaDescription="MongoDB for Academia is your home for resources, tools, and community support while you learn or teach MongoDB!"
