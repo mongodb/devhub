@@ -1,3 +1,5 @@
+import { EVENTS_WEBINARS_OVERVIEW } from '../../src/constants';
+
 describe('Community Page', () => {
     it('should have some events', () => {
         cy.mockEventsApi();
@@ -36,6 +38,6 @@ describe('Community Page', () => {
     it('should have a link to all of the events', () => {
         cy.contains('See all events')
             .should('have.attr', 'href')
-            .should('contain', '/community/events');
+            .should('contain', EVENTS_WEBINARS_OVERVIEW);
     });
 });
