@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Helmet } from 'react-helmet';
 import { css } from '@emotion/react';
 import Button from '../../components/dev-hub/button';
 import HeroBanner from '../../components/dev-hub/hero-banner';
@@ -12,6 +11,7 @@ import { screenSize, fontSize, size } from '../../components/dev-hub/theme';
 import communityHeroBackground from '../../images/1x/Community-hero.png';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import { FORUMS_URL } from '~src/constants';
+import PageHelmet from '~components/dev-hub/page-helmet';
 
 const sectionPadding = css`
     padding: ${size.xlarge} ${size.medium};
@@ -72,13 +72,11 @@ const CommunityHeroBanner = styled(HeroBanner)`
     }
 `;
 
-const CommunityPage = () => {
+const CommunityPage = ({ path }) => {
     const { title } = useSiteMetadata();
     return (
         <Layout>
-            <Helmet>
-                <title>Community - {title}</title>
-            </Helmet>
+            <PageHelmet title={`Community - ${title}`} pagePath={path} />
             <UpcomingEvents>
                 <EventsHeader>
                     <SectionTitle bold>Upcoming Events</SectionTitle>

@@ -81,12 +81,8 @@ const SocialIcon = ({ type, href, ...props }) => {
  */
 const ShareMenu = ({ title, Trigger, url, position = 'right', ...props }) => {
     const [showCopyMessage, setShowCopyMessage] = useState(false);
-    const {
-        articleUrl,
-        facebookUrl,
-        linkedInUrl,
-        twitterUrl,
-    } = getArticleShareLinks(title, url);
+    const { articleUrl, facebookUrl, linkedInUrl, twitterUrl } =
+        getArticleShareLinks(title, url);
     const onCopyLink = useCallback(
         e => {
             e.preventDefault();

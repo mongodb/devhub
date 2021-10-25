@@ -11,7 +11,7 @@ const FrontLayeredNav = styled(UnifiedNav)`
 `;
 
 const ConsistentNav = () => (
-    <FrontLayeredNav position="sticky" property="DEVHUB" />
+    <FrontLayeredNav position="sticky" property="DEVHUB" floraTheme="default" />
 );
 
 export default ConsistentNav;

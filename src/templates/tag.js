@@ -14,6 +14,7 @@ import ProfileImage from '../components/dev-hub/profile-image';
 import { H2, H3, P, P3 } from '../components/dev-hub/text';
 import { screenSize, size } from '../components/dev-hub/theme';
 import { parseQueryString } from '~utils/query-string';
+import PageHelmet from '~components/dev-hub/page-helmet';
 
 const Title = H2.withComponent('h1');
 
@@ -71,19 +72,21 @@ const Tag = props => {
             type,
         },
         location: { search },
+        path,
     } = props;
     const metadata = useSiteMetadata();
     const isAuthor = type === 'author';
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
     const { page } = parseQueryString(search);
 
+    const metaTitle = `${name} - ${page ? `Page ${page} - ` : ''}${
+        metadata.title
+    }`;
+
     return (
         <Layout>
+            <PageHelmet pagePath={path} title={metaTitle} />
             <Helmet>
-                <title>
-                    {name} - {page ? `Page ${page} - ` : ''}
-                    {metadata.title}
-                </title>
                 {!isAuthor && <meta name="robots" content="noindex" />}
             </Helmet>
             <HeroBanner
