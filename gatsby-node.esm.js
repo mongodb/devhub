@@ -186,20 +186,22 @@ export const createPages = async ({ actions, graphql }) => {
     }));
 
     await createClientSideRedirects(graphql, createRedirect);
+
     const { allVideos, allPodcasts, podcastSeries } =
         await fetchBuildTimeMedia();
+
+    const allContent = [articlesWithoutContentAST, allPodcasts].flat();
+
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
     tagTypes.forEach(type => {
         const isAuthorType = type === 'author';
         if (isAuthorType) {
-            tagPageDirectory[type] = aggregateAuthorInformation(
-                articlesWithoutContentAST
-            );
+            tagPageDirectory[type] = aggregateAuthorInformation(allContent);
         } else {
             const mappedType = pluralizeIfNeeded[type];
             tagPageDirectory[type] = aggregateItemsWithTagType(
-                articlesWithoutContentAST,
+                allContent,
                 mappedType,
                 type !== mappedType
             );

@@ -1,6 +1,6 @@
-import { YoutubeResponse } from '../interfaces/responses/youtube-response';
+import { VideoResponse } from '../interfaces/responses/video-response';
 import { YoutubeVideo } from '../classes/youtube-video';
 
 export const transformYoutubeResponse = (
-    responseData: YoutubeResponse
-): YoutubeVideo => new YoutubeVideo(responseData);
+    video: VideoResponse
+): YoutubeVideo => new YoutubeVideo(video);

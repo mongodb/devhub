@@ -115,6 +115,9 @@ const Video = ({
             title,
             videoId,
             mediaType,
+            tags,
+            products,
+            languages
         },
     },
 }: VideoProps) => {
@@ -122,7 +125,7 @@ const Video = ({
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
     const capitalizedBreadcrumb =
         mediaType.charAt(0).toUpperCase() + mediaType.slice(1);
-
+    const tagList = [...products, ...languages, ...tags];
     const videoBreadcrumb = useMemo(() => {
         return [
             ...VIDEO_BREADCRUMB,

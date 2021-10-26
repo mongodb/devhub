@@ -5,12 +5,12 @@ const simplifyPodcast = podcast => {
         mediaType: 'podcast',
         title: podcast['title'],
         publishDate: podcast['originalPublishDate'],
-        description: podcast['description'],
+        description: podcast['description'].replace(/<[^>]+>/g, ''),
         rawDescription: podcast['description'].replace(
             /a href/g,
             'a target="_blank" href'
         ),
-        url: podcast['url'],
+        url: podcast['podcastFileUrl'],
         thumbnailUrl: podcast['thumbnailUrl'],
         slug: podcast['slug'],
         tags: mapTagTypeToUrl(
@@ -28,6 +28,7 @@ const simplifyPodcast = podcast => {
             'language',
             true
         ),
+        authors: [],
     };
     return podcastJSON;
 };
