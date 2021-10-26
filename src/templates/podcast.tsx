@@ -215,19 +215,4 @@ const Podcast = ({
         </Layout>
     );
 };
-
-Podcast.propTypes = {
-    pageContext: PropTypes.shape({
-        data: PropTypes.shape({
-            description: PropTypes.string,
-            rawDescription: PropTypes.string,
-            publishDate: PropTypes.string,
-            thumbnailUrl: PropTypes.string,
-            title: PropTypes.string,
-            url: PropTypes.string
-        }),
-        slug: PropTypes.string,
-    }),
-};
-
 export default Podcast;

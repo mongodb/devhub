@@ -2,6 +2,7 @@ import { VideoResponse } from '../interfaces/responses/video-response';
 import { Video } from '~src/interfaces/video';
 import { VideoType } from '~src/types/video-type';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
+import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url'; 
 
 export class TwitchVideo implements Video {
     description: string;
@@ -25,9 +26,11 @@ export class TwitchVideo implements Video {
         this.title = video.title;
         this.videoId = video.videoId;
         this.SEO = video.SEO;
-        this.tags = video.tags;
-        this.products = video.products;
-        this.languages = video.languages;
-        
+        this.tags = mapTagTypeToUrl(video.tags.map(item => item['tag']), 'tag', true);
+        this.products = mapTagTypeToUrl(video.products.map(item => item['product']), 'product', true);
+        this.languages = mapTagTypeToUrl(video.languages.map(item => item['language']), 'language', true);
     }
 }
+
+
+

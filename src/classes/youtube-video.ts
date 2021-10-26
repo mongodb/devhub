@@ -2,6 +2,7 @@ import { Video } from '../interfaces/video';
 import { VideoResponse } from '../interfaces/responses/video-response';
 import { VideoType } from '../types/video-type';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
+import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 
 export class YoutubeVideo implements Video {
     description: string;
@@ -28,6 +29,8 @@ export class YoutubeVideo implements Video {
         this.tags = video.tags;
         this.products = video.products;
         this.languages = video.languages;
-
+        this.tags = mapTagTypeToUrl(video.tags.map(item => item['tag']), 'tag', true);
+        this.products = mapTagTypeToUrl(video.products.map(item => item['product']), 'product', true);
+        this.languages = mapTagTypeToUrl(video.languages.map(item => item['language']), 'language', true);
     }
 }
