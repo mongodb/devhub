@@ -16,6 +16,7 @@ export const createArticlePage = (
         articleInstance.related,
         slugContentMapping
     );
+    console.log(articleInstance);
     const seriesArticles = getSeriesArticles(allSeries, slug);
     createPage({
         path: slug,

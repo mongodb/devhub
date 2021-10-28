@@ -18,7 +18,6 @@ const fetchMedia = async () => {
     const allYoutubeVideos = strapiYoutubeVideos.map(transformYoutubeResponse);
     const allTwitchVideos = strapiTwitchVideos.map(transformTwitchResponse);
 
-    console.log(allYoutubeVideos);
     return {
         allVideos: [allYoutubeVideos, allTwitchVideos].flat(),
         allPodcasts: parsePodcasts(strapiPodcasts),

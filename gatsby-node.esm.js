@@ -190,7 +190,11 @@ export const createPages = async ({ actions, graphql }) => {
     const { allVideos, allPodcasts, podcastSeries } =
         await fetchBuildTimeMedia();
 
-    const allContent = [articlesWithoutContentAST, allPodcasts].flat();
+    const allContent = [
+        articlesWithoutContentAST,
+        allPodcasts,
+        allVideos,
+    ].flat();
 
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];

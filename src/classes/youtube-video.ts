@@ -16,6 +16,7 @@ export class YoutubeVideo implements Video {
     tags: object[];
     products: object[];
     languages: object[];
+    authors: object[];
 
     constructor(video: VideoResponse) {
         this.description = video.description;
@@ -32,5 +33,6 @@ export class YoutubeVideo implements Video {
         this.tags = mapTagTypeToUrl(video.tags.map(item => item['tag']), 'tag', true);
         this.products = mapTagTypeToUrl(video.products.map(item => item['product']), 'product', true);
         this.languages = mapTagTypeToUrl(video.languages.map(item => item['language']), 'language', true);
+        this.authors = [];
     }
 }
