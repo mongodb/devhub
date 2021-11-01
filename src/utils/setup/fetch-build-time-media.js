@@ -1,8 +1,8 @@
 import { initStitch } from './init-stitch';
 import { STITCH_AUTH_APP_ID } from '../../constants';
-import { parsePodcasts } from '../parse-podcasts';
 import { transformTwitchResponse } from '../transform-twitch-response';
 import { transformYoutubeResponse } from '../transform-youtube-response';
+import { transformPodcastResponse } from '../transform-podcast-response';
 import memoizerific from 'memoizerific';
 import axios from 'axios';
 
@@ -17,10 +17,10 @@ const fetchMedia = async () => {
 
     const allYoutubeVideos = strapiYoutubeVideos.map(transformYoutubeResponse);
     const allTwitchVideos = strapiTwitchVideos.map(transformTwitchResponse);
-
+    const allPodcasts = strapiPodcasts.map(transformPodcastResponse);
     return {
         allVideos: [allYoutubeVideos, allTwitchVideos].flat(),
-        allPodcasts: parsePodcasts(strapiPodcasts),
+        allPodcasts: allPodcasts,
         fallbackTwitchVideo: allTwitchVideos[0],
         podcastSeries: await getPodcastsSeriesMapping(),
     };

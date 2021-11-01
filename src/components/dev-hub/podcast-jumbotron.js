@@ -48,7 +48,7 @@ const PodcastJumbotron = ({
     publishDate,
     title,
     tags,
-    authors, //TODO: In Progress
+    authors,
 }) => (
     <HeroBanner background={image} breadcrumb={breadcrumb}>
         <Title collapse>{title}</Title>
@@ -71,6 +71,7 @@ PodcastJumbotron.propTypes = {
     publishDate: PropTypes.string.isRequired,
     tags: PropTypes.array,
     title: PropTypes.string.isRequired,
+    authors: PropTypes.array,
 };
 
 export default PodcastJumbotron;

@@ -1,11 +1,11 @@
-export interface VideoResponse {
+export interface PodcastResponse {
     description: string;
     mediaType: string;
     originalPublishDate: string;
     slug: string;
+    podcastFileUrl: string;
     thumbnailUrl: string;
     title: string;
-    videoId: string;
     SEO: object;
     tags: object[];
     products: object[];

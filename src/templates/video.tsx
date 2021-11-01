@@ -13,6 +13,7 @@ import { useSiteMetadata } from '~hooks/use-site-metadata';
 import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
 import { BannerType } from '~src/types/banner-type';
+import RelatedArticles from '../components/dev-hub/related-articles';
 
 const VIDEO_BREADCRUMB = [
     {
@@ -111,7 +112,9 @@ const Video = ({
             mediaType,
             tags,
             products,
-            languages
+            languages,
+            related,
+            authors,
         },
     },
 }) => {
@@ -174,6 +177,7 @@ const Video = ({
                 maintainSquareAspectRatio={false}
                 bannerType={BannerType.VIDEO}
                 tags={tagList}
+                authors={authors}
             />
             <Container>
                 <Icons>
@@ -200,6 +204,9 @@ const Video = ({
                     />
                 </Content>
             </Container>
+            <RelatedArticles
+                related={related}
+            />
         </Layout>
     );
 };

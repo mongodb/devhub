@@ -14,6 +14,7 @@ import { useSiteMetadata } from '~hooks/use-site-metadata';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
 import parse from 'html-react-parser';
 import ArticleSeries from '../components/dev-hub/article-series';
+import RelatedArticles from '../components/dev-hub/related-articles';
 
 
 const PODCAST_BREADCRUMB = [
@@ -135,7 +136,9 @@ const Podcast = ({
             url: podcastUrl,
             tags,
             products,
-            languages
+            languages,
+            related,
+            authors
         }
     },
 }) => {
@@ -188,6 +191,7 @@ const Podcast = ({
                 publishDate={publishDate}
                 title={title}
                 tags={tagList}
+                authors={authors}
             />
             <Container>
                 <Icons>
@@ -212,6 +216,9 @@ const Podcast = ({
                     />
                 </Content>
             </Container>
+            <RelatedArticles
+                related={related}
+            />
         </Layout>
     );
 };

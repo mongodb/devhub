@@ -227,13 +227,19 @@ export const createPages = async ({ actions, graphql }) => {
     );
     await Promise.all(tagPages);
 
-    await createVideoPages(createPage, allVideos, metadataDocument);
+    await createVideoPages(
+        createPage,
+        allVideos,
+        slugContentMapping,
+        metadataDocument
+    );
 
     await createCommunityChampionProfilePages(createPage, graphql);
 
     await createPodcastPages(
         createPage,
         allPodcasts,
+        slugContentMapping,
         podcastSeries,
         metadataDocument
     );

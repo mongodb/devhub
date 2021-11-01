@@ -11,5 +11,6 @@ export interface Video {
     tags: object[];
     products: object[];
     languages: object[];
-    authors: object[],
+    authors: object[];
+    related: object[];
 }
