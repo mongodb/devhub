@@ -18,6 +18,7 @@ import ArticleSchema from '../components/dev-hub/article-schema';
 import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import ArticleRating from '~components/ArticleRating';
 import { ArticleRatingProvider } from '~components/ArticleRatingContext';
+import ForumEmbed from '~components/dev-hub/forum-embed';
 
 const allowTextWrapping = css`
     /* Wrap words/content across lines */
@@ -239,6 +240,7 @@ const Article = props => {
                     related={related}
                     slugTitleMapping={slugTitleMapping}
                 />
+                <ForumEmbed />
             </Layout>
         </ArticleRatingProvider>
     );

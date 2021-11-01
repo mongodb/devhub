@@ -42,6 +42,7 @@ jobs:
             - name: Build Gatsby
               run: npm run buildTest
               env:
+                  DISCOURSE_URL: ${{ secrets.STAGING_DISCOURSE_URL }}
                   NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
                   NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Cypress run
@@ -51,6 +52,7 @@ jobs:
                   start: npm run serveTest
                   wait-on: 'http://localhost:9000'
               env:
+                  DISCOURSE_URL: ${{ secrets.STAGING_DISCOURSE_URL }}
                   NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
                   NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
             - name: Generate artifacts on failure
