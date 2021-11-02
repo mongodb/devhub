@@ -4,17 +4,20 @@ import { transformTwitchResponse } from '../transform-twitch-response';
 import { transformYoutubeResponse } from '../transform-youtube-response';
 import { transformPodcastResponse } from '../transform-podcast-response';
 import memoizerific from 'memoizerific';
-import axios from 'axios';
 
 const fetchMedia = async () => {
     const client = await initStitch(STITCH_AUTH_APP_ID);
-    const [strapiYoutubeVideos, strapiTwitchVideos, strapiPodcasts] =
-        await Promise.all([
-            getYoutubeVideosFromStrapi(),
-            getTwitchVideosFromStrapi(),
-            getPodcastsFromStrapi(),
-        ]);
-
+    const [
+        strapiYoutubeVideos,
+        strapiTwitchVideos,
+        strapiPodcasts,
+        strapiPodcastSeries,
+    ] = await Promise.all([
+        client.callFunction('fetchYoutubeDataFromStrapi', []),
+        client.callFunction('fetchTwitchDataFromStrapi', []),
+        client.callFunction('fetchPodcastsDataFromStrapi', []),
+        client.callFunction('fetchPodcastsSeriesDataFromStrapi', []),
+    ]);
     const allYoutubeVideos = strapiYoutubeVideos.map(transformYoutubeResponse);
     const allTwitchVideos = strapiTwitchVideos.map(transformTwitchResponse);
     const allPodcasts = strapiPodcasts.map(transformPodcastResponse);
@@ -22,14 +25,11 @@ const fetchMedia = async () => {
         allVideos: [allYoutubeVideos, allTwitchVideos].flat(),
         allPodcasts: allPodcasts,
         fallbackTwitchVideo: allTwitchVideos[0],
-        podcastSeries: await getPodcastsSeriesMapping(),
+        podcastSeries: getPodcastsSeriesMapping(strapiPodcastSeries),
     };
 };
 
-const getPodcastsSeriesMapping = async () => {
-    // TODO replace with realm call
-    const response = await axios.get('http://localhost:1337/podcast-series');
-    const podcastSeries = response.data;
+const getPodcastsSeriesMapping = podcastSeries => {
     const mapping = podcastSeries.map(podcastSeriesItem =>
         getPodcastToSeriesMapping(podcastSeriesItem)
     );
@@ -41,24 +41,6 @@ const getPodcastToSeriesMapping = podcastSeriesItem => {
         return { slug: entry.podcast.slug, title: entry.podcast.title };
     });
     return { articles: podcastItems, title: podcastSeriesItem.title };
-};
-
-const getPodcastsFromStrapi = async () => {
-    // TODO replace with realm call
-    const response = await axios.get('http://localhost:1337/podcasts');
-    return response.data;
-};
-
-const getYoutubeVideosFromStrapi = async () => {
-    // TODO replace with realm call
-    const response = await axios.get('http://localhost:1337/videos');
-    return response.data.filter(d => d.mediaType === 'Youtube');
-};
-
-const getTwitchVideosFromStrapi = async () => {
-    // TODO replace with realm call
-    const response = await axios.get('http://localhost:1337/videos');
-    return response.data.filter(d => d.mediaType === 'Twitch');
 };
 
 export const fetchBuildTimeMedia = memoizerific(1)(
