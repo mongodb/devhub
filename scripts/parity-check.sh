@@ -3,6 +3,7 @@
 if ! command -v sitediff &> /dev/null
 then
     echo "sitediff could not be found, please install to your system and add to PATH"
+    echo "https://github.com/evolvingweb/sitediff/blob/master/INSTALLATION.md#macos"
     exit
 fi
 if [ $# -lt 2 ]; 
