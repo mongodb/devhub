@@ -13,7 +13,12 @@ const getBreadcrumbList = (breadcrumb, siteUrl) =>
             '@type': 'ListItem',
             position: index + 1,
             name: label,
-            item: path === '/' ? siteUrl : addTrailingSlashIfMissing(siteUrl + addLeadingSlashIfMissing(path)),
+            item:
+                path === '/'
+                    ? siteUrl
+                    : addTrailingSlashIfMissing(
+                          siteUrl + addLeadingSlashIfMissing(path)
+                      ),
         };
     });
 

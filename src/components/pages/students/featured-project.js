@@ -99,14 +99,8 @@ const FeaturedProject = () => {
         ['strapiStudentSpotlightFeatured', 'FeaturedGalleryProject'],
         []
     );
-    const {
-        image_url,
-        description,
-        name,
-        slug,
-        students,
-        tags,
-    } = transformProjectStrapiData(project);
+    const { image_url, description, name, slug, students, tags } =
+        transformProjectStrapiData(project);
     const isMobile = useMedia(screenSize.upToLarge);
     const ProjectDetails = () => (
         <div data-test="featured-project-details">
