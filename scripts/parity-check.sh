@@ -11,7 +11,12 @@ if [ $# -lt 2 ];
     exit 2
 fi
 # Take in two URLs
-sitediff init $1 $2
+./scripts/sitediff-pkg/bin/sitediff init $1 $2
 # Compare Articles
-sitediff diff --cached=none --paths $3
+if [ $# -ge 3 ]; then
+  ./scripts/sitediff-pkg/bin/sitediff diff --cached=none --paths $3
+else
+  ./scripts/sitediff-pkg/bin/sitediff diff --cached=none
+fi
 # Report diff
+./scripts/sitediff-pkg/bin/sitediff serve

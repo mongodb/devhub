@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# when run as gem, $0 is /usr/local/bin/sitediff not this file
+if $PROGRAM_NAME == __FILE__
+  $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+end
+
+require 'sitediff/cli'
+
+begin
+  SiteDiff::Cli.start
+rescue Interrupt
+  puts("\n")
+  SiteDiff.log('Stopping. Interrupted by user.')
+end
