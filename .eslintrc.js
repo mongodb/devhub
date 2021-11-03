@@ -15,7 +15,7 @@ module.exports = {
         'plugin:cypress/recommended',
         'plugin:import/errors',
     ],
-    ignorePatterns: ['.gitignore', 'preview/'],
+    ignorePatterns: ['.gitignore', 'preview/', 'scripts/'],
     plugins: ['@emotion', 'cypress', 'jest'],
     rules: {
         '@emotion/syntax-preference': [WARN, 'string'],
