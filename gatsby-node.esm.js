@@ -196,8 +196,12 @@ export const createPages = async ({ actions, graphql }) => {
         allVideos,
     ].flat();
 
+    // console.log(JSON.stringify(allArticles[0]['authors']));
+    // console.log(JSON.stringify(allPodcasts[0]['authors']));
+
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
+
     tagTypes.forEach(type => {
         const isAuthorType = type === 'author';
         if (isAuthorType) {

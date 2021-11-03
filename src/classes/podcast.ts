@@ -3,6 +3,8 @@ import { VideoType } from '~src/types/video-type';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { IPodcast } from '../interfaces/podcast';
+import { transformAuthorStrapiData } from '../utils/setup/transform-author-strapi-data';
+import { StrapiAuthor } from '../classes/strapi-author';
 
 export class Podcast implements IPodcast{
     description: string;
@@ -36,7 +38,8 @@ export class Podcast implements IPodcast{
         this.tags = mapTagTypeToUrl(podcast.tags.map(item => item['tag']), 'tag', true);
         this.products = mapTagTypeToUrl(podcast.products.map(item => item['product']), 'product', true);
         this.languages = mapTagTypeToUrl(podcast.languages.map(item => item['language']), 'language', true);
-        this.authors = podcast.authors;
+        this.authors = podcast.authors.map((a) =>
+            new StrapiAuthor({name: a['name'], bio: a['bio'], location: a['location'], image: a['image']['url'], title: a['title']}));
         this.related = podcast.related_content
             ? podcast.related_content.map(({ label, url }) => ({
                 name: 'reference',
