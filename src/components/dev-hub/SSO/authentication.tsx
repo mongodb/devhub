@@ -70,6 +70,7 @@ const AuthenticationProvider = ({ children }) => {
                     })
                     .then(res => {
                         authClient.tokenManager.setTokens(res?.tokens);
+                        onToken(res?.tokens.idToken);
                     });
             };
             authClient.session.exists().then(resp => {
