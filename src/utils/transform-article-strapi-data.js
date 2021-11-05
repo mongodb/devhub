@@ -27,6 +27,7 @@ export const transformArticleStrapiData = article => {
             ? article.languages.map(l => l.language)
             : [],
         products: article.products ? article.products.map(p => p.product) : [],
+        published_at: article.overwrite_published_at || article.published_at,
         related: article.related_content
             ? article.related_content.map(({ label, url }) => ({
                   name: 'reference',
@@ -57,5 +58,6 @@ export const transformArticleStrapiData = article => {
         slug: fullSlug,
         tags: article.tags ? article.tags.map(t => t.tag) : [],
         type: typeMap[inferredType],
+        updatedAt: article.overwrite_updated_at || article.updatedAt,
     };
 };
