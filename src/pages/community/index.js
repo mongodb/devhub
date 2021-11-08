@@ -80,7 +80,7 @@ const CommunityPage = ({ path }) => {
             <UpcomingEvents>
                 <EventsHeader>
                     <SectionTitle bold>Upcoming Events</SectionTitle>
-                    <Link to={EVENTS_WEBINARS_OVERVIEW} tertiary>
+                    <Link href={EVENTS_WEBINARS_OVERVIEW} tertiary>
                         See all events
                     </Link>
                 </EventsHeader>
