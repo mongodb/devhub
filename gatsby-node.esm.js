@@ -187,17 +187,15 @@ export const createPages = async ({ actions, graphql }) => {
 
     await createClientSideRedirects(graphql, createRedirect);
 
-    const { allVideos, allPodcasts, podcastSeries } =
+    const { allVideos, allPodcasts, podcastSeries, videoSeries } =
         await fetchBuildTimeMedia();
 
+    console.log(videoSeries);
     const allContent = [
         articlesWithoutContentAST,
         allPodcasts,
         allVideos,
     ].flat();
-
-    // console.log(JSON.stringify(allArticles[0]['authors']));
-    // console.log(JSON.stringify(allPodcasts[0]['authors']));
 
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
@@ -235,6 +233,7 @@ export const createPages = async ({ actions, graphql }) => {
         createPage,
         allVideos,
         slugContentMapping,
+        videoSeries,
         metadataDocument
     );
 

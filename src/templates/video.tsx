@@ -14,6 +14,7 @@ import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
 import { BannerType } from '~src/types/banner-type';
 import RelatedArticles from '../components/dev-hub/related-articles';
+import ArticleSeries from '../components/dev-hub/article-series';
 
 const VIDEO_BREADCRUMB = [
     {
@@ -102,6 +103,7 @@ const StyledShareFooter = styled(ShareFooter)`
 
 const Video = ({
     pageContext: {
+        seriesVideos,
         data: {
             slug,
             description,
@@ -201,6 +203,10 @@ const Video = ({
                         title={title}
                         url={pageUrl}
                         tags={tagList}
+                    />
+                    <ArticleSeries
+                        allSeriesForArticle={seriesVideos}
+                        title={title}
                     />
                 </Content>
             </Container>
