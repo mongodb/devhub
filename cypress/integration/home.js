@@ -1,3 +1,4 @@
+import { EVENTS_WEBINARS_OVERVIEW } from '../../src/constants';
 const CARDS = '[data-test="card"]';
 const FEATURED_ARTICLES = 'header';
 const PROD_SITE = 'https://www.mongodb.com/developer/';
@@ -63,7 +64,7 @@ describe('Home Page', () => {
         cy.get('[data-test="events"]').within(() => {
             cy.get('a')
                 .should('have.prop', 'href')
-                .should('contain', '/community/events/');
+                .should('eq', EVENTS_WEBINARS_OVERVIEW);
         });
     });
     it('should have relevant SEO tags', () => {
