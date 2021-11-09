@@ -13,10 +13,10 @@ const FrontLayeredNav = styled(UnifiedNav)`
 `;
 
 const ConsistentNav = () => {
-    const { pathname } = useLocation();
-    const returnLink = `${getSsoRegistrationLink()}&return_to=${encodeURIComponent(
-        pathname
-    )}`;
+    const { origin, pathname } = useLocation();
+    const returnLink = `${getSsoRegistrationLink(
+        origin
+    )}&return_to=${encodeURIComponent(pathname)}`;
     return (
         <FrontLayeredNav
             position="sticky"
