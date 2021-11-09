@@ -9,6 +9,7 @@ import AllEventsBackgroundImage from '../../images/1x/all-events-hero.png';
 import { size } from '../../components/dev-hub/theme';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import PageHelmet from '~components/dev-hub/page-helmet';
+import { EVENTS_WEBINARS_OVERVIEW } from '../../constants';
 const EventsFilter = styled('div')`
     margin-bottom: ${size.medium};
 `;
@@ -31,8 +32,9 @@ const CommunityEvents = ({ path }) => {
     const { title } = useSiteMetadata();
 
     return (
-        <Layout>
+        <Layout includeCanonical={false}>
             <PageHelmet
+                canonicalUrl={EVENTS_WEBINARS_OVERVIEW}
                 title={`Events - ${title}`}
                 pagePath={path}
                 description={PAGE_DESCRIPTION}

@@ -10,7 +10,7 @@ import { H2, P } from '../../components/dev-hub/text';
 import { screenSize, fontSize, size } from '../../components/dev-hub/theme';
 import communityHeroBackground from '../../images/1x/Community-hero.png';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
-import { FORUMS_URL } from '~src/constants';
+import { EVENTS_WEBINARS_OVERVIEW, FORUMS_URL } from '~src/constants';
 import PageHelmet from '~components/dev-hub/page-helmet';
 
 const sectionPadding = css`
@@ -80,12 +80,12 @@ const CommunityPage = ({ path }) => {
             <UpcomingEvents>
                 <EventsHeader>
                     <SectionTitle bold>Upcoming Events</SectionTitle>
-                    <Link to="/community/events" tertiary>
+                    <Link href={EVENTS_WEBINARS_OVERVIEW} tertiary>
                         See all events
                     </Link>
                 </EventsHeader>
                 <EventsListPreview />
-                <MobileViewAllBtn to="/community/events" secondary>
+                <MobileViewAllBtn href={EVENTS_WEBINARS_OVERVIEW} secondary>
                     View all
                 </MobileViewAllBtn>
             </UpcomingEvents>
