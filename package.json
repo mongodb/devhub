@@ -67,6 +67,7 @@
     "html-react-parser": "^1.2.7",
     "html-to-text": "^8.0.0",
     "lodash": "^4.17.21",
+    "marked": "^4.0.0",
     "memoizerific": "^1.11.3",
     "mongodb-stitch-browser-sdk": "^4.8.0",
     "mongodb-stitch-server-sdk": "^4.8.0",
