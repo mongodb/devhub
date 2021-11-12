@@ -44,12 +44,8 @@ const BlogShareLinks = ({
     url,
     ...props
 }) => {
-    const {
-        articleUrl,
-        facebookUrl,
-        linkedInUrl,
-        twitterUrl,
-    } = getArticleShareLinks(title, url);
+    const { articleUrl, facebookUrl, linkedInUrl, twitterUrl } =
+        getArticleShareLinks(title, url);
     const [showCopyMessage, setShowCopyMessage] = useState(false);
     const onCopyLink = useCallback(
         e => {
