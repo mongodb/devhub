@@ -112,12 +112,12 @@ module.exports = {
         //     },
         // },
         'gatsby-plugin-meta-redirect', // this must be last
-        {
-            resolve: `gatsby-plugin-s3`,
-            options: {
-                bucketName: 'devhub-ui-prod',
-            },
-        },
+        // {
+        //     resolve: `gatsby-plugin-s3`,
+        //     options: {
+        //         bucketName: 'devhub-ui-prod',
+        //     },
+        // },
     ],
     siteMetadata: {
         ...metadata,
