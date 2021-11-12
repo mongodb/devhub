@@ -104,14 +104,20 @@ module.exports = {
                       },
                   },
               ]),
+        // {
+        //     resolve: 'gatsby-plugin-feed',
+        //     options: {
+        //         query: siteUrl,
+        //         feeds: [articleRssFeed(SITE_URL), searchRssFeed(SITE_URL)],
+        //     },
+        // },
+        'gatsby-plugin-meta-redirect', // this must be last
         {
-            resolve: 'gatsby-plugin-feed',
+            resolve: `gatsby-plugin-s3`,
             options: {
-                query: siteUrl,
-                feeds: [articleRssFeed(SITE_URL), searchRssFeed(SITE_URL)],
+                bucketName: 'devhub-ui-prod',
             },
         },
-        'gatsby-plugin-meta-redirect', // this must be last
     ],
     siteMetadata: {
         ...metadata,

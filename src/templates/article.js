@@ -116,7 +116,8 @@ const Article = props => {
     const {
         pageContext: {
             seriesArticles,
-            metadata: { slugToTitle: slugTitleMapping },
+            //metadata: { slugToTitle: slugTitleMapping },
+            metadata,
             article: {
                 authors,
                 contentAST,
@@ -218,7 +219,7 @@ const Article = props => {
                     <ArticleContent>
                         <DocumentBody
                             pageNodes={contentAST}
-                            slugTitleMapping={slugTitleMapping}
+                            //slugTitleMapping={slugTitleMapping}
                             slug={slug}
                             {...rest}
                         />
@@ -230,15 +231,14 @@ const Article = props => {
                         />
                         <ArticleSeries
                             allSeriesForArticle={seriesArticles}
-                            slugTitleMapping={slugTitleMapping}
                             title={title}
                         />
                     </ArticleContent>
                 </Container>
-                <RelatedArticles
-                    related={related}
-                    slugTitleMapping={slugTitleMapping}
-                />
+                {/*<RelatedArticles*/}
+                {/*    related={related}*/}
+                {/*    slugTitleMapping={slugTitleMapping}*/}
+                {/*/>*/}
             </Layout>
         </ArticleRatingProvider>
     );
