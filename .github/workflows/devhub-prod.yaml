@@ -53,4 +53,5 @@ jobs:
         uses: jonelantha/gatsby-s3-action@v1
         with:
             dest-s3-bucket: devhub-ui-prod
+            dest-s3-path: developer
             public-source-path: ./public/
