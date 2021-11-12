@@ -97,8 +97,9 @@ export default React.memo(
         // has been done
         let fullContentList = [];
         if (!textFilterQuery) {
-            fullContentList =
-                all || sortCardsByDate(videos.concat(articles, podcasts));
+            fullContentList = sortCardsByDate(
+                videos.concat(articles, podcasts)
+            );
         } else {
             if (all && all.length > 0) {
                 fullContentList = all;
