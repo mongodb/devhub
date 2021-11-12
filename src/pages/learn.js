@@ -239,11 +239,26 @@ const LearnPage = ({
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
     const [textFilterQuery, setTextFilterQuery] = useState(filterValue['text']);
-    const { results: textFilterResults } = useTextFilter(textFilterQuery);
+
+    const activeContentTab = useMemo(() => {
+        const currentContentFilter = filterValue['content'];
+        if (currentContentFilter) {
+            return (
+                LearnPageTabs[filterValue['content']] || filterValue['content']
+            );
+        }
+        return LearnPageTabs.all;
+    }, [filterValue]);
+
+    const { results: textFilterResults } = useTextFilter(
+        textFilterQuery,
+        activeContentTab
+    );
     const filterActiveArticles = useCallback(
         filter => filterArticles(filter, allArticles),
         [allArticles]
     );
+
     // Update the filter value for page so it behaves nicely with query params
     const updateAllPageFilters = useCallback(search => {
         const newFilterValues = parseQueryString(search);
@@ -252,9 +267,11 @@ const LearnPage = ({
             setTextFilterQuery(null);
         }
     }, []);
+
     useEffect(() => {
         updateAllPageFilters(search);
     }, [search, updateAllPageFilters]);
+
     const updateTextFilterQuery = useCallback(
         query => {
             setTextFilterQuery(query);
@@ -267,6 +284,7 @@ const LearnPage = ({
         },
         [filterValue]
     );
+
     const updateFilterQueryParams = useCallback(
         filterValue => {
             const filter = stripAllParam(filterValue);
@@ -289,16 +307,18 @@ const LearnPage = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [filterActiveArticles, pathname]
     );
+
     useEffect(() => {
         updateFilterQueryParams(filterValue);
     }, [filterValue, updateFilterQueryParams]);
+
     // filterValue could be {} on a page load, or values can be "all" if toggled back
-    const hasNoFilter = useMemo(
-        () =>
+    const hasNoFilter = useMemo(() => {
+        return (
             (!filterValue.languages || filterValue.languages === 'all') &&
-            (!filterValue.products || filterValue.products === 'all'),
-        [filterValue]
-    );
+            (!filterValue.products || filterValue.products === 'all')
+        );
+    }, [filterValue]);
 
     const updateActiveFilter = useCallback(
         newTab => {
@@ -312,25 +332,10 @@ const LearnPage = ({
         [filterValue]
     );
 
-    const activeContentTab = useMemo(() => {
-        const currentContentFilter = filterValue['content'];
-        if (currentContentFilter) {
-            return (
-                LearnPageTabs[filterValue['content']] || filterValue['content']
-            );
-        }
-        return LearnPageTabs.all;
-    }, [filterValue]);
-
     // If the user is on a tab not supporting the text filter, ignore the filter
-    const showTextFilterResults = useMemo(
-        () =>
-            (activeContentTab === LearnPageTabs.all ||
-                activeContentTab === LearnPageTabs.articles) &&
-            textFilterQuery &&
-            textFilterResults,
-        [activeContentTab, textFilterQuery, textFilterResults]
-    );
+    const showTextFilterResults = useMemo(() => {
+        return textFilterQuery && textFilterResults;
+    }, [activeContentTab, textFilterQuery, textFilterResults]);
 
     const leftTabs = [LearnPageTabs.all];
     const rightTabs = [
@@ -358,8 +363,44 @@ const LearnPage = ({
         }
     };
 
-    const { page } = filterValue;
+    /**
+     * Renders a CardList component with the filter results
+     * @returns A CardList Component
+     */
+    const ActiveCardListFilter = () => {
+        switch (activeContentTab) {
+            case LearnPageTabs.articles:
+                return (
+                    <CardList
+                        articles={textFilterResults}
+                        textFilterQuery={textFilterQuery}
+                    />
+                );
+            case LearnPageTabs.videos:
+                return (
+                    <CardList
+                        videos={textFilterResults}
+                        textFilterQuery={textFilterQuery}
+                    />
+                );
+            case LearnPageTabs.podcasts:
+                return (
+                    <CardList
+                        podcasts={textFilterResults}
+                        textFilterQuery={textFilterQuery}
+                    />
+                );
+            default:
+                return (
+                    <CardList
+                        all={textFilterResults}
+                        textFilterQuery={textFilterQuery}
+                    />
+                );
+        }
+    };
 
+    const { page } = filterValue;
     return (
         <Layout>
             <Helmet>
@@ -386,20 +427,18 @@ const LearnPage = ({
             />
 
             <Article>
-                {(activeContentTab === LearnPageTabs.all ||
-                    activeContentTab === LearnPageTabs.articles) && (
-                    <StyledFilterBar
-                        filters={filters}
-                        filterValue={filterValue}
-                        setFilterValue={setFilterValue}
-                        setTextFilterQuery={updateTextFilterQuery}
-                        textFilterQuery={textFilterQuery}
-                    />
-                )}
+                <StyledFilterBar
+                    filters={filters}
+                    filterValue={filterValue}
+                    setFilterValue={setFilterValue}
+                    setTextFilterQuery={updateTextFilterQuery}
+                    textFilterQuery={textFilterQuery}
+                    activeContentTab={activeContentTab}
+                />
 
                 {showTextFilterResults ? (
                     textFilterResults.length ? (
-                        <CardList all={textFilterResults} />
+                        <ActiveCardListFilter />
                     ) : (
                         <EmptyTextFilterResults />
                     )

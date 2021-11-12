@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Select from './select';
 import TextFilterInput from './text-filter-input';
 import { screenSize, size } from './theme';
+import { LearnPageTabs } from '../../utils/learn-page-tabs';
 
 // Promote Atlas in filters by bringing to top, otherwise sort by count of items
 const raiseAtlasAndSortByCount = (getCount, a, b) => {
@@ -63,6 +64,7 @@ export default React.memo(
         setFilterValue,
         setTextFilterQuery,
         textFilterQuery,
+        activeContentTab,
         ...props
     }) => {
         const initialLanguages = useMemo(
@@ -137,7 +139,7 @@ export default React.memo(
         return (
             <FilterBar data-test="filter-bar" {...props}>
                 <TextFilterInput
-                    placeholder="Search Articles"
+                    placeholder={`Search ${activeContentTab}`}
                     onChange={onTextFilterChange}
                     value={textFilterQuery}
                 />
@@ -145,7 +147,11 @@ export default React.memo(
                     <FilterLabel>Filter By</FilterLabel>
                     <SelectWrapper>
                         <Select
-                            enabled={!textFilterQuery}
+                            enabled={
+                                !textFilterQuery &&
+                                (activeContentTab === LearnPageTabs.all ||
+                                    activeContentTab === LearnPageTabs.articles)
+                            }
                             narrow
                             name="product"
                             choices={products}
@@ -157,7 +163,11 @@ export default React.memo(
                     </SelectWrapper>
                     <SelectWrapper>
                         <Select
-                            enabled={!textFilterQuery}
+                            enabled={
+                                !textFilterQuery &&
+                                (activeContentTab === LearnPageTabs.all ||
+                                    activeContentTab === LearnPageTabs.articles)
+                            }
                             narrow
                             name="language"
                             choices={languages}

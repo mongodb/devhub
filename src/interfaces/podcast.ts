@@ -6,5 +6,6 @@ export interface Podcast {
     slug?: string;
     thumbnailUrl: string;
     title: string;
-    url: string;
+    url?: string;
+    podcastId: string;
 }

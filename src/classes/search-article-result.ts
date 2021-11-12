@@ -24,6 +24,7 @@ export class SearchArticleResult implements Article {
     title: String;
     type: ArticleCategory;
     updatedDate: String;
+    mediaType: String;
     constructor(result) {
         this._id = result._id;
         this.authors = [];
@@ -37,6 +38,7 @@ export class SearchArticleResult implements Article {
         // Below is not passed from Realm
         this.related = [];
         this.slug = result.slug;
+        this.mediaType = result.mediaType;
         // We don't need below for cards
         //@ts-ignore
         this.SEO = {};

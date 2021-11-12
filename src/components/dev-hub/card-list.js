@@ -65,7 +65,7 @@ const renderPodcast = podcast => (
 );
 
 const renderContentTypeCard = item => {
-    if (item.mediaType)
+    if (item.mediaType) {
         switch (item.mediaType) {
             case 'youtube':
             case 'twitch':
@@ -73,21 +73,43 @@ const renderContentTypeCard = item => {
             case 'podcast':
                 return renderPodcast(item);
             default:
-                return;
+                return renderArticle(item);
         }
+    }
+    // Some items don't have mediaType. In that case, they are articles
     return renderArticle(item);
 };
 
 export default React.memo(
-    ({ all, videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
+    ({
+        all,
+        videos,
+        articles,
+        podcasts,
+        textFilterQuery,
+        limit = CARD_LIST_LIMIT,
+    }) => {
         videos = videos || [];
         articles = articles || [];
         podcasts = podcasts || [];
 
         // If we provide "all", we don't need to sort. We can assume any sorting
         // has been done
-        const fullContentList =
-            all || sortCardsByDate(videos.concat(articles, podcasts));
+        let fullContentList = [];
+        if (!textFilterQuery) {
+            fullContentList =
+                all || sortCardsByDate(videos.concat(articles, podcasts));
+        } else {
+            if (all && all.length > 0) {
+                fullContentList = all;
+            } else if (articles.length > 0) {
+                fullContentList = articles;
+            } else if (videos.length > 0) {
+                fullContentList = videos;
+            } else if (podcasts.length > 0) {
+                fullContentList = podcasts;
+            }
+        }
 
         return (
             <>
