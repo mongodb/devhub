@@ -225,45 +225,47 @@ const Trigger = styled('div')`
 // In order to provide custom positioning of right/left tooltips
 // we must hook into the logic of the library and add the
 // adjustments needed
-const contentLocation = padding => ({ position, popoverRect, targetRect }) => {
-    const targetMidX = targetRect.left + targetRect.width / 2;
-    let top;
-    let left;
-    let topAdjustment = 0; // this is our 'top' adjustment
+const contentLocation =
+    padding =>
+    ({ position, popoverRect, targetRect }) => {
+        const targetMidX = targetRect.left + targetRect.width / 2;
+        let top;
+        let left;
+        let topAdjustment = 0; // this is our 'top' adjustment
 
-    switch (position) {
-        case 'top':
-            // taken from library
-            top = targetRect.top - popoverRect.height - padding;
-            left = targetMidX - popoverRect.width / 2;
-            break;
-        case 'left':
-            // taken from library
-            left = targetRect.left - padding - popoverRect.width;
-            top = targetRect.top;
-            // our adjustment
-            topAdjustment = -20;
-            break;
-        case 'bottom':
-            // taken from library
-            top = targetRect.bottom + padding;
-            left = targetMidX - popoverRect.width / 2;
-            break;
-        case 'right':
-            // taken from library
-            top = targetRect.top;
-            left = targetRect.right + padding;
-            // our adjustment
-            topAdjustment = -20;
-            break;
-        default:
-            break;
-    }
-    const finalTop = top + window.pageYOffset + topAdjustment;
-    const finalLeft = left + window.pageXOffset;
+        switch (position) {
+            case 'top':
+                // taken from library
+                top = targetRect.top - popoverRect.height - padding;
+                left = targetMidX - popoverRect.width / 2;
+                break;
+            case 'left':
+                // taken from library
+                left = targetRect.left - padding - popoverRect.width;
+                top = targetRect.top;
+                // our adjustment
+                topAdjustment = -20;
+                break;
+            case 'bottom':
+                // taken from library
+                top = targetRect.bottom + padding;
+                left = targetMidX - popoverRect.width / 2;
+                break;
+            case 'right':
+                // taken from library
+                top = targetRect.top;
+                left = targetRect.right + padding;
+                // our adjustment
+                topAdjustment = -20;
+                break;
+            default:
+                break;
+        }
+        const finalTop = top + window.pageYOffset + topAdjustment;
+        const finalLeft = left + window.pageXOffset;
 
-    return { top: finalTop, left: finalLeft };
-};
+        return { top: finalTop, left: finalLeft };
+    };
 /**
  * @param {Object<string, any>} props
  * @property {node} props.children

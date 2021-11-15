@@ -38,3 +38,6 @@ export const OLD_SITE_URL = 'https://developer.mongodb.com';
 export const SITE_URL = 'https://www.mongodb.com/developer';
 export const OLD_SUBDOMAIN_FORUMS_URL = `${OLD_SITE_URL}/community/forums/`;
 export const FORUMS_URL = `https://www.mongodb.com/community/forums/`;
+
+export const EVENTS_WEBINARS_OVERVIEW =
+    'https://www.mongodb.com/events-webinars-overview';
