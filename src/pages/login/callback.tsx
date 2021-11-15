@@ -8,7 +8,9 @@ const Callback = ({ location }) => {
     const { authClient, onToken } = useContext(AuthenticationContext);
     const parsedSearchParam = useMemo(
         () =>
-            search ? parseQueryString(search)['return_to'] : __PATH_PREFIX__,
+            search
+                ? parseQueryString(search)['return_to']
+                : __PATH_PREFIX__ || '/',
         [search]
     );
     useEffect(() => {
@@ -37,6 +39,19 @@ const Callback = ({ location }) => {
             const token = await authClient.tokenManager.get('idToken');
             return token;
         };
+        const ensureOktaApplicationSession = async () => {
+            return authClient.token
+                .getWithoutPrompt({
+                    responseType: 'id_token',
+                    scopes: ['openid', 'email', 'profile'],
+                })
+                .then(res => {
+                    authClient.tokenManager.setTokens(res?.tokens);
+                    onToken(res?.tokens?.idToken);
+                    navigate(parsedSearchParam);
+                });
+            // TODO: Add reject logic here - how should we handle a failure to retrieve idp session?
+        };
         async function handleSignIn() {
             if (authClient && authClient.isLoginRedirect()) {
                 // Parse token from redirect url
@@ -48,14 +63,12 @@ const Callback = ({ location }) => {
                     onToken(token);
                     navigate(parsedSearchParam);
                 } else {
-                    authClient.setOriginalUri(parsedSearchParam);
-                    authClient.signInWithRedirect();
+                    ensureOktaApplicationSession();
                 }
             }
         }
         handleSignIn();
     }, [authClient, onToken, parsedSearchParam]);
-    // TODO: Build out login page UX, redirect
     return null;
 };
 

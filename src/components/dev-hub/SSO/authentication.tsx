@@ -11,9 +11,6 @@ import { identifyAuid } from '~utils/identify-auid';
 import { isBrowser } from '~utils/is-browser';
 import { OktaAuth } from '@okta/okta-auth-js';
 
-export const REGISTER_LINK =
-    'https://account-qa.mongodb.com/account/login?fromURI=https%3A%2F%2Fdevhub-local.mongodb.com%3A8000%2Flogin%2Fcallback';
-
 const fetchAuid = async () => {
     return fetch(`${process.env.ACCOUNT_PAGE_URL}/account/profile/userAuid`, {
         credentials: 'include',
@@ -53,16 +50,14 @@ const AuthenticationProvider = ({ children }) => {
         []
     );
     const [user, setUser] = useState<User | object>({});
-    console.log(user);
     const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
     const onToken = useCallback(async idToken => {
         if (idToken) {
             const claims = idToken.claims || {};
-            const { email, firstName, lastName } = claims;
+            const { email, name } = claims;
             setUser({
                 email,
-                firstName,
-                lastName,
+                name,
             });
             setIsSignedIn(true);
         }
