@@ -7,6 +7,7 @@ const fetch = require('node-fetch');
 
 const uploadImageFromUrl = async (fileUrl, subPath) => {
     if (!fileUrl) return;
+    console.log(fileUrl);
     const resp = await axios.get(fileUrl, {
         responseType: 'arraybuffer',
     });
@@ -22,7 +23,7 @@ const uploadImageFromUrl = async (fileUrl, subPath) => {
     const form_data = new FormData();
     form_data.append('files', resp.data, fileUrl);
     try {
-        const r = await fetch('http://18.144.177.6:1337/upload', {
+        const r = await fetch('http://localhost:1337/upload', {
             method: 'POST',
             body: form_data,
         });

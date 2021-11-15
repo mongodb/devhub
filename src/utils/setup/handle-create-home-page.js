@@ -19,9 +19,7 @@ export const handleCreateHomePage = async (
 ) => {
     const { createPage, deletePage } = actions;
     // Featured items are not needed for preview mode.
-    const featuredItems = Boolean(process.env.GATSBY_PREVIEW_MODE)
-        ? []
-        : getFeaturedItems(homeFeaturedArticles, allArticles);
+    const featuredItems = getFeaturedItems(homeFeaturedArticles, allArticles);
     deletePage(page);
     createPage({
         ...page,

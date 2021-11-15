@@ -2,6 +2,9 @@ const axios = require('axios');
 const marked = require('marked');
 const cheerio = require('cheerio');
 const { uploadImageFromUrl } = require('./upload-image-from-url');
+const {
+    findOrCreateAuthorInStrapi,
+} = require('./find-or-create-author-in-strapi');
 
 const STRAPI_TAG_MAPPING = {
     'Aggregation Framework': 'AggregationFramework',
@@ -12,6 +15,7 @@ const STRAPI_TAG_MAPPING = {
     'Change Streams': 'ChangeStreams',
     'C#': 'Cs',
     '.NET': 'dotNET',
+    '.Net': 'dotNET',
     '.NET Core': 'dotNETCore',
     'Data Lake': 'DataLake',
     'Data Structures': 'DataStructures',
@@ -25,6 +29,7 @@ const STRAPI_TAG_MAPPING = {
     'MongoDB 4.2': 'MongoDB42',
     'MongoDB 4.4': 'MongoDB44',
     'MongoDB 5.0': 'MongoDB50',
+    'Node.js': 'Nodejs',
     'Objective-C': 'ObjectiveC',
     'Online Archive': 'OnlineArchive',
     'Ops Manager': 'OpsManager',
@@ -41,9 +46,11 @@ const TYPE_MAPPING = {
     article: 'Article',
     'how-to': 'HowTo',
     quickstart: 'Quickstart',
+    video: 'HowTo',
 };
 
-const cleanupRawText = text => text && text.replace(/\n/g, ' ').trim();
+const cleanupRawText = text =>
+    text && text.replace(/\n/g, ' ').replace(/>\s/g, ' ').trim();
 
 const transformMD = (rawContent, name) => {
     let newContent = rawContent;
@@ -53,6 +60,8 @@ const transformMD = (rawContent, name) => {
         (match, p1, p2) =>
             cleanupRawText(`:youtube[]{vid=${cleanupRawText(p2)}}`)
     );
+    // replace charts
+    // Replace image directive
     newContent = newContent.split(`# ${name}`)[1];
     return newContent;
 };
@@ -67,12 +76,25 @@ const parseHTMLContent = async rawContent => {
     const articleUrl = parseAttrIfExists('.atf-image > p', node =>
         node.text().replace(/^./, 'https://www.mongodb.com/developer')
     );
-    const ogImageUrl = parseAttrIfExists('.og', node =>
-        node.attr('image').replace(/^./, 'https://www.mongodb.com/developer')
+    // console.log(articleUrl);
+    const ogImageUrl = parseAttrIfExists(
+        '.og',
+        node =>
+            node.attr('image') &&
+            node
+                .attr('image')
+                .replace(/^./, 'https://www.mongodb.com/developer')
     );
-    const twitterImageUrl = parseAttrIfExists('.twitter', node =>
-        node.attr('image').replace(/^./, 'https://www.mongodb.com/developer')
+    // console.log(ogImageUrl);
+    const twitterImageUrl = parseAttrIfExists(
+        '.twitter',
+        node =>
+            node.attr('image') &&
+            node
+                .attr('image')
+                .replace(/^./, 'https://www.mongodb.com/developer')
     );
+    // console.log(twitterImageUrl);
     const content = transformMD(
         rawContent,
         parseAttrIfExists('h1', node => cleanupRawText(node.text()))
@@ -89,14 +111,28 @@ const parseHTMLContent = async rawContent => {
             .text()
             .split('\n')
             .filter(x => !!x)
-            .map(x => ({ tag: STRAPI_TAG_MAPPING[x] || x }))
+            .map(x => ({ language: STRAPI_TAG_MAPPING[x] || x }))
     );
     const products = parseAttrIfExists('.products', node =>
         node
             .text()
             .split('\n')
             .filter(x => !!x)
-            .map(x => ({ tag: STRAPI_TAG_MAPPING[x] || x }))
+            .map(x => ({ product: STRAPI_TAG_MAPPING[x] || x }))
+    );
+    // console.log(fullData.html());
+    const authorsInRst = fullData('.author')
+        .map((i, elem) => ({
+            bio: cleanupRawText(fullData(elem).text()),
+            name: fullData(elem).attr('id'),
+            location: fullData(elem).attr('location'),
+            image: fullData(elem).attr('image'),
+            company: fullData(elem).attr('company'),
+            title: fullData(elem).attr('title'),
+        }))
+        .toArray();
+    const authors = await Promise.all(
+        authorsInRst.map(a => findOrCreateAuthorInStrapi(a))
     );
     const image = await uploadImageFromUrl(articleUrl, 'atf-images');
     const og_image = await uploadImageFromUrl(ogImageUrl, 'og-image');
@@ -104,9 +140,10 @@ const parseHTMLContent = async rawContent => {
         twitterImageUrl,
         'twitter-image'
     );
+    console.log(image);
     // Author --> query for existing author
     return {
-        authors: [],
+        authors,
         content,
         description: parseAttrIfExists('.meta-description', node =>
             cleanupRawText(node.text())
@@ -116,11 +153,16 @@ const parseHTMLContent = async rawContent => {
         languages,
         name: parseAttrIfExists('h1', node => cleanupRawText(node.text())),
         products,
-        published_at: null,
+        published_at: parseAttrIfExists('.pubdate', node =>
+            cleanupRawText(node.text())
+        ),
         // Below will need work
-        // related: parseAttrIfExists('.related', node =>
-        //     cleanupRawText(node.text())
-        // ),
+        related_content: fullData('.related > ul > li')
+            .map((i, elem) => ({
+                label: cleanupRawText(fullData(elem).text()),
+                url: fullData(elem).find('a').attr('href'),
+            }))
+            .toArray(),
         SEO: {
             // canonical_url: parseAttrIfExists('link[rel=canonical]', node =>
             //     node.attr('href')
@@ -157,6 +199,9 @@ const parseHTMLContent = async rawContent => {
             '.type',
             node => TYPE_MAPPING[cleanupRawText(node.text())]
         ),
+        updatedAt: parseAttrIfExists('.updated-date', node =>
+            cleanupRawText(node.text())
+        ),
     };
 };
 
@@ -169,9 +214,9 @@ const main = () => {
             result = stdout;
             const parsed = await parseHTMLContent(result);
             axios
-                .post('http://18.144.177.6:1337/articles', parsed)
-                .then(r => console.log(r))
-                .catch(e => console.log(e));
+                .post('http://localhost:1337/articles', parsed)
+                // .then(r => console.log(r))
+                .catch(e => console.log(process.argv[2], e.response.data.data));
             if (error !== null) {
                 console.log(`exec error: ${error}`);
             }

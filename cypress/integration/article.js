@@ -23,7 +23,7 @@ const OG_DESCRIPTION = 'og-description text';
 const SERIES_TITLE = 'SQL to MongoDB';
 
 // Images
-const ATF_IMAGE = '/images/atf-images/illustrations/sql-mdb.png';
+const ATF_IMAGE = 'sql_mdb_';
 const TWITTER_IMAGE =
     'https://www.mongodb.com/developer/images/social/twitter/twitter-sql-mdb.png';
 const OG_IMAGE =
