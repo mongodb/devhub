@@ -5,6 +5,7 @@ import { ArticleSEO } from '../types/article-seo';
 import { transformArticleStrapiData } from '../utils/transform-article-strapi-data';
 import { StrapiAuthor } from './strapi-author';
 import { findSectionHeadings } from '../utils/find-section-headings';
+import { updateAttributionLinks } from '../utils/setup/update-attribution-links';
 
 const toISODate = date => date && new Date(date).toISOString().slice(0, 10);
 
@@ -31,7 +32,15 @@ export class StrapiArticle implements Article {
         this.authors = mappedArticle.authors.map(
             author => new StrapiAuthor(author)
         );
-        this.contentAST = [mappedArticle.contentAST];
+        const paths = mappedArticle.slug.split('/');
+        const filenameWithoutExtension = paths[paths.length - 1];
+        this.contentAST = [
+            updateAttributionLinks(
+                mappedArticle.contentAST,
+                filenameWithoutExtension,
+                [mappedArticle.contentAST]
+            ),
+        ];
         this.description = mappedArticle.description;
         this.headingNodes = findSectionHeadings(
             mappedArticle.contentAST.children || [],
