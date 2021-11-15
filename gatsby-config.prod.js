@@ -94,13 +94,13 @@ module.exports = {
                 includeInDevelopment: false,
             },
         },
-        // {
-        //     resolve: 'gatsby-plugin-feed',
-        //     options: {
-        //         query: siteUrl,
-        //         feeds: [articleRssFeed(SITE_URL), searchRssFeed(SITE_URL)],
-        //     },
-        // },
+        {
+            resolve: 'gatsby-plugin-feed',
+            options: {
+                query: siteUrl,
+                feeds: [articleRssFeed(SITE_URL), searchRssFeed(SITE_URL)],
+            },
+        },
         `gatsby-plugin-meta-redirect`, // this must be last
     ],
     siteMetadata: {

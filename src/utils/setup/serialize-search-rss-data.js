@@ -88,31 +88,19 @@ const getStrapiCustomRSSElements = article => {
     return customElements;
 };
 
-const serializeSearchRssData = ({
-    query: { site, allArticle, allStrapiArticles },
-}) => {
+const serializeSearchRssData = ({ query: { site, allStrapiArticles } }) => {
     const strapiArticles = allStrapiArticles ? allStrapiArticles.nodes : [];
-    return allArticle.nodes
-        .map(article => ({
-            custom_elements: getCustomRSSElements(article),
-            date: article.pubdate,
+    return strapiArticles.map(article => {
+        const slug = `${typeMap[article.type]}${article.slug}`;
+        article.slug = slug;
+        return {
+            custom_elements: getStrapiCustomRSSElements(article),
+            date: article.published_at,
             description: article.description,
-            title: article.title,
+            title: article.name,
             url: `${site.siteMetadata.siteUrl}/${article.slug}`,
-        }))
-        .concat(
-            strapiArticles.map(article => {
-                const slug = `${typeMap[article.type]}${article.slug}`;
-                article.slug = slug;
-                return {
-                    custom_elements: getStrapiCustomRSSElements(article),
-                    date: article.published_at,
-                    description: article.description,
-                    title: article.name,
-                    url: `${site.siteMetadata.siteUrl}/${article.slug}`,
-                };
-            })
-        );
+        };
+    });
 };
 
 module.exports = { serializeSearchRssData };
