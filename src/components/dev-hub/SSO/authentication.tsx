@@ -5,7 +5,9 @@ import React, {
     useMemo,
     useState,
 } from 'react';
+import dlv from 'dlv';
 import { User } from '~src/interfaces/user';
+import { identifyAuid } from '~utils/identify-auid';
 import { isBrowser } from '~utils/is-browser';
 import { OktaAuth } from '@okta/okta-auth-js';
 
@@ -13,7 +15,7 @@ export const REGISTER_LINK =
     'https://account-qa.mongodb.com/account/login?fromURI=https%3A%2F%2Fdevhub-local.mongodb.com%3A8000%2Flogin%2Fcallback';
 
 const fetchAuid = async () => {
-    return fetch(`https://account-qa.mongodb.com/account/profile/userAuid`, {
+    return fetch(`${process.env.ACCOUNT_PAGE_URL}/account/profile/userAuid`, {
         credentials: 'include',
         method: 'GET',
     }).then(r => r.json());
@@ -72,13 +74,17 @@ const AuthenticationProvider = ({ children }) => {
         }
     }, [authClient, isSignedIn, onToken]);
     useEffect(() => {
-        if (user && !user.auid) {
-            // Blocked by CORS right now
-            // const auid = await fetchAuid();
-            // console.log(auid);
-            // setUser({...user, auid})
-            // window.analytics.identify(auid)
-        }
+        const getAuid = async () => {
+            if (user && !user.auid) {
+                const auidResponse = await fetchAuid();
+                const auid = dlv(auidResponse, 'userAuid', null);
+                if (auid) {
+                    setUser({ ...user, auid });
+                    identifyAuid(auid);
+                }
+            }
+        };
+        getAuid();
     }, [user]);
     return (
         <Provider value={{ authClient, isSignedIn, onToken, user, setUser }}>
