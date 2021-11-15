@@ -72,6 +72,8 @@ const SingleBenefitLayout = styled('div')`
 `;
 
 const CardRightSideContent = styled('div')`
+    display: flex;
+    flex-direction: column;
     grid-row: span 2;
 `;
 
@@ -95,6 +97,7 @@ const GradientText = styled(P2)`
     background: ${({ theme }) => theme.gradientMap.greenTealOffset};
     background-clip: text;
     font-family: 'Fira Mono';
+    margin-top: auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
@@ -123,7 +126,7 @@ const BenefitTypeCard = ({
                     <MaxWidthMobileImage alt={alt} src={image} />
                 </ImageWrapper>
                 <CardRightSideContent>
-                    <H5>{forAudienceText}</H5>
+                    <H5 collapse>{forAudienceText}</H5>
                     <GreenBulletedList children={bullets} />
                     <GradientText bold>{ctaText}</GradientText>
                 </CardRightSideContent>
