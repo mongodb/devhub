@@ -73,6 +73,10 @@ const parseHTMLContent = async rawContent => {
         const node = fullData(selector);
         if (node) return callback(node);
     };
+    console.log(
+        parseAttrIfExists('.updated-date', node => cleanupRawText(node.text()))
+    );
+    return;
     const articleUrl = parseAttrIfExists('.atf-image > p', node =>
         node.text().replace(/^./, 'https://www.mongodb.com/developer')
     );
@@ -171,7 +175,7 @@ const parseHTMLContent = async rawContent => {
                 cleanupRawText(node.text())
             ),
             og_description: parseAttrIfExists('.og', node =>
-                cleanupRawText(node.attr('description'))
+                cleanupRawText(node.text())
             ),
             og_image,
             og_title: parseAttrIfExists('.og', node => node.attr('title')),
@@ -181,9 +185,12 @@ const parseHTMLContent = async rawContent => {
                 node.attr('creator')
             ),
             twitter_description: parseAttrIfExists('.twitter', node =>
-                node.attr('description')
+                cleanupRawText(node.text())
             ),
             twitter_image,
+            twitter_site: parseAttrIfExists('.twitter', node =>
+                node.attr('site')
+            ),
             twitter_title: parseAttrIfExists('.twitter', node =>
                 node.attr('title')
             ),
@@ -212,6 +219,8 @@ const main = () => {
         `sh ./scripts/rst-to-cms.sh ${process.argv[2]}`,
         async (error, stdout, stderr) => {
             result = stdout;
+            console.log(result);
+            return;
             const parsed = await parseHTMLContent(result);
             axios
                 .post('http://localhost:1337/articles', parsed)
