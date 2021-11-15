@@ -1,9 +1,9 @@
 export interface Podcast {
-    description: string;
+    description?: string;
     mediaType: string;
     publishDate: string;
     rawDescription?: string;
-    slug: string;
+    slug?: string;
     thumbnailUrl: string;
     title: string;
     url?: string;

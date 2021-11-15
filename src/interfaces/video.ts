@@ -1,6 +1,6 @@
 import { VideoType } from '../types/video-type'
 export interface Video {
-    description: string;
+    description?: string;
     mediaType: VideoType;
     publishDate: string;
     slug: string;
