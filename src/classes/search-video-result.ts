@@ -4,7 +4,7 @@ import { VideoType } from '~src/types/video-type';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 
 export class SearchVideoResult implements Video {
-    description?: string;
+    description: string;
     mediaType: VideoType;
     publishDate: string;
     slug: string;

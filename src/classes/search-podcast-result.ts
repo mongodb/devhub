@@ -3,11 +3,11 @@ import { Podcast } from "../interfaces/podcast"
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 
 export class SearchPodcastResult implements Podcast {
-    description?: string;
+    description: string;
     mediaType: string;
     publishDate: string;
     rawDescription?: string;
-    slug?: string;
+    slug: string;
     thumbnailUrl: string;
     title: string;
     podcastId: string;
