@@ -5,8 +5,8 @@ export const removeExcludedArticles = (
     if (excludedLearnPageArticles && excludedLearnPageArticles.length) {
         const filteredArticles = allArticles.filter(
             article =>
-                !excludedLearnPageArticles.find(excludedArticle =>
-                    article.slug.match(new RegExp(`^/?${excludedArticle}$`))
+                !excludedLearnPageArticles.find(
+                    excludedArticle => article.slug === excludedArticle
                 )
         );
         // Warn writers if not all excludes were found

@@ -39,6 +39,7 @@ module.exports = {
                 ]),
                 queryLimit: 0,
                 singleTypes: mapPublicationStateToArray([
+                    'excluded-learn-page-articles',
                     'feedback-rating-flow',
                     'home-page-featured-articles',
                     'learn-page-featured-articles',

@@ -20,6 +20,7 @@ import {
     METADATA_COLLECTION,
 } from './src/build-constants';
 import { createArticlePage } from './src/utils/setup/create-article-page';
+import { getExcludedLearnPageArticlesFromGraphql } from './src/utils/setup/get-excluded-learn-page-articles-from-graphql';
 import { getFeaturedArticlesFromGraphql } from './src/utils/setup/get-featured-articles-from-graphql';
 import { getStrapiArticleListFromGraphql } from './src/utils/setup/get-strapi-article-list-from-graphql';
 import { schemaCustomization } from './src/utils/setup/schema-customization';
@@ -128,11 +129,6 @@ export const onCreateNode = async ({ node }) => {
     }
 };
 
-const filterPageGroups = allSeries => {
-    // also remove a group of excluded articles
-    excludedLearnPageArticles = allSeries.learnPageExclude;
-};
-
 export const createPages = async ({ actions, graphql }) => {
     const { createPage, createRedirect } = actions;
     let saveImages = () => {};
@@ -159,7 +155,6 @@ export const createPages = async ({ actions, graphql }) => {
         throw new Error(`Page build error: ${result.error}`);
     }
 
-    filterPageGroups(metadataDocument.pageGroups);
     const articleSeries = await getStrapiArticleSeriesFromGraphql(
         graphql,
         slugContentMapping
@@ -230,6 +225,10 @@ export const createPages = async ({ actions, graphql }) => {
         await getFeaturedArticlesFromGraphql(graphql);
     homeFeaturedArticles = homePageFeaturedArticles;
     learnFeaturedArticles = learnPageFeaturedArticles;
+
+    excludedLearnPageArticles = await getExcludedLearnPageArticlesFromGraphql(
+        graphql
+    );
 };
 
 // Prevent errors when running gatsby build caused by browser packages run in a node environment.
