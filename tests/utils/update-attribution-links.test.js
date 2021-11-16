@@ -25,7 +25,7 @@ const EXPECTED_NEW_LINK_WITH_PARAMS = `${ATLAS_SIGNUP_LINK}?${encodeURIComponent
     `tck=devhub-test&`
 )}foo=bar`;
 
-it('should update Atlas attribution links in an AST with a supplied tck', () => {
+it('should update Atlas attribution links in an AST with a supplied tck for Snooty articles', () => {
     const sampleAST = {
         ast: {
             children: [
@@ -74,4 +74,41 @@ it('should update Atlas attribution links in an AST with a supplied tck', () => 
     expect(sampleAST.ast.children[1].children[2].refuri).toBe(
         EXPECTED_NEW_LINK_WITH_PARAMS
     );
+});
+
+it('should update Atlas attribution links in an AST with a supplied tck for Strapi articles', () => {
+    const sampleAST = {
+        type: 'directive',
+        children: [
+            TEXT_NODE_TO_NOT_CHANGE,
+            {
+                type: 'link',
+                position: { start: { line: 93 } },
+                children: [{ type: 'text', value: 'recording' }],
+                url: CONSISTENT_LINK,
+            },
+            {
+                type: 'link',
+                position: { start: { line: 93 } },
+                children: [{ type: 'text', value: 'this should change' }],
+                url: ATLAS_SIGNUP_LINK,
+            },
+            {
+                type: 'link',
+                position: { start: { line: 93 } },
+                children: [{ type: 'text', value: 'this should change' }],
+                url: ATLAS_SIGNUP_LINK + '?foo=bar',
+            },
+        ],
+        domain: '',
+        name: 'paragraph',
+        argument: [],
+        options: {},
+    };
+
+    updateAttributionLinks(sampleAST, 'test', [sampleAST]);
+    expect(sampleAST.children[0]).toStrictEqual(TEXT_NODE_TO_NOT_CHANGE);
+    expect(sampleAST.children[1].url).toBe(CONSISTENT_LINK);
+    expect(sampleAST.children[2].url).toBe(EXPECTED_NEW_ATTRIBUTION_LINK);
+    expect(sampleAST.children[3].url).toBe(EXPECTED_NEW_LINK_WITH_PARAMS);
 });
