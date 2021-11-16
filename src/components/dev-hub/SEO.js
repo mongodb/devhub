@@ -49,7 +49,7 @@ const SEO = ({
             {ogTitle && <meta property="og:title" content={ogTitle} />}
 
             {/* Twitter Tags */}
-            {twitter && <meta name="twitter:card" content="summary" />}
+            <meta name="twitter:card" content={twitter.card || 'summary'} />
             {twitter.creator && (
                 <meta name="twitter:creator" content={twitter.creator} />
             )}

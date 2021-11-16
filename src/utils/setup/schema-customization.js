@@ -31,6 +31,7 @@ export const schemaCustomization = ({ actions }) => {
         og_type: String
         og_url: String
         twitter_creator: String
+        twitter_card: String
         twitter_description: String
         twitter_image: CMSImage
     }
