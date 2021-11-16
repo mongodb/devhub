@@ -73,6 +73,7 @@ const TabButton = ({ ...props }) => (
 );
 
 const Tabs = ({ nodeData: { children, options = {} } }) => {
+    console.log(children);
     const hidden = options.hidden;
     const { activeTabs, setActiveTab } = useContext(TabContext);
     const tabIds = children.map(child => getTabId(child));
