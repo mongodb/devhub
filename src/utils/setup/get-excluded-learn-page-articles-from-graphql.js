@@ -4,7 +4,7 @@ import { transformArticleStrapiData } from '../transform-article-strapi-data';
 
 const STRAPI_COMPONENT_TYPE = 'article-info.strapi-article';
 
-const mapFeaturedArticle = article =>
+const mapExcludedArticle = article =>
     article.strapi_component === STRAPI_COMPONENT_TYPE
         ? article.article
             ? transformArticleStrapiData(article.article).slug
@@ -21,7 +21,7 @@ export const getExcludedLearnPageArticlesFromGraphql = async graphql => {
         // type since it is redundant with the type field
         // The case is snooty first and then Strapi second
     )
-        .map(mapFeaturedArticle)
+        .map(mapExcludedArticle)
         .filter(a => !!a);
     return excludedArticles;
 };
