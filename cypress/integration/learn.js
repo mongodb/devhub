@@ -72,7 +72,7 @@ describe('Learn Page', () => {
     );
 
     it(
-        'should only show the filter bar for "All" or "Articles"',
+        'should only show the filter bar for all tabs',
         {
             retries: {
                 runMode: 2,

@@ -20,6 +20,8 @@ import { LearnPageTabs } from '../utils/learn-page-tabs';
 import useTextFilter from '../hooks/use-text-filter';
 import Tab from '../components/dev-hub/tab';
 import PageHelmet from '~components/dev-hub/page-helmet';
+import ActiveCardList from '../components/dev-hub/active-card-list';
+import ActiveCardListFilter from '../components/dev-hub/active-card-list-filter';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
@@ -345,61 +347,58 @@ const LearnPage = ({
         LearnPageTabs.podcasts,
     ];
 
-    const ActiveCardList = () => {
-        switch (activeContentTab) {
-            case LearnPageTabs.articles:
-                return <CardList articles={articles} />;
-            case LearnPageTabs.videos:
-                return <CardList videos={videos} />;
-            case LearnPageTabs.podcasts:
-                return <CardList podcasts={podcasts} />;
-            default:
-                return (
-                    <CardList
-                        articles={articles}
-                        videos={hasNoFilter ? videos : []}
-                        podcasts={hasNoFilter ? podcasts : []}
-                    />
-                );
-        }
-    };
+    // const ActiveCardList = () => {
+    //     switch (activeContentTab) {
+    //         case LearnPageTabs.articles:
+    //             return <CardList articles={articles} shouldSort />;
+    //         case LearnPageTabs.videos:
+    //             return <CardList videos={videos} shouldSort />;
+    //         case LearnPageTabs.podcasts:
+    //             return <CardList podcasts={podcasts} shouldSort />;
+    //         default:
+    //             return (
+    //                 <CardList
+    //                     shouldSort
+    //                     articles={articles}
+    //                     videos={hasNoFilter ? videos : []}
+    //                     podcasts={hasNoFilter ? podcasts : []}
+    //                 />
+    //             );
+    //     }
+    // };
 
     /**
      * Renders a CardList component with the filter results
      * @returns A CardList Component
      */
-    const ActiveCardListFilter = () => {
-        switch (activeContentTab) {
-            case LearnPageTabs.articles:
-                return (
-                    <CardList
-                        articles={textFilterResults}
-                        textFilterQuery={textFilterQuery}
-                    />
-                );
-            case LearnPageTabs.videos:
-                return (
-                    <CardList
-                        videos={textFilterResults}
-                        textFilterQuery={textFilterQuery}
-                    />
-                );
-            case LearnPageTabs.podcasts:
-                return (
-                    <CardList
-                        podcasts={textFilterResults}
-                        textFilterQuery={textFilterQuery}
-                    />
-                );
-            default:
-                return (
-                    <CardList
-                        all={textFilterResults}
-                        textFilterQuery={textFilterQuery}
-                    />
-                );
-        }
-    };
+    // const ActiveCardListFilter = () => {
+    //     switch (activeContentTab) {
+    //         case LearnPageTabs.articles:
+    //             return (
+    //                 <CardList
+    //                     articles={textFilterResults}
+    //                 />
+    //             );
+    //         case LearnPageTabs.videos:
+    //             return (
+    //                 <CardList
+    //                     videos={textFilterResults}
+    //                 />
+    //             );
+    //         case LearnPageTabs.podcasts:
+    //             return (
+    //                 <CardList
+    //                     podcasts={textFilterResults}
+    //                 />
+    //             );
+    //         default:
+    //             return (
+    //                 <CardList
+    //                     all={textFilterResults}
+    //                 />
+    //             );
+    //     }
+    // };
 
     const { page } = filterValue;
     const pageTitle = `Learn - ${page ? `Page ${page} - ` : ''}${title}`;
@@ -436,12 +435,21 @@ const LearnPage = ({
 
                 {showTextFilterResults ? (
                     textFilterResults.length ? (
-                        <ActiveCardListFilter />
+                        <ActiveCardListFilter
+                            activeContentTab={activeContentTab}
+                            textFilterResults={textFilterResults}
+                        />
                     ) : (
                         <EmptyTextFilterResults />
                     )
                 ) : (
-                    <ActiveCardList />
+                    <ActiveCardList
+                        activeContentTab={activeContentTab}
+                        articles={articles}
+                        videos={videos}
+                        podcasts={podcasts}
+                        hasNoFilter={hasNoFilter}
+                    />
                 )}
             </Article>
         </Layout>

@@ -43,7 +43,7 @@ const renderArticle = article => (
 
 const renderVideo = video => (
     <VideoCard
-        key={video.mediaType + video.title}
+        key={video.videoId}
         image={getThumbnailUrl(video)}
         videoModalThumbnail={getThumbnailUrl(video)}
         title={video.title}
@@ -55,7 +55,7 @@ const renderVideo = video => (
 
 const renderPodcast = podcast => (
     <Card
-        key={podcast.mediaType + podcast.title}
+        key={podcast._id}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
         badge={podcast.mediaType}
@@ -86,7 +86,7 @@ export default React.memo(
         videos,
         articles,
         podcasts,
-        textFilterQuery,
+        shouldSort,
         limit = CARD_LIST_LIMIT,
     }) => {
         videos = videos || [];
@@ -96,7 +96,7 @@ export default React.memo(
         // If we provide "all", we don't need to sort. We can assume any sorting
         // has been done
         let fullContentList = [];
-        if (!textFilterQuery) {
+        if (shouldSort) {
             fullContentList = sortCardsByDate(
                 videos.concat(articles, podcasts)
             );

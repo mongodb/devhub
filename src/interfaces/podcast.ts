@@ -7,5 +7,5 @@ export interface Podcast {
     thumbnailUrl: string;
     title: string;
     url?: string;
-    podcastId: string;
+    _id: string;
 }

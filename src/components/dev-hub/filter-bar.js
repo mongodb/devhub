@@ -136,6 +136,10 @@ export default React.memo(
             },
             [setTextFilterQuery]
         );
+        const selectEnabled =
+            !textFilterQuery &&
+            (activeContentTab === LearnPageTabs.all ||
+                activeContentTab === LearnPageTabs.articles);
         return (
             <FilterBar data-test="filter-bar" {...props}>
                 <TextFilterInput
@@ -147,11 +151,7 @@ export default React.memo(
                     <FilterLabel>Filter By</FilterLabel>
                     <SelectWrapper>
                         <Select
-                            enabled={
-                                !textFilterQuery &&
-                                (activeContentTab === LearnPageTabs.all ||
-                                    activeContentTab === LearnPageTabs.articles)
-                            }
+                            enabled={selectEnabled}
                             narrow
                             name="product"
                             choices={products}
@@ -163,11 +163,7 @@ export default React.memo(
                     </SelectWrapper>
                     <SelectWrapper>
                         <Select
-                            enabled={
-                                !textFilterQuery &&
-                                (activeContentTab === LearnPageTabs.all ||
-                                    activeContentTab === LearnPageTabs.articles)
-                            }
+                            enabled={selectEnabled}
                             narrow
                             name="language"
                             choices={languages}

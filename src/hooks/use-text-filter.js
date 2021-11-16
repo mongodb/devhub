@@ -15,6 +15,7 @@ const DEBOUNCE_TIME = 200;
 function useTextFilter(query, activeContentTab) {
     const [filterEvent, setFilterEvent] = useState(null);
     const [results, setResults] = useState(null);
+
     /**
      * Gets all results
      * @param {Array} filterResults
@@ -41,49 +42,28 @@ function useTextFilter(query, activeContentTab) {
     };
 
     /**
-     * Extracts only articles from filterResults
+     * Gets the filterResults from a mediaType
      * @param {Array} filterResults
+     * @param {string} mediaType
+     * @param {*} ObjectClass
      * @returns {Array}
      */
-    const getArticles = filterResults => {
+    const getResultsFromType = (filterResults, mediaType, ObjectClass) => {
         return filterResults.reduce((results, r) => {
-            if (r.mediaType === 'article') {
-                results.push({ ...new SearchArticleResult(r) });
+            if (r.mediaType === mediaType) {
+                results.push({ ...new ObjectClass(r) });
+            } else if (
+                mediaType === 'video' &&
+                (r.mediaType === 'twitch' || r.mediaType === 'youtube')
+            ) {
+                results.push({ ...new ObjectClass(r) });
             }
-            return results;
-        }, []);
-    };
 
-    /**
-     * Extracts only twitch or youtube videos from filterResults
-     * @param {Array} filterResults
-     * @returns {Array}
-     */
-    const getVideos = filterResults => {
-        return filterResults.reduce((results, r) => {
-            if (r.mediaType === 'twitch' || r.mediaType === 'youtube') {
-                results.push({ ...new SearchVideoResult(r) });
-            }
-            return results;
-        }, []);
-    };
-
-    /**
-     * Extracts only articles from filterResults
-     * @param {Array} filterResults
-     * @returns {Array}
-     */
-    const getPodcasts = filterResults => {
-        return filterResults.reduce((results, r) => {
-            if (r.mediaType === 'podcast') {
-                results.push({ ...new SearchPodcastResult(r) });
-            }
             return results;
         }, []);
     };
 
     // When the query changes, let's re-fetch from Stitch (debounce)
-
     useEffect(() => {
         if (query) {
             const fetchTextFilterResults = async () => {
@@ -98,15 +78,27 @@ function useTextFilter(query, activeContentTab) {
                         if (filterResults) {
                             switch (activeContentTab) {
                                 case LearnPageTabs.articles:
-                                    const articles = getArticles(filterResults);
+                                    const articles = getResultsFromType(
+                                        filterResults,
+                                        'article',
+                                        SearchArticleResult
+                                    );
                                     setResults(articles);
                                     break;
                                 case LearnPageTabs.podcasts:
-                                    const podcasts = getPodcasts(filterResults);
+                                    const podcasts = getResultsFromType(
+                                        filterResults,
+                                        'podcast',
+                                        SearchPodcastResult
+                                    );
                                     setResults(podcasts);
                                     break;
                                 case LearnPageTabs.videos:
-                                    const videos = getVideos(filterResults);
+                                    const videos = getResultsFromType(
+                                        filterResults,
+                                        'video',
+                                        SearchVideoResult
+                                    );
                                     setResults(videos);
                                     break;
                                 default:
