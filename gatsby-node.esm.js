@@ -190,7 +190,6 @@ export const createPages = async ({ actions, graphql }) => {
     const { allVideos, allPodcasts, podcastSeries, videoSeries } =
         await fetchBuildTimeMedia();
 
-    console.log(videoSeries);
     const allContent = [
         articlesWithoutContentAST,
         allPodcasts,

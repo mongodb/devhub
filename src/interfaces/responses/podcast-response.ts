@@ -1,3 +1,4 @@
+import { RelatedContent } from "./related_content"
 export interface PodcastResponse {
     description: string;
     mediaType: string;
@@ -14,7 +15,3 @@ export interface PodcastResponse {
     authors: object[];
 }
 
-interface RelatedContent {
-    label: string;
-    url: string;
-}

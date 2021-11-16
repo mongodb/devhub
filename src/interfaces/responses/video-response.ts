@@ -1,3 +1,5 @@
+import { RelatedContent } from "./related_content"
+
 export interface VideoResponse {
     description: string;
     mediaType: string;
@@ -12,9 +14,4 @@ export interface VideoResponse {
     languages: object[];
     related_content: RelatedContent[];
     authors: object[];
-}
-
-interface RelatedContent {
-    label: string;
-    url: string;
 }

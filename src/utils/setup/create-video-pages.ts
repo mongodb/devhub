@@ -1,7 +1,9 @@
 import path from 'path';
 import { Video } from '../../interfaces/video';
 import { getRelatedPagesWithImages } from './get-related-pages-with-images';
-import { getSeriesPodcasts } from '../get-series-podcasts';
+import { getOtherContentFromTheSeries } from '../get-other-content-from-series';
+import { getSeriesAndContentMapping } from '../get-mediaseries-content-maps';
+
 
 export const createVideoPages = async (
     createPage: Function,
@@ -10,12 +12,13 @@ export const createVideoPages = async (
     videoSeries: object,
     metadata: object
 ) => {
+    const seriesAndContentMaps = getSeriesAndContentMapping(videoSeries,'video');
     allVideos.forEach((video: Video) => {
         video.related = getRelatedPagesWithImages(
             video.related,
             slugContentMapping
         );
-        const seriesVideos = getSeriesPodcasts(videoSeries, video.slug);
+        const seriesVideos = getOtherContentFromTheSeries(seriesAndContentMaps, video.slug);
         createPage({
             path: video.slug,
             component: path.resolve('./src/templates/video.tsx'),

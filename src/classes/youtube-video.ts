@@ -5,6 +5,7 @@ import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { transformAuthorStrapiData } from '../utils/setup/transform-author-strapi-data';
 import { StrapiAuthor } from '../classes/strapi-author';
+import { formatRelatedContent } from '../utils/format-related-content'
 
 
 export class YoutubeVideo implements Video {
@@ -39,12 +40,6 @@ export class YoutubeVideo implements Video {
         this.languages = mapTagTypeToUrl(video.languages.map(item => item['language']), 'language', true);
         this.authors = video.authors.map((a) =>
             new StrapiAuthor({name: a['name'], bio: a['bio'], location: a['location'], image: a['image']['url'], title: a['title']}));
-        this.related = video.related_content
-            ? video.related_content.map(({ label, url }) => ({
-                name: 'reference',
-                refuri: url,
-                children: [{ value: label }],
-            }))
-            : [];
+        this.related = formatRelatedContent(video.related_content)
     }
 }

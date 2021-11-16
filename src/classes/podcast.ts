@@ -5,6 +5,7 @@ import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { IPodcast } from '../interfaces/podcast';
 import { transformAuthorStrapiData } from '../utils/setup/transform-author-strapi-data';
 import { StrapiAuthor } from '../classes/strapi-author';
+import { formatRelatedContent } from '../utils/format-related-content'
 
 export class Podcast implements IPodcast{
     description: string;
@@ -40,12 +41,6 @@ export class Podcast implements IPodcast{
         this.languages = mapTagTypeToUrl(podcast.languages.map(item => item['language']), 'language', true);
         this.authors = podcast.authors.map((a) =>
             new StrapiAuthor({name: a['name'], bio: a['bio'], location: a['location'], image: a['image']['url'], title: a['title']}));
-        this.related = podcast.related_content
-            ? podcast.related_content.map(({ label, url }) => ({
-                name: 'reference',
-                refuri: url,
-                children: [{ value: label }],
-            }))
-            : [];
+        this.related = formatRelatedContent(podcast.related_content);
     }
 }
