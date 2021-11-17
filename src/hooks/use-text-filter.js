@@ -42,23 +42,43 @@ function useTextFilter(query, activeContentTab) {
     };
 
     /**
-     * Gets the filterResults from a mediaType
+     * Extracts only articles from filterResults
      * @param {Array} filterResults
-     * @param {string} mediaType
-     * @param {*} ObjectClass
      * @returns {Array}
      */
-    const getResultsFromType = (filterResults, mediaType, ObjectClass) => {
+    const getArticles = filterResults => {
         return filterResults.reduce((results, r) => {
-            if (r.mediaType === mediaType) {
-                results.push({ ...new ObjectClass(r) });
-            } else if (
-                mediaType === 'video' &&
-                (r.mediaType === 'twitch' || r.mediaType === 'youtube')
-            ) {
-                results.push({ ...new ObjectClass(r) });
+            if (r.mediaType === 'article') {
+                results.push({ ...new SearchArticleResult(r) });
             }
+            return results;
+        }, []);
+    };
 
+    /**
+     * Extracts only twitch or youtube videos from filterResults
+     * @param {Array} filterResults
+     * @returns {Array}
+     */
+    const getVideos = filterResults => {
+        return filterResults.reduce((results, r) => {
+            if (r.mediaType === 'twitch' || r.mediaType === 'youtube') {
+                results.push({ ...new SearchVideoResult(r) });
+            }
+            return results;
+        }, []);
+    };
+
+    /**
+     * Extracts only articles from filterResults
+     * @param {Array} filterResults
+     * @returns {Array}
+     */
+    const getPodcasts = filterResults => {
+        return filterResults.reduce((results, r) => {
+            if (r.mediaType === 'podcast') {
+                results.push({ ...new SearchPodcastResult(r) });
+            }
             return results;
         }, []);
     };
@@ -78,27 +98,15 @@ function useTextFilter(query, activeContentTab) {
                         if (filterResults) {
                             switch (activeContentTab) {
                                 case LearnPageTabs.articles:
-                                    const articles = getResultsFromType(
-                                        filterResults,
-                                        'article',
-                                        SearchArticleResult
-                                    );
+                                    const articles = getArticles(filterResults);
                                     setResults(articles);
                                     break;
                                 case LearnPageTabs.podcasts:
-                                    const podcasts = getResultsFromType(
-                                        filterResults,
-                                        'podcast',
-                                        SearchPodcastResult
-                                    );
+                                    const podcasts = getPodcasts(filterResults);
                                     setResults(podcasts);
                                     break;
                                 case LearnPageTabs.videos:
-                                    const videos = getResultsFromType(
-                                        filterResults,
-                                        'video',
-                                        SearchVideoResult
-                                    );
+                                    const videos = getVideos(filterResults);
                                     setResults(videos);
                                     break;
                                 default:
