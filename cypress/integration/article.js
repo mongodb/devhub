@@ -23,11 +23,11 @@ const OG_DESCRIPTION = 'og-description text';
 const SERIES_TITLE = 'SQL to MongoDB';
 
 // Images
-const ATF_IMAGE = 'sql_mdb_';
+const ATF_IMAGE = '/images/atf-images/illustrations/sql-mdb.png';
 const TWITTER_IMAGE =
     'https://www.mongodb.com/developer/images/social/twitter/twitter-sql-mdb.png';
 const OG_IMAGE =
-    'https://mongodb-devhub-cms.s3.us-west-1.amazonaws.com/og_sql_mdb_37465c8525.png';
+    'https://www.mongodb.com/developer/images/social/open-graph/og-sql-mdb.png';
 
 // Social Media Links
 const FACEBOOK_SHARE_URL = `https://www.facebook.com/sharer/sharer.php?u=${PROD_ARTICLE_URL}`;
@@ -248,6 +248,11 @@ describe('Sample Article Page', () => {
                 cy.contains('mongoexport').should('not.exist');
                 cy.contains('Some C++ code');
             });
+        });
+    });
+    it('should render Strapi content should it have the same slug as Snooty content', () => {
+        cy.visit(ARTICLE_DUPLICATED_IN_STRAPI).then(() => {
+            cy.contains('Strapi HapiJS Article');
         });
     });
 });
