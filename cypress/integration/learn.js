@@ -1,8 +1,9 @@
 const CANONICAL_URL = 'https://www.mongodb.com/developer/learn/';
-const FIRST_ARTICLE_IN_ORDERING = '/how-to/transactions-c-dotnet/';
-const FIRST_ARTICLE_UPDATED_DATE = 'Nov 18, 2025';
-const FIRST_ARTICLE_PUBLISHED_DATE = 'Oct 17, 2018';
-const SECOND_ARTICLE_TITLE = 'How to work with Johns Hopkins';
+const FIRST_ARTICLE_IN_ORDERING =
+    '/article/3-things-to-know-switch-from-sql-mongodb/';
+const FIRST_ARTICLE_UPDATED_DATE = 'Nov 17, 2021';
+const FIRST_ARTICLE_PUBLISHED_DATE = 'Apr 01, 2020';
+const SECOND_ARTICLE_TITLE = 'Active-Active';
 
 describe('Learn Page', () => {
     it('should properly render the learn page', () => {
@@ -36,7 +37,7 @@ describe('Learn Page', () => {
         cy.get('[data-test="card-list"]').within(() => {
             cy.get('[data-test="card"]')
                 .eq(0)
-                .should('contain', 'Working with MongoDB Transactions')
+                .should('contain', '3 Things to Know')
                 .click({ force: true, scrollBehavior: false });
         });
         cy.url().should('include', FIRST_ARTICLE_IN_ORDERING);
@@ -92,7 +93,7 @@ describe('Learn Page', () => {
     );
     it('should filter content using the filter dropdowns', () => {
         cy.toggleLearnPageTab('Articles');
-        cy.checkCardInCardList('Working with MongoDB Transactions', 0);
+        cy.checkCardInCardList('3 Things to Know', 0);
         cy.getUnderStickyNav('[data-test="filter-bar"]').within(() => {
             cy.get('[role="listbox"]').first().click();
         });
