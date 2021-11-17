@@ -73,14 +73,9 @@ const parseHTMLContent = async rawContent => {
         const node = fullData(selector);
         if (node) return callback(node);
     };
-    console.log(
-        parseAttrIfExists('.updated-date', node => cleanupRawText(node.text()))
-    );
-    return;
     const articleUrl = parseAttrIfExists('.atf-image > p', node =>
         node.text().replace(/^./, 'https://www.mongodb.com/developer')
     );
-    // console.log(articleUrl);
     const ogImageUrl = parseAttrIfExists(
         '.og',
         node =>
@@ -89,7 +84,6 @@ const parseHTMLContent = async rawContent => {
                 .attr('image')
                 .replace(/^./, 'https://www.mongodb.com/developer')
     );
-    // console.log(ogImageUrl);
     const twitterImageUrl = parseAttrIfExists(
         '.twitter',
         node =>
@@ -98,7 +92,6 @@ const parseHTMLContent = async rawContent => {
                 .attr('image')
                 .replace(/^./, 'https://www.mongodb.com/developer')
     );
-    // console.log(twitterImageUrl);
     const content = transformMD(
         rawContent,
         parseAttrIfExists('h1', node => cleanupRawText(node.text()))
@@ -124,7 +117,6 @@ const parseHTMLContent = async rawContent => {
             .filter(x => !!x)
             .map(x => ({ product: STRAPI_TAG_MAPPING[x] || x }))
     );
-    // console.log(fullData.html());
     const authorsInRst = fullData('.author')
         .map((i, elem) => ({
             bio: cleanupRawText(fullData(elem).text()),
@@ -144,7 +136,6 @@ const parseHTMLContent = async rawContent => {
         twitterImageUrl,
         'twitter-image'
     );
-    console.log(image);
     // Author --> query for existing author
     return {
         authors,
@@ -160,7 +151,6 @@ const parseHTMLContent = async rawContent => {
         published_at: parseAttrIfExists('.pubdate', node =>
             cleanupRawText(node.text())
         ),
-        // Below will need work
         related_content: fullData('.related > ul > li')
             .map((i, elem) => ({
                 label: cleanupRawText(fullData(elem).text()),
@@ -215,12 +205,11 @@ const parseHTMLContent = async rawContent => {
 const main = () => {
     let result;
     const { exec } = require('child_process');
+    // Run bash script and pipe into JS function
     var yourscript = exec(
         `sh ./scripts/rst-to-cms.sh ${process.argv[2]}`,
         async (error, stdout, stderr) => {
             result = stdout;
-            console.log(result);
-            return;
             const parsed = await parseHTMLContent(result);
             axios
                 .post('http://localhost:1337/articles', parsed)

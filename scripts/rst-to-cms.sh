@@ -9,6 +9,4 @@ function parseRSTToMD {
 
 parseRSTToMD $1
 
-# Pipe into parsing script
-
 # Push to CMS env of choice

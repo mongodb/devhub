@@ -7,7 +7,6 @@ const fetch = require('node-fetch');
 
 const uploadImageFromUrl = async (fileUrl, subPath) => {
     if (!fileUrl) return;
-    console.log(fileUrl);
     const resp = await axios.get(fileUrl, {
         responseType: 'arraybuffer',
     });
