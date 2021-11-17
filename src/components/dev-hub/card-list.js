@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styled from '@emotion/styled';
-import Audio from './audio';
 import Card from './card';
 import Paginate from './paginate';
 import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
@@ -32,7 +32,7 @@ const sortCardsByDate = contentList =>
 const renderArticle = article => (
     <ArticleCard
         to={article.slug}
-        key={article._id}
+        key={uuidv4()}
         image={article.image}
         tags={[...article.products, ...article.languages, ...article.tags]}
         title={article.title}
@@ -43,7 +43,7 @@ const renderArticle = article => (
 
 const renderVideo = video => (
     <VideoCard
-        key={video.videoId}
+        key={uuidv4()}
         image={getThumbnailUrl(video)}
         videoModalThumbnail={getThumbnailUrl(video)}
         title={video.title}
@@ -55,7 +55,7 @@ const renderVideo = video => (
 
 const renderPodcast = podcast => (
     <Card
-        key={podcast._id}
+        key={uuidv4()}
         image={getThumbnailUrl(podcast)}
         title={podcast.title}
         badge={podcast.mediaType}

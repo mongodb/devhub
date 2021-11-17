@@ -124,6 +124,7 @@ const stripAllParam = filterValue => {
 };
 
 const filterArticles = (filter, initialArticles) => {
+    console.log('In filterArticles');
     const filterValues = Object.keys(filter);
     return initialArticles.reduce((acc, article) => {
         for (let i = 0; i < filterValues.length; i++) {
@@ -346,59 +347,6 @@ const LearnPage = ({
         LearnPageTabs.videos,
         LearnPageTabs.podcasts,
     ];
-
-    // const ActiveCardList = () => {
-    //     switch (activeContentTab) {
-    //         case LearnPageTabs.articles:
-    //             return <CardList articles={articles} shouldSort />;
-    //         case LearnPageTabs.videos:
-    //             return <CardList videos={videos} shouldSort />;
-    //         case LearnPageTabs.podcasts:
-    //             return <CardList podcasts={podcasts} shouldSort />;
-    //         default:
-    //             return (
-    //                 <CardList
-    //                     shouldSort
-    //                     articles={articles}
-    //                     videos={hasNoFilter ? videos : []}
-    //                     podcasts={hasNoFilter ? podcasts : []}
-    //                 />
-    //             );
-    //     }
-    // };
-
-    /**
-     * Renders a CardList component with the filter results
-     * @returns A CardList Component
-     */
-    // const ActiveCardListFilter = () => {
-    //     switch (activeContentTab) {
-    //         case LearnPageTabs.articles:
-    //             return (
-    //                 <CardList
-    //                     articles={textFilterResults}
-    //                 />
-    //             );
-    //         case LearnPageTabs.videos:
-    //             return (
-    //                 <CardList
-    //                     videos={textFilterResults}
-    //                 />
-    //             );
-    //         case LearnPageTabs.podcasts:
-    //             return (
-    //                 <CardList
-    //                     podcasts={textFilterResults}
-    //                 />
-    //             );
-    //         default:
-    //             return (
-    //                 <CardList
-    //                     all={textFilterResults}
-    //                 />
-    //             );
-    //     }
-    // };
 
     const { page } = filterValue;
     const pageTitle = `Learn - ${page ? `Page ${page} - ` : ''}${title}`;
