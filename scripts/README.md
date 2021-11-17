@@ -1,5 +1,15 @@
 ## DevHub Misc Scripts
 
+### rST to CMS
+
+This script is for migrating rST content to the CMS. To use, it requires installation of `pandoc` on the local system.
+
+To run, be sure to have the devhub content repo cloned and then, from the top directory run:
+
+`node ./scripts/rst-migration/parse-html-in-pandoc-gfm.js <PATH_TO_RST>`
+
+Also be sure to replace `localhost` in the files here with the Strapi environment being targeted.
+
 ### parity-check.sh
 
 This script is for checking the HTML content between two DevHub environments.
