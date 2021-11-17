@@ -5,7 +5,6 @@ const ARTICLE_WITH_ATTRIBUTION_LINK_URL =
     '/article/build-newsletter-website-mongodb-data-platform/';
 const EXPECTED_ATTRIBUTION_LINK =
     'https://www.mongodb.com/cloud/atlas/signup?tck%3Ddevhub-build-newsletter-website-mongodb-data-platform';
-const ARTICLE_DUPLICATED_IN_STRAPI = '/how-to/hapijs-nodejs-driver';
 
 // Article with no og description or og type (test meta description fallback)
 const ARTICLE_WITH_MINIMAL_OG_URL =
@@ -25,9 +24,9 @@ const SERIES_TITLE = 'SQL to MongoDB';
 // Images
 const ATF_IMAGE = 'sql_mdb';
 const TWITTER_IMAGE =
-    'https://www.mongodb.com/developer/images/social/twitter/twitter-sql-mdb.png';
+    'https://mongodb-devhub-cms.s3.us-west-1.amazonaws.com/twitter_sql_mdb_99de86abec.png';
 const OG_IMAGE =
-    'https://mongodb-devhub-cms.s3.us-west-1.amazonaws.com/og_sql_mdb_37465c8525.png';
+    'https://mongodb-devhub-cms.s3.us-west-1.amazonaws.com/og_sql_mdb_7c547044d5.png';
 
 // Social Media Links
 const FACEBOOK_SHARE_URL = `https://www.facebook.com/sharer/sharer.php?u=${PROD_ARTICLE_URL}`;
@@ -140,11 +139,12 @@ describe('Sample Article Page', () => {
             '@Lauren_Schaefer'
         );
         cy.checkMetaContentProperty('name="twitter:card"', 'summary');
-        cy.checkMetaContentProperty(
-            'name="twitter:site"',
-            '@test-twitter-site'
-        );
-        cy.checkMetaContentProperty('property="twitter:title"', ARTICLE_TITLE);
+        //TODO: Return these once these have been added to CMS
+        // cy.checkMetaContentProperty(
+        //     'name="twitter:site"',
+        //     '@test-twitter-site'
+        // );
+        // cy.checkMetaContentProperty('property="twitter:title"', ARTICLE_TITLE);
         cy.checkMetaContentProperty(
             'property="twitter:description"',
             ARTICLE_DESCRIPTION

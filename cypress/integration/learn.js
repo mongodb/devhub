@@ -1,8 +1,8 @@
 const CANONICAL_URL = 'https://www.mongodb.com/developer/learn/';
 const FIRST_ARTICLE_IN_ORDERING = '/how-to/transactions-c-dotnet/';
-const FIRST_ARTICLE_UPDATED_DATE = 'Oct 03, 2020';
+const FIRST_ARTICLE_UPDATED_DATE = 'Nov 18, 2025';
 const FIRST_ARTICLE_PUBLISHED_DATE = 'Oct 17, 2018';
-const STRAPI_ARTICLE_TITLE = 'Test Strapi Article';
+const SECOND_ARTICLE_TITLE = 'How to work with Johns Hopkins';
 
 describe('Learn Page', () => {
     it('should properly render the learn page', () => {
@@ -35,7 +35,7 @@ describe('Learn Page', () => {
         cy.toggleLearnPageTab('Articles');
         cy.get('[data-test="card-list"]').within(() => {
             cy.get('[data-test="card"]')
-                .eq(1)
+                .eq(0)
                 .should('contain', 'Working with MongoDB Transactions')
                 .click({ force: true, scrollBehavior: false });
         });
@@ -61,10 +61,10 @@ describe('Learn Page', () => {
             cy.toggleLearnPageTab('Articles');
             cy.get('[data-test="card-list"]').within(() => {
                 cy.get('[data-test="card"]')
-                    .first()
+                    .eq(1)
                     .within(card => {
                         cy.checkArticleCard(card);
-                        cy.contains(STRAPI_ARTICLE_TITLE);
+                        cy.contains(SECOND_ARTICLE_TITLE);
                     });
             });
             // TODO also check content in Podcasts and Videos
@@ -92,7 +92,7 @@ describe('Learn Page', () => {
     );
     it('should filter content using the filter dropdowns', () => {
         cy.toggleLearnPageTab('Articles');
-        cy.checkCardInCardList('Working with MongoDB Transactions', 1);
+        cy.checkCardInCardList('Working with MongoDB Transactions', 0);
         cy.getUnderStickyNav('[data-test="filter-bar"]').within(() => {
             cy.get('[role="listbox"]').first().click();
         });
@@ -103,7 +103,7 @@ describe('Learn Page', () => {
         // The url should contain the filter value as a param
         cy.url().should('include', 'products=Atlas');
         // Check content
-        cy.checkCardInCardList('Coronavirus Map');
+        cy.checkCardInCardList('How to work with Johns Hopkins');
     });
     it('should have a list of item cards', () => {
         cy.get('[data-test="card-list"]').within(() => {

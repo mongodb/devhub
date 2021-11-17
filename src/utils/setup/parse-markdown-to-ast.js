@@ -60,7 +60,6 @@ export const parseMarkdownToAST = markdown => {
             case 'containerDirective':
                 switch (node.name) {
                     case 'tabs':
-                        console.log(node.children);
                         data['name'] = node.name;
                         node.options = node.attributes;
                         node.type = node.name;
