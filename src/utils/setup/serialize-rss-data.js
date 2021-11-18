@@ -1,5 +1,6 @@
 const typeMap = {
     Article: 'article',
+    Community: 'community',
     HowTo: 'how-to',
     Quickstart: 'quickstart',
 };
