@@ -108,8 +108,8 @@ export const sourceNodes = async ({
             snootyArticles
         );
     });
-    // This must be done after so all author bios exist
     if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
+        // This must be done after so all author bios exist
         snootyArticles = snootyArticles.map(
             ({ slug, doc }) =>
                 new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
@@ -186,19 +186,27 @@ export const createPages = async ({ actions, graphql }) => {
     }));
 
     await createClientSideRedirects(graphql, createRedirect);
-    const { allVideos, allPodcasts } = await fetchBuildTimeMedia();
+
+    const { allVideos, allPodcasts, podcastSeries, videoSeries } =
+        await fetchBuildTimeMedia();
+
+    const allContent = [
+        articlesWithoutContentAST,
+        allPodcasts,
+        allVideos,
+    ].flat();
+
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
+
     tagTypes.forEach(type => {
         const isAuthorType = type === 'author';
         if (isAuthorType) {
-            tagPageDirectory[type] = aggregateAuthorInformation(
-                articlesWithoutContentAST
-            );
+            tagPageDirectory[type] = aggregateAuthorInformation(allContent);
         } else {
             const mappedType = pluralizeIfNeeded[type];
             tagPageDirectory[type] = aggregateItemsWithTagType(
-                articlesWithoutContentAST,
+                allContent,
                 mappedType,
                 type !== mappedType
             );
@@ -220,11 +228,23 @@ export const createPages = async ({ actions, graphql }) => {
     );
     await Promise.all(tagPages);
 
-    await createVideoPages(createPage, allVideos, metadataDocument);
+    await createVideoPages(
+        createPage,
+        allVideos,
+        slugContentMapping,
+        videoSeries,
+        metadataDocument
+    );
 
     await createCommunityChampionProfilePages(createPage, graphql);
 
-    await createPodcastPages(createPage, allPodcasts, metadataDocument);
+    await createPodcastPages(
+        createPage,
+        allPodcasts,
+        slugContentMapping,
+        podcastSeries,
+        metadataDocument
+    );
 
     const { homePageFeaturedArticles, learnPageFeaturedArticles } =
         await getFeaturedArticlesFromGraphql(graphql);

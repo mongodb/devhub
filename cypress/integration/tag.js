@@ -1,7 +1,9 @@
-const TAG_ARTICLE_URL = '/article/3-things-to-know-switch-from-sql-mongodb/';
-const TAG_PAGE_URL = '/tag/sql/';
+const TAG_ARTICLE_URL =
+    '/article/johns-hopkins-university-covid-19-data-atlas/';
+const FIRST_TAG_ARTICLE = '/article/3-things-to-know-switch-from-sql-mongodb/';
+const TAG_PAGE_URL = '/product/mongodb/';
 const PROD_TAG_PAGE_URL = `https://www.mongodb.com/developer${TAG_PAGE_URL}`;
-const TITLE = 'SQL';
+const TITLE = 'MongoDB';
 
 describe('Tag page', () => {
     it('should have a header with some basic tag information', () => {
@@ -20,7 +22,7 @@ describe('Tag page', () => {
         cy.get('h1').should('have.length', 1);
     });
     it('should contain several articles with basic information', () => {
-        cy.get('[data-test="card"]').should('have.length', 5);
+        cy.get('[data-test="card"]').should('have.length', 12);
         cy.get('[data-test="card"]')
             .first()
             .then(card => {
@@ -31,20 +33,20 @@ describe('Tag page', () => {
         cy.visit(TAG_ARTICLE_URL);
         // Get SQL tag and check this article appears on the tag page
         cy.get('header').within(() => {
-            cy.get('ul li a').last().contains(TITLE);
-            cy.get('ul li a').last().click();
+            cy.get('ul li a').first().contains(TITLE);
+            cy.get('ul li a').first().click();
         });
         // Wait for an element to render on the tag page before checking URL
         cy.contains('Tagged In');
         cy.url().should('include', TAG_PAGE_URL);
         cy.get('[data-test="card"]')
-            .eq(1)
+            .eq(0)
             .should('have.attr', 'href')
-            .and('include', TAG_ARTICLE_URL);
+            .and('include', FIRST_TAG_ARTICLE);
     });
     it('should expand the blog tag list when requested', () => {
         cy.get('[data-test="card"]')
-            .first()
+            .eq(2)
             .within(() => {
                 cy.checkTagListProperties(true);
             });

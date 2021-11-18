@@ -12,8 +12,9 @@ import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing'
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import BlogShareLinks from '../components/dev-hub/blog-share-links';
 import { lineHeight, screenSize, size } from '~components/dev-hub/theme';
-import { Video as IVideo } from '~src/interfaces/video';
 import { BannerType } from '~src/types/banner-type';
+import RelatedArticles from '../components/dev-hub/related-articles';
+import ArticleSeries from '../components/dev-hub/article-series';
 
 const VIDEO_BREADCRUMB = [
     {
@@ -99,14 +100,10 @@ const StyledShareFooter = styled(ShareFooter)`
     } 
 `;
 
-type VideoProps = {
-    pageContext: {
-        data: IVideo;
-    };
-};
 
 const Video = ({
     pageContext: {
+        seriesVideos,
         data: {
             slug,
             description,
@@ -115,14 +112,21 @@ const Video = ({
             title,
             videoId,
             mediaType,
+            tags,
+            products,
+            languages,
+            related,
+            authors,
         },
     },
-}: VideoProps) => {
+}) => {
     const { siteUrl } = useSiteMetadata();
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
     const capitalizedBreadcrumb =
         mediaType.charAt(0).toUpperCase() + mediaType.slice(1);
-
+    const tagList = [...products, ...languages, ...tags];
+    // For structured data, we would like a list of the tags to include
+    const tagLabels = tagList.map(({ label }) => label);
     const videoBreadcrumb = useMemo(() => {
         return [
             ...VIDEO_BREADCRUMB,
@@ -174,6 +178,8 @@ const Video = ({
                 title={title}
                 maintainSquareAspectRatio={false}
                 bannerType={BannerType.VIDEO}
+                tags={tagList}
+                authors={authors}
             />
             <Container>
                 <Icons>
@@ -195,12 +201,20 @@ const Video = ({
                     <StyledParagraph>{description}</StyledParagraph>
                     <StyledShareFooter
                         title={title}
-                        tooltipText={TOOLTIP_TEXT}
                         url={pageUrl}
+                        tags={tagList}
+                    />
+                    <ArticleSeries
+                        allSeriesForArticle={seriesVideos}
+                        title={title}
                     />
                 </Content>
             </Container>
+            <RelatedArticles
+                related={related}
+            />
         </Layout>
     );
 };
+
 export default Video;

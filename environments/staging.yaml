@@ -2,6 +2,7 @@ service:
   type: ClusterIP
   targetPort: 8000
 envSecrets:
+  ACCOUNT_PAGE_URL: devhub-gatsby-secrets
   GATSBY_SITE: devhub-gatsby-secrets
   GATSBY_PARSER_USER: devhub-gatsby-secrets
   GATSBY_PARSER_CI_USER: devhub-gatsby-secrets

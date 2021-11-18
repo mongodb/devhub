@@ -1,16 +1,17 @@
-export interface IPodcast {
+import { RelatedContent } from "./related_content"
+export interface PodcastResponse {
     description: string;
     mediaType: string;
-    publishDate: string;
-    rawDescription: string;
+    originalPublishDate: string;
     slug: string;
+    podcastFileUrl: string;
     thumbnailUrl: string;
     title: string;
-    url: string;
     SEO: object;
     tags: object[];
     products: object[];
     languages: object[];
+    related_content: RelatedContent[];
     authors: object[];
-    related: object[];
 }
+
