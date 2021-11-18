@@ -1,5 +1,5 @@
-import { TwitchResponse } from '../interfaces/responses/twitch-response';
+import { VideoResponse } from '../interfaces/responses/video-response';
 import { TwitchVideo } from '../classes/twitch-video';
 
-export const transformTwitchResponse = (video: TwitchResponse): TwitchVideo =>
+export const transformTwitchResponse = (video : VideoResponse): TwitchVideo =>
     new TwitchVideo(video);

@@ -1,8 +1,9 @@
-import { VideoType } from '../types/video-type'
-export interface Video {
+import { RelatedContent } from "./related_content"
+
+export interface VideoResponse {
     description: string;
-    mediaType: VideoType;
-    publishDate: string;
+    mediaType: string;
+    originalPublishDate: string;
     slug: string;
     thumbnailUrl: string;
     title: string;
@@ -11,6 +12,6 @@ export interface Video {
     tags: object[];
     products: object[];
     languages: object[];
+    related_content: RelatedContent[];
     authors: object[];
-    related: object[];
 }
