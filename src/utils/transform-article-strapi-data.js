@@ -42,7 +42,7 @@ export const transformArticleStrapiData = article => {
             og: {
                 description: SEOObject.og_description,
                 image: SEOObject.og_image && SEOObject.og_image.url,
-                title: article.name,
+                title: SEOObject.og_title || article.name,
                 type: SEOObject.og_type,
                 url: SEOObject.og_url,
             },
@@ -52,7 +52,7 @@ export const transformArticleStrapiData = article => {
                 description: SEOObject.twitter_description,
                 image: SEOObject.twitter_image && SEOObject.twitter_image.url,
                 site: SEOObject.twitter_site,
-                title: SEOObject.twitter_title,
+                title: SEOObject.twitter_title || article.name,
             },
         },
         slug: fullSlug,

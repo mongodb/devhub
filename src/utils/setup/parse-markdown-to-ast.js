@@ -56,6 +56,22 @@ export const parseMarkdownToAST = markdown => {
                         break;
                 }
                 break;
+            case 'leafDirective':
+            case 'containerDirective':
+                switch (node.name) {
+                    case 'tabs':
+                        data['name'] = node.name;
+                        node.options = node.attributes;
+                        node.type = node.name;
+                        node.nodeData = data;
+                        break;
+                    case 'tab':
+                        node.options = node.attributes;
+                        break;
+                    default:
+                        break;
+                }
+                break;
             default:
                 break;
         }

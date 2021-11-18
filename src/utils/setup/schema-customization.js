@@ -28,12 +28,15 @@ export const schemaCustomization = ({ actions }) => {
         meta_description: String
         og_description: String
         og_image: CMSImage
+        og_title: String
         og_type: String
         og_url: String
         twitter_creator: String
         twitter_card: String
         twitter_description: String
         twitter_image: CMSImage
+        twitter_site: String
+        twitter_title: String
     }
     type Author implements Node {
         name: String

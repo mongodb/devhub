@@ -64,8 +64,8 @@ const ProgramBenefits = () => (
             <FeaturedBenefit
                 alt="Person with speech bubble with a star in the bubble. Check marks to the left and right of person. Stars around the person."
                 bullets={[
-                    'Access to MongoDB software and curriculum content sourced from MongoDB education experts',
-                    'Consult with us for help planning your curriculum',
+                    'Access to MongoDB curriculum content',
+                    'Slide-based lecture materials explicitly designed for educator use',
                 ]}
                 image={ThumbnailCurriculum}
                 title="Curriculum Content Sourced from MongoDB Education Experts"
@@ -74,7 +74,6 @@ const ProgramBenefits = () => (
                 alt="Leaf standing in middle. Two arrows in front and right of leaf. Two browser with play video icons to the left and behind leaf."
                 bullets={[
                     'Get on-demand access to MongoDB University, for you and your students',
-                    'Student cohort tracking and usage analytics with MongoDB University',
                 ]}
                 image={ThumbnailUniversity}
                 title="Exclusive MongoDB University On-Demand Access"
@@ -83,7 +82,7 @@ const ProgramBenefits = () => (
                 alt="Three people. Middle person has large speech bubble connected to other two people. One additional small speech bubble for each other person"
                 bullets={[
                     'Access to our MongoDB for Academia community',
-                    'Collaborate, share tips and get inspired with other MongoDB for Academia educators',
+                    'Participate in exclusive events for educators to network, collaborate and share best practices',
                 ]}
                 image={ThumbnailConnect}
                 title="Connect with Educators Around the World"

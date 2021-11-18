@@ -108,8 +108,8 @@ export const sourceNodes = async ({
             snootyArticles
         );
     });
-    // This must be done after so all author bios exist
     if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
+        // This must be done after so all author bios exist
         snootyArticles = snootyArticles.map(
             ({ slug, doc }) =>
                 new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)

@@ -52,6 +52,7 @@ query Articles {
           og_image {
             url
           }
+          og_title
           og_type
           og_url
           twitter_card
@@ -60,6 +61,8 @@ query Articles {
           twitter_image {
             url
           }
+          twitter_site
+          twitter_title
         }
       }
     }
