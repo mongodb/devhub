@@ -1,23 +1,32 @@
 import path from 'path';
-import { getTagPageUriComponent } from '../get-tag-page-uri-component';
-import { Podcast } from '../../interfaces/podcast';
+import { Podcast } from '../../classes/podcast';
 import { formatDateToPublishDateFormat } from '../format-dates';
+import { getRelatedPagesWithImages } from './get-related-pages-with-images';
+import { getOtherContentFromTheSeries } from '../get-other-content-from-series';
+import { getSeriesAndContentMapping } from '../get-mediaseries-content-maps';
        
 export const createPodcastPages = async (
     createPage: Function,
     allPodcasts: Podcast[],
+    slugContentMapping: any,
+    podcastSeries: object,
     metadata: object
 ) => {
+    const seriesAndContentMaps = getSeriesAndContentMapping(podcastSeries,'podcast');
     allPodcasts.forEach((podcast: Podcast) => {
-        const slug = `/podcasts/${getTagPageUriComponent(podcast.title)}`;
-        podcast.slug = slug;
+        podcast.related = getRelatedPagesWithImages(
+            podcast.related,
+            slugContentMapping
+        );
+        const seriesPodcasts = getOtherContentFromTheSeries(seriesAndContentMaps, podcast['slug']);
         podcast.publishDate = formatDateToPublishDateFormat(new Date(podcast.publishDate));
         createPage({
-            path: slug,
+            path: podcast['slug'],
             component: path.resolve(`./src/templates/podcast.tsx`),
             context: {
                 metadata,
                 data: podcast,
+                seriesPodcasts
             },
         });
     });

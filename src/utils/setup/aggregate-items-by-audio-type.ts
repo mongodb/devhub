@@ -1,10 +1,10 @@
-import { Podcast } from '../../interfaces/podcast';
+import { IPodcast } from '../../interfaces/podcast';
 
 
 export const aggregateItemsByAudioType = (
     allPodcasts
 ) => 
-    allPodcasts.reduce((accumulator: any,currentItem: Podcast) => {
+    allPodcasts.reduce((accumulator: any,currentItem: IPodcast) => {
         const addItemToAccumulator = v => {
             if (accumulator[v]) {
                 accumulator[v].push(currentItem);
