@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { UnifiedNav } from '@mdb/consistent-nav';
 import { layer } from '~components/dev-hub/theme';
@@ -14,9 +14,20 @@ const FrontLayeredNav = styled(UnifiedNav)`
 
 const ConsistentNav = () => {
     const { origin, pathname } = useLocation();
-    const returnLink = `${getSsoRegistrationLink(
-        origin
-    )}&return_to=${encodeURIComponent(pathname)}`;
+    /**
+     * There seems to be some race condition where the return link is not being
+     * populated with the correct origin. This tries to delay taking someone
+     * to the wrong place until the origin is loaded.
+     */
+    const returnLink = useMemo(
+        () =>
+            origin
+                ? `${getSsoRegistrationLink(
+                      origin
+                  )}&return_to=${encodeURIComponent(pathname)}`
+                : '#',
+        [origin, pathname]
+    );
     return (
         <FrontLayeredNav
             position="sticky"
