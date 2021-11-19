@@ -5,9 +5,18 @@ import React, {
     useMemo,
     useState,
 } from 'react';
+import dlv from 'dlv';
 import { User } from '~src/interfaces/user';
+import { identifyAuid } from '~utils/identify-auid';
 import { isBrowser } from '~utils/is-browser';
 import { OktaAuth } from '@okta/okta-auth-js';
+
+const fetchAuid = async () => {
+    return fetch(`${process.env.ACCOUNT_PAGE_URL}/account/profile/userAuid`, {
+        credentials: 'include',
+        method: 'GET',
+    }).then(r => r.json());
+};
 
 const AuthenticationContext = createContext<{
     authClient: any;
@@ -42,7 +51,7 @@ const AuthenticationProvider = ({ children }) => {
     );
     const [user, setUser] = useState<User | object>({});
     const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-    const onToken = useCallback(idToken => {
+    const onToken = useCallback(async idToken => {
         if (idToken) {
             const claims = idToken.claims || {};
             const { email, name } = claims;
@@ -59,6 +68,19 @@ const AuthenticationProvider = ({ children }) => {
             authClient.tokenManager.get('idToken').then(onToken);
         }
     }, [authClient, isSignedIn, onToken]);
+    useEffect(() => {
+        const getAuid = async () => {
+            if (user && !user.auid) {
+                const auidResponse = await fetchAuid();
+                const auid = dlv(auidResponse, 'userAuid', null);
+                if (auid) {
+                    setUser({ ...user, auid });
+                    identifyAuid(auid);
+                }
+            }
+        };
+        getAuid();
+    }, [user]);
     return (
         <Provider value={{ authClient, isSignedIn, onToken, user, setUser }}>
             {children}
