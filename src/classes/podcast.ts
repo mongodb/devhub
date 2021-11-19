@@ -1,5 +1,4 @@
 import { PodcastResponse } from '../interfaces/responses/podcast-response';
-import { VideoType } from '~src/types/video-type';
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
 import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { IPodcast } from '../interfaces/podcast';

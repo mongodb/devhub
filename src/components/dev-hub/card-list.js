@@ -113,7 +113,6 @@ export default React.memo(
                 fullContentList = podcasts;
             }
         }
-
         return (
             <>
                 <Paginate limit={limit} data-test="card-list">

@@ -124,7 +124,6 @@ const stripAllParam = filterValue => {
 };
 
 const filterArticles = (filter, initialArticles) => {
-    console.log('In filterArticles');
     const filterValues = Object.keys(filter);
     return initialArticles.reduce((acc, article) => {
         for (let i = 0; i < filterValues.length; i++) {

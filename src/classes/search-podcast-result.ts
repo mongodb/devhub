@@ -1,22 +1,18 @@
 import dlv from 'dlv';
-import { Podcast } from "../interfaces/podcast"
+import { IPodcast } from "../interfaces/podcast"
 import { getTagPageUriComponent } from '../utils/get-tag-page-uri-component';
+import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
+import { StrapiAuthor } from '../classes/strapi-author';
+import { formatRelatedContent } from '../utils/format-related-content'
+import {SearchResult} from './base/search-results'
 
-export class SearchPodcastResult implements Podcast {
-    description: string;
-    mediaType: string;
-    publishDate: string;
-    rawDescription?: string;
-    slug: string;
+
+export class SearchPodcastResult extends SearchResult {
     thumbnailUrl: string;
-    title: string;
 
     constructor(podcast) {
-        this.description = podcast.description;
-        this.mediaType = podcast.mediaType;
-        this.publishDate = podcast.pubDate;
-        this.slug = podcast.slug;
+        super(podcast)
         this.thumbnailUrl = podcast.atf_image;
-        this.title = dlv(podcast.title, [0, 'value'], podcast.slug);
+        this.description = podcast.description.replace(/<[^>]+>/g, '');
     }
 }
