@@ -57,6 +57,23 @@ const AuthenticationProvider = ({ children }) => {
         if (!isSignedIn && authClient) {
             // Attempt to retrieve ID Token from Token Manager
             authClient.tokenManager.get('idToken').then(onToken);
+            // Otherwise, try to hit the endpoint if they are auth'd
+            const ensureOktaApplicationSession = async () => {
+                return authClient.token
+                    .getWithoutPrompt({
+                        responseType: 'id_token',
+                        scopes: ['openid', 'email', 'profile'],
+                    })
+                    .then(res => {
+                        authClient.tokenManager.setTokens(res?.tokens);
+                        onToken(res?.tokens.idToken);
+                    });
+            };
+            authClient.session.exists().then(resp => {
+                if (resp) {
+                    ensureOktaApplicationSession();
+                }
+            });
         }
     }, [authClient, isSignedIn, onToken]);
     return (
