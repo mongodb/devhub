@@ -30,6 +30,7 @@ const ConsistentNav = () => {
     );
     return (
         <FrontLayeredNav
+            floraTheme="default"
             position="sticky"
             property="DEVHUB"
             signInUrl={returnLink}

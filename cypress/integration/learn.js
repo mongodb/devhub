@@ -1,8 +1,9 @@
 const CANONICAL_URL = 'https://www.mongodb.com/developer/learn/';
-const FIRST_ARTICLE_IN_ORDERING = '/how-to/transactions-c-dotnet/';
-const FIRST_ARTICLE_UPDATED_DATE = 'Oct 03, 2020';
-const FIRST_ARTICLE_PUBLISHED_DATE = 'Oct 17, 2018';
-const STRAPI_ARTICLE_TITLE = 'Test Strapi Article';
+const FIRST_ARTICLE_IN_ORDERING =
+    '/article/3-things-to-know-switch-from-sql-mongodb/';
+const FIRST_ARTICLE_UPDATED_DATE = 'Nov 17, 2021';
+const FIRST_ARTICLE_PUBLISHED_DATE = 'Apr 01, 2020';
+const SECOND_ARTICLE_TITLE = 'Active-Active';
 
 describe('Learn Page', () => {
     it('should properly render the learn page', () => {
@@ -35,9 +36,9 @@ describe('Learn Page', () => {
         cy.toggleLearnPageTab('Articles');
         cy.get('[data-test="card-list"]').within(() => {
             cy.get('[data-test="card"]')
-                .eq(1)
-                .should('contain', 'Working with MongoDB Transactions')
-                .click({ force: true });
+                .eq(0)
+                .should('contain', '3 Things to Know')
+                .click({ force: true, scrollBehavior: false });
         });
         cy.url().should('include', FIRST_ARTICLE_IN_ORDERING);
         // By targeting the hero banner we can be sure the navigation is done
@@ -47,35 +48,53 @@ describe('Learn Page', () => {
         });
         cy.visitWithoutFetch('/learn/');
     });
-    it('should filter content based on the selected tab', () => {
-        // TODO: Check content in "All" (Stub videos and podcasts)
-        // Check content in "Articles"
-        cy.toggleLearnPageTab('Articles');
-        cy.get('[data-test="card-list"]').within(() => {
-            cy.get('[data-test="card"]')
-                .first()
-                .within(card => {
-                    cy.checkArticleCard(card);
-                    cy.contains(STRAPI_ARTICLE_TITLE);
-                });
-        });
-        // TODO also check content in Podcasts and Videos
-    });
+    it(
+        'should filter content based on the selected tab',
+        {
+            retries: {
+                runMode: 3,
+                openMode: 3,
+            },
+        },
+        () => {
+            // TODO: Check content in "All" (Stub videos and podcasts)
+            // Check content in "Articles"
+            cy.toggleLearnPageTab('Articles');
+            cy.get('[data-test="card-list"]').within(() => {
+                cy.get('[data-test="card"]')
+                    .eq(1)
+                    .within(card => {
+                        cy.checkArticleCard(card);
+                        cy.contains(SECOND_ARTICLE_TITLE);
+                    });
+            });
+            // TODO also check content in Podcasts and Videos
+        }
+    );
 
-    it('should only show the filter bar for "All" or "Articles"', () => {
-        cy.toggleLearnPageTab('All');
-        cy.get('[data-test="filter-bar"]').should('exist');
-        cy.toggleLearnPageTab('Articles');
-        cy.get('[data-test="filter-bar"]').should('exist');
-        cy.toggleLearnPageTab('Podcasts');
-        cy.get('[data-test="filter-bar"]').should('not.exist');
-        cy.toggleLearnPageTab('Videos');
-        cy.get('[data-test="filter-bar"]').should('not.exist');
-    });
+    it(
+        'should only show the filter bar for "All" or "Articles"',
+        {
+            retries: {
+                runMode: 2,
+                openMode: 2,
+            },
+        },
+        () => {
+            cy.toggleLearnPageTab('All');
+            cy.get('[data-test="filter-bar"]').should('exist');
+            cy.toggleLearnPageTab('Articles');
+            cy.get('[data-test="filter-bar"]').should('exist');
+            cy.toggleLearnPageTab('Podcasts');
+            cy.get('[data-test="filter-bar"]').should('not.exist');
+            cy.toggleLearnPageTab('Videos');
+            cy.get('[data-test="filter-bar"]').should('not.exist');
+        }
+    );
     it('should filter content using the filter dropdowns', () => {
         cy.toggleLearnPageTab('Articles');
-        cy.checkCardInCardList('Working with MongoDB Transactions', 1);
-        cy.get('[data-test="filter-bar"]').within(() => {
+        cy.checkCardInCardList('3 Things to Know', 0);
+        cy.getUnderStickyNav('[data-test="filter-bar"]').within(() => {
             cy.get('[role="listbox"]').first().click();
         });
         // Update filter
@@ -85,7 +104,7 @@ describe('Learn Page', () => {
         // The url should contain the filter value as a param
         cy.url().should('include', 'products=Atlas');
         // Check content
-        cy.checkCardInCardList('Coronavirus Map');
+        cy.checkCardInCardList('How to work with Johns Hopkins');
     });
     it('should have a list of item cards', () => {
         cy.get('[data-test="card-list"]').within(() => {

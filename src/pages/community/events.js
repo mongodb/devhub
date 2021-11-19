@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Helmet } from 'react-helmet';
 import HeroBanner from '../../components/dev-hub/hero-banner';
 import Layout from '../../components/dev-hub/layout';
 import useEventData from '../../hooks/use-event-data';
@@ -9,6 +8,8 @@ import { H1, H3, P } from '../../components/dev-hub/text';
 import AllEventsBackgroundImage from '../../images/1x/all-events-hero.png';
 import { size } from '../../components/dev-hub/theme';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
+import PageHelmet from '~components/dev-hub/page-helmet';
+import { EVENTS_WEBINARS_OVERVIEW } from '../../constants';
 const EventsFilter = styled('div')`
     margin-bottom: ${size.medium};
 `;
@@ -23,26 +24,28 @@ const breadcrumbs = [
     { label: 'Events', target: '/community/events' },
 ];
 
-const CommunityEvents = () => {
-    const [events, error, isLoading] = useEventData();
+const PAGE_DESCRIPTION =
+    'Join us in a city near you to connect with MongoDB users who are shaking up their industries, and be among the first to hear updates and exciting news.';
 
-    const metadata = useSiteMetadata();
+const CommunityEvents = ({ path }) => {
+    const [events, error, isLoading] = useEventData();
+    const { title } = useSiteMetadata();
+
     return (
-        <Layout>
-            <Helmet>
-                <title>Events - {metadata.title}</title>
-            </Helmet>
+        <Layout includeCanonical={false}>
+            <PageHelmet
+                canonicalUrl={EVENTS_WEBINARS_OVERVIEW}
+                title={`Events - ${title}`}
+                pagePath={path}
+                description={PAGE_DESCRIPTION}
+            />
             <HeroBanner
                 background={AllEventsBackgroundImage}
                 breadcrumb={breadcrumbs}
                 showImageOnMobile={false}
             >
                 <H1>Events</H1>
-                <PageDescription>
-                    Join us in a city near you to connect with MongoDB users who
-                    are shaking up their industries, and be among the first to
-                    hear updates and exciting news.
-                </PageDescription>
+                <PageDescription>{PAGE_DESCRIPTION}</PageDescription>
             </HeroBanner>
             <section>
                 <EventsFilter>

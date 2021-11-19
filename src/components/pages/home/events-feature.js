@@ -9,6 +9,7 @@ import meetupsImage from '../../../images/1x/Meetups.png';
 import GradientUnderline from '../../dev-hub/gradient-underline';
 import { useTheme } from '@emotion/react';
 import FeatureSection from './feature-section';
+import { EVENTS_WEBINARS_OVERVIEW } from '../../../constants';
 
 const MEDIA_WIDTH = '550px';
 
@@ -50,7 +51,7 @@ const EventsFeature = () => {
                     <DescriptiveText>
                         Come to learn, stay to connect.
                     </DescriptiveText>
-                    <Button to="/community/events" secondary>
+                    <Button href={EVENTS_WEBINARS_OVERVIEW} secondary>
                         Join Us
                     </Button>
                 </SectionContent>
