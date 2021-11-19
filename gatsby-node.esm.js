@@ -278,6 +278,15 @@ export const onCreateWebpackConfig = ({ stage, loaders, actions }) => {
                 ),
             },
         },
+        module: {
+            rules: [
+                {
+                    test: /\.js/,
+                    include: /node_modules\/@okta\/okta-auth-js/,
+                    type: 'javascript/auto',
+                },
+            ],
+        },
     });
 };
 
