@@ -18,7 +18,9 @@ const SEO = ({
     type,
 }) => {
     const { siteUrl } = useSiteMetadata();
-    const ogImgSrc = image ? getImageSrc(image, siteUrl) : null;
+    const ogImgSrc = image
+        ? getImageSrc(image, siteUrl)
+        : `${siteUrl}/public/images/social_share_generic.png`;
     const effectiveMetaDescription = metaDescription || ogDescription;
     const effectiveOgDescription = ogDescription || metaDescription;
     const effectiveOgType = type || DEFAULT_OG_TYPE;
@@ -47,7 +49,7 @@ const SEO = ({
             {ogTitle && <meta property="og:title" content={ogTitle} />}
 
             {/* Twitter Tags */}
-            {twitter && <meta name="twitter:card" content="summary" />}
+            <meta name="twitter:card" content={twitter.card || 'summary'} />
             {twitter.creator && (
                 <meta name="twitter:creator" content={twitter.creator} />
             )}

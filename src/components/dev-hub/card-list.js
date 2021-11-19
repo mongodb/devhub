@@ -45,6 +45,7 @@ const renderVideo = video => (
     <VideoCard
         key={video.mediaType + video.title}
         image={getThumbnailUrl(video)}
+        tags={[...video.products, ...video.languages, ...video.tags]}
         videoModalThumbnail={getThumbnailUrl(video)}
         title={video.title}
         badge={video.mediaType}
@@ -57,6 +58,7 @@ const renderPodcast = podcast => (
     <Card
         key={podcast.mediaType + podcast.title}
         image={getThumbnailUrl(podcast)}
+        tags={[...podcast.products, ...podcast.languages, ...podcast.tags]}
         title={podcast.title}
         badge={podcast.mediaType}
         description={podcast.description}

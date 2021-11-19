@@ -128,9 +128,16 @@ Cypress.Commands.add('mockTextFilterResponse', () => {
 });
 
 Cypress.Commands.add('toggleLearnPageTab', tabName => {
-    cy.get('[data-test="tabs"]').within(() => {
-        cy.contains(tabName).should('exist').click({ force: true });
+    cy.getUnderStickyNav('[data-test="tabs"]').within(() => {
+        cy.contains(tabName)
+            .should('exist')
+            .click({ force: true, scrollPosition: false });
     });
+});
+
+Cypress.Commands.add('getUnderStickyNav', selector => {
+    // 88 is the height of the sticky nav
+    cy.get(selector).scrollIntoView({ offset: { top: -88 } });
 });
 
 // To stub requests with Cypress, we must remove fetch from the browser so

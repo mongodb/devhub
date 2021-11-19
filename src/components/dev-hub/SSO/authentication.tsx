@@ -9,9 +9,6 @@ import { User } from '~src/interfaces/user';
 import { isBrowser } from '~utils/is-browser';
 import { OktaAuth } from '@okta/okta-auth-js';
 
-export const REGISTER_LINK =
-    'https://account-qa.mongodb.com/account/login?fromURI=https%3A%2F%2Fdevhub-local.mongodb.com%3A8000%2Flogin%2Fcallback';
-
 const AuthenticationContext = createContext<{
     authClient: any;
     isSignedIn: boolean;
@@ -44,7 +41,6 @@ const AuthenticationProvider = ({ children }) => {
         []
     );
     const [user, setUser] = useState<User | object>({});
-    console.log(user);
     const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
     const onToken = useCallback(idToken => {
         if (idToken) {
