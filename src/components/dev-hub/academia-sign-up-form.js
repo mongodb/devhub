@@ -275,7 +275,6 @@ const AcademiaSignUpForm = React.memo(({ setSuccess, success, ...props }) => {
                     narrow
                     required
                     value={courseName}
-                    required
                     maxLength="75"
                     placeholder="Course Name"
                     onChange={e => setCourseName(e.target.value)}

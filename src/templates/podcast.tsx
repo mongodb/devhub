@@ -13,6 +13,8 @@ import ShareFooter from '~components/dev-hub/article-share-footer';
 import { useSiteMetadata } from '~hooks/use-site-metadata';
 import { addTrailingSlashIfMissing } from '~utils/add-trailing-slash-if-missing';
 import parse from 'html-react-parser';
+import ArticleSeries from '../components/dev-hub/article-series';
+import RelatedArticles from '../components/dev-hub/related-articles';
 
 
 const PODCAST_BREADCRUMB = [
@@ -123,6 +125,7 @@ const StyledShareFooter = styled(ShareFooter)`
 
 const Podcast = ({
     pageContext: {
+        seriesPodcasts,
         data: {
             slug,
             description,
@@ -131,13 +134,20 @@ const Podcast = ({
             thumbnailUrl: image,
             title,
             url: podcastUrl,
+            tags,
+            products,
+            languages,
+            related,
+            authors
         }
     },
 }) => {
     const { siteUrl } = useSiteMetadata();
     const pageUrl = addTrailingSlashIfMissing(`${siteUrl}${slug}`);
     const parsedDescription = parse(rawDescription);
-
+    const tagList = [...products, ...languages, ...tags];
+    // For structured data, we would like a list of the tags to include
+    const tagLabels = tagList.map(({ label }) => label);
     const podcastBreadcrumb = useMemo(
         () => [
             ...PODCAST_BREADCRUMB,
@@ -180,6 +190,8 @@ const Podcast = ({
                 image={image}
                 publishDate={publishDate}
                 title={title}
+                tags={tagList}
+                authors={authors}
             />
             <Container>
                 <Icons>
@@ -195,27 +207,19 @@ const Podcast = ({
                     <StyledParagraph>{parsedDescription}</StyledParagraph>
                     <StyledShareFooter
                         title={title}
-                        tooltipText={TOOLTIP_TEXT}
                         url={pageUrl}
+                        tags={tagList}
+                    />
+                    <ArticleSeries
+                        allSeriesForArticle={seriesPodcasts}
+                        title={title}
                     />
                 </Content>
             </Container>
+            <RelatedArticles
+                related={related}
+            />
         </Layout>
     );
 };
-
-Podcast.propTypes = {
-    pageContext: PropTypes.shape({
-        data: PropTypes.shape({
-            description: PropTypes.string,
-            rawDescription: PropTypes.string,
-            publishDate: PropTypes.string,
-            thumbnailUrl: PropTypes.string,
-            title: PropTypes.string,
-            url: PropTypes.string,
-        }),
-        slug: PropTypes.string,
-    }),
-};
-
 export default Podcast;
