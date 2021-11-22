@@ -37,8 +37,7 @@ const Index = ({ pageContext: { fallbackTwitchVideo, featuredItems } }) => {
                         '@context': 'https://schema.org',
                         '@type': 'Organization',
                         name: 'MongoDB Developer Hub',
-                        logo:
-                            'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
+                        logo: 'https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png',
                         url: SITE_URL,
                         telephone: '+1-844-666-4632',
                         sameAs: [

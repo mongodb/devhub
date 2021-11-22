@@ -73,7 +73,7 @@ describe('Learn Page', () => {
     );
 
     it(
-        'should only show the filter bar for "All" or "Articles"',
+        'should only show the filter bar for all tabs',
         {
             retries: {
                 runMode: 2,
@@ -86,9 +86,9 @@ describe('Learn Page', () => {
             cy.toggleLearnPageTab('Articles');
             cy.get('[data-test="filter-bar"]').should('exist');
             cy.toggleLearnPageTab('Podcasts');
-            cy.get('[data-test="filter-bar"]').should('not.exist');
+            cy.get('[data-test="filter-bar"]').should('exist');
             cy.toggleLearnPageTab('Videos');
-            cy.get('[data-test="filter-bar"]').should('not.exist');
+            cy.get('[data-test="filter-bar"]').should('exist');
         }
     );
     it('should filter content using the filter dropdowns', () => {

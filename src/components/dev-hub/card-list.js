@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styled from '@emotion/styled';
-import Audio from './audio';
 import Card from './card';
 import Paginate from './paginate';
 import getTwitchThumbnail from '~utils/get-twitch-thumbnail';
@@ -32,7 +32,7 @@ const sortCardsByDate = contentList =>
 const renderArticle = article => (
     <ArticleCard
         to={article.slug}
-        key={article._id}
+        key={uuidv4()}
         image={article.image}
         tags={[...article.products, ...article.languages, ...article.tags]}
         title={article.title}
@@ -43,7 +43,7 @@ const renderArticle = article => (
 
 const renderVideo = video => (
     <VideoCard
-        key={video.mediaType + video.title}
+        key={uuidv4()}
         image={getThumbnailUrl(video)}
         tags={[...video.products, ...video.languages, ...video.tags]}
         videoModalThumbnail={getThumbnailUrl(video)}
@@ -56,7 +56,7 @@ const renderVideo = video => (
 
 const renderPodcast = podcast => (
     <Card
-        key={podcast.mediaType + podcast.title}
+        key={uuidv4()}
         image={getThumbnailUrl(podcast)}
         tags={[...podcast.products, ...podcast.languages, ...podcast.tags]}
         title={podcast.title}
@@ -67,7 +67,7 @@ const renderPodcast = podcast => (
 );
 
 const renderContentTypeCard = item => {
-    if (item.mediaType)
+    if (item.mediaType) {
         switch (item.mediaType) {
             case 'youtube':
             case 'twitch':
@@ -75,22 +75,44 @@ const renderContentTypeCard = item => {
             case 'podcast':
                 return renderPodcast(item);
             default:
-                return;
+                return renderArticle(item);
         }
+    }
+    // Some items don't have mediaType. In that case, they are articles
     return renderArticle(item);
 };
 
 export default React.memo(
-    ({ all, videos, articles, podcasts, limit = CARD_LIST_LIMIT }) => {
+    ({
+        all,
+        videos,
+        articles,
+        podcasts,
+        shouldSort,
+        limit = CARD_LIST_LIMIT,
+    }) => {
         videos = videos || [];
         articles = articles || [];
         podcasts = podcasts || [];
 
         // If we provide "all", we don't need to sort. We can assume any sorting
         // has been done
-        const fullContentList =
-            all || sortCardsByDate(videos.concat(articles, podcasts));
-
+        let fullContentList = [];
+        if (shouldSort) {
+            fullContentList = sortCardsByDate(
+                videos.concat(articles, podcasts)
+            );
+        } else {
+            if (all && all.length > 0) {
+                fullContentList = all;
+            } else if (articles.length > 0) {
+                fullContentList = articles;
+            } else if (videos.length > 0) {
+                fullContentList = videos;
+            } else if (podcasts.length > 0) {
+                fullContentList = podcasts;
+            }
+        }
         return (
             <>
                 <Paginate limit={limit} data-test="card-list">
