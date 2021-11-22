@@ -50,11 +50,10 @@ const Paginate = ({
     const [visibleLength, setVisibleLength] = useState(page * limit);
 
     const hasMore = children.length > visibleLength;
-    const visibleElements = useMemo(() => children.slice(0, visibleLength), [
-        children,
-        visibleLength,
-    ]);
-
+    const visibleElements = useMemo(
+        () => children.slice(0, visibleLength),
+        [children, visibleLength]
+    );
     return (
         <div {...props}>
             <Grid children={visibleElements} {...gridProps} />
