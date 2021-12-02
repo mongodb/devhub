@@ -51,7 +51,7 @@ export class StrapiArticle implements Article {
             'product',
             true
         );
-        this.publishedDate = toISODate(mappedArticle.published_at);
+        this.publishedDate = toISODate(mappedArticle.originalPublishDate ? mappedArticle.originalPublishDate : mappedArticle.published_at);
         this.related = mappedArticle.related;
         this.SEO = mappedArticle.SEO;
         this.slug = mappedArticle.slug;
