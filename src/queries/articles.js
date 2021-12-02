@@ -40,6 +40,7 @@ query Articles {
         }
         name
         published_at
+        originalPublishDate
         updatedAt
         related_content {
           label
