@@ -229,7 +229,7 @@ const LearnPage = ({
     location,
     navigate,
     pageContext: {
-        allArticles: articles,
+        allArticles,
         allPodcasts: podcasts,
         allVideos: videos,
         featuredArticles,
@@ -238,6 +238,7 @@ const LearnPage = ({
     path,
 }) => {
     const { title } = useSiteMetadata();
+    const [articles, setArticles] = useState(allArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
     const [textFilterQuery, setTextFilterQuery] = useState(filterValue['text']);
@@ -256,6 +257,10 @@ const LearnPage = ({
     const { results: textFilterResults } = useTextFilter(
         textFilterQuery,
         activeContentTab
+    );
+    const filterActiveArticles = useCallback(
+        filter => filterArticles(filter, allArticles),
+        [allArticles]
     );
 
     // Update the filter value for page so it behaves nicely with query params
@@ -288,6 +293,8 @@ const LearnPage = ({
         filterValue => {
             const filter = stripAllParam(filterValue);
             const searchParams = buildQueryString(filter);
+            const filteredArticles = filterActiveArticles(filter);
+            filteredArticles.length && setArticles(filteredArticles);
             if (window.location.search !== searchParams) {
                 // if the search params are empty, push the pathname state in order to remove params
                 navigate(
@@ -302,7 +309,7 @@ const LearnPage = ({
         },
         // Exclude "navigate" since it constantly changes
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [pathname]
+        [filterActiveArticles, pathname]
     );
 
     useEffect(() => {
