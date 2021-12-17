@@ -242,6 +242,7 @@ const LearnPage = ({
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
     const [textFilterQuery, setTextFilterQuery] = useState(filterValue['text']);
+    const [activeTab, setActiveTab] = useState(LearnPageTabs.all);
 
     const activeContentTab = useMemo(() => {
         const currentContentFilter = filterValue['content'];
@@ -314,6 +315,10 @@ const LearnPage = ({
     useEffect(() => {
         updateFilterQueryParams(filterValue);
     }, [filterValue, updateFilterQueryParams]);
+
+    useEffect(() => {
+        setActiveTab(activeContentTab);
+    }, [activeContentTab]);
 
     // filterValue could be {} on a page load, or values can be "all" if toggled back
     const hasNoFilter = useMemo(() => {
@@ -391,7 +396,7 @@ const LearnPage = ({
                     )
                 ) : (
                     <ActiveCardList
-                        activeContentTab={activeContentTab}
+                        activeContentTab={activeTab}
                         articles={articles}
                         videos={videos}
                         podcasts={podcasts}
