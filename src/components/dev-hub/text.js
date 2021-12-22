@@ -15,6 +15,7 @@ const handleCollapse = ({ collapse }) => (collapse ? noMargin : bottomMargin);
 const commonHeading = css`
     font-family: 'Fira Mono', monospace;
     font-weight: bold;
+    scroll-margin-top: 15em;
 `;
 
 export const H1 = styled('h1')`

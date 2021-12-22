@@ -6,6 +6,7 @@ import { mapTagTypeToUrl } from '../utils/map-tag-type-to-url';
 import { transformAuthorStrapiData } from '../utils/setup/transform-author-strapi-data';
 import { StrapiAuthor } from '../classes/strapi-author';
 import { formatRelatedContent } from '../utils/format-related-content'
+import { getISODate } from '../utils/get-isodate'
 
 
 export class YoutubeVideo implements Video {
@@ -26,7 +27,7 @@ export class YoutubeVideo implements Video {
     constructor(video: VideoResponse) {
         this.description = video.description;
         this.mediaType = 'youtube';
-        this.publishDate = video.originalPublishDate;
+        this.publishDate = getISODate(video.originalPublishDate);
         this.slug = video.slug;
         this.thumbnailUrl = video.thumbnailUrl;
         this.title = video.title;
