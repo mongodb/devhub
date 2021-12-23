@@ -140,7 +140,7 @@ const Tag = props => {
 
             <ArticleContent>
                 {isAuthor && <H3>Articles by {name}</H3>}
-                <CardList articles={pages} />
+                <CardList shouldSort articles={pages} />
             </ArticleContent>
         </Layout>
     );

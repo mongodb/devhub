@@ -5,6 +5,7 @@ import { IPodcast } from '../interfaces/podcast';
 import { transformAuthorStrapiData } from '../utils/setup/transform-author-strapi-data';
 import { StrapiAuthor } from '../classes/strapi-author';
 import { formatRelatedContent } from '../utils/format-related-content'
+import { getISODate } from '../utils/get-isodate'
 
 export class Podcast implements IPodcast{
     description: string;
@@ -25,7 +26,7 @@ export class Podcast implements IPodcast{
     constructor(podcast: PodcastResponse) {
         this.mediaType = 'podcast';
         this.title = podcast.title;
-        this.publishDate = podcast.originalPublishDate;
+        this.publishDate = getISODate(podcast.originalPublishDate);
         this.description = podcast.description.replace(/<[^>]+>/g, '');
         this.rawDescription = podcast.description.replace(
             /a href/g,
