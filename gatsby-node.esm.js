@@ -44,7 +44,10 @@ const pluralizeIfNeeded = {
 const metadata = getMetadata();
 
 const DB = metadata.database;
-const PAGE_ID_PREFIX = `${metadata.project}/${metadata.parserUser}/${metadata.parserBranch}`;
+let PAGE_ID_PREFIX = `${metadata.project}/${metadata.snootyUser}/${metadata.parserBranch}`;
+if (!Boolean(process.env.ENABLE_GATSBY_REFRESH_ENDPOINT)) {
+    PAGE_ID_PREFIX = `${metadata.project}/${metadata.parserUser}/${metadata.parserBranch}`;
+}
 
 // different types of references
 const assets = {};
