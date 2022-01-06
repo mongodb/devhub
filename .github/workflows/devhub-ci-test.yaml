@@ -39,7 +39,8 @@ jobs:
                   echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
                   echo "DISABLE_GTM=true" >> .env.production; \
                   echo "GATSBY_PREVIEW_MODE=true" >> env.production; \
-                  echo "STRAPI_URL=http://18.144.177.6:1337" >> .env.production
+                  echo "STRAPI_URL=http://18.144.177.6:1337" >> .env.production; \
+                  echo "ENABLE_GATSBY_REFRESH_ENDPOINT=true" >> .env.production
             - name: Build Gatsby
               run: npm run buildTest
               env:
