@@ -44,7 +44,7 @@ const pluralizeIfNeeded = {
 const metadata = getMetadata();
 
 const DB = metadata.database;
-const PAGE_ID_PREFIX = `${metadata.project}/${metadata.snootyUser}/${metadata.parserBranch}`;
+let PAGE_ID_PREFIX = `${metadata.project}/${metadata.snootyUser}/${metadata.parserBranch}`;
 if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
     PAGE_ID_PREFIX = `${metadata.project}/${metadata.parserUser}/${metadata.parserBranch}`;
 }
