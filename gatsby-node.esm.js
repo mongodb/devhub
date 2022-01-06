@@ -45,7 +45,7 @@ const metadata = getMetadata();
 
 const DB = metadata.database;
 let PAGE_ID_PREFIX = `${metadata.project}/${metadata.snootyUser}/${metadata.parserBranch}`;
-if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
+if (!Boolean(process.env.ENABLE_GATSBY_REFRESH_ENDPOINT)) {
     PAGE_ID_PREFIX = `${metadata.project}/${metadata.parserUser}/${metadata.parserBranch}`;
 }
 
