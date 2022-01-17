@@ -23,11 +23,17 @@ const getThumbnailUrl = media => {
 
 // publishDate is for videos. TODO is to have this follow articles
 const sortCardsByDate = contentList =>
-    contentList.sort(
-        (a, b) =>
-            new Date(b.updatedDate || b.publishedDate || b.publishDate) -
-            new Date(a.updatedDate || a.publishedDate || a.publishDate)
-    );
+    contentList.sort((a, b) => {
+        const date1 =
+            b.isOriginallySnooty != true
+                ? b.updatedDate || b.publishedDate || b.publishDate
+                : b.publishedDate || b.publishDate || b.updatedDate;
+        const date2 =
+            a.isOriginallySnooty != true
+                ? a.updatedDate || a.publishedDate || a.publishDate
+                : a.publishedDate || a.publishDate || a.updatedDate;
+        return new Date(date1) - new Date(date2);
+    });
 
 const renderArticle = article => (
     <ArticleCard

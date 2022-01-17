@@ -17,4 +17,5 @@ export interface Article {
     title: String;
     type: ArticleCategory;
     updatedDate?: String;
+    isOriginallySnooty?: boolean;
 }
