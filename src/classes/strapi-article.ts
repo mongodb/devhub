@@ -25,6 +25,7 @@ export class StrapiArticle implements Article {
     title: String;
     type: ArticleCategory;
     updatedDate: String;
+    isOriginallySnooty: boolean;
     constructor(article) {
         const mappedArticle = transformArticleStrapiData(article);
         this._id = mappedArticle.id;
@@ -59,5 +60,6 @@ export class StrapiArticle implements Article {
         this.title = mappedArticle.name;
         this.type = mappedArticle.type;
         this.updatedDate = toISODate(mappedArticle.updatedAt);
+        this.isOriginallySnooty = mappedArticle.originalPublishDate ? true : false;
     }
 }
