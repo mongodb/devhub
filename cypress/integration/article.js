@@ -47,7 +47,7 @@ describe('Sample Article Page', () => {
                 // Check title
                 cy.contains(ARTICLE_TITLE);
                 // Check pubdate
-                cy.contains('Published: Apr 01, 2020');
+                cy.contains('Published: Dec 01, 2021');
                 // Check tags
                 cy.checkTagListProperties();
                 // Check author
