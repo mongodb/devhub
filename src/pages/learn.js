@@ -124,7 +124,10 @@ const stripAllParam = filterValue => {
 };
 
 const filterArticles = (filter, initialArticles) => {
-    const filterValues = Object.keys(filter);
+    const allowedKeys = ['content', 'page', 'text', 'products', 'languages'];
+    const filterValues = Object.keys(filter).filter(key =>
+        allowedKeys.includes(key)
+    );
     return initialArticles.reduce((acc, article) => {
         for (let i = 0; i < filterValues.length; i++) {
             if (filterValues[i] === 'page' || filterValues[i] === 'content') {
