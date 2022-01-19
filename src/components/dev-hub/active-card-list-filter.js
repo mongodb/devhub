@@ -5,13 +5,13 @@ import { LearnPageTabs } from '../../utils/learn-page-tabs';
 const ActiveCardListFilter = ({ activeContentTab, textFilterResults }) => {
     switch (activeContentTab) {
         case LearnPageTabs.articles:
-            return <CardList articles={textFilterResults} shouldSort />;
+            return <CardList articles={textFilterResults} />;
         case LearnPageTabs.videos:
-            return <CardList videos={textFilterResults} shouldSort />;
+            return <CardList videos={textFilterResults} />;
         case LearnPageTabs.podcasts:
-            return <CardList podcasts={textFilterResults} shouldSort />;
+            return <CardList podcasts={textFilterResults} />;
         default:
-            return <CardList all={textFilterResults} shouldSort />;
+            return <CardList all={textFilterResults} />;
     }
 };
 
