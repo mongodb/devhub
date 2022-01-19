@@ -101,23 +101,10 @@ export default React.memo(
         articles = articles || [];
         podcasts = podcasts || [];
 
-        // If we provide "all", we don't need to sort. We can assume any sorting
-        // has been done
-        let fullContentList = [];
+        let fullContentList =
+            all && all.length > 0 ? all : videos.concat(articles, podcasts);
         if (shouldSort) {
-            fullContentList = sortCardsByDate(
-                videos.concat(articles, podcasts)
-            );
-        } else {
-            if (all && all.length > 0) {
-                fullContentList = all;
-            } else if (articles.length > 0) {
-                fullContentList = articles;
-            } else if (videos.length > 0) {
-                fullContentList = videos;
-            } else if (podcasts.length > 0) {
-                fullContentList = podcasts;
-            }
+            fullContentList = sortCardsByDate(fullContentList);
         }
         return (
             <>
