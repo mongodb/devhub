@@ -7,6 +7,14 @@ import { getTagPageUriComponent } from '../get-tag-page-uri-component';
 
 export const parseMarkdownToAST = markdown => {
     const result = remark().use(gfm).use(directive).parse(markdown);
+    const parseNodeAttributes = node => {
+        const start = node.attributes.start
+            ? `?start=${node.attributes.start}`
+            : '';
+        const end = node.attributes.end ? `&end=${node.attributes.end}` : '';
+        const value = node.attributes.vid + start + end;
+        return value;
+    };
 
     function transform(tree) {
         visit(
@@ -46,7 +54,9 @@ export const parseMarkdownToAST = markdown => {
                 node.type = node.name;
                 switch (node.name) {
                     case 'youtube':
-                        node['argument'] = [{ value: node.attributes.vid }];
+                        node['argument'] = [
+                            { value: parseNodeAttributes(node) },
+                        ];
                         node.nodeData = data;
                         break;
                     case 'charts':
