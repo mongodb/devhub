@@ -1,7 +1,7 @@
 const CANONICAL_URL = 'https://www.mongodb.com/developer/learn/';
 const FIRST_ARTICLE_IN_ORDERING =
     '/article/3-things-to-know-switch-from-sql-mongodb/';
-const FIRST_ARTICLE_UPDATED_DATE = 'Feb 09, 2022';
+const FIRST_ARTICLE_UPDATED_DATE = 'Feb 10, 2022';
 const FIRST_ARTICLE_PUBLISHED_DATE = 'Dec 01, 2021';
 const SECOND_ARTICLE_TITLE = 'Active-Active';
 
