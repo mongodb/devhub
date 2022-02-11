@@ -21,8 +21,8 @@ export const wrapPageElement = ({ element }) => {
     );
 };
 
-// export const onRenderBody = ({ setHeadComponents }) => {
-//     setHeadComponents([
-//         <script src="https://cdn.optimizely.com/js/15508090763.js"></script>,
-//     ]);
-// };
+export const onRenderBody = ({ setHeadComponents }) => {
+    setHeadComponents([
+        <script src="https://cdn.optimizely.com/js/15508090763.js"></script>,
+    ]);
+};
