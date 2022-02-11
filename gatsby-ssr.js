@@ -11,3 +11,9 @@ export const wrapPageElement = ({ element }) => {
         </ThemeProvider>
     );
 };
+
+export const onRenderBody = ({ setHeadComponents }) => {
+    setHeadComponents([
+        <script src="https://cdn.optimizely.com/js/15508090763.js"></script>,
+    ]);
+};
