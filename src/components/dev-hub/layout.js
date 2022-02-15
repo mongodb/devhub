@@ -37,6 +37,10 @@ const globalStyles = theme => css`
         line-height: ${lineHeight.medium};
         margin: 0;
         padding: 0;
+        @media ${screenSize.upToMedium} {
+            font-size: ${fontSize.small};
+            line-height: ${lineHeight.small};
+        }
     }
     main > section {
         padding: ${size.large} 120px;
