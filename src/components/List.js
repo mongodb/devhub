@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import ComponentFactory from './ComponentFactory';
-import { colorMap, size } from './dev-hub/theme';
+import { colorMap, size, lineHeight } from './dev-hub/theme';
 
 const enumtypeMap = {
     arabic: '1',
@@ -26,6 +26,7 @@ const UnorderedList = styled('ul')`
     }
     li {
         display: flex;
+        line-height: ${lineHeight.medium};
     }
 `;
 
