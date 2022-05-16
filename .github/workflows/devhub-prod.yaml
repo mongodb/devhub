@@ -2,7 +2,7 @@ name: Deploy
 on:
   push:
     branches:
-      - DEVHUB-917            # could be 'master' on older repos
+      - DEVHUB-1090            # could be 'master' on older repos
 jobs:
   build:
     runs-on: ubuntu-latest
