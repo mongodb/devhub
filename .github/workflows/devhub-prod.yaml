@@ -52,6 +52,6 @@ jobs:
       - name: Deploy
         uses: jonelantha/gatsby-s3-action@v1
         with:
-            dest-s3-bucket: devhub-ui-prod
-            dest-s3-path: developer
+            dest-s3-bucket: ${{ secrets.DEVHUB_DEVCENTER_BUCKET }}
+            dest-s3-path: developer-hub
             public-source-path: ./public/
