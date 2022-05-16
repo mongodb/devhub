@@ -1,0 +1,57 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - DEVHUB-917            # could be 'master' on older repos
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target branch
+        uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+          NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
+      - name: Create .env.production file
+        run: |
+          touch .env.production
+          echo "GATSBY_SITE=devhub" > .env.production; \
+          echo "GATSBY_PARSER_CI_USER=jordanstapinski" >> .env.production; \
+          echo "GATSBY_PARSER_USER=jordanstapinski" >> .env.production; \
+          echo "GATSBY_PARSER_BRANCH=CI" >> .env.production; \
+          echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
+          echo "DISABLE_GTM=true" >> .env.production; \
+          echo "STRAPI_URL=http://54.219.137.111:1337" >> .env.production
+          echo "PATH_PREFIX=/developer" >> .env.production
+      - name: Build Gatsby
+        run: npm run build
+        env:
+          NPM_BASE_64_AUTH: ${{ secrets.ARTIFACTORY_NPM_AUTH }}
+          NPM_EMAIL: ${{ secrets.ARTIFACTORY_NPM_EMAIL }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: us-east-1
+      - name: Deploy
+        uses: jonelantha/gatsby-s3-action@v1
+        with:
+            dest-s3-bucket: devhub-ui-prod
+            dest-s3-path: developer
+            public-source-path: ./public/

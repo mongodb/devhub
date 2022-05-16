@@ -1,22 +1,5 @@
 const searchArticleRSSData = `
     query searchArticleRSSData {
-        allArticle {
-            nodes {
-              authors {
-                name
-              }
-                atfimage
-                slug: id
-                description
-                languages
-                products
-                pubdate
-                rawContent
-                tags
-                title
-                type
-            }
-        }
         allStrapiArticles {
           nodes {
             image {
