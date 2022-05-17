@@ -36,8 +36,9 @@ const Students = ({ location }) => {
     const { siteUrl } = useSiteMetadata();
     const fullUrl = removePathPrefixFromUrl(`${siteUrl}${location.pathname}`);
     return (
-        <Layout>
+        <Layout includeCanonical={false}>
             <SEO
+                canonicalUrl={fullUrl}
                 title="Student Spotlights"
                 ogUrl={fullUrl}
                 metaDescription="MongoDB projects created by students, for students!"
