@@ -53,5 +53,5 @@ jobs:
         uses: jonelantha/gatsby-s3-action@v1
         with:
             dest-s3-bucket: ${{ secrets.DEVHUB_DEVCENTER_BUCKET }}
-            dest-s3-path: developer-hub
+            dest-s3-path: developer
             public-source-path: ./public/
