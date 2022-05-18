@@ -19,6 +19,7 @@ module.exports = {
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
+        '@wardpeet/gatsby-plugin-static-site',
         'gatsby-plugin-force-trailing-slashes',
         {
             resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
@@ -69,11 +70,7 @@ module.exports = {
                 output: '/sitemap',
                 // Exclude paths we are using the noindex tag on
                 excludes: [
-                    '/language/*',
-                    '/product/*',
                     '/storybook ',
-                    '/tag/*',
-                    '/type/*',
                     // The below two are current 301 redirects that should be ignored
                     '/quickstart/node-connect-mongodb/',
                     '/quickstart/node-connect-mongodb-3-3-2/',

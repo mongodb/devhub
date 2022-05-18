@@ -73,11 +73,7 @@ module.exports = {
                 output: '/sitemap',
                 // Exclude paths we are using the noindex tag on
                 excludes: [
-                    '/language/*',
-                    '/product/*',
                     '/storybook ',
-                    '/tag/*',
-                    '/type/*',
                     // The below two are current 301 redirects that should be ignored
                     '/quickstart/node-connect-mongodb/',
                     '/quickstart/node-connect-mongodb-3-3-2/',
