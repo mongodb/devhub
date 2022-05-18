@@ -77,7 +77,9 @@ const Tag = props => {
     } = props;
     const metadata = useSiteMetadata();
     const pathname = props.location.pathname;
-    const absoluteUrl = removePathPrefixFromUrl(`${metadata.siteUrl}${pathname}`);
+    const absoluteUrl = removePathPrefixFromUrl(
+        `${metadata.siteUrl}${pathname}`
+    );
 
     const isAuthor = type === 'author';
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
@@ -94,9 +96,6 @@ const Tag = props => {
                 title={metaTitle}
                 canonicalUrl={absoluteUrl}
             />
-            <Helmet>
-                {!isAuthor && <meta name="robots" content="noindex" />}
-            </Helmet>
             <HeroBanner
                 breadcrumb={[
                     { label: 'Home', to: '/' },
