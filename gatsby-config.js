@@ -22,6 +22,7 @@ module.exports = {
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-emotion',
+        '@wardpeet/gatsby-plugin-static-site',
         'gatsby-plugin-force-trailing-slashes',
         {
             resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
