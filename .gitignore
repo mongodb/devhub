@@ -10,6 +10,7 @@ static/*
 coverage/
 .coverage
 .env.*
+.envrc
 
 # Test information
 tests/unit/data/site/__testDataLatest.json

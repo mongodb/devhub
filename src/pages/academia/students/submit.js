@@ -9,8 +9,9 @@ const Submit = ({ location }) => {
     const { siteUrl } = useSiteMetadata();
     const fullUrl = removePathPrefixFromUrl(`${siteUrl}${location.pathname}`);
     return (
-        <Layout>
+        <Layout includeCanonical={false}>
             <SEO
+                canonicalUrl={fullUrl}
                 title="Project Submission"
                 ogUrl={fullUrl}
                 metaDescription="MongoDB Student Spotlight submission form"

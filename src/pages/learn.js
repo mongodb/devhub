@@ -22,6 +22,7 @@ import Tab from '../components/dev-hub/tab';
 import PageHelmet from '~components/dev-hub/page-helmet';
 import ActiveCardList from '../components/dev-hub/active-card-list';
 import ActiveCardListFilter from '../components/dev-hub/active-card-list-filter';
+import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
 
 const FEATURED_ARTICLE_MAX_WIDTH = '1200px';
 const FEATURED_ARTICLE_CARD_WIDTH = '410px';
@@ -240,7 +241,7 @@ const LearnPage = ({
     },
     path,
 }) => {
-    const { title } = useSiteMetadata();
+    const { title, siteUrl } = useSiteMetadata();
     const [articles, setArticles] = useState(allArticles);
     const { search = '', pathname = '' } = location;
     const [filterValue, setFilterValue] = useState(parseQueryString(search));
@@ -357,10 +358,15 @@ const LearnPage = ({
 
     const { page } = filterValue;
     const pageTitle = `Learn - ${page ? `Page ${page} - ` : ''}${title}`;
+    const absoluteUrl = removePathPrefixFromUrl(`${siteUrl}${location.pathname}`);
 
     return (
-        <Layout>
-            <PageHelmet pagePath={path} title={pageTitle} />
+        <Layout includeCanonical={false}>
+            <PageHelmet
+                pagePath={path}
+                title={pageTitle}
+                canonicalUrl={absoluteUrl}
+            />
             <Header>
                 <HeaderContent>
                     <Title>Make better, faster applications</Title>
