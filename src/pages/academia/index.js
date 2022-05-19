@@ -11,12 +11,13 @@ import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
 
 const AcademiaLandingPage = ({ location }) => {
     const { siteUrl } = useSiteMetadata();
-    const fullUrl = removePathPrefixFromUrl(`${siteUrl}${location.pathname}`);
+    const absoluteUrl = removePathPrefixFromUrl(`${siteUrl}${location.pathname}`);
     return (
-        <Layout>
+        <Layout includeCanonical={false}>
             <PageHelmet
                 title="MongoDB for Academia"
-                ogUrl={fullUrl}
+                canonicalUrl={absoluteUrl}
+                ogUrl={absoluteUrl}
                 metaDescription="MongoDB for Academia is your home for resources, tools, and community support while you learn or teach MongoDB!"
             />
             <TopBanner />

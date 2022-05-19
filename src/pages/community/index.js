@@ -12,6 +12,7 @@ import communityHeroBackground from '../../images/1x/Community-hero.png';
 import { useSiteMetadata } from '../../hooks/use-site-metadata';
 import { EVENTS_WEBINARS_OVERVIEW, FORUMS_URL } from '~src/constants';
 import PageHelmet from '~components/dev-hub/page-helmet';
+import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
 
 const sectionPadding = css`
     padding: ${size.xlarge} ${size.medium};
@@ -72,11 +73,16 @@ const CommunityHeroBanner = styled(HeroBanner)`
     }
 `;
 
-const CommunityPage = ({ path }) => {
-    const { title } = useSiteMetadata();
+const CommunityPage = ({ path, location }) => {
+    const { title, siteUrl } = useSiteMetadata();
+    const absoluteUrl = removePathPrefixFromUrl(`${siteUrl}${location.pathname}`);
     return (
-        <Layout>
-            <PageHelmet title={`Community - ${title}`} pagePath={path} />
+        <Layout includeCanonical={false}>
+            <PageHelmet
+                canonicalUrl={absoluteUrl}
+                title={`Community - ${title}`}
+                pagePath={path}
+            />
             <UpcomingEvents>
                 <EventsHeader>
                     <SectionTitle bold>Upcoming Events</SectionTitle>

@@ -29,7 +29,7 @@ describe('Tag page', () => {
                 cy.checkArticleCard(card);
             });
     });
-    it('should contain an article tagged with this tag', () => {
+    xit('should contain an article tagged with this tag', () => {
         cy.visit(TAG_ARTICLE_URL);
         // Get SQL tag and check this article appears on the tag page
         cy.get('header').within(() => {
@@ -44,15 +44,12 @@ describe('Tag page', () => {
             .should('have.attr', 'href')
             .and('include', FIRST_TAG_ARTICLE);
     });
-    it('should expand the blog tag list when requested', () => {
+    xit('should expand the blog tag list when requested', () => {
         cy.get('[data-test="card"]')
             .eq(2)
             .within(() => {
                 cy.checkTagListProperties(true);
             });
-    });
-    it('should not be indexed for SEO', () => {
-        cy.checkMetaContentProperty('name="robots"', 'noindex');
     });
     it('should have a proper canonical URL', () => {
         cy.checkCanonicalUrlValue(`${PROD_TAG_PAGE_URL}`);

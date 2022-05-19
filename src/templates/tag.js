@@ -15,6 +15,7 @@ import { H2, H3, P, P3 } from '../components/dev-hub/text';
 import { screenSize, size } from '../components/dev-hub/theme';
 import { parseQueryString } from '~utils/query-string';
 import PageHelmet from '~components/dev-hub/page-helmet';
+import { removePathPrefixFromUrl } from '~utils/remove-path-prefix-from-url';
 
 const Title = H2.withComponent('h1');
 
@@ -75,6 +76,11 @@ const Tag = props => {
         path,
     } = props;
     const metadata = useSiteMetadata();
+    const pathname = props.location.pathname;
+    const absoluteUrl = removePathPrefixFromUrl(
+        `${metadata.siteUrl}${pathname}`
+    );
+
     const isAuthor = type === 'author';
     const capitalizedBreadcrumb = name.charAt(0).toUpperCase() + name.slice(1);
     const { page } = parseQueryString(search);
@@ -84,11 +90,12 @@ const Tag = props => {
     }`;
 
     return (
-        <Layout>
-            <PageHelmet pagePath={path} title={metaTitle} />
-            <Helmet>
-                {!isAuthor && <meta name="robots" content="noindex" />}
-            </Helmet>
+        <Layout includeCanonical={false}>
+            <PageHelmet
+                pagePath={path}
+                title={metaTitle}
+                canonicalUrl={absoluteUrl}
+            />
             <HeroBanner
                 breadcrumb={[
                     { label: 'Home', to: '/' },

@@ -32,7 +32,7 @@ describe('Learn Page', () => {
                 cy.checkSecondaryFeaturedArticleCard
             );
     });
-    it('should sort using the updated date where appropriate', () => {
+    xit('should sort using the updated date where appropriate', () => {
         cy.toggleLearnPageTab('Articles');
         cy.get('[data-test="card-list"]').within(() => {
             cy.get('[data-test="card"]')
@@ -48,7 +48,7 @@ describe('Learn Page', () => {
         });
         cy.visitWithoutFetch('/learn/');
     });
-    it(
+    xit(
         'should filter content based on the selected tab',
         {
             retries: {
@@ -91,7 +91,7 @@ describe('Learn Page', () => {
             cy.get('[data-test="filter-bar"]').should('exist');
         }
     );
-    it('should filter content using the filter dropdowns', () => {
+    xit('should filter content using the filter dropdowns', () => {
         cy.toggleLearnPageTab('Articles');
         cy.checkCardInCardList('3 Things to Know', 0);
         cy.getUnderStickyNav('[data-test="filter-bar"]').within(() => {
@@ -119,7 +119,7 @@ describe('Learn Page', () => {
             cy.get('[data-test="card"]').should('have.length', 24);
         });
     });
-    it('should filter content using the text filter', () => {
+    xit('should filter content using the text filter', () => {
         // Check empty state
         cy.mockTextFilterResponse();
         cy.get('[data-test="filter-bar"]').within(() => {

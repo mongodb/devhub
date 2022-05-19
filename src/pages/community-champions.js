@@ -528,8 +528,9 @@ const CommunityChampions = () => {
     const fullUrl = removePathPrefixFromUrl(`${siteUrl}/community-champions`);
     const ogTitle = `Community Champions - ${title}`;
     return (
-        <Layout>
+        <Layout includeCanonical={false}>
             <SEO
+                canonicalUrl={fullUrl}
                 title={ogTitle}
                 image={OG_IMAGE}
                 metaDescription={OG_DESCRIPTION}
