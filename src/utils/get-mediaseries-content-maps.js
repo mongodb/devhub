@@ -23,17 +23,23 @@ const getMapping = (
 ) => {
     const articles = [];
     SeriesItem.seriesEntry.forEach(entry => {
-        const slug =
-            contentType === 'podcast' ? entry.podcast.slug : entry.video.slug;
-        const title =
-            contentType === 'podcast' ? entry.podcast.title : entry.video.title;
-        articles.push({ slug: slug, title: title });
-        const seriesOfSlug =
-            contentToSeriesMap[slug] !== undefined
-                ? contentToSeriesMap[slug]
-                : [];
-        seriesOfSlug.push(SeriesItem.title);
-        contentToSeriesMap[slug] = seriesOfSlug;
+        if (entry.podcast || entry.video) {
+            const slug =
+                contentType === 'podcast'
+                    ? entry.podcast.slug
+                    : entry.video.slug;
+            const title =
+                contentType === 'podcast'
+                    ? entry.podcast.title
+                    : entry.video.title;
+            articles.push({ slug: slug, title: title });
+            const seriesOfSlug =
+                contentToSeriesMap[slug] !== undefined
+                    ? contentToSeriesMap[slug]
+                    : [];
+            seriesOfSlug.push(SeriesItem.title);
+            contentToSeriesMap[slug] = seriesOfSlug;
+        }
     });
     seriesToContentMap[SeriesItem.title] = {
         articles: articles,
