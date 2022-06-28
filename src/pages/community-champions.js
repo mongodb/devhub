@@ -549,7 +549,9 @@ const CommunityChampions = () => {
                 background={
                     useBannerImageWithSpace ? BannerImageWithSpace : BannerImage
                 }
-                backgroundPosition="85% center"
+                backgroundPosition={
+                    useBannerImageWithSpace ? '85% center' : '100% center'
+                }
                 breadcrumb={communityChampionBreadcrumbs}
                 imageAltText="Community Champions Badge - a dark grey circular ribbon with gold stars around a gold MongoDB leaf icon"
                 imageWidthOnMobile="auto"
