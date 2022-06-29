@@ -44,7 +44,10 @@ const pluralizeIfNeeded = {
 const metadata = getMetadata();
 
 const DB = metadata.database;
-const PAGE_ID_PREFIX = `${metadata.project}/${metadata.parserUser}/${metadata.parserBranch}`;
+let PAGE_ID_PREFIX = `${metadata.project}/${metadata.snootyUser}/${metadata.parserBranch}`;
+if (!Boolean(process.env.ENABLE_GATSBY_REFRESH_ENDPOINT)) {
+    PAGE_ID_PREFIX = `${metadata.project}/${metadata.parserUser}/${metadata.parserBranch}`;
+}
 
 // different types of references
 const assets = {};
@@ -76,13 +79,13 @@ export const onPreBootstrap = validateEnvVariables;
 //     const { createNode } = actions;
 //     // wait to connect to stitch
 //     stitchClient = await initStitch();
-//
+
 //     const query = constructDbFilter(
 //         PAGE_ID_PREFIX,
 //         metadata.commitHash,
 //         metadata.patchId
 //     );
-//
+
 //     const documents = await stitchClient.callFunction('fetchDevhubDocuments', [
 //         DB,
 //         DOCUMENTS_COLLECTION,
@@ -91,7 +94,7 @@ export const onPreBootstrap = validateEnvVariables;
 //     if (documents.length === 0) {
 //         console.error('No documents matched your query.');
 //     }
-//
+
 //     documents.forEach(doc => {
 //         const rawContent = doc.source;
 //         // We use the source for search RSS XML but do not want it in page data
@@ -107,8 +110,8 @@ export const onPreBootstrap = validateEnvVariables;
 //             snootyArticles
 //         );
 //     });
-//     // This must be done after so all author bios exist
 //     if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
+//         // This must be done after so all author bios exist
 //         snootyArticles = snootyArticles.map(
 //             ({ slug, doc }) =>
 //                 new SnootyArticle(slug, doc, slugContentMapping, pathPrefix)
@@ -134,7 +137,7 @@ const filterPageGroups = allSeries => {
 
 export const createPages = async ({ actions, graphql }) => {
     const { createPage, createRedirect } = actions;
-    //let saveImages = () => {};
+    // let saveImages = () => {};
     // if (!Boolean(process.env.GATSBY_PREVIEW_MODE)) {
     //     saveImages = async () => saveAssetFiles(assets, stitchClient);
     // }
@@ -151,15 +154,15 @@ export const createPages = async ({ actions, graphql }) => {
     //     ]),
     //     graphql(articles),
     // ]);
-    const metadataDocument = {};
-    //
+
     // await createProjectPages(createPage, graphql);
-    //
+
     // if (result.error) {
     //     throw new Error(`Page build error: ${result.error}`);
     // }
 
-    //filterPageGroups(metadataDocument.pageGroups);
+    // filterPageGroups(metadataDocument.pageGroups);
+    const metadataDocument = {};
     const articleSeries = await getStrapiArticleSeriesFromGraphql(
         graphql,
         slugContentMapping
@@ -184,19 +187,27 @@ export const createPages = async ({ actions, graphql }) => {
     }));
 
     await createClientSideRedirects(graphql, createRedirect);
-    const { allVideos, allPodcasts } = await fetchBuildTimeMedia();
+
+    const { allVideos, allPodcasts, podcastSeries, videoSeries } =
+        await fetchBuildTimeMedia();
+
+    const allContent = [
+        articlesWithoutContentAST,
+        allPodcasts,
+        allVideos,
+    ].flat();
+
     const tagPageDirectory = {};
     const tagTypes = ['author', 'language', 'product', 'tag', 'type'];
+
     tagTypes.forEach(type => {
         const isAuthorType = type === 'author';
         if (isAuthorType) {
-            tagPageDirectory[type] = aggregateAuthorInformation(
-                articlesWithoutContentAST
-            );
+            tagPageDirectory[type] = aggregateAuthorInformation(allContent);
         } else {
             const mappedType = pluralizeIfNeeded[type];
             tagPageDirectory[type] = aggregateItemsWithTagType(
-                articlesWithoutContentAST,
+                allContent,
                 mappedType,
                 type !== mappedType
             );
@@ -218,11 +229,23 @@ export const createPages = async ({ actions, graphql }) => {
     );
     await Promise.all(tagPages);
 
-    await createVideoPages(createPage, allVideos, metadataDocument);
+    await createVideoPages(
+        createPage,
+        allVideos,
+        slugContentMapping,
+        videoSeries,
+        metadataDocument
+    );
 
     await createCommunityChampionProfilePages(createPage, graphql);
 
-    await createPodcastPages(createPage, allPodcasts, metadataDocument);
+    await createPodcastPages(
+        createPage,
+        allPodcasts,
+        slugContentMapping,
+        podcastSeries,
+        metadataDocument
+    );
 
     const { homePageFeaturedArticles, learnPageFeaturedArticles } =
         await getFeaturedArticlesFromGraphql(graphql);

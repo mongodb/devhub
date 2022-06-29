@@ -12,7 +12,7 @@ const DocumentBody = ({ pageNodes, refDocMapping, slugTitleMapping, slug }) => {
                     key={index}
                     nodeData={child}
                     refDocMapping={refDocMapping}
-                    slugTitleMapping={slugTitleMapping}
+                    // slugTitleMapping={slugTitleMapping}
                     slug={slug}
                 />
             ))}
