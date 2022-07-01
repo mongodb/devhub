@@ -82,6 +82,9 @@ export const schemaCustomization = ({ actions }) => {
         youtubeUrl: String
         twitchUrl: String
     }
+    type StrapiExcludedLearnPageArticles implements Node {
+        articles: JSON
+    }
     type StrapiHomePageFeaturedArticles implements Node {
         articles: JSON
     }

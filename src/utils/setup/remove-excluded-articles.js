@@ -1,3 +1,5 @@
+import { fuzzySlugMatch } from '../fuzzy-slug-match';
+
 export const removeExcludedArticles = (
     allArticles,
     excludedLearnPageArticles
@@ -6,7 +8,7 @@ export const removeExcludedArticles = (
         const filteredArticles = allArticles.filter(
             article =>
                 !excludedLearnPageArticles.find(excludedArticle =>
-                    article.slug.match(new RegExp(`^/?${excludedArticle}$`))
+                    fuzzySlugMatch(article.slug, excludedArticle)
                 )
         );
         // Warn writers if not all excludes were found
