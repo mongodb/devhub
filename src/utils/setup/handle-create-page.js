@@ -23,24 +23,28 @@ export const handleCreatePage = async (
 ) => {
     switch (page.path) {
         case '/learn/':
-            const allMedia = await memoizedBuildTimeMedia();
             handleCreateLearnPage(
                 page,
                 actions,
                 learnFeaturedArticles,
                 excludedLearnPageArticles,
                 allArticles,
-                allMedia
+                {
+                    allVideos: [],
+                    allPodcasts: [],
+                    fallbackTwitchVideo: [],
+                    podcastSeries: [],
+                    videoSeries: [],
+                }
             );
             break;
         case '/':
-            const { fallbackTwitchVideo } = await memoizedBuildTimeMedia();
             await handleCreateHomePage(
                 page,
                 actions,
                 homeFeaturedArticles,
                 allArticles,
-                fallbackTwitchVideo
+                []
             );
             break;
         default:

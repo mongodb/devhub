@@ -188,13 +188,13 @@ export const createPages = async ({ actions, graphql }) => {
 
     await createClientSideRedirects(graphql, createRedirect);
 
-    const { allVideos, allPodcasts, podcastSeries, videoSeries } =
-        await fetchBuildTimeMedia();
+    // const { allVideos, allPodcasts, podcastSeries, videoSeries } =
+    //     await fetchBuildTimeMedia();
 
     const allContent = [
         articlesWithoutContentAST,
-        allPodcasts,
-        allVideos,
+        // allPodcasts,
+        // allVideos,
     ].flat();
 
     const tagPageDirectory = {};
@@ -214,38 +214,38 @@ export const createPages = async ({ actions, graphql }) => {
         }
     });
 
-    const aggregateVideoItems = aggregateItemsByVideoType(allVideos);
-    Object.keys(aggregateVideoItems).forEach(key => {
-        tagPageDirectory['type'][key] = aggregateVideoItems[key];
-    });
+    // const aggregateVideoItems = aggregateItemsByVideoType(allVideos);
+    // Object.keys(aggregateVideoItems).forEach(key => {
+    //     tagPageDirectory['type'][key] = aggregateVideoItems[key];
+    // });
 
-    const aggregateAudioItems = aggregateItemsByAudioType(allPodcasts);
-    Object.keys(aggregateAudioItems).forEach(key => {
-        tagPageDirectory['type'][key] = aggregateAudioItems[key];
-    });
+    // const aggregateAudioItems = aggregateItemsByAudioType(allPodcasts);
+    // Object.keys(aggregateAudioItems).forEach(key => {
+    //     tagPageDirectory['type'][key] = aggregateAudioItems[key];
+    // });
 
     const tagPages = tagTypes.map(type =>
         createTagPageType(type, createPage, tagPageDirectory, metadataDocument)
     );
     await Promise.all(tagPages);
 
-    await createVideoPages(
-        createPage,
-        allVideos,
-        slugContentMapping,
-        videoSeries,
-        metadataDocument
-    );
+    // await createVideoPages(
+    //     createPage,
+    //     allVideos,
+    //     slugContentMapping,
+    //     videoSeries,
+    //     metadataDocument
+    // );
 
     await createCommunityChampionProfilePages(createPage, graphql);
 
-    await createPodcastPages(
-        createPage,
-        allPodcasts,
-        slugContentMapping,
-        podcastSeries,
-        metadataDocument
-    );
+    // await createPodcastPages(
+    //     createPage,
+    //     allPodcasts,
+    //     slugContentMapping,
+    //     podcastSeries,
+    //     metadataDocument
+    // );
 
     const { homePageFeaturedArticles, learnPageFeaturedArticles } =
         await getFeaturedArticlesFromGraphql(graphql);
