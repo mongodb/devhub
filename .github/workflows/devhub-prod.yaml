@@ -36,7 +36,7 @@ jobs:
           echo "GATSBY_PARSER_BRANCH=CI" >> .env.production; \
           echo "GATSBY_SNOOTY_DEV=true" >> .env.production; \
           echo "DISABLE_GTM=true" >> .env.production; \
-          echo "STRAPI_URL=https://devhub-cms.staging.corp.mongodb.com/public" >> .env.production
+          echo "STRAPI_URL=https://devhub-cms.corp.mongodb.com/public" >> .env.production
           echo "PATH_PREFIX=/developer" >> .env.production
       - name: Build Gatsby
         run: npm run build
