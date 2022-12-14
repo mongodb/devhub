@@ -5,6 +5,7 @@ import { addTrailingSlashIfMissing } from '../utils/add-trailing-slash-if-missin
 
 const typeMap = {
     Article: 'article',
+    Community: 'community',
     HowTo: 'how-to',
     Quickstart: 'quickstart',
 };
