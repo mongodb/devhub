@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <!-- TODO: Display page title or URL here. -->
+    <meta charset="utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <style>
+      <%= Diffy::CSS %>
+      <%= SiteDiff::Report.css %>
+    </style>
+    <script>
+      <%= SiteDiff::Report.js %>
+    </script>
+  </head>
+  <body class="page-diff" data-page="diff">
+    <div id="diff-navigator" class="sitediff-toolbar">
+      <div class="container">
+        <div class="toolbar__left">
+          <a href="<%= relative ? '../' : '' %>../report.html" class="button button-back">Back to overview</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="diff-container">
+      <%= result.diff %>
+    </div>
+  </body>
+</html>
